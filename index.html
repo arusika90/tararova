@@ -1144,19 +1144,7 @@ function mkImg(src){var im=new Image();im.decoding="async";im.src=src;return im}
 function drawImg(c,im){c.fillStyle="#fff";c.fillRect(0,0,SCR_W,SCR_H);if(im&&im.complete&&im.naturalWidth){var r=Math.max(SCR_W/im.naturalWidth,SCR_H/im.naturalHeight);c.drawImage(im,(SCR_W-im.naturalWidth*r)/2,0,im.naturalWidth*r,im.naturalHeight*r)}}
 var SCREENS=[
  {name:"RoamDrop",img:mkImg("shots/roamdrop-board.webp"),draw:function(c){drawImg(c,this.img)}},
- {name:"CircleOK",draw:function(c){
-   c.fillStyle="#fffdf5";c.fillRect(0,0,SCR_W,SCR_H);chrome(c);
-   txt(c,"Mom",18,62,"800 18px","#17131d");c.fillStyle="#ffbd00";rr2(c,180,44,26,26,9);c.fill();c.strokeStyle="#fff";c.lineWidth=2.5;c.beginPath();c.arc(193,57,6,0,7);c.stroke();
-   shadowCard(c,14,78,196,186,24,"#fff","rgba(120,90,0,.10)");
-   txt(c,"TODAY’S SIGNAL",112,104,"800 9px","#a08a3a","center");
-   c.fillStyle="rgba(47,191,113,.10)";c.beginPath();c.arc(112,160,54,0,7);c.fill();c.fillStyle="rgba(47,191,113,.18)";c.beginPath();c.arc(112,160,45,0,7);c.fill();
-   c.fillStyle="#2fbf71";c.beginPath();c.arc(112,160,36,0,7);c.fill();c.strokeStyle="#fff";c.lineWidth=7;c.lineCap="round";c.lineJoin="round";c.beginPath();c.moveTo(97,161);c.lineTo(107,171);c.lineTo(127,150);c.stroke();
-   txt(c,"All good",112,232,"800 19px","#17131d","center");txt(c,"Today, 08:30",112,250,"600 10px","#8b8170","center");
-   txt(c,"MY CIRCLES",18,290,"800 9px","#a08a3a");txt(c,"2 caregivers",206,290,"600 9px","#6b6458","right");
-   [["A","Ana","Daughter · notified","#7c4dff"],["D","Dino","Son · notified","#ff8a5b"]].forEach(function(p,i){var y=298+i*46;shadowCard(c,14,y,196,40,15,"#fff","rgba(120,90,0,.06)");c.fillStyle=p[3];c.beginPath();c.arc(38,y+20,14,0,7);c.fill();txt(c,p[0],38,y+24,"800 11px","#fff","center");txt(c,p[1],60,y+17,"700 10.5px","#17131d");txt(c,p[2],60,y+30,"500 9px","#8b8170");c.fillStyle="#2fbf71";c.beginPath();c.arc(196,y+20,4,0,7);c.fill()});
-   txt(c,"THIS WEEK",18,412,"800 9px","#a08a3a");
-   ["M","T","W","T","F","S","S"].forEach(function(d,i){var x=30+i*27.5;c.fillStyle=i<5?"#2fbf71":"#f1ead2";c.beginPath();c.arc(x,430,8,0,7);c.fill();txt(c,d,x,452,"700 8px","#8b8170","center")});
- }},
+ {name:"CircleOK",img:mkImg("shots/circleok-allgood.webp"),draw:function(c){drawImg(c,this.img)}},
  {name:"Appray",img:mkImg("shots/appray-home.webp"),draw:function(c){drawImg(c,this.img)}},
  {name:"Tweexy",draw:function(c){
    var g=c.createLinearGradient(0,0,0,SCR_H*.45);g.addColorStop(0,"#effbfb");g.addColorStop(1,"#fff");c.fillStyle=g;c.fillRect(0,0,SCR_W,SCR_H);chrome(c);
