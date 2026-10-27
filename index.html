@@ -121,7 +121,6 @@ header{position:fixed;top:18px;left:50%;transform:translateX(-50%);width:min(cal
 .productword{color:var(--accent-text);position:relative;font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
 .productword:after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:3px;background:var(--violet);transform:rotate(-1deg);border-radius:3px}
 .sidecopy{font-size:17px;line-height:1.6;color:#5e5565;max-width:340px;position:relative}
-.doodle{font-size:44px;color:var(--violet);margin-top:14px;transform:rotate(14deg);display:inline-block;animation:bob 3.2s ease-in-out infinite}
 @keyframes bob{50%{transform:rotate(14deg) translate(-4px,6px)}}
 
 /* Sections */
@@ -676,15 +675,7 @@ a.land-card:hover span{color:var(--accent-text,#4b6b00)}
 /* manifesto: highlighted phrase + drawn arrow */
 .sidecopy .hl{color:var(--ink);font-weight:700;white-space:nowrap;background:linear-gradient(transparent 58%,var(--accent) 58%,var(--accent) 92%,transparent 92%) no-repeat 0 0/0% 100%;padding:0 2px;transition:background-size 1s var(--ease) .5s}
 .manifest-card.in .sidecopy .hl,html:not(.js) .sidecopy .hl{background-size:100% 100%}
-svg.doodle{display:block;width:120px;height:auto;margin:10px 0 0 auto;font-size:0;transform:none;animation:none;overflow:visible}
-svg.doodle path{fill:none;stroke:var(--accent-text,#4b6b00);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-svg.doodle .dl{stroke-dasharray:160;stroke-dashoffset:160}
-svg.doodle .dh{stroke-dasharray:45;stroke-dashoffset:45}
-.manifest-card.in svg.doodle .dl{animation:dlDraw 3.6s var(--ease) 1.2s infinite}
-.manifest-card.in svg.doodle .dh{animation:dhDraw 3.6s var(--ease) 1.2s infinite}
-@keyframes dlDraw{0%{stroke-dashoffset:160}30%,80%{stroke-dashoffset:0}100%{stroke-dashoffset:-160}}
-@keyframes dhDraw{0%,25%{stroke-dashoffset:45}38%,80%{stroke-dashoffset:0}100%{stroke-dashoffset:-45}}
-@media(prefers-reduced-motion:reduce){svg.doodle .dl,svg.doodle .dh{animation:none!important;stroke-dashoffset:0}.sidecopy .hl{background-size:100% 100%;transition:none}}
+.manifest-card.in .manifest-card.in @media(prefers-reduced-motion:reduce){.sidecopy .hl{background-size:100% 100%;transition:none}}
 
 .work-teaser{padding:0 0 var(--sec)}
 .wt-card{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center;background:#121215;color:#fff;border-radius:32px;padding:44px;overflow:hidden;transition:transform .3s var(--ease)}
