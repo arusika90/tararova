@@ -138,7 +138,7 @@ body.switching main,body.switching .i18n-fade{opacity:0}
 .langs button::after{content:"";position:absolute;left:6px;right:6px;bottom:3px;height:1px;background:currentColor;transform:scaleX(0);transition:transform .4s var(--out)}
 .langs button[aria-pressed="true"]{opacity:1}
 .langs button[aria-pressed="true"]::after{transform:scaleX(1)}
-.hdr .langs,.hdr .hdr-book{display:none}
+.hdr .hdr-book{display:none}
 .hdr-book.pill{min-height:40px;padding:0 20px;font-size:14px}
 .hdr:not(.scrolled) .hdr-book{background:#fff;color:var(--navy)}
 .menu-btn{display:flex;align-items:center;gap:10px;background:none;border:0;padding:10px 0;font:600 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase}
@@ -147,8 +147,19 @@ body.switching main,body.switching .i18n-fade{opacity:0}
 .burger i:first-child{top:0}.burger i:last-child{top:10px}
 .menu-open .burger i:first-child{top:5px;transform:rotate(45deg)}
 .menu-open .burger i:last-child{top:5px;transform:rotate(-45deg)}
-@media (min-width:1180px){.hdr .langs{display:flex}}
-.menu .langs{flex-wrap:wrap;justify-content:center}
+.lpick{position:relative}
+.lpick-btn{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:600 13px/1 var(--sans);letter-spacing:.1em;cursor:pointer;opacity:.9}
+.lpick-btn svg{width:18px;height:18px}.lpick-btn .chev{width:14px;height:14px;transition:transform .3s}
+.lpick.open .lpick-btn .chev{transform:rotate(180deg)}
+.hdr .lpick-list{position:absolute;right:0;top:calc(100% + 10px);display:grid;grid-template-columns:1fr;gap:0;min-width:200px;padding:8px;background:#fff;color:var(--navy);border-radius:18px;box-shadow:0 24px 60px -18px rgba(0,0,0,.3);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:80}
+.lpick.open .lpick-list{opacity:1;transform:none;pointer-events:auto}
+.hdr .lpick-list button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border-radius:10px;font:400 16px/1.2 var(--sans);letter-spacing:0;opacity:1;text-align:left;color:var(--navy)}
+.hdr .lpick-list button b{font-weight:600;font-size:12px;letter-spacing:.12em;width:24px;opacity:.6}
+.hdr .lpick-list button::after{display:none}
+.hdr .lpick-list button:hover{background:#F1EAE6}
+.hdr .lpick-list button[aria-pressed="true"]{background:#F1EAE6;font-weight:600}
+.menu-open .lpick{display:none}
+@media (max-width:380px){.lpick-btn{padding:0 9px}.lpick-btn .chev{display:none}}
 @media (min-width:900px){.hdr .hdr-book{display:inline-flex}}
 
 /* menu overlay */
@@ -551,16 +562,19 @@ html select{height:56px;line-height:normal}
       <span class="brand-t">Grozić<small>Opatija</small></span>
     </a>
     <div class="hdr-r i18n-fade">
-      <div class="langs" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="de" aria-pressed="false">DE</button>
-        <button type="button" data-lang="it" aria-pressed="false">IT</button>
-        <button type="button" data-lang="hr" aria-pressed="false">HR</button>
-        <button type="button" data-lang="cs" aria-pressed="false">CZ</button>
-        <button type="button" data-lang="fr" aria-pressed="false">FR</button>
-        <button type="button" data-lang="es" aria-pressed="false">ES</button>
-        <button type="button" data-lang="nl" aria-pressed="false">NL</button>
-        <button type="button" data-lang="hu" aria-pressed="false">HU</button>
+      <div class="lpick" id="lpick">
+        <button type="button" class="lpick-btn" id="lpickBtn" aria-haspopup="true" aria-expanded="false" aria-label="Language"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span id="lpickCur">EN</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="lpick-list langs" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true"><b>EN</b><span>English</span></button>
+          <button type="button" data-lang="de" aria-pressed="false"><b>DE</b><span>Deutsch</span></button>
+          <button type="button" data-lang="it" aria-pressed="false"><b>IT</b><span>Italiano</span></button>
+          <button type="button" data-lang="hr" aria-pressed="false"><b>HR</b><span>Hrvatski</span></button>
+          <button type="button" data-lang="cs" aria-pressed="false"><b>CZ</b><span>Čeština</span></button>
+          <button type="button" data-lang="fr" aria-pressed="false"><b>FR</b><span>Français</span></button>
+          <button type="button" data-lang="es" aria-pressed="false"><b>ES</b><span>Español</span></button>
+          <button type="button" data-lang="nl" aria-pressed="false"><b>NL</b><span>Nederlands</span></button>
+          <button type="button" data-lang="hu" aria-pressed="false"><b>HU</b><span>Magyar</span></button>
+        </div>
       </div>
       <a href="#book" class="pill pill-navy hdr-book magnetic" data-i18n="hdr.book">Book direct</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span data-i18n="menu" id="menuLbl">Menu</span><span class="burger"><i></i><i></i></span></button>
@@ -579,17 +593,6 @@ html select{height:56px;line-height:normal}
     <a href="#faq" data-i18n="nav.faq">FAQ</a>
   </nav>
   <div class="menu-foot">
-    <div class="langs" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button>
-      <button type="button" data-lang="de" aria-pressed="false">DE</button>
-      <button type="button" data-lang="it" aria-pressed="false">IT</button>
-      <button type="button" data-lang="hr" aria-pressed="false">HR</button>
-      <button type="button" data-lang="cs" aria-pressed="false">CZ</button>
-      <button type="button" data-lang="fr" aria-pressed="false">FR</button>
-      <button type="button" data-lang="es" aria-pressed="false">ES</button>
-      <button type="button" data-lang="nl" aria-pressed="false">NL</button>
-      <button type="button" data-lang="hu" aria-pressed="false">HU</button>
-    </div>
     <a href="#book" class="pill pill-navy" data-i18n="hdr.book">Book direct</a>
     <a class="menu-tel" href="tel:+38598257287">+385 98 257 287 · Mauro &amp; Tanja</a>
   </div>
@@ -1076,6 +1079,7 @@ function apply(){
   });
   $$("[data-i18n-aria]").forEach(function(el){ el.setAttribute("aria-label", textOnly(t(el.getAttribute("data-i18n-aria")))); });
   $$(".langs button").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+  var lc=document.getElementById("lpickCur"); if(lc) lc.textContent=(lang==="cs"?"CZ":lang.toUpperCase());
   var hello = "https://wa.me/38598257287?text=" + encodeURIComponent(t("waHello"));
   $$("[data-wa-hello]").forEach(function(a){ a.href = hello; });
   $("#menuLbl").textContent = document.body.classList.contains("menu-open") ? t("close") : t("menu");
@@ -1678,6 +1682,15 @@ if (FINE && !RM){
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();
+</script>
+<script>
+(function(){var w=document.getElementById("lpick"),b=document.getElementById("lpickBtn");if(!w||!b)return;
+function set(o){w.classList.toggle("open",o);b.setAttribute("aria-expanded",o?"true":"false");}
+b.addEventListener("click",function(e){e.stopPropagation();set(!w.classList.contains("open"));});
+w.querySelectorAll(".lpick-list button").forEach(function(x){x.addEventListener("click",function(){setTimeout(function(){set(false)},120);});});
+document.addEventListener("click",function(e){if(!w.contains(e.target))set(false);});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")set(false);});
+window.addEventListener("scroll",function(){if(w.classList.contains("open"))set(false);},{passive:true});})();
 </script>
 </body>
 </html>
