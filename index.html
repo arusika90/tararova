@@ -92,8 +92,8 @@ header{position:fixed;top:18px;left:50%;transform:translateX(-50%);width:min(cal
 .hero-stage.gl-on canvas{opacity:1}.hero-stage.gl-on .hero-fallback{opacity:0}
 .hero-cap{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;gap:9px;z-index:2}
 .hc-name{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#d5d5dc}
-.hc-dots{display:flex;gap:6px}.hc-dots i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.22);transition:width .4s var(--ease),background .4s ease}
-.hc-dots i.on{width:20px;background:var(--accent)}
+.hc-dots{display:flex;gap:6px}.hc-dots i{pointer-events:auto;width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.22);transition:width .4s var(--ease),background .4s ease}
+.hc-dots i.on{width:20px;background:var(--accent)}.hc-dots i{position:relative}.hc-dots i:after{content:"";position:absolute;inset:-10px -4px}
 .scrollcue{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);width:22px;height:36px;border:1.5px solid rgba(255,255,255,.22);border-radius:12px}
 .scrollcue:after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;border-radius:2px;background:var(--accent);transform:translateX(-50%);animation:cue 1.8s ease infinite}
 @keyframes cue{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
@@ -818,7 +818,7 @@ a.land-card:hover span{color:var(--accent-text,#4b6b00)}
 <a class="mfab" id="mfab" href="https://wa.me/385916124340?text=Hi%20Maria" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3Z"/></svg><span data-i18n="fab.write">Write to me</span></a>
 
 <section class="contact" id="contact"><div class="wrap contact-card reveal"><div><div class="eyebrow" data-i18n="contact.eyebrow">Contact</div><h2 data-i18n="contact.h2">Ready to talk?<br><span>I actually reply.</span></h2><div class="cbtns"><a class="mail mag" href="mailto:mariatararova@gmail.com?subject=Hi%20Maria">mariatararova@gmail.com ↗</a><a class="wa mag" href="https://wa.me/385916124340?text=Hi%20Maria" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3Z"/></svg><span data-i18n="contact.wa">Message on WhatsApp ↗</span></a></div><div class="brief"><p data-i18n="contact.brief">Or download the brief and fill it in when it suits you:</p><a href="brief/tararova-brief.pdf" download>PDF</a><a href="brief/tararova-brief.docx" download>Word</a></div></div>
-<div class="howto"><h3 data-i18n="contact.h3">To get a useful answer fast, tell me:</h3><ol><li data-i18n="contact.li1"><b>Who you are.</b> Your business or project, with a link if you have one.</li><li data-i18n="contact.li2"><b>What you need.</b> A website, online booking, an app idea, or just a second opinion.</li><li data-i18n="contact.li3"><b>When.</b> A rough deadline, even if it is “whenever”.</li></ol><p class="small" data-i18n="contact.small">Budget is welcome but not required. I usually reply within two working days.</p></div></div></section>
+<div class="howto"><h3 data-i18n="contact.h3">To get a useful answer fast, tell me:</h3><ol><li data-i18n="contact.li1"><b>Who you are.</b> Your business or project, with a link if you have one.</li><li data-i18n="contact.li2"><b>What you need.</b> A website, online booking, an app idea, or just a second opinion.</li><li data-i18n="contact.li3"><b>When.</b> A rough deadline, even if it is “whenever”.</li></ol><p class="small" data-i18n="contact.small">A rough budget helps, but it’s fine if you don’t know yet. I usually reply within two working days.</p></div></div></section>
 <footer><div class="wrap foot"><div class="foot-mark" aria-hidden="true"><span class="mono2"><b>TA</b><b>RA</b><b>RO</b><b class="a">VA</b></span></div><h2 data-i18n="foot.h2">More ideas than reasonable amounts of free time.</h2><div class="footrow"><address class="legal"><strong>STUDIO MARIIA TARAROVA</strong>, obrt za usluge, vl. Mariia Tararova<br>Primorska 8, 51000 Rijeka, Croatia<br>OIB 17233930874 · MBO 99056658 · <span data-i18n="legal.reg">Registered in the Croatian Crafts Register (Obrtni registar)</span><br><span data-i18n="legal.vat">Not in the VAT system (obrt nije u sustavu PDV-a)</span> · <a href="mailto:mariatararova@gmail.com">mariatararova@gmail.com</a> · © 2026</address><div class="footlinks"><a href="products/" data-i18n="nav.products">Products</a><a href="work/" data-i18n="nav.work">Work</a><a href="#websites" data-i18n="nav.websites">Websites</a><a href="#about" data-i18n="nav.about">About</a><a href="mailto:mariatararova@gmail.com?subject=Hi%20Maria">mariatararova@gmail.com</a></div></div></div></footer>
 <div class="cdot" id="cdot" aria-hidden="true"></div>
 <script>
@@ -896,7 +896,7 @@ ru:{
 "about.p3":"Так что теперь я делаю свои продукты.","chip1":"Продуктовое мышление","chip2":"UX / UI","chip3":"Дизайн и код","chip4":"Независимый мейкер","about.prev":"Раньше","logo.mt":"ТРАНСПОРТ МОСКВЫ","portrait.sub":"Продуктовый дизайнер с 2007 года",
 "contact.eyebrow":"Контакты","contact.h2":"Поговорим?<br><span>Я правда отвечаю.</span>","contact.h3":"Чтобы быстро получить полезный ответ, расскажите:",
 "contact.li1":"<b>Кто вы.</b> Ваш бизнес или проект, со ссылкой, если она есть.","contact.li2":"<b>Что нужно.</b> Сайт, онлайн-бронирование, идея приложения или просто второе мнение.","contact.li3":"<b>Когда.</b> Примерный срок, даже если это «когда-нибудь».",
-"contact.small":"Бюджет приветствуется, но не обязателен. Обычно я отвечаю в течение двух рабочих дней.",
+"contact.small":"Примерный бюджет поможет, но ничего страшного, если вы его пока не знаете. Обычно я отвечаю в течение двух рабочих дней.",
 "foot.h2":"Идей больше, чем разумного количества свободного времени.","legal.reg":"Зарегистрирован в Реестре ремёсел Хорватии (Obrtni registar)","legal.vat":"Не является плательщиком НДС (obrt nije u sustavu PDV-a)",
 "pk.label":"Пакеты",
 "pk.from":"от",
@@ -975,7 +975,7 @@ hr:{
 "about.p3":"Zato sada gradim vlastite.","chip1":"Produktno razmišljanje","chip2":"UX / UI","chip3":"Dizajn i kod","chip4":"Neovisna autorica","about.prev":"Prije","logo.mt":"MOSCOW TRANSPORT","portrait.sub":"Produktna dizajnerica od 2007.",
 "contact.eyebrow":"Kontakt","contact.h2":"Spremni za razgovor?<br><span>Stvarno odgovaram.</span>","contact.h3":"Za brz i koristan odgovor, recite mi:",
 "contact.li1":"<b>Tko ste.</b> Vaša tvrtka ili projekt, s poveznicom ako je imate.","contact.li2":"<b>Što trebate.</b> Web stranicu, online rezervacije, ideju za aplikaciju ili samo drugo mišljenje.","contact.li3":"<b>Kada.</b> Okvirni rok, makar to bilo „kad god“.",
-"contact.small":"Budžet je dobrodošao, ali nije obavezan. Obično odgovaram unutar dva radna dana.",
+"contact.small":"Okvirni budžet pomaže, ali u redu je ako ga još ne znate. Obično odgovaram u roku od dva radna dana.",
 "foot.h2":"Više ideja nego razumne količine slobodnog vremena.","legal.reg":"Upisan u Obrtni registar","legal.vat":"Obrt nije u sustavu PDV-a",
 "pk.label":"Paketi",
 "pk.from":"od",
@@ -1054,7 +1054,7 @@ de:{
 "about.p3":"Also baue ich jetzt meine eigenen.","chip1":"Produktdenken","chip2":"UX / UI","chip3":"Design und Code","chip4":"Unabhängige Makerin","about.prev":"Bisher","logo.mt":"MOSCOW TRANSPORT","portrait.sub":"Produktdesignerin seit 2007",
 "contact.eyebrow":"Kontakt","contact.h2":"Lust auf ein Gespräch?<br><span>Ich antworte wirklich.</span>","contact.h3":"Für eine schnelle, hilfreiche Antwort sagen Sie mir:",
 "contact.li1":"<b>Wer Sie sind.</b> Ihr Betrieb oder Projekt, gern mit Link.","contact.li2":"<b>Was Sie brauchen.</b> Eine Website, Online-Buchung, eine App-Idee oder einfach eine zweite Meinung.","contact.li3":"<b>Wann.</b> Eine grobe Deadline, auch wenn sie „irgendwann“ lautet.",
-"contact.small":"Ein Budget ist willkommen, aber keine Voraussetzung. Ich antworte in der Regel innerhalb von zwei Werktagen.",
+"contact.small":"Ein grobes Budget hilft, aber es ist in Ordnung, wenn Sie es noch nicht wissen. Ich antworte meist innerhalb von zwei Werktagen.",
 "foot.h2":"Mehr Ideen als vernünftig viel Freizeit.","legal.reg":"Eingetragen im kroatischen Handwerksregister (Obrtni registar)","legal.vat":"Nicht umsatzsteuerpflichtig (obrt nije u sustavu PDV-a)",
 "pk.label":"Pakete",
 "pk.from":"ab",
@@ -1338,10 +1338,10 @@ function initHero(){
   // back camera bump (seen only at steep angles)
   var bump=new T.Mesh(new T.ExtrudeGeometry(rr(.62,.62,.16),{depth:.03,bevelEnabled:true,bevelThickness:.01,bevelSize:.01,bevelSegments:2}),frameMat);bump.position.set(-PW/2+.42,PH/2-.42,-FZ-.035);phoneG.add(bump);
 
-  var landR=0,cur=0,nxt=1,swapT=0,fading=false,fadeT=0,HOLD=4.2,FADE=.9,clock=0,vis=true,shown=false;
+  var dragR=0,dragging=false,landR=0,cur=0,nxt=1,swapT=0,fading=false,fadeT=0,HOLD=4.2,FADE=.9,clock=0,vis=true,shown=false;
   function setCap(i){if(hcName)hcName.textContent=SCREENS[i].name;hcDots.forEach(function(d,k){d.classList.toggle("on",k===i)})}
   setCap(0);
-  function resize(){var w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);var a=w/h;camera.aspect=a;var th=Math.tan(T.MathUtils.degToRad(camera.fov/2));var hh=PH/2+.22,hw=PW/2+.35;camera.position.z=Math.max(hh/th,hw/(th*a));camera.updateProjectionMatrix()}
+  function resize(){var w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);var a=w/h;camera.aspect=a;var th=Math.tan(T.MathUtils.degToRad(camera.fov/2));var hh=PH/2+(w<700?.42:.22),hw=PW/2+.35;camera.position.z=Math.max(hh/th,hw/(th*a));camera.updateProjectionMatrix()}
   resize();if(W.ResizeObserver)new ResizeObserver(function(){resize();kick()}).observe(stage);else addEventListener("resize",resize);
   inView(stage,function(v){vis=v;if(v)kick()});
   function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
@@ -1354,17 +1354,27 @@ function initHero(){
     if(fading){fadeT+=dt;var f=ease(clamp(fadeT/FADE,0,1));mB.opacity=f;if(fadeT>=FADE){mA.map=texs[nxt];mA.needsUpdate=true;mB.opacity=0;cur=nxt;nxt=(nxt+1)%texs.length;fading=false;swapT=0}}
     var showI=fading?nxt:cur,landT=SCREENS[showI].land?Math.PI/2:0;landR+=(landT-landR)*Math.min(1,dt*3.2);var lf=landR/(Math.PI/2);phoneG.scale.setScalar(1-lf*.3);
     var swing=fading?Math.sin(clamp(fadeT/FADE,0,1)*Math.PI)*.06:0;
-    phoneG.position.y=(1-intro)*-.6+Math.sin(clock*.9)*.06+heroP*.9;
-    phoneG.position.x=heroP*.15;
-    phoneG.rotation.y=-.22+(1-intro)*-.5+mx*.32+heroP*.55+swing+Math.sin(clock*.45)*.04;
-    phoneG.rotation.x=.05+my*.14+heroP*.18;
-    phoneG.rotation.z=.04+Math.sin(clock*.6)*.012-heroP*.05+landR;
+    var nar=stage.clientWidth<700,hp=nar?heroP*.12:heroP;if(!dragging)dragR*=.88;
+    phoneG.position.y=(1-intro)*-.6+Math.sin(clock*.9)*.06+hp*.9;
+    phoneG.position.x=hp*.15;
+    phoneG.rotation.y=-.22+(1-intro)*-.5+mx*.32+hp*.55+swing+dragR+Math.sin(clock*.45)*.04;
+    phoneG.rotation.x=.05+my*.14+hp*.18;
+    phoneG.rotation.z=.04+Math.sin(clock*.6)*.012-hp*.05+landR;
     renderer.render(scene3,camera);
     if(!shown){shown=true;stage.classList.add("gl-on")}
   }
   tasks.push({on:function(){return vis&&!D.hidden},run:run});
   kick();
-  W.__hero={ok:true,seek:function(x){clock=x;kick()},show:function(i){mA.map=texs[i];mA.needsUpdate=true;setCap(i);swapT=0;kick()}};
+  function go(d,to){if(fading)return;nxt=to!=null?to:(cur+d+texs.length)%texs.length;if(nxt===cur){nxt=(cur+1)%texs.length;return}swapT=HOLD+1;kick()}
+  (function(){var sx=0,sy=0,act=false,horiz=null;
+    stage.style.touchAction="pan-y";stage.style.cursor="grab";
+    stage.addEventListener("pointerdown",function(e){act=true;horiz=null;sx=e.clientX;sy=e.clientY;dragging=true;stage.style.cursor="grabbing";kick()});
+    addEventListener("pointermove",function(e){if(!act)return;var dx=e.clientX-sx,dy=e.clientY-sy;if(horiz===null&&(Math.abs(dx)>6||Math.abs(dy)>6))horiz=Math.abs(dx)>Math.abs(dy);if(horiz){dragR=Math.max(-.9,Math.min(.9,dx/160));kick()}},{passive:true});
+    function end(e){if(!act)return;act=false;dragging=false;stage.style.cursor="grab";var dx=e.clientX-sx;if(horiz&&Math.abs(dx)>40)go(dx<0?1:-1);kick()}
+    addEventListener("pointerup",end);addEventListener("pointercancel",function(){act=false;dragging=false});
+    hcDots.forEach(function(d,k){d.style.cursor="pointer";d.addEventListener("click",function(){go(0,k)})});
+  })();
+  W.__hero={ok:true,go:go,seek:function(x){clock=x;kick()},show:function(i){mA.map=texs[i];mA.needsUpdate=true;setCap(i);swapT=0;kick()}};
 }
 
 })();
