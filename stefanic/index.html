@@ -2,13 +2,8 @@
 <!--
   Agroturizam Štefanić, Motovun. Proposal mockup, concept by Marija.
 
-  PHOTO SLOTS (optional). Drop real photos into ./img/ with these exact names.
-  Until then every slot shows a hand-drawn illustrated scene (inline SVG), so nothing looks broken.
-    img/hero.jpg   gallery slide 1, view over the hills towards Motovun   (landscape, 2400px+ wide)
-    img/2.jpg      gallery slide 2 + story image, the farmhouse and the table
-    img/3.jpg      gallery slide 3 + wine card, vineyard and cellar
-    img/4.jpg      gallery slide 4 + pasta card, homemade pasta with truffles
-    img/5.jpg      gallery slide 5 + stay image, the farm dog in the olive grove
+  PHOTOS: hotlinked from the family's own site (agroturizam-stefanic.hr/wp-content/uploads/...).
+  If an image fails, the onerror handler removes it and the hand-drawn SVG scene underneath shows instead.
 
   The hero is a live WebGL scene (Three.js r128 from cdnjs, loaded lazily): low-poly Istrian hills
   at sunset with vineyard rows and fireflies. It falls back to the SVG scene when WebGL is
@@ -22,14 +17,14 @@
 <title>Agroturizam Štefanić · Motovun</title>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Agroturizam Štefanić · Motovun">
-<meta property="og:description" content="Agroturizam Štefanić, Štefanići 55, Motovun. Istarsko seosko imanje: domaća tjestenina s tartufima, vlastito vino i maslinovo ulje, meso s imanja. Otvoreno subotom i nedjeljom.">
+<meta property="og:description" content="Agroturizam Štefanić, Štefanići 55, Motovun. Obiteljsko istarsko imanje s tradicijom od 1780.: domaća kuhinja, kušaona maslinovog ulja i vina, smještaj. Otvoreno subotom i nedjeljom.">
 <meta property="og:url" content="https://tararova.com/stefanic/">
 <meta property="og:image" content="https://tararova.com/stefanic/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<meta name="description" content="Agroturizam Štefanić, Štefanići 55, Motovun. Istarsko seosko imanje: domaća tjestenina s tartufima, vlastito vino i maslinovo ulje, meso s imanja. Otvoreno subotom i nedjeljom.">
+<meta name="description" content="Agroturizam Štefanić, Štefanići 55, Motovun. Obiteljsko istarsko imanje s tradicijom od 1780.: domaća kuhinja, kušaona maslinovog ulja i vina, smještaj. Otvoreno subotom i nedjeljom.">
 <meta name="theme-color" content="#8F3F21">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -138,7 +133,7 @@ body.switching main,body.switching .i18n-fade{opacity:0}
 .langs button::after{content:"";position:absolute;left:6px;right:6px;bottom:3px;height:1px;background:currentColor;transform:scaleX(0);transition:transform .4s var(--out)}
 .langs button[aria-pressed="true"]{opacity:1}
 .langs button[aria-pressed="true"]::after{transform:scaleX(1)}
-.hdr .langs,.hdr .hdr-book{display:none}
+.hdr .hdr-book{display:none}
 .hdr-book.pill{min-height:40px;padding:0 20px;font-size:14px}
 .hdr:not(.scrolled) .hdr-book{background:#fff;color:var(--terra-d)}
 .menu-btn{display:flex;align-items:center;gap:10px;background:none;border:0;padding:10px 0;font:600 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase}
@@ -147,7 +142,19 @@ body.switching main,body.switching .i18n-fade{opacity:0}
 .burger i:first-child{top:0}.burger i:last-child{top:10px}
 .menu-open .burger i:first-child{top:5px;transform:rotate(45deg)}
 .menu-open .burger i:last-child{top:5px;transform:rotate(-45deg)}
-@media (min-width:760px){.hdr .langs{display:flex}}
+.lpick{position:relative}
+.lpick-btn{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:600 13px/1 var(--sans);letter-spacing:.1em;cursor:pointer;opacity:.9}
+.lpick-btn svg{width:18px;height:18px}.lpick-btn .chev{width:14px;height:14px;transition:transform .3s}
+.lpick.open .lpick-btn .chev{transform:rotate(180deg)}
+.hdr .lpick-list{position:absolute;right:0;top:calc(100% + 10px);display:grid;grid-template-columns:1fr;gap:0;min-width:200px;padding:8px;background:#fff;color:var(--ink);border-radius:18px;box-shadow:0 24px 60px -18px rgba(0,0,0,.3);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:80}
+.lpick.open .lpick-list{opacity:1;transform:none;pointer-events:auto}
+.hdr .lpick-list button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border-radius:10px;font:400 16px/1.2 var(--sans);letter-spacing:0;opacity:1;text-align:left;color:var(--ink)}
+.hdr .lpick-list button b{font-weight:600;font-size:12px;letter-spacing:.12em;width:24px;color:var(--terra);opacity:.8}
+.hdr .lpick-list button::after{display:none}
+.hdr .lpick-list button:hover{background:var(--cream)}
+.hdr .lpick-list button[aria-pressed="true"]{background:var(--cream);font-weight:600}
+.menu-open .lpick{display:none}
+@media (max-width:380px){.lpick-btn{padding:0 9px}.lpick-btn .chev{display:none}}
 @media (min-width:900px){.hdr .hdr-book{display:inline-flex}}
 
 .menu{position:fixed;inset:0;z-index:55;background:#fff;color:var(--ink);padding:calc(var(--hh) + 28px) var(--g) calc(32px + env(safe-area-inset-bottom));display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility 0s .45s;overflow-y:auto}
@@ -156,7 +163,6 @@ body.switching main,body.switching .i18n-fade{opacity:0}
 .menu-open .menu nav a{opacity:1;transform:none}
 .menu nav a:nth-child(2){transition-delay:.04s}.menu nav a:nth-child(3){transition-delay:.08s}.menu nav a:nth-child(4){transition-delay:.12s}.menu nav a:nth-child(5){transition-delay:.16s}.menu nav a:nth-child(6){transition-delay:.2s}.menu nav a:nth-child(7){transition-delay:.24s}.menu nav a:nth-child(8){transition-delay:.28s}
 .menu-foot{margin-top:auto;padding-top:28px;display:grid;gap:18px}
-.menu .langs button{color:var(--terra-d);font-size:14px;padding:10px 8px}
 .menu .pill{width:100%}
 .menu-tel{color:var(--muted);font-size:15px}
 
@@ -353,6 +359,8 @@ body.switching main,body.switching .i18n-fade{opacity:0}
 .ico svg{width:100%;height:100%}
 .gtk-i dt{font-size:14px;color:var(--muted)}
 .gtk-i dd{margin:2px 0 0;font:500 18px/1.3 var(--sans);color:var(--ink)}
+.gtk-i dd a{overflow-wrap:anywhere;font-size:16px}
+.gtk-i>div{min-width:0}
 @media (min-width:900px){
   .gtk-grid{grid-template-columns:repeat(3,1fr)}
   .gtk-i,.gtk-i:nth-child(even){flex-direction:row;align-items:flex-start;gap:18px;padding:30px 28px;border-left:1px solid rgba(0,0,0,.12)}
@@ -399,7 +407,8 @@ body.switching main,body.switching .i18n-fade{opacity:0}
 .step button[disabled]{color:#BBB;pointer-events:none}
 .step button svg{width:16px;height:16px}
 .step output{display:grid;place-items:center;min-width:56px;border-left:1px solid var(--line);border-right:1px solid var(--line);font:600 17px/1 var(--sans)}
-.chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:520px){.chip{padding:0 4px;font-size:14px;line-height:1.15;text-align:center}.chip svg{display:none}}
 .chip{height:52px;padding:0 8px;width:100%;border:1px solid var(--line);border-radius:4px;background:#fff;font:500 15px/1 var(--sans);color:var(--ink);transition:background .3s,color .3s,border-color .3s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
 .chip svg{width:16px;height:16px}
 .chip:hover{border-color:var(--terra)}
@@ -412,6 +421,10 @@ body.switching main,body.switching .i18n-fade{opacity:0}
 .ccard h4{margin:0 0 14px;font:600 12px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.75)}
 .ccard .tel{display:block;margin-bottom:20px;font:400 30px/1.1 var(--serif)}
 .ccard .row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+.ccard .cmail{margin:-6px 0 20px;font-size:16px;overflow-wrap:anywhere}
+.ccard .cmail a{border-bottom:1px solid rgba(255,255,255,.45)}
+.soc{display:flex;flex-wrap:wrap;gap:6px 18px}
+.soc a{border-bottom:1px solid currentColor}
 .ccard .row .pill{flex:1 1 140px;padding:0 18px}
 .ccard dl{display:grid;grid-template-columns:1fr 1fr;margin:0;padding-top:18px;border-top:1px solid rgba(255,255,255,.18)}
 .ccard dl div+div{padding-left:18px;border-left:1px solid rgba(255,255,255,.18)}
@@ -563,11 +576,14 @@ html select{height:56px;line-height:normal}
       <span class="brand-t">Štefanić<small>Motovun</small></span>
     </a>
     <div class="hdr-r i18n-fade">
-      <div class="langs" role="group" aria-label="Jezik">
-        <button type="button" data-lang="hr" aria-pressed="true">HR</button>
-        <button type="button" data-lang="en" aria-pressed="false">EN</button>
-        <button type="button" data-lang="de" aria-pressed="false">DE</button>
-        <button type="button" data-lang="it" aria-pressed="false">IT</button>
+      <div class="lpick" id="lpick">
+        <button type="button" class="lpick-btn" id="lpickBtn" aria-haspopup="true" aria-expanded="false" aria-label="Jezik / Language"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span id="lpickCur">HR</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="lpick-list langs" role="group" aria-label="Jezik / Language">
+          <button type="button" data-lang="hr" aria-pressed="true"><b>HR</b><span>Hrvatski</span></button>
+          <button type="button" data-lang="en" aria-pressed="false"><b>EN</b><span>English</span></button>
+          <button type="button" data-lang="de" aria-pressed="false"><b>DE</b><span>Deutsch</span></button>
+          <button type="button" data-lang="it" aria-pressed="false"><b>IT</b><span>Italiano</span></button>
+        </div>
       </div>
       <a href="#rezervacija" class="pill pill-terra hdr-book magnetic" data-i18n="hdr.book">Rezerviraj</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span data-i18n="menu" id="menuLbl">Izbornik</span><span class="burger"><i></i><i></i></span></button>
@@ -581,18 +597,12 @@ html select{height:56px;line-height:normal}
     <a href="#galerija" data-i18n="nav.gal">Galerija</a>
     <a href="#prica" data-i18n="nav.story">Priča</a>
     <a href="#meni" data-i18n="nav.menu">Meni</a>
-    <a href="#podrum" data-i18n="nav.cellar">Vinski podrum</a>
+    <a href="#podrum" data-i18n="nav.cellar">Kušaona</a>
     <a href="#smjestaj" data-i18n="nav.stay">Smještaj</a>
     <a href="#rezervacija" data-i18n="nav.book">Rezervacija</a>
     <a href="#kontakt" data-i18n="nav.contact">Kontakt</a>
   </nav>
   <div class="menu-foot">
-    <div class="langs" role="group" aria-label="Jezik">
-      <button type="button" data-lang="hr" aria-pressed="true">HR</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
-      <button type="button" data-lang="de" aria-pressed="false">DE</button>
-      <button type="button" data-lang="it" aria-pressed="false">IT</button>
-    </div>
     <a href="#rezervacija" class="pill pill-terra" data-i18n="hdr.book">Rezerviraj</a>
     <a class="menu-tel" href="tel:+38598251504">+385 98 251 504 · WhatsApp</a>
   </div>
@@ -603,7 +613,7 @@ html select{height:56px;line-height:normal}
     <li><a href="#home" data-i18n="nav.home">Početna</a></li>
     <li><a href="#prica" data-i18n="nav.story">Priča</a></li>
     <li><a href="#meni" data-i18n="nav.menu">Meni</a></li>
-    <li><a href="#podrum" data-i18n="nav.cellar">Vinski podrum</a></li>
+    <li><a href="#podrum" data-i18n="nav.cellar">Kušaona</a></li>
     <li><a href="#smjestaj" data-i18n="nav.stay">Smještaj</a></li>
     <li><a href="#rezervacija" data-i18n="nav.book">Rezervacija</a></li>
   </ul>
@@ -614,7 +624,7 @@ html select{height:56px;line-height:normal}
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hills" id="hills">
-    <div class="ph sc-hero" data-scene="hero"><img src="img/hero.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()"></div>
+    <div class="ph sc-hero" data-scene="hero"><img src="https://agroturizam-stefanic.hr/wp-content/uploads/2025/06/Stefanic-1.jpg" alt="Agroturizam Štefanić, obiteljsko imanje na brežuljcima kod Motovuna" onload="this.classList.add('ok')" onerror="this.remove()"></div>
   </div>
   <div class="hero-shade"></div>
   <div class="search-wrap">
@@ -634,7 +644,7 @@ html select{height:56px;line-height:normal}
           <span class="line"><span>Štefanić</span></span>
         </h1>
         <a class="addr rv-h d2" href="https://maps.google.com/?q=Agroturizam+%C5%A0tefani%C4%87,+%C5%A0tefani%C4%87i+55,+52424+Motovun" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg>Štefanići 55, 52424 Motovun</a>
-        <p class="hero-body rv-h d3" data-i18n="hero.body">Istarsko seosko imanje nad brežuljcima. Gotovo sve što dođe na stol raste, zrije i dozrijeva ovdje: vino, maslinovo ulje, tjestenina s tartufima, meso s imanja.</p>
+        <p class="hero-body rv-h d3" data-i18n="hero.body">Obiteljsko imanje na osunčanim brežuljcima Motovuna, s tradicijom od 1780. Gotovo sve što dođe na stol raste i dozrijeva ovdje: vino, maslinovo ulje, povrće, začinsko bilje i meso.</p>
         <a href="#rezervacija" class="pill pill-grey rv-h d4 magnetic" data-i18n="hero.cta">Rezerviraj ručak</a>
         <div class="hero-meta rv-h d5">
           <span class="score">4.7</span>
@@ -650,16 +660,16 @@ html select{height:56px;line-height:normal}
 <section class="gal" id="galerija" aria-roledescription="carousel" aria-label="Galerija">
   <div class="wrap">
     <h2 class="h2 rv" data-i18n="gal.title">Prvi pogled na imanje</h2>
-    <p class="gal-sub rv" style="--d:.1s" data-i18n="gal.sub">Brežuljci, kuća, podrum i stol, prije nego što sjednete.</p>
+    <p class="gal-sub rv" style="--d:.1s" data-i18n="gal.sub">Brežuljci, imanje, kušaona i stol, prije nego što sjednete.</p>
   </div>
   <div class="frame-wrap">
     <div class="frame rv" id="frame">
       <div class="gprog"><i id="gProg"></i></div>
-      <div class="slide is-active" data-cap="cap.1"><div class="ph sc-view" data-scene="view"><img src="img/hero.jpg" alt="Pogled na brežuljke prema Motovunu" onload="this.classList.add('ok')" onerror="this.remove()"></div></div>
-      <div class="slide" data-cap="cap.2"><div class="ph sc-house" data-scene="house"><img src="img/2.jpg" alt="Kuća i stol" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"></div></div>
-      <div class="slide" data-cap="cap.3"><div class="ph sc-cellar" data-scene="cellar"><img src="img/3.jpg" alt="Vinograd i podrum" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"></div></div>
-      <div class="slide" data-cap="cap.4"><div class="ph sc-pasta" data-scene="pasta"><img src="img/4.jpg" alt="Domaća tjestenina s tartufima" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"></div></div>
-      <div class="slide" data-cap="cap.5"><div class="ph sc-dog" data-scene="dog"><img src="img/5.jpg" alt="Pas na imanju" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"></div></div>
+      <div class="slide is-active" data-cap="cap.1"><div class="ph sc-view" data-scene="view"><img src="https://agroturizam-stefanic.hr/wp-content/uploads/2025/06/motovun-naslovnica.jpg" alt="Pogled na Motovun i istarske brežuljke" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"></div></div>
+      <div class="slide" data-cap="cap.2"><div class="ph sc-house" data-scene="house"><img src="https://agroturizam-stefanic.hr/wp-content/uploads/2025/12/Stefanic-14-scaled.jpg" alt="Imanje Agroturizma Štefanić" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"></div></div>
+      <div class="slide" data-cap="cap.3"><div class="ph sc-cellar" data-scene="cellar"><img src="https://agroturizam-stefanic.hr/wp-content/uploads/2025/12/Stefanic-30-scaled.jpg" alt="Kušaona Štefanić, degustacija maslinovog ulja i vina" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"></div></div>
+      <div class="slide" data-cap="cap.4"><div class="ph sc-pasta" data-scene="pasta"><img src="https://agroturizam-stefanic.hr/wp-content/uploads/2025/06/kuhinja-naslovnica.jpg" alt="Domaća istarska kuhinja na imanju Štefanić" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"></div></div>
+      <div class="slide" data-cap="cap.5"><div class="ph sc-dog" data-scene="dog"><img src="https://agroturizam-stefanic.hr/wp-content/uploads/2025/07/551681766.jpg" alt="Soba za dvoje na imanju Štefanić" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"></div></div>
       <a class="ltag" href="https://maps.google.com/?q=Agroturizam+%C5%A0tefani%C4%87,+%C5%A0tefani%C4%87i+55,+52424+Motovun" target="_blank" rel="noopener"><span data-i18n="loc.tag">Motovun, Istra</span><svg><use href="#i-r"/></svg></a>
       <button class="sq l" id="gPrev" type="button" data-i18n-aria="prev" aria-label="Prethodna"><svg><use href="#i-l"/></svg></button>
       <button class="sq r" id="gNext" type="button" data-i18n-aria="next" aria-label="Sljedeća"><svg><use href="#i-r"/></svg></button>
@@ -679,13 +689,13 @@ html select{height:56px;line-height:normal}
         <h2 class="h2 rv" style="--d:.08s" data-i18n="intro.title">Od imanja do stola, bez zaobilaznih puteva</h2>
         <span class="hl"></span>
         <div class="rv" style="--d:.16s">
-          <p class="lead" data-i18n="intro.p1">Štefanić je obiteljsko seosko imanje u zaseoku Štefanići, nadomak Motovuna. Vinograd, maslinik, povrtnjak i životinje: iz toga nastaje gotovo sve što poslužujemo.</p>
-          <p class="lead" data-i18n="intro.p2">Dočekuje vas čašica domaće rakije, a onda dolazi stol: svježe cijeđeni sokovi, kukuruzna juha, domaća tjestenina s umakom od tartufa, meso s imanja, naše vino i maslinovo ulje. I pas koji voli goste.</p>
+          <p class="lead" data-i18n="intro.p1">Na osunčanim brežuljcima Motovuna povijest obitelji Štefanić počinje davne 1780. godine. Danas je to obiteljsko gospodarstvo u zaseoku Štefanići: maslinik, vinograd, povrtnjak, začinsko bilje i životinje, iz kojih nastaje gotovo sve što poslužujemo.</p>
+          <p class="lead" data-i18n="intro.p2">Kuhamo po receptima naših predaka, samo od svježih namirnica s imanja. Dočekuje vas čašica domaće rakije, a onda dolazi stol: maneštra, pljukanci s tartufima, ombolo, domaće kobasice, jela ispod peke, naše vino i maslinovo ulje. I pas koji voli goste.</p>
         </div>
         <p class="sign rv" style="--d:.24s" data-i18n="intro.sign">Obitelj Štefanić</p>
       </div>
       <div class="rimg ph sc-house intro-img unveil" data-scene="house">
-        <img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()">
+        <img src="https://agroturizam-stefanic.hr/wp-content/uploads/2025/06/obiteljska-prica.jpg" alt="Obiteljska priča Štefanić, tradicija od 1780." loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()">
         <span class="ltag" data-i18n="loc.tag">Motovun, Istra</span>
       </div>
     </div>
@@ -693,7 +703,7 @@ html select{height:56px;line-height:normal}
       <div class="stat rv"><b data-count="4.7" data-dec="1">0</b><span data-i18n="st.1">Google ocjena</span></div>
       <div class="stat rv" style="--d:.08s"><b data-count="509">0</b><span data-i18n="st.2">Recenzija</span></div>
       <div class="stat rv" style="--d:.16s"><b data-count="2">0</b><span data-i18n="st.3">Dana u tjednu otvoreno: subota i nedjelja</span></div>
-      <div class="stat rv" style="--d:.24s"><b data-count="1">0</b><span data-i18n="st.4">Pas koji vas dočeka</span></div>
+      <div class="stat rv" style="--d:.24s"><b data-count="1780">0</b><span data-i18n="st.4">Godina kad počinje priča obitelji Štefanić</span></div>
     </div>
   </div>
 </section>
@@ -719,31 +729,31 @@ html select{height:56px;line-height:normal}
     </div>
     <div class="peek" id="peek">
       <article class="pcard rv">
-        <div class="rimg ph sc-cellar unveil" data-scene="cellar"><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"><span class="ltag" data-i18n="mk1.tag">Vlastito vino</span></div>
-        <h3 data-i18n="mk1.t">Vino iz našeg vinograda</h3>
-        <p data-i18n="mk1.p">Vino koje pijete uz ručak raste na brežuljcima koje gledate s terase.</p>
-        <ul class="bul"><li data-i18n="mk1.b1">Uz svaki ručak</li><li data-i18n="mk1.b2">Degustacija u podrumu</li></ul>
-        <a href="#podrum" class="tlink" data-i18n="mk1.l">Vinski podrum</a>
+        <div class="rimg ph sc-cellar unveil" data-scene="cellar"><img src="https://agroturizam-stefanic.hr/wp-content/uploads/2025/06/vina.jpg" alt="Vina s imanja Štefanić: malvazija, kupaža i žuti muškat" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"><span class="ltag" data-i18n="mk1.tag">Vlastito vino</span></div>
+        <h3 data-i18n="mk1.t">Vina iz našeg vinograda</h3>
+        <p data-i18n="mk1.p">Malvazija, kupaža i žuti muškat rastu na brežuljcima oko kuće.</p>
+        <ul class="bul"><li data-i18n="mk1.b1">Malvazija, kupaža, žuti muškat</li><li data-i18n="mk1.b2">Degustacija u kušaoni</li></ul>
+        <a href="#podrum" class="tlink" data-i18n="mk1.l">Kušaona</a>
       </article>
       <article class="pcard rv" style="--d:.06s">
-        <div class="rimg ph sc-oil unveil" data-scene="oil"><span class="ltag" data-i18n="mk2.tag">Maslinovo ulje</span></div>
-        <h3 data-i18n="mk2.t">Maslinovo ulje iz maslinika</h3>
-        <p data-i18n="mk2.p">Naše ulje na kruhu, na povrću, na svemu što dođe na stol.</p>
-        <ul class="bul"><li data-i18n="mk2.b1">S imanja</li><li data-i18n="mk2.b2">Na stolu uz ručak</li></ul>
-        <a href="#meni" class="tlink" data-i18n="mk.menu">Pogledaj meni</a>
+        <div class="rimg ph sc-oil unveil" data-scene="oil"><img src="https://agroturizam-stefanic.hr/wp-content/uploads/2025/06/maslinovo-ulje.jpg" alt="Ekstra djevičansko maslinovo ulje iz maslinika Štefanić" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"><span class="ltag" data-i18n="mk2.tag">Maslinovo ulje</span></div>
+        <h3 data-i18n="mk2.t">Nagrađivano maslinovo ulje</h3>
+        <p data-i18n="mk2.p">Ekstra djevičansko maslinovo ulje iz vlastitog maslinika, od ručno branih maslina. Na kruhu, na povrću, na svemu što dođe na stol.</p>
+        <ul class="bul"><li data-i18n="mk2.b1">Ručno brane masline</li><li data-i18n="mk2.b2">Degustacija u kušaoni</li></ul>
+        <a href="#podrum" class="tlink" data-i18n="mk1.l">Kušaona</a>
       </article>
       <article class="pcard rv" style="--d:.12s">
-        <div class="rimg ph sc-pasta unveil" data-scene="pasta"><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"><span class="ltag" data-i18n="mk3.tag">Tartufi</span></div>
-        <h3 data-i18n="mk3.t">Domaća tjestenina s tartufima</h3>
-        <p data-i18n="mk3.p">Ručno rađena tjestenina i umak od tartufa iz šuma oko Motovuna.</p>
-        <ul class="bul"><li data-i18n="mk3.b1">Ručno rađena</li><li data-i18n="mk3.b2">Jelo po kojem nas pamte</li></ul>
+        <div class="rimg ph sc-pasta unveil" data-scene="pasta"><img src="https://agroturizam-stefanic.hr/wp-content/uploads/2025/06/kuhinja-naslovnica.jpg" alt="Kuhinja Agroturizma Štefanić" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()"><span class="ltag" data-i18n="mk3.tag">Tartufi</span></div>
+        <h3 data-i18n="mk3.t">Pljukanci i tjestenina s tartufima</h3>
+        <p data-i18n="mk3.p">Ručno rađeni pljukanci i domaća tjestenina s tartufima iz šuma oko Motovuna.</p>
+        <ul class="bul"><li data-i18n="mk3.b1">Ručno rađeno</li><li data-i18n="mk3.b2">Jelo po kojem nas pamte</li></ul>
         <a href="#meni" class="tlink" data-i18n="mk.menu">Pogledaj meni</a>
       </article>
       <article class="pcard rv" style="--d:.18s">
-        <div class="rimg ph sc-meat unveil" data-scene="meat"><span class="ltag" data-i18n="mk4.tag">Meso s imanja</span></div>
-        <h3 data-i18n="mk4.t">Meso s imanja</h3>
-        <p data-i18n="mk4.p">Svinjetina i janjetina s našeg imanja te biftek od lokalne govedine.</p>
-        <ul class="bul"><li data-i18n="mk4.b1">Svinjetina i janjetina</li><li data-i18n="mk4.b2">Biftek od lokalne govedine</li></ul>
+        <div class="rimg ph sc-meat unveil" data-scene="meat"><span class="ltag" data-i18n="mk4.tag">Meso</span></div>
+        <h3 data-i18n="mk4.t">Meso, kobasice i peka</h3>
+        <p data-i18n="mk4.p">Ombolo, domaće kobasice i jela ispod peke, uz svinjetinu i janjetinu s imanja i biftek od lokalne govedine.</p>
+        <ul class="bul"><li data-i18n="mk4.b1">Jela ispod peke</li><li data-i18n="mk4.b2">Ombolo i domaće kobasice</li></ul>
         <a href="#meni" class="tlink" data-i18n="mk.menu">Pogledaj meni</a>
       </article>
       <article class="pcard rv" style="--d:.24s">
@@ -775,19 +785,23 @@ html select{height:56px;line-height:normal}
         </div>
         <div class="course rv">
           <h3 data-i18n="c2">Za početak</h3>
-          <div class="dish"><span class="nm" data-i18n="d3">Kukuruzna juha<small>Topla, gusta, s našim maslinovim uljem</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
+          <div class="dish"><span class="nm" data-i18n="d3">Istarska maneštra<small>Topla, gusta, s našim maslinovim uljem</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
           <div class="dish"><span class="nm" data-i18n="d4">Povrće s imanja<small>Ono što je taj tjedan zrelo u vrtu</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
+          <div class="dish"><span class="nm" data-i18n="d10">Šparoge<small>U sezoni, kako se jedu u Istri</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
         </div>
         <div class="course rv">
           <h3 data-i18n="c3">Glavna jela</h3>
-          <div class="dish"><span class="nm" data-i18n="d5">Domaća tjestenina s umakom od tartufa<small>Ručno rađena tjestenina, tartufi iz motovunskih šuma</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
+          <div class="dish"><span class="nm" data-i18n="d5">Pljukanci s tartufima<small>Ručno rađena tjestenina, tartufi iz motovunskih šuma</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
+          <div class="dish"><span class="nm" data-i18n="d11">Ombolo i domaće kobasice<small>Istarski klasici</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
+          <div class="dish"><span class="nm" data-i18n="d12">Jela ispod peke<small>Polako pečeno pod željeznim zvonom</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
           <div class="dish"><span class="nm" data-i18n="d6">Svinjetina i janjetina s imanja<small>S povrćem iz vrta</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
           <div class="dish"><span class="nm" data-i18n="d7">Biftek od lokalne govedine<small>Lokalna govedina, naše maslinovo ulje</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
         </div>
         <div class="course rv">
           <h3 data-i18n="c4">Slatko i uz stol</h3>
+          <div class="dish"><span class="nm" data-i18n="d13">Kroštule<small>Tradicionalni domaći desert</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
           <div class="dish"><span class="nm" data-i18n="d8">Panna cotta od ribiza<small>Domaći desert</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
-          <div class="dish"><span class="nm" data-i18n="d9">Naše vino<small>Iz vlastitog vinograda, uz čašu ili bocu</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
+          <div class="dish"><span class="nm" data-i18n="d9">Naša vina<small>Malvazija, kupaža i žuti muškat iz vlastitog vinograda</small></span><span class="dots"></span><span class="pr">XX&nbsp;€</span></div>
         </div>
         <p class="pnote rv" data-i18n="menu.note">Cijene su primjer za prijedlog stranice i ne odgovaraju stvarnoj ponudi. Konačni meni ovisi o sezoni i o tome što je tog dana najbolje na imanju.</p>
       </div>
@@ -813,20 +827,22 @@ html select{height:56px;line-height:normal}
   <div class="wrap">
     <div class="cellar-grid">
       <div class="rimg ph sc-cellar cellar-img unveil" data-scene="cellar">
-        <img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()">
-        <span class="ltag" data-i18n="cel.tag">Vinski podrum</span>
+        <img src="https://agroturizam-stefanic.hr/wp-content/uploads/2025/12/Stefanic-30-scaled.jpg" alt="Kušaona Štefanić" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()">
+        <span class="ltag" data-i18n="cel.tag">Kušaona</span>
       </div>
       <div>
-        <p class="kicker rv"><span class="n">04</span><span data-i18n="cel.label">Vinski podrum</span></p>
-        <h2 class="h2 rv" style="--d:.08s" data-i18n="cel.title">Siđite u podrum i kušajte ono što raste gore</h2>
+        <p class="kicker rv"><span class="n">04</span><span data-i18n="cel.label">Kušaona</span></p>
+        <h2 class="h2 rv" style="--d:.08s" data-i18n="cel.title">Kušajte ono što raste na našim brežuljcima</h2>
         <span class="hl"></span>
-        <p class="lead rv" style="--d:.16s" data-i18n="cel.lead">Podrum se može posjetiti i u njemu degustirati naše vino. Najbolje ide prije ručka ili umjesto popodnevne kave.</p>
+        <p class="lead rv" style="--d:.16s" data-i18n="cel.lead">U kušaoni vas domaćini vode kroz degustaciju nagrađivanog maslinovog ulja i vina s imanja, uz domaći kruh, pršut i sir. Naučit ćete kako ulje i vino spariti s hranom i čuti priču obitelji Štefanić.</p>
         <ul class="cel-list">
-          <li class="rv"><span class="ico"><svg><use href="#i-barrel"/></svg></span><div><b data-i18n="cl1.t">Obilazak podruma</b><span data-i18n="cl1.p">Gdje vino odležava i kako nastaje</span></div></li>
-          <li class="rv" style="--d:.06s"><span class="ico"><svg><use href="#i-wine"/></svg></span><div><b data-i18n="cl2.t">Degustacija vlastitog vina</b><span data-i18n="cl2.p">Uz naše maslinovo ulje i kruh</span></div></li>
-          <li class="rv" style="--d:.12s"><span class="ico"><svg><use href="#i-grape"/></svg></span><div><b data-i18n="cl3.t">Nekoliko vinarija u blizini</b><span data-i18n="cl3.p">Ako želite nastaviti dan uz vino, rado preporučimo susjede</span></div></li>
+          <li class="rv"><span class="ico"><svg><use href="#i-leaf"/></svg></span><div><b data-i18n="cl1.t">Ekstra djevičansko maslinovo ulje</b><span data-i18n="cl1.p">Kako prepoznati kvalitetu ulja i koje sorte maslina koristimo</span></div></li>
+          <li class="rv" style="--d:.06s"><span class="ico"><svg><use href="#i-wine"/></svg></span><div><b data-i18n="cl2.t">Malvazija</b><span data-i18n="cl2.p">Bijelo vino blagih cvjetnih nota i svježe kiselosti</span></div></li>
+          <li class="rv" style="--d:.12s"><span class="ico"><svg><use href="#i-grape"/></svg></span><div><b data-i18n="cl3.t">Kupaža</b><span data-i18n="cl3.p">Spoj više sorti, uz mesna jela i zrele sireve</span></div></li>
+          <li class="rv" style="--d:.18s"><span class="ico"><svg><use href="#i-wine"/></svg></span><div><b data-i18n="cl4.t">Žuti muškat</b><span data-i18n="cl4.p">Aromatičan, cvjetan i voćan, lagano sladak, uz desert ili sam za sebe</span></div></li>
+          <li class="rv" style="--d:.24s"><span class="ico"><svg><use href="#i-fork"/></svg></span><div><b data-i18n="cl5.t">Kruh, pršut i sir</b><span data-i18n="cl5.p">Uz ulje i vino, i priča obitelji od 1780.</span></div></li>
         </ul>
-        <a href="#rezervacija" class="pill pill-cream rv magnetic" data-i18n="cel.cta">Pitaj za degustaciju</a>
+        <a href="#rezervacija" class="pill pill-cream rv magnetic" data-pick="taste" data-i18n="cel.cta">Pitaj za degustaciju</a>
       </div>
     </div>
   </div>
@@ -841,18 +857,19 @@ html select{height:56px;line-height:normal}
         <p class="kicker rv"><span class="n">05</span><span data-i18n="stay.label">Smještaj</span></p>
         <h2 class="h2 rv" style="--d:.08s" data-i18n="stay.title">Ostanite na imanju i probudite se nad brežuljcima</h2>
         <span class="hl"></span>
-        <p class="lead rv" style="--d:.16s" data-i18n="stay.lead">Na imanju nudimo i smještaj: sobe i apartmane, s pogledom na vinograd i okolne brežuljke. Za slobodne termine pitajte nas.</p>
+        <p class="lead rv" style="--d:.16s" data-i18n="stay.lead">Na imanju imamo jednu udobnu sobu za dvije osobe, u rustikalnom stilu koji spaja tradicionalni istarski šarm i moderan komfor. Uskoro uređujemo još nekoliko soba, za obitelji, parove i društvo prijatelja.</p>
         <ul class="bul rv" style="--d:.2s">
-          <li data-i18n="sb1">Sobe i apartmani na imanju</li>
-          <li data-i18n="sb2">Pogled na brežuljke i vinograd</li>
-          <li data-i18n="sb3">Vikend ručak nekoliko koraka od sobe</li>
-          <li data-i18n="sb4">Dostupnost i cijene na upit</li>
+          <li data-i18n="sb1">Soba za dvoje s udobnim bračnim krevetom</li>
+          <li data-i18n="sb2">Vlastita kupaonica s prirodnom kozmetikom</li>
+          <li data-i18n="sb3">Pogled na vinograde i maslinike</li>
+          <li data-i18n="sb4">Doručak: domaći kruh, sir, pršut, svježe voće, prirodni sokovi i kava</li>
+          <li data-i18n="sb5">Dostupnost i cijene na upit</li>
         </ul>
         <a href="#rezervacija" class="pill pill-terra rv magnetic" data-pick="stay" data-i18n="stay.cta">Pitaj za smještaj</a>
       </div>
       <div class="rimg ph sc-dog stay-img unveil" data-scene="dog">
-        <img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()">
-        <span class="ltag" data-i18n="stay.tag">Sobe i apartmani</span>
+        <img src="https://agroturizam-stefanic.hr/wp-content/uploads/2025/07/551681766.jpg" alt="Rustikalna soba s bračnim krevetom na imanju Štefanić" loading="lazy" onload="this.classList.add('ok')" onerror="this.remove()">
+        <span class="ltag" data-i18n="stay.tag">Soba za dvoje</span>
       </div>
     </div>
   </div>
@@ -867,8 +884,11 @@ html select{height:56px;line-height:normal}
       <div class="gtk-i rv" style="--d:.06s"><span class="ico"><svg><use href="#i-cal"/></svg></span><div><dt data-i18n="gtk.week">Radni dani</dt><dd data-i18n="gtk.weekV">Zatvoreno, grupe po dogovoru</dd></div></div>
       <div class="gtk-i rv" style="--d:.12s"><span class="ico"><svg><use href="#i-fork"/></svg></span><div><dt data-i18n="gtk.res">Rezervacije</dt><dd data-i18n="gtk.resV">Preporučujemo</dd></div></div>
       <div class="gtk-i rv" style="--d:.18s"><span class="ico"><svg><use href="#i-paw"/></svg></span><div><dt data-i18n="gtk.dog">Pas na imanju</dt><dd data-i18n="gtk.dogV">Prijateljski, voli goste</dd></div></div>
-      <div class="gtk-i rv" style="--d:.24s"><span class="ico"><svg><use href="#i-barrel"/></svg></span><div><dt data-i18n="gtk.cel">Vinski podrum</dt><dd data-i18n="gtk.celV">Posjet i degustacija</dd></div></div>
+      <div class="gtk-i rv" style="--d:.24s"><span class="ico"><svg><use href="#i-barrel"/></svg></span><div><dt data-i18n="gtk.cel">Kušaona</dt><dd data-i18n="gtk.celV">Degustacija ulja i vina</dd></div></div>
       <div class="gtk-i rv" style="--d:.3s"><span class="ico"><svg><use href="#i-card"/></svg></span><div><dt data-i18n="gtk.pay">Plaćanje</dt><dd data-i18n="gtk.payV">Pitajte nas</dd></div></div>
+      <div class="gtk-i rv" style="--d:.36s"><span class="ico"><svg><use href="#i-bed"/></svg></span><div><dt data-i18n="gtk.stay">Smještaj</dt><dd data-i18n="gtk.stayV">Soba za dvoje, uskoro više soba</dd></div></div>
+      <div class="gtk-i rv" style="--d:.42s"><span class="ico"><svg><use href="#i-leaf"/></svg></span><div><dt data-i18n="gtk.prod">Naši proizvodi</dt><dd data-i18n="gtk.prodV">Ulje i vino s imanja, pitajte nas</dd></div></div>
+      <div class="gtk-i rv" style="--d:.48s"><span class="ico"><svg><use href="#i-house"/></svg></span><div><dt data-i18n="ft.email">E-mail</dt><dd><a href="mailto:info@agroturizam-stefanic.hr">info@agroturizam-stefanic.hr</a></dd></div></div>
     </dl>
   </div>
 </section>
@@ -880,9 +900,11 @@ html select{height:56px;line-height:normal}
     <p class="kicker rv"><span data-i18n="near.label">U blizini</span></p>
     <h2 class="h2 rv" id="nearH" style="--d:.08s" data-i18n="near.title">Motovun na brijegu, tartufi u dolini, vino svuda oko nas</h2>
     <ul>
-      <li class="rv"><span class="ico"><svg><use href="#i-castle"/></svg></span><span class="nm">Motovun</span><span class="dots"></span><span class="ds" data-i18n="near.1d">Srednjovjekovni gradić na brijegu</span></li>
+      <li class="rv"><span class="ico"><svg><use href="#i-castle"/></svg></span><span class="nm">Motovun</span><span class="dots"></span><span class="ds" data-i18n="near.1d">Srednjovjekovni gradić na brijegu, nekoliko minuta vožnje</span></li>
       <li class="rv" style="--d:.06s"><span class="ico"><svg><use href="#i-grape"/></svg></span><span class="nm" data-i18n="near.2">Vinarije u blizini</span><span class="dots"></span><span class="ds" data-i18n="near.2d">Nekoliko ih je u susjedstvu</span></li>
       <li class="rv" style="--d:.12s"><span class="ico"><svg><use href="#i-truffle"/></svg></span><span class="nm" data-i18n="near.3">Šume tartufa u dolini Mirne</span><span class="dots"></span><span class="ds" data-i18n="near.3d">Odakle dolazi umak</span></li>
+      <li class="rv" style="--d:.18s"><span class="ico"><svg><use href="#i-tree"/></svg></span><span class="nm">Parenzana</span><span class="dots"></span><span class="ds" data-i18n="near.4d">Biciklistička staza na trasi stare pruge</span></li>
+      <li class="rv" style="--d:.24s"><span class="ico"><svg><use href="#i-leaf"/></svg></span><span class="nm" data-i18n="near.5">Lokalne tržnice</span><span class="dots"></span><span class="ds" data-i18n="near.5d">Domaći proizvodi iz okolice</span></li>
     </ul>
     <a class="pill pill-ow rv magnetic" style="--d:.12s" href="https://wa.me/38598251504" target="_blank" rel="noopener" data-wa-hello><svg><use href="#i-wa"/></svg><span data-i18n="near.cta">Pitaj za preporuke</span></a>
   </div>
@@ -895,7 +917,7 @@ html select{height:56px;line-height:normal}
     <div class="book-grid">
       <div class="b-intro">
         <p class="kicker rv"><span class="n">06</span><span data-i18n="book.label">Rezervacija</span></p>
-        <h2 class="h2 rv" style="--d:.08s" data-i18n="book.title">Rezervirajte stol ili pitajte za sobu</h2>
+        <h2 class="h2 rv" style="--d:.08s" data-i18n="book.title">Rezervirajte stol, degustaciju ili sobu</h2>
         <span class="hl"></span>
         <p class="lead rv" style="--d:.16s" data-i18n="book.lead">Pošaljite upit izravno obitelji na WhatsApp. Bez platforme, bez plaćanja unaprijed.</p>
         <ul class="bens">
@@ -912,6 +934,7 @@ html select{height:56px;line-height:normal}
             <div class="fld full"><span class="lbl" id="kLbl" data-i18n="f.kind">Što vas zanima</span>
               <div class="chips" role="radiogroup" aria-labelledby="kLbl">
                 <button type="button" class="chip" role="radio" aria-checked="true" data-kind="lunch"><svg><use href="#i-fork"/></svg><span data-i18n="f.lunch">Ručak</span></button>
+                <button type="button" class="chip" role="radio" aria-checked="false" data-kind="taste"><svg><use href="#i-wine"/></svg><span data-i18n="f.taste">Kušaona</span></button>
                 <button type="button" class="chip" role="radio" aria-checked="false" data-kind="stay"><svg><use href="#i-bed"/></svg><span data-i18n="f.stay">Smještaj</span></button>
               </div>
             </div>
@@ -938,6 +961,7 @@ html select{height:56px;line-height:normal}
             <a class="pill pill-cream" href="https://wa.me/38598251504" target="_blank" rel="noopener" data-wa-hello><svg><use href="#i-wa"/></svg>WhatsApp</a>
             <a class="pill pill-on" href="tel:+38598251504"><svg><use href="#i-phone"/></svg><span data-i18n="c.call">Nazovi</span></a>
           </div>
+          <p class="cmail"><a href="mailto:info@agroturizam-stefanic.hr">info@agroturizam-stefanic.hr</a></p>
           <dl>
             <div><dt data-i18n="gtk.open">Radno vrijeme</dt><dd data-i18n="gtk.openV">Sub i ned, 12:00 do 21:00</dd></div>
             <div><dt data-i18n="gtk.week">Radni dani</dt><dd data-i18n="c.weekV">Po dogovoru</dd></div>
@@ -958,6 +982,8 @@ html select{height:56px;line-height:normal}
       <div class="qa rv"><button type="button" aria-expanded="false"><span data-i18n="q2">Jesu li djeca dobrodošla?</span><svg><use href="#i-plus"/></svg></button><div class="qa-p"><div><p data-i18n="a2">Da. Imanje je veliko, ima prostora za trčanje, a pas se veseli društvu.</p></div></div></div>
       <div class="qa rv"><button type="button" aria-expanded="false"><span data-i18n="q3">Imate li vegetarijanska jela?</span><svg><use href="#i-plus"/></svg></button><div class="qa-p"><div><p data-i18n="a3">Pitajte nas pri rezervaciji. Povrće, juha i tjestenina dolaze s imanja, pa se dogovor obično lako nađe.</p></div></div></div>
       <div class="qa rv"><button type="button" aria-expanded="false"><span data-i18n="q4">Kako se plaća?</span><svg><use href="#i-plus"/></svg></button><div class="qa-p"><div><p data-i18n="a4">Pitajte nas prije dolaska, rado ćemo vam reći koje načine plaćanja prihvaćamo.</p></div></div></div>
+      <div class="qa rv"><button type="button" aria-expanded="false"><span data-i18n="q6">Što se kuša u kušaoni?</span><svg><use href="#i-plus"/></svg></button><div class="qa-p"><div><p data-i18n="a6">Naše ekstra djevičansko maslinovo ulje i vina s imanja: malvazija, kupaža i žuti muškat, uz domaći kruh, pršut i sir. Domaćini vas vode kroz degustaciju i pričaju priču obitelji.</p></div></div></div>
+      <div class="qa rv"><button type="button" aria-expanded="false"><span data-i18n="q7">Koliko gostiju prima smještaj?</span><svg><use href="#i-plus"/></svg></button><div class="qa-p"><div><p data-i18n="a7">Trenutno imamo jednu sobu za dvije osobe, s bračnim krevetom i vlastitom kupaonicom. Uskoro uređujemo još nekoliko soba, pa nas slobodno pitajte i za veće društvo.</p></div></div></div>
       <div class="qa rv"><button type="button" aria-expanded="false"><span data-i18n="q5">Treba li rezervirati?</span><svg><use href="#i-plus"/></svg></button><div class="qa-p"><div><p data-i18n="a5">Preporučujemo, posebno za vikend i veće stolove. Upit šaljete na WhatsApp u par sekundi.</p></div></div></div>
     </div>
   </div>
@@ -996,8 +1022,10 @@ html select{height:56px;line-height:normal}
       </div>
       <div class="cinfo rv">
         <dl>
-          <div><dt data-i18n="ft.addr">Adresa</dt><dd>Agroturizam Štefanić<br>Štefanići 55<br>52424 Motovun, <span data-i18n="ft.cro">Hrvatska</span></dd></div>
+          <div><dt data-i18n="ft.addr">Adresa</dt><dd>OPG Agroturizam Štefanić<br>Štefanići 55<br>52424 Motovun, <span data-i18n="ft.cro">Hrvatska</span></dd></div>
           <div><dt data-i18n="ft.contact">Telefon i WhatsApp</dt><dd><a href="tel:+38598251504">+385 98 251 504</a></dd></div>
+          <div><dt data-i18n="ft.email">E-mail</dt><dd style="overflow-wrap:anywhere"><a class="tlink" href="mailto:info@agroturizam-stefanic.hr">info@agroturizam-stefanic.hr</a></dd></div>
+          <div><dt data-i18n="ft.social">Pratite nas</dt><dd class="soc"><a href="https://www.instagram.com/agroturizam_stefanic/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/agroturizamstefanic" target="_blank" rel="noopener">Facebook</a></dd></div>
           <div><dt data-i18n="gtk.open">Radno vrijeme</dt><dd data-i18n="c.hours">Subota i nedjelja, 12:00 do 21:00<br>Radnim danom zatvoreno, grupe po dogovoru</dd></div>
         </dl>
         <div class="row">
@@ -1014,14 +1042,14 @@ html select{height:56px;line-height:normal}
 <footer class="ftr">
   <div class="wrap">
     <p class="ftr-big">Štefanić</p>
-    <p data-i18n="ft.tag">Istarsko seosko imanje nadomak Motovuna. Vino, ulje, tartufi i meso s imanja.</p>
+    <p data-i18n="ft.tag">Obiteljsko imanje nadomak Motovuna, s tradicijom od 1780. Restoran, kušaona i smještaj.</p>
     <div class="ftr-grid">
       <div><h5 data-i18n="ft.addr">Adresa</h5><p><a href="https://maps.google.com/?q=Agroturizam+%C5%A0tefani%C4%87,+%C5%A0tefani%C4%87i+55,+52424+Motovun" target="_blank" rel="noopener">Štefanići 55<br>52424 Motovun, <span data-i18n="ft.cro">Hrvatska</span></a></p></div>
-      <div><h5 data-i18n="ft.contact">Telefon i WhatsApp</h5><p><a href="tel:+38598251504">+385 98 251 504</a><br><a href="https://wa.me/38598251504" target="_blank" rel="noopener" data-wa-hello>WhatsApp</a></p></div>
+      <div><h5 data-i18n="ft.contact">Telefon i WhatsApp</h5><p><a href="tel:+38598251504">+385 98 251 504</a><br><a href="https://wa.me/38598251504" target="_blank" rel="noopener" data-wa-hello>WhatsApp</a><br><a href="mailto:info@agroturizam-stefanic.hr" style="overflow-wrap:anywhere">info@agroturizam-stefanic.hr</a><br><a href="https://www.instagram.com/agroturizam_stefanic/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/agroturizamstefanic" target="_blank" rel="noopener">Facebook</a></p></div>
       <div><h5 data-i18n="gtk.open">Radno vrijeme</h5><p data-i18n="ft.hours">Sub i ned 12:00 do 21:00<br>Radni dani: po dogovoru</p></div>
       <div><h5 data-i18n="ft.rating">Ocjena</h5><p>Google 4.7 · <span data-i18n="ft.reviews">509 recenzija</span></p></div>
     </div>
-    <p class="ftr-low">© 2026 Agroturizam Štefanić · <span data-i18n="ft.rights">Sva prava pridržana</span> · <span data-i18n="ft.note">Prijedlog web stranice</span></p>
+    <p class="ftr-low">© 2026 OPG Štefanić · <span data-i18n="ft.rights">Sva prava pridržana</span> · <span data-i18n="ft.note">Prijedlog web stranice</span></p>
   </div>
 </footer>
 
@@ -1111,44 +1139,44 @@ $("#bandL").innerHTML =
 /* ===================== i18n ===================== */
 var T = {
 hr:{
-"nav.home":"Početna","nav.gal":"Galerija","nav.story":"Priča","nav.menu":"Meni","nav.cellar":"Vinski podrum","nav.stay":"Smještaj","nav.book":"Rezervacija","nav.contact":"Kontakt",
+"nav.home":"Početna","nav.gal":"Galerija","nav.story":"Priča","nav.menu":"Meni","nav.cellar":"Kušaona","nav.stay":"Smještaj","nav.book":"Rezervacija","nav.contact":"Kontakt",
 "menu":"Izbornik","close":"Zatvori","hdr.book":"Rezerviraj","prev":"Prethodna","next":"Sljedeća",
 "hero.eyebrow":"Agroturizam · Motovun, Istra",
-"hero.body":"Istarsko seosko imanje nad brežuljcima. Gotovo sve što dođe na stol raste, zrije i dozrijeva ovdje: vino, maslinovo ulje, tjestenina s tartufima, meso s imanja.",
+"hero.body":"Obiteljsko imanje na osunčanim brežuljcima Motovuna, s tradicijom od 1780. Gotovo sve što dođe na stol raste i dozrijeva ovdje: vino, maslinovo ulje, povrće, začinsko bilje i meso.",
 "hero.cta":"Rezerviraj ručak","hero.score":"Google ocjena","hero.scoreSub":"509 recenzija gostiju",
-"gal.title":"Prvi pogled na imanje","gal.sub":"Brežuljci, kuća, podrum i stol, prije nego što sjednete.","loc.tag":"Motovun, Istra",
-"cap.1":"Pogled prema Motovunu","cap.2":"Kuća i stol","cap.3":"Vinograd i podrum","cap.4":"Domaća tjestenina s tartufima","cap.5":"Pas u masliniku",
+"gal.title":"Prvi pogled na imanje","gal.sub":"Brežuljci, imanje, kušaona i stol, prije nego što sjednete.","loc.tag":"Motovun, Istra",
+"cap.1":"Pogled prema Motovunu","cap.2":"Imanje Štefanić","cap.3":"Kušaona","cap.4":"Domaća kuhinja","cap.5":"Smještaj na imanju",
 "intro.label":"Priča","intro.title":"Od imanja do stola, bez zaobilaznih puteva",
-"intro.p1":"Štefanić je obiteljsko seosko imanje u zaseoku Štefanići, nadomak Motovuna. Vinograd, maslinik, povrtnjak i životinje: iz toga nastaje gotovo sve što poslužujemo.",
-"intro.p2":"Dočekuje vas čašica domaće rakije, a onda dolazi stol: svježe cijeđeni sokovi, kukuruzna juha, domaća tjestenina s umakom od tartufa, meso s imanja, naše vino i maslinovo ulje. I pas koji voli goste.",
+"intro.p1":"Na osunčanim brežuljcima Motovuna povijest obitelji Štefanić počinje davne 1780. godine. Danas je to obiteljsko gospodarstvo u zaseoku Štefanići: maslinik, vinograd, povrtnjak, začinsko bilje i životinje, iz kojih nastaje gotovo sve što poslužujemo.",
+"intro.p2":"Kuhamo po receptima naših predaka, samo od svježih namirnica s imanja. Dočekuje vas čašica domaće rakije, a onda dolazi stol: maneštra, pljukanci s tartufima, ombolo, domaće kobasice, jela ispod peke, naše vino i maslinovo ulje. I pas koji voli goste.",
 "intro.sign":"Obitelj Štefanić",
-"st.1":"Google ocjena","st.2":"Recenzija","st.3":"Dana u tjednu otvoreno: subota i nedjelja","st.4":"Pas koji vas dočeka",
+"st.1":"Google ocjena","st.2":"Recenzija","st.3":"Dana u tjednu otvoreno: subota i nedjelja","st.4":"Godina kad počinje priča obitelji Štefanić",
 "make.label":"Što radimo","make.title":"Gotovo sve na stolu je naše","make.lead":"Pet stvari po kojima nas gosti pamte. Sve s imanja ili iz susjedstva.",
-"mk1.tag":"Vlastito vino","mk1.t":"Vino iz našeg vinograda","mk1.p":"Vino koje pijete uz ručak raste na brežuljcima koje gledate s terase.","mk1.b1":"Uz svaki ručak","mk1.b2":"Degustacija u podrumu","mk1.l":"Vinski podrum",
-"mk2.tag":"Maslinovo ulje","mk2.t":"Maslinovo ulje iz maslinika","mk2.p":"Naše ulje na kruhu, na povrću, na svemu što dođe na stol.","mk2.b1":"S imanja","mk2.b2":"Na stolu uz ručak",
-"mk3.tag":"Tartufi","mk3.t":"Domaća tjestenina s tartufima","mk3.p":"Ručno rađena tjestenina i umak od tartufa iz šuma oko Motovuna.","mk3.b1":"Ručno rađena","mk3.b2":"Jelo po kojem nas pamte",
-"mk4.tag":"Meso s imanja","mk4.t":"Meso s imanja","mk4.p":"Svinjetina i janjetina s našeg imanja te biftek od lokalne govedine.","mk4.b1":"Svinjetina i janjetina","mk4.b2":"Biftek od lokalne govedine",
+"mk1.tag":"Vlastito vino","mk1.t":"Vina iz našeg vinograda","mk1.p":"Malvazija, kupaža i žuti muškat rastu na brežuljcima oko kuće.","mk1.b1":"Malvazija, kupaža, žuti muškat","mk1.b2":"Degustacija u kušaoni","mk1.l":"Kušaona",
+"mk2.tag":"Maslinovo ulje","mk2.t":"Nagrađivano maslinovo ulje","mk2.p":"Ekstra djevičansko maslinovo ulje iz vlastitog maslinika, od ručno branih maslina. Na kruhu, na povrću, na svemu što dođe na stol.","mk2.b1":"Ručno brane masline","mk2.b2":"Degustacija u kušaoni",
+"mk3.tag":"Tartufi","mk3.t":"Pljukanci i tjestenina s tartufima","mk3.p":"Ručno rađeni pljukanci i domaća tjestenina s tartufima iz šuma oko Motovuna.","mk3.b1":"Ručno rađeno","mk3.b2":"Jelo po kojem nas pamte",
+"mk4.tag":"Meso","mk4.t":"Meso, kobasice i peka","mk4.p":"Ombolo, domaće kobasice i jela ispod peke, uz svinjetinu i janjetinu s imanja i biftek od lokalne govedine.","mk4.b1":"Jela ispod peke","mk4.b2":"Ombolo i domaće kobasice",
 "mk5.tag":"Svježe cijeđeno","mk5.t":"Svježe cijeđeni sokovi","mk5.p":"Voće s imanja, cijeđeno isti dan. Za djecu i za one koji voze.","mk5.b1":"Voće s imanja","mk5.b2":"Cijeđeno isti dan",
 "mk.menu":"Pogledaj meni",
 "menu.label":"Degustacijski meni","menu.title":"Ručak koji traje cijelo poslijepodne","menu.lead":"Nema kartice s pedeset jela. Posložimo stol onim što je taj dan najbolje na imanju.",
 "c1":"Dobrodošlica","c2":"Za početak","c3":"Glavna jela","c4":"Slatko i uz stol","incl":"uključeno",
 "d1":"Čašica domaće rakije<small>Za početak, kako se kod nas dočekuje</small>","d2":"Svježe cijeđeni sokovi<small>Voće s imanja</small>",
-"d3":"Kukuruzna juha<small>Topla, gusta, s našim maslinovim uljem</small>","d4":"Povrće s imanja<small>Ono što je taj tjedan zrelo u vrtu</small>",
-"d5":"Domaća tjestenina s umakom od tartufa<small>Ručno rađena tjestenina, tartufi iz motovunskih šuma</small>","d6":"Svinjetina i janjetina s imanja<small>S povrćem iz vrta</small>","d7":"Biftek od lokalne govedine<small>Lokalna govedina, naše maslinovo ulje</small>",
-"d8":"Panna cotta od ribiza<small>Domaći desert</small>","d9":"Naše vino<small>Iz vlastitog vinograda, uz čašu ili bocu</small>",
+"d3":"Istarska maneštra<small>Topla, gusta, s našim maslinovim uljem</small>","d4":"Povrće s imanja<small>Ono što je taj tjedan zrelo u vrtu</small>",
+"d5":"Pljukanci s tartufima<small>Ručno rađena tjestenina, tartufi iz motovunskih šuma</small>","d6":"Svinjetina i janjetina s imanja<small>S povrćem iz vrta</small>","d7":"Biftek od lokalne govedine<small>Lokalna govedina, naše maslinovo ulje</small>",
+"d8":"Panna cotta od ribiza<small>Domaći desert</small>","d9":"Naša vina<small>Malvazija, kupaža i žuti muškat iz vlastitog vinograda</small>",
 "menu.note":"Cijene su primjer za prijedlog stranice i ne odgovaraju stvarnoj ponudi. Konačni meni ovisi o sezoni i o tome što je tog dana najbolje na imanju.",
 "mc1.t":"Vikend ručak","mc1.p":"Subota i nedjelja, 12:00 do 21:00. Preporučujemo rezervaciju, osobito za veće stolove.",
 "mc2.t":"Grupe i radni dani","mc2.p":"Radnim danom je restoran zatvoren. Za grupe otvaramo po dogovoru: pišite nam na WhatsApp.","mc2.l":"Pitaj za grupu",
-"cel.tag":"Vinski podrum","cel.label":"Vinski podrum","cel.title":"Siđite u podrum i kušajte ono što raste gore",
-"cel.lead":"Podrum se može posjetiti i u njemu degustirati naše vino. Najbolje ide prije ručka ili umjesto popodnevne kave.",
-"cl1.t":"Obilazak podruma","cl1.p":"Gdje vino odležava i kako nastaje","cl2.t":"Degustacija vlastitog vina","cl2.p":"Uz naše maslinovo ulje i kruh","cl3.t":"Nekoliko vinarija u blizini","cl3.p":"Ako želite nastaviti dan uz vino, rado preporučimo susjede",
+"cel.tag":"Kušaona","cel.label":"Kušaona","cel.title":"Kušajte ono što raste na našim brežuljcima",
+"cel.lead":"U kušaoni vas domaćini vode kroz degustaciju nagrađivanog maslinovog ulja i vina s imanja, uz domaći kruh, pršut i sir. Naučit ćete kako ulje i vino spariti s hranom i čuti priču obitelji Štefanić.",
+"cl1.t":"Ekstra djevičansko maslinovo ulje","cl1.p":"Kako prepoznati kvalitetu ulja i koje sorte maslina koristimo","cl2.t":"Malvazija","cl2.p":"Bijelo vino blagih cvjetnih nota i svježe kiselosti","cl3.t":"Kupaža","cl3.p":"Spoj više sorti, uz mesna jela i zrele sireve",
 "cel.cta":"Pitaj za degustaciju",
 "stay.label":"Smještaj","stay.title":"Ostanite na imanju i probudite se nad brežuljcima",
-"stay.lead":"Na imanju nudimo i smještaj: sobe i apartmane, s pogledom na vinograd i okolne brežuljke. Za slobodne termine pitajte nas.",
-"sb1":"Sobe i apartmani na imanju","sb2":"Pogled na brežuljke i vinograd","sb3":"Vikend ručak nekoliko koraka od sobe","sb4":"Dostupnost i cijene na upit","stay.cta":"Pitaj za smještaj","stay.tag":"Sobe i apartmani",
-"gtk.title":"Dobro je znati","gtk.open":"Radno vrijeme","gtk.openV":"Sub i ned, 12:00 do 21:00","gtk.week":"Radni dani","gtk.weekV":"Zatvoreno, grupe po dogovoru","gtk.res":"Rezervacije","gtk.resV":"Preporučujemo","gtk.dog":"Pas na imanju","gtk.dogV":"Prijateljski, voli goste","gtk.cel":"Vinski podrum","gtk.celV":"Posjet i degustacija","gtk.pay":"Plaćanje","gtk.payV":"Pitajte nas",
-"near.label":"U blizini","near.title":"Motovun na brijegu, tartufi u dolini, vino svuda oko nas","near.1d":"Srednjovjekovni gradić na brijegu","near.2":"Vinarije u blizini","near.2d":"Nekoliko ih je u susjedstvu","near.3":"Šume tartufa u dolini Mirne","near.3d":"Odakle dolazi umak","near.cta":"Pitaj za preporuke",
-"book.label":"Rezervacija","book.title":"Rezervirajte stol ili pitajte za sobu","book.lead":"Pošaljite upit izravno obitelji na WhatsApp. Bez platforme, bez plaćanja unaprijed.",
+"stay.lead":"Na imanju imamo jednu udobnu sobu za dvije osobe, u rustikalnom stilu koji spaja tradicionalni istarski šarm i moderan komfor. Uskoro uređujemo još nekoliko soba, za obitelji, parove i društvo prijatelja.",
+"sb1":"Soba za dvoje s udobnim bračnim krevetom","sb2":"Vlastita kupaonica s prirodnom kozmetikom","sb3":"Pogled na vinograde i maslinike","sb4":"Doručak: domaći kruh, sir, pršut, svježe voće, prirodni sokovi i kava","stay.cta":"Pitaj za smještaj","stay.tag":"Soba za dvoje",
+"gtk.title":"Dobro je znati","gtk.open":"Radno vrijeme","gtk.openV":"Sub i ned, 12:00 do 21:00","gtk.week":"Radni dani","gtk.weekV":"Zatvoreno, grupe po dogovoru","gtk.res":"Rezervacije","gtk.resV":"Preporučujemo","gtk.dog":"Pas na imanju","gtk.dogV":"Prijateljski, voli goste","gtk.cel":"Kušaona","gtk.celV":"Degustacija ulja i vina","gtk.pay":"Plaćanje","gtk.payV":"Pitajte nas",
+"near.label":"U blizini","near.title":"Motovun na brijegu, tartufi u dolini, vino svuda oko nas","near.1d":"Srednjovjekovni gradić na brijegu, nekoliko minuta vožnje","near.2":"Vinarije u blizini","near.2d":"Nekoliko ih je u susjedstvu","near.3":"Šume tartufa u dolini Mirne","near.3d":"Odakle dolazi umak","near.cta":"Pitaj za preporuke",
+"book.label":"Rezervacija","book.title":"Rezervirajte stol, degustaciju ili sobu","book.lead":"Pošaljite upit izravno obitelji na WhatsApp. Bez platforme, bez plaćanja unaprijed.",
 "b1.t":"Izravno s domaćinima","b1.p":"Dogovarate se s ljudima koji će vas dočekati i kuhati za vas.","b2.t":"Poštene cijene","b2.p":"Hrana s imanja po cijenama koje gosti redovito spominju kao poštene.","b3.t":"Čašica rakije za dobrodošlicu","b3.p":"Dočekuje vas domaća rakija i pas koji vas prvi pozdravi.",
 "f.title":"Pošaljite upit","f.sub":"Odaberite što vas zanima, mi odgovaramo na WhatsAppu.","f.kind":"Što vas zanima","f.lunch":"Ručak","f.stay":"Smještaj","f.date":"Datum","f.date2":"Datum dolaska","f.g":"Gosti","f.name":"Vaše ime","f.less":"Manje gostiju","f.more":"Više gostiju",
 "f.send":"Pošalji upit na WhatsApp","f.note":"Bez plaćanja i bez računa. Upit se otvara u WhatsAppu, spreman za slanje.",
@@ -1161,53 +1189,54 @@ hr:{
 "q4":"Kako se plaća?","a4":"Pitajte nas prije dolaska, rado ćemo vam reći koje načine plaćanja prihvaćamo.",
 "q5":"Treba li rezervirati?","a5":"Preporučujemo, posebno za vikend i veće stolove. Upit šaljete na WhatsApp u par sekundi.",
 "loc.label":"Kontakt","loc.title":"Štefanići 55, pod Motovunom","loc.maps":"Otvori u Kartama","map.scale":"STILIZIRANO, NIJE U MJERILU",
-"ft.tag":"Istarsko seosko imanje nadomak Motovuna. Vino, ulje, tartufi i meso s imanja.","ft.addr":"Adresa","ft.cro":"Hrvatska","ft.contact":"Telefon i WhatsApp","ft.hours":"Sub i ned 12:00 do 21:00<br>Radni dani: po dogovoru","ft.rating":"Ocjena","ft.reviews":"509 recenzija","ft.rights":"Sva prava pridržana","ft.note":"Prijedlog web stranice",
+"ft.tag":"Obiteljsko imanje nadomak Motovuna, s tradicijom od 1780. Restoran, kušaona i smještaj.","ft.addr":"Adresa","ft.cro":"Hrvatska","ft.contact":"Telefon i WhatsApp","ft.hours":"Sub i ned 12:00 do 21:00<br>Radni dani: po dogovoru","ft.rating":"Ocjena","ft.reviews":"509 recenzija","ft.rights":"Sva prava pridržana","ft.note":"Prijedlog web stranice",
 "fab":"Rezerviraj","bar.btn":"Pošalji","bar.pick":"Odaberite datum","concept":"Koncept: Marija",
 "s.lunch":"Vikend ručak","s.stay":"Smještaj na imanju","s.sat":"Subota","s.any":"Vikend",
 "g1":"gost","g2":"gosta","gN":"gostiju",
 "waL":"Pozdrav, ja sam {n}. Želimo rezervirati ručak u Agroturizmu Štefanić {d} za {g}. Ima li mjesta?",
 "waS":"Pozdrav, ja sam {n}. Zanima nas smještaj na imanju Štefanić, dolazak {d}, {g}. Imate li slobodno?",
-"waHello":"Pozdrav, imam pitanje o Agroturizmu Štefanić."
+"waHello":"Pozdrav, imam pitanje o Agroturizmu Štefanić.",
+"d10":"Šparoge<small>U sezoni, kako se jedu u Istri</small>","d11":"Ombolo i domaće kobasice<small>Istarski klasici</small>","d12":"Jela ispod peke<small>Polako pečeno pod željeznim zvonom</small>","d13":"Kroštule<small>Tradicionalni domaći desert</small>","cl4.t":"Žuti muškat","cl4.p":"Aromatičan, cvjetan i voćan, lagano sladak, uz desert ili sam za sebe","cl5.t":"Kruh, pršut i sir","cl5.p":"Uz ulje i vino, i priča obitelji od 1780.","sb5":"Dostupnost i cijene na upit","gtk.stay":"Smještaj","gtk.stayV":"Soba za dvoje, uskoro više soba","gtk.prod":"Naši proizvodi","gtk.prodV":"Ulje i vino s imanja, pitajte nas","near.4d":"Biciklistička staza na trasi stare pruge","near.5":"Lokalne tržnice","near.5d":"Domaći proizvodi iz okolice","f.taste":"Kušaona","s.taste":"Degustacija ulja i vina","f.stayMax":"Soba je za dvije osobe.","waT":"Pozdrav, ja sam {n}. Zanima nas degustacija ulja i vina u kušaoni Štefanić {d}, za {g}. Je li moguće?","q6":"Što se kuša u kušaoni?","a6":"Naše ekstra djevičansko maslinovo ulje i vina s imanja: malvazija, kupaža i žuti muškat, uz domaći kruh, pršut i sir. Domaćini vas vode kroz degustaciju i pričaju priču obitelji.","q7":"Koliko gostiju prima smještaj?","a7":"Trenutno imamo jednu sobu za dvije osobe, s bračnim krevetom i vlastitom kupaonicom. Uskoro uređujemo još nekoliko soba, pa nas slobodno pitajte i za veće društvo.","ft.email":"E-mail","ft.social":"Pratite nas"
 },
 en:{
-"nav.home":"Home","nav.gal":"Gallery","nav.story":"Story","nav.menu":"Menu","nav.cellar":"Wine cellar","nav.stay":"Stay","nav.book":"Reserve","nav.contact":"Contact",
+"nav.home":"Home","nav.gal":"Gallery","nav.story":"Story","nav.menu":"Menu","nav.cellar":"Tasting room","nav.stay":"Stay","nav.book":"Reserve","nav.contact":"Contact",
 "menu":"Menu","close":"Close","hdr.book":"Reserve","prev":"Previous","next":"Next",
 "hero.eyebrow":"Farm stay · Motovun, Istria",
-"hero.body":"An Istrian farmhouse above the hills. Nearly everything on the table grows and ripens right here: wine, olive oil, pasta with truffles, meat from the farm.",
+"hero.body":"A family farm on the sunny hills of Motovun, with a tradition going back to 1780. Nearly everything on the table grows and ripens right here: wine, olive oil, vegetables, herbs and meat.",
 "hero.cta":"Reserve lunch","hero.score":"Google rating","hero.scoreSub":"509 guest reviews",
-"gal.title":"A first look at the farm","gal.sub":"The hills, the house, the cellar and the table, before you sit down.","loc.tag":"Motovun, Istria",
-"cap.1":"View towards Motovun","cap.2":"The house and the table","cap.3":"Vineyard and cellar","cap.4":"Homemade pasta with truffles","cap.5":"The dog in the olive grove",
+"gal.title":"A first look at the farm","gal.sub":"The hills, the farm, the tasting room and the table, before you sit down.","loc.tag":"Motovun, Istria",
+"cap.1":"View towards Motovun","cap.2":"The Štefanić farm","cap.3":"The tasting room","cap.4":"Home cooking","cap.5":"Staying on the farm",
 "intro.label":"Story","intro.title":"From the farm to the table, no detours",
-"intro.p1":"Štefanić is a family farm in the hamlet of Štefanići, just below Motovun. A vineyard, an olive grove, a vegetable garden and animals: nearly everything we serve starts there.",
-"intro.p2":"You are welcomed with a glass of local grappa, then the table arrives: freshly squeezed juices, corn soup, homemade pasta with truffle sauce, meat from the farm, our own wine and olive oil. And a dog who loves guests.",
+"intro.p1":"On the sunny hills of Motovun, the Štefanić family story begins back in 1780. Today it is a family farm in the hamlet of Štefanići: an olive grove, a vineyard, a vegetable garden, herbs and animals, and nearly everything we serve starts there.",
+"intro.p2":"We cook from our ancestors' recipes, using only fresh produce from the farm. You are welcomed with a glass of local grappa, then the table arrives: maneštra, pljukanci pasta with truffles, ombolo, homemade sausages, dishes from under the peka, our own wine and olive oil. And a dog who loves guests.",
 "intro.sign":"The Štefanić family",
-"st.1":"Google rating","st.2":"Reviews","st.3":"Days a week open: Saturday and Sunday","st.4":"Dog to greet you",
+"st.1":"Google rating","st.2":"Reviews","st.3":"Days a week open: Saturday and Sunday","st.4":"The year the Štefanić family story begins",
 "make.label":"What we make","make.title":"Nearly everything on the table is ours","make.lead":"Five things guests remember us for. All from the farm or next door.",
-"mk1.tag":"Our own wine","mk1.t":"Wine from our vineyard","mk1.p":"The wine you drink with lunch grows on the hills you see from the terrace.","mk1.b1":"With every lunch","mk1.b2":"Tasting in the cellar","mk1.l":"Wine cellar",
-"mk2.tag":"Olive oil","mk2.t":"Olive oil from our grove","mk2.p":"Our oil on bread, on vegetables, on everything that reaches the table.","mk2.b1":"From the farm","mk2.b2":"On the table at lunch",
-"mk3.tag":"Truffles","mk3.t":"Homemade pasta with truffles","mk3.p":"Hand-made pasta and truffle sauce from the forests around Motovun.","mk3.b1":"Hand-made","mk3.b2":"The dish people remember",
-"mk4.tag":"Meat from the farm","mk4.t":"Meat from the farm","mk4.p":"Pork and lamb from our farm, plus local beef steak.","mk4.b1":"Pork and lamb","mk4.b2":"Local beef steak",
+"mk1.tag":"Our own wine","mk1.t":"Wines from our vineyard","mk1.p":"Malvazija, a house blend and Yellow Muscat grow on the hills around the house.","mk1.b1":"Malvazija, house blend, Yellow Muscat","mk1.b2":"Tastings in our tasting room","mk1.l":"Tasting room",
+"mk2.tag":"Olive oil","mk2.t":"Award-winning olive oil","mk2.p":"Extra virgin olive oil from our own grove, made from hand-picked olives. On bread, on vegetables, on everything that reaches the table.","mk2.b1":"Hand-picked olives","mk2.b2":"Tastings in our tasting room",
+"mk3.tag":"Truffles","mk3.t":"Pljukanci and pasta with truffles","mk3.p":"Hand-rolled pljukanci and homemade pasta with truffles from the forests around Motovun.","mk3.b1":"Hand-made","mk3.b2":"The dish people remember",
+"mk4.tag":"Meat","mk4.t":"Meat, sausages and peka","mk4.p":"Ombolo, homemade sausages and dishes slow-cooked under the peka, plus pork and lamb from the farm and local beef steak.","mk4.b1":"Dishes under the peka","mk4.b2":"Ombolo and homemade sausages",
 "mk5.tag":"Freshly squeezed","mk5.t":"Freshly squeezed juices","mk5.p":"Fruit from the farm, squeezed the same day. For kids and for whoever is driving.","mk5.b1":"Fruit from the farm","mk5.b2":"Squeezed the same day",
 "mk.menu":"See the menu",
 "menu.label":"Tasting menu","menu.title":"A lunch that lasts all afternoon","menu.lead":"No fifty-dish card. We set the table with what is best on the farm that day.",
 "c1":"Welcome","c2":"To start","c3":"Main courses","c4":"Sweet and alongside","incl":"included",
 "d1":"A glass of local grappa<small>To begin, the way we say welcome</small>","d2":"Freshly squeezed juices<small>Fruit from the farm</small>",
-"d3":"Corn soup<small>Warm, thick, with our olive oil</small>","d4":"Vegetables from the farm<small>Whatever is ripe in the garden that week</small>",
-"d5":"Homemade pasta with truffle sauce<small>Hand-made pasta, truffles from the Motovun forests</small>","d6":"Pork and lamb from the farm<small>With vegetables from the garden</small>","d7":"Local beef steak<small>Local beef, our olive oil</small>",
-"d8":"Redcurrant panna cotta<small>Homemade dessert</small>","d9":"Our wine<small>From our own vineyard, by the glass or bottle</small>",
+"d3":"Istrian maneštra<small>A warm, thick vegetable soup with our olive oil</small>","d4":"Vegetables from the farm<small>Whatever is ripe in the garden that week</small>",
+"d5":"Pljukanci with truffles<small>Hand-rolled pasta, truffles from the Motovun forests</small>","d6":"Pork and lamb from the farm<small>With vegetables from the garden</small>","d7":"Local beef steak<small>Local beef, our olive oil</small>",
+"d8":"Redcurrant panna cotta<small>Homemade dessert</small>","d9":"Our wines<small>Malvazija, house blend and Yellow Muscat from our vineyard</small>",
 "menu.note":"Prices are examples for this proposal and do not reflect the actual offer. The final menu depends on the season and what is best on the farm that day.",
 "mc1.t":"Weekend lunch","mc1.p":"Saturday and Sunday, 12:00 to 21:00. Reservations recommended, especially for larger tables.",
 "mc2.t":"Groups and weekdays","mc2.p":"The restaurant is closed on weekdays. For groups we open by arrangement: message us on WhatsApp.","mc2.l":"Ask about a group",
-"cel.tag":"Wine cellar","cel.label":"Wine cellar","cel.title":"Go down to the cellar and taste what grows above",
-"cel.lead":"The cellar can be visited and our wine tasted there. Best before lunch, or instead of the afternoon coffee.",
-"cl1.t":"Cellar visit","cl1.p":"Where the wine rests and how it is made","cl2.t":"Tasting of our own wine","cl2.p":"With our olive oil and bread","cl3.t":"Several wineries nearby","cl3.p":"If you want to carry on with wine, we are happy to recommend the neighbours",
+"cel.tag":"Tasting room","cel.label":"Tasting room","cel.title":"Taste what grows on our hills",
+"cel.lead":"In our tasting room the hosts guide you through our award-winning olive oil and wines, with local bread, prosciutto and cheese. You learn how to pair oil and wine with food and hear the Štefanić family story.",
+"cl1.t":"Extra virgin olive oil","cl1.p":"How to recognise a quality oil and which olive varieties we use","cl2.t":"Malvazija","cl2.p":"A white wine with gentle floral notes and fresh acidity","cl3.t":"House blend","cl3.p":"Several grape varieties together, for meat dishes and mature cheeses",
 "cel.cta":"Ask about a tasting",
 "stay.label":"Stay","stay.title":"Stay on the farm and wake up above the hills",
-"stay.lead":"We also offer accommodation on the farm: rooms and apartments overlooking the vineyard and the surrounding hills. Ask us for availability.",
-"sb1":"Rooms and apartments on the farm","sb2":"Views over the hills and the vineyard","sb3":"Weekend lunch a few steps from your room","sb4":"Availability and prices on request","stay.cta":"Ask about a stay","stay.tag":"Rooms and apartments",
-"gtk.title":"Good to know","gtk.open":"Opening hours","gtk.openV":"Sat and Sun, 12:00 to 21:00","gtk.week":"Weekdays","gtk.weekV":"Closed, groups by arrangement","gtk.res":"Reservations","gtk.resV":"Recommended","gtk.dog":"Dog on the farm","gtk.dogV":"Friendly, loves guests","gtk.cel":"Wine cellar","gtk.celV":"Visits and tastings","gtk.pay":"Payment","gtk.payV":"Ask us",
-"near.label":"What's nearby","near.title":"Motovun on the hill, truffles in the valley, wine all around","near.1d":"Medieval hilltop town","near.2":"Nearby wineries","near.2d":"Several in the neighbourhood","near.3":"Truffle forests of the Mirna valley","near.3d":"Where the sauce comes from","near.cta":"Ask for tips",
-"book.label":"Reserve","book.title":"Reserve a table or ask about a room","book.lead":"Send your request straight to the family on WhatsApp. No platform, no payment up front.",
+"stay.lead":"On the farm we have one comfortable room for two, in a rustic style that blends traditional Istrian charm with modern comfort. Several more rooms are coming soon, for families, couples and groups of friends.",
+"sb1":"Room for two with a comfortable double bed","sb2":"Private bathroom with natural toiletries","sb3":"Views over the vineyards and olive groves","sb4":"Breakfast: homemade bread, cheese, prosciutto, fresh fruit, natural juices and coffee","stay.cta":"Ask about a stay","stay.tag":"Room for two",
+"gtk.title":"Good to know","gtk.open":"Opening hours","gtk.openV":"Sat and Sun, 12:00 to 21:00","gtk.week":"Weekdays","gtk.weekV":"Closed, groups by arrangement","gtk.res":"Reservations","gtk.resV":"Recommended","gtk.dog":"Dog on the farm","gtk.dogV":"Friendly, loves guests","gtk.cel":"Tasting room","gtk.celV":"Olive oil and wine tastings","gtk.pay":"Payment","gtk.payV":"Ask us",
+"near.label":"What's nearby","near.title":"Motovun on the hill, truffles in the valley, wine all around","near.1d":"Medieval hilltop town, a few minutes' drive","near.2":"Nearby wineries","near.2d":"Several in the neighbourhood","near.3":"Truffle forests of the Mirna valley","near.3d":"Where the sauce comes from","near.cta":"Ask for tips",
+"book.label":"Reserve","book.title":"Reserve a table, a tasting or the room","book.lead":"Send your request straight to the family on WhatsApp. No platform, no payment up front.",
 "b1.t":"Directly with the hosts","b1.p":"You arrange it with the people who will greet you and cook for you.","b2.t":"Fair prices","b2.p":"Food from the farm at prices guests regularly call fair.","b3.t":"A welcome grappa","b3.p":"You are welcomed with local grappa and a dog who says hello first.",
 "f.title":"Send a request","f.sub":"Choose what you are after, we reply on WhatsApp.","f.kind":"What are you after","f.lunch":"Lunch","f.stay":"Stay","f.date":"Date","f.date2":"Arrival date","f.g":"Guests","f.name":"Your name","f.less":"Fewer guests","f.more":"More guests",
 "f.send":"Send request on WhatsApp","f.note":"No payment, no account. Your request opens in WhatsApp, ready to send.",
@@ -1220,53 +1249,54 @@ en:{
 "q4":"How do we pay?","a4":"Ask us before you come and we will tell you which payment methods we accept.",
 "q5":"Do we need to reserve?","a5":"We recommend it, especially at weekends and for larger tables. The request goes to WhatsApp in seconds.",
 "loc.label":"Contact","loc.title":"Štefanići 55, below Motovun","loc.maps":"Open in Maps","map.scale":"STYLIZED, NOT TO SCALE",
-"ft.tag":"An Istrian farm just below Motovun. Wine, oil, truffles and meat from the farm.","ft.addr":"Address","ft.cro":"Croatia","ft.contact":"Phone and WhatsApp","ft.hours":"Sat and Sun 12:00 to 21:00<br>Weekdays: by arrangement","ft.rating":"Rating","ft.reviews":"509 reviews","ft.rights":"All rights reserved","ft.note":"Website proposal",
+"ft.tag":"A family farm just below Motovun, with a tradition going back to 1780. Restaurant, tasting room and stay.","ft.addr":"Address","ft.cro":"Croatia","ft.contact":"Phone and WhatsApp","ft.hours":"Sat and Sun 12:00 to 21:00<br>Weekdays: by arrangement","ft.rating":"Rating","ft.reviews":"509 reviews","ft.rights":"All rights reserved","ft.note":"Website proposal",
 "fab":"Reserve","bar.btn":"Send","bar.pick":"Choose a date","concept":"Concept by Marija",
 "s.lunch":"Weekend lunch","s.stay":"Stay on the farm","s.sat":"Saturday","s.any":"Weekend",
 "g1":"guest","g2":"guests","gN":"guests",
 "waL":"Hello, my name is {n}. We would like to reserve lunch at Agroturizam Štefanić on {d} for {g}. Is there a table?",
 "waS":"Hello, my name is {n}. We are interested in staying at the Štefanić farm, arriving {d}, {g}. Do you have availability?",
-"waHello":"Hello, I have a question about Agroturizam Štefanić."
+"waHello":"Hello, I have a question about Agroturizam Štefanić.",
+"d10":"Asparagus<small>In season, the Istrian way</small>","d11":"Ombolo and homemade sausages<small>Istrian classics</small>","d12":"Dishes under the peka<small>Slow-cooked under an iron bell</small>","d13":"Kroštule<small>Traditional homemade pastry</small>","cl4.t":"Yellow Muscat","cl4.p":"Aromatic, floral and fruity, lightly sweet, with dessert or on its own","cl5.t":"Bread, prosciutto and cheese","cl5.p":"Alongside the oil and wine, with the family story since 1780","sb5":"Availability and prices on request","gtk.stay":"Stay","gtk.stayV":"Room for two, more rooms soon","gtk.prod":"Our products","gtk.prodV":"Oil and wine from the farm, ask us","near.4d":"Cycle path along the old railway line","near.5":"Local markets","near.5d":"Produce from around the area","f.taste":"Tasting","s.taste":"Oil and wine tasting","f.stayMax":"The room sleeps two.","waT":"Hello, my name is {n}. We are interested in an olive oil and wine tasting at Štefanić on {d}, for {g}. Is that possible?","q6":"What do we taste in the tasting room?","a6":"Our extra virgin olive oil and wines from the farm: Malvazija, a house blend and Yellow Muscat, with local bread, prosciutto and cheese. The hosts guide you through it and tell you the family story.","q7":"How many guests can stay?","a7":"Right now we have one room for two, with a double bed and a private bathroom. Several more rooms are coming soon, so feel free to ask about larger groups too.","ft.email":"Email","ft.social":"Follow us"
 },
 de:{
-"nav.home":"Start","nav.gal":"Galerie","nav.story":"Geschichte","nav.menu":"Menü","nav.cellar":"Weinkeller","nav.stay":"Übernachten","nav.book":"Reservieren","nav.contact":"Kontakt",
+"nav.home":"Start","nav.gal":"Galerie","nav.story":"Geschichte","nav.menu":"Menü","nav.cellar":"Verkostungsraum","nav.stay":"Übernachten","nav.book":"Reservieren","nav.contact":"Kontakt",
 "menu":"Menü","close":"Schließen","hdr.book":"Reservieren","prev":"Zurück","next":"Weiter",
 "hero.eyebrow":"Agrotourismus · Motovun, Istrien",
-"hero.body":"Ein istrischer Bauernhof über den Hügeln. Fast alles auf dem Tisch wächst und reift genau hier: Wein, Olivenöl, Pasta mit Trüffeln, Fleisch vom Hof.",
+"hero.body":"Ein Familienhof auf den sonnigen Hügeln von Motovun, mit einer Tradition, die bis 1780 zurückreicht. Fast alles auf dem Tisch wächst und reift genau hier: Wein, Olivenöl, Gemüse, Kräuter und Fleisch.",
 "hero.cta":"Mittagessen reservieren","hero.score":"Google-Bewertung","hero.scoreSub":"509 Gästebewertungen",
-"gal.title":"Ein erster Blick auf den Hof","gal.sub":"Hügel, Haus, Keller und Tisch, bevor Sie Platz nehmen.","loc.tag":"Motovun, Istrien",
-"cap.1":"Blick auf Motovun","cap.2":"Haus und Tisch","cap.3":"Weinberg und Keller","cap.4":"Hausgemachte Pasta mit Trüffeln","cap.5":"Der Hund im Olivenhain",
+"gal.title":"Ein erster Blick auf den Hof","gal.sub":"Hügel, Hof, Verkostungsraum und Tisch, bevor Sie Platz nehmen.","loc.tag":"Motovun, Istrien",
+"cap.1":"Blick auf Motovun","cap.2":"Der Hof Štefanić","cap.3":"Der Verkostungsraum","cap.4":"Hausmannskost","cap.5":"Übernachten auf dem Hof",
 "intro.label":"Geschichte","intro.title":"Vom Hof auf den Tisch, ohne Umwege",
-"intro.p1":"Štefanić ist ein Familienhof im Weiler Štefanići, direkt unterhalb von Motovun. Weinberg, Olivenhain, Gemüsegarten und Tiere: Fast alles, was wir servieren, beginnt dort.",
-"intro.p2":"Zur Begrüßung gibt es ein Glas einheimischen Grappa, dann kommt der Tisch: frisch gepresste Säfte, Maissuppe, hausgemachte Pasta mit Trüffelsauce, Fleisch vom Hof, eigener Wein und eigenes Olivenöl. Und ein Hund, der Gäste liebt.",
+"intro.p1":"Auf den sonnigen Hügeln von Motovun beginnt die Geschichte der Familie Štefanić im Jahr 1780. Heute ist es ein Familienbetrieb im Weiler Štefanići: Olivenhain, Weinberg, Gemüsegarten, Kräuter und Tiere. Fast alles, was wir servieren, beginnt dort.",
+"intro.p2":"Wir kochen nach den Rezepten unserer Vorfahren, nur mit frischen Zutaten vom Hof. Zur Begrüßung gibt es ein Glas einheimischen Grappa, dann kommt der Tisch: Maneštra, Pljukanci mit Trüffeln, Ombolo, hausgemachte Würste, Gerichte unter der Peka, eigener Wein und eigenes Olivenöl. Und ein Hund, der Gäste liebt.",
 "intro.sign":"Familie Štefanić",
-"st.1":"Google-Bewertung","st.2":"Bewertungen","st.3":"Tage pro Woche geöffnet: Samstag und Sonntag","st.4":"Hund, der Sie begrüßt",
+"st.1":"Google-Bewertung","st.2":"Bewertungen","st.3":"Tage pro Woche geöffnet: Samstag und Sonntag","st.4":"Das Jahr, in dem die Geschichte der Familie Štefanić beginnt",
 "make.label":"Was wir machen","make.title":"Fast alles auf dem Tisch ist von uns","make.lead":"Fünf Dinge, für die Gäste uns in Erinnerung behalten. Alles vom Hof oder aus der Nachbarschaft.",
-"mk1.tag":"Eigener Wein","mk1.t":"Wein aus unserem Weinberg","mk1.p":"Der Wein zum Mittagessen wächst auf den Hügeln, die Sie von der Terrasse sehen.","mk1.b1":"Zu jedem Mittagessen","mk1.b2":"Verkostung im Keller","mk1.l":"Weinkeller",
-"mk2.tag":"Olivenöl","mk2.t":"Olivenöl aus unserem Hain","mk2.p":"Unser Öl auf Brot, auf Gemüse, auf allem, was auf den Tisch kommt.","mk2.b1":"Vom Hof","mk2.b2":"Beim Mittagessen auf dem Tisch",
-"mk3.tag":"Trüffel","mk3.t":"Hausgemachte Pasta mit Trüffeln","mk3.p":"Handgemachte Pasta und Trüffelsauce aus den Wäldern rund um Motovun.","mk3.b1":"Handgemacht","mk3.b2":"Das Gericht, an das man sich erinnert",
-"mk4.tag":"Fleisch vom Hof","mk4.t":"Fleisch vom Hof","mk4.p":"Schwein und Lamm von unserem Hof sowie Steak vom regionalen Rind.","mk4.b1":"Schwein und Lamm","mk4.b2":"Steak vom regionalen Rind",
+"mk1.tag":"Eigener Wein","mk1.t":"Weine aus unserem Weinberg","mk1.p":"Malvazija, eine Cuvée und Gelber Muskateller wachsen auf den Hügeln rund ums Haus.","mk1.b1":"Malvazija, Cuvée, Gelber Muskateller","mk1.b2":"Verkostung im Verkostungsraum","mk1.l":"Verkostungsraum",
+"mk2.tag":"Olivenöl","mk2.t":"Preisgekröntes Olivenöl","mk2.p":"Natives Olivenöl extra aus dem eigenen Hain, aus handgepflückten Oliven. Auf Brot, auf Gemüse, auf allem, was auf den Tisch kommt.","mk2.b1":"Handgepflückte Oliven","mk2.b2":"Verkostung im Verkostungsraum",
+"mk3.tag":"Trüffel","mk3.t":"Pljukanci und Pasta mit Trüffeln","mk3.p":"Handgerollte Pljukanci und hausgemachte Pasta mit Trüffeln aus den Wäldern rund um Motovun.","mk3.b1":"Handgemacht","mk3.b2":"Das Gericht, an das man sich erinnert",
+"mk4.tag":"Fleisch","mk4.t":"Fleisch, Würste und Peka","mk4.p":"Ombolo, hausgemachte Würste und Gerichte unter der Peka, dazu Schwein und Lamm vom Hof und Steak vom regionalen Rind.","mk4.b1":"Gerichte unter der Peka","mk4.b2":"Ombolo und hausgemachte Würste",
 "mk5.tag":"Frisch gepresst","mk5.t":"Frisch gepresste Säfte","mk5.p":"Obst vom Hof, am selben Tag gepresst. Für Kinder und für alle, die fahren.","mk5.b1":"Obst vom Hof","mk5.b2":"Am selben Tag gepresst",
 "mk.menu":"Menü ansehen",
 "menu.label":"Degustationsmenü","menu.title":"Ein Mittagessen, das den ganzen Nachmittag dauert","menu.lead":"Keine Karte mit fünfzig Gerichten. Wir decken den Tisch mit dem, was an diesem Tag auf dem Hof am besten ist.",
 "c1":"Begrüßung","c2":"Zum Anfang","c3":"Hauptgerichte","c4":"Süßes und dazu","incl":"inklusive",
 "d1":"Ein Glas einheimischer Grappa<small>Zum Anfang, so begrüßt man bei uns</small>","d2":"Frisch gepresste Säfte<small>Obst vom Hof</small>",
-"d3":"Maissuppe<small>Warm, dick, mit unserem Olivenöl</small>","d4":"Gemüse vom Hof<small>Was in dieser Woche im Garten reif ist</small>",
-"d5":"Hausgemachte Pasta mit Trüffelsauce<small>Handgemachte Pasta, Trüffel aus den Wäldern von Motovun</small>","d6":"Schwein und Lamm vom Hof<small>Mit Gemüse aus dem Garten</small>","d7":"Steak vom regionalen Rind<small>Regionales Rind, unser Olivenöl</small>",
-"d8":"Panna cotta mit Johannisbeeren<small>Hausgemachtes Dessert</small>","d9":"Unser Wein<small>Aus eigenem Weinberg, im Glas oder als Flasche</small>",
+"d3":"Istrische Maneštra<small>Warmer, dicker Gemüseeintopf mit unserem Olivenöl</small>","d4":"Gemüse vom Hof<small>Was in dieser Woche im Garten reif ist</small>",
+"d5":"Pljukanci mit Trüffeln<small>Handgerollte Pasta, Trüffel aus den Wäldern von Motovun</small>","d6":"Schwein und Lamm vom Hof<small>Mit Gemüse aus dem Garten</small>","d7":"Steak vom regionalen Rind<small>Regionales Rind, unser Olivenöl</small>",
+"d8":"Panna cotta mit Johannisbeeren<small>Hausgemachtes Dessert</small>","d9":"Unsere Weine<small>Malvazija, Cuvée und Gelber Muskateller aus eigenem Weinberg</small>",
 "menu.note":"Die Preise sind Beispiele für diesen Entwurf und entsprechen nicht dem tatsächlichen Angebot. Das endgültige Menü hängt von der Saison ab und davon, was an diesem Tag auf dem Hof am besten ist.",
 "mc1.t":"Mittagessen am Wochenende","mc1.p":"Samstag und Sonntag, 12:00 bis 21:00. Reservierung empfohlen, besonders für größere Tische.",
 "mc2.t":"Gruppen und Wochentage","mc2.p":"Unter der Woche ist das Restaurant geschlossen. Für Gruppen öffnen wir nach Vereinbarung: Schreiben Sie uns auf WhatsApp.","mc2.l":"Für eine Gruppe anfragen",
-"cel.tag":"Weinkeller","cel.label":"Weinkeller","cel.title":"Steigen Sie in den Keller und kosten Sie, was oben wächst",
-"cel.lead":"Der Keller kann besichtigt und unser Wein dort verkostet werden. Am besten vor dem Mittagessen oder statt des Nachmittagskaffees.",
-"cl1.t":"Kellerbesichtigung","cl1.p":"Wo der Wein reift und wie er entsteht","cl2.t":"Verkostung des eigenen Weins","cl2.p":"Mit unserem Olivenöl und Brot","cl3.t":"Mehrere Weingüter in der Nähe","cl3.p":"Wenn Sie den Tag mit Wein fortsetzen möchten, empfehlen wir gern die Nachbarn",
+"cel.tag":"Verkostungsraum","cel.label":"Verkostungsraum","cel.title":"Kosten Sie, was auf unseren Hügeln wächst",
+"cel.lead":"Im Verkostungsraum führen Sie die Gastgeber durch unser preisgekröntes Olivenöl und unsere Weine, dazu Brot, Pršut und Käse aus der Region. Sie erfahren, wie man Öl und Wein mit Speisen kombiniert, und hören die Geschichte der Familie Štefanić.",
+"cl1.t":"Natives Olivenöl extra","cl1.p":"Woran man gutes Öl erkennt und welche Olivensorten wir verwenden","cl2.t":"Malvazija","cl2.p":"Weißwein mit sanften Blütennoten und frischer Säure","cl3.t":"Cuvée","cl3.p":"Mehrere Rebsorten vereint, zu Fleischgerichten und reifem Käse",
 "cel.cta":"Nach einer Verkostung fragen",
 "stay.label":"Übernachten","stay.title":"Bleiben Sie auf dem Hof und wachen Sie über den Hügeln auf",
-"stay.lead":"Wir bieten auch Unterkünfte auf dem Hof: Zimmer und Apartments mit Blick auf den Weinberg und die umliegenden Hügel. Fragen Sie uns nach freien Terminen.",
-"sb1":"Zimmer und Apartments auf dem Hof","sb2":"Blick auf Hügel und Weinberg","sb3":"Mittagessen am Wochenende, wenige Schritte vom Zimmer","sb4":"Verfügbarkeit und Preise auf Anfrage","stay.cta":"Nach einer Unterkunft fragen","stay.tag":"Zimmer und Apartments",
-"gtk.title":"Gut zu wissen","gtk.open":"Öffnungszeiten","gtk.openV":"Sa und So, 12:00 bis 21:00","gtk.week":"Wochentage","gtk.weekV":"Geschlossen, Gruppen nach Vereinbarung","gtk.res":"Reservierungen","gtk.resV":"Empfohlen","gtk.dog":"Hund auf dem Hof","gtk.dogV":"Freundlich, liebt Gäste","gtk.cel":"Weinkeller","gtk.celV":"Besichtigung und Verkostung","gtk.pay":"Bezahlung","gtk.payV":"Fragen Sie uns",
-"near.label":"In der Nähe","near.title":"Motovun auf dem Hügel, Trüffel im Tal, Wein überall","near.1d":"Mittelalterliche Hügelstadt","near.2":"Weingüter in der Nähe","near.2d":"Mehrere in der Nachbarschaft","near.3":"Trüffelwälder des Mirna-Tals","near.3d":"Woher die Sauce kommt","near.cta":"Nach Tipps fragen",
-"book.label":"Reservieren","book.title":"Reservieren Sie einen Tisch oder fragen Sie nach einem Zimmer","book.lead":"Schicken Sie Ihre Anfrage direkt an die Familie auf WhatsApp. Kein Portal, keine Vorauszahlung.",
+"stay.lead":"Auf dem Hof haben wir ein gemütliches Zimmer für zwei Personen, im rustikalen Stil, der traditionellen istrischen Charme mit modernem Komfort verbindet. Bald kommen weitere Zimmer dazu, für Familien, Paare und Freundesgruppen.",
+"sb1":"Zimmer für zwei mit bequemem Doppelbett","sb2":"Eigenes Bad mit Naturkosmetik","sb3":"Blick auf Weinberge und Olivenhaine","sb4":"Frühstück: hausgemachtes Brot, Käse, Pršut, frisches Obst, natürliche Säfte und Kaffee","stay.cta":"Nach einer Unterkunft fragen","stay.tag":"Zimmer für zwei",
+"gtk.title":"Gut zu wissen","gtk.open":"Öffnungszeiten","gtk.openV":"Sa und So, 12:00 bis 21:00","gtk.week":"Wochentage","gtk.weekV":"Geschlossen, Gruppen nach Vereinbarung","gtk.res":"Reservierungen","gtk.resV":"Empfohlen","gtk.dog":"Hund auf dem Hof","gtk.dogV":"Freundlich, liebt Gäste","gtk.cel":"Verkostungsraum","gtk.celV":"Öl- und Weinverkostung","gtk.pay":"Bezahlung","gtk.payV":"Fragen Sie uns",
+"near.label":"In der Nähe","near.title":"Motovun auf dem Hügel, Trüffel im Tal, Wein überall","near.1d":"Mittelalterliche Hügelstadt, wenige Autominuten entfernt","near.2":"Weingüter in der Nähe","near.2d":"Mehrere in der Nachbarschaft","near.3":"Trüffelwälder des Mirna-Tals","near.3d":"Woher die Sauce kommt","near.cta":"Nach Tipps fragen",
+"book.label":"Reservieren","book.title":"Reservieren Sie einen Tisch, eine Verkostung oder das Zimmer","book.lead":"Schicken Sie Ihre Anfrage direkt an die Familie auf WhatsApp. Kein Portal, keine Vorauszahlung.",
 "b1.t":"Direkt mit den Gastgebern","b1.p":"Sie sprechen mit den Menschen, die Sie begrüßen und für Sie kochen.","b2.t":"Faire Preise","b2.p":"Essen vom Hof zu Preisen, die Gäste regelmäßig als fair bezeichnen.","b3.t":"Ein Grappa zur Begrüßung","b3.p":"Sie werden mit einheimischem Grappa begrüßt, und der Hund sagt zuerst Hallo.",
 "f.title":"Anfrage senden","f.sub":"Wählen Sie, was Sie interessiert, wir antworten auf WhatsApp.","f.kind":"Was interessiert Sie","f.lunch":"Mittagessen","f.stay":"Übernachten","f.date":"Datum","f.date2":"Anreisedatum","f.g":"Gäste","f.name":"Ihr Name","f.less":"Weniger Gäste","f.more":"Mehr Gäste",
 "f.send":"Anfrage per WhatsApp senden","f.note":"Keine Zahlung, kein Konto. Ihre Anfrage öffnet sich in WhatsApp, bereit zum Senden.",
@@ -1279,53 +1309,54 @@ de:{
 "q4":"Wie bezahlen wir?","a4":"Fragen Sie uns vor Ihrem Besuch, wir sagen Ihnen gern, welche Zahlungsarten wir annehmen.",
 "q5":"Müssen wir reservieren?","a5":"Wir empfehlen es, besonders am Wochenende und für größere Tische. Die Anfrage geht in Sekunden an WhatsApp.",
 "loc.label":"Kontakt","loc.title":"Štefanići 55, unterhalb von Motovun","loc.maps":"In Karten öffnen","map.scale":"STILISIERT, NICHT MASSSTABSGETREU",
-"ft.tag":"Ein istrischer Hof direkt unterhalb von Motovun. Wein, Öl, Trüffel und Fleisch vom Hof.","ft.addr":"Adresse","ft.cro":"Kroatien","ft.contact":"Telefon und WhatsApp","ft.hours":"Sa und So 12:00 bis 21:00<br>Wochentage: nach Vereinbarung","ft.rating":"Bewertung","ft.reviews":"509 Bewertungen","ft.rights":"Alle Rechte vorbehalten","ft.note":"Website-Entwurf",
+"ft.tag":"Ein Familienhof direkt unterhalb von Motovun, mit Tradition seit 1780. Restaurant, Verkostungsraum und Unterkunft.","ft.addr":"Adresse","ft.cro":"Kroatien","ft.contact":"Telefon und WhatsApp","ft.hours":"Sa und So 12:00 bis 21:00<br>Wochentage: nach Vereinbarung","ft.rating":"Bewertung","ft.reviews":"509 Bewertungen","ft.rights":"Alle Rechte vorbehalten","ft.note":"Website-Entwurf",
 "fab":"Reservieren","bar.btn":"Senden","bar.pick":"Datum wählen","concept":"Konzept: Marija",
 "s.lunch":"Mittagessen am Wochenende","s.stay":"Übernachten auf dem Hof","s.sat":"Samstag","s.any":"Wochenende",
 "g1":"Gast","g2":"Gäste","gN":"Gäste",
 "waL":"Hallo, mein Name ist {n}. Wir möchten am {d} ein Mittagessen im Agroturizam Štefanić für {g} reservieren. Ist noch ein Tisch frei?",
 "waS":"Hallo, mein Name ist {n}. Wir interessieren uns für eine Unterkunft auf dem Hof Štefanić, Anreise {d}, {g}. Haben Sie etwas frei?",
-"waHello":"Hallo, ich habe eine Frage zum Agroturizam Štefanić."
+"waHello":"Hallo, ich habe eine Frage zum Agroturizam Štefanić.",
+"d10":"Spargel<small>In der Saison, auf istrische Art</small>","d11":"Ombolo und hausgemachte Würste<small>Istrische Klassiker</small>","d12":"Gerichte unter der Peka<small>Langsam gegart unter der Eisenglocke</small>","d13":"Kroštule<small>Traditionelles hausgemachtes Gebäck</small>","cl4.t":"Gelber Muskateller","cl4.p":"Aromatisch, blumig und fruchtig, leicht süß, zum Dessert oder pur","cl5.t":"Brot, Pršut und Käse","cl5.p":"Zu Öl und Wein, dazu die Familiengeschichte seit 1780","sb5":"Verfügbarkeit und Preise auf Anfrage","gtk.stay":"Übernachten","gtk.stayV":"Zimmer für zwei, bald mehr Zimmer","gtk.prod":"Unsere Produkte","gtk.prodV":"Öl und Wein vom Hof, fragen Sie uns","near.4d":"Radweg auf der alten Bahntrasse","near.5":"Lokale Märkte","near.5d":"Erzeugnisse aus der Umgebung","f.taste":"Verkostung","s.taste":"Öl- und Weinverkostung","f.stayMax":"Das Zimmer ist für zwei Personen.","waT":"Hallo, mein Name ist {n}. Wir interessieren uns für eine Öl- und Weinverkostung bei Štefanić am {d}, für {g}. Ist das möglich?","q6":"Was wird im Verkostungsraum verkostet?","a6":"Unser natives Olivenöl extra und die Weine vom Hof: Malvazija, Cuvée und Gelber Muskateller, dazu Brot, Pršut und Käse aus der Region. Die Gastgeber führen Sie durch die Verkostung und erzählen die Familiengeschichte.","q7":"Wie viele Gäste können übernachten?","a7":"Derzeit haben wir ein Zimmer für zwei Personen, mit Doppelbett und eigenem Bad. Bald kommen weitere Zimmer dazu, fragen Sie also gern auch für größere Gruppen.","ft.email":"E-Mail","ft.social":"Folgen Sie uns"
 },
 it:{
-"nav.home":"Home","nav.gal":"Galleria","nav.story":"Storia","nav.menu":"Menù","nav.cellar":"Cantina","nav.stay":"Soggiorno","nav.book":"Prenota","nav.contact":"Contatti",
+"nav.home":"Home","nav.gal":"Galleria","nav.story":"Storia","nav.menu":"Menù","nav.cellar":"Sala degustazione","nav.stay":"Soggiorno","nav.book":"Prenota","nav.contact":"Contatti",
 "menu":"Menu","close":"Chiudi","hdr.book":"Prenota","prev":"Precedente","next":"Successiva",
 "hero.eyebrow":"Agriturismo · Montona, Istria",
-"hero.body":"Un casale istriano sopra le colline. Quasi tutto ciò che arriva in tavola cresce e matura qui: vino, olio d'oliva, pasta al tartufo, carne della fattoria.",
+"hero.body":"Una fattoria di famiglia sulle colline soleggiate di Montona, con una tradizione che risale al 1780. Quasi tutto ciò che arriva in tavola cresce e matura qui: vino, olio d'oliva, verdure, erbe aromatiche e carne.",
 "hero.cta":"Prenota il pranzo","hero.score":"Valutazione Google","hero.scoreSub":"509 recensioni degli ospiti",
-"gal.title":"Un primo sguardo alla fattoria","gal.sub":"Le colline, la casa, la cantina e la tavola, prima di sedersi.","loc.tag":"Montona, Istria",
-"cap.1":"Vista verso Montona","cap.2":"La casa e la tavola","cap.3":"Vigneto e cantina","cap.4":"Pasta fatta in casa al tartufo","cap.5":"Il cane nell'uliveto",
+"gal.title":"Un primo sguardo alla fattoria","gal.sub":"Le colline, la fattoria, la sala degustazione e la tavola, prima di sedervi.","loc.tag":"Montona, Istria",
+"cap.1":"Vista verso Montona","cap.2":"La fattoria Štefanić","cap.3":"La sala degustazione","cap.4":"Cucina di casa","cap.5":"Soggiorno in fattoria",
 "intro.label":"Storia","intro.title":"Dalla fattoria alla tavola, senza deviazioni",
-"intro.p1":"Štefanić è una fattoria di famiglia nella frazione di Štefanići, appena sotto Montona. Vigneto, uliveto, orto e animali: quasi tutto ciò che serviamo nasce lì.",
-"intro.p2":"Vi accoglie un bicchierino di grappa locale, poi arriva la tavola: succhi appena spremuti, zuppa di mais, pasta fatta in casa al sugo di tartufo, carne della fattoria, il nostro vino e il nostro olio. E un cane che adora gli ospiti.",
+"intro.p1":"Sulle colline soleggiate di Montona la storia della famiglia Štefanić comincia nel lontano 1780. Oggi è un'azienda agricola di famiglia nella frazione di Štefanići: uliveto, vigneto, orto, erbe aromatiche e animali. Quasi tutto ciò che serviamo nasce lì.",
+"intro.p2":"Cuciniamo con le ricette dei nostri antenati, solo con ingredienti freschi della fattoria. Vi accoglie un bicchierino di grappa locale, poi arriva la tavola: maneštra, pljukanci al tartufo, ombolo, salsicce fatte in casa, piatti sotto la peka, il nostro vino e il nostro olio. E un cane che adora gli ospiti.",
 "intro.sign":"La famiglia Štefanić",
-"st.1":"Valutazione Google","st.2":"Recensioni","st.3":"Giorni a settimana aperti: sabato e domenica","st.4":"Cane che vi accoglie",
+"st.1":"Valutazione Google","st.2":"Recensioni","st.3":"Giorni a settimana aperti: sabato e domenica","st.4":"L'anno in cui inizia la storia della famiglia Štefanić",
 "make.label":"Cosa facciamo","make.title":"Quasi tutto in tavola è nostro","make.lead":"Cinque cose per cui gli ospiti ci ricordano. Tutto dalla fattoria o dai vicini.",
-"mk1.tag":"Vino nostro","mk1.t":"Vino del nostro vigneto","mk1.p":"Il vino che bevete a pranzo cresce sulle colline che vedete dalla terrazza.","mk1.b1":"Con ogni pranzo","mk1.b2":"Degustazione in cantina","mk1.l":"Cantina",
-"mk2.tag":"Olio d'oliva","mk2.t":"Olio del nostro uliveto","mk2.p":"Il nostro olio sul pane, sulle verdure, su tutto ciò che arriva in tavola.","mk2.b1":"Dalla fattoria","mk2.b2":"In tavola a pranzo",
-"mk3.tag":"Tartufi","mk3.t":"Pasta fatta in casa al tartufo","mk3.p":"Pasta fatta a mano e sugo di tartufo dei boschi intorno a Montona.","mk3.b1":"Fatta a mano","mk3.b2":"Il piatto che si ricorda",
-"mk4.tag":"Carne della fattoria","mk4.t":"Carne della fattoria","mk4.p":"Maiale e agnello della nostra fattoria, più bistecca di manzo locale.","mk4.b1":"Maiale e agnello","mk4.b2":"Bistecca di manzo locale",
+"mk1.tag":"Vino nostro","mk1.t":"Vini del nostro vigneto","mk1.p":"Malvasia, un uvaggio e Moscato giallo crescono sulle colline intorno alla casa.","mk1.b1":"Malvasia, uvaggio, Moscato giallo","mk1.b2":"Degustazione in sala","mk1.l":"Sala degustazione",
+"mk2.tag":"Olio d'oliva","mk2.t":"Olio d'oliva premiato","mk2.p":"Olio extravergine del nostro uliveto, da olive raccolte a mano. Sul pane, sulle verdure, su tutto ciò che arriva in tavola.","mk2.b1":"Olive raccolte a mano","mk2.b2":"Degustazione in sala",
+"mk3.tag":"Tartufi","mk3.t":"Pljukanci e pasta al tartufo","mk3.p":"Pljukanci fatti a mano e pasta fatta in casa al tartufo dei boschi intorno a Montona.","mk3.b1":"Fatti a mano","mk3.b2":"Il piatto che si ricorda",
+"mk4.tag":"Carne","mk4.t":"Carne, salsicce e peka","mk4.p":"Ombolo, salsicce fatte in casa e piatti cotti sotto la peka, con maiale e agnello della fattoria e bistecca di manzo locale.","mk4.b1":"Piatti sotto la peka","mk4.b2":"Ombolo e salsicce fatte in casa",
 "mk5.tag":"Appena spremuti","mk5.t":"Succhi appena spremuti","mk5.p":"Frutta della fattoria, spremuta lo stesso giorno. Per i bambini e per chi guida.","mk5.b1":"Frutta della fattoria","mk5.b2":"Spremuta lo stesso giorno",
 "mk.menu":"Vedi il menù",
 "menu.label":"Menù degustazione","menu.title":"Un pranzo che dura tutto il pomeriggio","menu.lead":"Nessuna carta da cinquanta piatti. Prepariamo la tavola con il meglio della fattoria quel giorno.",
 "c1":"Benvenuto","c2":"Per cominciare","c3":"Piatti principali","c4":"Dolce e in tavola","incl":"incluso",
 "d1":"Un bicchierino di grappa locale<small>Per cominciare, così si accoglie da noi</small>","d2":"Succhi appena spremuti<small>Frutta della fattoria</small>",
-"d3":"Zuppa di mais<small>Calda, densa, con il nostro olio</small>","d4":"Verdure della fattoria<small>Quello che è maturo nell'orto quella settimana</small>",
-"d5":"Pasta fatta in casa al sugo di tartufo<small>Pasta fatta a mano, tartufi dei boschi di Montona</small>","d6":"Maiale e agnello della fattoria<small>Con verdure dell'orto</small>","d7":"Bistecca di manzo locale<small>Manzo locale, il nostro olio</small>",
-"d8":"Panna cotta al ribes<small>Dolce fatto in casa</small>","d9":"Il nostro vino<small>Dal nostro vigneto, al calice o in bottiglia</small>",
+"d3":"Maneštra istriana<small>Minestra calda e densa con il nostro olio</small>","d4":"Verdure della fattoria<small>Quello che è maturo nell'orto quella settimana</small>",
+"d5":"Pljukanci al tartufo<small>Pasta fatta a mano, tartufi dei boschi di Montona</small>","d6":"Maiale e agnello della fattoria<small>Con verdure dell'orto</small>","d7":"Bistecca di manzo locale<small>Manzo locale, il nostro olio</small>",
+"d8":"Panna cotta al ribes<small>Dolce fatto in casa</small>","d9":"I nostri vini<small>Malvasia, uvaggio e Moscato giallo dal nostro vigneto</small>",
 "menu.note":"I prezzi sono esempi per questa proposta e non corrispondono all'offerta reale. Il menù finale dipende dalla stagione e da ciò che è meglio in fattoria quel giorno.",
 "mc1.t":"Pranzo del weekend","mc1.p":"Sabato e domenica, 12:00 alle 21:00. Prenotazione consigliata, soprattutto per i tavoli grandi.",
 "mc2.t":"Gruppi e giorni feriali","mc2.p":"Nei giorni feriali il ristorante è chiuso. Per i gruppi apriamo su accordo: scriveteci su WhatsApp.","mc2.l":"Chiedi per un gruppo",
-"cel.tag":"Cantina","cel.label":"Cantina","cel.title":"Scendete in cantina e assaggiate ciò che cresce sopra",
-"cel.lead":"La cantina si può visitare e lì degustare il nostro vino. Meglio prima di pranzo, o al posto del caffè del pomeriggio.",
-"cl1.t":"Visita della cantina","cl1.p":"Dove riposa il vino e come nasce","cl2.t":"Degustazione del nostro vino","cl2.p":"Con il nostro olio e il pane","cl3.t":"Diverse cantine nei dintorni","cl3.p":"Se volete continuare la giornata con il vino, consigliamo volentieri i vicini",
+"cel.tag":"Sala degustazione","cel.label":"Sala degustazione","cel.title":"Assaggiate ciò che cresce sulle nostre colline",
+"cel.lead":"Nella sala degustazione i padroni di casa vi guidano tra il nostro olio premiato e i nostri vini, con pane, prosciutto e formaggio locali. Imparerete ad abbinare olio e vino ai piatti e ascolterete la storia della famiglia Štefanić.",
+"cl1.t":"Olio extravergine d'oliva","cl1.p":"Come riconoscere un olio di qualità e quali varietà di olive usiamo","cl2.t":"Malvasia","cl2.p":"Vino bianco con delicate note floreali e acidità fresca","cl3.t":"Uvaggio","cl3.p":"Più varietà insieme, per piatti di carne e formaggi stagionati",
 "cel.cta":"Chiedi una degustazione",
 "stay.label":"Soggiorno","stay.title":"Restate in fattoria e svegliatevi sopra le colline",
-"stay.lead":"Offriamo anche alloggio in fattoria: camere e appartamenti con vista sul vigneto e sulle colline. Chiedeteci la disponibilità.",
-"sb1":"Camere e appartamenti in fattoria","sb2":"Vista sulle colline e sul vigneto","sb3":"Pranzo del weekend a pochi passi dalla camera","sb4":"Disponibilità e prezzi su richiesta","stay.cta":"Chiedi per il soggiorno","stay.tag":"Camere e appartamenti",
-"gtk.title":"Buono a sapersi","gtk.open":"Orari","gtk.openV":"Sab e dom, 12:00 alle 21:00","gtk.week":"Giorni feriali","gtk.weekV":"Chiuso, gruppi su accordo","gtk.res":"Prenotazioni","gtk.resV":"Consigliate","gtk.dog":"Cane in fattoria","gtk.dogV":"Amichevole, adora gli ospiti","gtk.cel":"Cantina","gtk.celV":"Visite e degustazioni","gtk.pay":"Pagamento","gtk.payV":"Chiedeteci",
-"near.label":"Nei dintorni","near.title":"Montona sulla collina, tartufi nella valle, vino tutto intorno","near.1d":"Borgo medievale sulla collina","near.2":"Cantine vicine","near.2d":"Diverse nei dintorni","near.3":"Boschi di tartufo della valle del Quieto","near.3d":"Da dove arriva il sugo","near.cta":"Chiedi consigli",
-"book.label":"Prenota","book.title":"Prenotate un tavolo o chiedete una camera","book.lead":"Inviate la richiesta direttamente alla famiglia su WhatsApp. Nessuna piattaforma, nessun pagamento anticipato.",
+"stay.lead":"In fattoria abbiamo una camera confortevole per due persone, in stile rustico, che unisce il fascino tradizionale istriano al comfort moderno. Presto arriveranno altre camere, per famiglie, coppie e gruppi di amici.",
+"sb1":"Camera per due con un comodo letto matrimoniale","sb2":"Bagno privato con cosmetici naturali","sb3":"Vista su vigneti e uliveti","sb4":"Colazione: pane fatto in casa, formaggio, prosciutto, frutta fresca, succhi naturali e caffè","stay.cta":"Chiedi per il soggiorno","stay.tag":"Camera per due",
+"gtk.title":"Buono a sapersi","gtk.open":"Orari","gtk.openV":"Sab e dom, 12:00 alle 21:00","gtk.week":"Giorni feriali","gtk.weekV":"Chiuso, gruppi su accordo","gtk.res":"Prenotazioni","gtk.resV":"Consigliate","gtk.dog":"Cane in fattoria","gtk.dogV":"Amichevole, adora gli ospiti","gtk.cel":"Sala degustazione","gtk.celV":"Degustazione di olio e vino","gtk.pay":"Pagamento","gtk.payV":"Chiedeteci",
+"near.label":"Nei dintorni","near.title":"Montona sulla collina, tartufi nella valle, vino tutto intorno","near.1d":"Borgo medievale sulla collina, a pochi minuti d'auto","near.2":"Cantine vicine","near.2d":"Diverse nei dintorni","near.3":"Boschi di tartufo della valle del Quieto","near.3d":"Da dove arriva il sugo","near.cta":"Chiedi consigli",
+"book.label":"Prenota","book.title":"Prenotate un tavolo, una degustazione o la camera","book.lead":"Inviate la richiesta direttamente alla famiglia su WhatsApp. Nessuna piattaforma, nessun pagamento anticipato.",
 "b1.t":"Direttamente con i padroni di casa","b1.p":"Vi accordate con le persone che vi accoglieranno e cucineranno per voi.","b2.t":"Prezzi onesti","b2.p":"Cibo della fattoria a prezzi che gli ospiti definiscono regolarmente onesti.","b3.t":"Una grappa di benvenuto","b3.p":"Vi accolgono la grappa locale e un cane che saluta per primo.",
 "f.title":"Invia una richiesta","f.sub":"Scegliete cosa vi interessa, rispondiamo su WhatsApp.","f.kind":"Cosa vi interessa","f.lunch":"Pranzo","f.stay":"Soggiorno","f.date":"Data","f.date2":"Data di arrivo","f.g":"Ospiti","f.name":"Il vostro nome","f.less":"Meno ospiti","f.more":"Più ospiti",
 "f.send":"Invia richiesta su WhatsApp","f.note":"Nessun pagamento, nessun account. La richiesta si apre in WhatsApp, pronta da inviare.",
@@ -1338,13 +1369,14 @@ it:{
 "q4":"Come si paga?","a4":"Chiedeteci prima di venire, vi diremo volentieri quali metodi di pagamento accettiamo.",
 "q5":"Bisogna prenotare?","a5":"Lo consigliamo, soprattutto nel weekend e per i tavoli grandi. La richiesta parte su WhatsApp in pochi secondi.",
 "loc.label":"Contatti","loc.title":"Štefanići 55, sotto Montona","loc.maps":"Apri in Mappe","map.scale":"STILIZZATA, NON IN SCALA",
-"ft.tag":"Una fattoria istriana appena sotto Montona. Vino, olio, tartufi e carne della fattoria.","ft.addr":"Indirizzo","ft.cro":"Croazia","ft.contact":"Telefono e WhatsApp","ft.hours":"Sab e dom 12:00 alle 21:00<br>Giorni feriali: su accordo","ft.rating":"Valutazione","ft.reviews":"509 recensioni","ft.rights":"Tutti i diritti riservati","ft.note":"Proposta di sito web",
+"ft.tag":"Una fattoria di famiglia appena sotto Montona, con una tradizione dal 1780. Ristorante, sala degustazione e soggiorno.","ft.addr":"Indirizzo","ft.cro":"Croazia","ft.contact":"Telefono e WhatsApp","ft.hours":"Sab e dom 12:00 alle 21:00<br>Giorni feriali: su accordo","ft.rating":"Valutazione","ft.reviews":"509 recensioni","ft.rights":"Tutti i diritti riservati","ft.note":"Proposta di sito web",
 "fab":"Prenota","bar.btn":"Invia","bar.pick":"Scegli una data","concept":"Concept: Marija",
 "s.lunch":"Pranzo del weekend","s.stay":"Soggiorno in fattoria","s.sat":"Sabato","s.any":"Weekend",
 "g1":"ospite","g2":"ospiti","gN":"ospiti",
 "waL":"Buongiorno, mi chiamo {n}. Vorremmo prenotare un pranzo all'Agroturizam Štefanić il {d} per {g}. C'è posto?",
 "waS":"Buongiorno, mi chiamo {n}. Siamo interessati a un soggiorno alla fattoria Štefanić, arrivo {d}, {g}. Avete disponibilità?",
-"waHello":"Buongiorno, ho una domanda sull'Agroturizam Štefanić."
+"waHello":"Buongiorno, ho una domanda sull'Agroturizam Štefanić.",
+"d10":"Asparagi<small>Di stagione, all'istriana</small>","d11":"Ombolo e salsicce fatte in casa<small>Classici istriani</small>","d12":"Piatti sotto la peka<small>Cotti lentamente sotto la campana di ferro</small>","d13":"Crostoli<small>Dolce tradizionale fatto in casa</small>","cl4.t":"Moscato giallo","cl4.p":"Aromatico, floreale e fruttato, leggermente dolce, con il dessert o da solo","cl5.t":"Pane, prosciutto e formaggio","cl5.p":"Con l'olio e il vino, e la storia di famiglia dal 1780","sb5":"Disponibilità e prezzi su richiesta","gtk.stay":"Soggiorno","gtk.stayV":"Camera per due, presto altre camere","gtk.prod":"I nostri prodotti","gtk.prodV":"Olio e vino della fattoria, chiedeteci","near.4d":"Pista ciclabile sul tracciato della vecchia ferrovia","near.5":"Mercati locali","near.5d":"Prodotti del territorio","f.taste":"Degustazione","s.taste":"Degustazione di olio e vino","f.stayMax":"La camera è per due persone.","waT":"Buongiorno, mi chiamo {n}. Siamo interessati a una degustazione di olio e vino da Štefanić il {d}, per {g}. È possibile?","q6":"Cosa si assaggia nella sala degustazione?","a6":"Il nostro olio extravergine e i vini della fattoria: Malvasia, uvaggio e Moscato giallo, con pane, prosciutto e formaggio locali. I padroni di casa vi guidano e vi raccontano la storia di famiglia.","q7":"Quanti ospiti può accogliere l'alloggio?","a7":"Al momento abbiamo una camera per due persone, con letto matrimoniale e bagno privato. Presto arriveranno altre camere, quindi chiedeteci pure anche per gruppi più grandi.","ft.email":"E-mail","ft.social":"Seguiteci"
 }
 };
 var LOCALE = {hr:"hr-HR", en:"en-GB", de:"de-DE", it:"it-IT"};
@@ -1366,6 +1398,7 @@ function apply(){
   });
   $$("[data-i18n-aria]").forEach(function(el){ el.setAttribute("aria-label", textOnly(t(el.getAttribute("data-i18n-aria")))); });
   $$(".langs button").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+  var lc = document.getElementById("lpickCur"); if (lc) lc.textContent = lang.toUpperCase();
   var hello = "https://wa.me/" + WA + "?text=" + encodeURIComponent(t("waHello"));
   $$("[data-wa-hello]").forEach(function(a){ a.href = hello; });
   $("#menuLbl").textContent = document.body.classList.contains("menu-open") ? t("close") : t("menu");
@@ -1399,22 +1432,24 @@ function fmt(v){
   try { return new Intl.DateTimeFormat(LOCALE[lang], {weekday:"long", day:"numeric", month:"long", year:"numeric"}).format(parse(v)); }
   catch(e){ var p = v.split("-"); return p[2] + "." + p[1] + "." + p[0]; }
 }
+var GMAX = { lunch:30, taste:30, stay:2 };
 function summarize(){
-  var lunch = state.kind === "lunch";
-  $("#searchMain").textContent = lunch ? t("s.lunch") : t("s.stay");
+  var lunch = state.kind === "lunch", stay = state.kind === "stay";
+  if (state.g > GMAX[state.kind]) state.g = GMAX[state.kind];
+  $("#searchMain").textContent = t("s." + state.kind);
   $("#searchLine").textContent = (state.date ? shortDate(state.date) : (lunch ? t("s.sat") : t("s.any"))) + " • " + guestLabel(state.g);
-  $("#barMain").textContent = (lunch ? t("f.lunch") : t("f.stay")) + " · " + guestLabel(state.g);
+  $("#barMain").textContent = t("f." + state.kind) + " · " + guestLabel(state.g);
   $("#barSub").textContent = state.date ? shortDate(state.date) : t("bar.pick");
   $("#gVal").textContent = state.g;
   $("#gMinus").disabled = state.g <= 1;
-  $("#gPlus").disabled = state.g >= 30;
-  $("#dLbl").textContent = lunch ? t("f.date") : t("f.date2");
-  fHint.textContent = (lunch && state.date) ? (isWeekend(state.date) ? t("f.ok") : t("f.wk")) : "";
+  $("#gPlus").disabled = state.g >= GMAX[state.kind];
+  $("#dLbl").textContent = stay ? t("f.date2") : t("f.date");
+  fHint.textContent = stay ? t("f.stayMax") : ((lunch && state.date) ? (isWeekend(state.date) ? t("f.ok") : t("f.wk")) : "");
 }
 fDate.addEventListener("change", function(){ state.date = fDate.value; fErr.textContent = ""; summarize(); });
 fName.addEventListener("input", function(){ state.name = fName.value.trim(); fErr.textContent = ""; });
 $("#gMinus").addEventListener("click", function(){ if (state.g > 1){ state.g--; summarize(); } });
-$("#gPlus").addEventListener("click", function(){ if (state.g < 30){ state.g++; summarize(); } });
+$("#gPlus").addEventListener("click", function(){ if (state.g < GMAX[state.kind]){ state.g++; summarize(); } });
 var chips = $$(".chip");
 function setKind(k){
   state.kind = k;
@@ -1427,7 +1462,7 @@ function send(){
   if (!state.date){ fErr.textContent = t("f.err"); fDate.focus(); return false; }
   if (!state.name){ fErr.textContent = t("f.errN"); fName.focus(); return false; }
   fErr.textContent = "";
-  var msg = t(state.kind === "lunch" ? "waL" : "waS").replace("{n}", state.name).replace("{d}", fmt(state.date)).replace("{g}", guestLabel(state.g));
+  var msg = t(state.kind === "lunch" ? "waL" : (state.kind === "taste" ? "waT" : "waS")).replace("{n}", state.name).replace("{d}", fmt(state.date)).replace("{g}", guestLabel(state.g));
   var url = "https://wa.me/" + WA + "?text=" + encodeURIComponent(msg);
   var w = window.open(url, "_blank", "noopener");
   if (!w) window.location.href = url;
@@ -1632,7 +1667,7 @@ if (!RM && canGL()){
   var s3 = document.createElement("script");
   s3.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
   s3.async = true;
-  s3.onload = function(){ try { initHills(); } catch(err){ /* keep the SVG scene */ } };
+  s3.onload = function(){ if ($("#hills img.ok")) return; try { initHills(); } catch(err){ /* keep the SVG scene */ } };
   document.head.appendChild(s3);
 }
 
@@ -1995,6 +2030,15 @@ function initHills(){
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();
+</script>
+<script>
+(function(){var w=document.getElementById("lpick"),b=document.getElementById("lpickBtn");if(!w||!b)return;
+function set(o){w.classList.toggle("open",o);b.setAttribute("aria-expanded",o?"true":"false");}
+b.addEventListener("click",function(e){e.stopPropagation();set(!w.classList.contains("open"));});
+w.querySelectorAll(".lpick-list button").forEach(function(x){x.addEventListener("click",function(){setTimeout(function(){set(false)},120);});});
+document.addEventListener("click",function(e){if(!w.contains(e.target))set(false);});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")set(false);});
+window.addEventListener("scroll",function(){if(w.classList.contains("open"))set(false);},{passive:true});})();
 </script>
 </body>
 </html>

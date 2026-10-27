@@ -16,7 +16,8 @@
   shader water with sun glitter, coast silhouette, rocking camera, wake
   particles, pointer tilt. Falls back to a static SVG scene without WebGL,
   when three.js fails to load or with prefers-reduced-motion.
-  Prices "from XX €" are example placeholders to edit.
+  Fleet, tours and prices follow opatijaboats.rent (ML Aquatics). Photos are
+  hotlinked from opatijaboats.rent; the SVG art shows if they fail to load.
 -->
 <html lang="en">
 <head>
@@ -64,6 +65,7 @@ h2{font-size:clamp(34px,8.6vw,54px);line-height:1.15}
 h2 em,h1 em{font-style:italic;font-weight:300}
 p{margin:0 0 1em}
 .ph{border-bottom:1px dashed var(--coral);font-style:normal;white-space:nowrap}
+.pr{font-weight:600;color:var(--ink);white-space:nowrap}
 section{scroll-margin-top:calc(var(--header) + 50px)}
 .sec{padding:80px 0}
 .bg-linen{background:var(--linen)}
@@ -149,15 +151,19 @@ section{scroll-margin-top:calc(var(--header) + 50px)}
 .logo b{display:block;font-family:var(--serif);font-weight:400;font-size:19px;white-space:nowrap}
 .logo small{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;opacity:.8;margin-top:4px;white-space:nowrap}
 .hdr__r{display:flex;align-items:center;gap:8px;position:relative}
-.lang{display:flex;align-items:center;font-size:12px;font-weight:500;letter-spacing:.12em}
-.lang button{background:none;border:0;padding:8px 6px;cursor:pointer;opacity:.55;transition:opacity .3s;position:relative}
-.lang button[aria-pressed="true"]{opacity:1;text-decoration:underline;text-underline-offset:5px}
-@media (max-width:759px){
-  .hdr .lang button:not([aria-pressed="true"]){display:none}
-  .hdr .lang.open{flex-direction:column;position:absolute;top:-6px;right:72px;background:#fff;color:var(--ink);border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,.16);padding:4px 6px;z-index:5}
-  .hdr .lang.open button{display:block;opacity:.7;text-decoration:none}
-  .hdr .lang.open button[aria-pressed="true"]{opacity:1;font-weight:600}
-}
+.lpick{position:relative}
+.lpick-btn{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:600 13px/1 var(--sans);letter-spacing:.1em;cursor:pointer;opacity:.9}
+.lpick-btn svg{width:18px;height:18px}.lpick-btn .chev{width:14px;height:14px;transition:transform .3s}
+.lpick.open .lpick-btn .chev{transform:rotate(180deg)}
+.hdr .lpick-list{position:absolute;right:0;top:calc(100% + 10px);display:grid;grid-template-columns:1fr;gap:0;min-width:200px;padding:8px;background:#fff;color:var(--navy);border-radius:18px;box-shadow:0 24px 60px -18px rgba(0,0,0,.3);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:80}
+.lpick.open .lpick-list{opacity:1;transform:none;pointer-events:auto}
+.hdr .lpick-list button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border:0;background:none;border-radius:10px;font:400 16px/1.2 var(--sans);letter-spacing:0;text-align:left;color:var(--navy);cursor:pointer}
+.hdr .lpick-list button b{font-weight:600;font-size:12px;letter-spacing:.12em;width:24px;opacity:.6}
+.hdr .lpick-list button:hover{background:var(--linen)}
+.hdr .lpick-list button[aria-pressed="true"]{background:var(--linen);font-weight:600}
+.menu-open .lpick{display:none}
+@media (max-width:440px){.menu-btn>span[data-i18n]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.menu-btn{padding-left:12px}}
+@media (max-width:380px){.lpick-btn{padding:0 9px}.lpick-btn .chev{display:none}}
 .hdr__book{display:none;min-height:40px;padding:0 20px;font-size:12px;background:transparent;border-color:currentColor;color:inherit}
 .hdr__book::before{background:var(--navy)}
 .hdr__book:hover{color:#fff;border-color:var(--navy)}
@@ -180,7 +186,6 @@ section{scroll-margin-top:calc(var(--header) + 50px)}
 .menu-open .ovl ol a{transform:none;transition-delay:calc(.25s + var(--i) * .06s)}
 .ovl__foot{display:grid;gap:16px;margin-top:24px;opacity:0;transform:translateY(12px);transition:opacity .6s .55s,transform .6s var(--out) .55s}
 .menu-open .ovl__foot{opacity:1;transform:none}
-.ovl .lang button{opacity:.55;font-size:13px;padding:10px 14px 10px 0}
 .ovl__contact{font-size:15px;color:rgba(255,255,255,.75);display:flex;flex-wrap:wrap;gap:6px 18px}
 .menu-open .fab,.menu-open .ctag,.menu-open .bbar{opacity:0!important;pointer-events:none!important}
 
@@ -326,6 +331,22 @@ section{scroll-margin-top:calc(var(--header) + 50px)}
 .rbtn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
 .rbtn svg{width:16px;height:16px}
 .tr__note{margin-top:22px;font-size:14px;color:var(--muted)}
+.plist{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.bg-linen .plist,.bg-linen .plist li{border-color:#D9D1CB}
+.plist li{display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.plist b{display:block;font-weight:500;font-size:18px;line-height:1.3}
+.plist li>span>small{display:block;font-size:14px;line-height:1.45;color:var(--muted);margin-top:3px}
+.pp{font-family:var(--serif);font-size:21px;white-space:nowrap;text-align:right;line-height:1.2}
+.pp small{display:block;font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:2px}
+.plist--fleet .pp{font-size:18px}
+.plist--fleet .pp small{margin:0 0 2px}
+.plist .pp--ask{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:normal;max-width:12ch}
+.plist__head{display:flex;justify-content:space-between;gap:16px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:0 0 10px}
+.plist__h{font-family:var(--serif);font-size:26px;margin:56px 0 18px}
+.fleet__grid{display:grid;gap:40px}
+#fleet .gtk{background:var(--linen)}
+@media(max-width:420px){.plist b{font-size:17px}.pp{font-size:19px}}
+@media(min-width:900px){.fleet__grid{grid-template-columns:1.3fr 1fr;gap:80px;align-items:start}.plist--more{columns:auto}}
 @media(min-width:900px){.tcard{flex-basis:360px}}
 
 /* NAVY band: crew */
@@ -340,7 +361,7 @@ section{scroll-margin-top:calc(var(--header) + 50px)}
 .band p{color:rgba(255,255,255,.82);max-width:50ch}
 .crew{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 28px}
 .crew span{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.22);font-size:15px}
-.crew i{width:30px;height:30px;border-radius:50%;background:var(--amber);color:var(--navy);display:grid;place-items:center;font-style:normal;font-weight:600;font-size:13px}
+.crew i{min-width:30px;padding:0 6px;height:30px;border-radius:999px;background:var(--amber);color:var(--navy);display:grid;place-items:center;font-style:normal;font-weight:600;font-size:13px}
 @media(min-width:900px){.band .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:center}}
 
 /* HOW IT WORKS */
@@ -391,6 +412,8 @@ input[type=date].ctl::-webkit-date-and-time-value{text-align:left}
 .ctl.err{border-color:#F0907C}
 .chips{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .chips--3{grid-template-columns:repeat(3,1fr)}
+.chips>.chip:last-child:nth-child(odd){grid-column:1/-1}
+.chips--3>.chip:last-child:nth-child(odd){grid-column:auto}
 .chip{position:relative}
 .chip input{position:absolute;opacity:0;pointer-events:none}
 .chip>span{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:62px;border:1px solid rgba(255,255,255,.22);border-radius:4px;font-size:15px;cursor:pointer;line-height:1.25;text-align:center;padding:6px 8px;transition:background .35s,color .35s,border-color .35s}
@@ -442,7 +465,8 @@ input[type=date].ctl::-webkit-date-and-time-value{text-align:left}
 .addr{font-family:var(--serif);font-size:28px;line-height:1.25;margin-bottom:14px}
 .hours{list-style:none;padding:0;margin:30px 0;border-top:1px solid var(--line)}
 .hours li{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:16px}
-.hours li span:last-child{font-variant-numeric:tabular-nums;color:var(--muted)}
+.hours li span:last-child{font-variant-numeric:tabular-nums;color:var(--muted);text-align:right}
+.hours li a{text-decoration:underline;text-underline-offset:3px}
 .hours .open-now{font-size:12px;letter-spacing:.14em;text-transform:uppercase;background:var(--navy);color:#fff;padding:3px 8px;border-radius:4px;margin-left:10px;vertical-align:2px}
 .hours .open-now.closed{background:#777}
 .contact__btns{display:grid;gap:10px}
@@ -559,11 +583,14 @@ html select{height:56px;line-height:normal}
       <span><b>Opatija Boats</b><small data-i18n="logo.sub">Rent a boat &amp; tours</small></span>
     </a>
     <div class="hdr__r">
-      <div class="lang" id="langHdr" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="de" aria-pressed="false">DE</button>
-        <button type="button" data-lang="it" aria-pressed="false">IT</button>
-        <button type="button" data-lang="hr" aria-pressed="false">HR</button>
+      <div class="lpick" id="lpick">
+        <button type="button" class="lpick-btn" id="lpickBtn" aria-haspopup="true" aria-expanded="false" aria-label="Language"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span id="lpickCur">EN</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="lpick-list langs" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true"><b>EN</b><span>English</span></button>
+          <button type="button" data-lang="hr" aria-pressed="false"><b>HR</b><span>Hrvatski</span></button>
+          <button type="button" data-lang="de" aria-pressed="false"><b>DE</b><span>Deutsch</span></button>
+          <button type="button" data-lang="it" aria-pressed="false"><b>IT</b><span>Italiano</span></button>
+        </div>
       </div>
       <a href="#book" class="pill hdr__book" data-i18n="nav.book">Book a tour</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="ovl"><span data-i18n="nav.menu">MENU</span><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
@@ -574,21 +601,17 @@ html select{height:56px;line-height:normal}
 <nav class="ovl" id="ovl" aria-label="Menu">
   <ol>
     <li><a href="#tours" style="--i:0"><small>01</small><span data-i18n="ovl.tours">Tours</span></a></li>
-    <li><a href="#how" style="--i:1"><small>02</small><span data-i18n="ovl.how">How it works</span></a></li>
-    <li><a href="#nearby" style="--i:2"><small>03</small><span data-i18n="ovl.nearby">Along the coast</span></a></li>
-    <li><a href="#book" style="--i:3"><small>04</small><span data-i18n="ovl.book">Booking</span></a></li>
-    <li><a href="#faq" style="--i:4"><small>05</small><span data-i18n="ovl.faq">FAQ</span></a></li>
-    <li><a href="#contact" style="--i:5"><small>06</small><span data-i18n="ovl.contact">Contact</span></a></li>
+    <li><a href="#shared" style="--i:1"><small>02</small><span data-i18n="ovl.shared">Shared tours</span></a></li>
+    <li><a href="#fleet" style="--i:2"><small>03</small><span data-i18n="ovl.fleet">Our fleet</span></a></li>
+    <li><a href="#how" style="--i:3"><small>04</small><span data-i18n="ovl.how">How it works</span></a></li>
+    <li><a href="#nearby" style="--i:4"><small>05</small><span data-i18n="ovl.nearby">Along the coast</span></a></li>
+    <li><a href="#book" style="--i:5"><small>06</small><span data-i18n="ovl.book">Booking</span></a></li>
+    <li><a href="#faq" style="--i:6"><small>07</small><span data-i18n="ovl.faq">FAQ</span></a></li>
+    <li><a href="#contact" style="--i:7"><small>08</small><span data-i18n="ovl.contact">Contact</span></a></li>
   </ol>
   <div class="ovl__foot">
-    <div class="lang" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button>
-      <button type="button" data-lang="de" aria-pressed="false">DE</button>
-      <button type="button" data-lang="it" aria-pressed="false">IT</button>
-      <button type="button" data-lang="hr" aria-pressed="false">HR</button>
-    </div>
     <a href="https://wa.me/385916106010" class="pill pill--linen pill--block" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-i18n="cta.wa">WhatsApp us</span></a>
-    <div class="ovl__contact"><a href="tel:+385916106010">+385 91 610 6010</a><span data-i18n="ovl.addr">Zert harbour, Opatija</span><span data-i18n="ovl.hours">Daily 08:00 to 20:00</span></div>
+    <div class="ovl__contact"><a href="tel:+385916106010">+385&nbsp;91&nbsp;610&nbsp;6010</a><a href="mailto:opatijaboats.rent@gmail.com">opatijaboats.rent@gmail.com</a><span data-i18n="ovl.addr">Opatija port, next to Restaurant Molo</span><span data-i18n="ovl.hours">Daily 09:00 to 21:00</span></div>
   </div>
 </nav>
 
@@ -629,14 +652,14 @@ html select{height:56px;line-height:normal}
   <div class="hero__veil"></div>
   <div class="hero__c">
     <div class="wrap">
-      <p class="label fade-up d1"><span data-i18n="hero.label">Zert harbour · Opatija · Kvarner bay</span></p>
+      <p class="label fade-up d1"><span data-i18n="hero.label">Opatija port · Rijeka · Kvarner bay</span></p>
       <h1>
         <span class="mask"><span data-i18n="hero.t1">Golden hour,</span></span>
         <span class="mask"><span data-i18n="hero.t2">from the bow of your boat</span></span>
-        <span class="mask"><span class="sub" data-i18n="hero.sub">Rent a boat &amp; private tours</span></span>
+        <span class="mask"><span class="sub" data-i18n="hero.sub">Boat tours &amp; speedboat rental</span></span>
       </h1>
-      <p class="hero__txt fade-up d2" data-i18n="hero.txt">Private tours with a skipper along the Opatija riviera: hidden caves, snorkeling, a swim stop and a drink in a quiet harbour. Or take the wheel yourself.</p>
-      <a class="hero__addr fade-up d3" href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="hero.addr">Zert, 51410 Opatija · Google 5.0 from 514 reviews</span></a>
+      <p class="hero__txt fade-up d2" data-i18n="hero.txt">Small-group trips to the secluded beaches of Cres and Krk, a sunset cruise along the Opatija Riviera and private tours with a skipper. Or rent a speedboat and take the wheel yourself.</p>
+      <a class="hero__addr fade-up d3" href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="hero.addr">Zert, 51410 Opatija · next to Restaurant Molo</span></a>
       <div class="hero__cta fade-up d4">
         <a href="#book" class="pill pill--grey" data-i18n="hero.cta">Book a sunset tour</a>
         <div class="hero__hint"><i></i><span id="hintTxt" data-i18n="hint.touch">Tilt by touch</span></div>
@@ -659,15 +682,15 @@ html select{height:56px;line-height:normal}
   <div class="wrap">
     <p class="label" style="justify-content:center;color:rgba(255,255,255,.6)"><span class="num">01</span><span data-i18n="gal.label">On the water</span></p>
     <h2 class="rv" data-i18n="gal.h">A day on the Kvarner</h2>
-    <p class="sub rv" data-delay="1" data-i18n="gal.sub">Caves, coves, a swim and a cold drink. Scroll through what a tour looks like.</p>
+    <p class="sub rv" data-delay="1" data-i18n="gal.sub">Cliffs, secluded beaches, a swim and a cold drink. Scroll through what a day with us looks like.</p>
   </div>
   <div class="gal" id="gal">
     <div class="gal__track" id="galTrack">
-      <div class="gal__slide cur" data-cap="gal.c1"><div class="art art--sunset"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="200" height="200" x="70" y="40" color="#C9843D"/><use href="#i-coast" width="520" height="80" x="-60" y="196" color="#1E3A5F" opacity=".8"/><use href="#i-waves" width="520" height="104" x="-60" y="300" color="#8FC2E0" opacity=".8"/><use href="#i-rib" width="230" height="98" x="90" y="290" color="#0A2B5E"/><use href="#i-waves" width="600" height="120" x="-100" y="400" color="#5FA3CC" opacity=".6"/></svg><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c2"><div class="art art--morning"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-coast" width="560" height="100" x="-80" y="150" color="#2F5F86" opacity=".7"/><use href="#i-sail" width="180" height="216" x="110" y="130" color="#0A2B5E"/><use href="#i-buoy" width="40" height="55" x="320" y="330" color="#0A2B5E"/><use href="#i-waves" width="560" height="112" x="-80" y="350" color="#DCEAF3" opacity=".8"/></svg><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c3"><div class="art art--cave"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-cave" width="480" height="400" x="-40" y="60" color="#0A2B5E"/><use href="#i-mask" width="120" height="98" x="240" y="380" color="#0A2B5E"/></svg><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c4"><div class="art art--cove"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="120" height="120" x="250" y="40" color="#C9843D"/><use href="#i-coast" width="620" height="120" x="-120" y="140" color="#4D6F8C" opacity=".6"/><use href="#i-waves" width="520" height="104" x="-60" y="280" color="#fff" opacity=".7"/><use href="#i-mask" width="200" height="162" x="90" y="300" color="#0A2B5E"/></svg><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c5"><div class="art art--harbour"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-coast" width="520" height="90" x="-60" y="180" color="#4D6F8C" opacity=".55"/><use href="#i-anchor" width="140" height="168" x="130" y="120" color="#0A2B5E"/><use href="#i-buoy" width="50" height="68" x="60" y="330" color="#0A2B5E"/><use href="#i-rib" width="200" height="86" x="160" y="330" color="#0A2B5E"/><use href="#i-waves" width="520" height="104" x="-60" y="400" color="#fff" opacity=".7"/></svg><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide cur" data-cap="gal.c1"><div class="art art--sunset"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="200" height="200" x="70" y="40" color="#C9843D"/><use href="#i-coast" width="520" height="80" x="-60" y="196" color="#1E3A5F" opacity=".8"/><use href="#i-waves" width="520" height="104" x="-60" y="300" color="#8FC2E0" opacity=".8"/><use href="#i-rib" width="230" height="98" x="90" y="290" color="#0A2B5E"/><use href="#i-waves" width="600" height="120" x="-100" y="400" color="#5FA3CC" opacity=".6"/></svg><img src="https://opatijaboats.rent/wp-content/uploads/2026/07/SUNSET-TOUR-e1782908620119.jpg" alt="Sunset Tour boat on the Opatija Riviera at dusk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c2"><div class="art art--morning"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-coast" width="560" height="100" x="-80" y="150" color="#2F5F86" opacity=".7"/><use href="#i-sail" width="180" height="216" x="110" y="130" color="#0A2B5E"/><use href="#i-buoy" width="40" height="55" x="320" y="330" color="#0A2B5E"/><use href="#i-waves" width="560" height="112" x="-80" y="350" color="#DCEAF3" opacity=".8"/></svg><img src="https://opatijaboats.rent/wp-content/uploads/2026/06/otok-cres-2-1.webp" alt="Secluded beach on the island of Cres" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c3"><div class="art art--cave"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-cave" width="480" height="400" x="-40" y="60" color="#0A2B5E"/><use href="#i-mask" width="120" height="98" x="240" y="380" color="#0A2B5E"/></svg><img src="https://opatijaboats.rent/wp-content/uploads/2024/04/klifovi_myths-of-the-sea_plaza.jpg" alt="Cliffs and swimming spot on the Myths of the Sea tour" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c4"><div class="art art--cove"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="120" height="120" x="250" y="40" color="#C9843D"/><use href="#i-coast" width="620" height="120" x="-120" y="140" color="#4D6F8C" opacity=".6"/><use href="#i-waves" width="520" height="104" x="-60" y="280" color="#fff" opacity=".7"/><use href="#i-mask" width="200" height="162" x="90" y="300" color="#0A2B5E"/></svg><img src="https://opatijaboats.rent/wp-content/uploads/2026/06/plaza-na-otoku-krku.webp" alt="Beach on the island of Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c5"><div class="art art--harbour"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-coast" width="520" height="90" x="-60" y="180" color="#4D6F8C" opacity=".55"/><use href="#i-anchor" width="140" height="168" x="130" y="120" color="#0A2B5E"/><use href="#i-buoy" width="50" height="68" x="60" y="330" color="#0A2B5E"/><use href="#i-rib" width="200" height="86" x="160" y="330" color="#0A2B5E"/><use href="#i-waves" width="520" height="104" x="-60" y="400" color="#fff" opacity=".7"/></svg><img src="https://opatijaboats.rent/wp-content/uploads/2024/04/taxi-boat_birdview.jpg" alt="Boat on the Kvarner seen from above" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
     </div>
     <a class="tag-b" href="#tours" id="galTag"><span id="galTagTxt">Opatija, Croatia</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
     <button type="button" class="sqbtn l" id="galPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
@@ -682,6 +705,8 @@ html select{height:56px;line-height:normal}
   <div class="subnav__in">
     <a href="#intro" data-nav="intro" data-i18n="sub.intro">About</a>
     <a href="#tours" data-nav="tours" data-i18n="sub.tours">Tours</a>
+    <a href="#shared" data-nav="shared" data-i18n="sub.shared">Shared tours</a>
+    <a href="#fleet" data-nav="fleet" data-i18n="sub.fleet">Fleet</a>
     <a href="#how" data-nav="how" data-i18n="sub.how">How it works</a>
     <a href="#nearby" data-nav="nearby" data-i18n="sub.nearby">Along the coast</a>
     <a href="#book" data-nav="book" data-i18n="sub.book">Booking</a>
@@ -700,26 +725,26 @@ html select{height:56px;line-height:normal}
           <p class="label"><span class="num">02</span><span data-i18n="intro.label">Opatija Boats</span></p>
           <h2 data-i18n="intro.h">Small harbour, big bay</h2>
         </div>
-        <p class="lead rv" data-i18n="intro.lead">We leave from Zert, the small harbour in the middle of Opatija. From there the whole Kvarner opens up: the Lungomare from the water, Volosko's stone houses, Lovran, and the quiet coves and caves in between.</p>
-        <p class="rv" data-delay="1" data-i18n="intro.p1">Choose a private tour with one of our skippers, or rent a boat and drive it yourself. We give you a proper briefing at pick-up, and we are one WhatsApp message away the whole time.</p>
+        <p class="lead rv" data-i18n="intro.lead">We leave from Zert, the port in the middle of Opatija, right next to Restaurant Molo. From there the whole Kvarner opens up: the Lungomare from the water, the Brseč cliffs, Mošćenička Draga and the islands of Cres and Krk.</p>
+        <p class="rv" data-delay="1" data-i18n="intro.p1">Join a shared tour in a small group, book a private tour with one of our skippers, or rent a speedboat and drive it yourself. You will also find us in Rijeka, at Riva 10.</p>
         <p class="rv" data-delay="1" data-i18n="intro.p2">Everything is arranged over WhatsApp, quick and clear. Tell us the day and how many of you are coming, and we take it from there.</p>
         <div class="sig rv" data-delay="2">
           <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#0A2B5E" stroke-width="1.2" opacity=".5"/><path d="M50 22a6 6 0 1 0 0 .01M50 28V78M36 44H64M24 60C24 72 36 80 50 80C64 80 76 72 76 60L68 65M24 60L32 65" fill="none" stroke="#E5735A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <div><b>Mauro, Roko &amp; Katja</b><small data-i18n="intro.sig">Skippers and booking team</small></div>
+          <div><b>ML Aquatics</b><small data-i18n="intro.sig">Opatija Boats · Opatija and Rijeka</small></div>
         </div>
       </div>
       <div class="gtk rv" data-delay="1">
         <h3 data-i18n="gtk.h">Good to know</h3>
         <dl>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><dt data-i18n="gtk.meet">Meeting point</dt><dd data-i18n="gtk.meetv">Zert, the small harbour, 51410 Opatija. We meet you on the pier.</dd></div>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><dt data-i18n="gtk.hours">Hours</dt><dd data-i18n="gtk.hoursv">Open daily 08:00 to 20:00. Evening tours run 18:00 to 21:00.</dd></div>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4z"/><path d="M8 7V5h8v2"/><path d="M4 12h16"/></svg><dt data-i18n="gtk.bring">What to bring</dt><dd data-i18n="gtk.bringv">Swimsuit, towel, sunscreen, a hat and a light layer for the evening. Drinks are on board.</dd></div>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg><dt data-i18n="gtk.skip">Skipper included</dt><dd data-i18n="gtk.skipv">On every private tour. Self-drive rental comes with full instructions at pick-up.</dd></div>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-13.3 7.9L3 21l1.1-4.7A9 9 0 1 1 21 12z"/></svg><dt data-i18n="gtk.conf">Confirmation</dt><dd data-i18n="gtk.confv">By WhatsApp, usually within minutes. Pick-up time agreed with you.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><dt data-i18n="gtk.meet">Meeting point</dt><dd data-i18n="gtk.meetv">Opatija port (Zert), next to Restaurant Molo. Please be there 10 minutes before departure.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><dt data-i18n="gtk.hours">Hours</dt><dd data-i18n="gtk.hoursv">Open daily 09:00 to 21:00. The Sunset Tour leaves at 18:00.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4z"/><path d="M8 7V5h8v2"/><path d="M4 12h16"/></svg><dt data-i18n="gtk.bring">What to bring</dt><dd data-i18n="gtk.bringv">Swimsuit, beach towel, sunscreen, a sun hat and some cash. Drinks are on board.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg><dt data-i18n="gtk.skip">Skipper</dt><dd data-i18n="gtk.skipv">Included on every tour. Renting without a boat licence? Add a skipper from 50&nbsp;€.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-13.3 7.9L3 21l1.1-4.7A9 9 0 1 1 21 12z"/></svg><dt data-i18n="gtk.conf">Booking</dt><dd data-i18n="gtk.confv">By WhatsApp, phone or email. Tours need a 20% advance by bank transfer, the rest is paid on board.</dd></div>
         </dl>
         <div class="badge">
           <div class="badge__g">G</div>
-          <div><b><span id="ratingN">5.0</span></b> <span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><small><span id="revCount" data-count="514">514</span> <span data-i18n="gtk.rev">Google reviews</span></small></div>
+          <div><b><span id="revCount" data-count="500">500</span>+</b> <small><span data-i18n="gtk.rev">happy guests</span> · <a href="https://www.google.com/search?q=Rent+a+Boat+%26+Boat+Tours+Recenzije&amp;tbm=lcl" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px" data-i18n="gtk.revl">Google reviews</a></small></div>
         </div>
       </div>
     </div>
@@ -734,41 +759,49 @@ html select{height:56px;line-height:normal}
     <div class="sh rv">
       <p class="label"><span class="num">03</span><span data-i18n="tours.label">Tours and rental</span></p>
       <h2 data-i18n="tours.h">Pick your kind of day</h2>
-      <p data-i18n="tours.sub">Four ways to get out on the water. Every private tour comes with a skipper, drinks on board and a pick-up at the time we agree.</p>
+      <p data-i18n="tours.sub">Small-group tours, private tours, speedboat rental and skipper training. Every tour comes with a skipper, fuel and drinks on board.</p>
     </div>
   </div>
   <div class="peek" id="peek">
     <article class="tcard rv">
-      <div class="frame"><div class="art art--morning"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="140" height="140" x="40" y="30" color="#C9843D"/><use href="#i-coast" width="560" height="100" x="-80" y="170" color="#2F5F86" opacity=".7"/><use href="#i-rib" width="260" height="110" x="80" y="250" color="#0A2B5E"/><use href="#i-waves" width="560" height="112" x="-80" y="370" color="#DCEAF3" opacity=".8"/></svg><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t1.tag">Half day · morning</span></div>
-      <h3 data-i18n="t1.h">Morning half-day private tour</h3>
-      <p class="tcard__meta"><span data-i18n="t1.meta">Private, with skipper · from</span> <span class="ph">XX&nbsp;€</span></p>
-      <p data-i18n="t1.p">Calm sea, soft light and the coast to yourselves. We head out along the riviera, stop at hidden caves and a beach, and get the snorkel masks out.</p>
-      <ul><li data-i18n="t1.l1">Skipper and drinks on board</li><li data-i18n="t1.l2">Caves, snorkeling, cliff jumping for the brave</li><li data-i18n="t1.l3">Pick-up at Zert at the agreed time</li></ul>
-      <a href="#book" class="ulink" data-tour="morning"><span data-i18n="t.book">Book this tour</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <div class="frame"><div class="art art--morning"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="140" height="140" x="40" y="30" color="#C9843D"/><use href="#i-coast" width="560" height="100" x="-80" y="170" color="#2F5F86" opacity=".7"/><use href="#i-rib" width="260" height="110" x="80" y="250" color="#0A2B5E"/><use href="#i-waves" width="560" height="112" x="-80" y="370" color="#DCEAF3" opacity=".8"/></svg><img src="https://opatijaboats.rent/wp-content/uploads/2026/06/island-esc-e1776609452249.webp" alt="Private boat cruise with a group near the islands" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t1.tag">Private · up to 15 guests</span></div>
+      <h3 data-i18n="t1.h">Private boat tours</h3>
+      <p class="tcard__meta"><span data-i18n="t1.meta">The whole boat, with skipper · from</span> <span class="pr">260&nbsp;€</span></p>
+      <p data-i18n="t1.p">The boat is just for your group. Island Escape is a full day of island hopping with longer stops and a lunch break in a village. Coastal Discovery takes a few hours, lovely in the late afternoon.</p>
+      <ul><li data-i18n="t1.l1">Island Escape, all day: from 320&nbsp;€ per boat</li><li data-i18n="t1.l2">Rijeka Bay Experience by speedboat, up to 7 guests: from 260&nbsp;€ per boat</li><li data-i18n="t1.l3">Coastal Discovery: a few hours, one or two highlights</li></ul>
+      <a href="#book" class="ulink" data-tour="private"><span data-i18n="t.book">Book this tour</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="1">
-      <div class="frame"><div class="art art--sunset"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="220" height="220" x="90" y="60" color="#C9843D"/><use href="#i-coast" width="520" height="80" x="-60" y="226" color="#1E3A5F" opacity=".8"/><use href="#i-waves" width="520" height="104" x="-60" y="330" color="#8FC2E0" opacity=".7"/><use href="#i-sail" width="150" height="180" x="120" y="240" color="#0A2B5E"/></svg><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t2.tag">18:00 to 21:00</span></div>
-      <h3 data-i18n="t2.h">Sunset 3-hour tour</h3>
-      <p class="tcard__meta"><span data-i18n="t2.meta">Private, with skipper · from</span> <span class="ph">XX&nbsp;€</span></p>
-      <p data-i18n="t2.p">Our favourite. Three hours of golden light along the Opatija coast, a swim stop in a quiet cove and a drink stop in a small harbour before the sun goes down.</p>
-      <ul><li data-i18n="t2.l1">Swim stop and drink stop in a harbour</li><li data-i18n="t2.l2">Drinks on board, skipper included</li><li data-i18n="t2.l3">Departure 18:00 from Zert</li></ul>
+      <div class="frame"><div class="art art--sunset"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="220" height="220" x="90" y="60" color="#C9843D"/><use href="#i-coast" width="520" height="80" x="-60" y="226" color="#1E3A5F" opacity=".8"/><use href="#i-waves" width="520" height="104" x="-60" y="330" color="#8FC2E0" opacity=".7"/><use href="#i-sail" width="150" height="180" x="120" y="240" color="#0A2B5E"/></svg><img src="https://opatijaboats.rent/wp-content/uploads/2026/07/SUNSET-TOUR-e1782908620119.jpg" alt="Sunset Tour along the Opatija Riviera" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t2.tag">18:00 · approx. 3&nbsp;h</span></div>
+      <h3 data-i18n="t2.h">Sunset Tour</h3>
+      <p class="tcard__meta"><span data-i18n="t2.meta">Small group, with skipper · adults</span> <span class="pr">40&nbsp;€</span></p>
+      <p data-i18n="t2.p">Golden light along the Opatija Riviera, a swim stop in a quiet bay and the sun going down over the Adriatic. Back around 21:00.</p>
+      <ul><li data-i18n="t2.l1">Children 3 to 10: 20&nbsp;€, babies 0 to 2 free</li><li data-i18n="t2.l2">Skipper, fuel, drinks (wine, water, soft drinks, juice) and snorkel gear</li><li data-i18n="t2.l3">Board in Volosko, Opatija (Restaurant Molo) or Ičići (ACI marina)</li></ul>
       <a href="#book" class="ulink" data-tour="sunset"><span data-i18n="t.book">Book this tour</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="2">
-      <div class="frame"><div class="art art--harbour"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-coast" width="520" height="90" x="-60" y="160" color="#4D6F8C" opacity=".5"/><use href="#i-rib" width="300" height="127" x="50" y="230" color="#0A2B5E"/><use href="#i-anchor" width="70" height="84" x="40" y="60" color="#0A2B5E" opacity=".8"/><use href="#i-waves" width="520" height="104" x="-60" y="380" color="#fff" opacity=".7"/></svg><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t3.tag">Self-drive</span></div>
-      <h3 data-i18n="t3.h">Rent a boat yourself</h3>
-      <p class="tcard__meta"><span data-i18n="t3.meta">Self-drive · from</span> <span class="ph">XX&nbsp;€</span></p>
-      <p data-i18n="t3.p">Take the wheel. You get a full briefing at pick-up: the boat, the coast, where to swim and where to be careful. Then the bay is yours for the day.</p>
-      <ul><li data-i18n="t3.l1">Instructions and safety briefing at pick-up</li><li data-i18n="t3.l2">Licence questions: just ask us</li><li data-i18n="t3.l3">We stay reachable on WhatsApp</li></ul>
-      <a href="#book" class="ulink" data-tour="rent"><span data-i18n="t.rent">Ask about rental</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <div class="frame"><div class="art art--cove"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="120" height="120" x="240" y="40" color="#C9843D"/><use href="#i-cave" width="340" height="283" x="-40" y="130" color="#0A2B5E"/><use href="#i-mask" width="150" height="122" x="230" y="330" color="#0A2B5E"/></svg><img src="https://opatijaboats.rent/wp-content/uploads/2026/06/otok-cres-2-1.webp" alt="Secluded beach on Cres, reachable only by boat" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t3.tag">Full day · small group</span></div>
+      <h3 data-i18n="t3.h">Island days: Cres and Krk</h3>
+      <p class="tcard__meta"><span data-i18n="t3.meta">Small group, with skipper · adults from</span> <span class="pr">65&nbsp;€</span></p>
+      <p data-i18n="t3.p">Secluded beaches you can only reach by boat, clear water for swimming and snorkeling, drinks and fruit on board. Up to 15 guests per boat.</p>
+      <ul><li data-i18n="t3.l1">Natura Pura: Brseč cliffs + 2 beaches on Cres, approx. 7&nbsp;h</li><li data-i18n="t3.l2">Wild Cres: 2 beaches on Cres + the village of Beli, approx. 9&nbsp;h</li><li data-i18n="t3.l3">Krk Aquatica: 3 swimming spots on Krk + Njivice, approx. 8&nbsp;h</li></ul>
+      <a href="#book" class="ulink" data-tour="island"><span data-i18n="t.book">Book this tour</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="3">
-      <div class="frame"><div class="art art--cove"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="120" height="120" x="240" y="40" color="#C9843D"/><use href="#i-cave" width="340" height="283" x="-40" y="130" color="#0A2B5E"/><use href="#i-mask" width="150" height="122" x="230" y="330" color="#0A2B5E"/></svg><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t4.tag">Full day · custom</span></div>
-      <h3 data-i18n="t4.h">Custom full-day tour</h3>
-      <p class="tcard__meta"><span data-i18n="t4.meta">Private, with skipper · from</span> <span class="ph">XX&nbsp;€</span></p>
-      <p data-i18n="t4.p">Your day, your route. Tell us what you love: caves, long swims, cliff jumping, a lazy lunch in a harbour. We plan it with you along the Kvarner coast.</p>
-      <ul><li data-i18n="t4.l1">Route planned together on WhatsApp</li><li data-i18n="t4.l2">Skipper, drinks and snorkel gear on board</li><li data-i18n="t4.l3">Start time of your choice, from 08:00</li></ul>
-      <a href="#book" class="ulink" data-tour="custom"><span data-i18n="t.plan">Plan my day</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <div class="frame"><div class="art art--harbour"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-coast" width="520" height="90" x="-60" y="160" color="#4D6F8C" opacity=".5"/><use href="#i-rib" width="300" height="127" x="50" y="230" color="#0A2B5E"/><use href="#i-anchor" width="70" height="84" x="40" y="60" color="#0A2B5E" opacity=".8"/><use href="#i-waves" width="520" height="104" x="-60" y="380" color="#fff" opacity=".7"/></svg><img src="https://opatijaboats.rent/wp-content/uploads/2024/04/rentaboat_quicksilver_635-e1778589866353.jpg" alt="Quicksilver 635 speedboat for rent in Opatija" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t4.tag">Self-drive or with skipper</span></div>
+      <h3 data-i18n="t4.h">Rent a speedboat</h3>
+      <p class="tcard__meta"><span data-i18n="t4.meta">Eight boats, 5.5 to 9.4&nbsp;m · from</span> <span class="pr">120&nbsp;€</span></p>
+      <p data-i18n="t4.p">Take the wheel with your boat licence, or add a skipper. Half day or all day from Opatija port, with delivery to Rijeka or Lovran on request.</p>
+      <ul><li data-i18n="t4.l1">Half day 09:30 to 13:30 or 14:00 to 18:00, all day 10:00 to 18:00</li><li data-i18n="t4.l2">Skipper: 50&nbsp;€ half day, 80&nbsp;€ all day</li><li data-i18n="t4.l3">Fuel not included, pets welcome</li></ul>
+      <a href="#fleet" class="ulink"><span data-i18n="t.fleet">See the fleet</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article>
+    <article class="tcard rv" data-delay="4">
+      <div class="frame"><div class="art art--harbour"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-coast" width="520" height="90" x="-60" y="180" color="#4D6F8C" opacity=".55"/><use href="#i-anchor" width="140" height="168" x="130" y="120" color="#0A2B5E"/><use href="#i-buoy" width="50" height="68" x="60" y="330" color="#0A2B5E"/><use href="#i-waves" width="520" height="104" x="-60" y="400" color="#fff" opacity=".7"/></svg><img src="https://opatijaboats.rent/wp-content/uploads/2024/04/crew_skipperi.jpg" alt="ML Aquatics skippers" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t5.tag">New licence holders</span></div>
+      <h3 data-i18n="t5.h">Skipper training</h3>
+      <p class="tcard__meta"><span data-i18n="t5.meta">Hands-on, with an experienced local skipper</span></p>
+      <p data-i18n="t5.p">Just got your boat licence, or back on the water after a long break? Practise with one of our skippers before you head out on your own. All instructors speak fluent English.</p>
+      <ul><li data-i18n="t5.l1">Docking, undocking, anchoring and mooring</li><li data-i18n="t5.l2">Safe speedboat handling, navigation basics, reading the sea</li><li data-i18n="t5.l3">Paid per hour on top of the boat rental, minimum half day</li></ul>
+      <a href="#book" class="ulink" data-tour="training"><span data-i18n="t.ask">Ask about training</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
   </div>
   <div class="wrap">
@@ -777,7 +810,80 @@ html select{height:56px;line-height:normal}
       <button type="button" class="rbtn" id="peekPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
       <button type="button" class="rbtn" id="peekNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
-    <p class="tr__note" data-i18n="tours.note">Prices shown as XX € are example placeholders for this proposal. Final prices depend on boat, season and group size.</p>
+    <p class="tr__note" data-i18n="tours.note">Prices as published by Opatija Boats (ML Aquatics). Tours: 20% advance by bank transfer, the rest on board, cash preferred. Boat rental: 15% advance.</p>
+  </div>
+</section>
+
+<!-- ================= SHARED TOURS + MORE ================= -->
+<section class="sec has-deco bg-linen" id="shared">
+  <svg class="deco" style="width:200px;right:-50px;top:50px;color:#0A2B5E;opacity:.1" viewBox="0 0 160 130" data-speed=".2"><use href="#i-mask" width="160" height="130"/></svg>
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">04</span><span data-i18n="sh.label">Shared tours</span></p>
+      <h2 data-i18n="sh.h">Join a small group</h2>
+      <p data-i18n="sh.sub">Up to 15 guests per boat, with a skipper, fuel and drinks on board. You pay per person.</p>
+    </div>
+    <div class="plist__head rv"><span data-i18n="sh.col1">Tour</span><span data-i18n="sh.col2">Adults / children</span></div>
+    <ul class="plist">
+      <li class="rv"><span><b>Natura Pura</b><small data-i18n="st1">Approx. 7&nbsp;h · Brseč cliffs + 2 secluded beaches on Cres · drinks and fruit · 09:30 from Opatija, 10:00 from Lovran</small></span><span class="pp">65&nbsp;€<small>40&nbsp;€</small></span></li>
+      <li class="rv"><span><b>Krk Aquatica</b><small data-i18n="st2">Approx. 8&nbsp;h · 3 swimming spots on Krk + Njivice · drinks and fruit</small></span><span class="pp">75&nbsp;€<small>45&nbsp;€</small></span></li>
+      <li class="rv"><span><b>Wild Cres</b><small data-i18n="st3">Approx. 9&nbsp;h · 2 secluded beaches on Cres + the village of Beli · drinks and fruit</small></span><span class="pp">85&nbsp;€<small>50&nbsp;€</small></span></li>
+      <li class="rv"><span><b>Myths of the Sea</b><small data-i18n="st4">4.5&nbsp;h · Brseč cliffs + a swim stop · drinks</small></span><span class="pp">40&nbsp;€<small>25&nbsp;€</small></span></li>
+      <li class="rv"><span><b>Riviera Escape</b><small data-i18n="st5">Approx. 4&nbsp;h · a stop in Mošćenička Draga + a swim stop · drinks</small></span><span class="pp">35&nbsp;€<small>20&nbsp;€</small></span></li>
+      <li class="rv"><span><b>Opatija Panorama</b><small data-i18n="st6">2&nbsp;h · 1 stop along the coast · drinks</small></span><span class="pp">30&nbsp;€<small>15&nbsp;€</small></span></li>
+      <li class="rv"><span><b>Sunset Tour</b><small data-i18n="st7">3&nbsp;h · 18:00 · a swim stop in a quiet bay · drinks and snorkel gear</small></span><span class="pp">40&nbsp;€<small>20&nbsp;€</small></span></li>
+      <li class="rv"><span><b>Rijeka by Boat</b><small data-i18n="st8">1&nbsp;h one way · to Rijeka city by boat · drinks</small></span><span class="pp">15&nbsp;€<small>5&nbsp;€</small></span></li>
+    </ul>
+    <p class="tr__note rv" data-i18n="sh.note">Sunset Tour: children's price for ages 3 to 10, babies 0 to 2 go free. Natura Pura: children 5 to 10, not recommended under 5. Sandwiches 5&nbsp;€ (regular or vegetarian), order in advance. Itineraries can change a little with the weather.</p>
+    <h3 class="plist__h rv" data-i18n="me.h">More on the water</h3>
+    <ul class="plist plist--more">
+      <li class="rv"><span><b data-i18n="me1">Luxury private charter</b><small data-i18n="me1s">Grand Banks 46 with flybridge and air-conditioned salon, up to 12 guests, full day. Skipper, fuel, drinks, fruit, snorkeling, kayak and paddleboard included.</small></span><span class="pp pp--ask" data-i18n="me.ask">On request</span></li>
+      <li class="rv"><span><b data-i18n="me2">Large group cruises</b><small data-i18n="me2s">Up to 60 guests, full day with lunch included. Book the whole boat or join on your own.</small></span><span class="pp pp--ask" data-i18n="me.ask">On request</span></li>
+      <li class="rv"><span><b data-i18n="me3">Fishing tour</b><small data-i18n="me3s">An authentic Adriatic fishing trip for small private groups, all gear included.</small></span><span class="pp pp--ask" data-i18n="me.ask">On request</span></li>
+      <li class="rv"><span><b data-i18n="me4">Jet ski adventure</b><small data-i18n="me4s">Fast rides along the coast to hidden bays, safety gear included.</small></span><span class="pp pp--ask" data-i18n="me.ask">On request</span></li>
+      <li class="rv"><span><b data-i18n="me5">Kayak adventure</b><small data-i18n="me5s">Paddle to hidden beaches and coves, for beginners and experienced paddlers.</small></span><span class="pp pp--ask" data-i18n="me.ask">On request</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= FLEET ================= -->
+<section class="sec has-deco bg-white" id="fleet">
+  <svg class="deco d2" style="width:300px;right:-90px;bottom:-20px;color:#0A2B5E;opacity:.1" viewBox="0 0 300 60" data-speed=".15"><use href="#i-waves" width="300" height="60"/></svg>
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">05</span><span data-i18n="fl.label">Fleet</span></p>
+      <h2 data-i18n="fl.h">Eight speedboats in Opatija</h2>
+      <p data-i18n="fl.sub">From the nimble 5.5&nbsp;m Saver 540 to the 9.4&nbsp;m Adex 29 with two 250&nbsp;hp engines. Boats come with a bimini, sun deck, GPS sonar, anchor, life jackets and casco insurance.</p>
+    </div>
+    <div class="fleet__grid">
+      <div>
+        <div class="plist__head rv"><span data-i18n="fl.col1">Boat</span><span data-i18n="fl.col2">Price</span></div>
+        <ul class="plist plist--fleet">
+          <li class="rv"><span><b>Saver 540</b><small>5.5&nbsp;m · <span data-i18n="fl.upto">guests:</span> 4 · Mercury 40/70&nbsp;hp</small></span><span class="pp"><small data-i18n="fl.from">from</small>120&nbsp;<span data-i18n="fl.to">to</span>&nbsp;230&nbsp;€</span></li>
+          <li class="rv"><span><b>Marinello 19</b><small>5.65&nbsp;m · <span data-i18n="fl.upto">guests:</span> 5 · Tohatsu 115&nbsp;hp</small></span><span class="pp"><small data-i18n="fl.from">from</small>140&nbsp;<span data-i18n="fl.to">to</span>&nbsp;270&nbsp;€</span></li>
+          <li class="rv"><span><b>Syros 190</b><small>5.65&nbsp;m · <span data-i18n="fl.upto">guests:</span> 6 · Yamaha 115&nbsp;hp</small></span><span class="pp"><small data-i18n="fl.from">from</small>150&nbsp;<span data-i18n="fl.to">to</span>&nbsp;290&nbsp;€</span></li>
+          <li class="rv"><span><b>Quicksilver 635</b><small>6.35&nbsp;m · <span data-i18n="fl.upto">guests:</span> 7 · Mercury 150&nbsp;hp</small></span><span class="pp"><small data-i18n="fl.from">from</small>180&nbsp;<span data-i18n="fl.to">to</span>&nbsp;350&nbsp;€</span></li>
+          <li class="rv"><span><b>Merry Fisher 695</b><small>6.7&nbsp;m · <span data-i18n="fl.upto">guests:</span> 5 · Yamaha 150&nbsp;hp</small></span><span class="pp"><small data-i18n="fl.from">from</small>210&nbsp;<span data-i18n="fl.to">to</span>&nbsp;400&nbsp;€</span></li>
+          <li class="rv"><span><b>Ranieri Voyager 23S</b><small>7.15&nbsp;m · <span data-i18n="fl.upto">guests:</span> 8 · Yamaha 200&nbsp;hp</small></span><span class="pp"><small data-i18n="fl.from">from</small>220&nbsp;<span data-i18n="fl.to">to</span>&nbsp;420&nbsp;€</span></li>
+          <li class="rv"><span><b>Cap Camarat</b><small>7.5&nbsp;m · <span data-i18n="fl.upto">guests:</span> 7 · Yamaha 250&nbsp;hp</small></span><span class="pp"><small data-i18n="fl.from">from</small>285&nbsp;<span data-i18n="fl.to">to</span>&nbsp;550&nbsp;€</span></li>
+          <li class="rv"><span><b>Adex 29</b><small>9.4&nbsp;m · <span data-i18n="fl.upto">guests:</span> 6 · Hyundai 2&nbsp;×&nbsp;250&nbsp;hp</small></span><span class="pp"><small data-i18n="fl.from">from</small>470&nbsp;<span data-i18n="fl.to">to</span>&nbsp;580&nbsp;€</span></li>
+        </ul>
+        <p class="tr__note rv" data-i18n="fl.note">Published price range per boat. We confirm the exact price for your date and rental time on WhatsApp. Book several days in advance and you get a discount from the second day.</p>
+      </div>
+      <div class="gtk rv" data-delay="1">
+        <h3 data-i18n="fl.ch">Rental terms</h3>
+        <dl>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><dt data-i18n="fl.r1h">Rental times</dt><dd data-i18n="fl.r1">Half day 09:30 to 13:30 or 14:00 to 18:00. All day 10:00 to 18:00. Extra hours from 20&nbsp;€.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg><dt data-i18n="fl.r2h">Skipper</dt><dd data-i18n="fl.r2">No boat licence? We provide a skipper: 50&nbsp;€ half day, 80&nbsp;€ all day.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><dt data-i18n="fl.r3h">Pick-up</dt><dd data-i18n="fl.r3">Opatija port, next to Restaurant Molo. Delivery to Lovran +25&nbsp;€, to Rijeka +40&nbsp;€. Paid public parking at the port.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M5 20V5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v15"/><path d="M4 20h11"/><path d="M14 9h2a2 2 0 0 1 2 2v5a1.5 1.5 0 0 0 3 0V8l-3-3"/><path d="M7 8h5"/></svg><dt data-i18n="fl.r4h">Fuel</dt><dd data-i18n="fl.r4">Not included in the price.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M3 15c3 0 3-2 6-2s3 2 6 2 3-2 6-2"/><path d="M5 11l2-5h10l2 5"/><path d="M12 6V3"/></svg><dt data-i18n="fl.r5h">On board</dt><dd data-i18n="fl.r5">Pets are welcome, and you can bring your own food and drinks. The boats are not wheelchair accessible.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16c.8-1.6 1.8-2.2 3-2.2s2.2.6 3 2.2M14 10h4M14 13h3"/></svg><dt data-i18n="fl.r6h">Bring</dt><dd data-i18n="fl.r6">Your boat licence (to drive yourself) and an ID card or passport. Please come 10 minutes early.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 15h3"/></svg><dt data-i18n="fl.r7h">Payment</dt><dd data-i18n="fl.r7">15% advance by bank transfer, the rest on the boat, cash preferred.</dd></div>
+        </dl>
+        <a href="#book" class="pill pill--wa pill--block" data-tour="rent" style="margin-top:18px"><svg><use href="#i-wa"/></svg><span data-i18n="t.rent">Ask about rental</span></a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -788,10 +894,10 @@ html select{height:56px;line-height:normal}
   <svg class="deco" style="width:420px;right:-120px;bottom:-40px;color:#fff;opacity:.08" viewBox="0 0 260 110" data-speed=".2"><use href="#i-rib" width="260" height="110"/></svg>
   <div class="wrap">
     <div>
-      <p class="label rv"><span class="num">04</span><span data-i18n="crew.label">The crew</span></p>
-      <h2 class="rv" data-i18n="crew.h">Skippers who know every cove</h2>
-      <p class="rv" data-delay="1" data-i18n="crew.p">Mauro and Roko grew up on this water. They know where the sea is glass in the morning, which cave catches the evening light, and where the best cliff to jump from is. Katja and the booking team sort out the rest over WhatsApp.</p>
-      <div class="crew rv" data-delay="2"><span><i>M</i>Mauro · <span data-i18n="crew.skip">skipper</span></span><span><i>R</i>Roko · <span data-i18n="crew.skip2">skipper</span></span><span><i>K</i>Katja · <span data-i18n="crew.book">booking</span></span></div>
+      <p class="label rv"><span class="num">06</span><span data-i18n="crew.label">The crew</span></p>
+      <h2 class="rv" data-i18n="crew.h">Local skippers who know every cove</h2>
+      <p class="rv" data-delay="1" data-i18n="crew.p">Our skippers are experienced locals, and all of them speak fluent English. They know the swimming spots, the clearest water and how to read the sea. Book one with any boat, or learn from them in a skipper training session.</p>
+      <div class="crew rv" data-delay="2"><span><i>500+</i><span data-i18n="crew.c1">happy guests</span></span><span><i>10</i><span data-i18n="crew.c2">destinations</span></span><span><i>EN</i><span data-i18n="crew.c3">fluent English</span></span></div>
     </div>
     <div class="rv" data-delay="2">
       <a href="https://wa.me/385916106010?text=Hi%20Opatija%20Boats%2C%20I%20have%20a%20question%20about%20a%20tour." class="pill pill--outline" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-i18n="crew.cta">Message us on WhatsApp</span></a>
@@ -804,18 +910,18 @@ html select{height:56px;line-height:normal}
   <svg class="deco" style="width:180px;right:-30px;top:60px;color:#0A2B5E;opacity:.12" viewBox="0 0 100 120" data-speed=".2"><use href="#i-anchor" width="100" height="120"/></svg>
   <div class="wrap">
     <div class="sh rv">
-      <p class="label"><span class="num">05</span><span data-i18n="how.label">How it works</span></p>
+      <p class="label"><span class="num">07</span><span data-i18n="how.label">How it works</span></p>
       <h2 data-i18n="how.h">Three steps to the water</h2>
     </div>
     <div class="how__body">
       <div class="how__img-wrap">
-        <div class="frame how__img rv-img"><div class="art art--harbour"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-coast" width="800" height="120" x="-100" y="120" color="#4D6F8C" opacity=".55"/><use href="#i-buoy" width="50" height="68" x="90" y="230" color="#0A2B5E"/><use href="#i-rib" width="300" height="127" x="200" y="200" color="#0A2B5E"/><use href="#i-waves" width="800" height="160" x="-100" y="300" color="#fff" opacity=".7"/></svg><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="how.tag">Zert harbour</span></div>
+        <div class="frame how__img rv-img"><div class="art art--harbour"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-coast" width="800" height="120" x="-100" y="120" color="#4D6F8C" opacity=".55"/><use href="#i-buoy" width="50" height="68" x="90" y="230" color="#0A2B5E"/><use href="#i-rib" width="300" height="127" x="200" y="200" color="#0A2B5E"/><use href="#i-waves" width="800" height="160" x="-100" y="300" color="#fff" opacity=".7"/></svg><img src="https://opatijaboats.rent/wp-content/uploads/2024/04/crew_skipperi.jpg" alt="ML Aquatics skippers ready at the boat" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="how.tag">Opatija port</span></div>
       </div>
       <ol class="tl" id="tl">
         <span class="tl__track"></span><span class="tl__fill" id="tlFill"></span>
         <li class="step"><span class="step__dot">1</span><h3 data-i18n="s1.h">Message us</h3><p data-i18n="s1.p">Pick a tour below, choose a day and how many of you, and send it to WhatsApp. Or just write to us, we are quick.</p></li>
-        <li class="step"><span class="step__dot">2</span><h3 data-i18n="s2.h">We confirm the time</h3><p data-i18n="s2.p">We check the weather and the boats, and confirm your pick-up time at Zert. If the weather turns, we simply agree a new time.</p></li>
-        <li class="step"><span class="step__dot">3</span><h3 data-i18n="s3.h">Step on board</h3><p data-i18n="s3.p">Meet us on the pier. Your skipper is ready, drinks are on board. For self-drive, we walk you through the boat before you go.</p></li>
+        <li class="step"><span class="step__dot">2</span><h3 data-i18n="s2.h">We confirm</h3><p data-i18n="s2.p">We confirm the departure point and time, and send the details for the advance payment by bank transfer: 20% for tours, 15% for boat rental.</p></li>
+        <li class="step"><span class="step__dot">3</span><h3 data-i18n="s3.h">Step on board</h3><p data-i18n="s3.p">Meet us at the port 10 minutes before departure. Your skipper is ready and drinks are on board. Renting? Bring your boat licence and ID, and we walk you through the boat.</p></li>
       </ol>
     </div>
   </div>
@@ -827,17 +933,22 @@ html select{height:56px;line-height:normal}
   <div class="wrap">
     <div class="near__grid">
       <div class="sh rv">
-        <p class="label"><span class="num">06</span><span data-i18n="near.label">Along the coast</span></p>
+        <p class="label"><span class="num">08</span><span data-i18n="near.label">Along the coast</span></p>
         <h2 data-i18n="near.h">What you see from the water</h2>
-        <p data-i18n="near.sub">The Opatija riviera is best seen from the sea. These are the places our tours pass along the Kvarner coast.</p>
+        <p data-i18n="near.sub">The Opatija Riviera is best seen from the sea. These are the places our tours visit along the Kvarner coast and on the islands.</p>
       </div>
       <div>
         <ul class="near">
           <li class="rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round"><path d="M3 18c3 0 3-2 6-2s3 2 6 2 3-2 6-2"/><path d="M4 13h16"/><path d="M6 13V9h3v4M11 13V7h3v6M16 13v-3h3v3"/></svg></span><span><b>Opatija Lungomare</b><small data-i18n="n1">The famous seaside promenade, villas and all, seen the way it was meant to be seen</small></span><span class="dist" data-i18n="n1d">Right by Zert</span></li>
-          <li class="rv" data-delay="1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 20v-8l4-3 4 3v8"/><path d="M13 20v-6l3-2 3 2v6"/><path d="M8 15h2M16 16h1"/></svg></span><span><b>Volosko</b><small data-i18n="n2">A small fishing village with stone houses and a tiny harbour, a short hop north</small></span><span class="dist" data-i18n="n2d">North</span></li>
-          <li class="rv" data-delay="2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19c3 0 3-2 6-2s3 2 6 2 3-2 6-2"/><path d="M12 4v9"/><path d="M12 4c3 0 5 2 5 5-3 0-5-2-5-5z"/><path d="M12 7c-3 0-5 2-5 5 3 0 5-2 5-5z"/></svg></span><span><b>Lovran</b><small data-i18n="n3">Old town, chestnut woods above and coves below, south along the riviera</small></span><span class="dist" data-i18n="n3d">South</span></li>
+          <li class="rv" data-delay="1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 20v-8l4-3 4 3v8"/><path d="M13 20v-6l3-2 3 2v6"/><path d="M8 15h2M16 16h1"/></svg></span><span><b>Volosko</b><small data-i18n="n2">A small fishing village with stone houses. Sunset Tour guests can board at the pier by the green lantern</small></span><span class="dist" data-i18n="n2d">North</span></li>
+          <li class="rv" data-delay="2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19c3 0 3-2 6-2s3 2 6 2 3-2 6-2"/><path d="M12 4v9"/><path d="M12 4c3 0 5 2 5 5-3 0-5-2-5-5z"/><path d="M12 7c-3 0-5 2-5 5 3 0 5-2 5-5z"/></svg></span><span><b>Lovran</b><small data-i18n="n3">Old town and quiet coves. Natura Pura also leaves from Lovran harbour, near Restaurant Kvarner</small></span><span class="dist" data-i18n="n3d">South</span></li>
+          <li class="rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V9l4-4 3 3 3-1v13"/><path d="M13 20c2 0 2-1.5 4-1.5s2 1.5 4 1.5"/><path d="M13 16c2 0 2-1.5 4-1.5s2 1.5 4 1.5"/></svg></span><span><b>Brseč</b><small data-i18n="n4">High cliffs and clear water for swimming and snorkeling on Myths of the Sea and Natura Pura</small></span><span class="dist" data-i18n="n4d">South</span></li>
+          <li class="rv" data-delay="1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19c3 0 3-2 6-2s3 2 6 2 3-2 6-2"/><path d="M3 14c2-5 5-8 9-8s7 3 9 8"/><circle cx="12" cy="11" r="1.5"/></svg></span><span><b>Mošćenička Draga</b><small data-i18n="n5">A seaside village with a long beach, the stop on the Riviera Escape tour</small></span><span class="dist" data-i18n="n5d">South</span></li>
+          <li class="rv" data-delay="2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18c3 0 3-2 6-2s3 2 6 2 3-2 6-2"/><path d="M5 15c1.5-4 4.5-6 7-6s5.5 2 7 6"/><path d="M12 9V5"/><path d="M12 5c1.5-1 3-1 4 0"/></svg></span><span><b>Cres · Beli</b><small data-i18n="n6">Secluded beaches you can only reach by boat, and the old village of Beli on Wild Cres</small></span><span class="dist" data-i18n="n6d">Island</span></li>
+          <li class="rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18c3 0 3-2 6-2s3 2 6 2 3-2 6-2"/><path d="M5 15c1.5-4 4.5-6 7-6s5.5 2 7 6"/><path d="M12 9V5"/><path d="M12 5c1.5-1 3-1 4 0"/></svg></span><span><b>Krk · Njivice</b><small data-i18n="n7">Three swimming spots on Krk and the village of Njivice on Krk Aquatica</small></span><span class="dist" data-i18n="n7d">Island</span></li>
+          <li class="rv" data-delay="1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 20V10h4v10M10 20V5h5v15M16 20v-8h3v8"/><path d="M12 8h1M12 11h1M12 14h1"/></svg></span><span><b>Rijeka</b><small data-i18n="n8">The city in an hour by boat, and our second base at Riva 10</small></span><span class="dist" data-i18n="n8d">East</span></li>
         </ul>
-        <p class="near-note rv" data-i18n="near.note">Hidden caves, snorkeling spots, cliff jumps and beaches are chosen on the day by your skipper, depending on sea and wind.</p>
+        <p class="near-note rv" data-i18n="near.note">Swim stops and beaches are chosen on the day by your skipper, depending on sea and wind. Some beaches are reached by a short swim from the boat.</p>
       </div>
     </div>
   </div>
@@ -849,9 +960,9 @@ html select{height:56px;line-height:normal}
     <div class="book__grid">
       <div>
         <div class="sh rv">
-          <p class="label"><span class="num">07</span><span data-i18n="book.label">Booking</span></p>
+          <p class="label"><span class="num">09</span><span data-i18n="book.label">Booking</span></p>
           <h2 data-i18n="book.h">Tell us your day</h2>
-          <p data-i18n="book.sub">Fill this in and it opens WhatsApp with the message ready. No payment here, no account. Katja or the team confirms your time.</p>
+          <p data-i18n="book.sub">Fill this in and it opens WhatsApp with the message ready. No payment here, no account. We reply with your time and the advance payment details.</p>
         </div>
         <div class="sum rv" data-delay="1">
           <span class="sum__dot"></span>
@@ -860,21 +971,30 @@ html select{height:56px;line-height:normal}
       </div>
       <form class="form rv" id="form" data-delay="1" novalidate>
         <fieldset class="field">
-          <legend data-i18n="f.tour">Tour type</legend>
+          <legend data-i18n="f.tour">What would you like?</legend>
           <div class="chips" id="tourChips">
-            <label class="chip"><input type="radio" name="tour" value="morning"><span><span data-i18n="f.t1">Morning half-day</span><small data-i18n="f.t1s">with skipper</small></span></label>
-            <label class="chip"><input type="radio" name="tour" value="sunset" checked><span><span data-i18n="f.t2">Sunset 3-hour</span><small>18:00 to 21:00</small></span></label>
-            <label class="chip"><input type="radio" name="tour" value="rent"><span><span data-i18n="f.t3">Rent a boat</span><small data-i18n="f.t3s">self-drive</small></span></label>
-            <label class="chip"><input type="radio" name="tour" value="custom"><span><span data-i18n="f.t4">Custom full-day</span><small data-i18n="f.t4s">with skipper</small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="private"><span><span data-i18n="f.t1">Private tour</span><small data-i18n="f.t1s">whole boat</small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="sunset" checked><span><span data-i18n="f.t2">Sunset Tour</span><small data-i18n="f.t2s">18:00, 3&nbsp;h</small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="island"><span><span data-i18n="f.t3">Island day</span><small data-i18n="f.t3s">Cres or Krk</small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="rent"><span><span data-i18n="f.t4">Rent a boat</span><small data-i18n="f.t4s">self-drive or skipper</small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="training"><span><span data-i18n="f.t5">Skipper training</span><small data-i18n="f.t5s">new licence holders</small></span></label>
           </div>
         </fieldset>
         <label class="field"><span data-i18n="f.date">Date</span><input type="date" class="ctl" id="fDate" required></label>
         <fieldset class="field">
-          <legend data-i18n="f.time">Time of day</legend>
+          <legend data-i18n="f.time">Start</legend>
           <div class="chips chips--3" id="timeChips">
-            <label class="chip"><input type="radio" name="time" value="morning"><span><span data-i18n="f.tm1">Morning</span><small data-i18n="f.tm1s">from 08:00</small></span></label>
-            <label class="chip"><input type="radio" name="time" value="afternoon"><span><span data-i18n="f.tm2">Afternoon</span><small data-i18n="f.tm2s">from 13:00</small></span></label>
+            <label class="chip"><input type="radio" name="time" value="morning"><span><span data-i18n="f.tm1">Morning</span><small>09:30</small></span></label>
+            <label class="chip"><input type="radio" name="time" value="afternoon"><span><span data-i18n="f.tm2">Afternoon</span><small>14:00</small></span></label>
             <label class="chip"><input type="radio" name="time" value="evening" checked><span><span data-i18n="f.tm3">Evening</span><small>18:00</small></span></label>
+          </div>
+        </fieldset>
+        <fieldset class="field">
+          <legend data-i18n="f.from">Departure from</legend>
+          <div class="chips chips--3" id="fromChips">
+            <label class="chip"><input type="radio" name="from" value="Opatija" checked><span>Opatija</span></label>
+            <label class="chip"><input type="radio" name="from" value="Rijeka"><span>Rijeka</span></label>
+            <label class="chip"><input type="radio" name="from" value="Lovran"><span>Lovran</span></label>
           </div>
         </fieldset>
         <div class="field"><span data-i18n="f.guests">Guests</span><div class="qty"><button type="button" id="gMinus" aria-label="Fewer">&minus;</button><output id="gOut">4</output><button type="button" id="gPlus" aria-label="More">+</button></div></div>
@@ -892,16 +1012,18 @@ html select{height:56px;line-height:normal}
   <div class="wrap">
     <div class="faq__grid">
       <div class="sh rv">
-        <p class="label"><span class="num">08</span><span data-i18n="faq.label">FAQ</span></p>
+        <p class="label"><span class="num">10</span><span data-i18n="faq.label">FAQ</span></p>
         <h2 data-i18n="faq.h">Before you go</h2>
         <p data-i18n="faq.sub">Anything else, just ask on WhatsApp.</p>
       </div>
       <div class="faq__list rv" data-delay="1">
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q1">What if the weather is bad?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a1">Safety first. If the sea or the wind is not right, we agree a new time with you. No stress, no complicated rules.</p></div></div></div>
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q2">Do I need a licence to rent a boat?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a2">It depends on the boat and on you. Ask us on WhatsApp and we will tell you what is possible and what we need from you.</p></div></div></div>
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q3">Can we bring kids?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a3">Ask us. Tell us the ages and we will advise on the boat and the tour that suits your family best.</p></div></div></div>
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q4">What is included on a private tour?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a4">Your skipper, drinks on board, stops at hidden caves, snorkeling and beaches, and a pick-up at Zert at the time we agree. The sunset tour adds a swim stop and a drink stop in a harbour.</p></div></div></div>
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">How do I confirm a booking?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a5">Over WhatsApp. Send your request from this page or write to +385 91 610 6010 and we confirm your time.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q1">What if the weather is bad?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a1">Safety first. Itineraries can change a little with the weather, and your skipper picks the stops on the day. If the sea is not safe, we contact you on WhatsApp.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q2">Do I need a licence to rent a boat?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a2">Yes, to drive a boat yourself you need a valid boat licence. Bring it with your ID or passport. No licence? We add a skipper for 50&nbsp;€ (half day) or 80&nbsp;€ (all day). New licence holders can also book skipper training.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q3">Can we bring kids?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a3">Yes. On the Sunset Tour children 3 to 10 pay 20&nbsp;€ and babies 0 to 2 go free. Natura Pura is not recommended for children under 5. Life jackets are on board, and a folded stroller can travel in the cabin.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q4">What is included on a tour?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a4">Skipper, fuel, drinks (wine, water, soft drinks, juice) and snorkel gear. Full-day island trips add fruit. Sandwiches cost 5&nbsp;€ each, regular or vegetarian, order in advance. There is a chemical toilet on board.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">How do I book and pay?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a5">Send your request from this page, write on WhatsApp or Viber to +385 91 610 6010, or email opatijaboats.rent@gmail.com. Tours need a 20% advance and boat rental 15%, by bank transfer. The rest is paid on the boat, cash preferred.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q6">Where do we board?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a6">At Opatija port (Zert), next to Restaurant Molo. Some tours also board in Volosko (pier by the green lantern), Ičići (ACI marina) or Lovran harbour (near Restaurant Kvarner). Please come 10 minutes early. Public parking at the port is paid.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q7">Can we bring food, drinks or pets?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a7">Yes, you can bring your own food and drinks. Small pets are welcome on the Sunset Tour and on rental boats, but not on Natura Pura. Our boats are not wheelchair accessible.</p></div></div></div>
       </div>
     </div>
   </div>
@@ -914,22 +1036,24 @@ html select{height:56px;line-height:normal}
     <div class="contact__grid">
       <div>
         <div class="sh rv">
-          <p class="label"><span class="num">09</span><span data-i18n="c.label">Contact</span></p>
-          <h2 data-i18n="c.h">Find us at Zert</h2>
+          <p class="label"><span class="num">11</span><span data-i18n="c.label">Contact</span></p>
+          <h2 data-i18n="c.h">Find us at Opatija port</h2>
         </div>
-        <p class="addr rv">Zert, the small harbour<br>51410 Opatija, Croatia</p>
-        <p class="rv" data-delay="1"><a href="tel:+385916106010" class="ulink">+385 91 610 6010</a><br><span data-i18n="c.wa" style="color:var(--muted);font-size:15px">Phone and WhatsApp. Quick and clear.</span></p>
+        <p class="addr rv">Zert ul., Opatija port<br><span data-i18n="c.molo">next to Restaurant Molo</span><br>51410 Opatija, <span data-i18n="c.hr">Croatia</span></p>
+        <p class="rv" data-delay="1"><a href="tel:+385916106010" class="ulink">+385&nbsp;91&nbsp;610&nbsp;6010</a><br><span data-i18n="c.wa" style="color:var(--muted);font-size:15px">Call, WhatsApp or Viber.</span><br><a href="mailto:opatijaboats.rent@gmail.com" class="ulink" style="margin-top:10px">opatijaboats.rent@gmail.com</a></p>
         <ul class="hours rv" data-delay="1">
-          <li><span><span data-i18n="c.daily">Every day</span><span class="open-now" id="openNow" hidden></span></span><span>08:00 to 20:00</span></li>
-          <li><span data-i18n="c.eve">Evening tours</span><span>18:00 to 21:00</span></li>
+          <li><span><span data-i18n="c.daily">Every day</span><span class="open-now" id="openNow" hidden></span></span><span data-i18n="c.hoursv">09:00 to 21:00</span></li>
+          <li><span data-i18n="c.eve">Sunset Tour</span><span>18:00</span></li>
+          <li><span data-i18n="c.rijeka">Also in Rijeka</span><span><a href="https://rijekaboats.com/" target="_blank" rel="noopener">Riva 10, 51000 Rijeka</a></span></li>
+          <li><span data-i18n="c.social">Follow us</span><span><a href="https://www.instagram.com/mlaquatics/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/mlaquatics/" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.tiktok.com/@mlaquatics" target="_blank" rel="noopener">TikTok</a></span></li>
         </ul>
         <div class="contact__btns rv" data-delay="2">
           <a href="https://wa.me/385916106010" class="pill pill--wa" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-i18n="cta.wa">WhatsApp us</span></a>
-          <a href="https://maps.google.com/?q=Zert+Opatija" class="pill pill--ghost" target="_blank" rel="noopener"><span data-i18n="c.map">Open in Maps</span></a>
+          <a href="https://maps.app.goo.gl/wGYqJ4usH1jgjixA8" class="pill pill--ghost" target="_blank" rel="noopener"><span data-i18n="c.map">Open in Maps</span></a>
         </div>
       </div>
       <div class="frame contact__img rv-img">
-        <div class="art art--morning"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-coast" width="800" height="120" x="-100" y="100" color="#2F5F86" opacity=".6"/><use href="#i-buoy" width="40" height="55" x="470" y="250" color="#0A2B5E"/><use href="#i-sail" width="110" height="132" x="70" y="200" color="#0A2B5E"/><use href="#i-waves" width="800" height="160" x="-100" y="280" color="#fff" opacity=".7"/></svg><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
+        <div class="art art--morning"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-coast" width="800" height="120" x="-100" y="100" color="#2F5F86" opacity=".6"/><use href="#i-buoy" width="40" height="55" x="470" y="250" color="#0A2B5E"/><use href="#i-sail" width="110" height="132" x="70" y="200" color="#0A2B5E"/><use href="#i-waves" width="800" height="160" x="-100" y="280" color="#fff" opacity=".7"/></svg><img src="https://opatijaboats.rent/wp-content/uploads/2024/04/taxi-boat_birdview.jpg" alt="Boat on the sea near Opatija, seen from above" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
         <div class="pin"><div class="pin__ring"><svg viewBox="0 0 100 120"><use href="#i-anchor" color="#0A2B5E"/></svg></div></div>
         <span class="tag-b">Opatija, Croatia</span>
       </div>
@@ -947,13 +1071,13 @@ html select{height:56px;line-height:normal}
           <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><path d="M50 22a6 6 0 1 0 0 .01M50 28V78M36 44H64M24 60C24 72 36 80 50 80C64 80 76 72 76 60L68 65M24 60L32 65" fill="none" stroke="#F2B458" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span><b>Opatija Boats</b><small data-i18n="logo.sub">Rent a boat &amp; tours</small></span>
         </a>
-        <p style="margin-top:16px;max-width:36ch" data-i18n="foot.p">Private boat tours with a skipper and self-drive boat rental from Zert harbour, Opatija.</p>
+        <p style="margin-top:16px;max-width:36ch" data-i18n="foot.p">Shared and private boat tours, speedboat rental and skipper training from Opatija port. ML Aquatics.</p>
       </div>
-      <div><h4 data-i18n="foot.visit">Visit</h4><ul><li>Zert, 51410 Opatija</li><li data-i18n="ovl.hours">Daily 08:00 to 20:00</li></ul></div>
-      <div><h4 data-i18n="foot.talk">Talk to us</h4><ul><li><a href="tel:+385916106010">+385 91 610 6010</a></li><li><a href="https://wa.me/385916106010" target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
-      <div><h4 data-i18n="foot.explore">Explore</h4><ul><li><a href="#tours" data-i18n="ovl.tours">Tours</a></li><li><a href="#book" data-i18n="ovl.book">Booking</a></li><li><a href="#faq" data-i18n="ovl.faq">FAQ</a></li></ul></div>
+      <div><h4 data-i18n="foot.visit">Visit</h4><ul><li>Zert ul., 51410 Opatija</li><li>Riva 10, 51000 Rijeka</li><li data-i18n="ovl.hours">Daily 09:00 to 21:00</li></ul></div>
+      <div><h4 data-i18n="foot.talk">Talk to us</h4><ul><li><a href="tel:+385916106010">+385&nbsp;91&nbsp;610&nbsp;6010</a></li><li><a href="https://wa.me/385916106010" target="_blank" rel="noopener">WhatsApp</a> · Viber</li><li><a href="mailto:opatijaboats.rent@gmail.com">opatijaboats.rent@gmail.com</a></li><li><a href="https://www.instagram.com/mlaquatics/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/mlaquatics/" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.tiktok.com/@mlaquatics" target="_blank" rel="noopener">TikTok</a></li></ul></div>
+      <div><h4 data-i18n="foot.explore">Explore</h4><ul><li><a href="#tours" data-i18n="ovl.tours">Tours</a></li><li><a href="#shared" data-i18n="ovl.shared">Shared tours</a></li><li><a href="#fleet" data-i18n="ovl.fleet">Our fleet</a></li><li><a href="#book" data-i18n="ovl.book">Booking</a></li><li><a href="#faq" data-i18n="ovl.faq">FAQ</a></li></ul></div>
     </div>
-    <div class="foot__bot"><span>&copy; <span id="year">2026</span> Opatija Boats</span><span data-i18n="concept">Concept by Marija</span></div>
+    <div class="foot__bot"><span>&copy; <span id="year">2026</span> Opatija Boats · ML Aquatics</span><span data-i18n="concept">Concept by Marija</span></div>
   </div>
 </footer>
 
@@ -975,116 +1099,488 @@ var mqDesk = window.matchMedia("(min-width: 900px)");
 /* ================= DICTIONARY ================= */
 var T = {
 en:{
- "logo.sub":"Rent a boat & tours","nav.book":"Book a tour","nav.menu":"MENU","ovl.tours":"Tours","ovl.how":"How it works","ovl.nearby":"Along the coast","ovl.book":"Booking","ovl.faq":"FAQ","ovl.contact":"Contact","cta.wa":"WhatsApp us","ovl.addr":"Zert harbour, Opatija","ovl.hours":"Daily 08:00 to 20:00","concept":"Concept by Marija",
- "hero.label":"Zert harbour · Opatija · Kvarner bay","hero.t1":"Golden hour,","hero.t2":"from the bow of your boat","hero.sub":"Rent a boat & private tours","hero.txt":"Private tours with a skipper along the Opatija riviera: hidden caves, snorkeling, a swim stop and a drink in a quiet harbour. Or take the wheel yourself.","hero.addr":"Zert, 51410 Opatija · Google 5.0 from 514 reviews","hero.cta":"Book a sunset tour","hint.touch":"Tilt by touch","hint.mouse":"Move the mouse to tilt",
+ "logo.sub":"Rent a boat & tours","nav.book":"Book a tour","nav.menu":"MENU","ovl.tours":"Tours","ovl.how":"How it works","ovl.nearby":"Along the coast","ovl.book":"Booking","ovl.faq":"FAQ","ovl.contact":"Contact","cta.wa":"WhatsApp us","ovl.addr":"Opatija port, next to Restaurant Molo","ovl.hours":"Daily 09:00 to 21:00","concept":"Concept by Marija",
+ "hero.label":"Opatija port · Rijeka · Kvarner bay","hero.t1":"Golden hour,","hero.t2":"from the bow of your boat","hero.sub":"Boat tours & speedboat rental","hero.txt":"Small-group trips to the secluded beaches of Cres and Krk, a sunset cruise along the Opatija Riviera and private tours with a skipper. Or rent a speedboat and take the wheel yourself.","hero.addr":"Zert, 51410 Opatija · next to Restaurant Molo","hero.cta":"Book a sunset tour","hint.touch":"Tilt by touch","hint.mouse":"Move the mouse to tilt",
  "finder.b":"Private tour","finder.s":"Pick a date • {n}",
- "gal.label":"On the water","gal.h":"A day on the Kvarner","gal.sub":"Caves, coves, a swim and a cold drink. Scroll through what a tour looks like.",
- "gal.g1":"Opatija, Croatia","gal.g2":"Kvarner bay","gal.g3":"Hidden cave","gal.g4":"Swim stop","gal.g5":"Zert harbour",
- "gal.c1":"Sunset tour, 18:00 to 21:00","gal.c2":"Morning on a glassy sea","gal.c3":"Caves along the coast","gal.c4":"Snorkeling and cliff jumping","gal.c5":"Pick-up at Zert, the small harbour",
+ "gal.label":"On the water","gal.h":"A day on the Kvarner","gal.sub":"Cliffs, secluded beaches, a swim and a cold drink. Scroll through what a day with us looks like.",
+ "gal.g1":"Opatija Riviera","gal.g2":"Island of Cres","gal.g3":"Brseč cliffs","gal.g4":"Island of Krk","gal.g5":"Kvarner bay",
+ "gal.c1":"Sunset Tour, 18:00 from Opatija","gal.c2":"Secluded beaches on Cres, reachable only by boat","gal.c3":"Myths of the Sea: cliffs and a swim stop","gal.c4":"Krk Aquatica: three swimming spots on Krk","gal.c5":"A day out on the Kvarner",
  "sub.intro":"About","sub.tours":"Tours","sub.how":"How it works","sub.nearby":"Along the coast","sub.book":"Booking","sub.faq":"FAQ","sub.contact":"Contact",
- "intro.label":"Opatija Boats","intro.h":"Small harbour, big bay","intro.lead":"We leave from Zert, the small harbour in the middle of Opatija. From there the whole Kvarner opens up: the Lungomare from the water, Volosko's stone houses, Lovran, and the quiet coves and caves in between.","intro.p1":"Choose a private tour with one of our skippers, or rent a boat and drive it yourself. We give you a proper briefing at pick-up, and we are one WhatsApp message away the whole time.","intro.p2":"Everything is arranged over WhatsApp, quick and clear. Tell us the day and how many of you are coming, and we take it from there.","intro.sig":"Skippers and booking team",
- "gtk.h":"Good to know","gtk.meet":"Meeting point","gtk.meetv":"Zert, the small harbour, 51410 Opatija. We meet you on the pier.","gtk.hours":"Hours","gtk.hoursv":"Open daily 08:00 to 20:00. Evening tours run 18:00 to 21:00.","gtk.bring":"What to bring","gtk.bringv":"Swimsuit, towel, sunscreen, a hat and a light layer for the evening. Drinks are on board.","gtk.skip":"Skipper included","gtk.skipv":"On every private tour. Self-drive rental comes with full instructions at pick-up.","gtk.conf":"Confirmation","gtk.confv":"By WhatsApp, usually within minutes. Pick-up time agreed with you.","gtk.rev":"Google reviews",
- "tours.label":"Tours and rental","tours.h":"Pick your kind of day","tours.sub":"Four ways to get out on the water. Every private tour comes with a skipper, drinks on board and a pick-up at the time we agree.",
- "t1.tag":"Half day · morning","t1.h":"Morning half-day private tour","t1.meta":"Private, with skipper · from","t1.p":"Calm sea, soft light and the coast to yourselves. We head out along the riviera, stop at hidden caves and a beach, and get the snorkel masks out.","t1.l1":"Skipper and drinks on board","t1.l2":"Caves, snorkeling, cliff jumping for the brave","t1.l3":"Pick-up at Zert at the agreed time",
- "t2.tag":"18:00 to 21:00","t2.h":"Sunset 3-hour tour","t2.meta":"Private, with skipper · from","t2.p":"Our favourite. Three hours of golden light along the Opatija coast, a swim stop in a quiet cove and a drink stop in a small harbour before the sun goes down.","t2.l1":"Swim stop and drink stop in a harbour","t2.l2":"Drinks on board, skipper included","t2.l3":"Departure 18:00 from Zert",
- "t3.tag":"Self-drive","t3.h":"Rent a boat yourself","t3.meta":"Self-drive · from","t3.p":"Take the wheel. You get a full briefing at pick-up: the boat, the coast, where to swim and where to be careful. Then the bay is yours for the day.","t3.l1":"Instructions and safety briefing at pick-up","t3.l2":"Licence questions: just ask us","t3.l3":"We stay reachable on WhatsApp",
- "t4.tag":"Full day · custom","t4.h":"Custom full-day tour","t4.meta":"Private, with skipper · from","t4.p":"Your day, your route. Tell us what you love: caves, long swims, cliff jumping, a lazy lunch in a harbour. We plan it with you along the Kvarner coast.","t4.l1":"Route planned together on WhatsApp","t4.l2":"Skipper, drinks and snorkel gear on board","t4.l3":"Start time of your choice, from 08:00",
- "t.book":"Book this tour","t.rent":"Ask about rental","t.plan":"Plan my day","tours.note":"Prices shown as XX € are example placeholders for this proposal. Final prices depend on boat, season and group size.",
- "crew.label":"The crew","crew.h":"Skippers who know every cove","crew.p":"Mauro and Roko grew up on this water. They know where the sea is glass in the morning, which cave catches the evening light, and where the best cliff to jump from is. Katja and the booking team sort out the rest over WhatsApp.","crew.skip":"skipper","crew.skip2":"skipper","crew.book":"booking","crew.cta":"Message us on WhatsApp",
- "how.label":"How it works","how.h":"Three steps to the water","how.tag":"Zert harbour","s1.h":"Message us","s1.p":"Pick a tour below, choose a day and how many of you, and send it to WhatsApp. Or just write to us, we are quick.","s2.h":"We confirm the time","s2.p":"We check the weather and the boats, and confirm your pick-up time at Zert. If the weather turns, we simply agree a new time.","s3.h":"Step on board","s3.p":"Meet us on the pier. Your skipper is ready, drinks are on board. For self-drive, we walk you through the boat before you go.",
- "near.label":"Along the coast","near.h":"What you see from the water","near.sub":"The Opatija riviera is best seen from the sea. These are the places our tours pass along the Kvarner coast.","n1":"The famous seaside promenade, villas and all, seen the way it was meant to be seen","n1d":"Right by Zert","n2":"A small fishing village with stone houses and a tiny harbour, a short hop north","n2d":"North","n3":"Old town, chestnut woods above and coves below, south along the riviera","n3d":"South","near.note":"Hidden caves, snorkeling spots, cliff jumps and beaches are chosen on the day by your skipper, depending on sea and wind.",
- "book.label":"Booking","book.h":"Tell us your day","book.sub":"Fill this in and it opens WhatsApp with the message ready. No payment here, no account. Katja or the team confirms your time.","book.sumh":"Your request",
- "f.tour":"Tour type","f.t1":"Morning half-day","f.t1s":"with skipper","f.t2":"Sunset 3-hour","f.t3":"Rent a boat","f.t3s":"self-drive","f.t4":"Custom full-day","f.t4s":"with skipper","f.date":"Date","f.time":"Time of day","f.tm1":"Morning","f.tm1s":"from 08:00","f.tm2":"Afternoon","f.tm2s":"from 13:00","f.tm3":"Evening","f.guests":"Guests","f.name":"Your name","f.nameph":"e.g. Anna","f.send":"Send via WhatsApp","f.fine":"Opens WhatsApp with your request prefilled. You can still edit it before sending.",
+ "intro.label":"Opatija Boats","intro.h":"Small harbour, big bay","intro.lead":"We leave from Zert, the port in the middle of Opatija, right next to Restaurant Molo. From there the whole Kvarner opens up: the Lungomare from the water, the Brseč cliffs, Mošćenička Draga and the islands of Cres and Krk.","intro.p1":"Join a shared tour in a small group, book a private tour with one of our skippers, or rent a speedboat and drive it yourself. You will also find us in Rijeka, at Riva 10.","intro.p2":"Everything is arranged over WhatsApp, quick and clear. Tell us the day and how many of you are coming, and we take it from there.","intro.sig":"Opatija Boats · Opatija and Rijeka",
+ "gtk.h":"Good to know","gtk.meet":"Meeting point","gtk.meetv":"Opatija port (Zert), next to Restaurant Molo. Please be there 10 minutes before departure.","gtk.hours":"Hours","gtk.hoursv":"Open daily 09:00 to 21:00. The Sunset Tour leaves at 18:00.","gtk.bring":"What to bring","gtk.bringv":"Swimsuit, beach towel, sunscreen, a sun hat and some cash. Drinks are on board.","gtk.skip":"Skipper","gtk.skipv":"Included on every tour. Renting without a boat licence? Add a skipper from 50 €.","gtk.conf":"Booking","gtk.confv":"By WhatsApp, phone or email. Tours need a 20% advance by bank transfer, the rest is paid on board.","gtk.rev":"happy guests",
+ "tours.label":"Tours and rental","tours.h":"Pick your kind of day","tours.sub":"Small-group tours, private tours, speedboat rental and skipper training. Every tour comes with a skipper, fuel and drinks on board.",
+ "t1.tag":"Private · up to 15 guests","t1.h":"Private boat tours","t1.meta":"The whole boat, with skipper · from","t1.p":"The boat is just for your group. Island Escape is a full day of island hopping with longer stops and a lunch break in a village. Coastal Discovery takes a few hours, lovely in the late afternoon.","t1.l1":"Island Escape, all day: from 320 € per boat","t1.l2":"Rijeka Bay Experience by speedboat, up to 7 guests: from 260 € per boat","t1.l3":"Coastal Discovery: a few hours, one or two highlights",
+ "t2.tag":"18:00 · approx. 3 h","t2.h":"Sunset Tour","t2.meta":"Small group, with skipper · adults","t2.p":"Golden light along the Opatija Riviera, a swim stop in a quiet bay and the sun going down over the Adriatic. Back around 21:00.","t2.l1":"Children 3 to 10: 20 €, babies 0 to 2 free","t2.l2":"Skipper, fuel, drinks (wine, water, soft drinks, juice) and snorkel gear","t2.l3":"Board in Volosko, Opatija (Restaurant Molo) or Ičići (ACI marina)",
+ "t3.tag":"Full day · small group","t3.h":"Island days: Cres and Krk","t3.meta":"Small group, with skipper · adults from","t3.p":"Secluded beaches you can only reach by boat, clear water for swimming and snorkeling, drinks and fruit on board. Up to 15 guests per boat.","t3.l1":"Natura Pura: Brseč cliffs + 2 beaches on Cres, approx. 7 h","t3.l2":"Wild Cres: 2 beaches on Cres + the village of Beli, approx. 9 h","t3.l3":"Krk Aquatica: 3 swimming spots on Krk + Njivice, approx. 8 h",
+ "t4.tag":"Self-drive or with skipper","t4.h":"Rent a speedboat","t4.meta":"Eight boats, 5.5 to 9.4 m · from","t4.p":"Take the wheel with your boat licence, or add a skipper. Half day or all day from Opatija port, with delivery to Rijeka or Lovran on request.","t4.l1":"Half day 09:30 to 13:30 or 14:00 to 18:00, all day 10:00 to 18:00","t4.l2":"Skipper: 50 € half day, 80 € all day","t4.l3":"Fuel not included, pets welcome",
+ "t.book":"Book this tour","t.rent":"Ask about rental","tours.note":"Prices as published by Opatija Boats (ML Aquatics). Tours: 20% advance by bank transfer, the rest on board, cash preferred. Boat rental: 15% advance.",
+ "crew.label":"The crew","crew.h":"Local skippers who know every cove","crew.p":"Our skippers are experienced locals, and all of them speak fluent English. They know the swimming spots, the clearest water and how to read the sea. Book one with any boat, or learn from them in a skipper training session.","crew.skip":"skipper","crew.skip2":"skipper","crew.book":"booking","crew.cta":"Message us on WhatsApp",
+ "how.label":"How it works","how.h":"Three steps to the water","how.tag":"Opatija port","s1.h":"Message us","s1.p":"Pick a tour below, choose a day and how many of you, and send it to WhatsApp. Or just write to us, we are quick.","s2.h":"We confirm","s2.p":"We confirm the departure point and time, and send the details for the advance payment by bank transfer: 20% for tours, 15% for boat rental.","s3.h":"Step on board","s3.p":"Meet us at the port 10 minutes before departure. Your skipper is ready and drinks are on board. Renting? Bring your boat licence and ID, and we walk you through the boat.",
+ "near.label":"Along the coast","near.h":"What you see from the water","near.sub":"The Opatija Riviera is best seen from the sea. These are the places our tours visit along the Kvarner coast and on the islands.","n1":"The famous seaside promenade, villas and all, seen the way it was meant to be seen","n1d":"Right by Zert","n2":"A small fishing village with stone houses. Sunset Tour guests can board at the pier by the green lantern","n2d":"North","n3":"Old town and quiet coves. Natura Pura also leaves from Lovran harbour, near Restaurant Kvarner","n3d":"South","near.note":"Swim stops and beaches are chosen on the day by your skipper, depending on sea and wind. Some beaches are reached by a short swim from the boat.",
+ "book.label":"Booking","book.h":"Tell us your day","book.sub":"Fill this in and it opens WhatsApp with the message ready. No payment here, no account. We reply with your time and the advance payment details.","book.sumh":"Your request",
+ "f.tour":"What would you like?","f.t1":"Private tour","f.t1s":"whole boat","f.t2":"Sunset Tour","f.t3":"Island day","f.t3s":"Cres or Krk","f.t4":"Rent a boat","f.t4s":"self-drive or skipper","f.date":"Date","f.time":"Start","f.tm1":"Morning","f.tm2":"Afternoon","f.tm3":"Evening","f.guests":"Guests","f.name":"Your name","f.nameph":"e.g. Anna","f.send":"Send via WhatsApp","f.fine":"Opens WhatsApp with your request prefilled. You can still edit it before sending.",
  "faq.label":"FAQ","faq.h":"Before you go","faq.sub":"Anything else, just ask on WhatsApp.",
- "q1":"What if the weather is bad?","a1":"Safety first. If the sea or the wind is not right, we agree a new time with you. No stress, no complicated rules.","q2":"Do I need a licence to rent a boat?","a2":"It depends on the boat and on you. Ask us on WhatsApp and we will tell you what is possible and what we need from you.","q3":"Can we bring kids?","a3":"Ask us. Tell us the ages and we will advise on the boat and the tour that suits your family best.","q4":"What is included on a private tour?","a4":"Your skipper, drinks on board, stops at hidden caves, snorkeling and beaches, and a pick-up at Zert at the time we agree. The sunset tour adds a swim stop and a drink stop in a harbour.","q5":"How do I confirm a booking?","a5":"Over WhatsApp. Send your request from this page or write to +385 91 610 6010 and we confirm your time.",
- "c.label":"Contact","c.h":"Find us at Zert","c.wa":"Phone and WhatsApp. Quick and clear.","c.daily":"Every day","c.eve":"Evening tours","c.map":"Open in Maps","open.now":"Open now","open.closed":"Closed now",
- "foot.p":"Private boat tours with a skipper and self-drive boat rental from Zert harbour, Opatija.","foot.visit":"Visit","foot.talk":"Talk to us","foot.explore":"Explore","fab":"Book","bar.s":"Your request","bar.btn":"Send",
- "sum.morning":"Morning tour","sum.sunset":"Sunset tour","sum.rent":"Boat rental","sum.custom":"Custom day","g.1":"1 guest","g.n":"{n} guests","tm.morning":"morning","tm.afternoon":"afternoon","tm.evening":"evening","d.pick":"pick a date",
- "wa.msg":"Hi Opatija Boats! I would like to book: {tour}. Date: {date}, {time}. Guests: {guests}. Name: {name}. Can you confirm the time?"
+ "q1":"What if the weather is bad?","a1":"Safety first. Itineraries can change a little with the weather, and your skipper picks the stops on the day. If the sea is not safe, we contact you on WhatsApp.","q2":"Do I need a licence to rent a boat?","a2":"Yes, to drive a boat yourself you need a valid boat licence. Bring it with your ID or passport. No licence? We add a skipper for 50 € (half day) or 80 € (all day). New licence holders can also book skipper training.","q3":"Can we bring kids?","a3":"Yes. On the Sunset Tour children 3 to 10 pay 20 € and babies 0 to 2 go free. Natura Pura is not recommended for children under 5. Life jackets are on board, and a folded stroller can travel in the cabin.","q4":"What is included on a tour?","a4":"Skipper, fuel, drinks (wine, water, soft drinks, juice) and snorkel gear. Full-day island trips add fruit. Sandwiches cost 5 € each, regular or vegetarian, order in advance. There is a chemical toilet on board.","q5":"How do I book and pay?","a5":"Send your request from this page, write on WhatsApp or Viber to +385 91 610 6010, or email opatijaboats.rent@gmail.com. Tours need a 20% advance and boat rental 15%, by bank transfer. The rest is paid on the boat, cash preferred.",
+ "c.label":"Contact","c.h":"Find us at Opatija port","c.wa":"Call, WhatsApp or Viber.","c.daily":"Every day","c.eve":"Sunset Tour","c.map":"Open in Maps","open.now":"Open now","open.closed":"Closed now",
+ "foot.p":"Shared and private boat tours, speedboat rental and skipper training from Opatija port. ML Aquatics.","foot.visit":"Visit","foot.talk":"Talk to us","foot.explore":"Explore","fab":"Book","bar.s":"Your request","bar.btn":"Send",
+ "sum.sunset":"Sunset Tour","sum.rent":"Boat rental","g.1":"1 guest","g.n":"{n} guests","tm.morning":"morning","tm.afternoon":"afternoon","tm.evening":"evening","d.pick":"pick a date",
+ "wa.msg":"Hi Opatija Boats! I would like to book: {tour}. Date: {date}, {time}. Departure: {from}. Guests: {guests}. Name: {name}. Can you confirm?",
+ "ovl.shared":"Shared tours",
+ "ovl.fleet":"Our fleet",
+ "sub.shared":"Shared tours",
+ "sub.fleet":"Fleet",
+ "gtk.revl":"Google reviews",
+ "t5.tag":"New licence holders",
+ "t5.h":"Skipper training",
+ "t5.meta":"Hands-on, with an experienced local skipper",
+ "t5.p":"Just got your boat licence, or back on the water after a long break? Practise with one of our skippers before you head out on your own. All instructors speak fluent English.",
+ "t5.l1":"Docking, undocking, anchoring and mooring",
+ "t5.l2":"Safe speedboat handling, navigation basics, reading the sea",
+ "t5.l3":"Paid per hour on top of the boat rental, minimum half day",
+ "t.fleet":"See the fleet",
+ "t.ask":"Ask about training",
+ "sh.label":"Shared tours",
+ "sh.h":"Join a small group",
+ "sh.sub":"Up to 15 guests per boat, with a skipper, fuel and drinks on board. You pay per person.",
+ "sh.col1":"Tour",
+ "sh.col2":"Adults / children",
+ "st1":"Approx. 7 h · Brseč cliffs + 2 secluded beaches on Cres · drinks and fruit · 09:30 from Opatija, 10:00 from Lovran",
+ "st2":"Approx. 8 h · 3 swimming spots on Krk + Njivice · drinks and fruit",
+ "st3":"Approx. 9 h · 2 secluded beaches on Cres + the village of Beli · drinks and fruit",
+ "st4":"4.5 h · Brseč cliffs + a swim stop · drinks",
+ "st5":"Approx. 4 h · a stop in Mošćenička Draga + a swim stop · drinks",
+ "st6":"2 h · 1 stop along the coast · drinks",
+ "st7":"3 h · 18:00 · a swim stop in a quiet bay · drinks and snorkel gear",
+ "st8":"1 h one way · to Rijeka city by boat · drinks",
+ "sh.note":"Sunset Tour: children's price for ages 3 to 10, babies 0 to 2 go free. Natura Pura: children 5 to 10, not recommended under 5. Sandwiches 5 € (regular or vegetarian), order in advance. Itineraries can change a little with the weather.",
+ "me.h":"More on the water",
+ "me.ask":"On request",
+ "me1":"Luxury private charter",
+ "me1s":"Grand Banks 46 with flybridge and air-conditioned salon, up to 12 guests, full day. Skipper, fuel, drinks, fruit, snorkeling, kayak and paddleboard included.",
+ "me2":"Large group cruises",
+ "me2s":"Up to 60 guests, full day with lunch included. Book the whole boat or join on your own.",
+ "me3":"Fishing tour",
+ "me3s":"An authentic Adriatic fishing trip for small private groups, all gear included.",
+ "me4":"Jet ski adventure",
+ "me4s":"Fast rides along the coast to hidden bays, safety gear included.",
+ "me5":"Kayak adventure",
+ "me5s":"Paddle to hidden beaches and coves, for beginners and experienced paddlers.",
+ "fl.label":"Fleet",
+ "fl.h":"Eight speedboats in Opatija",
+ "fl.sub":"From the nimble 5.5 m Saver 540 to the 9.4 m Adex 29 with two 250 hp engines. Boats come with a bimini, sun deck, GPS sonar, anchor, life jackets and casco insurance.",
+ "fl.col1":"Boat",
+ "fl.col2":"Price",
+ "fl.upto":"guests:",
+ "fl.from":"from",
+ "fl.to":"to",
+ "fl.note":"Published price range per boat. We confirm the exact price for your date and rental time on WhatsApp. Book several days in advance and you get a discount from the second day.",
+ "fl.ch":"Rental terms",
+ "fl.r1h":"Rental times",
+ "fl.r1":"Half day 09:30 to 13:30 or 14:00 to 18:00. All day 10:00 to 18:00. Extra hours from 20 €.",
+ "fl.r2h":"Skipper",
+ "fl.r2":"No boat licence? We provide a skipper: 50 € half day, 80 € all day.",
+ "fl.r3h":"Pick-up",
+ "fl.r3":"Opatija port, next to Restaurant Molo. Delivery to Lovran +25 €, to Rijeka +40 €. Paid public parking at the port.",
+ "fl.r4h":"Fuel",
+ "fl.r4":"Not included in the price.",
+ "fl.r5h":"On board",
+ "fl.r5":"Pets are welcome, and you can bring your own food and drinks. The boats are not wheelchair accessible.",
+ "fl.r6h":"Bring",
+ "fl.r6":"Your boat licence (to drive yourself) and an ID card or passport. Please come 10 minutes early.",
+ "fl.r7h":"Payment",
+ "fl.r7":"15% advance by bank transfer, the rest on the boat, cash preferred.",
+ "crew.c1":"happy guests",
+ "crew.c2":"destinations",
+ "crew.c3":"fluent English",
+ "n4":"High cliffs and clear water for swimming and snorkeling on Myths of the Sea and Natura Pura",
+ "n4d":"South",
+ "n5":"A seaside village with a long beach, the stop on the Riviera Escape tour",
+ "n5d":"South",
+ "n6":"Secluded beaches you can only reach by boat, and the old village of Beli on Wild Cres",
+ "n6d":"Island",
+ "n7":"Three swimming spots on Krk and the village of Njivice on Krk Aquatica",
+ "n7d":"Island",
+ "n8":"The city in an hour by boat, and our second base at Riva 10",
+ "n8d":"East",
+ "f.t2s":"18:00, 3 h",
+ "f.t5":"Skipper training",
+ "f.t5s":"new licence holders",
+ "f.from":"Departure from",
+ "sum.private":"Private tour",
+ "sum.island":"Island day trip",
+ "sum.training":"Skipper training",
+ "q6":"Where do we board?",
+ "a6":"At Opatija port (Zert), next to Restaurant Molo. Some tours also board in Volosko (pier by the green lantern), Ičići (ACI marina) or Lovran harbour (near Restaurant Kvarner). Please come 10 minutes early. Public parking at the port is paid.",
+ "q7":"Can we bring food, drinks or pets?",
+ "a7":"Yes, you can bring your own food and drinks. Small pets are welcome on the Sunset Tour and on rental boats, but not on Natura Pura. Our boats are not wheelchair accessible.",
+ "c.molo":"next to Restaurant Molo",
+ "c.hr":"Croatia",
+ "c.hoursv":"09:00 to 21:00",
+ "c.rijeka":"Also in Rijeka",
+ "c.social":"Follow us"
 },
 de:{
- "logo.sub":"Bootsverleih & Touren","nav.book":"Tour buchen","nav.menu":"MENÜ","ovl.tours":"Touren","ovl.how":"So geht es","ovl.nearby":"Entlang der Küste","ovl.book":"Buchung","ovl.faq":"FAQ","ovl.contact":"Kontakt","cta.wa":"Per WhatsApp schreiben","ovl.addr":"Hafen Zert, Opatija","ovl.hours":"Täglich 08:00 bis 20:00","concept":"Konzept: Marija",
- "hero.label":"Hafen Zert · Opatija · Kvarner Bucht","hero.t1":"Goldene Stunde,","hero.t2":"vom Bug deines Bootes","hero.sub":"Bootsverleih & private Touren","hero.txt":"Private Touren mit Skipper entlang der Riviera von Opatija: versteckte Höhlen, Schnorcheln, ein Badestopp und ein Drink in einem ruhigen Hafen. Oder du übernimmst selbst das Steuer.","hero.addr":"Zert, 51410 Opatija · Google 5,0 aus 514 Bewertungen","hero.cta":"Sunset-Tour buchen","hint.touch":"Berühren zum Neigen","hint.mouse":"Maus bewegen zum Neigen",
+ "logo.sub":"Bootsverleih & Touren","nav.book":"Tour buchen","nav.menu":"MENÜ","ovl.tours":"Touren","ovl.how":"So geht es","ovl.nearby":"Entlang der Küste","ovl.book":"Buchung","ovl.faq":"FAQ","ovl.contact":"Kontakt","cta.wa":"Per WhatsApp schreiben","ovl.addr":"Hafen Opatija, neben dem Restaurant Molo","ovl.hours":"Täglich 09:00 bis 21:00","concept":"Konzept: Marija",
+ "hero.label":"Hafen Opatija · Rijeka · Kvarner Bucht","hero.t1":"Goldene Stunde,","hero.t2":"vom Bug deines Bootes","hero.sub":"Bootstouren & Speedboot-Verleih","hero.txt":"Ausflüge in kleinen Gruppen zu den versteckten Stränden von Cres und Krk, eine Sunset-Fahrt entlang der Riviera von Opatija und private Touren mit Skipper. Oder du mietest ein Speedboot und übernimmst selbst das Steuer.","hero.addr":"Zert, 51410 Opatija · neben dem Restaurant Molo","hero.cta":"Sunset-Tour buchen","hint.touch":"Berühren zum Neigen","hint.mouse":"Maus bewegen zum Neigen",
  "finder.b":"Private Tour","finder.s":"Datum wählen • {n}",
- "gal.label":"Auf dem Wasser","gal.h":"Ein Tag auf der Kvarner","gal.sub":"Höhlen, Buchten, Schwimmen und ein kalter Drink. So sieht eine Tour aus.",
- "gal.g1":"Opatija, Kroatien","gal.g2":"Kvarner Bucht","gal.g3":"Versteckte Höhle","gal.g4":"Badestopp","gal.g5":"Hafen Zert",
- "gal.c1":"Sunset-Tour, 18:00 bis 21:00","gal.c2":"Morgens auf spiegelglattem Meer","gal.c3":"Höhlen entlang der Küste","gal.c4":"Schnorcheln und Klippenspringen","gal.c5":"Abholung in Zert, dem kleinen Hafen",
+ "gal.label":"Auf dem Wasser","gal.h":"Ein Tag auf der Kvarner","gal.sub":"Klippen, versteckte Strände, Schwimmen und ein kalter Drink. So sieht ein Tag mit uns aus.",
+ "gal.g1":"Riviera von Opatija","gal.g2":"Insel Cres","gal.g3":"Klippen von Brseč","gal.g4":"Insel Krk","gal.g5":"Kvarner Bucht",
+ "gal.c1":"Sunset Tour, 18:00 ab Opatija","gal.c2":"Versteckte Strände auf Cres, nur mit dem Boot erreichbar","gal.c3":"Myths of the Sea: Klippen und Badestopp","gal.c4":"Krk Aquatica: drei Badeplätze auf Krk","gal.c5":"Ein Tag auf der Kvarner",
  "sub.intro":"Über uns","sub.tours":"Touren","sub.how":"So geht es","sub.nearby":"Entlang der Küste","sub.book":"Buchung","sub.faq":"FAQ","sub.contact":"Kontakt",
- "intro.label":"Opatija Boats","intro.h":"Kleiner Hafen, große Bucht","intro.lead":"Wir starten in Zert, dem kleinen Hafen mitten in Opatija. Von dort öffnet sich die ganze Kvarner: der Lungomare vom Wasser aus, die Steinhäuser von Volosko, Lovran und die stillen Buchten und Höhlen dazwischen.","intro.p1":"Wähle eine private Tour mit einem unserer Skipper oder miete ein Boot und fahre selbst. Bei der Übergabe gibt es eine gründliche Einweisung, und wir sind die ganze Zeit nur eine WhatsApp-Nachricht entfernt.","intro.p2":"Alles läuft über WhatsApp, schnell und klar. Sag uns den Tag und wie viele ihr seid, den Rest übernehmen wir.","intro.sig":"Skipper und Buchungsteam",
- "gtk.h":"Gut zu wissen","gtk.meet":"Treffpunkt","gtk.meetv":"Zert, der kleine Hafen, 51410 Opatija. Wir treffen euch am Pier.","gtk.hours":"Öffnungszeiten","gtk.hoursv":"Täglich 08:00 bis 20:00. Abendtouren von 18:00 bis 21:00.","gtk.bring":"Mitbringen","gtk.bringv":"Badesachen, Handtuch, Sonnencreme, Hut und etwas Leichtes für den Abend. Getränke sind an Bord.","gtk.skip":"Skipper inklusive","gtk.skipv":"Bei jeder privaten Tour. Beim Selbstfahren gibt es eine komplette Einweisung bei der Übergabe.","gtk.conf":"Bestätigung","gtk.confv":"Per WhatsApp, meist innerhalb von Minuten. Abholzeit nach Absprache.","gtk.rev":"Google-Bewertungen",
- "tours.label":"Touren und Verleih","tours.h":"Wähle deinen Tag","tours.sub":"Vier Wege aufs Wasser. Jede private Tour kommt mit Skipper, Getränken an Bord und Abholung zur vereinbarten Zeit.",
- "t1.tag":"Halber Tag · morgens","t1.h":"Private Halbtagestour am Morgen","t1.meta":"Privat, mit Skipper · ab","t1.p":"Ruhiges Meer, weiches Licht und die Küste für euch allein. Wir fahren die Riviera entlang, halten an versteckten Höhlen und einem Strand und holen die Schnorchelmasken raus.","t1.l1":"Skipper und Getränke an Bord","t1.l2":"Höhlen, Schnorcheln, Klippenspringen für Mutige","t1.l3":"Abholung in Zert zur vereinbarten Zeit",
- "t2.tag":"18:00 bis 21:00","t2.h":"Sunset-Tour, 3 Stunden","t2.meta":"Privat, mit Skipper · ab","t2.p":"Unser Favorit. Drei Stunden goldenes Licht entlang der Küste von Opatija, ein Badestopp in einer stillen Bucht und ein Drink in einem kleinen Hafen, bevor die Sonne untergeht.","t2.l1":"Badestopp und Drink-Stopp in einem Hafen","t2.l2":"Getränke an Bord, Skipper inklusive","t2.l3":"Abfahrt 18:00 ab Zert",
- "t3.tag":"Selbst fahren","t3.h":"Boot selbst mieten","t3.meta":"Selbst fahren · ab","t3.p":"Übernimm das Steuer. Bei der Übergabe bekommst du eine komplette Einweisung: das Boot, die Küste, wo man schwimmt und wo man aufpasst. Dann gehört die Bucht euch.","t3.l1":"Einweisung und Sicherheitsbriefing bei der Übergabe","t3.l2":"Fragen zum Führerschein: einfach fragen","t3.l3":"Wir bleiben per WhatsApp erreichbar",
- "t4.tag":"Ganzer Tag · individuell","t4.h":"Individuelle Ganztagestour","t4.meta":"Privat, mit Skipper · ab","t4.p":"Dein Tag, deine Route. Sag uns, was ihr liebt: Höhlen, lange Schwimmstopps, Klippenspringen, ein gemütliches Mittagessen im Hafen. Wir planen es gemeinsam entlang der Kvarner Küste.","t4.l1":"Route gemeinsam per WhatsApp geplant","t4.l2":"Skipper, Getränke und Schnorchelausrüstung an Bord","t4.l3":"Startzeit nach Wahl, ab 08:00",
- "t.book":"Diese Tour buchen","t.rent":"Nach Verleih fragen","t.plan":"Meinen Tag planen","tours.note":"Preise als XX € sind Beispiel-Platzhalter für dieses Konzept. Endpreise hängen von Boot, Saison und Gruppengröße ab.",
- "crew.label":"Die Crew","crew.h":"Skipper, die jede Bucht kennen","crew.p":"Mauro und Roko sind auf diesem Wasser aufgewachsen. Sie wissen, wo das Meer morgens glatt ist, welche Höhle das Abendlicht einfängt und wo die beste Klippe zum Springen ist. Katja und das Buchungsteam regeln den Rest über WhatsApp.","crew.skip":"Skipper","crew.skip2":"Skipper","crew.book":"Buchung","crew.cta":"Schreib uns auf WhatsApp",
- "how.label":"So geht es","how.h":"Drei Schritte aufs Wasser","how.tag":"Hafen Zert","s1.h":"Schreib uns","s1.p":"Wähle unten eine Tour, einen Tag und die Anzahl der Gäste und schick es per WhatsApp. Oder schreib einfach, wir antworten schnell.","s2.h":"Wir bestätigen die Zeit","s2.p":"Wir prüfen Wetter und Boote und bestätigen deine Abholzeit in Zert. Dreht das Wetter, vereinbaren wir einfach eine neue Zeit.","s3.h":"An Bord gehen","s3.p":"Wir treffen uns am Pier. Der Skipper ist bereit, die Getränke sind an Bord. Beim Selbstfahren erklären wir dir vorher das Boot.",
- "near.label":"Entlang der Küste","near.h":"Was man vom Wasser sieht","near.sub":"Die Riviera von Opatija sieht man am besten vom Meer. An diesen Orten entlang der Kvarner Küste fahren unsere Touren vorbei.","n1":"Die berühmte Uferpromenade mit ihren Villen, so gesehen, wie sie gedacht war","n1d":"Direkt bei Zert","n2":"Ein kleines Fischerdorf mit Steinhäusern und winzigem Hafen, kurz nördlich","n2d":"Nördlich","n3":"Altstadt, Kastanienwälder oben und Buchten unten, südlich entlang der Riviera","n3d":"Südlich","near.note":"Versteckte Höhlen, Schnorchelplätze, Klippen und Strände wählt der Skipper am Tag selbst, je nach See und Wind.",
- "book.label":"Buchung","book.h":"Erzähl uns von deinem Tag","book.sub":"Ausfüllen, und WhatsApp öffnet sich mit fertiger Nachricht. Keine Zahlung, kein Konto. Katja oder das Team bestätigt die Zeit.","book.sumh":"Deine Anfrage",
- "f.tour":"Tourart","f.t1":"Halbtag morgens","f.t1s":"mit Skipper","f.t2":"Sunset 3 Std.","f.t3":"Boot mieten","f.t3s":"selbst fahren","f.t4":"Ganzer Tag","f.t4s":"mit Skipper","f.date":"Datum","f.time":"Tageszeit","f.tm1":"Morgens","f.tm1s":"ab 08:00","f.tm2":"Nachmittags","f.tm2s":"ab 13:00","f.tm3":"Abends","f.guests":"Gäste","f.name":"Dein Name","f.nameph":"z. B. Anna","f.send":"Per WhatsApp senden","f.fine":"Öffnet WhatsApp mit deiner vorausgefüllten Anfrage. Du kannst sie vor dem Senden noch ändern.",
+ "intro.label":"Opatija Boats","intro.h":"Kleiner Hafen, große Bucht","intro.lead":"Wir starten in Zert, dem Hafen mitten in Opatija, direkt neben dem Restaurant Molo. Von dort öffnet sich die ganze Kvarner: der Lungomare vom Wasser aus, die Klippen von Brseč, Mošćenička Draga und die Inseln Cres und Krk.","intro.p1":"Komm mit auf eine Gruppentour in kleiner Runde, buche eine private Tour mit einem unserer Skipper oder miete ein Speedboot und fahre selbst. Du findest uns auch in Rijeka, an der Riva 10.","intro.p2":"Alles läuft über WhatsApp, schnell und klar. Sag uns den Tag und wie viele ihr seid, den Rest übernehmen wir.","intro.sig":"Opatija Boats · Opatija und Rijeka",
+ "gtk.h":"Gut zu wissen","gtk.meet":"Treffpunkt","gtk.meetv":"Hafen Opatija (Zert), neben dem Restaurant Molo. Bitte sei 10 Minuten vor der Abfahrt da.","gtk.hours":"Öffnungszeiten","gtk.hoursv":"Täglich geöffnet 09:00 bis 21:00. Die Sunset Tour startet um 18:00.","gtk.bring":"Mitbringen","gtk.bringv":"Badesachen, Strandtuch, Sonnencreme, Sonnenhut und etwas Bargeld. Getränke sind an Bord.","gtk.skip":"Skipper","gtk.skipv":"Bei jeder Tour dabei. Mieten ohne Bootsführerschein? Skipper ab 50 € dazubuchen.","gtk.conf":"Buchung","gtk.confv":"Per WhatsApp, Telefon oder E-Mail. Für Touren 20% Anzahlung per Überweisung, der Rest an Bord.","gtk.rev":"zufriedene Gäste",
+ "tours.label":"Touren und Verleih","tours.h":"Wähle deinen Tag","tours.sub":"Gruppentouren, private Touren, Speedboot-Verleih und Skipper-Training. Jede Tour mit Skipper, Treibstoff und Getränken an Bord.",
+ "t1.tag":"Privat · bis 15 Gäste","t1.h":"Private Bootstouren","t1.meta":"Das ganze Boot, mit Skipper · ab","t1.p":"Das Boot gehört nur eurer Gruppe. Island Escape ist ein ganzer Tag Inselhopping mit längeren Stopps und Mittagspause in einem Dorf. Coastal Discovery dauert ein paar Stunden, schön am späten Nachmittag.","t1.l1":"Island Escape, ganzer Tag: ab 320 € pro Boot","t1.l2":"Rijeka Bay Experience im Speedboot, bis 7 Gäste: ab 260 € pro Boot","t1.l3":"Coastal Discovery: ein paar Stunden, ein oder zwei Highlights",
+ "t2.tag":"18:00 · ca. 3 Std.","t2.h":"Sunset Tour","t2.meta":"Kleine Gruppe, mit Skipper · Erwachsene","t2.p":"Goldenes Licht entlang der Riviera von Opatija, ein Badestopp in einer ruhigen Bucht und Sonnenuntergang über der Adria. Zurück gegen 21:00.","t2.l1":"Kinder 3 bis 10: 20 €, Babys 0 bis 2 gratis","t2.l2":"Skipper, Treibstoff, Getränke (Wein, Wasser, Softdrinks, Saft) und Schnorchelausrüstung","t2.l3":"Einstieg in Volosko, Opatija (Restaurant Molo) oder Ičići (ACI Marina)",
+ "t3.tag":"Ganzer Tag · kleine Gruppe","t3.h":"Inseltage: Cres und Krk","t3.meta":"Kleine Gruppe, mit Skipper · Erwachsene ab","t3.p":"Versteckte Strände, die man nur mit dem Boot erreicht, klares Wasser zum Schwimmen und Schnorcheln, Getränke und Obst an Bord. Bis 15 Gäste pro Boot.","t3.l1":"Natura Pura: Klippen von Brseč + 2 Strände auf Cres, ca. 7 Std.","t3.l2":"Wild Cres: 2 Strände auf Cres + das Dorf Beli, ca. 9 Std.","t3.l3":"Krk Aquatica: 3 Badeplätze auf Krk + Njivice, ca. 8 Std.",
+ "t4.tag":"Selbst fahren oder mit Skipper","t4.h":"Speedboot mieten","t4.meta":"Acht Boote, 5,5 bis 9,4 m · ab","t4.p":"Übernimm das Steuer mit deinem Bootsführerschein oder buche einen Skipper dazu. Halber oder ganzer Tag ab Hafen Opatija, Zustellung nach Rijeka oder Lovran auf Anfrage.","t4.l1":"Halber Tag 09:30 bis 13:30 oder 14:00 bis 18:00, ganzer Tag 10:00 bis 18:00","t4.l2":"Skipper: 50 € halber Tag, 80 € ganzer Tag","t4.l3":"Treibstoff nicht inklusive, Haustiere willkommen",
+ "t.book":"Diese Tour buchen","t.rent":"Nach Verleih fragen","tours.note":"Preise laut Opatija Boats (ML Aquatics). Touren: 20% Anzahlung per Überweisung, Rest an Bord, am liebsten bar. Bootsverleih: 15% Anzahlung.",
+ "crew.label":"Die Crew","crew.h":"Skipper von hier, die jede Bucht kennen","crew.p":"Unsere Skipper sind erfahrene Einheimische und sprechen alle fließend Englisch. Sie kennen die Badeplätze, das klarste Wasser und wissen, wie man die See liest. Buch einen zu jedem Boot dazu oder lern von ihnen im Skipper-Training.","crew.skip":"Skipper","crew.skip2":"Skipper","crew.book":"Buchung","crew.cta":"Schreib uns auf WhatsApp",
+ "how.label":"So geht es","how.h":"Drei Schritte aufs Wasser","how.tag":"Hafen Opatija","s1.h":"Schreib uns","s1.p":"Wähle unten eine Tour, einen Tag und die Anzahl der Gäste und schick es per WhatsApp. Oder schreib einfach, wir antworten schnell.","s2.h":"Wir bestätigen","s2.p":"Wir bestätigen Abfahrtsort und Uhrzeit und schicken dir die Daten für die Anzahlung per Überweisung: 20% für Touren, 15% für den Bootsverleih.","s3.h":"An Bord gehen","s3.p":"Wir treffen uns 10 Minuten vor der Abfahrt am Hafen. Der Skipper ist bereit, die Getränke sind an Bord. Du mietest? Bring Führerschein und Ausweis mit, wir erklären dir das Boot.",
+ "near.label":"Entlang der Küste","near.h":"Was man vom Wasser sieht","near.sub":"Die Riviera von Opatija sieht man am besten vom Meer. Diese Orte besuchen unsere Touren entlang der Kvarner Küste und auf den Inseln.","n1":"Die berühmte Uferpromenade mit ihren Villen, so gesehen, wie sie gedacht war","n1d":"Direkt bei Zert","n2":"Ein kleines Fischerdorf mit Steinhäusern. Gäste der Sunset Tour steigen am Pier beim grünen Leuchtfeuer zu","n2d":"Nördlich","n3":"Altstadt und ruhige Buchten. Natura Pura startet auch im Hafen Lovran, beim Restaurant Kvarner","n3d":"Südlich","near.note":"Badestopps und Strände wählt der Skipper am Tag selbst, je nach See und Wind. Manche Strände erreicht man mit einem kurzen Schwimmstück vom Boot.",
+ "book.label":"Buchung","book.h":"Erzähl uns von deinem Tag","book.sub":"Ausfüllen, und WhatsApp öffnet sich mit fertiger Nachricht. Keine Zahlung hier, kein Konto. Wir antworten mit der Uhrzeit und den Daten für die Anzahlung.","book.sumh":"Deine Anfrage",
+ "f.tour":"Was möchtest du?","f.t1":"Private Tour","f.t1s":"ganzes Boot","f.t2":"Sunset Tour","f.t3":"Inseltag","f.t3s":"Cres oder Krk","f.t4":"Boot mieten","f.t4s":"selbst oder mit Skipper","f.date":"Datum","f.time":"Start","f.tm1":"Morgens","f.tm2":"Nachmittags","f.tm3":"Abends","f.guests":"Gäste","f.name":"Dein Name","f.nameph":"z. B. Anna","f.send":"Per WhatsApp senden","f.fine":"Öffnet WhatsApp mit deiner vorausgefüllten Anfrage. Du kannst sie vor dem Senden noch ändern.",
  "faq.label":"FAQ","faq.h":"Bevor es losgeht","faq.sub":"Alles andere einfach per WhatsApp fragen.",
- "q1":"Was ist bei schlechtem Wetter?","a1":"Sicherheit zuerst. Wenn See oder Wind nicht passen, vereinbaren wir eine neue Zeit mit dir. Kein Stress, keine komplizierten Regeln.","q2":"Brauche ich einen Führerschein zum Mieten?","a2":"Das hängt vom Boot und von dir ab. Frag uns auf WhatsApp, wir sagen dir, was möglich ist und was wir brauchen.","q3":"Können wir Kinder mitbringen?","a3":"Frag uns. Sag uns das Alter, und wir empfehlen Boot und Tour, die zu eurer Familie passen.","q4":"Was ist bei einer privaten Tour inklusive?","a4":"Skipper, Getränke an Bord, Stopps an versteckten Höhlen, Schnorcheln und Stränden sowie Abholung in Zert zur vereinbarten Zeit. Die Sunset-Tour hat zusätzlich einen Badestopp und einen Drink-Stopp im Hafen.","q5":"Wie bestätige ich eine Buchung?","a5":"Per WhatsApp. Schick deine Anfrage von dieser Seite oder schreib an +385 91 610 6010, und wir bestätigen die Zeit.",
- "c.label":"Kontakt","c.h":"Ihr findet uns in Zert","c.wa":"Telefon und WhatsApp. Schnell und klar.","c.daily":"Jeden Tag","c.eve":"Abendtouren","c.map":"In Karten öffnen","open.now":"Jetzt geöffnet","open.closed":"Jetzt geschlossen",
- "foot.p":"Private Bootstouren mit Skipper und Bootsverleih ab Hafen Zert, Opatija.","foot.visit":"Besuch","foot.talk":"Kontakt","foot.explore":"Entdecken","fab":"Buchen","bar.s":"Deine Anfrage","bar.btn":"Senden",
- "sum.morning":"Morgentour","sum.sunset":"Sunset-Tour","sum.rent":"Bootsverleih","sum.custom":"Individueller Tag","g.1":"1 Gast","g.n":"{n} Gäste","tm.morning":"morgens","tm.afternoon":"nachmittags","tm.evening":"abends","d.pick":"Datum wählen",
- "wa.msg":"Hallo Opatija Boats! Ich möchte buchen: {tour}. Datum: {date}, {time}. Gäste: {guests}. Name: {name}. Könnt ihr die Zeit bestätigen?"
+ "q1":"Was ist bei schlechtem Wetter?","a1":"Sicherheit zuerst. Die Route kann sich je nach Wetter etwas ändern, und der Skipper wählt die Stopps am Tag selbst. Ist die See nicht sicher, melden wir uns per WhatsApp.","q2":"Brauche ich einen Führerschein zum Mieten?","a2":"Ja, um selbst zu fahren, brauchst du einen gültigen Bootsführerschein. Bring ihn mit Ausweis oder Reisepass mit. Kein Führerschein? Wir stellen einen Skipper für 50 € (halber Tag) oder 80 € (ganzer Tag). Neue Führerscheininhaber können auch ein Skipper-Training buchen.","q3":"Können wir Kinder mitbringen?","a3":"Ja. Bei der Sunset Tour zahlen Kinder von 3 bis 10 Jahren 20 €, Babys bis 2 Jahre fahren gratis. Natura Pura ist für Kinder unter 5 nicht empfohlen. Rettungswesten sind an Bord, ein zusammengeklappter Kinderwagen kann in der Kabine mitfahren.","q4":"Was ist bei einer Tour inklusive?","a4":"Skipper, Treibstoff, Getränke (Wein, Wasser, Softdrinks, Saft) und Schnorchelausrüstung. Bei Inseltouren zusätzlich Obst. Sandwiches kosten 5 €, normal oder vegetarisch, bitte vorbestellen. An Bord gibt es eine Chemietoilette.","q5":"Wie buche und bezahle ich?","a5":"Schick deine Anfrage von dieser Seite, schreib per WhatsApp oder Viber an +385 91 610 6010 oder per E-Mail an opatijaboats.rent@gmail.com. Für Touren sind 20% Anzahlung fällig, für den Bootsverleih 15%, per Überweisung. Der Rest wird an Bord bezahlt, am liebsten bar.",
+ "c.label":"Kontakt","c.h":"Ihr findet uns im Hafen Opatija","c.wa":"Anrufen, WhatsApp oder Viber.","c.daily":"Jeden Tag","c.eve":"Sunset Tour","c.map":"In Karten öffnen","open.now":"Jetzt geöffnet","open.closed":"Jetzt geschlossen",
+ "foot.p":"Gruppen- und Privattouren mit dem Boot, Speedboot-Verleih und Skipper-Training ab Hafen Opatija. ML Aquatics.","foot.visit":"Besuch","foot.talk":"Kontakt","foot.explore":"Entdecken","fab":"Buchen","bar.s":"Deine Anfrage","bar.btn":"Senden",
+ "sum.sunset":"Sunset Tour","sum.rent":"Bootsverleih","g.1":"1 Gast","g.n":"{n} Gäste","tm.morning":"morgens","tm.afternoon":"nachmittags","tm.evening":"abends","d.pick":"Datum wählen",
+ "wa.msg":"Hallo Opatija Boats! Ich möchte buchen: {tour}. Datum: {date}, {time}. Abfahrt: {from}. Gäste: {guests}. Name: {name}. Könnt ihr das bestätigen?",
+ "ovl.shared":"Gruppentouren",
+ "ovl.fleet":"Unsere Flotte",
+ "sub.shared":"Gruppentouren",
+ "sub.fleet":"Flotte",
+ "gtk.revl":"Google-Bewertungen",
+ "t5.tag":"Neue Führerscheininhaber",
+ "t5.h":"Skipper-Training",
+ "t5.meta":"Praxis mit einem erfahrenen Skipper von hier",
+ "t5.p":"Gerade den Bootsführerschein gemacht oder nach langer Pause wieder auf dem Wasser? Übe mit einem unserer Skipper, bevor du allein losfährst. Alle Trainer sprechen fließend Englisch.",
+ "t5.l1":"An- und Ablegen, Ankern und Festmachen",
+ "t5.l2":"Sicheres Fahren mit dem Speedboot, Navigationsgrundlagen, die See lesen",
+ "t5.l3":"Abrechnung pro Stunde zusätzlich zur Bootsmiete, mindestens halber Tag",
+ "t.fleet":"Zur Flotte",
+ "t.ask":"Nach Training fragen",
+ "sh.label":"Gruppentouren",
+ "sh.h":"Fahr mit in kleiner Gruppe",
+ "sh.sub":"Bis 15 Gäste pro Boot, mit Skipper, Treibstoff und Getränken an Bord. Bezahlt wird pro Person.",
+ "sh.col1":"Tour",
+ "sh.col2":"Erwachsene / Kinder",
+ "st1":"Ca. 7 Std. · Klippen von Brseč + 2 versteckte Strände auf Cres · Getränke und Obst · 09:30 ab Opatija, 10:00 ab Lovran",
+ "st2":"Ca. 8 Std. · 3 Badeplätze auf Krk + Njivice · Getränke und Obst",
+ "st3":"Ca. 9 Std. · 2 versteckte Strände auf Cres + das Dorf Beli · Getränke und Obst",
+ "st4":"4,5 Std. · Klippen von Brseč + Badestopp · Getränke",
+ "st5":"Ca. 4 Std. · Stopp in Mošćenička Draga + Badestopp · Getränke",
+ "st6":"2 Std. · 1 Stopp entlang der Küste · Getränke",
+ "st7":"3 Std. · 18:00 · Badestopp in einer ruhigen Bucht · Getränke und Schnorchelausrüstung",
+ "st8":"1 Std. pro Strecke · mit dem Boot in die Stadt Rijeka · Getränke",
+ "sh.note":"Sunset Tour: Kinderpreis für 3 bis 10 Jahre, Babys 0 bis 2 gratis. Natura Pura: Kinder 5 bis 10 Jahre, unter 5 nicht empfohlen. Sandwiches 5 € (normal oder vegetarisch), bitte vorbestellen. Die Route kann sich je nach Wetter etwas ändern.",
+ "me.h":"Mehr auf dem Wasser",
+ "me.ask":"Auf Anfrage",
+ "me1":"Luxus-Privatcharter",
+ "me1s":"Grand Banks 46 mit Flybridge und klimatisiertem Salon, bis 12 Gäste, ganzer Tag. Skipper, Treibstoff, Getränke, Obst, Schnorcheln, Kajak und SUP inklusive.",
+ "me2":"Touren für große Gruppen",
+ "me2s":"Bis 60 Gäste, ganzer Tag mit Mittagessen. Das ganze Boot chartern oder einzeln mitfahren.",
+ "me3":"Angeltour",
+ "me3s":"Echtes Angeln auf der Adria für kleine private Gruppen, Ausrüstung inklusive.",
+ "me4":"Jetski-Abenteuer",
+ "me4s":"Schnelle Fahrten entlang der Küste zu versteckten Buchten, Schutzausrüstung inklusive.",
+ "me5":"Kajak-Abenteuer",
+ "me5s":"Paddeln zu versteckten Stränden und Buchten, für Anfänger und Erfahrene.",
+ "fl.label":"Flotte",
+ "fl.h":"Acht Speedboote in Opatija",
+ "fl.sub":"Vom wendigen Saver 540 mit 5,5 m bis zur Adex 29 mit 9,4 m und zwei 250-PS-Motoren. An Bord: Bimini, Sonnendeck, GPS-Sonar, Anker, Rettungswesten und Kaskoversicherung.",
+ "fl.col1":"Boot",
+ "fl.col2":"Preis",
+ "fl.upto":"Personen:",
+ "fl.from":"von",
+ "fl.to":"bis",
+ "fl.note":"Veröffentlichte Preisspanne pro Boot. Den genauen Preis für dein Datum und deine Mietdauer bestätigen wir per WhatsApp. Bei Buchung mehrerer Tage im Voraus gibt es ab dem zweiten Tag Rabatt.",
+ "fl.ch":"Mietbedingungen",
+ "fl.r1h":"Mietzeiten",
+ "fl.r1":"Halber Tag 09:30 bis 13:30 oder 14:00 bis 18:00. Ganzer Tag 10:00 bis 18:00. Zusatzstunde ab 20 €.",
+ "fl.r2h":"Skipper",
+ "fl.r2":"Kein Bootsführerschein? Wir stellen einen Skipper: 50 € halber Tag, 80 € ganzer Tag.",
+ "fl.r3h":"Übergabe",
+ "fl.r3":"Hafen Opatija, neben dem Restaurant Molo. Zustellung nach Lovran +25 €, nach Rijeka +40 €. Gebührenpflichtiger Parkplatz am Hafen.",
+ "fl.r4h":"Treibstoff",
+ "fl.r4":"Nicht im Preis enthalten.",
+ "fl.r5h":"An Bord",
+ "fl.r5":"Haustiere sind willkommen, eigenes Essen und Getränke dürfen mit. Die Boote sind nicht rollstuhlgerecht.",
+ "fl.r6h":"Mitbringen",
+ "fl.r6":"Bootsführerschein (wenn du selbst fährst) und Personalausweis oder Reisepass. Bitte 10 Minuten früher da sein.",
+ "fl.r7h":"Zahlung",
+ "fl.r7":"15% Anzahlung per Überweisung, der Rest an Bord, am liebsten bar.",
+ "crew.c1":"zufriedene Gäste",
+ "crew.c2":"Ziele",
+ "crew.c3":"fließend Englisch",
+ "n4":"Hohe Klippen und klares Wasser zum Schwimmen und Schnorcheln, bei Myths of the Sea und Natura Pura",
+ "n4d":"Südlich",
+ "n5":"Ein Küstenort mit langem Strand, Stopp der Tour Riviera Escape",
+ "n5d":"Südlich",
+ "n6":"Versteckte Strände, nur mit dem Boot erreichbar, und das alte Dorf Beli bei Wild Cres",
+ "n6d":"Insel",
+ "n7":"Drei Badeplätze auf Krk und der Ort Njivice bei Krk Aquatica",
+ "n7d":"Insel",
+ "n8":"Die Stadt in einer Stunde mit dem Boot und unsere zweite Basis an der Riva 10",
+ "n8d":"Östlich",
+ "f.t2s":"18:00, 3 Std.",
+ "f.t5":"Skipper-Training",
+ "f.t5s":"neuer Führerschein",
+ "f.from":"Abfahrt ab",
+ "sum.private":"Private Tour",
+ "sum.island":"Inselausflug",
+ "sum.training":"Skipper-Training",
+ "q6":"Wo steigen wir ein?",
+ "a6":"Im Hafen Opatija (Zert), neben dem Restaurant Molo. Bei manchen Touren auch in Volosko (Pier beim grünen Leuchtfeuer), Ičići (ACI Marina) oder im Hafen Lovran (beim Restaurant Kvarner). Bitte 10 Minuten früher da sein. Der Parkplatz am Hafen ist gebührenpflichtig.",
+ "q7":"Dürfen wir Essen, Getränke oder Haustiere mitbringen?",
+ "a7":"Ja, eigenes Essen und Getränke dürfen mit. Kleine Haustiere sind bei der Sunset Tour und auf Mietbooten willkommen, nicht aber bei Natura Pura. Unsere Boote sind nicht rollstuhlgerecht.",
+ "c.molo":"neben dem Restaurant Molo",
+ "c.hr":"Kroatien",
+ "c.hoursv":"09:00 bis 21:00",
+ "c.rijeka":"Auch in Rijeka",
+ "c.social":"Folge uns"
 },
 it:{
- "logo.sub":"Noleggio barche & tour","nav.book":"Prenota un tour","nav.menu":"MENU","ovl.tours":"Tour","ovl.how":"Come funziona","ovl.nearby":"Lungo la costa","ovl.book":"Prenotazione","ovl.faq":"FAQ","ovl.contact":"Contatti","cta.wa":"Scrivici su WhatsApp","ovl.addr":"Porto Zert, Opatija","ovl.hours":"Ogni giorno 08:00 alle 20:00","concept":"Concept di Marija",
- "hero.label":"Porto Zert · Opatija · Golfo del Quarnaro","hero.t1":"L'ora d'oro,","hero.t2":"dalla prua della tua barca","hero.sub":"Noleggio barche & tour privati","hero.txt":"Tour privati con skipper lungo la riviera di Opatija: grotte nascoste, snorkeling, una sosta per nuotare e un drink in un porticciolo tranquillo. Oppure prendi tu il timone.","hero.addr":"Zert, 51410 Opatija · Google 5,0 da 514 recensioni","hero.cta":"Prenota il tour al tramonto","hint.touch":"Tocca per inclinare","hint.mouse":"Muovi il mouse per inclinare",
+ "logo.sub":"Noleggio barche & tour","nav.book":"Prenota un tour","nav.menu":"MENU","ovl.tours":"Tour","ovl.how":"Come funziona","ovl.nearby":"Lungo la costa","ovl.book":"Prenotazione","ovl.faq":"FAQ","ovl.contact":"Contatti","cta.wa":"Scrivici su WhatsApp","ovl.addr":"Porto di Opatija, accanto al ristorante Molo","ovl.hours":"Ogni giorno dalle 09:00 alle 21:00","concept":"Concept di Marija",
+ "hero.label":"Porto di Opatija · Rijeka · Golfo del Quarnaro","hero.t1":"L'ora d'oro,","hero.t2":"dalla prua della tua barca","hero.sub":"Tour in barca & noleggio motoscafi","hero.txt":"Gite in piccoli gruppi verso le spiagge nascoste di Cres e Krk, una crociera al tramonto lungo la riviera di Opatija e tour privati con skipper. Oppure noleggia un motoscafo e prendi tu il timone.","hero.addr":"Zert, 51410 Opatija · accanto al ristorante Molo","hero.cta":"Prenota il tour al tramonto","hint.touch":"Tocca per inclinare","hint.mouse":"Muovi il mouse per inclinare",
  "finder.b":"Tour privato","finder.s":"Scegli una data • {n}",
- "gal.label":"Sull'acqua","gal.h":"Una giornata nel Quarnaro","gal.sub":"Grotte, calette, un bagno e un drink fresco. Sfoglia com'è un tour.",
- "gal.g1":"Opatija, Croazia","gal.g2":"Golfo del Quarnaro","gal.g3":"Grotta nascosta","gal.g4":"Sosta bagno","gal.g5":"Porto Zert",
- "gal.c1":"Tour al tramonto, 18:00 alle 21:00","gal.c2":"Mattina su un mare piatto","gal.c3":"Grotte lungo la costa","gal.c4":"Snorkeling e tuffi dagli scogli","gal.c5":"Ritiro a Zert, il porticciolo",
+ "gal.label":"Sull'acqua","gal.h":"Una giornata nel Quarnaro","gal.sub":"Scogliere, spiagge nascoste, un bagno e un drink fresco. Sfoglia com'è una giornata con noi.",
+ "gal.g1":"Riviera di Opatija","gal.g2":"Isola di Cres","gal.g3":"Scogliere di Brseč","gal.g4":"Isola di Krk","gal.g5":"Golfo del Quarnaro",
+ "gal.c1":"Sunset Tour, alle 18:00 da Opatija","gal.c2":"Spiagge nascoste a Cres, raggiungibili solo in barca","gal.c3":"Myths of the Sea: scogliere e sosta bagno","gal.c4":"Krk Aquatica: tre punti per il bagno a Krk","gal.c5":"Una giornata nel Quarnaro",
  "sub.intro":"Chi siamo","sub.tours":"Tour","sub.how":"Come funziona","sub.nearby":"Lungo la costa","sub.book":"Prenotazione","sub.faq":"FAQ","sub.contact":"Contatti",
- "intro.label":"Opatija Boats","intro.h":"Porto piccolo, golfo grande","intro.lead":"Partiamo da Zert, il porticciolo nel centro di Opatija. Da lì si apre tutto il Quarnaro: il Lungomare visto dall'acqua, le case di pietra di Volosko, Lovran e le calette e grotte tranquille in mezzo.","intro.p1":"Scegli un tour privato con uno dei nostri skipper, oppure noleggia una barca e guidala tu. Al ritiro ti spieghiamo tutto con calma, e restiamo a un messaggio WhatsApp di distanza per tutto il tempo.","intro.p2":"Tutto si organizza su WhatsApp, veloce e chiaro. Dicci il giorno e quanti siete, al resto pensiamo noi.","intro.sig":"Skipper e team prenotazioni",
- "gtk.h":"Buono a sapersi","gtk.meet":"Punto d'incontro","gtk.meetv":"Zert, il porticciolo, 51410 Opatija. Vi aspettiamo sul molo.","gtk.hours":"Orari","gtk.hoursv":"Aperto ogni giorno 08:00 alle 20:00. Tour serali 18:00 alle 21:00.","gtk.bring":"Cosa portare","gtk.bringv":"Costume, telo, crema solare, cappello e qualcosa di leggero per la sera. Le bevande sono a bordo.","gtk.skip":"Skipper incluso","gtk.skipv":"In ogni tour privato. Il noleggio senza skipper include istruzioni complete al ritiro.","gtk.conf":"Conferma","gtk.confv":"Su WhatsApp, di solito in pochi minuti. Orario di ritiro concordato con te.","gtk.rev":"recensioni Google",
- "tours.label":"Tour e noleggio","tours.h":"Scegli la tua giornata","tours.sub":"Quattro modi per uscire in mare. Ogni tour privato include skipper, bevande a bordo e ritiro all'orario concordato.",
- "t1.tag":"Mezza giornata · mattina","t1.h":"Tour privato di mezza giornata al mattino","t1.meta":"Privato, con skipper · da","t1.p":"Mare calmo, luce morbida e la costa tutta per voi. Navighiamo lungo la riviera, ci fermiamo a grotte nascoste e a una spiaggia, e tiriamo fuori le maschere.","t1.l1":"Skipper e bevande a bordo","t1.l2":"Grotte, snorkeling, tuffi dagli scogli per i coraggiosi","t1.l3":"Ritiro a Zert all'orario concordato",
- "t2.tag":"18:00 alle 21:00","t2.h":"Tour al tramonto, 3 ore","t2.meta":"Privato, con skipper · da","t2.p":"Il nostro preferito. Tre ore di luce dorata lungo la costa di Opatija, una sosta bagno in una caletta tranquilla e un drink in un porticciolo prima che il sole tramonti.","t2.l1":"Sosta bagno e sosta drink in un porto","t2.l2":"Bevande a bordo, skipper incluso","t2.l3":"Partenza 18:00 da Zert",
- "t3.tag":"Senza skipper","t3.h":"Noleggia una barca e guida tu","t3.meta":"Senza skipper · da","t3.p":"Prendi il timone. Al ritiro ricevi un briefing completo: la barca, la costa, dove fare il bagno e dove fare attenzione. Poi il golfo è vostro per la giornata.","t3.l1":"Istruzioni e briefing di sicurezza al ritiro","t3.l2":"Domande sulla patente: chiedici","t3.l3":"Restiamo raggiungibili su WhatsApp",
- "t4.tag":"Giornata intera · su misura","t4.h":"Tour su misura di una giornata","t4.meta":"Privato, con skipper · da","t4.p":"La tua giornata, il tuo itinerario. Dicci cosa amate: grotte, lunghi bagni, tuffi, un pranzo lento in porto. Lo pianifichiamo insieme lungo la costa del Quarnaro.","t4.l1":"Itinerario pianificato insieme su WhatsApp","t4.l2":"Skipper, bevande e attrezzatura snorkeling a bordo","t4.l3":"Orario di partenza a scelta, dalle 08:00",
- "t.book":"Prenota questo tour","t.rent":"Chiedi del noleggio","t.plan":"Pianifica la mia giornata","tours.note":"I prezzi indicati come XX € sono segnaposto di esempio per questa proposta. I prezzi finali dipendono da barca, stagione e numero di persone.",
- "crew.label":"L'equipaggio","crew.h":"Skipper che conoscono ogni caletta","crew.p":"Mauro e Roko sono cresciuti su quest'acqua. Sanno dove il mare è piatto al mattino, quale grotta prende la luce della sera e dov'è lo scoglio migliore per tuffarsi. Katja e il team prenotazioni sistemano il resto su WhatsApp.","crew.skip":"skipper","crew.skip2":"skipper","crew.book":"prenotazioni","crew.cta":"Scrivici su WhatsApp",
- "how.label":"Come funziona","how.h":"Tre passi verso il mare","how.tag":"Porto Zert","s1.h":"Scrivici","s1.p":"Scegli un tour qui sotto, un giorno e quanti siete, e invialo su WhatsApp. Oppure scrivici e basta, rispondiamo in fretta.","s2.h":"Confermiamo l'orario","s2.p":"Controlliamo meteo e barche e confermiamo l'orario di ritiro a Zert. Se il tempo cambia, concordiamo semplicemente un nuovo orario.","s3.h":"Sali a bordo","s3.p":"Ci vediamo sul molo. Lo skipper è pronto, le bevande sono a bordo. Per il noleggio senza skipper ti spieghiamo la barca prima di partire.",
- "near.label":"Lungo la costa","near.h":"Cosa si vede dall'acqua","near.sub":"La riviera di Opatija si vede meglio dal mare. Questi sono i luoghi lungo la costa del Quarnaro che i nostri tour attraversano.","n1":"La famosa passeggiata sul mare, ville comprese, vista come andrebbe vista","n1d":"Accanto a Zert","n2":"Un piccolo villaggio di pescatori con case di pietra e un porticciolo, poco a nord","n2d":"Nord","n3":"Centro storico, boschi di castagni sopra e calette sotto, a sud lungo la riviera","n3d":"Sud","near.note":"Grotte nascoste, punti snorkeling, tuffi e spiagge li sceglie lo skipper in giornata, secondo mare e vento.",
- "book.label":"Prenotazione","book.h":"Raccontaci la tua giornata","book.sub":"Compila e si apre WhatsApp con il messaggio pronto. Nessun pagamento qui, nessun account. Katja o il team conferma l'orario.","book.sumh":"La tua richiesta",
- "f.tour":"Tipo di tour","f.t1":"Mezza giornata mattina","f.t1s":"con skipper","f.t2":"Tramonto 3 ore","f.t3":"Noleggio barca","f.t3s":"senza skipper","f.t4":"Giornata intera","f.t4s":"con skipper","f.date":"Data","f.time":"Fascia oraria","f.tm1":"Mattina","f.tm1s":"dalle 08:00","f.tm2":"Pomeriggio","f.tm2s":"dalle 13:00","f.tm3":"Sera","f.guests":"Persone","f.name":"Il tuo nome","f.nameph":"es. Anna","f.send":"Invia su WhatsApp","f.fine":"Apre WhatsApp con la richiesta precompilata. Puoi ancora modificarla prima di inviare.",
+ "intro.label":"Opatija Boats","intro.h":"Porto piccolo, golfo grande","intro.lead":"Partiamo da Zert, il porto nel centro di Opatija, proprio accanto al ristorante Molo. Da lì si apre tutto il Quarnaro: il Lungomare visto dall'acqua, le scogliere di Brseč, Mošćenička Draga e le isole di Cres e Krk.","intro.p1":"Unisciti a un tour di gruppo in pochi, prenota un tour privato con uno dei nostri skipper oppure noleggia un motoscafo e guidalo tu. Ci trovi anche a Rijeka, in Riva 10.","intro.p2":"Tutto si organizza su WhatsApp, veloce e chiaro. Dicci il giorno e quanti siete, al resto pensiamo noi.","intro.sig":"Opatija Boats · Opatija e Rijeka",
+ "gtk.h":"Buono a sapersi","gtk.meet":"Punto d'incontro","gtk.meetv":"Porto di Opatija (Zert), accanto al ristorante Molo. Ti chiediamo di arrivare 10 minuti prima della partenza.","gtk.hours":"Orari","gtk.hoursv":"Aperto ogni giorno dalle 09:00 alle 21:00. Il Sunset Tour parte alle 18:00.","gtk.bring":"Cosa portare","gtk.bringv":"Costume, telo mare, crema solare, cappello e un po' di contanti. Le bevande sono a bordo.","gtk.skip":"Skipper","gtk.skipv":"Incluso in ogni tour. Noleggi senza patente nautica? Aggiungi uno skipper da 50 €.","gtk.conf":"Prenotazione","gtk.confv":"Su WhatsApp, per telefono o e-mail. Per i tour serve un acconto del 20% con bonifico, il resto si paga a bordo.","gtk.rev":"ospiti soddisfatti",
+ "tours.label":"Tour e noleggio","tours.h":"Scegli la tua giornata","tours.sub":"Tour di gruppo, tour privati, noleggio motoscafi e formazione skipper. Ogni tour include skipper, carburante e bevande a bordo.",
+ "t1.tag":"Privato · fino a 15 persone","t1.h":"Tour privati in barca","t1.meta":"Tutta la barca, con skipper · da","t1.p":"La barca è solo per il vostro gruppo. Island Escape è una giornata intera tra le isole con soste più lunghe e pausa pranzo in un paese. Coastal Discovery dura qualche ora, bellissimo nel tardo pomeriggio.","t1.l1":"Island Escape, giornata intera: da 320 € a barca","t1.l2":"Rijeka Bay Experience in motoscafo, fino a 7 persone: da 260 € a barca","t1.l3":"Coastal Discovery: qualche ora, una o due tappe principali",
+ "t2.tag":"18:00 · circa 3 h","t2.h":"Sunset Tour","t2.meta":"Piccolo gruppo, con skipper · adulti","t2.p":"Luce dorata lungo la riviera di Opatija, una sosta bagno in una baia tranquilla e il sole che tramonta sull'Adriatico. Rientro verso le 21:00.","t2.l1":"Bambini da 3 a 10 anni: 20 €, neonati da 0 a 2 anni gratis","t2.l2":"Skipper, carburante, bevande (vino, acqua, bibite, succhi) e attrezzatura snorkeling","t2.l3":"Imbarco a Volosko, Opatija (ristorante Molo) o Ičići (marina ACI)",
+ "t3.tag":"Giornata intera · piccolo gruppo","t3.h":"Giornate nelle isole: Cres e Krk","t3.meta":"Piccolo gruppo, con skipper · adulti da","t3.p":"Spiagge nascoste raggiungibili solo in barca, acqua limpida per nuotare e fare snorkeling, bevande e frutta a bordo. Fino a 15 persone per barca.","t3.l1":"Natura Pura: scogliere di Brseč + 2 spiagge a Cres, circa 7 h","t3.l2":"Wild Cres: 2 spiagge a Cres + il borgo di Beli, circa 9 h","t3.l3":"Krk Aquatica: 3 punti bagno a Krk + Njivice, circa 8 h",
+ "t4.tag":"Senza skipper o con skipper","t4.h":"Noleggia un motoscafo","t4.meta":"Otto barche, da 5,5 a 9,4 m · da","t4.p":"Prendi il timone con la tua patente nautica oppure aggiungi uno skipper. Mezza giornata o giornata intera dal porto di Opatija, consegna a Rijeka o Lovran su richiesta.","t4.l1":"Mezza giornata dalle 09:30 alle 13:30 o dalle 14:00 alle 18:00, giornata intera dalle 10:00 alle 18:00","t4.l2":"Skipper: 50 € mezza giornata, 80 € giornata intera","t4.l3":"Carburante non incluso, animali benvenuti",
+ "t.book":"Prenota questo tour","t.rent":"Chiedi del noleggio","tours.note":"Prezzi pubblicati da Opatija Boats (ML Aquatics). Tour: acconto del 20% con bonifico, il resto a bordo, preferibilmente in contanti. Noleggio barche: acconto del 15%.",
+ "crew.label":"L'equipaggio","crew.h":"Skipper del posto che conoscono ogni caletta","crew.p":"I nostri skipper sono gente del posto con esperienza e parlano tutti inglese fluente. Conoscono i punti per il bagno, l'acqua più limpida e sanno leggere il mare. Prenotane uno con qualsiasi barca, o impara da loro con la formazione skipper.","crew.skip":"skipper","crew.skip2":"skipper","crew.book":"prenotazioni","crew.cta":"Scrivici su WhatsApp",
+ "how.label":"Come funziona","how.h":"Tre passi verso il mare","how.tag":"Porto di Opatija","s1.h":"Scrivici","s1.p":"Scegli un tour qui sotto, un giorno e quanti siete, e invialo su WhatsApp. Oppure scrivici e basta, rispondiamo in fretta.","s2.h":"Confermiamo","s2.p":"Confermiamo luogo e orario di partenza e ti mandiamo i dati per l'acconto con bonifico: 20% per i tour, 15% per il noleggio.","s3.h":"Sali a bordo","s3.p":"Ci vediamo al porto 10 minuti prima della partenza. Lo skipper è pronto e le bevande sono a bordo. Noleggi? Porta patente e documento, ti spieghiamo la barca.",
+ "near.label":"Lungo la costa","near.h":"Cosa si vede dall'acqua","near.sub":"La riviera di Opatija si vede meglio dal mare. Questi sono i luoghi che i nostri tour visitano lungo la costa del Quarnaro e sulle isole.","n1":"La famosa passeggiata sul mare, ville comprese, vista come andrebbe vista","n1d":"Accanto a Zert","n2":"Un piccolo villaggio di pescatori con case di pietra. Gli ospiti del Sunset Tour possono imbarcarsi al molo vicino alla lanterna verde","n2d":"Nord","n3":"Centro storico e calette tranquille. Natura Pura parte anche dal porto di Lovran, vicino al ristorante Kvarner","n3d":"Sud","near.note":"Le soste bagno e le spiagge le sceglie lo skipper in giornata, secondo mare e vento. Alcune spiagge si raggiungono con una breve nuotata dalla barca.",
+ "book.label":"Prenotazione","book.h":"Raccontaci la tua giornata","book.sub":"Compila e si apre WhatsApp con il messaggio pronto. Nessun pagamento qui, nessun account. Ti rispondiamo con l'orario e i dati per l'acconto.","book.sumh":"La tua richiesta",
+ "f.tour":"Cosa desideri?","f.t1":"Tour privato","f.t1s":"tutta la barca","f.t2":"Sunset Tour","f.t3":"Giornata isole","f.t3s":"Cres o Krk","f.t4":"Noleggio barca","f.t4s":"da soli o con skipper","f.date":"Data","f.time":"Partenza","f.tm1":"Mattina","f.tm2":"Pomeriggio","f.tm3":"Sera","f.guests":"Persone","f.name":"Il tuo nome","f.nameph":"es. Anna","f.send":"Invia su WhatsApp","f.fine":"Apre WhatsApp con la richiesta precompilata. Puoi ancora modificarla prima di inviare.",
  "faq.label":"FAQ","faq.h":"Prima di partire","faq.sub":"Per tutto il resto, chiedici su WhatsApp.",
- "q1":"E se il tempo è brutto?","a1":"Prima la sicurezza. Se mare o vento non vanno bene, concordiamo un nuovo orario con te. Niente stress, niente regole complicate.","q2":"Serve la patente per noleggiare?","a2":"Dipende dalla barca e da te. Chiedici su WhatsApp e ti diciamo cosa è possibile e cosa ci serve.","q3":"Possiamo portare i bambini?","a3":"Chiedici. Dicci le età e ti consigliamo la barca e il tour più adatti alla vostra famiglia.","q4":"Cosa include un tour privato?","a4":"Lo skipper, le bevande a bordo, soste a grotte nascoste, snorkeling e spiagge, e il ritiro a Zert all'orario concordato. Il tour al tramonto aggiunge una sosta bagno e una sosta drink in porto.","q5":"Come confermo una prenotazione?","a5":"Su WhatsApp. Invia la richiesta da questa pagina o scrivi al +385 91 610 6010 e confermiamo l'orario.",
- "c.label":"Contatti","c.h":"Ci trovi a Zert","c.wa":"Telefono e WhatsApp. Veloce e chiaro.","c.daily":"Ogni giorno","c.eve":"Tour serali","c.map":"Apri in Mappe","open.now":"Aperto ora","open.closed":"Chiuso ora",
- "foot.p":"Tour privati in barca con skipper e noleggio barche dal porto di Zert, Opatija.","foot.visit":"Dove","foot.talk":"Parla con noi","foot.explore":"Esplora","fab":"Prenota","bar.s":"La tua richiesta","bar.btn":"Invia",
- "sum.morning":"Tour del mattino","sum.sunset":"Tour al tramonto","sum.rent":"Noleggio barca","sum.custom":"Giornata su misura","g.1":"1 persona","g.n":"{n} persone","tm.morning":"mattina","tm.afternoon":"pomeriggio","tm.evening":"sera","d.pick":"scegli una data",
- "wa.msg":"Ciao Opatija Boats! Vorrei prenotare: {tour}. Data: {date}, {time}. Persone: {guests}. Nome: {name}. Potete confermare l'orario?"
+ "q1":"E se il tempo è brutto?","a1":"Prima la sicurezza. L'itinerario può cambiare un po' in base al meteo, e lo skipper sceglie le soste in giornata. Se il mare non è sicuro, ti contattiamo su WhatsApp.","q2":"Serve la patente per noleggiare?","a2":"Sì, per guidare da solo serve una patente nautica valida. Portala con un documento d'identità o il passaporto. Senza patente? Aggiungiamo uno skipper a 50 € (mezza giornata) o 80 € (giornata intera). I nuovi patentati possono anche prenotare la formazione skipper.","q3":"Possiamo portare i bambini?","a3":"Sì. Nel Sunset Tour i bambini da 3 a 10 anni pagano 20 € e i neonati da 0 a 2 anni sono gratis. Natura Pura è sconsigliato ai bambini sotto i 5 anni. A bordo ci sono i giubbotti di salvataggio, e un passeggino chiuso può viaggiare in cabina.","q4":"Cosa include un tour?","a4":"Skipper, carburante, bevande (vino, acqua, bibite, succhi) e attrezzatura snorkeling. Le gite di un giorno alle isole includono anche la frutta. I panini costano 5 € l'uno, classici o vegetariani, da ordinare in anticipo. A bordo c'è un WC chimico.","q5":"Come prenoto e pago?","a5":"Invia la richiesta da questa pagina, scrivi su WhatsApp o Viber al +385 91 610 6010 oppure all'e-mail opatijaboats.rent@gmail.com. Per i tour serve un acconto del 20%, per il noleggio del 15%, con bonifico. Il resto si paga a bordo, preferibilmente in contanti.",
+ "c.label":"Contatti","c.h":"Ci trovi al porto di Opatija","c.wa":"Chiamaci o scrivici su WhatsApp o Viber.","c.daily":"Ogni giorno","c.eve":"Sunset Tour","c.map":"Apri in Mappe","open.now":"Aperto ora","open.closed":"Chiuso ora",
+ "foot.p":"Tour in barca di gruppo e privati, noleggio motoscafi e formazione skipper dal porto di Opatija. ML Aquatics.","foot.visit":"Dove","foot.talk":"Parla con noi","foot.explore":"Esplora","fab":"Prenota","bar.s":"La tua richiesta","bar.btn":"Invia",
+ "sum.sunset":"Sunset Tour","sum.rent":"Noleggio barca","g.1":"1 persona","g.n":"{n} persone","tm.morning":"mattina","tm.afternoon":"pomeriggio","tm.evening":"sera","d.pick":"scegli una data",
+ "wa.msg":"Ciao Opatija Boats! Vorrei prenotare: {tour}. Data: {date}, {time}. Partenza: {from}. Persone: {guests}. Nome: {name}. Potete confermare?",
+ "ovl.shared":"Tour di gruppo",
+ "ovl.fleet":"La nostra flotta",
+ "sub.shared":"Tour di gruppo",
+ "sub.fleet":"Flotta",
+ "gtk.revl":"recensioni Google",
+ "t5.tag":"Nuovi patentati",
+ "t5.h":"Formazione skipper",
+ "t5.meta":"Pratica, con uno skipper esperto del posto",
+ "t5.p":"Hai appena preso la patente nautica o torni in mare dopo una lunga pausa? Esercitati con uno dei nostri skipper prima di uscire da solo. Tutti gli istruttori parlano inglese fluente.",
+ "t5.l1":"Ormeggio, disormeggio, ancoraggio e attracco",
+ "t5.l2":"Guida sicura del motoscafo, basi di navigazione, leggere il mare",
+ "t5.l3":"Tariffa oraria in aggiunta al noleggio, minimo mezza giornata",
+ "t.fleet":"Vedi la flotta",
+ "t.ask":"Chiedi della formazione",
+ "sh.label":"Tour di gruppo",
+ "sh.h":"Unisciti a un piccolo gruppo",
+ "sh.sub":"Fino a 15 persone per barca, con skipper, carburante e bevande a bordo. Si paga a persona.",
+ "sh.col1":"Tour",
+ "sh.col2":"Adulti / bambini",
+ "st1":"Circa 7 h · scogliere di Brseč + 2 spiagge nascoste a Cres · bevande e frutta · alle 09:30 da Opatija, alle 10:00 da Lovran",
+ "st2":"Circa 8 h · 3 punti bagno a Krk + Njivice · bevande e frutta",
+ "st3":"Circa 9 h · 2 spiagge nascoste a Cres + il borgo di Beli · bevande e frutta",
+ "st4":"4,5 h · scogliere di Brseč + sosta bagno · bevande",
+ "st5":"Circa 4 h · sosta a Mošćenička Draga + sosta bagno · bevande",
+ "st6":"2 h · 1 sosta lungo la costa · bevande",
+ "st7":"3 h · 18:00 · sosta bagno in una baia tranquilla · bevande e attrezzatura snorkeling",
+ "st8":"1 h solo andata · in barca fino al centro di Rijeka · bevande",
+ "sh.note":"Sunset Tour: prezzo bambini da 3 a 10 anni, neonati da 0 a 2 anni gratis. Natura Pura: bambini da 5 a 10 anni, sconsigliato sotto i 5. Panini a 5 € (classici o vegetariani), da ordinare in anticipo. L'itinerario può cambiare un po' in base al meteo.",
+ "me.h":"Altro sul mare",
+ "me.ask":"Su richiesta",
+ "me1":"Charter privato di lusso",
+ "me1s":"Grand Banks 46 con flybridge e salone climatizzato, fino a 12 persone, giornata intera. Skipper, carburante, bevande, frutta, snorkeling, kayak e SUP inclusi.",
+ "me2":"Crociere per grandi gruppi",
+ "me2s":"Fino a 60 persone, giornata intera con pranzo incluso. Noleggia tutta la barca o partecipa singolarmente.",
+ "me3":"Tour di pesca",
+ "me3s":"Una vera uscita di pesca nell'Adriatico per piccoli gruppi privati, attrezzatura inclusa.",
+ "me4":"Avventura in moto d'acqua",
+ "me4s":"Corse veloci lungo la costa verso baie nascoste, equipaggiamento di sicurezza incluso.",
+ "me5":"Avventura in kayak",
+ "me5s":"Pagaiate verso spiagge e calette nascoste, per principianti ed esperti.",
+ "fl.label":"Flotta",
+ "fl.h":"Otto motoscafi a Opatija",
+ "fl.sub":"Dall'agile Saver 540 di 5,5 m all'Adex 29 di 9,4 m con due motori da 250 CV. A bordo: bimini, prendisole, GPS sonar, ancora, giubbotti di salvataggio e assicurazione casco.",
+ "fl.col1":"Barca",
+ "fl.col2":"Prezzo",
+ "fl.upto":"persone:",
+ "fl.from":"da",
+ "fl.to":"a",
+ "fl.note":"Fascia di prezzo pubblicata per barca. Il prezzo esatto per la tua data e durata del noleggio lo confermiamo su WhatsApp. Prenotando più giorni in anticipo hai uno sconto dal secondo giorno.",
+ "fl.ch":"Condizioni di noleggio",
+ "fl.r1h":"Orari",
+ "fl.r1":"Mezza giornata dalle 09:30 alle 13:30 o dalle 14:00 alle 18:00. Giornata intera dalle 10:00 alle 18:00. Ora extra da 20 €.",
+ "fl.r2h":"Skipper",
+ "fl.r2":"Senza patente nautica? Ti diamo uno skipper: 50 € mezza giornata, 80 € giornata intera.",
+ "fl.r3h":"Ritiro",
+ "fl.r3":"Porto di Opatija, accanto al ristorante Molo. Consegna a Lovran +25 €, a Rijeka +40 €. Parcheggio pubblico a pagamento al porto.",
+ "fl.r4h":"Carburante",
+ "fl.r4":"Non incluso nel prezzo.",
+ "fl.r5h":"A bordo",
+ "fl.r5":"Gli animali sono benvenuti e puoi portare cibo e bevande. Le barche non sono accessibili in sedia a rotelle.",
+ "fl.r6h":"Da portare",
+ "fl.r6":"La patente nautica (se guidi tu) e carta d'identità o passaporto. Ti chiediamo di arrivare 10 minuti prima.",
+ "fl.r7h":"Pagamento",
+ "fl.r7":"Acconto del 15% con bonifico, il resto a bordo, preferibilmente in contanti.",
+ "crew.c1":"ospiti soddisfatti",
+ "crew.c2":"destinazioni",
+ "crew.c3":"inglese fluente",
+ "n4":"Alte scogliere e acqua limpida per nuotare e fare snorkeling, con Myths of the Sea e Natura Pura",
+ "n4d":"Sud",
+ "n5":"Un paese sul mare con una lunga spiaggia, la sosta del tour Riviera Escape",
+ "n5d":"Sud",
+ "n6":"Spiagge nascoste raggiungibili solo in barca e l'antico borgo di Beli con Wild Cres",
+ "n6d":"Isola",
+ "n7":"Tre punti per il bagno a Krk e il paese di Njivice con Krk Aquatica",
+ "n7d":"Isola",
+ "n8":"La città in un'ora di barca e la nostra seconda base in Riva 10",
+ "n8d":"Est",
+ "f.t2s":"18:00, 3 h",
+ "f.t5":"Formazione skipper",
+ "f.t5s":"nuovi patentati",
+ "f.from":"Partenza da",
+ "sum.private":"Tour privato",
+ "sum.island":"Gita alle isole",
+ "sum.training":"Formazione skipper",
+ "q6":"Dove ci imbarchiamo?",
+ "a6":"Al porto di Opatija (Zert), accanto al ristorante Molo. Per alcuni tour anche a Volosko (molo della lanterna verde), Ičići (marina ACI) o al porto di Lovran (vicino al ristorante Kvarner). Ti chiediamo di arrivare 10 minuti prima. Il parcheggio al porto è a pagamento.",
+ "q7":"Possiamo portare cibo, bevande o animali?",
+ "a7":"Sì, puoi portare cibo e bevande. I piccoli animali sono benvenuti nel Sunset Tour e sulle barche a noleggio, ma non in Natura Pura. Le nostre barche non sono accessibili in sedia a rotelle.",
+ "c.molo":"accanto al ristorante Molo",
+ "c.hr":"Croazia",
+ "c.hoursv":"dalle 09:00 alle 21:00",
+ "c.rijeka":"Anche a Rijeka",
+ "c.social":"Seguici"
 },
 hr:{
- "logo.sub":"Najam brodica & izleti","nav.book":"Rezerviraj izlet","nav.menu":"IZBORNIK","ovl.tours":"Izleti","ovl.how":"Kako funkcionira","ovl.nearby":"Uz obalu","ovl.book":"Rezervacija","ovl.faq":"Česta pitanja","ovl.contact":"Kontakt","cta.wa":"Piši nam na WhatsApp","ovl.addr":"Lučica Zert, Opatija","ovl.hours":"Svaki dan 08:00 do 20:00","concept":"Koncept: Marija",
- "hero.label":"Lučica Zert · Opatija · Kvarnerski zaljev","hero.t1":"Zlatni sat,","hero.t2":"s pramca tvoje brodice","hero.sub":"Najam brodica & privatni izleti","hero.txt":"Privatni izleti sa skiperom uz opatijsku rivijeru: skrivene špilje, snorkeling, kupanje i piće u mirnoj lučici. Ili sami preuzmite kormilo.","hero.addr":"Zert, 51410 Opatija · Google 5,0 iz 514 recenzija","hero.cta":"Rezerviraj izlet u zalazak","hint.touch":"Dodirni za nagib","hint.mouse":"Pomakni miš za nagib",
+ "logo.sub":"Najam brodica & izleti","nav.book":"Rezerviraj izlet","nav.menu":"IZBORNIK","ovl.tours":"Izleti","ovl.how":"Kako funkcionira","ovl.nearby":"Uz obalu","ovl.book":"Rezervacija","ovl.faq":"Česta pitanja","ovl.contact":"Kontakt","cta.wa":"Piši nam na WhatsApp","ovl.addr":"Luka Opatija, pokraj restorana Molo","ovl.hours":"Svaki dan 09:00 do 21:00","concept":"Koncept: Marija",
+ "hero.label":"Luka Opatija · Rijeka · Kvarnerski zaljev","hero.t1":"Zlatni sat,","hero.t2":"s pramca tvoje brodice","hero.sub":"Izleti brodom i najam glisera","hero.txt":"Izleti u malim grupama do skrivenih plaža Cresa i Krka, vožnja u zalazak sunca uz opatijsku rivijeru i privatni izleti sa skiperom. Ili unajmite gliser i sami preuzmite kormilo.","hero.addr":"Zert, 51410 Opatija · pokraj restorana Molo","hero.cta":"Rezerviraj izlet u zalazak","hint.touch":"Dodirni za nagib","hint.mouse":"Pomakni miš za nagib",
  "finder.b":"Privatni izlet","finder.s":"Odaberi datum • {n}",
- "gal.label":"Na moru","gal.h":"Dan na Kvarneru","gal.sub":"Špilje, uvale, kupanje i hladno piće. Prolistaj kako izgleda izlet.",
- "gal.g1":"Opatija, Hrvatska","gal.g2":"Kvarnerski zaljev","gal.g3":"Skrivena špilja","gal.g4":"Stanka za kupanje","gal.g5":"Lučica Zert",
- "gal.c1":"Izlet u zalazak, 18:00 do 21:00","gal.c2":"Jutro na mirnom moru","gal.c3":"Špilje uz obalu","gal.c4":"Snorkeling i skakanje s hridi","gal.c5":"Ukrcaj u Zertu, maloj lučici",
+ "gal.label":"Na moru","gal.h":"Dan na Kvarneru","gal.sub":"Klifovi, skrivene plaže, kupanje i hladno piće. Prolistajte kako izgleda dan s nama.",
+ "gal.g1":"Opatijska rivijera","gal.g2":"Otok Cres","gal.g3":"Klifovi Brseča","gal.g4":"Otok Krk","gal.g5":"Kvarnerski zaljev",
+ "gal.c1":"Sunset Tour, u 18:00 iz Opatije","gal.c2":"Skrivene plaže na Cresu, dostupne samo brodom","gal.c3":"Myths of the Sea: klifovi i stanka za kupanje","gal.c4":"Krk Aquatica: tri mjesta za kupanje na Krku","gal.c5":"Dan na Kvarneru",
  "sub.intro":"O nama","sub.tours":"Izleti","sub.how":"Kako funkcionira","sub.nearby":"Uz obalu","sub.book":"Rezervacija","sub.faq":"Česta pitanja","sub.contact":"Kontakt",
- "intro.label":"Opatija Boats","intro.h":"Mala lučica, veliki zaljev","intro.lead":"Krećemo iz Zerta, male lučice u srcu Opatije. Odande se otvara cijeli Kvarner: Lungomare s mora, kamene kuće Voloskog, Lovran i tihe uvale i špilje između.","intro.p1":"Odaberite privatni izlet s jednim od naših skipera ili unajmite brodicu i upravljajte sami. Pri preuzimanju dobivate temeljite upute, a mi smo cijelo vrijeme na jednu WhatsApp poruku udaljeni.","intro.p2":"Sve dogovaramo preko WhatsAppa, brzo i jasno. Recite nam dan i koliko vas dolazi, ostalo preuzimamo mi.","intro.sig":"Skiperi i tim za rezervacije",
- "gtk.h":"Dobro je znati","gtk.meet":"Mjesto sastanka","gtk.meetv":"Zert, mala lučica, 51410 Opatija. Čekamo vas na molu.","gtk.hours":"Radno vrijeme","gtk.hoursv":"Otvoreno svaki dan 08:00 do 20:00. Večernji izleti 18:00 do 21:00.","gtk.bring":"Što ponijeti","gtk.bringv":"Kupaći, ručnik, kremu za sunčanje, kapu i nešto lagano za večer. Piće je na brodu.","gtk.skip":"Skiper uključen","gtk.skipv":"Na svakom privatnom izletu. Najam bez skipera dolazi s potpunim uputama pri preuzimanju.","gtk.conf":"Potvrda","gtk.confv":"Putem WhatsAppa, obično u nekoliko minuta. Vrijeme ukrcaja dogovaramo s vama.","gtk.rev":"Google recenzija",
- "tours.label":"Izleti i najam","tours.h":"Odaberi svoj dan","tours.sub":"Četiri načina da izađete na more. Svaki privatni izlet uključuje skipera, piće na brodu i ukrcaj u dogovoreno vrijeme.",
- "t1.tag":"Pola dana · jutro","t1.h":"Jutarnji privatni poludnevni izlet","t1.meta":"Privatno, sa skiperom · od","t1.p":"Mirno more, meko svjetlo i obala samo za vas. Plovimo uz rivijeru, stajemo kod skrivenih špilja i plaže i vadimo maske za snorkeling.","t1.l1":"Skiper i piće na brodu","t1.l2":"Špilje, snorkeling, skakanje s hridi za hrabre","t1.l3":"Ukrcaj u Zertu u dogovoreno vrijeme",
- "t2.tag":"18:00 do 21:00","t2.h":"Izlet u zalazak, 3 sata","t2.meta":"Privatno, sa skiperom · od","t2.p":"Naš favorit. Tri sata zlatnog svjetla uz opatijsku obalu, stanka za kupanje u tihoj uvali i piće u maloj lučici prije nego sunce zađe.","t2.l1":"Stanka za kupanje i piće u lučici","t2.l2":"Piće na brodu, skiper uključen","t2.l3":"Polazak u 18:00 iz Zerta",
- "t3.tag":"Bez skipera","t3.h":"Unajmite brodicu i vozite sami","t3.meta":"Bez skipera · od","t3.p":"Preuzmite kormilo. Pri preuzimanju dobivate potpune upute: brodica, obala, gdje se kupati i gdje paziti. Onda je zaljev vaš za cijeli dan.","t3.l1":"Upute i sigurnosni brifing pri preuzimanju","t3.l2":"Pitanja o dozvoli: samo nas pitajte","t3.l3":"Dostupni smo na WhatsAppu",
- "t4.tag":"Cijeli dan · po mjeri","t4.h":"Cjelodnevni izlet po mjeri","t4.meta":"Privatno, sa skiperom · od","t4.p":"Vaš dan, vaša ruta. Recite nam što volite: špilje, duga kupanja, skakanje s hridi, lagani ručak u lučici. Planiramo zajedno uz kvarnersku obalu.","t4.l1":"Ruta planirana zajedno na WhatsAppu","t4.l2":"Skiper, piće i oprema za snorkeling na brodu","t4.l3":"Vrijeme polaska po želji, od 08:00",
- "t.book":"Rezerviraj ovaj izlet","t.rent":"Pitaj za najam","t.plan":"Isplaniraj moj dan","tours.note":"Cijene prikazane kao XX € primjer su za ovaj prijedlog. Konačne cijene ovise o brodici, sezoni i broju osoba.",
- "crew.label":"Posada","crew.h":"Skiperi koji znaju svaku uvalu","crew.p":"Mauro i Roko odrasli su na ovom moru. Znaju gdje je more ujutro kao ulje, koja špilja hvata večernje svjetlo i gdje je najbolja hrid za skok. Katja i tim za rezervacije sređuju ostalo preko WhatsAppa.","crew.skip":"skiper","crew.skip2":"skiper","crew.book":"rezervacije","crew.cta":"Pošalji nam poruku na WhatsApp",
- "how.label":"Kako funkcionira","how.h":"Tri koraka do mora","how.tag":"Lučica Zert","s1.h":"Javite nam se","s1.p":"Odaberite izlet dolje, dan i broj osoba i pošaljite na WhatsApp. Ili nam samo pišite, brzi smo.","s2.h":"Potvrdimo vrijeme","s2.p":"Provjerimo vrijeme i brodice i potvrdimo vaš ukrcaj u Zertu. Ako se vrijeme pokvari, jednostavno dogovorimo novi termin.","s3.h":"Ukrcajte se","s3.p":"Nađemo se na molu. Skiper je spreman, piće je na brodu. Za najam bez skipera prođemo brodicu s vama prije polaska.",
- "near.label":"Uz obalu","near.h":"Što se vidi s mora","near.sub":"Opatijska rivijera najljepša je s mora. Ovo su mjesta uz kvarnersku obalu pokraj kojih prolaze naši izleti.","n1":"Slavna šetnica uz more, s vilama, viđena onako kako je i zamišljena","n1d":"Uz sam Zert","n2":"Malo ribarsko mjesto s kamenim kućama i majušnom lučicom, malo sjevernije","n2d":"Sjever","n3":"Stari grad, kestenove šume iznad i uvale ispod, južno uz rivijeru","n3d":"Jug","near.note":"Skrivene špilje, mjesta za snorkeling, hridi za skakanje i plaže skiper bira na dan izleta, ovisno o moru i vjetru.",
- "book.label":"Rezervacija","book.h":"Recite nam o svom danu","book.sub":"Ispunite i otvara se WhatsApp s gotovom porukom. Bez plaćanja, bez računa. Katja ili tim potvrđuje vaš termin.","book.sumh":"Vaš upit",
- "f.tour":"Vrsta izleta","f.t1":"Jutro, pola dana","f.t1s":"sa skiperom","f.t2":"Zalazak, 3 sata","f.t3":"Najam brodice","f.t3s":"bez skipera","f.t4":"Cijeli dan","f.t4s":"sa skiperom","f.date":"Datum","f.time":"Doba dana","f.tm1":"Jutro","f.tm1s":"od 08:00","f.tm2":"Popodne","f.tm2s":"od 13:00","f.tm3":"Večer","f.guests":"Osobe","f.name":"Vaše ime","f.nameph":"npr. Ana","f.send":"Pošalji na WhatsApp","f.fine":"Otvara WhatsApp s unaprijed ispunjenim upitom. Možete ga još urediti prije slanja.",
+ "intro.label":"Opatija Boats","intro.h":"Mala lučica, veliki zaljev","intro.lead":"Krećemo iz Zerta, luke u srcu Opatije, odmah pokraj restorana Molo. Odande se otvara cijeli Kvarner: Lungomare s mora, klifovi Brseča, Mošćenička Draga te otoci Cres i Krk.","intro.p1":"Pridružite se grupnom izletu u maloj grupi, rezervirajte privatni izlet s jednim od naših skipera ili unajmite gliser i vozite sami. Naći ćete nas i u Rijeci, na Rivi 10.","intro.p2":"Sve dogovaramo preko WhatsAppa, brzo i jasno. Recite nam dan i koliko vas dolazi, ostalo preuzimamo mi.","intro.sig":"Opatija Boats · Opatija i Rijeka",
+ "gtk.h":"Dobro je znati","gtk.meet":"Mjesto sastanka","gtk.meetv":"Luka Opatija (Zert), pokraj restorana Molo. Molimo dođite 10 minuta prije polaska.","gtk.hours":"Radno vrijeme","gtk.hoursv":"Otvoreno svaki dan 09:00 do 21:00. Sunset Tour polazi u 18:00.","gtk.bring":"Što ponijeti","gtk.bringv":"Kupaći kostim, ručnik za plažu, kremu za sunčanje, šešir i nešto gotovine. Piće je na brodu.","gtk.skip":"Skiper","gtk.skipv":"Uključen na svakom izletu. Unajmljujete bez dozvole? Dodajte skipera od 50 €.","gtk.conf":"Rezervacija","gtk.confv":"Putem WhatsAppa, telefonom ili e-mailom. Za izlete se plaća predujam od 20% na račun, ostatak na brodu.","gtk.rev":"zadovoljnih gostiju",
+ "tours.label":"Izleti i najam","tours.h":"Odaberi svoj dan","tours.sub":"Izleti u malim grupama, privatni izleti, najam glisera i obuka za skipere. Svaki izlet uključuje skipera, gorivo i piće na brodu.",
+ "t1.tag":"Privatno · do 15 osoba","t1.h":"Privatni izleti brodom","t1.meta":"Cijeli brod, sa skiperom · od","t1.p":"Brod je samo za vašu grupu. Island Escape je cijeli dan obilaska otoka s duljim stankama i ručkom u nekom mjestu. Coastal Discovery traje nekoliko sati, idealno kasno poslijepodne.","t1.l1":"Island Escape, cijeli dan: od 320 € po brodu","t1.l2":"Rijeka Bay Experience gliserom, do 7 osoba: od 260 € po brodu","t1.l3":"Coastal Discovery: nekoliko sati, jedna ili dvije atrakcije",
+ "t2.tag":"18:00 · oko 3 h","t2.h":"Sunset Tour","t2.meta":"Mala grupa, sa skiperom · odrasli","t2.p":"Zlatno svjetlo uz opatijsku rivijeru, kupanje u mirnoj uvali i zalazak sunca nad Jadranom. Povratak oko 21:00.","t2.l1":"Djeca od 3 do 10 godina: 20 €, bebe do 2 godine besplatno","t2.l2":"Skiper, gorivo, piće (vino, voda, sokovi) i oprema za ronjenje","t2.l3":"Ukrcaj u Voloskom, Opatiji (restoran Molo) ili Ičićima (ACI marina)",
+ "t3.tag":"Cijeli dan · mala grupa","t3.h":"Dan na otocima: Cres i Krk","t3.meta":"Mala grupa, sa skiperom · odrasli od","t3.p":"Skrivene plaže do kojih se dolazi samo brodom, bistro more za kupanje i ronjenje, piće i voće na brodu. Do 15 osoba po brodu.","t3.l1":"Natura Pura: klifovi Brseča + 2 plaže na Cresu, oko 7 h","t3.l2":"Wild Cres: 2 plaže na Cresu + selo Beli, oko 9 h","t3.l3":"Krk Aquatica: 3 mjesta za kupanje na Krku + Njivice, oko 8 h",
+ "t4.tag":"Sami ili sa skiperom","t4.h":"Najam glisera","t4.meta":"Osam brodova, 5,5 do 9,4 m · od","t4.p":"Preuzmite kormilo uz svoju dozvolu ili dodajte skipera. Pola dana ili cijeli dan iz luke Opatija, uz dostavu u Rijeku ili Lovran na upit.","t4.l1":"Pola dana 09:30 do 13:30 ili 14:00 do 18:00, cijeli dan 10:00 do 18:00","t4.l2":"Skiper: 50 € pola dana, 80 € cijeli dan","t4.l3":"Gorivo nije uključeno, ljubimci su dobrodošli",
+ "t.book":"Rezerviraj ovaj izlet","t.rent":"Pitaj za najam","tours.note":"Cijene prema objavi Opatija Boats (ML Aquatics). Izleti: 20% predujma na račun, ostatak na brodu, po mogućnosti gotovinom. Najam brodice: 15% predujma.",
+ "crew.label":"Posada","crew.h":"Lokalni skiperi koji znaju svaku uvalu","crew.p":"Naši skiperi su iskusni domaći ljudi i svi tečno govore engleski. Znaju mjesta za kupanje, gdje je more najbistrije i kako čitati more. Rezervirajte skipera uz bilo koji brod ili učite od njih na obuci za skipere.","crew.skip":"skiper","crew.skip2":"skiper","crew.book":"rezervacije","crew.cta":"Pošalji nam poruku na WhatsApp",
+ "how.label":"Kako funkcionira","how.h":"Tri koraka do mora","how.tag":"Luka Opatija","s1.h":"Javite nam se","s1.p":"Odaberite izlet dolje, dan i broj osoba i pošaljite na WhatsApp. Ili nam samo pišite, brzi smo.","s2.h":"Potvrdimo","s2.p":"Potvrdimo mjesto i vrijeme polaska i pošaljemo podatke za predujam na račun: 20% za izlete, 15% za najam brodice.","s3.h":"Ukrcajte se","s3.p":"Nađemo se u luci 10 minuta prije polaska. Skiper je spreman, piće je na brodu. Unajmljujete? Ponesite dozvolu i osobnu, a mi vam pokažemo brod.",
+ "near.label":"Uz obalu","near.h":"Što se vidi s mora","near.sub":"Opatijska rivijera najljepša je s mora. Ovo su mjesta koja naši izleti posjećuju uz kvarnersku obalu i na otocima.","n1":"Slavna šetnica uz more, s vilama, viđena onako kako je i zamišljena","n1d":"Uz sam Zert","n2":"Malo ribarsko mjesto s kamenim kućama. Gosti Sunset Toura mogu se ukrcati na molu kod zelenog svjetionika","n2d":"Sjever","n3":"Stari grad i mirne uvale. Natura Pura polazi i iz luke Lovran, kod restorana Kvarner","n3d":"Jug","near.note":"Mjesta za kupanje i plaže skiper bira na dan izleta, ovisno o moru i vjetru. Do nekih plaža treba kratko doplivati s broda.",
+ "book.label":"Rezervacija","book.h":"Recite nam o svom danu","book.sub":"Ispunite i otvara se WhatsApp s gotovom porukom. Bez plaćanja, bez računa. Javimo vam termin i podatke za predujam.","book.sumh":"Vaš upit",
+ "f.tour":"Što želite?","f.t1":"Privatni izlet","f.t1s":"cijeli brod","f.t2":"Sunset Tour","f.t3":"Dan na otocima","f.t3s":"Cres ili Krk","f.t4":"Najam brodice","f.t4s":"sami ili sa skiperom","f.date":"Datum","f.time":"Polazak","f.tm1":"Jutro","f.tm2":"Popodne","f.tm3":"Večer","f.guests":"Osobe","f.name":"Vaše ime","f.nameph":"npr. Ana","f.send":"Pošalji na WhatsApp","f.fine":"Otvara WhatsApp s unaprijed ispunjenim upitom. Možete ga još urediti prije slanja.",
  "faq.label":"Česta pitanja","faq.h":"Prije polaska","faq.sub":"Za sve ostalo, pitajte na WhatsAppu.",
- "q1":"Što ako je vrijeme loše?","a1":"Sigurnost na prvom mjestu. Ako more ili vjetar nisu dobri, dogovorimo s vama novi termin. Bez stresa, bez kompliciranih pravila.","q2":"Treba li mi dozvola za najam brodice?","a2":"Ovisi o brodici i o vama. Pitajte nas na WhatsAppu i reći ćemo vam što je moguće i što nam treba.","q3":"Možemo li povesti djecu?","a3":"Pitajte nas. Recite nam uzrast i savjetovat ćemo brodicu i izlet koji najbolje odgovaraju vašoj obitelji.","q4":"Što je uključeno u privatni izlet?","a4":"Skiper, piće na brodu, stajanja kod skrivenih špilja, snorkeling i plaže te ukrcaj u Zertu u dogovoreno vrijeme. Izlet u zalazak dodaje stanku za kupanje i piće u lučici.","q5":"Kako potvrđujem rezervaciju?","a5":"Preko WhatsAppa. Pošaljite upit s ove stranice ili pišite na +385 91 610 6010 i potvrdit ćemo termin.",
- "c.label":"Kontakt","c.h":"Nađite nas u Zertu","c.wa":"Telefon i WhatsApp. Brzo i jasno.","c.daily":"Svaki dan","c.eve":"Večernji izleti","c.map":"Otvori u Kartama","open.now":"Sada otvoreno","open.closed":"Sada zatvoreno",
- "foot.p":"Privatni izleti brodicom sa skiperom i najam brodica iz lučice Zert, Opatija.","foot.visit":"Posjet","foot.talk":"Javite se","foot.explore":"Istraži","fab":"Rezerviraj","bar.s":"Vaš upit","bar.btn":"Pošalji",
- "sum.morning":"Jutarnji izlet","sum.sunset":"Izlet u zalazak","sum.rent":"Najam brodice","sum.custom":"Dan po mjeri","g.1":"1 osoba","g.n":"{n} osobe","g.n5":"{n} osoba","tm.morning":"jutro","tm.afternoon":"popodne","tm.evening":"večer","d.pick":"odaberi datum",
- "wa.msg":"Pozdrav Opatija Boats! Želim rezervirati: {tour}. Datum: {date}, {time}. Osobe: {guests}. Ime: {name}. Možete li potvrditi termin?"
+ "q1":"Što ako je vrijeme loše?","a1":"Sigurnost na prvom mjestu. Ruta se može malo promijeniti ovisno o vremenu, a skiper bira stanke na dan izleta. Ako more nije sigurno, javimo vam se na WhatsApp.","q2":"Treba li mi dozvola za najam brodice?","a2":"Da, za samostalnu vožnju potrebna je važeća dozvola za voditelja brodice. Ponesite je uz osobnu ili putovnicu. Nemate dozvolu? Dodajemo skipera za 50 € (pola dana) ili 80 € (cijeli dan). Novi vlasnici dozvole mogu rezervirati i obuku za skipere.","q3":"Možemo li povesti djecu?","a3":"Da. Na Sunset Touru djeca od 3 do 10 godina plaćaju 20 €, a bebe do 2 godine su besplatne. Natura Pura se ne preporučuje djeci mlađoj od 5 godina. Prsluci za spašavanje su na brodu, a sklopljena kolica mogu u kabinu.","q4":"Što je uključeno u izlet?","a4":"Skiper, gorivo, piće (vino, voda, sokovi) i oprema za ronjenje. Cjelodnevni izleti na otoke uključuju i voće. Sendvič stoji 5 €, obični ili vegetarijanski, naručite unaprijed. Na brodu je kemijski WC.","q5":"Kako rezervirati i platiti?","a5":"Pošaljite upit s ove stranice, pišite na WhatsApp ili Viber na +385 91 610 6010 ili na opatijaboats.rent@gmail.com. Za izlete je predujam 20%, za najam brodice 15%, uplatom na račun. Ostatak se plaća na brodu, po mogućnosti gotovinom.",
+ "c.label":"Kontakt","c.h":"Nađite nas u luci Opatija","c.wa":"Nazovite nas ili pišite na WhatsApp ili Viber.","c.daily":"Svaki dan","c.eve":"Sunset Tour","c.map":"Otvori u Kartama","open.now":"Sada otvoreno","open.closed":"Sada zatvoreno",
+ "foot.p":"Grupni i privatni izleti brodom, najam glisera i obuka za skipere iz luke Opatija. ML Aquatics.","foot.visit":"Posjet","foot.talk":"Javite se","foot.explore":"Istraži","fab":"Rezerviraj","bar.s":"Vaš upit","bar.btn":"Pošalji",
+ "sum.sunset":"Sunset Tour","sum.rent":"Najam brodice","g.1":"1 osoba","g.n":"{n} osobe","g.n5":"{n} osoba","tm.morning":"jutro","tm.afternoon":"popodne","tm.evening":"večer","d.pick":"odaberi datum",
+ "wa.msg":"Pozdrav Opatija Boats! Želim rezervirati: {tour}. Datum: {date}, {time}. Polazak: {from}. Osobe: {guests}. Ime: {name}. Možete li potvrditi?",
+ "ovl.shared":"Grupni izleti",
+ "ovl.fleet":"Naša flota",
+ "sub.shared":"Grupni izleti",
+ "sub.fleet":"Flota",
+ "gtk.revl":"Google recenzije",
+ "t5.tag":"Za nove vlasnike dozvole",
+ "t5.h":"Obuka za skipere",
+ "t5.meta":"Praktično, s iskusnim lokalnim skiperom",
+ "t5.p":"Tek ste položili ispit za voditelja brodice ili se vraćate na more nakon duže pauze? Vježbajte s jednim od naših skipera prije nego što krenete sami. Svi instruktori tečno govore engleski.",
+ "t5.l1":"Pristajanje, isplovljavanje, sidrenje i vezivanje",
+ "t5.l2":"Sigurno upravljanje gliserom, osnove navigacije, čitanje mora",
+ "t5.l3":"Naplata po satu uz najam brodice, najmanje pola dana",
+ "t.fleet":"Pogledaj flotu",
+ "t.ask":"Pitaj za obuku",
+ "sh.label":"Grupni izleti",
+ "sh.h":"Pridružite se maloj grupi",
+ "sh.sub":"Do 15 osoba po brodu, sa skiperom, gorivom i pićem na brodu. Plaća se po osobi.",
+ "sh.col1":"Izlet",
+ "sh.col2":"Odrasli / djeca",
+ "st1":"Oko 7 h · klifovi Brseča + 2 skrivene plaže na Cresu · piće i voće · u 09:30 iz Opatije, u 10:00 iz Lovrana",
+ "st2":"Oko 8 h · 3 mjesta za kupanje na Krku + Njivice · piće i voće",
+ "st3":"Oko 9 h · 2 skrivene plaže na Cresu + selo Beli · piće i voće",
+ "st4":"4,5 h · klifovi Brseča + stanka za kupanje · piće",
+ "st5":"Oko 4 h · stanka u Mošćeničkoj Dragi + kupanje · piće",
+ "st6":"2 h · 1 stanka uz obalu · piće",
+ "st7":"3 h · 18:00 · kupanje u mirnoj uvali · piće i oprema za ronjenje",
+ "st8":"1 h u jednom smjeru · brodom do centra Rijeke · piće",
+ "sh.note":"Sunset Tour: dječja cijena za uzrast od 3 do 10 godina, bebe do 2 godine besplatno. Natura Pura: djeca od 5 do 10 godina, ne preporučuje se djeci mlađoj od 5. Sendviči 5 € (obični ili vegetarijanski), naručite unaprijed. Ruta se može malo promijeniti ovisno o vremenu.",
+ "me.h":"Još doživljaja na moru",
+ "me.ask":"Na upit",
+ "me1":"Luksuzni privatni čarter",
+ "me1s":"Grand Banks 46 s flybridgeom i klimatiziranim salonom, do 12 osoba, cijeli dan. Uključeni skiper, gorivo, piće, voće, ronjenje, kajak i daska za veslanje.",
+ "me2":"Izleti za velike grupe",
+ "me2s":"Do 60 osoba, cijeli dan s uključenim ručkom. Rezervirajte cijeli brod ili se pridružite pojedinačno.",
+ "me3":"Ribolovni izlet",
+ "me3s":"Pravi jadranski ribolov za male privatne grupe, sva oprema uključena.",
+ "me4":"Avantura na jet skiju",
+ "me4s":"Brza vožnja uz obalu do skrivenih uvala, zaštitna oprema uključena.",
+ "me5":"Avantura kajakom",
+ "me5s":"Veslanje do skrivenih plaža i uvala, za početnike i iskusne.",
+ "fl.label":"Flota",
+ "fl.h":"Osam glisera u Opatiji",
+ "fl.sub":"Od okretnog Savera 540 dugog 5,5 m do Adexa 29 od 9,4 m s dva motora od 250 KS. Brodovi imaju tendu, sunčalište, GPS sonar, sidro, prsluke za spašavanje i kasko osiguranje.",
+ "fl.col1":"Brod",
+ "fl.col2":"Cijena",
+ "fl.upto":"osoba:",
+ "fl.from":"od",
+ "fl.to":"do",
+ "fl.note":"Objavljeni raspon cijena po brodu. Točnu cijenu za vaš datum i trajanje najma potvrdimo na WhatsAppu. Za najam na više dana rezerviran unaprijed popust od drugog dana.",
+ "fl.ch":"Uvjeti najma",
+ "fl.r1h":"Termini",
+ "fl.r1":"Pola dana 09:30 do 13:30 ili 14:00 do 18:00. Cijeli dan 10:00 do 18:00. Dodatni sat od 20 €.",
+ "fl.r2h":"Skiper",
+ "fl.r2":"Nemate dozvolu? Osiguravamo skipera: 50 € pola dana, 80 € cijeli dan.",
+ "fl.r3h":"Preuzimanje",
+ "fl.r3":"Luka Opatija, pokraj restorana Molo. Dostava u Lovran +25 €, u Rijeku +40 €. Javni parking u luci se plaća.",
+ "fl.r4h":"Gorivo",
+ "fl.r4":"Nije uključeno u cijenu.",
+ "fl.r5h":"Na brodu",
+ "fl.r5":"Ljubimci su dobrodošli, a možete ponijeti svoju hranu i piće. Brodovi nisu prilagođeni invalidskim kolicima.",
+ "fl.r6h":"Ponesite",
+ "fl.r6":"Dozvolu za voditelja brodice (ako vozite sami) i osobnu iskaznicu ili putovnicu. Molimo dođite 10 minuta ranije.",
+ "fl.r7h":"Plaćanje",
+ "fl.r7":"15% predujma na račun, ostatak na brodu, po mogućnosti gotovinom.",
+ "crew.c1":"zadovoljnih gostiju",
+ "crew.c2":"destinacija",
+ "crew.c3":"tečan engleski",
+ "n4":"Visoki klifovi i bistro more za kupanje i ronjenje na izletima Myths of the Sea i Natura Pura",
+ "n4d":"Jug",
+ "n5":"Primorsko mjesto s dugom plažom, stanka na izletu Riviera Escape",
+ "n5d":"Jug",
+ "n6":"Skrivene plaže do kojih se dolazi samo brodom i staro selo Beli na izletu Wild Cres",
+ "n6d":"Otok",
+ "n7":"Tri mjesta za kupanje na Krku i mjesto Njivice na izletu Krk Aquatica",
+ "n7d":"Otok",
+ "n8":"Grad za sat vremena brodom i naša druga baza na Rivi 10",
+ "n8d":"Istok",
+ "f.t2s":"18:00, 3 h",
+ "f.t5":"Obuka za skipere",
+ "f.t5s":"nova dozvola",
+ "f.from":"Mjesto polaska",
+ "sum.private":"Privatni izlet",
+ "sum.island":"Izlet na otoke",
+ "sum.training":"Obuka za skipere",
+ "q6":"Gdje se ukrcavamo?",
+ "a6":"U luci Opatija (Zert), pokraj restorana Molo. Na neke izlete ukrcaj je moguć i u Voloskom (mol kod zelenog svjetionika), Ičićima (ACI marina) ili luci Lovran (kod restorana Kvarner). Molimo dođite 10 minuta ranije. Javni parking u luci se plaća.",
+ "q7":"Smijemo li ponijeti hranu, piće ili ljubimce?",
+ "a7":"Da, možete ponijeti svoju hranu i piće. Mali ljubimci su dobrodošli na Sunset Touru i na brodicama za najam, ali ne i na izletu Natura Pura. Naši brodovi nisu prilagođeni invalidskim kolicima.",
+ "c.molo":"pokraj restorana Molo",
+ "c.hr":"Hrvatska",
+ "c.hoursv":"09:00 do 21:00",
+ "c.rijeka":"I u Rijeci",
+ "c.social":"Pratite nas"
 }
 };
 var lang = "en";
@@ -1101,19 +1597,22 @@ function applyLang(l){
   try{ localStorage.setItem("ob-lang", l); }catch(e){}
   $$("[data-i18n]").forEach(function(el){ el.textContent = t(el.getAttribute("data-i18n")); });
   $$("[data-i18n-ph]").forEach(function(el){ el.setAttribute("placeholder", t(el.getAttribute("data-i18n-ph"))); });
-  $$(".lang button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+  $$(".langs button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+  var lc = $("#lpickCur"); if(lc) lc.textContent = l.toUpperCase();
   galCaption(); updateSummary(); updateHours(); setHint();
 }
-$$(".lang").forEach(function(group){
-  group.addEventListener("click", function(e){
-    var b = e.target.closest("button"); if(!b) return;
-    var inHeader = group.id === "langHdr";
-    if(inHeader && mqMobile.matches && !group.classList.contains("open") && b.dataset.lang === lang){ group.classList.add("open"); return; }
-    group.classList.remove("open");
-    if(b.dataset.lang !== lang) applyLang(b.dataset.lang);
-  });
+$$(".langs button").forEach(function(b){
+  b.addEventListener("click", function(){ if(b.dataset.lang !== lang) applyLang(b.dataset.lang); });
 });
-document.addEventListener("click", function(e){ var g = $("#langHdr"); if(g.classList.contains("open") && !g.contains(e.target)) g.classList.remove("open"); });
+(function(){
+  var w = $("#lpick"), b = $("#lpickBtn"); if(!w || !b) return;
+  function set(o){ w.classList.toggle("open", o); b.setAttribute("aria-expanded", o ? "true" : "false"); }
+  b.addEventListener("click", function(e){ e.stopPropagation(); set(!w.classList.contains("open")); });
+  $$(".lpick-list button", w).forEach(function(x){ x.addEventListener("click", function(){ setTimeout(function(){ set(false); }, 120); }); });
+  document.addEventListener("click", function(e){ if(!w.contains(e.target)) set(false); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") set(false); });
+  window.addEventListener("scroll", function(){ if(w.classList.contains("open")) set(false); }, {passive: true});
+})();
 
 /* ================= PRELOADER ================= */
 function preDone(){
@@ -1172,7 +1671,7 @@ var subLinks = $$("#subnav a");
 function setNav(id){ subLinks.forEach(function(a){ a.classList.toggle("on", a.dataset.nav === id); }); }
 if("IntersectionObserver" in window){
   var navIO = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) setNav(e.target.id); }); }, {rootMargin: "-40% 0px -50% 0px"});
-  ["intro","tours","how","nearby","book","faq","contact"].forEach(function(id){ var s = $("#" + id); if(s) navIO.observe(s); });
+  ["intro","tours","shared","fleet","how","nearby","book","faq","contact"].forEach(function(id){ var s = $("#" + id); if(s) navIO.observe(s); });
 }
 
 /* ================= REVEALS ================= */
@@ -1298,13 +1797,14 @@ var fDate = $("#fDate"), fName = $("#fName"), gOut = $("#gOut"), guests = 4;
 })();
 function tourVal(){ var c = $('input[name="tour"]:checked'); return c ? c.value : "sunset"; }
 function timeVal(){ var c = $('input[name="time"]:checked'); return c ? c.value : "evening"; }
+function fromVal(){ var c = $('input[name="from"]:checked'); return c ? c.value : "Opatija"; }
 function selectTour(v){
   var r = $('input[name="tour"][value="' + v + '"]'); if(r) r.checked = true;
-  var tm = v === "sunset" ? "evening" : (v === "morning" ? "morning" : null);
+  var tm = v === "sunset" ? "evening" : (v === "island" ? "morning" : null);
   if(tm){ var rt = $('input[name="time"][value="' + tm + '"]'); if(rt) rt.checked = true; }
   updateSummary();
 }
-function setG(v){ guests = Math.max(1, Math.min(12, v)); gOut.value = guests; gOut.textContent = guests; updateSummary(); }
+function setG(v){ guests = Math.max(1, Math.min(15, v)); gOut.value = guests; gOut.textContent = guests; updateSummary(); }
 $("#gMinus").addEventListener("click", function(){ setG(guests - 1); });
 $("#gPlus").addEventListener("click", function(){ setG(guests + 1); });
 function dateLabel(){
@@ -1315,13 +1815,13 @@ function updateSummary(){
   var s = t("sum." + tourVal()) + " · " + guestsLabel(guests);
   $("#sumTxt").textContent = s + (fDate.value ? " · " + dateLabel() : "");
   $("#barTxt").textContent = s;
-  $("#finderB").textContent = tourVal() === "rent" ? t("sum.rent") : t("finder.b");
+  $("#finderB").textContent = t("sum." + tourVal());
   $("#finderS").textContent = t("finder.s").replace("{n}", guestsLabel(guests));
 }
 $("#tourChips").addEventListener("change", function(){
   var v = tourVal();
   if(v === "sunset"){ var r = $('input[name="time"][value="evening"]'); if(r) r.checked = true; }
-  if(v === "morning"){ var r2 = $('input[name="time"][value="morning"]'); if(r2) r2.checked = true; }
+  if(v === "island"){ var r2 = $('input[name="time"][value="morning"]'); if(r2) r2.checked = true; }
   updateSummary();
 });
 $("#timeChips").addEventListener("change", updateSummary);
@@ -1332,7 +1832,7 @@ function submitRes(){
   if(!fDate.value){ fDate.classList.add("err"); ok = false; }
   if(!fName.value.trim()){ fName.classList.add("err"); ok = false; }
   if(!ok){ $("#book").scrollIntoView({behavior: RM ? "auto" : "smooth", block: "start"}); (fDate.value ? fName : fDate).focus(); return; }
-  var msg = t("wa.msg").replace("{tour}", t("sum." + tourVal())).replace("{date}", dateLabel()).replace("{time}", t("tm." + timeVal())).replace("{guests}", guestsLabel(guests)).replace("{name}", fName.value.trim());
+  var msg = t("wa.msg").replace("{tour}", t("sum." + tourVal())).replace("{date}", dateLabel()).replace("{time}", t("tm." + timeVal())).replace("{guests}", guestsLabel(guests)).replace("{from}", fromVal()).replace("{name}", fName.value.trim());
   window.open("https://wa.me/385916106010?text=" + encodeURIComponent(msg), "_blank", "noopener");
 }
 $("#form").addEventListener("submit", function(e){ e.preventDefault(); submitRes(); });
@@ -1344,7 +1844,7 @@ function updateHours(){
   var el = $("#openNow"); if(!el) return;
   var now = new Date();
   try{ var parts = new Intl.DateTimeFormat("en-GB", {timeZone: "Europe/Zagreb", hour: "numeric", hour12: false}).formatToParts(now); now = {h: +parts.filter(function(p){ return p.type === "hour"; })[0].value}; }catch(e){ now = {h: now.getHours()}; }
-  var open = now.h >= 8 && now.h < 20;
+  var open = now.h >= 9 && now.h < 21;
   el.hidden = false; el.textContent = t(open ? "open.now" : "open.closed"); el.classList.toggle("closed", !open);
 }
 $("#year").textContent = new Date().getFullYear();

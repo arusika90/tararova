@@ -160,6 +160,18 @@ section{scroll-margin-top:calc(var(--header) + 16px)}
 .lang button{background:none;border:0;padding:8px 6px;cursor:pointer;opacity:.55;transition:opacity .3s}
 .lang button[aria-pressed="true"]{opacity:1;text-decoration:underline;text-underline-offset:5px}
 .hdr .lang{display:none}
+.lpick{position:relative}
+.lpick-btn{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:600 13px/1 var(--sans);letter-spacing:.1em;cursor:pointer;opacity:.9}
+.lpick-btn svg{width:18px;height:18px}.lpick-btn .chev{width:14px;height:14px;transition:transform .3s}
+.lpick.open .lpick-btn .chev{transform:rotate(180deg)}
+.hdr .lpick-list{position:absolute;right:0;top:calc(100% + 10px);display:grid;grid-template-columns:1fr;gap:0;min-width:200px;padding:8px;background:#fff;color:var(--ink);border-radius:18px;box-shadow:0 24px 60px -18px rgba(0,0,0,.3);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:80}
+.lpick.open .lpick-list{opacity:1;transform:none;pointer-events:auto}
+.hdr .lpick-list button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border:0;background:none;border-radius:10px;font:400 16px/1.2 var(--sans);letter-spacing:0;text-align:left;color:var(--forest);cursor:pointer}
+.hdr .lpick-list button b{font-weight:600;font-size:12px;letter-spacing:.12em;width:24px;opacity:.6}
+.hdr .lpick-list button:hover{background:var(--cream)}
+.hdr .lpick-list button[aria-pressed="true"]{background:var(--cream);font-weight:600}
+.menu-open .lpick{display:none}
+@media (max-width:380px){.lpick-btn{padding:0 9px}.lpick-btn .chev{display:none}}
 .hdr__book{display:none;min-height:40px;padding:0 20px;font-size:12px;background:transparent;border-color:currentColor;color:inherit}
 .hdr__book::before{background:var(--forest)}
 .hdr__book:hover{color:#fff;border-color:var(--forest)}
@@ -469,6 +481,14 @@ input[type=date].ctl{color-scheme:dark}
 .hours li{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:16px}
 .hours li span:last-child{font-variant-numeric:tabular-nums;color:var(--muted)}
 .contact__btns{display:grid;gap:10px}
+.hours li a{font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
+.hours .who{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.socials{display:flex;flex-wrap:wrap;gap:8px 18px;margin:22px 0 0;font-size:15px}
+.socials a{text-decoration:underline;text-underline-offset:3px}
+.range{margin-top:34px;padding:0 4px}
+.range__list{display:grid;gap:0 30px;margin-bottom:10px}
+.range__note{font-size:14px;color:var(--muted);margin:0}
+@media(min-width:700px){.range__list{grid-template-columns:1fr 1fr}}
 .contact__img{aspect-ratio:3/2}
 .pin{position:absolute;left:50%;top:38%;z-index:5;transform:translate(-50%,-50%)}
 .pin__ring{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:grid;place-items:center;position:relative;color:var(--forest)}
@@ -622,8 +642,15 @@ html select{height:56px;line-height:normal}
       <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
     <div class="hdr__r">
-      <div class="lang" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="de" aria-pressed="false">DE</button><button type="button" data-lang="it" aria-pressed="false">IT</button><button type="button" data-lang="hr" aria-pressed="false">HR</button>
+      <div class="lpick" id="lpick">
+        <button type="button" class="lpick-btn" id="lpickBtn" aria-haspopup="true" aria-expanded="false" aria-label="Language"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span id="lpickCur">EN</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="lpick-list langs" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true"><b>EN</b><span>English</span></button>
+          <button type="button" data-lang="hr" aria-pressed="false"><b>HR</b><span>Hrvatski</span></button>
+          <button type="button" data-lang="de" aria-pressed="false"><b>DE</b><span>Deutsch</span></button>
+          <button type="button" data-lang="it" aria-pressed="false"><b>IT</b><span>Italiano</span></button>
+          <button type="button" data-lang="ru" aria-pressed="false"><b>RU</b><span>Русский</span></button>
+        </div>
       </div>
       <a href="#book" class="pill hdr__book" data-i18n="nav.book">Book direct</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span id="menuLbl">Menu</span><span class="burger"><i></i><i></i></span></button>
@@ -642,9 +669,6 @@ html select{height:56px;line-height:normal}
     <a href="#contact" data-i18n="nav.contact">Contact</a>
   </nav>
   <div class="menu-foot">
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="de" aria-pressed="false">DE</button><button type="button" data-lang="it" aria-pressed="false">IT</button><button type="button" data-lang="hr" aria-pressed="false">HR</button>
-    </div>
     <a class="pill pill--block" href="#book" data-i18n="nav.book">Book direct</a>
     <a class="menu-tel" href="tel:+385915512796">+385&nbsp;91&nbsp;551&nbsp;2796 · WhatsApp</a>
   </div>
@@ -714,11 +738,11 @@ html select{height:56px;line-height:normal}
     <p class="sub rv" data-delay="1" data-i18n="gal.sub">Oak woods, clever dogs and a family kitchen near Buzet.</p>
     <div class="gal rv" data-delay="1" id="gal">
       <div class="gal__track" id="galTrack">
-        <div class="gal__slide cur"><div class="art art--dogs"><img src="img/2.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c2">Sky and the dogs at work</span></span></div>
-        <div class="gal__slide"><div class="art art--woods"><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c1">The oak woods</span></span></div>
-        <div class="gal__slide"><div class="art art--truffles"><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c3">Black and white truffles</span></span></div>
-        <div class="gal__slide"><div class="art art--kitchen"><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c4">Višnja's kitchen</span></span></div>
-        <div class="gal__slide"><div class="art art--shop"><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c5">The family shop</span></span></div>
+        <div class="gal__slide cur"><div class="art art--dogs"><img src="https://prodantartufi.hr/wp-content/uploads/2016/01/lov-na-tartufe-s-psom-tartufarom.jpg" alt="Truffle dog at work during a hunt with the Prodan family near Buzet" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c2">Sky and the dogs at work</span></span></div>
+        <div class="gal__slide"><div class="art art--woods"><img src="https://prodantartufi.hr/wp-content/uploads/2016/01/lov-na-tartufe-u-maglovito-jutro.jpg" alt="Truffle hunt in the woods on a misty morning" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c1">The oak woods</span></span></div>
+        <div class="gal__slide"><div class="art art--truffles"><img src="https://prodantartufi.hr/wp-content/uploads/2016/01/crni-i-bijeli-tartufi.jpg" alt="Black and white Istrian truffles" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c3">Black and white truffles</span></span></div>
+        <div class="gal__slide"><div class="art art--kitchen"><img src="https://prodantartufi.hr/wp-content/uploads/2016/01/degustacija-tartufa-768x1024.jpg" alt="Truffle tasting at Prodan Tartufi" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c4">Truffle tasting</span></span></div>
+        <div class="gal__slide"><div class="art art--shop"><img src="https://prodantartufi.hr/wp-content/uploads/2015/10/tartufate-prodan-tartufi.jpg" alt="Prodan Tartufi tartufata truffle sauces" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c5">Our truffle products</span></span></div>
       </div>
       <a class="tag-b" href="https://maps.google.com/?q=Prodan+Tartufi,+Pra%C5%A1%C4%8Dari+43,+52420+Buzet" target="_blank" rel="noopener">Buzet, Istria <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5l7 7-7 7"/></svg></a>
       <button class="sqbtn l" type="button" id="galPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -742,6 +766,7 @@ html select{height:56px;line-height:normal}
         <p class="lead rv" data-i18n="st.lead">Truffle hunting runs in the Prodan family. It has been passed down from one generation to the next, together with the woods and the dogs.</p>
         <p class="rv" data-delay="1" data-i18n="st.p1">Today you are welcomed like a guest at home. Višnja explains what truffles are and how they grow. Her brother takes you into the woods with their trained dogs, Sky among them. Back at the house, Višnja cooks with the truffles while they are still fresh.</p>
         <p class="rv" data-delay="2" data-i18n="st.p2">Buzet is called the city of truffles. Spend a morning here and you will see why.</p>
+        <p class="rv" data-delay="2" data-i18n="st.p3">In season we deliver fresh white and black truffles to restaurants and truffle lovers in Croatia and abroad. All our products are 100% made in Croatia from Istrian truffles and natural ingredients, and we process, store and ship truffles to HACCP food safety standards.</p>
         <div class="stats rv" data-delay="2">
           <div class="stat"><b><span class="count" data-to="4.9" data-dec="1">4.9</span></b><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg></span><small data-i18n="st.s1">Google rating</small></div>
           <div class="stat"><b><span class="count" data-to="275" data-dec="0">275</span></b><small data-i18n="st.s2">Google reviews</small></div>
@@ -787,7 +812,7 @@ html select{height:56px;line-height:normal}
     </div>
     <div class="panels rv" data-delay="1">
       <div class="panel on" role="tabpanel" id="p-1" aria-labelledby="tab-1">
-        <div class="frame"><div class="art art--dogs"><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="ex.k1">Morning</span></div>
+        <div class="frame"><div class="art art--dogs"><img src="https://prodantartufi.hr/wp-content/uploads/2016/01/pas-za-tartufe.jpg" alt="Prodan family truffle dog in the woods" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="ex.k1">Morning</span></div>
         <div>
           <h3 data-i18n="ex.t1">Truffle hunt + breakfast</h3>
           <p class="panel__meta"><span data-i18n="from">from</span> <b class="ph">XX&nbsp;€</b> <span data-i18n="pp">per person</span></p>
@@ -797,7 +822,7 @@ html select{height:56px;line-height:normal}
         </div>
       </div>
       <div class="panel" role="tabpanel" id="p-2" aria-labelledby="tab-2">
-        <div class="frame"><div class="art art--kitchen"><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="ex.k2">Most complete</span></div>
+        <div class="frame"><div class="art art--kitchen"><img src="https://prodantartufi.hr/wp-content/uploads/2016/01/degustacija-tartufa-768x1024.jpg" alt="Truffle tasting with fresh truffles" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="ex.k2">Most complete</span></div>
         <div>
           <h3 data-i18n="ex.t2">Hunt + tasting menu</h3>
           <p class="panel__meta"><span data-i18n="from">from</span> <b class="ph">XX&nbsp;€</b> <span data-i18n="pp">per person</span></p>
@@ -817,7 +842,7 @@ html select{height:56px;line-height:normal}
         </div>
       </div>
       <div class="panel" role="tabpanel" id="p-4" aria-labelledby="tab-4">
-        <div class="frame"><div class="art art--truffles"><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="ex.k4">At the table</span></div>
+        <div class="frame"><div class="art art--truffles"><img src="https://prodantartufi.hr/wp-content/uploads/2016/01/crni-i-bijeli-tartufi.jpg" alt="Fresh black and white truffles" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="ex.k4">At the table</span></div>
         <div>
           <h3 data-i18n="ex.t4">Tasting only</h3>
           <p class="panel__meta"><span data-i18n="from">from</span> <b class="ph">XX&nbsp;€</b> <span data-i18n="pp">per person</span></p>
@@ -844,7 +869,7 @@ html select{height:56px;line-height:normal}
     <div class="day__body">
       <div class="day__img-wrap">
         <div class="frame day__img rv-img">
-          <div class="art art--woods" data-par="0.1"><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
+          <div class="art art--woods" data-par="0.1"><img src="https://prodantartufi.hr/wp-content/uploads/2016/01/turisti-u-lovu-na-tartuf.jpg" alt="Guests on a truffle hunt with the Prodan family" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
           <span class="tag-b">Buzet, Istria</span>
           <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Praščari 43, Sv. Ivan</span>
         </div>
@@ -867,8 +892,8 @@ html select{height:56px;line-height:normal}
   <div class="wrap">
     <div class="rv">
       <p class="label" data-i18n="band.label">Season</p>
-      <h2 data-i18n="band.t">White truffle season in autumn</h2>
-      <p data-i18n="band.p">Planning a visit? Ask us what the woods are offering when you want to come.</p>
+      <h2 data-i18n="band.t">White truffle season: September to January</h2>
+      <p data-i18n="band.p">The Mirna river valley is the largest white truffle area in Istria. Black truffles are available all year. Ask us what the woods are offering when you want to come.</p>
     </div>
     <a class="pill pill--outline rv" data-delay="1" href="#book" data-i18n="band.cta">Plan your visit</a>
   </div>
@@ -966,6 +991,20 @@ html select{height:56px;line-height:normal}
         </div>
       </div>
     </div>
+    <div class="range rv" data-delay="1">
+      <p class="flab" data-i18n="sp.rangeT">Our full range</p>
+      <ul class="dots range__list">
+        <li data-i18n="sp.r1">Tartufata</li>
+        <li data-i18n="sp.r2">Truffle spreads and dried mushrooms</li>
+        <li data-i18n="sp.r3">Whole and sliced black truffles</li>
+        <li data-i18n="sp.r4">Olive oils with truffles</li>
+        <li data-i18n="sp.r5">Sweet delicacies and seasonings with truffles</li>
+        <li data-i18n="sp.r6">Cheeses and salami with truffles</li>
+        <li data-i18n="sp.r7">Truffle accessories</li>
+        <li data-i18n="sp.r8">Fresh white and black truffles in season</li>
+      </ul>
+      <p class="range__note" data-i18n="sp.rangeN">100% Croatian, made from produce grown in clean, unspoiled Istrian nature.</p>
+    </div>
   </div>
 </section>
 
@@ -981,7 +1020,7 @@ html select{height:56px;line-height:normal}
       <dl>
         <div class="gtk__row"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg><dt data-i18n="gk.h">Opening hours</dt><dd data-i18n="gk.hV">Daily, 08:00 to 22:00</dd></div>
         <div class="gtk__row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17h16v2H4zM4 17c0-3 1-5 1-9h5c0 3 2 4 5 5s5 2 5 4"/></svg><dt data-i18n="gk.s">What to wear</dt><dd data-i18n="gk.sV">Comfortable shoes for the woods</dd></div>
-        <div class="gtk__row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14c2-1 3-3 6-3h5c2 0 3-1 4-3l1 1c0 3-2 5-4 6v4h-2v-3H9v3H7v-4c-1-.3-2-.6-3-1z"/></svg><dt data-i18n="gk.d">The dogs</dt><dd data-i18n="gk.dV">The dogs do the work, you follow and watch</dd></div>
+        <div class="gtk__row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14c2-1 3-3 6-3h5c2 0 3-1 4-3l1 1c0 3-2 5-4 6v4h-2v-3H9v3H7v-4c-1-.3-2-.6-3-1z"/></svg><dt data-i18n="gk.d">The dogs</dt><dd data-i18n="gk.dV">Bred and trained by the family for generations. They do the work, you follow and watch</dd></div>
         <div class="gtk__row"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="2.6"/><circle cx="16.5" cy="9" r="2"/><path d="M4 20c0-3 2.2-5.5 5-5.5s5 2.5 5 5.5M14 20c0-2.4 1.1-4.3 2.5-4.3S19.5 17.6 19.5 20"/></svg><dt data-i18n="gk.k">Kids</dt><dd data-i18n="gk.kV">Kids welcome</dd></div>
         <div class="gtk__row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19C5 10 11 5 20 4c0 9-5 15-14 15M5 19l8-8"/></svg><dt data-i18n="gk.v">Vegetarian</dt><dd data-i18n="gk.vV">Ask us, we will talk about the menu</dd></div>
         <div class="gtk__row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5h3.2l1.8 4.6-2.4 1.5a11.5 11.5 0 0 0 6.8 6.8l1.5-2.4 4.6 1.8v3.2a2 2 0 0 1-2 2A17.5 17.5 0 0 1 3 5.5a2 2 0 0 1 2-2z"/></svg><dt data-i18n="gk.p">Phone and WhatsApp</dt><dd><a href="tel:+385915512796">+385&nbsp;91&nbsp;551&nbsp;2796</a></dd></div>
@@ -1001,7 +1040,7 @@ html select{height:56px;line-height:normal}
   </div>
   <div class="peek" id="peek">
     <article class="ncard rv">
-      <div class="frame"><div class="art art--buzet"></div><span class="tag-b" data-i18n="nb.k1">City of truffles</span></div>
+      <div class="frame"><div class="art art--buzet"><img src="https://prodantartufi.hr/wp-content/uploads/2016/01/buzet-grad-tartufa.jpg" alt="Buzet, the city of truffles, on its hilltop" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="nb.k1">City of truffles</span></div>
       <h3>Buzet</h3>
       <p data-i18n="nb.p1">Our home town, known as the city of truffles. An old town on its hilltop, close to the woods where we hunt.</p>
       <ul><li data-i18n="nb.l1">Old town on the hill</li><li data-i18n="nb.l2">Truffle country all around</li></ul>
@@ -1060,8 +1099,9 @@ html select{height:56px;line-height:normal}
           <legend data-i18n="f.lang">Language</legend>
           <div class="chips chips--4" id="langChips">
             <label class="chip"><input type="radio" name="glang" value="EN" checked><span>EN</span></label>
-            <label class="chip"><input type="radio" name="glang" value="DE"><span>DE</span></label>
+            
             <label class="chip"><input type="radio" name="glang" value="IT"><span>IT</span></label>
+            <label class="chip"><input type="radio" name="glang" value="FR"><span>FR</span></label>
             <label class="chip"><input type="radio" name="glang" value="HR"><span>HR</span></label>
           </div>
         </fieldset>
@@ -1096,7 +1136,9 @@ html select{height:56px;line-height:normal}
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q2">What should I wear?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a2">Comfortable shoes for the woods and clothes for the weather. The rest is up to the dogs.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q3">Can we bring the kids?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a3">Of course. Kids are welcome, and watching the dogs at work is a favourite.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q4">Is there a vegetarian option?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a4">Ask us when you book and we will talk about the menu together.</p></div></div></div>
-      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">When is white truffle season?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a5">White truffle season is in autumn. Ask us what the woods are offering at the time you want to visit.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">When is white truffle season?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a5">The white truffle (Tuber magnatum pico) season runs from September to January. Black truffles grow almost all year: the summer truffle (Tuber aestivum) from summer to late autumn, the winter truffle (Tuber brumale) from September to January and the Périgord black truffle (Tuber melanosporum) from January to spring.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q7">Can you send fresh truffles?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a7">Yes. In white and black truffle season we ship fresh truffles by express courier, within 24 hours to all European countries and within 48 to 72 hours to the rest of the world. Our truffle products also travel by courier across Europe and worldwide.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q8">Do you work with restaurants, shops and distributors?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a8">Yes. We supply restaurants with fresh truffles in season and support shops and distributors with marketing materials. Write to info@prodantartufi.hr and we will send you our range and terms.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q6">Why book direct?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a6">You talk to the family directly. Your message goes straight to Višnja, you can ask anything and agree on the details together.</p></div></div></div>
     </div>
   </div>
@@ -1115,16 +1157,20 @@ html select{height:56px;line-height:normal}
         <p class="addr rv">Praščari 43, Sv. Ivan<br>52420&nbsp;Buzet, Istria, Croatia</p>
         <a class="ulink rv" href="https://maps.google.com/?q=Prodan+Tartufi,+Pra%C5%A1%C4%8Dari+43,+52420+Buzet" target="_blank" rel="noopener"><span data-i18n="ct.map">Open in maps</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <ul class="hours rv" data-delay="1">
-          <li><span data-i18n="ct.daily">Monday to Sunday</span><span>08:00 to 22:00</span></li>
-          <li><span data-i18n="ct.phone">Phone and WhatsApp</span><span>+385&nbsp;91&nbsp;551&nbsp;2796</span></li>
+          <li><span data-i18n="ct.daily">Monday to Sunday</span><span data-i18n="ct.hrs">08:00 to 22:00</span></li>
+          <li><span><span data-i18n="ct.phone">Phone and WhatsApp</span><small class="who">Višnja · HR, EN, IT, FR</small></span><a href="tel:+385915512796">+385&nbsp;91&nbsp;551&nbsp;2796</a></li>
+          <li><span>Igor<small class="who">HR, EN, IT</small></span><a href="tel:+385993073618">+385&nbsp;99&nbsp;307&nbsp;3618</a></li>
+          <li><span>Mirko<small class="who">HR, EN, IT</small></span><a href="tel:+385915853555">+385&nbsp;91&nbsp;585&nbsp;3555</a></li>
+          <li><span data-i18n="ct.email">E-mail</span><a href="mailto:info@prodantartufi.hr">info@prodantartufi.hr</a></li>
         </ul>
         <div class="contact__btns rv" data-delay="2">
           <a class="pill" href="https://wa.me/385915512796" target="_blank" rel="noopener">WhatsApp</a>
           <a class="pill pill--ghost" href="tel:+385915512796" data-i18n="ct.call">Call us</a>
         </div>
+        <p class="socials rv" data-delay="2"><a href="https://www.facebook.com/prodantartufi/" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/prodantartufi/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tripadvisor.com/Attraction_Review-g608704-d10370409-Reviews-Prodan_Tartufi-Buzet_Istria.html" target="_blank" rel="noopener">TripAdvisor</a><a href="https://www.youtube.com/channel/UC6ImNNqgVSIUhi80vicF6Fg" target="_blank" rel="noopener">YouTube</a><a href="https://www.pinterest.com/prodantartufi/" target="_blank" rel="noopener">Pinterest</a></p>
       </div>
       <div class="frame contact__img rv-img">
-        <div class="art art--buzet" data-par="0.1"></div>
+        <div class="art art--buzet" data-par="0.1"><img src="https://prodantartufi.hr/wp-content/uploads/2016/01/buzet-grad-tartufa.jpg" alt="Buzet in inland Istria, near Prodan Tartufi" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
         <span class="tag-b">Sv. Ivan, Buzet</span>
         <div class="pin"><div class="pin__ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div></div>
         <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Praščari 43, 52420&nbsp;Buzet</span>
@@ -1145,8 +1191,8 @@ html select{height:56px;line-height:normal}
           <span><b>Prodan Tartufi</b><small data-i18n="fo.tag">A family of truffle hunters</small></span>
         </a>
       </div>
-      <div><h4 data-i18n="fo.addr">Address</h4>Praščari 43, Sv. Ivan<br>52420&nbsp;Buzet, Istria</div>
-      <div><h4 data-i18n="fo.contact">Contact</h4><a href="tel:+385915512796">+385&nbsp;91&nbsp;551&nbsp;2796</a><br><a href="https://wa.me/385915512796" target="_blank" rel="noopener">WhatsApp</a></div>
+      <div><h4 data-i18n="fo.addr">Address</h4>Prodan Tartufi, <span data-i18n="fo.obrt">mushroom collecting and trade</span><br><span data-i18n="fo.owner">Owner</span>: Vanda Prodan<br>Praščari 43, Sv. Ivan<br>52420&nbsp;Buzet, Istria</div>
+      <div><h4 data-i18n="fo.contact">Contact</h4><a href="tel:+385915512796">+385&nbsp;91&nbsp;551&nbsp;2796</a><br><a href="https://wa.me/385915512796" target="_blank" rel="noopener">WhatsApp</a><br><a href="mailto:info@prodantartufi.hr">info@prodantartufi.hr</a></div>
       <div><h4 data-i18n="fo.hours">Opening hours</h4><span data-i18n="fo.hoursV">Daily 08:00 to 22:00</span></div>
     </div>
     <div class="foot__bot">
@@ -1177,14 +1223,14 @@ html select{height:56px;line-height:normal}
   var $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
   var WA = "https://wa.me/385915512796?text=";
 
-  /* ---------- i18n: EN is read from the page, DE / IT / HR from these dictionaries ---------- */
+  /* ---------- i18n: EN is read from the page, DE / IT / HR / RU from these dictionaries ---------- */
   var DE = {
     "nav.story":"Unsere Geschichte","nav.exp":"Erlebnisse","nav.day":"Ihr Tag","nav.shop":"Shop","nav.contact":"Kontakt","nav.good":"Gut zu wissen","nav.faq":"Fragen","nav.book":"Direkt buchen",
     "hero.eyebrow":"Buzet, die Stadt der Trüffel","hero.t1":"Trüffelsuche","hero.t2":"mit Familie Prodan","hero.t3":"in den Eichenwäldern Istriens",
     "hero.txt":"Folgen Sie Sky und den Hunden in den Wald und genießen Sie danach frische Trüffel, gekocht von Višnja.","hero.cta":"Ihren Trüffeltag buchen",
     "finder.t":"Trüffelsuche + Mittagessen","finder.sub":"Datum wählen • 2 Gäste",
     "gal.t":"Ein Morgen im Trüffelwald","gal.sub":"Eichenwälder, kluge Hunde und eine Familienküche bei Buzet.",
-    "gal.c1":"Die Eichenwälder","gal.c2":"Sky und die Hunde bei der Arbeit","gal.c3":"Schwarze und weiße Trüffel","gal.c4":"Višnjas Küche","gal.c5":"Der Familienladen",
+    "gal.c1":"Die Eichenwälder","gal.c2":"Sky und die Hunde bei der Arbeit","gal.c3":"Schwarze und weiße Trüffel","gal.c4":"Trüffeldegustation","gal.c5":"Unsere Trüffelprodukte",
     "st.label":"Die Familie","st.title":"Trüffeljäger seit Generationen",
     "st.lead":"Die Trüffelsuche liegt Familie Prodan im Blut. Sie wird von Generation zu Generation weitergegeben, zusammen mit dem Wald und den Hunden.",
     "st.p1":"Heute werden Sie empfangen wie ein Gast im eigenen Haus. Višnja erklärt, was Trüffel sind und wie sie wachsen. Ihr Bruder geht mit Ihnen und den ausgebildeten Hunden in den Wald, Sky ist auch dabei. Zurück im Haus kocht Višnja mit den Trüffeln, solange sie frisch sind.",
@@ -1208,11 +1254,11 @@ html select{height:56px;line-height:normal}
     "dy.s2":"Die Suche mit den Hunden","dy.p2":"In den Wald mit Višnjas Bruder und den ausgebildeten Hunden, Sky ist auch dabei. Die Hunde machen die Arbeit, und meistens finden Sie Trüffel.",
     "dy.s3":"Kochen","dy.p3":"Zurück in der Küche kocht Višnja mit frischen Trüffeln. Wenn Sie möchten, zeigt sie Ihnen, wie man Gnocchi macht.",
     "dy.s4":"Am Tisch","dy.p4":"Ein Trüffelfrühstück oder das Degustationsmenü, je nach gewähltem Erlebnis.",
-    "band.label":"Saison","band.t":"Weiße Trüffelsaison im Herbst","band.p":"Sie planen einen Besuch? Fragen Sie uns, was der Wald zu Ihrer Reisezeit bietet.","band.cta":"Besuch planen",
+    "band.label":"Saison","band.t":"Weiße Trüffelsaison: September bis Januar","band.p":"Das Tal der Mirna ist das größte Fundgebiet des weißen Trüffels in Istrien. Schwarze Trüffel gibt es das ganze Jahr. Fragen Sie uns, was der Wald zu Ihrer Reisezeit bietet.","band.cta":"Besuch planen",
     "sp.label":"Familienladen","sp.title":"Nehmen Sie den Wald mit nach Hause","sp.lead":"Trüffelprodukte aus unserem Laden, darunter Olivenöl mit weißem Trüffel. Stellen Sie eine Geschenkbox zusammen und bestellen Sie per WhatsApp.",
     "sp.h":"Trüffel Geschenkbox","sp.p":"Tippen Sie an, was Sie möchten. Ihre Bestellung öffnet sich in WhatsApp und die Familie antwortet mit Verfügbarkeit und Preis.",
     "sp.choose":"Was hätten Sie gern?","sp.i1":"Olivenöl mit weißem Trüffel","sp.i2":"Trüffelprodukte","sp.i3":"Als Geschenkbox verpackt","sp.cta":"Per WhatsApp bestellen","sp.empty":"WÄHLEN SIE DEN INHALT","sp.fine":"Sie können den Laden auch besuchen, täglich 08:00 bis 22:00.",
-    "gk.label":"Gut zu wissen","gk.title":"Bevor Sie kommen","gk.h":"Öffnungszeiten","gk.hV":"Täglich, 08:00 bis 22:00","gk.s":"Kleidung","gk.sV":"Bequeme Schuhe für den Wald","gk.d":"Die Hunde","gk.dV":"Die Hunde machen die Arbeit, Sie folgen und schauen zu","gk.k":"Kinder","gk.kV":"Kinder sind willkommen","gk.v":"Vegetarisch","gk.vV":"Fragen Sie uns, wir sprechen über das Menü","gk.p":"Telefon und WhatsApp",
+    "gk.label":"Gut zu wissen","gk.title":"Bevor Sie kommen","gk.h":"Öffnungszeiten","gk.hV":"Täglich, 08:00 bis 22:00","gk.s":"Kleidung","gk.sV":"Bequeme Schuhe für den Wald","gk.d":"Die Hunde","gk.dV":"Seit Generationen von der Familie gezüchtet und ausgebildet. Sie machen die Arbeit, Sie folgen und schauen zu","gk.k":"Kinder","gk.kV":"Kinder sind willkommen","gk.v":"Vegetarisch","gk.vV":"Fragen Sie uns, wir sprechen über das Menü","gk.p":"Telefon und WhatsApp",
     "nb.label":"In der Nähe","nb.title":"Bleiben Sie für die Bergstädtchen","nb.lead":"Machen Sie einen Ausflug daraus. Das istrische Hinterland ist wie gemacht für langsame Fahrten zwischen Hügelstädten.",
     "nb.k1":"Stadt der Trüffel","nb.k2":"Hügelstadt","nb.k3":"Inneres Istrien",
     "nb.p1":"Unsere Heimatstadt, bekannt als Stadt der Trüffel. Eine Altstadt auf dem Hügel, nah an den Wäldern, in denen wir suchen.","nb.l1":"Altstadt auf dem Hügel","nb.l2":"Rundherum Trüffelland",
@@ -1229,14 +1275,15 @@ html select{height:56px;line-height:normal}
     "q2":"Was soll ich anziehen?","a2":"Bequeme Schuhe für den Wald und Kleidung passend zum Wetter. Den Rest erledigen die Hunde.",
     "q3":"Können wir Kinder mitbringen?","a3":"Natürlich. Kinder sind willkommen, und den Hunden bei der Arbeit zuzusehen ist ein Highlight.",
     "q4":"Gibt es eine vegetarische Option?","a4":"Fragen Sie uns bei der Buchung, dann sprechen wir gemeinsam über das Menü.",
-    "q5":"Wann ist weiße Trüffelsaison?","a5":"Die weiße Trüffelsaison ist im Herbst. Fragen Sie uns, was der Wald zu Ihrer Reisezeit bietet.",
+    "q5":"Wann ist weiße Trüffelsaison?","a5":"Die Saison des weißen Trüffels (Tuber magnatum pico) dauert von September bis Januar. Schwarze Trüffel wachsen fast das ganze Jahr: der Sommertrüffel (Tuber aestivum) vom Sommer bis in den Spätherbst, der Wintertrüffel (Tuber brumale) von September bis Januar und der Périgord Trüffel (Tuber melanosporum) von Januar bis zum Frühling.",
     "q6":"Warum direkt buchen?","a6":"Sie sprechen direkt mit der Familie. Ihre Nachricht geht direkt an Višnja, Sie können alles fragen und die Details gemeinsam abstimmen.",
-    "ct.label":"Kontakt","ct.title":"So finden Sie uns bei Buzet","ct.map":"In Karten öffnen","ct.daily":"Montag bis Sonntag","ct.phone":"Telefon und WhatsApp","ct.call":"Anrufen",
+    "ct.label":"Kontakt","ct.title":"So finden Sie uns bei Buzet","ct.map":"In Karten öffnen","ct.hrs":"08:00 bis 22:00","ct.daily":"Montag bis Sonntag","ct.phone":"Telefon und WhatsApp","ct.call":"Anrufen",
     "fo.tag":"Eine Familie von Trüffeljägern","fo.addr":"Adresse","fo.contact":"Kontakt","fo.hours":"Öffnungszeiten","fo.hoursV":"Täglich 08:00 bis 22:00","fo.note":"Website Konzept, Vorschlag",
     "bar.t":"Ihre Anfrage","bar.cta":"Senden",
     "js.menu":"Menü","js.close":"Schließen","js.prev":"Zurück","js.next":"Weiter","js.guest":"Gast","js.guests":"Gäste",
     "wa.hello":"Hallo Familie Prodan! Ich möchte direkt buchen.","wa.exp":"Erlebnis","wa.date":"Datum","wa.guests":"Gäste","wa.lang":"Sprache","wa.name":"Name","wa.flex":"flexibel","wa.thanks":"Vielen Dank!",
-    "wa.shop":"Hallo! Ich möchte aus Ihrem Laden bestellen","wa.shopAsk":"Was ist verfügbar und was kostet es?"
+    "wa.shop":"Hallo! Ich möchte aus Ihrem Laden bestellen","wa.shopAsk":"Was ist verfügbar und was kostet es?",
+    "st.p3":"In der Saison liefern wir frische weiße und schwarze Trüffel an Restaurants und Trüffelliebhaber in Kroatien und im Ausland. Alle unsere Produkte sind zu 100% in Kroatien hergestellt, aus istrischen Trüffeln und natürlichen Zutaten. Verarbeitung, Lagerung und Versand erfolgen nach dem HACCP Standard für Lebensmittelsicherheit.","q7":"Können Sie frische Trüffel verschicken?","a7":"Ja. In der Saison der weißen und schwarzen Trüffel versenden wir frische Trüffel per Expresskurier, innerhalb von 24 Stunden in alle europäischen Länder und innerhalb von 48 bis 72 Stunden in den Rest der Welt. Auch unsere Trüffelprodukte schicken wir per Kurier nach ganz Europa und weltweit.","q8":"Arbeiten Sie mit Restaurants, Läden und Händlern?","a8":"Ja. Wir beliefern Restaurants in der Saison mit frischen Trüffeln und unterstützen Läden und Händler mit Werbematerial. Schreiben Sie an info@prodantartufi.hr, dann senden wir Ihnen unser Sortiment und die Konditionen.","sp.rangeT":"Unser ganzes Sortiment","sp.r1":"Tartufata","sp.r2":"Trüffelaufstriche und getrocknete Pilze","sp.r3":"Ganze und gehobelte schwarze Trüffel","sp.r4":"Olivenöle mit Trüffel","sp.r5":"Süße Spezialitäten und Gewürze mit Trüffel","sp.r6":"Käse und Salami mit Trüffel","sp.r7":"Trüffelzubehör","sp.r8":"Frische weiße und schwarze Trüffel in der Saison","sp.rangeN":"100% kroatisch, aus Erzeugnissen der sauberen, unberührten Natur Istriens.","fo.obrt":"Pilzsammlung und Handel","fo.owner":"Inhaberin","ct.email":"E-Mail","js.guestsMany":"Gäste"
   };
   var IT = {
     "nav.story":"La nostra storia","nav.exp":"Esperienze","nav.day":"La vostra giornata","nav.shop":"Negozio","nav.contact":"Contatti","nav.good":"Da sapere","nav.faq":"Domande","nav.book":"Prenota diretto",
@@ -1244,7 +1291,7 @@ html select{height:56px;line-height:normal}
     "hero.txt":"Seguite Sky e i cani nel bosco, poi sedetevi a tavola con tartufi freschi cucinati da Višnja.","hero.cta":"Prenota la tua giornata al tartufo",
     "finder.t":"Caccia al tartufo + pranzo","finder.sub":"Scegli una data • 2 ospiti",
     "gal.t":"Una mattina nel bosco dei tartufi","gal.sub":"Boschi di querce, cani bravissimi e una cucina di famiglia vicino a Buzet.",
-    "gal.c1":"I boschi di querce","gal.c2":"Sky e i cani al lavoro","gal.c3":"Tartufi neri e bianchi","gal.c4":"La cucina di Višnja","gal.c5":"Il negozio di famiglia",
+    "gal.c1":"I boschi di querce","gal.c2":"Sky e i cani al lavoro","gal.c3":"Tartufi neri e bianchi","gal.c4":"Degustazione di tartufi","gal.c5":"I nostri prodotti al tartufo",
     "st.label":"La famiglia","st.title":"Cercatori di tartufi da generazioni",
     "st.lead":"La caccia al tartufo è nel sangue della famiglia Prodan. Si tramanda di generazione in generazione, insieme ai boschi e ai cani.",
     "st.p1":"Oggi vi accogliamo come ospiti di casa. Višnja vi spiega cosa sono i tartufi e come crescono. Suo fratello vi porta nel bosco con i cani addestrati, tra cui Sky. Tornati a casa, Višnja cucina i tartufi finché sono freschi.",
@@ -1268,11 +1315,11 @@ html select{height:56px;line-height:normal}
     "dy.s2":"La caccia con i cani","dy.p2":"Nel bosco con il fratello di Višnja e i cani addestrati, tra cui Sky. I cani fanno il lavoro e di solito i tartufi si trovano.",
     "dy.s3":"In cucina","dy.p3":"Tornati in cucina, Višnja cucina con i tartufi freschi. Se volete, vi insegna a fare gli gnocchi.",
     "dy.s4":"A tavola","dy.p4":"Una colazione al tartufo o il menù degustazione, secondo l'esperienza scelta.",
-    "band.label":"Stagione","band.t":"La stagione del tartufo bianco è in autunno","band.p":"State pianificando una visita? Chiedeteci cosa offre il bosco nel periodo in cui volete venire.","band.cta":"Pianifica la visita",
+    "band.label":"Stagione","band.t":"Stagione del tartufo bianco: da settembre a gennaio","band.p":"La valle del fiume Mirna è la zona più grande del tartufo bianco in Istria. I tartufi neri ci sono tutto l'anno. Chiedeteci cosa offre il bosco nel periodo in cui volete venire.","band.cta":"Pianifica la visita",
     "sp.label":"Negozio di famiglia","sp.title":"Portate il bosco a casa","sp.lead":"Prodotti al tartufo dal nostro negozio, tra cui l'olio d'oliva al tartufo bianco. Componete una confezione regalo e ordinatela su WhatsApp.",
     "sp.h":"Confezione regalo al tartufo","sp.p":"Toccate ciò che desiderate. L'ordine si apre su WhatsApp e la famiglia risponde con disponibilità e prezzo.",
     "sp.choose":"Cosa desiderate?","sp.i1":"Olio d'oliva al tartufo bianco","sp.i2":"Prodotti al tartufo","sp.i3":"In confezione regalo","sp.cta":"Ordina su WhatsApp","sp.empty":"SCEGLIETE IL CONTENUTO","sp.fine":"Potete anche visitare il negozio, aperto ogni giorno dalle 08:00 alle 22:00.",
-    "gk.label":"Da sapere","gk.title":"Prima di venire","gk.h":"Orari","gk.hV":"Ogni giorno, dalle 08:00 alle 22:00","gk.s":"Cosa indossare","gk.sV":"Scarpe comode per il bosco","gk.d":"I cani","gk.dV":"I cani fanno il lavoro, voi seguite e guardate","gk.k":"Bambini","gk.kV":"I bambini sono benvenuti","gk.v":"Vegetariani","gk.vV":"Chiedeteci, parliamo insieme del menù","gk.p":"Telefono e WhatsApp",
+    "gk.label":"Da sapere","gk.title":"Prima di venire","gk.h":"Orari","gk.hV":"Ogni giorno, dalle 08:00 alle 22:00","gk.s":"Cosa indossare","gk.sV":"Scarpe comode per il bosco","gk.d":"I cani","gk.dV":"Allevati e addestrati dalla famiglia da generazioni. Fanno loro il lavoro, voi seguite e guardate","gk.k":"Bambini","gk.kV":"I bambini sono benvenuti","gk.v":"Vegetariani","gk.vV":"Chiedeteci, parliamo insieme del menù","gk.p":"Telefono e WhatsApp",
     "nb.label":"Nei dintorni","nb.title":"Fermatevi per i borghi","nb.lead":"Fatene una gita. L'Istria interna è fatta per guidare piano tra i borghi in collina.",
     "nb.k1":"Città del tartufo","nb.k2":"Borgo in collina","nb.k3":"Istria interna",
     "nb.p1":"La nostra città, conosciuta come la città del tartufo. Un centro storico in cima alla collina, vicino ai boschi dove cerchiamo.","nb.l1":"Centro storico sulla collina","nb.l2":"Terra di tartufi tutto intorno",
@@ -1289,14 +1336,15 @@ html select{height:56px;line-height:normal}
     "q2":"Cosa devo indossare?","a2":"Scarpe comode per il bosco e abiti adatti al tempo. Al resto pensano i cani.",
     "q3":"Possiamo portare i bambini?","a3":"Certo. I bambini sono benvenuti e guardare i cani al lavoro piace sempre molto.",
     "q4":"C'è un'opzione vegetariana?","a4":"Chiedeteci quando prenotate e parleremo insieme del menù.",
-    "q5":"Quando è la stagione del tartufo bianco?","a5":"La stagione del tartufo bianco è in autunno. Chiedeteci cosa offre il bosco nel periodo in cui volete venire.",
+    "q5":"Quando è la stagione del tartufo bianco?","a5":"La stagione del tartufo bianco (Tuber magnatum pico) va da settembre a gennaio. I tartufi neri crescono quasi tutto l'anno: lo scorzone estivo (Tuber aestivum) dall'estate al tardo autunno, il tartufo nero invernale (Tuber brumale) da settembre a gennaio e il tartufo nero pregiato (Tuber melanosporum) da gennaio alla primavera.",
     "q6":"Perché prenotare diretto?","a6":"Parlate direttamente con la famiglia. Il vostro messaggio arriva a Višnja, potete chiedere tutto e decidere i dettagli insieme.",
-    "ct.label":"Contatti","ct.title":"Dove trovarci vicino a Buzet","ct.map":"Apri nelle mappe","ct.daily":"Da lunedì a domenica","ct.phone":"Telefono e WhatsApp","ct.call":"Chiamaci",
+    "ct.label":"Contatti","ct.title":"Dove trovarci vicino a Buzet","ct.map":"Apri nelle mappe","ct.hrs":"dalle 08:00 alle 22:00","ct.daily":"Da lunedì a domenica","ct.phone":"Telefono e WhatsApp","ct.call":"Chiamaci",
     "fo.tag":"Una famiglia di cercatori di tartufi","fo.addr":"Indirizzo","fo.contact":"Contatti","fo.hours":"Orari","fo.hoursV":"Ogni giorno dalle 08:00 alle 22:00","fo.note":"Concept del sito, proposta",
     "bar.t":"La vostra richiesta","bar.cta":"Invia",
     "js.menu":"Menu","js.close":"Chiudi","js.prev":"Precedente","js.next":"Successivo","js.guest":"ospite","js.guests":"ospiti",
     "wa.hello":"Buongiorno famiglia Prodan! Vorrei prenotare direttamente.","wa.exp":"Esperienza","wa.date":"Data","wa.guests":"Ospiti","wa.lang":"Lingua","wa.name":"Nome","wa.flex":"flessibile","wa.thanks":"Grazie!",
-    "wa.shop":"Buongiorno! Vorrei ordinare dal vostro negozio","wa.shopAsk":"Cosa è disponibile e quanto costa?"
+    "wa.shop":"Buongiorno! Vorrei ordinare dal vostro negozio","wa.shopAsk":"Cosa è disponibile e quanto costa?",
+    "st.p3":"In stagione consegniamo tartufi bianchi e neri freschi a ristoranti e appassionati in Croazia e all'estero. Tutti i nostri prodotti sono fatti al 100% in Croazia con tartufi istriani e ingredienti naturali. Lavorazione, conservazione e spedizione seguono lo standard di sicurezza alimentare HACCP.","q7":"Potete spedire tartufi freschi?","a7":"Sì. Nella stagione del tartufo bianco e nero spediamo tartufi freschi con corriere espresso, entro 24 ore in tutti i paesi europei ed entro 48 o 72 ore nel resto del mondo. Anche i nostri prodotti al tartufo viaggiano con corriere in tutta Europa e nel mondo.","q8":"Lavorate con ristoranti, negozi e distributori?","a8":"Sì. In stagione forniamo tartufi freschi ai ristoranti e sosteniamo negozi e distributori con materiale promozionale. Scriveteci a info@prodantartufi.hr e vi invieremo la nostra gamma e le condizioni.","sp.rangeT":"Tutta la nostra gamma","sp.r1":"Tartufata","sp.r2":"Creme spalmabili al tartufo e funghi secchi","sp.r3":"Tartufi neri interi e a fette","sp.r4":"Oli d'oliva al tartufo","sp.r5":"Dolci e condimenti al tartufo","sp.r6":"Formaggi e salumi al tartufo","sp.r7":"Accessori per il tartufo","sp.r8":"Tartufi bianchi e neri freschi in stagione","sp.rangeN":"100% croati, fatti con prodotti della natura pulita e incontaminata dell'Istria.","fo.obrt":"raccolta funghi e commercio","fo.owner":"Titolare","ct.email":"E-mail","js.guestsMany":"ospiti"
   };
   var HR = {
     "nav.story":"Naša priča","nav.exp":"Doživljaji","nav.day":"Vaš dan","nav.shop":"Trgovina","nav.contact":"Kontakt","nav.good":"Dobro je znati","nav.faq":"Pitanja","nav.book":"Rezerviraj izravno",
@@ -1304,7 +1352,7 @@ html select{height:56px;line-height:normal}
     "hero.txt":"Pratite Sky i pse u šumu, a zatim sjednite za stol uz svježe tartufe koje kuha Višnja.","hero.cta":"Rezervirajte svoj dan s tartufima",
     "finder.t":"Lov na tartufe + ručak","finder.sub":"Odaberite datum • 2 gosta",
     "gal.t":"Jutro u šumi tartufa","gal.sub":"Hrastove šume, pametni psi i obiteljska kuhinja kraj Buzeta.",
-    "gal.c1":"Hrastove šume","gal.c2":"Sky i psi na poslu","gal.c3":"Crni i bijeli tartufi","gal.c4":"Višnjina kuhinja","gal.c5":"Obiteljska trgovina",
+    "gal.c1":"Hrastove šume","gal.c2":"Sky i psi na poslu","gal.c3":"Crni i bijeli tartufi","gal.c4":"Degustacija tartufa","gal.c5":"Naši proizvodi od tartufa",
     "st.label":"Obitelj","st.title":"Generacije tragača za tartufima",
     "st.lead":"Lov na tartufe obitelji Prodan je u krvi. Prenosi se s generacije na generaciju, zajedno sa šumom i psima.",
     "st.p1":"Danas vas dočekujemo kao goste u vlastitom domu. Višnja vam objasni što su tartufi i kako rastu. Njezin brat vodi vas u šumu s dresiranim psima, među njima je i Sky. Kad se vratite, Višnja kuha s tartufima dok su još svježi.",
@@ -1328,11 +1376,11 @@ html select{height:56px;line-height:normal}
     "dy.s2":"Lov s psima","dy.p2":"U šumu s Višnjinim bratom i dresiranim psima, među njima je i Sky. Psi rade posao, a tartufi se obično i nađu.",
     "dy.s3":"Kuhanje","dy.p3":"Natrag u kuhinji Višnja kuha sa svježim tartufima. Ako želite, naučit će vas raditi njoke.",
     "dy.s4":"Za stolom","dy.p4":"Doručak s tartufima ili degustacijski meni, ovisno o doživljaju koji odaberete.",
-    "band.label":"Sezona","band.t":"Sezona bijelih tartufa je u jesen","band.p":"Planirate posjet? Pitajte nas što šuma nudi u vrijeme kad želite doći.","band.cta":"Planirajte posjet",
+    "band.label":"Sezona","band.t":"Sezona bijelih tartufa: od rujna do siječnja","band.p":"Dolina rijeke Mirne najveće je nalazište istarskog bijelog tartufa. Crni tartufi dostupni su cijele godine. Pitajte nas što šuma nudi u vrijeme kad želite doći.","band.cta":"Planirajte posjet",
     "sp.label":"Obiteljska trgovina","sp.title":"Ponesite šumu kući","sp.lead":"Proizvodi od tartufa iz naše trgovine, među njima i maslinovo ulje s bijelim tartufom. Složite poklon kutiju i naručite je na WhatsApp.",
     "sp.h":"Poklon kutija s tartufima","sp.p":"Dodirnite što želite. Narudžba se otvara u WhatsAppu, a obitelj vam javlja što je dostupno i cijenu.",
     "sp.choose":"Što biste željeli?","sp.i1":"Maslinovo ulje s bijelim tartufom","sp.i2":"Proizvodi od tartufa","sp.i3":"Zapakirano kao poklon kutija","sp.cta":"Naruči na WhatsApp","sp.empty":"ODABERITE ŠTO IDE UNUTRA","sp.fine":"Trgovinu možete i posjetiti, otvoreno svaki dan od 08:00 do 22:00.",
-    "gk.label":"Dobro je znati","gk.title":"Prije dolaska","gk.h":"Radno vrijeme","gk.hV":"Svaki dan, 08:00 do 22:00","gk.s":"Što obući","gk.sV":"Udobne cipele za šumu","gk.d":"Psi","gk.dV":"Psi rade posao, vi pratite i gledate","gk.k":"Djeca","gk.kV":"Djeca su dobrodošla","gk.v":"Vegetarijanci","gk.vV":"Pitajte nas, dogovorit ćemo meni","gk.p":"Telefon i WhatsApp",
+    "gk.label":"Dobro je znati","gk.title":"Prije dolaska","gk.h":"Radno vrijeme","gk.hV":"Svaki dan, 08:00 do 22:00","gk.s":"Što obući","gk.sV":"Udobne cipele za šumu","gk.d":"Psi","gk.dV":"Obitelj ih uzgaja i dresira generacijama. Oni rade posao, vi pratite i gledate","gk.k":"Djeca","gk.kV":"Djeca su dobrodošla","gk.v":"Vegetarijanci","gk.vV":"Pitajte nas, dogovorit ćemo meni","gk.p":"Telefon i WhatsApp",
     "nb.label":"U blizini","nb.title":"Ostanite zbog gradića na brdima","nb.lead":"Napravite izlet. Unutrašnjost Istre stvorena je za laganu vožnju između gradića na brežuljcima.",
     "nb.k1":"Grad tartufa","nb.k2":"Gradić na brdu","nb.k3":"Unutrašnjost Istre",
     "nb.p1":"Naš grad, poznat kao grad tartufa. Stari grad na brdu, blizu šuma u kojima tražimo tartufe.","nb.l1":"Stari grad na brdu","nb.l2":"Svuda okolo zemlja tartufa",
@@ -1349,17 +1397,83 @@ html select{height:56px;line-height:normal}
     "q2":"Što obući?","a2":"Udobne cipele za šumu i odjeću prema vremenu. Ostalo prepustite psima.",
     "q3":"Možemo li povesti djecu?","a3":"Naravno. Djeca su dobrodošla, a gledati pse na poslu im je uvijek omiljeno.",
     "q4":"Postoji li vegetarijanska opcija?","a4":"Pitajte nas pri rezervaciji pa ćemo zajedno dogovoriti meni.",
-    "q5":"Kada je sezona bijelih tartufa?","a5":"Sezona bijelih tartufa je u jesen. Pitajte nas što šuma nudi u vrijeme kad želite doći.",
+    "q5":"Kada je sezona bijelih tartufa?","a5":"Sezona bijelog tartufa (Tuber magnatum pico) traje od rujna do siječnja. Crni tartufi rastu gotovo cijele godine: ljetni tartuf (Tuber aestivum) od ljeta do kasne jeseni, zimski crni tartuf (Tuber brumale) od rujna do siječnja, a crni tartuf Périgord (Tuber melanosporum) od siječnja do proljeća.",
     "q6":"Zašto rezervirati izravno?","a6":"Razgovarate izravno s obitelji. Vaša poruka stiže ravno Višnji, možete pitati sve i zajedno dogovoriti detalje.",
-    "ct.label":"Kontakt","ct.title":"Pronađite nas kraj Buzeta","ct.map":"Otvori u kartama","ct.daily":"Ponedjeljak do nedjelje","ct.phone":"Telefon i WhatsApp","ct.call":"Nazovite nas",
+    "ct.label":"Kontakt","ct.title":"Pronađite nas kraj Buzeta","ct.map":"Otvori u kartama","ct.hrs":"08:00 do 22:00","ct.daily":"Ponedjeljak do nedjelje","ct.phone":"Telefon i WhatsApp","ct.call":"Nazovite nas",
     "fo.tag":"Obitelj tragača za tartufima","fo.addr":"Adresa","fo.contact":"Kontakt","fo.hours":"Radno vrijeme","fo.hoursV":"Svaki dan 08:00 do 22:00","fo.note":"Koncept web stranice, prijedlog",
     "bar.t":"Vaš upit","bar.cta":"Pošalji",
-    "js.menu":"Izbornik","js.close":"Zatvori","js.prev":"Prethodna","js.next":"Sljedeća","js.guest":"gost","js.guests":"gosta",
+    "js.menu":"Izbornik","js.close":"Zatvori","js.prev":"Prethodna","js.next":"Sljedeća","js.guest":"gost","js.guests":"gosta","js.guestsMany":"gostiju",
     "wa.hello":"Pozdrav obitelji Prodan! Želim rezervirati izravno.","wa.exp":"Doživljaj","wa.date":"Datum","wa.guests":"Gosti","wa.lang":"Jezik","wa.name":"Ime","wa.flex":"po dogovoru","wa.thanks":"Hvala!",
-    "wa.shop":"Pozdrav! Želim naručiti iz vaše trgovine","wa.shopAsk":"Što je dostupno i koja je cijena?"
+    "wa.shop":"Pozdrav! Želim naručiti iz vaše trgovine","wa.shopAsk":"Što je dostupno i koja je cijena?",
+    "st.p3":"U sezoni dostavljamo svježe bijele i crne tartufe restoranima i ljubiteljima tartufa u Hrvatskoj i inozemstvu. Svi naši proizvodi 100% su proizvedeni u Hrvatskoj od istarskih tartufa i prirodnih sastojaka, a tartufe obrađujemo, skladištimo i šaljemo prema HACCP standardu sigurnosti hrane.","q7":"Možete li poslati svježe tartufe?","a7":"Da. U sezoni bijelih i crnih tartufa svježe tartufe šaljemo brzom kurirskom službom, unutar 24 sata u sve europske zemlje i unutar 48 do 72 sata u ostatak svijeta. Naši proizvodi od tartufa također putuju kurirom po cijeloj Europi i svijetu.","q8":"Surađujete li s restoranima, trgovinama i distributerima?","a8":"Da. U sezoni opskrbljujemo restorane svježim tartufima, a trgovinama i distributerima pomažemo promotivnim materijalima. Pišite na info@prodantartufi.hr i poslat ćemo vam ponudu i uvjete.","sp.rangeT":"Cijela naša ponuda","sp.r1":"Tartufata","sp.r2":"Namazi s tartufima i suhe gljive","sp.r3":"Crni tartufi cijeli i sjeckani","sp.r4":"Maslinova ulja s tartufima","sp.r5":"Slatke delicije i začini s tartufima","sp.r6":"Sirevi i salame s tartufima","sp.r7":"Pribor za tartufe","sp.r8":"Svježi bijeli i crni tartufi u sezoni","sp.rangeN":"100% hrvatsko, od plodova uzgojenih u čistoj i netaknutoj istarskoj prirodi.","fo.obrt":"obrt za sakupljanje gljiva i trgovinu","fo.owner":"Vlasnica","ct.email":"E-mail"
+  };
+  var RU = {
+    "nav.story":"Наша история","nav.exp":"Программы","nav.day":"Ваш день","nav.shop":"Магазин","nav.contact":"Контакты","nav.good":"Полезно знать","nav.faq":"Вопросы","nav.book":"Забронировать",
+    "hero.eyebrow":"Бузет, город трюфелей","hero.t1":"Охота на трюфели","hero.t2":"с семьёй Продан","hero.t3":"в дубовых лесах Истрии",
+    "hero.txt":"Отправляйтесь в лес за Скай и другими собаками, а потом садитесь за стол со свежими трюфелями, которые готовит Вишня.","hero.cta":"Забронировать трюфельный день",
+    "finder.t":"Охота на трюфели + обед","finder.sub":"Выберите дату • 2 гостя",
+    "gal.t":"Утро в трюфельном лесу","gal.sub":"Дубовые леса, умные собаки и семейная кухня недалеко от Бузета.",
+    "gal.c1":"Дубовые леса","gal.c2":"Скай и собаки за работой","gal.c3":"Чёрные и белые трюфели","gal.c4":"Дегустация трюфелей","gal.c5":"Наши трюфельные продукты",
+    "st.label":"Семья","st.title":"Охотники за трюфелями в нескольких поколениях",
+    "st.lead":"Охота на трюфели у семьи Продан в крови. Это умение передаётся из поколения в поколение вместе с лесом и собаками.",
+    "st.p1":"Сегодня мы встречаем вас как гостей у себя дома. Вишня расскажет, что такое трюфели и как они растут. Её брат поведёт вас в лес с обученными собаками, среди них и Скай. Когда вы вернётесь, Вишня приготовит трюфели, пока они совсем свежие.",
+    "st.p2":"Бузет называют городом трюфелей. Проведите здесь одно утро, и вы поймёте почему.",
+    "st.p3":"В сезон мы доставляем свежие белые и чёрные трюфели ресторанам и любителям трюфелей в Хорватии и за рубежом. Вся наша продукция на 100% произведена в Хорватии из истрийских трюфелей и натуральных ингредиентов, а обработка, хранение и отправка трюфелей проходят по стандарту безопасности пищевых продуктов HACCP.",
+    "st.s1":"Рейтинг в Google","st.s2":"Отзывов в Google","st.s3":"Открыто ежедневно с 08:00 до 22:00","st.role":"и семья Продан",
+    "dr.label":"Бронирование напрямую","dr.title":"Общайтесь с семьёй, а не с платформой","dr.p":"Большинство гостей находят нас через сайты бронирования. Здесь вы можете забронировать напрямую у нас.",
+    "dr.l1":"Ваше сообщение приходит прямо Вишне в WhatsApp","dr.l2":"Задайте любые вопросы, прежде чем решить","dr.l3":"День, время и меню согласуем вместе","dr.cta":"Забронировать напрямую",
+    "ex.label":"Программы","ex.title":"Выберите свой трюфельный день","ex.lead":"Каждый визит начинается с приветствия и рассказа о трюфелях. Дальше вы выбираете, как продолжится день.",
+    "ex.t1":"Охота на трюфели + завтрак","ex.t2":"Охота + дегустационное меню","ex.t3":"Мастер-класс по ньокки","ex.t4":"Только дегустация",
+    "ex.k1":"Утро","ex.k2":"Самый полный","ex.k3":"Своими руками","ex.k4":"За столом",
+    "from":"от","pp":"с человека",
+    "ex.p1":"Начните день в лесу с собаками, а затем возвращайтесь к трюфельному завтраку, который готовит Вишня.",
+    "ex.p2":"Целый день: охота с собаками, а потом дегустационное меню, которое Вишня готовит из свежих трюфелей.",
+    "ex.p3":"Засучите рукава и научитесь готовить ньокки вместе с Вишней. Спросите нас, как добавить это к вашему трюфельному дню.",
+    "ex.p4":"Без грязной обуви. Садитесь за стол и попробуйте трюфельное дегустационное меню, которое Вишня готовит из свежих трюфелей.",
+    "ex.b.welcome":"Приветствие и рассказ о трюфелях","ex.b.hunt":"Охота на трюфели в лесу с обученными собаками","ex.b.breakfast":"Трюфельный завтрак со свежими трюфелями","ex.b.menu":"Трюфельное дегустационное меню от Вишни","ex.b.gnocchi":"Учимся готовить ньокки с Вишней","ex.b.ask":"Можно совместить с охотой, просто спросите","ex.b.shop":"Время заглянуть в семейный магазин",
+    "ex.cta":"Забронировать эту программу","ex.note":"Цены с пометкой XX"+NB+"€ указаны как пример и будут изменены.",
+    "dy.label":"Ваш день","dy.title":"Из леса на стол","dy.lead":"Четыре простых шага. Возьмите с собой только любопытство и удобную обувь.",
+    "dy.n1":"Шаг 1","dy.n2":"Шаг 2","dy.n3":"Шаг 3","dy.n4":"Шаг 4",
+    "dy.s1":"Приветствие","dy.p1":"Мы встречаем вас в семейном доме и рассказываем, что такое трюфели, чёрные и белые, и как собаки их находят.",
+    "dy.s2":"Охота с собаками","dy.p2":"В лес с братом Вишни и обученными собаками, среди них и Скай. Собаки делают всю работу, и трюфели обычно находятся.",
+    "dy.s3":"Готовим","dy.p3":"Вернувшись на кухню, Вишня готовит из свежих трюфелей. Если хотите, она научит вас делать ньокки.",
+    "dy.s4":"За столом","dy.p4":"Трюфельный завтрак или дегустационное меню, в зависимости от выбранной программы.",
+    "band.label":"Сезон","band.t":"Сезон белых трюфелей: с сентября по январь","band.p":"Долина реки Мирна это крупнейшее место произрастания белого трюфеля в Истрии. Чёрные трюфели есть круглый год. Спросите нас, что предлагает лес в то время, когда вы хотите приехать.","band.cta":"Спланировать визит",
+    "sp.label":"Семейный магазин","sp.title":"Заберите лес с собой","sp.lead":"Трюфельные продукты из нашего магазина, в том числе оливковое масло с белым трюфелем. Соберите подарочный набор и закажите его в WhatsApp.",
+    "sp.h":"Подарочный набор с трюфелями","sp.p":"Отметьте, что вам нравится. Заказ откроется в WhatsApp, и семья ответит, что есть в наличии и сколько это стоит.",
+    "sp.choose":"Что бы вы хотели?","sp.i1":"Оливковое масло с белым трюфелем","sp.i2":"Трюфельные продукты","sp.i3":"Упаковать как подарок","sp.cta":"Заказать в WhatsApp","sp.empty":"ВЫБЕРИТЕ, ЧТО ПОЛОЖИТЬ","sp.fine":"Магазин можно посетить и лично, он открыт ежедневно с 08:00 до 22:00.",
+    "sp.rangeT":"Весь наш ассортимент","sp.r1":"Тартуфата","sp.r2":"Трюфельные пасты и сушёные грибы","sp.r3":"Чёрные трюфели целые и нарезанные","sp.r4":"Оливковые масла с трюфелем","sp.r5":"Сладости и приправы с трюфелем","sp.r6":"Сыры и салями с трюфелем","sp.r7":"Аксессуары для трюфелей","sp.r8":"Свежие белые и чёрные трюфели в сезон",
+    "sp.rangeN":"100% хорватская продукция из того, что выросло в чистой, нетронутой природе Истрии.",
+    "gk.label":"Полезно знать","gk.title":"Перед приездом","gk.h":"Часы работы","gk.hV":"Ежедневно, с 08:00 до 22:00","gk.s":"Что надеть","gk.sV":"Удобная обувь для леса","gk.d":"Собаки","gk.dV":"Семья разводит и обучает их уже несколько поколений. Работают они, а вы идёте следом и наблюдаете","gk.k":"Дети","gk.kV":"Детям рады","gk.v":"Вегетарианцам","gk.vV":"Спросите нас, обсудим меню","gk.p":"Телефон и WhatsApp",
+    "nb.label":"Что рядом","nb.title":"Останьтесь ради городков на холмах","nb.lead":"Превратите визит в поездку. Внутренняя Истрия создана для неспешных прогулок на машине между городками на холмах.",
+    "nb.k1":"Город трюфелей","nb.k2":"Городок на холме","nb.k3":"Внутренняя Истрия",
+    "nb.p1":"Наш родной город, известный как город трюфелей. Старый город на холме, рядом с лесами, где мы ищем трюфели.","nb.l1":"Старый город на холме","nb.l2":"Вокруг трюфельный край",
+    "nb.p2":"Один из самых известных городков на холмах внутренней Истрии с широким видом на зелёную долину.","nb.l3":"Прогулка по городским стенам","nb.l4":"Вид на долину",
+    "nb.t3":"Городки Истрии на холмах","nb.p3":"Маленькие каменные городки на холмах и тихие дороги между ними. Спросите нас о наших любимых местах, когда приедете.","nb.l5":"Каменные городки и тихие дороги","nb.l6":"Советы от семьи",
+    "bk.label":"Бронирование напрямую","bk.title":"Забронируйте трюфельный день","bk.lead":"Выберите программу, дату и число гостей. Откроется WhatsApp с вашим сообщением, а семья подтвердит детали.",
+    "f.exp":"Программа","short.breakfast":"Охота + завтрак","short.lunch":"Охота + обед","short.gnocchi":"Мастер-класс по ньокки","short.tasting":"Только дегустация",
+    "f.date":"Выберите дату","f.guests":"Гости","f.lang":"Язык","f.name":"Ваше имя","f.nameph":"Имя и фамилия","f.submit":"Отправить в WhatsApp",
+    "bk.n1t":"Прямо семье","bk.n1":"Никаких посредников. Вишня сама читает ваше сообщение и отвечает.",
+    "bk.n2t":"Открыто ежедневно","bk.n2":"С 08:00 до 22:00. Звоните или пишите: +385"+NB+"91"+NB+"551"+NB+"2796.",
+    "bk.n3t":"Оплата не здесь","bk.n3":"Эта форма только отправляет запрос. Цены с пометкой XX"+NB+"€ указаны как пример.",
+    "faq.label":"Вопросы","faq.title":"Перед вашим трюфельным днём",
+    "q1":"Мы действительно найдём трюфели?","a1":"Обычно да. Работу делают собаки, и большинство охот заканчивается с трюфелями. Это природа, поэтому ничего не гарантировано, и в этом тоже часть удовольствия.",
+    "q2":"Что надеть?","a2":"Удобную обувь для леса и одежду по погоде. Остальное сделают собаки.",
+    "q3":"Можно ли приехать с детьми?","a3":"Конечно. Детям мы рады, а смотреть, как работают собаки, им всегда нравится.",
+    "q4":"Есть ли вегетарианский вариант?","a4":"Скажите нам при бронировании, и мы вместе обсудим меню.",
+    "q5":"Когда сезон белых трюфелей?","a5":"Сезон белого трюфеля (Tuber magnatum pico) длится с сентября по январь. Чёрные трюфели растут почти круглый год: летний трюфель (Tuber aestivum) с лета до поздней осени, зимний чёрный трюфель (Tuber brumale) с сентября по январь, а перигорский чёрный трюфель (Tuber melanosporum) с января до весны.",
+    "q6":"Зачем бронировать напрямую?","a6":"Вы общаетесь напрямую с семьёй. Ваше сообщение приходит прямо Вишне, можно спросить что угодно и вместе согласовать детали.",
+    "q7":"Можете ли вы отправить свежие трюфели?","a7":"Да. В сезон белых и чёрных трюфелей мы отправляем свежие трюфели экспресс-курьером: в течение 24 часов во все страны Европы и за 48 или 72 часа в остальные страны мира. Наши трюфельные продукты тоже отправляем курьером по всей Европе и миру.",
+    "q8":"Вы работаете с ресторанами, магазинами и дистрибьюторами?","a8":"Да. В сезон мы поставляем ресторанам свежие трюфели, а магазинам и дистрибьюторам помогаем рекламными материалами. Напишите на info@prodantartufi.hr, и мы пришлём ассортимент и условия.",
+    "ct.label":"Контакты","ct.title":"Как нас найти у Бузета","ct.map":"Открыть на карте","ct.hrs":"с 08:00 до 22:00","ct.daily":"С понедельника по воскресенье","ct.phone":"Телефон и WhatsApp","ct.call":"Позвонить","ct.email":"Эл. почта",
+    "fo.tag":"Семья охотников за трюфелями","fo.addr":"Адрес","fo.contact":"Контакты","fo.hours":"Часы работы","fo.hoursV":"Ежедневно с 08:00 до 22:00","fo.note":"Концепт сайта, предложение","fo.obrt":"сбор грибов и торговля","fo.owner":"Владелица",
+    "bar.t":"Ваш запрос","bar.cta":"Отправить",
+    "js.menu":"Меню","js.close":"Закрыть","js.prev":"Назад","js.next":"Вперёд","js.guest":"гость","js.guests":"гостя","js.guestsMany":"гостей",
+    "wa.hello":"Здравствуйте, семья Продан! Я хотел(а) бы забронировать напрямую.","wa.exp":"Программа","wa.date":"Дата","wa.guests":"Гости","wa.lang":"Язык","wa.name":"Имя","wa.flex":"гибко","wa.thanks":"Спасибо!",
+    "wa.shop":"Здравствуйте! Я хотел(а) бы сделать заказ в вашем магазине","wa.shopAsk":"Что есть в наличии и сколько это стоит?"
   };
   var ENJS = {
-    "js.menu":"Menu","js.close":"Close","js.prev":"Previous","js.next":"Next","js.guest":"guest","js.guests":"guests",
+    "js.menu":"Menu","js.close":"Close","js.prev":"Previous","js.next":"Next","js.guest":"guest","js.guests":"guests","js.guestsMany":"guests",
     "wa.hello":"Hello Prodan family! I would like to book directly.","wa.exp":"Experience","wa.date":"Date","wa.guests":"Guests","wa.lang":"Language","wa.name":"Name","wa.flex":"flexible","wa.thanks":"Thank you!",
     "wa.shop":"Hello! I would like to order from your shop","wa.shopAsk":"What is available and what is the price?"
   };
@@ -1367,7 +1481,7 @@ html select{height:56px;line-height:normal}
   $$("[data-i18n]").forEach(function(el){ var k = el.getAttribute("data-i18n"); if(!(k in EN)) EN[k] = el.innerHTML; });
   $$("[data-i18n-ph]").forEach(function(el){ EN[el.getAttribute("data-i18n-ph")] = el.placeholder; });
   for(var k in ENJS) EN[k] = ENJS[k];
-  var DICT = {en:EN, de:DE, it:IT, hr:HR}, lang = "en", langTouched = false;
+  var DICT = {en:EN, de:DE, it:IT, hr:HR, ru:RU}, lang = "en", langTouched = false;
   try{ var sv = localStorage.getItem("pt-lang"); if(sv && DICT[sv]) lang = sv; }catch(e){}
   function t(k){ var v = DICT[lang][k]; return v != null ? v : (EN[k] || ""); }
 
@@ -1376,7 +1490,8 @@ html select{height:56px;line-height:normal}
     lang = l; document.documentElement.lang = l;
     $$("[data-i18n]").forEach(function(el){ el.innerHTML = t(el.getAttribute("data-i18n")); });
     $$("[data-i18n-ph]").forEach(function(el){ el.placeholder = t(el.getAttribute("data-i18n-ph")); });
-    $$(".lang button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+    $$(".langs button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+    var lc = $("#lpickCur"); if(lc) lc.textContent = l.toUpperCase();
     $$("#pkPrev,#galPrev").forEach(function(b){ b.setAttribute("aria-label", t("js.prev")); });
     $$("#pkNext,#galNext").forEach(function(b){ b.setAttribute("aria-label", t("js.next")); });
     $("#menuLbl").textContent = document.body.classList.contains("menu-open") ? t("js.close") : t("js.menu");
@@ -1384,14 +1499,25 @@ html select{height:56px;line-height:normal}
     updateSummary(); updateShop(); moveInk();
     try{ localStorage.setItem("pt-lang", l); }catch(e){}
   }
-  $$(".lang button").forEach(function(b){ b.addEventListener("click", function(){ applyLang(b.dataset.lang); }); });
+  $$(".langs button").forEach(function(b){ b.addEventListener("click", function(){ applyLang(b.dataset.lang); }); });
+
+  /* ---------- Language picker dropdown ---------- */
+  (function(){
+    var w = $("#lpick"), b = $("#lpickBtn"); if(!w || !b) return;
+    function set(o){ w.classList.toggle("open", o); b.setAttribute("aria-expanded", o ? "true" : "false"); }
+    b.addEventListener("click", function(e){ e.stopPropagation(); set(!w.classList.contains("open")); });
+    $$(".lpick-list button", w).forEach(function(x){ x.addEventListener("click", function(){ setTimeout(function(){ set(false); }, 120); }); });
+    document.addEventListener("click", function(e){ if(!w.contains(e.target)) set(false); });
+    document.addEventListener("keydown", function(e){ if(e.key === "Escape") set(false); });
+    window.addEventListener("scroll", function(){ if(w.classList.contains("open")) set(false); }, {passive:true});
+  })();
 
   /* ---------- Watermark ---------- */
   (function(){ var wm = $("#wm"), h = ""; for(var i=0;i<36;i++) h += "<span>Tartufi</span>"; wm.innerHTML = h; })();
 
   /* ---------- Preloader ---------- */
   var pre = $("#pre");
-  function start(){ document.body.classList.remove("locked"); document.body.classList.add("ready"); galAuto(); }
+  function start(){ document.body.classList.remove("locked"); document.body.classList.add("ready"); setTimeout(galAuto, 0); }
   if(reduce){ pre.style.display = "none"; start(); }
   else setTimeout(function(){ pre.classList.add("done"); setTimeout(start, 350); setTimeout(function(){ pre.style.display = "none"; }, 1300); }, 1500);
 
@@ -1833,7 +1959,14 @@ html select{height:56px;line-height:normal}
   var guests = 2, gOut = $("#gOut"), fDate = $("#fDate");
   (function(){ var d = new Date(); fDate.min = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0"+d.getDate()).slice(-2); })();
   function expVal(){ var r = $("#expChips input:checked"); return r ? r.value : "lunch"; }
-  function guestTxt(){ return guests + NB + (guests === 1 ? t("js.guest") : t("js.guests")); }
+  function guestTxt(){
+    var n = guests, w;
+    if(lang === "hr" || lang === "ru"){
+      var m10 = n % 10, m100 = n % 100;
+      w = (m10 === 1 && m100 !== 11) ? t("js.guest") : (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) ? t("js.guests") : t("js.guestsMany");
+    } else w = n === 1 ? t("js.guest") : t("js.guests");
+    return n + NB + w;
+  }
   function updateSummary(){
     gOut.textContent = guests;
     $("#gMinus").disabled = guests <= 1; $("#gPlus").disabled = guests >= 12;
@@ -1902,9 +2035,9 @@ html select{height:56px;line-height:normal}
 </style>
 <script id="mdp-js">
 (function(){
-  var TXT={hr:["Odaberite datum","Danas","Zatvoreno"],en:["Choose a date","Today","Closed"],de:["Datum wählen","Heute","Geschlossen"],it:["Scegli la data","Oggi","Chiuso"],sl:["Izberite datum","Danes","Zaprto"]};
+  var TXT={hr:["Odaberite datum","Danas","Zatvoreno"],en:["Choose a date","Today","Closed"],de:["Datum wählen","Heute","Geschlossen"],it:["Scegli la data","Oggi","Chiuso"],sl:["Izberite datum","Danes","Zaprto"],ru:["Выберите дату","Сегодня","Закрыто"]};
   function lang(){var l=(document.documentElement.lang||"en").slice(0,2).toLowerCase();return TXT[l]?l:"en";}
-  function loc(){return {hr:"hr-HR",en:"en-GB",de:"de-DE",it:"it-IT",sl:"sl-SI"}[lang()];}
+  function loc(){return {hr:"hr-HR",en:"en-GB",de:"de-DE",it:"it-IT",sl:"sl-SI",ru:"ru-RU"}[lang()];}
   function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
   function parse(s){if(!s)return null;var p=s.split("-");return p.length===3?new Date(+p[0],+p[1]-1,+p[2]):null;}
   function today(){var t=new Date();return new Date(t.getFullYear(),t.getMonth(),t.getDate());}

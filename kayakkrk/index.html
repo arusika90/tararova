@@ -2,13 +2,8 @@
 <!--
   Kayak Rent Krk, kayak tours and boat trips in Punat: website proposal mockup (Concept by Marija)
 
-  IMAGE SLOTS (optional, put real photos in ./img/ using these exact names):
-    img/hero.jpg  carousel slide 1 + Beginner tab
-    img/2.jpg     carousel slide 2 + "Your tour" timeline image
-    img/3.jpg     carousel slide 3 + Snorkel + cliff jump tab
-    img/4.jpg     carousel slide 4 + Family tour tab
-    img/5.jpg     carousel slide 5 + Kayak rental tab + contact
-  No licensed photos are used. Every slot falls back to our own inline SVG
+  PHOTOS: hotlinked from the business's own site (kayak-krk.com/wp-content/uploads).
+  Every slot falls back to our own inline SVG
   illustrations (kayak with paddle, snorkel mask, cliff with a jumper, Krk
   coastline, pebble beach, fish, sun, waves) over a gradient.
   Hero: Three.js (cdnjs, r128) crystal clear shallow water seen from a kayak:
@@ -16,7 +11,7 @@
   kayak bow bobbing in the foreground, paddle drips with ripples, pointer tilt.
   Falls back to a static SVG scene without WebGL, when three.js fails to load
   or with prefers-reduced-motion.
-  Prices "from XX €" are example placeholders to edit.
+  Tours, prices and times follow kayak-krk.com (EN + DE).
 -->
 <html lang="en">
 <head>
@@ -26,14 +21,14 @@
 <title>Kayak Rent Krk</title>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Kayak Rent Krk">
-<meta property="og:description" content="Kayak Rent Krk. Guided kayak tours with snorkeling and cliff jumping, kayak rental and boat trips from Medane beach, Punat, island of Krk.">
+<meta property="og:description" content="Kayak Rent Krk. Guided kayak tours with snorkeling and cliff jumping, sunset paddles, private tours and boat trips from Medane beach, Punat, island of Krk.">
 <meta property="og:url" content="https://tararova.com/kayakkrk/">
 <meta property="og:image" content="https://tararova.com/kayakkrk/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<meta name="description" content="Kayak Rent Krk. Guided kayak tours with snorkeling and cliff jumping, kayak rental and boat trips from Medane beach, Punat, island of Krk.">
+<meta name="description" content="Kayak Rent Krk. Guided kayak tours with snorkeling and cliff jumping, sunset paddles, private tours and boat trips from Medane beach, Punat, island of Krk.">
 <meta name="theme-color" content="#083B5C">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -152,11 +147,20 @@ section{scroll-margin-top:calc(var(--header) + 50px)}
 .lang{display:flex;align-items:center;font-size:12px;font-weight:500;letter-spacing:.12em}
 .lang button{background:none;border:0;padding:8px 6px;cursor:pointer;opacity:.55;transition:opacity .3s;position:relative}
 .lang button[aria-pressed="true"]{opacity:1;text-decoration:underline;text-underline-offset:5px}
+/* header language picker */
+.lpick{position:relative}
+.lpick-btn{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:600 13px/1 var(--sans);letter-spacing:.1em;cursor:pointer;opacity:.9}
+.lpick-btn svg{width:18px;height:18px}.lpick-btn .chev{width:14px;height:14px;transition:transform .3s}
+.lpick.open .lpick-btn .chev{transform:rotate(180deg)}
+.hdr .lpick-list{position:absolute;right:0;top:calc(100% + 10px);display:grid;grid-template-columns:1fr;gap:0;min-width:200px;padding:8px;background:#fff;color:var(--navy);border-radius:18px;box-shadow:0 24px 60px -18px rgba(0,0,0,.3);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:80}
+.lpick.open .lpick-list{opacity:1;transform:none;pointer-events:auto}
+.hdr .lpick-list button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border-radius:10px;font:400 16px/1.2 var(--sans);letter-spacing:0;opacity:1;text-align:left;color:var(--navy);text-decoration:none}
+.hdr .lpick-list button b{font-weight:600;font-size:12px;letter-spacing:.12em;width:24px;opacity:.6}
+.hdr .lpick-list button:hover{background:var(--linen)}
+.hdr .lpick-list button[aria-pressed="true"]{background:var(--linen);font-weight:600;text-decoration:none}
+.menu-open .lpick{display:none}
+@media (max-width:380px){.lpick-btn{padding:0 9px}.lpick-btn .chev{display:none}}
 @media (max-width:759px){
-  .hdr .lang button:not([aria-pressed="true"]){display:none}
-  .hdr .lang.open{flex-direction:column;position:absolute;top:-6px;right:72px;background:#fff;color:var(--ink);border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,.16);padding:4px 6px;z-index:5}
-  .hdr .lang.open button{display:block;opacity:.7;text-decoration:none}
-  .hdr .lang.open button[aria-pressed="true"]{opacity:1;font-weight:600}
 }
 .hdr__book{display:none;min-height:40px;padding:0 20px;font-size:12px;background:transparent;border-color:currentColor;color:inherit}
 .hdr__book::before{background:var(--navy)}
@@ -328,6 +332,9 @@ section{scroll-margin-top:calc(var(--header) + 50px)}
 .tpanel li{position:relative;padding:5px 0 5px 22px;font-size:16px}
 .tpanel li::before{content:"";position:absolute;left:2px;top:15px;width:7px;height:7px;border-radius:50%;background:var(--coral)}
 .tr__note{margin-top:30px;font-size:14px;color:var(--muted)}
+.tprice{display:grid;gap:0;margin:0 0 18px;border-top:1px solid var(--line)}
+.tprice>div{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--muted)}
+.tprice b{color:var(--ink);font-weight:600;font-size:17px;white-space:nowrap}
 @media(min-width:900px){.tpanel.on{grid-template-columns:1fr 1fr;gap:80px;align-items:center}.tpanel .frame{aspect-ratio:4/5}}
 
 /* YOUR TOUR timeline */
@@ -564,11 +571,14 @@ html select{height:56px;line-height:normal}
       <span><b>Kayak Rent Krk</b><small data-i18n="logo.sub">Kayak &amp; boat trips</small></span>
     </a>
     <div class="hdr__r">
-      <div class="lang" id="langHdr" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="de" aria-pressed="false">DE</button>
-        <button type="button" data-lang="it" aria-pressed="false">IT</button>
-        <button type="button" data-lang="hr" aria-pressed="false">HR</button>
+      <div class="lpick" id="lpick">
+        <button type="button" class="lpick-btn" id="lpickBtn" aria-haspopup="true" aria-expanded="false" aria-label="Language"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span id="lpickCur">EN</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="lpick-list lang" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true"><b>EN</b><span>English</span></button>
+          <button type="button" data-lang="de" aria-pressed="false"><b>DE</b><span>Deutsch</span></button>
+          <button type="button" data-lang="it" aria-pressed="false"><b>IT</b><span>Italiano</span></button>
+          <button type="button" data-lang="hr" aria-pressed="false"><b>HR</b><span>Hrvatski</span></button>
+        </div>
       </div>
       <a href="#book" class="pill hdr__book" data-i18n="nav.book">Book a tour</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="ovl"><span data-i18n="nav.menu">MENU</span><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
@@ -587,12 +597,6 @@ html select{height:56px;line-height:normal}
     <li><a href="#contact" style="--i:6"><small>07</small><span data-i18n="ovl.contact">Contact</span></a></li>
   </ol>
   <div class="ovl__foot">
-    <div class="lang" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button>
-      <button type="button" data-lang="de" aria-pressed="false">DE</button>
-      <button type="button" data-lang="it" aria-pressed="false">IT</button>
-      <button type="button" data-lang="hr" aria-pressed="false">HR</button>
-    </div>
     <a href="https://wa.me/385916006034" class="pill pill--linen pill--block" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-i18n="cta.wa">WhatsApp Bernard</span></a>
     <div class="ovl__contact"><a href="tel:+385916006034">+385&nbsp;91&nbsp;600&nbsp;6034</a><span data-i18n="ovl.addr">Medane beach, Punat, Krk</span><span data-i18n="ovl.hours">Daily 09:00 to 21:00 in season</span></div>
   </div>
@@ -671,11 +675,11 @@ html select{height:56px;line-height:normal}
   </div>
   <div class="gal" id="gal">
     <div class="gal__track" id="galTrack">
-      <div class="gal__slide cur" data-cap="gal.c1"><div class="art art--shallow"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="130" height="130" x="250" y="20" color="#C99A4A"/><use href="#i-coast" width="560" height="90" x="-80" y="130" color="#5E827A" opacity=".75"/><use href="#i-caus" width="300" height="300" x="-20" y="230" opacity=".45"/><use href="#i-pebbles" width="300" height="120" x="50" y="380" opacity=".7"/><use href="#i-kayak" width="300" height="112" x="50" y="250" color="#083B5C"/></svg><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c2"><div class="art art--reef"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-caus" width="400" height="400" x="0" y="0" opacity=".35"/><use href="#i-mask" width="200" height="162" x="100" y="130" color="#083B5C"/><use href="#i-fish" width="90" height="45" x="40" y="340" color="#083B5C"/><use href="#i-fish" width="60" height="30" x="280" y="380" color="#0B6F7A"/><use href="#i-pebbles" width="400" height="160" x="0" y="400" opacity=".7"/></svg><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c3"><div class="art art--cliff"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="110" height="110" x="270" y="30" color="#C99A4A"/><use href="#i-cliff" width="380" height="412" x="-20" y="90" color="#083B5C"/></svg><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c4"><div class="art art--beach"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="120" height="120" x="40" y="30" color="#C99A4A"/><use href="#i-coast" width="560" height="90" x="-80" y="150" color="#7C9A93" opacity=".6"/><use href="#i-kayak" width="240" height="90" x="20" y="250" color="#083B5C"/><use href="#i-kayak" width="170" height="64" x="210" y="300" color="#083B5C"/><use href="#i-waves" width="520" height="104" x="-60" y="340" color="#fff" opacity=".7"/><use href="#i-pebbles" width="400" height="160" x="0" y="410"/></svg><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c5"><div class="art art--sun"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="200" height="200" x="100" y="20" color="#C99A4A"/><use href="#i-coast" width="560" height="90" x="-80" y="190" color="#56776F" opacity=".7"/><use href="#i-kayak" width="320" height="120" x="40" y="280" color="#083B5C"/><use href="#i-waves" width="520" height="104" x="-60" y="380" color="#fff" opacity=".6"/></svg><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide cur" data-cap="gal.c1"><div class="art art--shallow"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="130" height="130" x="250" y="20" color="#C99A4A"/><use href="#i-coast" width="560" height="90" x="-80" y="130" color="#5E827A" opacity=".75"/><use href="#i-caus" width="300" height="300" x="-20" y="230" opacity=".45"/><use href="#i-pebbles" width="300" height="120" x="50" y="380" opacity=".7"/><use href="#i-kayak" width="300" height="112" x="50" y="250" color="#083B5C"/></svg><img src="https://kayak-krk.com/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-16-at-14.27.57.jpeg" alt="Guests paddling with Kayak Rent Krk on the island of Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c2"><div class="art art--reef"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-caus" width="400" height="400" x="0" y="0" opacity=".35"/><use href="#i-mask" width="200" height="162" x="100" y="130" color="#083B5C"/><use href="#i-fish" width="90" height="45" x="40" y="340" color="#083B5C"/><use href="#i-fish" width="60" height="30" x="280" y="380" color="#0B6F7A"/><use href="#i-pebbles" width="400" height="160" x="0" y="400" opacity=".7"/></svg><img src="https://kayak-krk.com/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-16-at-14.29.15.jpeg" alt="Kayak tour with Bernard along the coast of Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c3"><div class="art art--cliff"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="110" height="110" x="270" y="30" color="#C99A4A"/><use href="#i-cliff" width="380" height="412" x="-20" y="90" color="#083B5C"/></svg><img src="https://kayak-krk.com/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-16-at-14.28.10.jpeg" alt="Kayakers in the clear sea off Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c4"><div class="art art--beach"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="120" height="120" x="40" y="30" color="#C99A4A"/><use href="#i-coast" width="560" height="90" x="-80" y="150" color="#7C9A93" opacity=".6"/><use href="#i-kayak" width="240" height="90" x="20" y="250" color="#083B5C"/><use href="#i-kayak" width="170" height="64" x="210" y="300" color="#083B5C"/><use href="#i-waves" width="520" height="104" x="-60" y="340" color="#fff" opacity=".7"/><use href="#i-pebbles" width="400" height="160" x="0" y="410"/></svg><img src="https://kayak-krk.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-09-at-09.50.26.jpeg" alt="Kayak group on a tour with Kayak Rent Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c5"><div class="art art--sun"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="200" height="200" x="100" y="20" color="#C99A4A"/><use href="#i-coast" width="560" height="90" x="-80" y="190" color="#56776F" opacity=".7"/><use href="#i-kayak" width="320" height="120" x="40" y="280" color="#083B5C"/><use href="#i-waves" width="520" height="104" x="-60" y="380" color="#fff" opacity=".6"/></svg><img src="https://kayak-krk.com/wp-content/uploads/2025/01/photo_5463389746056259530_y-1024x768.jpg" alt="Kayak Adventure tour on the island of Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
     </div>
     <a class="tag-b" href="#tours" id="galTag"><span id="galTagTxt">Punat, Croatia</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
     <button type="button" class="sqbtn l" id="galPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
@@ -718,7 +722,7 @@ html select{height:56px;line-height:normal}
     <div class="rv" data-delay="2">
       <div class="stat">
         <b id="ratingN">4.9</b>
-        <div><span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><small><span id="revCount" data-count="237">237</span> <span data-i18n="bern.rev">Google reviews</span></small></div>
+        <div><span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><small><span id="revCount" data-count="160">160</span> <span data-i18n="bern.rev">Google reviews</span></small></div>
       </div>
       <a href="https://wa.me/385916006034?text=Hi%20Bernard%2C%20I%20have%20a%20question%20about%20a%20kayak%20tour." class="pill pill--outline" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-i18n="bern.cta">Message Bernard</span></a>
     </div>
@@ -737,50 +741,54 @@ html select{height:56px;line-height:normal}
     </div>
     <div class="rv" data-delay="1">
       <div class="tabs" role="tablist" aria-label="Tours" id="tabs">
-        <button type="button" class="tab" role="tab" id="tab-beginner" aria-controls="tp-beginner" aria-selected="true" data-tab="beginner" data-i18n="tab1">Beginner 3&nbsp;h</button>
-        <button type="button" class="tab" role="tab" id="tab-cliff" aria-controls="tp-cliff" aria-selected="false" data-tab="cliff" data-i18n="tab2">Snorkel + cliff jump</button>
-        <button type="button" class="tab" role="tab" id="tab-family" aria-controls="tp-family" aria-selected="false" data-tab="family" data-i18n="tab3">Family tour</button>
-        <button type="button" class="tab" role="tab" id="tab-rent" aria-controls="tp-rent" aria-selected="false" data-tab="rent" data-i18n="tab4">Kayak rental</button>
+        <button type="button" class="tab" role="tab" id="tab-adventure" aria-controls="tp-adventure" aria-selected="true" data-tab="adventure" data-i18n="tab1"></button>
+        <button type="button" class="tab" role="tab" id="tab-sunset" aria-controls="tp-sunset" aria-selected="false" data-tab="sunset" data-i18n="tab2"></button>
+        <button type="button" class="tab" role="tab" id="tab-private" aria-controls="tp-private" aria-selected="false" data-tab="private" data-i18n="tab3"></button>
+        <button type="button" class="tab" role="tab" id="tab-boat" aria-controls="tp-boat" aria-selected="false" data-tab="boat" data-i18n="tab4"></button>
       </div>
       <div class="tpanels">
-        <article class="tpanel on" role="tabpanel" id="tp-beginner" aria-labelledby="tab-beginner">
-          <div class="frame"><div class="art art--shallow"><svg class="ill" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="120" height="120" x="40" y="20" color="#C99A4A"/><use href="#i-coast" width="560" height="80" x="-80" y="110" color="#5E827A" opacity=".7"/><use href="#i-caus" width="300" height="300" x="60" y="160" opacity=".4"/><use href="#i-kayak" width="300" height="112" x="50" y="190" color="#083B5C"/><use href="#i-pebbles" width="400" height="160" x="0" y="300" opacity=".8"/></svg><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="p1.tag">About 3&nbsp;hours</span></div>
+        <article class="tpanel on" role="tabpanel" id="tp-adventure" aria-labelledby="tab-adventure">
+          <div class="frame"><div class="art art--shallow"><svg class="ill" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="120" height="120" x="40" y="20" color="#C99A4A"/><use href="#i-coast" width="560" height="80" x="-80" y="110" color="#5E827A" opacity=".7"/><use href="#i-caus" width="300" height="300" x="60" y="160" opacity=".4"/><use href="#i-kayak" width="300" height="112" x="50" y="190" color="#083B5C"/><use href="#i-pebbles" width="400" height="160" x="0" y="300" opacity=".8"/></svg><img src="https://kayak-krk.com/wp-content/uploads/2025/01/photo_5463389746056259530_y-1024x768.jpg" alt="Kayak Adventure tour on the island of Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="p1.tag"></span></div>
           <div>
-            <h3 data-i18n="p1.h">Beginner package</h3>
-            <p class="tmeta"><span data-i18n="meta.guided">Guided by Bernard · from</span> <span class="ph">XX&nbsp;€</span></p>
-            <p data-i18n="p1.p">Never been in a kayak? Perfect. Bernard shows you the basics on the beach, then you paddle out together at an easy pace, with time to swim and snorkel.</p>
-            <ul><li data-i18n="p1.l1">About 3 hours on the water</li><li data-i18n="p1.l2">Paddling basics before you start</li><li data-i18n="p1.l3">Snorkeling in the clear shallows</li></ul>
-            <a href="#book" class="ulink" data-tour="beginner"><span data-i18n="t.book">Book this tour</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <h3 data-i18n="p1.h"></h3>
+            <p class="tmeta" data-i18n="meta.guided"></p>
+            <div class="tprice"><div><span data-i18n="pr.adult"></span><b>50&nbsp;€</b></div><div><span data-i18n="pr.kid10"></span><b>40&nbsp;€</b></div><div><span data-i18n="pr.kid5"></span><b data-i18n="pr.free">free</b></div></div>
+            <p data-i18n="p1.p"></p>
+            <ul><li data-i18n="p1.l1"></li><li data-i18n="p1.l2"></li><li data-i18n="p1.l3"></li><li data-i18n="p1.l4"></li><li data-i18n="p1.l5"></li></ul>
+            <a href="#book" class="ulink" data-tour="adventure"><span data-i18n="t.book"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
         </article>
-        <article class="tpanel" role="tabpanel" id="tp-cliff" aria-labelledby="tab-cliff" hidden>
-          <div class="frame"><div class="art art--cliff"><svg class="ill" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="100" height="100" x="280" y="20" color="#C99A4A"/><use href="#i-cliff" width="320" height="347" x="0" y="60" color="#083B5C"/><use href="#i-mask" width="90" height="73" x="290" y="300" color="#083B5C"/></svg><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="p2.tag">Guided · optional jumps</span></div>
+        <article class="tpanel" role="tabpanel" id="tp-sunset" aria-labelledby="tab-sunset" hidden>
+          <div class="frame"><div class="art art--sun"><svg class="ill" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="180" height="180" x="110" y="10" color="#C99A4A"/><use href="#i-coast" width="560" height="80" x="-80" y="150" color="#56776F" opacity=".7"/><use href="#i-kayak" width="320" height="120" x="40" y="210" color="#083B5C"/><use href="#i-waves" width="520" height="104" x="-60" y="310" color="#fff" opacity=".6"/></svg><img src="https://kayak-krk.com/wp-content/uploads/2025/01/photo_5458823933827607355_y-1024x768.jpg" alt="Sunset kayak tour on the coast of Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="p2.tag"></span></div>
           <div>
-            <h3 data-i18n="p2.h">Snorkel + cliff jump tour</h3>
-            <p class="tmeta"><span data-i18n="meta.guided">Guided by Bernard · from</span> <span class="ph">XX&nbsp;€</span></p>
-            <p data-i18n="p2.p">The one people talk about. Paddle along the coast, snorkel in crystal clear water, then reach the cliffs. Jump from about 7 to 8 m, or from 13 to 15 m if you dare. Or just watch, it is completely optional.</p>
-            <ul><li data-i18n="p2.l1">Snorkeling stops along the coast</li><li data-i18n="p2.l2">Cliffs about 7 to 8 m and 13 to 15 m</li><li data-i18n="p2.l3">Cliff jumping is always optional</li></ul>
-            <a href="#book" class="ulink" data-tour="cliff"><span data-i18n="t.book">Book this tour</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <h3 data-i18n="p2.h"></h3>
+            <p class="tmeta" data-i18n="meta.guided"></p>
+            <div class="tprice"><div><span data-i18n="pr.adult"></span><b>50&nbsp;€</b></div><div><span data-i18n="pr.kid10"></span><b>40&nbsp;€</b></div><div><span data-i18n="pr.kid5"></span><b data-i18n="pr.free">free</b></div></div>
+            <p data-i18n="p2.p"></p>
+            <ul><li data-i18n="p2.l1"></li><li data-i18n="p2.l2"></li><li data-i18n="p2.l3"></li><li data-i18n="p2.l4"></li><li data-i18n="p2.l5"></li></ul>
+            <a href="#book" class="ulink" data-tour="sunset"><span data-i18n="t.book"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
         </article>
-        <article class="tpanel" role="tabpanel" id="tp-family" aria-labelledby="tab-family" hidden>
-          <div class="frame"><div class="art art--beach"><svg class="ill" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="110" height="110" x="260" y="20" color="#C99A4A"/><use href="#i-kayak" width="250" height="94" x="10" y="150" color="#083B5C"/><use href="#i-kayak" width="170" height="64" x="210" y="200" color="#083B5C"/><use href="#i-fish" width="60" height="30" x="160" y="270" color="#0B6F7A"/><use href="#i-pebbles" width="400" height="160" x="0" y="290"/></svg><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="p3.tag">Kids welcome</span></div>
+        <article class="tpanel" role="tabpanel" id="tp-private" aria-labelledby="tab-private" hidden>
+          <div class="frame"><div class="art art--cliff"><svg class="ill" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="100" height="100" x="280" y="20" color="#C99A4A"/><use href="#i-cliff" width="320" height="347" x="0" y="60" color="#083B5C"/><use href="#i-mask" width="90" height="73" x="290" y="300" color="#083B5C"/></svg><img src="https://kayak-krk.com/wp-content/uploads/2025/01/WhatsApp-Image-2025-01-04-at-21.53.05-1024x768.jpeg" alt="Private kayak tour with Kayak Rent Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="p3.tag"></span></div>
           <div>
-            <h3 data-i18n="p3.h">Family tour</h3>
-            <p class="tmeta"><span data-i18n="meta.guided">Guided by Bernard · from</span> <span class="ph">XX&nbsp;€</span></p>
-            <p data-i18n="p3.p">Easy and fun for kids. Bernard keeps the pace relaxed, adapts the tour to your family and finds the spots where the little ones can see the fish below.</p>
-            <ul><li data-i18n="p3.l1">Easy for families with kids</li><li data-i18n="p3.l2">Flexible, adapted to your family</li><li data-i18n="p3.l3">Snorkeling for the curious ones</li></ul>
-            <a href="#book" class="ulink" data-tour="family"><span data-i18n="t.book">Book this tour</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <h3 data-i18n="p3.h"></h3>
+            <p class="tmeta" data-i18n="meta.guided"></p>
+            <div class="tprice"><div><span data-i18n="pr.adult"></span><b>70&nbsp;€</b></div></div>
+            <p data-i18n="p3.p"></p>
+            <ul><li data-i18n="p3.l1"></li><li data-i18n="p3.l2"></li><li data-i18n="p3.l3"></li><li data-i18n="p3.l4"></li><li data-i18n="p3.l5"></li></ul>
+            <a href="#book" class="ulink" data-tour="private"><span data-i18n="t.book"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
         </article>
-        <article class="tpanel" role="tabpanel" id="tp-rent" aria-labelledby="tab-rent" hidden>
-          <div class="frame"><div class="art art--sun"><svg class="ill" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="180" height="180" x="110" y="10" color="#C99A4A"/><use href="#i-coast" width="560" height="80" x="-80" y="150" color="#56776F" opacity=".7"/><use href="#i-kayak" width="320" height="120" x="40" y="210" color="#083B5C"/><use href="#i-waves" width="520" height="104" x="-60" y="310" color="#fff" opacity=".6"/></svg><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="p4.tag">On your own</span></div>
+        <article class="tpanel" role="tabpanel" id="tp-boat" aria-labelledby="tab-boat" hidden>
+          <div class="frame"><div class="art art--beach"><svg class="ill" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="110" height="110" x="260" y="20" color="#C99A4A"/><use href="#i-coast" width="560" height="80" x="-80" y="120" color="#7C9A93" opacity=".6"/><use href="#i-waves" width="520" height="104" x="-60" y="230" color="#fff" opacity=".7"/><use href="#i-pebbles" width="400" height="160" x="0" y="290"/></svg><img src="https://kayak-krk.com/wp-content/uploads/2024/06/golden-beach1-1-1024x768.webp" alt="Golden Beach near Stara Baška, a stop on the boat trip" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="p4.tag"></span></div>
           <div>
-            <h3 data-i18n="p4.h">Kayak rental</h3>
-            <p class="tmeta"><span data-i18n="meta.self">Self-guided · from</span> <span class="ph">XX&nbsp;€</span></p>
-            <p data-i18n="p4.p">Prefer to explore alone? Rent a kayak with good equipment and paddle the bay at your own pace. Bernard is happy to give you tips on where to go.</p>
-            <ul><li data-i18n="p4.l1">Good equipment</li><li data-i18n="p4.l2">Your own pace, your own route</li><li data-i18n="p4.l3">Boat trips too, just ask</li></ul>
-            <a href="#book" class="ulink" data-tour="rent"><span data-i18n="t.rent">Ask about rental</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <h3 data-i18n="p4.h"></h3>
+            <p class="tmeta" data-i18n="meta.boat"></p>
+            <div class="tprice"><div><span data-i18n="pr.isl"></span><b>38&nbsp;€</b></div><div><span data-i18n="pr.islk"></span><b>20&nbsp;€</b></div><div><span data-i18n="pr.rab"></span><b>50&nbsp;€</b></div><div><span data-i18n="pr.rabk"></span><b>30&nbsp;€</b></div><div><span data-i18n="pr.inf"></span><b data-i18n="pr.free">free</b></div></div>
+            <p data-i18n="p4.p"></p>
+            <ul><li data-i18n="p4.l1"></li><li data-i18n="p4.l2"></li><li data-i18n="p4.l3"></li><li data-i18n="p4.l4"></li><li data-i18n="p4.l5"></li></ul>
+            <a href="#book" class="ulink" data-tour="boat"><span data-i18n="t.boat"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
         </article>
       </div>
@@ -799,7 +807,7 @@ html select{height:56px;line-height:normal}
     </div>
     <div class="how__body">
       <div class="how__img-wrap">
-        <div class="frame how__img rv-img"><div class="art art--reef"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-caus" width="400" height="400" x="0" y="0" opacity=".35"/><use href="#i-caus" width="400" height="400" x="300" y="40" opacity=".25"/><use href="#i-mask" width="180" height="146" x="210" y="80" color="#083B5C"/><use href="#i-fish" width="80" height="40" x="90" y="220" color="#083B5C"/><use href="#i-fish" width="56" height="28" x="460" y="200" color="#0B6F7A"/><use href="#i-pebbles" width="600" height="240" x="0" y="250" opacity=".75"/></svg><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="yt.tag">Medane beach</span></div>
+        <div class="frame how__img rv-img"><div class="art art--reef"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-caus" width="400" height="400" x="0" y="0" opacity=".35"/><use href="#i-caus" width="400" height="400" x="300" y="40" opacity=".25"/><use href="#i-mask" width="180" height="146" x="210" y="80" color="#083B5C"/><use href="#i-fish" width="80" height="40" x="90" y="220" color="#083B5C"/><use href="#i-fish" width="56" height="28" x="460" y="200" color="#0B6F7A"/><use href="#i-pebbles" width="600" height="240" x="0" y="250" opacity=".75"/></svg><img src="https://kayak-krk.com/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-16-at-14.29.15.jpeg" alt="Kayak tour with Kayak Rent Krk, island of Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="yt.tag">Medane beach</span></div>
       </div>
       <ol class="tl" id="tl">
         <span class="tl__track"></span><span class="tl__fill" id="tlFill"></span>
@@ -832,6 +840,9 @@ html select{height:56px;line-height:normal}
         <dl>
           <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><dt data-i18n="gtk.meet">Meeting point</dt><dd data-i18n="gtk.meetv">Medane beach area, Šetalište Antuna Žica-Ulivina 15, 51521 Punat</dd></div>
           <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><dt data-i18n="gtk.hours">Hours</dt><dd data-i18n="gtk.hoursv">Open daily 09:00 to 21:00 in season</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M3 15c3-1.6 15-1.6 18 0c-3 1.6-15 1.6-18 0z"/><path d="M7 19L17 9"/><circle cx="18" cy="5.5" r="2.5"/></svg><dt data-i18n="gtk.times"></dt><dd data-i18n="gtk.timesv"></dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9h1M17 15h1"/></svg><dt data-i18n="gtk.pay"></dt><dd data-i18n="gtk.payv"></dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M4 20V14M10 20V10M16 20V6"/><path d="M2 20h20"/></svg><dt data-i18n="gtk.level"></dt><dd data-i18n="gtk.levelv"></dd></div>
           <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4z"/><path d="M8 7V5h8v2"/><path d="M4 12h16"/></svg><dt data-i18n="gtk.bring">What to bring</dt><dd data-i18n="gtk.bringv">Swimwear, a towel, sunscreen, a hat and some water. Clothes you don't mind getting wet.</dd></div>
           <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M3 21h8V9c0-2-1-4-3-5L3 6z"/><circle cx="16" cy="5" r="1.6"/><path d="M16 8v5M14 10h4M16 13l-1.5 3M16 13l1.5 3"/><path d="M12 21c2-1 4-1 6 0s3 1 4 0"/></svg><dt data-i18n="gtk.cliff">Cliff jumping</dt><dd data-i18n="gtk.cliffv">Always optional. Cliffs about 7 to 8 m and 13 to 15 m. Jump, or simply watch.</dd></div>
           <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="8" cy="7" r="2.6"/><circle cx="16.5" cy="9" r="2"/><path d="M3 20c.6-4 2.6-6 5-6s4.4 2 5 6"/><path d="M13 20c.4-3 1.8-4.6 3.5-4.6S19.6 17 20 20"/></svg><dt data-i18n="gtk.kids">Kids</dt><dd data-i18n="gtk.kidsv">Welcome. The tours are easy for families with kids.</dd></div>
@@ -858,6 +869,7 @@ html select{height:56px;line-height:normal}
           <li class="rv"><span class="ic"><svg viewBox="0 0 200 80"><use href="#i-pebbles" width="200" height="80"/></svg></span><span><b>Medane beach</b><small data-i18n="n1">The beach right by the meeting point, for a swim before or after your tour.</small></span></li>
           <li class="rv" data-delay="1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#083B5C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 20v-8l4-3 4 3v8"/><path d="M13 20v-6l3-2 3 2v6"/><path d="M8 15h2M16 16h1"/></svg></span><span><b>Punat</b><small data-i18n="n2">The town on the bay, for a coffee, an ice cream or dinner after paddling.</small></span></li>
           <li class="rv" data-delay="2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#083B5C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V9l3-2 3 2v11"/><path d="M10 20v-7h4v7"/><path d="M14 20V6l3-3 3 3v14"/><path d="M3 20h18"/><path d="M17 8v2"/></svg></span><span><b data-i18n="n3t">Krk town</b><small data-i18n="n3">The island's old town, a nice trip for an evening walk.</small></span></li>
+          <li class="rv" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#083B5C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0"/><path d="M5 13h14l-2 3H7z"/><path d="M12 13V5l5 6"/></svg></span><span><b data-i18n="n4t">Stara Baška</b><small data-i18n="n4"></small></span></li>
         </ul>
         <p class="near-note rv" data-i18n="near.note">Ask Bernard for his favourite spots on the island.</p>
       </div>
@@ -884,20 +896,21 @@ html select{height:56px;line-height:normal}
         <fieldset class="field">
           <legend data-i18n="f.tour">Tour</legend>
           <div class="chips" id="tourChips">
-            <label class="chip"><input type="radio" name="tour" value="beginner"><span><span data-i18n="f.t1">Beginner</span><small data-i18n="f.t1s">about 3 h</small></span></label>
-            <label class="chip"><input type="radio" name="tour" value="cliff" checked><span><span data-i18n="f.t2">Snorkel + cliff jump</span><small data-i18n="f.t2s">guided</small></span></label>
-            <label class="chip"><input type="radio" name="tour" value="family"><span><span data-i18n="f.t3">Family tour</span><small data-i18n="f.t3s">kids welcome</small></span></label>
-            <label class="chip"><input type="radio" name="tour" value="rent"><span><span data-i18n="f.t4">Kayak rental</span><small data-i18n="f.t4s">on your own</small></span></label>
-            <label class="chip chip--wide"><input type="radio" name="tour" value="boat"><span><span data-i18n="f.t5">Boat trip</span><small data-i18n="f.t5s">ask Bernard</small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="adventure" checked><span><span data-i18n="f.t1"></span><small data-i18n="f.t1s"></small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="sunset"><span><span data-i18n="f.t2"></span><small data-i18n="f.t2s"></small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="private"><span><span data-i18n="f.t3"></span><small data-i18n="f.t3s"></small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="boat"><span><span data-i18n="f.t4"></span><small data-i18n="f.t4s"></small></span></label>
           </div>
         </fieldset>
         <label class="field"><span data-i18n="f.date">Date</span><input type="date" class="ctl" id="fDate" required></label>
         <fieldset class="field">
           <legend data-i18n="f.time">Time</legend>
           <div class="chips chips--3" id="timeChips">
-            <label class="chip"><input type="radio" name="time" value="morning" checked><span><span data-i18n="f.tm1">Morning</span></span></label>
-            <label class="chip"><input type="radio" name="time" value="afternoon"><span><span data-i18n="f.tm2">Afternoon</span></span></label>
-            <label class="chip"><input type="radio" name="time" value="sunset"><span><span data-i18n="f.tm3">Sunset</span></span></label>
+            <label class="chip"><input type="radio" name="time" value="0900" checked><span><span>09:00</span><small data-i18n="f.tmM"></small></span></label>
+            <label class="chip"><input type="radio" name="time" value="1100"><span><span>11:00</span><small data-i18n="f.tmB"></small></span></label>
+            <label class="chip"><input type="radio" name="time" value="1600"><span><span>16:00</span><small data-i18n="f.tmA"></small></span></label>
+            <label class="chip"><input type="radio" name="time" value="1800"><span><span>18:00</span><small data-i18n="f.tmS"></small></span></label>
+            <label class="chip"><input type="radio" name="time" value="flex"><span><span data-i18n="f.tmF"></span><small data-i18n="f.tmFs"></small></span></label>
           </div>
         </fieldset>
         <div class="field"><span data-i18n="f.people">People</span><div class="qty"><button type="button" id="gMinus" aria-label="Fewer">&minus;</button><output id="gOut">2</output><button type="button" id="gPlus" aria-label="More">+</button></div></div>
@@ -927,6 +940,9 @@ html select{height:56px;line-height:normal}
         <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">What about the weather?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a5">Kayaking depends on wind and sea. If the day doesn't look right, message Bernard and he will tell you what is possible.</p></div></div></div>
         <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q6">Do you also do boat trips?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a6">Yes, Kayak Rent Krk also offers boat trips. Ask Bernard on WhatsApp for the details.</p></div></div></div>
         <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q7">How do I book?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a7">Use the form on this page or write on WhatsApp to +385 91 600 6034. Bernard confirms your tour.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q8"></span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a8"></p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q9"></span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a9"></p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q10"></span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a10"></p></div></div></div>
       </div>
     </div>
   </div>
@@ -943,9 +959,11 @@ html select{height:56px;line-height:normal}
           <h2 data-i18n="c.h">Find us at Medane beach</h2>
         </div>
         <p class="addr rv">Kayak Rent Krk<br>Šetalište Antuna Žica-Ulivina 15<br>51521 Punat, <span data-i18n="c.island">island of Krk</span></p>
-        <p class="rv" data-delay="1"><a href="tel:+385916006034" class="ulink">+385&nbsp;91&nbsp;600&nbsp;6034</a><br><span data-i18n="c.wa" style="color:var(--muted);font-size:15px">Phone and WhatsApp</span></p>
+        <p class="rv" data-delay="1"><a href="tel:+385916006034" class="ulink">+385&nbsp;91&nbsp;600&nbsp;6034</a><br><span data-i18n="c.wa" style="color:var(--muted);font-size:15px">Phone and WhatsApp</span><br><a href="mailto:info@kayak-krk.com" class="ulink">info@kayak-krk.com</a><br><span data-i18n="c.mail" style="color:var(--muted);font-size:15px">Email</span></p>
         <ul class="hours rv" data-delay="1">
           <li><span data-i18n="c.daily">Every day, in season</span><span>09:00 to 21:00</span></li>
+          <li><span data-i18n="c.tours">Kayak tours</span><span>09:00 · 16:00 · 18:00</span></li>
+          <li><span data-i18n="c.boat">Boat trip</span><span>11:00 to 15:00</span></li>
           <li><span data-i18n="c.guide">Your guide</span><span>Bernard · DE · EN</span></li>
         </ul>
         <div class="contact__btns rv" data-delay="2">
@@ -954,7 +972,7 @@ html select{height:56px;line-height:normal}
         </div>
       </div>
       <div class="frame contact__img rv-img">
-        <div class="art art--beach"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="110" height="110" x="440" y="10" color="#C99A4A"/><use href="#i-coast" width="800" height="120" x="-100" y="90" color="#7C9A93" opacity=".6"/><use href="#i-kayak" width="220" height="82" x="40" y="220" color="#083B5C"/><use href="#i-waves" width="800" height="160" x="-100" y="240" color="#fff" opacity=".7"/><use href="#i-pebbles" width="600" height="240" x="0" y="300"/></svg><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
+        <div class="art art--beach"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="110" height="110" x="440" y="10" color="#C99A4A"/><use href="#i-coast" width="800" height="120" x="-100" y="90" color="#7C9A93" opacity=".6"/><use href="#i-kayak" width="220" height="82" x="40" y="220" color="#083B5C"/><use href="#i-waves" width="800" height="160" x="-100" y="240" color="#fff" opacity=".7"/><use href="#i-pebbles" width="600" height="240" x="0" y="300"/></svg><img src="https://kayak-krk.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-09-at-09.50.26.jpeg" alt="Kayakers with Kayak Rent Krk near Punat" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
         <div class="pin"><div class="pin__ring"><svg aria-hidden="true"><use href="#i-logo" color="#083B5C"/></svg></div></div>
         <span class="tag-b">Punat, Croatia</span>
       </div>
@@ -975,10 +993,10 @@ html select{height:56px;line-height:normal}
         <p style="margin-top:16px;max-width:36ch" data-i18n="foot.p">Guided kayak tours with snorkeling and cliff jumping, kayak rental and boat trips from Medane beach, Punat, island of Krk.</p>
       </div>
       <div><h4 data-i18n="foot.visit">Visit</h4><ul><li>Šetalište Antuna Žica-Ulivina 15</li><li>51521 Punat</li><li data-i18n="ovl.hours">Daily 09:00 to 21:00 in season</li></ul></div>
-      <div><h4 data-i18n="foot.talk">Talk to us</h4><ul><li><a href="tel:+385916006034">+385&nbsp;91&nbsp;600&nbsp;6034</a></li><li><a href="https://wa.me/385916006034" target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
+      <div><h4 data-i18n="foot.talk">Talk to us</h4><ul><li><a href="tel:+385916006034">+385&nbsp;91&nbsp;600&nbsp;6034</a></li><li><a href="https://wa.me/385916006034" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:info@kayak-krk.com">info@kayak-krk.com</a></li></ul></div>
       <div><h4 data-i18n="foot.explore">Explore</h4><ul><li><a href="#tours" data-i18n="ovl.tours">Tours</a></li><li><a href="#book" data-i18n="ovl.book">Booking</a></li><li><a href="#faq" data-i18n="ovl.faq">FAQ</a></li></ul></div>
     </div>
-    <div class="foot__bot"><span>&copy; <span id="year">2026</span> Kayak Rent Krk</span><span data-i18n="concept">Concept by Marija</span></div>
+    <div class="foot__bot"><span>&copy; <span id="year">2026</span> Kayak Rent Krk · OIB 78683979479</span><span data-i18n="concept">Concept by Marija</span></div>
   </div>
 </footer>
 
@@ -1002,119 +1020,311 @@ var WA = "385916006034";
 var T = {
 en:{
  "logo.sub":"Kayak & boat trips","nav.book":"Book a tour","nav.menu":"MENU","ovl.bernard":"Meet Bernard","ovl.tours":"Tours","ovl.yt":"Your tour","ovl.gtk":"Good to know","ovl.book":"Booking","ovl.faq":"FAQ","ovl.contact":"Contact","cta.wa":"WhatsApp Bernard","ovl.addr":"Medane beach, Punat, Krk","ovl.hours":"Daily 09:00 to 21:00 in season","concept":"Concept by Marija",
- "hero.label":"Medane beach · Punat · island of Krk","hero.t1":"Water so clear,","hero.t2":"you count the pebbles","hero.sub":"Kayak tours with Bernard","hero.txt":"Guided kayak tours from Punat with snorkeling stops and cliff jumping if you feel brave. Easy for beginners and families, or rent a kayak and paddle on your own.","hero.addr":"Punat, island of Krk · Google 4.9 from 237 reviews","hero.cta":"Book a kayak tour","hint.touch":"Tilt by touch","hint.mouse":"Move the mouse to tilt",
+ "hero.label":"Medane beach · Punat · island of Krk","hero.t1":"Water so clear,","hero.t2":"you count the pebbles","hero.sub":"Kayak tours with Bernard","hero.txt":"Guided kayak tours from Punat with snorkeling stops and cliff jumping if you feel brave. Easy for beginners and families, with sunset paddles, private tours and a boat trip around the islands.","hero.addr":"Punat, island of Krk · 4.9 / 5 from 160 reviews","hero.cta":"Book a kayak tour","hint.touch":"Tilt by touch","hint.mouse":"Move the mouse to tilt",
  "gal.label":"On the water","gal.h":"A day in the clear shallows","gal.sub":"Pebbles under the kayak, fish under the mask and cliffs for the brave. Swipe through a tour.",
  "gal.g1":"Punat, Croatia","gal.g2":"Island of Krk","gal.g3":"Cliff jumping","gal.g4":"Medane beach","gal.g5":"Kayak Rent Krk",
- "gal.c1":"Shallow, crystal clear water","gal.c2":"Snorkeling stops along the coast","gal.c3":"Cliffs about 7 to 8 m and 13 to 15 m, optional","gal.c4":"Easy paddling for families with kids","gal.c5":"Kayak rental with good equipment",
- "bern.label":"Your guide","bern.h":"Meet Bernard","bern.p1":"Bernard is a local guide here on Krk. He speaks fluent German and English, keeps the day flexible and is genuinely helpful, whether it is your first time in a kayak or you came for the big jump.","bern.p2":"He shows you how to paddle, takes you to the snorkeling spots and out to the cliffs. Jump if you want to, cheer from the kayak if you don't.","bern.c1":"Local guide","bern.rev":"Google reviews","bern.cta":"Message Bernard",
- "tours.label":"Tours","tours.h":"Choose your paddle","tours.sub":"Four ways onto the water, all starting from Medane beach in Punat.",
- "tab1":"Beginner 3 h","tab2":"Snorkel + cliff jump","tab3":"Family tour","tab4":"Kayak rental","meta.guided":"Guided by Bernard · from","meta.self":"Self-guided · from",
- "p1.tag":"About 3 hours","p1.h":"Beginner package","p1.p":"Never been in a kayak? Perfect. Bernard shows you the basics on the beach, then you paddle out together at an easy pace, with time to swim and snorkel.","p1.l1":"About 3 hours on the water","p1.l2":"Paddling basics before you start","p1.l3":"Snorkeling in the clear shallows",
- "p2.tag":"Guided · optional jumps","p2.h":"Snorkel + cliff jump tour","p2.p":"The one people talk about. Paddle along the coast, snorkel in crystal clear water, then reach the cliffs. Jump from about 7 to 8 m, or from 13 to 15 m if you dare. Or just watch, it is completely optional.","p2.l1":"Snorkeling stops along the coast","p2.l2":"Cliffs about 7 to 8 m and 13 to 15 m","p2.l3":"Cliff jumping is always optional",
- "p3.tag":"Kids welcome","p3.h":"Family tour","p3.p":"Easy and fun for kids. Bernard keeps the pace relaxed, adapts the tour to your family and finds the spots where the little ones can see the fish below.","p3.l1":"Easy for families with kids","p3.l2":"Flexible, adapted to your family","p3.l3":"Snorkeling for the curious ones",
- "p4.tag":"On your own","p4.h":"Kayak rental","p4.p":"Prefer to explore alone? Rent a kayak with good equipment and paddle the bay at your own pace. Bernard is happy to give you tips on where to go.","p4.l1":"Good equipment","p4.l2":"Your own pace, your own route","p4.l3":"Boat trips too, just ask",
- "t.book":"Book this tour","t.rent":"Ask about rental","tours.note":"Prices shown as XX € are example placeholders for this proposal. Bernard confirms current prices on WhatsApp.",
- "yt.label":"Your tour","yt.h":"How your day goes","yt.tag":"Medane beach","s1.h":"Message Bernard","s1.p":"Pick a tour, a day and how many of you are coming. The form below opens WhatsApp with everything filled in.","s2.h":"Meet at Medane beach","s2.p":"Šetalište Antuna Žica-Ulivina 15 in Punat. Bernard gets you set up with your kayak and equipment.","s3.h":"Paddle out","s3.p":"A few tips on the beach, then out onto the clear water. Beginners and kids are welcome.","s4.h":"Snorkel, jump, relax","s4.p":"Snorkel over the pebbles, jump from the cliffs if you want to, then paddle back with a smile.",
+ "gal.c1":"Shallow, crystal clear water","gal.c2":"Snorkeling stops along the coast","gal.c3":"Cliffs about 7 to 8 m and 13 to 15 m, optional","gal.c4":"Easy paddling for families with kids","gal.c5":"Sunset paddle to a secluded beach",
+ "bern.label":"Your guide","bern.h":"Meet Bernard","bern.p1":"Bernard is your personal guide on Krk. He lived in Germany for more than 20 years, speaks fluent German and English, keeps the day flexible and is genuinely helpful, whether it is your first time in a kayak or you came for the big jump.","bern.p2":"Before you start he gives a proper safety briefing, then takes you to hidden beaches, caves and snorkeling spots and out to the cliffs. Jump if you want to, cheer from the kayak if you don't.","bern.c1":"Local guide","bern.rev":"reviews","bern.cta":"Message Bernard",
+ "tours.label":"Tours","tours.h":"Choose your paddle","tours.sub":"Three guided kayak tours and a boat trip around the islands. Prices per person.",
+ "tab1":"Kayak Adventure","tab2":"Sunset Kayak","tab3":"Private tour","tab4":"Boat trip","meta.guided":"Guided by Bernard",
+ "p1.tag":"3 h · 09:00 and 16:00","p1.h":"Kayak Adventure","p1.p":"Bernard leads you along the shore to inlets and secluded beaches, past the highest cliffs of Krk and its rugged coastline. You stop to snorkel by the reefs, where you may spot sea urchins, starfish, sea cucumbers and colourful fish, and jump from the cliffs if you feel brave.","p1.l1":"3 hours, daily at 09:00 and 16:00","p1.l2":"Kayak, snorkeling gear and a safety briefing","p1.l3":"Snorkeling by the reefs: sea urchins, starfish, colourful fish",
+ "p2.tag":"2 h · daily at 18:00","p2.h":"Sunset Kayak","p2.p":"Paddle along the coast past coves to a secluded beach, then relax and watch the sun go down. On the way Bernard tells you about the history and nature of Krk, above and below the water.","p2.l1":"2 hours, daily at 18:00","p2.l2":"Stable sit-on-top double kayaks and life jackets","p2.l3":"Paddling and snorkeling instructions",
+ "p3.tag":"3 to 7 h · on request","p3.h":"Private tour","p3.p":"A tour just for your group, at your own pace. Explore the coast of Krk and its hidden coves for at least 3 hours, or make it a half or full day of paddling. The day is planned around you.","p3.l1":"3 to 7 hours, start time on request","p3.l2":"Ice cold drinks and seasonal fruit on the way","p3.l3":"Swimming, diving and optional cliff jumping",
+ "p4.tag":"About 4 h · daily at 11:00","p4.h":"Boat trip with Kapetan Nemo","p4.p":"A cruise to four beautiful stops: Plavnik, Kormat, Galun and the bays near Stara Baška. Swim in Sveti Juraj bay, watch for dolphins near Plavnik, feed the seagulls and relax on beaches you can only reach by boat, like Golden Beach.","p4.l1":"Daily 11:00 to 15:00, departure from Krk","p4.l2":"Welcome drink and a professional tour guide","p4.l3":"Swimming stops along the way",
+ "t.book":"Book this tour","tours.note":"Prices per person, as published by Kayak Rent Krk. You pay at the meeting point.",
+ "yt.label":"Your tour","yt.h":"How your day goes","yt.tag":"Medane beach","s1.h":"Message Bernard","s1.p":"Pick a tour, a day and how many of you are coming. The form below opens WhatsApp with everything filled in.","s2.h":"Meet at Medane beach","s2.p":"Šetalište Antuna Žica-Ulivina 15 in Punat. Bernard gets you set up with your kayak and equipment. You pay at the meeting point.","s3.h":"Safety first, then paddle out","s3.p":"A short safety briefing on the beach, then out onto the clear water. The kayaks are stable and easy to handle, so beginners and kids are welcome.","s4.h":"Snorkel, jump, relax","s4.p":"Snorkel over the pebbles, jump from the cliffs if you want to, then paddle back with a smile.",
  "gtk.label":"Good to know","gtk.h":"Before you paddle","gtk.lead":"A few practical things, so the day is easy. Anything else, just ask Bernard on WhatsApp.","gtk.cliffnote":"Two cliffs, about 7 to 8 m and 13 to 15 m. Jumping is optional, watching is fun too.",
- "gtk.meet":"Meeting point","gtk.meetv":"Medane beach area, Šetalište Antuna Žica-Ulivina 15, 51521 Punat","gtk.hours":"Hours","gtk.hoursv":"Open daily 09:00 to 21:00 in season","gtk.bring":"What to bring","gtk.bringv":"Swimwear, a towel, sunscreen, a hat and some water. Clothes you don't mind getting wet.","gtk.cliff":"Cliff jumping","gtk.cliffv":"Always optional. Cliffs about 7 to 8 m and 13 to 15 m. Jump, or simply watch.","gtk.kids":"Kids","gtk.kidsv":"Welcome. The tours are easy for families with kids.","gtk.weather":"Weather","gtk.weatherv":"Kayaking depends on wind and sea. Bernard tells you on WhatsApp how the day looks.","gtk.lang":"Languages","gtk.langv":"Bernard speaks fluent German and English.",
+ "gtk.meet":"Meeting point","gtk.meetv":"Medane beach area, Šetalište Antuna Žica-Ulivina 15, 51521 Punat","gtk.hours":"Hours","gtk.hoursv":"Open daily 09:00 to 21:00 in season","gtk.bring":"What to bring","gtk.bringv":"Swimwear, a towel, sunscreen, a hat and some water. Clothes you don't mind getting wet.","gtk.cliff":"Cliff jumping","gtk.cliffv":"Always optional. Cliffs about 7 to 8 m and 13 to 15 m. Jump, or simply watch.","gtk.kids":"Kids","gtk.kidsv":"Welcome. On the kayak tours children up to 10 years pay 40 €, under 5 they go free.","gtk.weather":"Weather","gtk.weatherv":"Kayaking depends on wind and sea. Bernard tells you on WhatsApp how the day looks.","gtk.lang":"Languages","gtk.langv":"Bernard speaks fluent German and English.",
  "near.label":"What's nearby","near.h":"Around Medane beach","near.sub":"Make a whole day of it on the island of Krk.","n1":"The beach right by the meeting point, for a swim before or after your tour.","n2":"The town on the bay, for a coffee, an ice cream or dinner after paddling.","n3t":"Krk town","n3":"The island's old town, a nice trip for an evening walk.","near.note":"Ask Bernard for his favourite spots on the island.",
- "book.label":"Booking","book.h":"Plan your paddle","book.sub":"Fill this in and WhatsApp opens with your message ready. No payment, no account. Bernard confirms the details.","book.sumh":"Your request",
- "f.tour":"Tour","f.t1":"Beginner","f.t1s":"about 3 h","f.t2":"Snorkel + cliff jump","f.t2s":"guided","f.t3":"Family tour","f.t3s":"kids welcome","f.t4":"Kayak rental","f.t4s":"on your own","f.t5":"Boat trip","f.t5s":"ask Bernard","f.date":"Date","f.time":"Time","f.tm1":"Morning","f.tm2":"Afternoon","f.tm3":"Sunset","f.people":"People","f.name":"Your name","f.nameph":"e.g. Anna","f.send":"Send via WhatsApp","f.fine":"Opens WhatsApp with your request prefilled. You can still edit it before sending.",
+ "book.label":"Booking","book.h":"Plan your paddle","book.sub":"Fill this in and WhatsApp opens with your message ready. No prepayment, no account. Bernard confirms the details and you pay at the meeting point.","book.sumh":"Your request",
+ "f.tour":"Tour","f.t1":"Kayak Adventure","f.t1s":"3 h · 50 €","f.t2":"Sunset Kayak","f.t2s":"2 h · 50 €","f.t3":"Private tour","f.t3s":"3 to 7 h · 70 €","f.t4":"Boat trip","f.t4s":"from 38 €","f.date":"Date","f.time":"Time","f.people":"People","f.name":"Your name","f.nameph":"e.g. Anna","f.send":"Send via WhatsApp","f.fine":"Opens WhatsApp with your request prefilled. You can still edit it before sending.",
  "faq.label":"FAQ","faq.h":"Questions before the water","faq.sub":"Anything else, just ask Bernard on WhatsApp.",
- "q1":"Do I need kayak experience?","a1":"No. The beginner package is made for first timers, and Bernard shows you the basics before you set off.","q2":"Do I have to jump from the cliffs?","a2":"Not at all. Cliff jumping is optional. The cliffs are about 7 to 8 m and 13 to 15 m high, and you can simply watch from the kayak.","q3":"Can we come with kids?","a3":"Yes. The tours are easy for families with kids. Tell Bernard their ages when you book.","q4":"Which languages does Bernard speak?","a4":"Fluent German and English, so the briefing and the jokes both land.","q5":"What about the weather?","a5":"Kayaking depends on wind and sea. If the day doesn't look right, message Bernard and he will tell you what is possible.","q6":"Do you also do boat trips?","a6":"Yes, Kayak Rent Krk also offers boat trips. Ask Bernard on WhatsApp for the details.","q7":"How do I book?","a7":"Use the form on this page or write on WhatsApp to +385 91 600 6034. Bernard confirms your tour.",
+ "q1":"Do I need kayak experience?","a1":"No. All tours are easy to moderate, and Bernard gives a safety briefing before you set off. The kayaks are stable and easy to handle, even for beginners.","q2":"Do I have to jump from the cliffs?","a2":"Not at all. Cliff jumping is optional. The cliffs are about 7 to 8 m and 13 to 15 m high, and you can simply watch from the kayak.","q3":"Can we come with kids?","a3":"Yes. Children up to 10 years pay 40 €, and children under 5 come along for free. Tell Bernard their ages when you book.","q4":"Which languages does Bernard speak?","a4":"Fluent German and English, so the briefing and the jokes both land.","q5":"What about the weather?","a5":"Kayaking depends on wind and sea. If the day doesn't look right, message Bernard and he will tell you what is possible.","q6":"Do you also do boat trips?","a6":"Yes. The boat trip with Kapetan Nemo leaves Krk daily at 11:00 and is back around 15:00, with stops at Plavnik, Kormat, Galun and the bays near Stara Baška. 4 Islands from 38 €, Rab and 4 Islands from 50 €.","q7":"How do I book?","a7":"Use the form on this page, write on WhatsApp to +385 91 600 6034 or email info@kayak-krk.com. Bernard confirms your tour.",
  "c.label":"Contact","c.h":"Find us at Medane beach","c.island":"island of Krk","c.wa":"Phone and WhatsApp","c.daily":"Every day, in season","c.guide":"Your guide","c.map":"Open in Maps",
- "foot.p":"Guided kayak tours with snorkeling and cliff jumping, kayak rental and boat trips from Medane beach, Punat, island of Krk.","foot.visit":"Visit","foot.talk":"Talk to us","foot.explore":"Explore","fab":"Book","bar.s":"Your request","bar.btn":"Send",
- "sum.beginner":"Beginner tour","sum.cliff":"Cliff jump tour","sum.family":"Family tour","sum.rent":"Kayak rental","sum.boat":"Boat trip",
- "fb.beginner":"Kayak for beginners","fb.cliff":"Kayak + cliff jump","fb.family":"Family kayak tour","fb.rent":"Kayak rental","fb.boat":"Boat trip",
- "p.1":"1 person","p.n":"{n} people","tm.morning":"morning","tm.afternoon":"afternoon","tm.sunset":"sunset","d.pick":"Pick a date","d.tom":"Tomorrow","d.today":"Today",
- "wa.msg":"Hi Bernard! I would like to book: {tour}. Date: {date}, {time}. People: {people}. Name: {name}. Is that possible?"
+ "foot.p":"Guided kayak tours with snorkeling and cliff jumping, sunset paddles, private tours and boat trips from Medane beach, Punat, island of Krk.","foot.visit":"Visit","foot.talk":"Talk to us","foot.explore":"Explore","fab":"Book","bar.s":"Your request","bar.btn":"Send","sum.boat":"Boat trip","fb.boat":"Boat trip",
+ "p.1":"1 person","p.n":"{n} people","d.pick":"Pick a date","d.tom":"Tomorrow","d.today":"Today",
+ "wa.msg":"Hi Bernard! I would like to book: {tour}. Date: {date}, {time}. People: {people}. Name: {name}. Is that possible?",
+ "meta.boat":"Departs from Krk town",
+ "pr.adult":"Adults",
+ "pr.kid10":"Children up to 10 years",
+ "pr.kid5":"Children up to 5 years",
+ "pr.free":"free",
+ "pr.isl":"4 Islands, adults",
+ "pr.islk":"4 Islands, children 4 to 11",
+ "pr.rab":"Rab and 4 Islands, adults",
+ "pr.rabk":"Rab and 4 Islands, children 4 to 11",
+ "pr.inf":"Children 1 to 3 years",
+ "p1.l4":"Optional cliff jumping, photos by your guide",
+ "p1.l5":"Easy to moderate, up to 50 paddlers",
+ "p2.l4":"Photos of your paddle taken by your guide",
+ "p2.l5":"Optional cliff jump, easy to moderate",
+ "p3.l4":"Photos of your dives and jumps",
+ "p3.l5":"Up to 12 paddlers, bigger groups on request",
+ "p4.l4":"Food and drinks not included",
+ "p4.l5":"From 10 to 120 guests",
+ "t.boat":"Book the boat trip",
+ "gtk.times":"Tour times",
+ "gtk.timesv":"Kayak Adventure 09:00 and 16:00, Sunset Kayak 18:00, boat trip 11:00, private tours on request.",
+ "gtk.pay":"Payment",
+ "gtk.payv":"At the meeting point.",
+ "gtk.level":"Level",
+ "gtk.levelv":"Easy to moderate. Stable kayaks and life jackets, suitable for beginners.",
+ "n4t":"Stara Baška",
+ "n4":"Bays and beaches you can only reach by boat. The boat trip passes right by.",
+ "f.tmM":"morning",
+ "f.tmB":"boat trip",
+ "f.tmA":"afternoon",
+ "f.tmS":"sunset",
+ "f.tmF":"Flexible",
+ "f.tmFs":"on request",
+ "tm.0900":"09:00",
+ "tm.1100":"11:00",
+ "tm.1600":"16:00",
+ "tm.1800":"18:00",
+ "tm.flex":"flexible time",
+ "sum.adventure":"Kayak Adventure",
+ "sum.sunset":"Sunset Kayak",
+ "sum.private":"Private tour",
+ "fb.adventure":"Kayak Adventure",
+ "fb.sunset":"Sunset kayak",
+ "fb.private":"Private kayak tour",
+ "q8":"How do I pay?",
+ "a8":"You pay directly at the meeting point.",
+ "q9":"What is included?",
+ "a9":"Kayaks and life jackets, a safety briefing and photos taken by your guide. The Kayak Adventure includes snorkeling gear, and private tours add ice cold drinks and seasonal fruit.",
+ "q10":"How big are the groups?",
+ "a10":"The Kayak Adventure and Sunset Kayak take up to 50 paddlers. Private tours are just for your group. The boat trip runs with 10 to 120 guests.",
+ "c.mail":"Email",
+ "c.tours":"Kayak tours",
+ "c.boat":"Boat trip"
 },
 de:{
  "logo.sub":"Kajak & Bootstouren","nav.book":"Tour buchen","nav.menu":"MENÜ","ovl.bernard":"Bernard kennenlernen","ovl.tours":"Touren","ovl.yt":"Deine Tour","ovl.gtk":"Gut zu wissen","ovl.book":"Buchung","ovl.faq":"FAQ","ovl.contact":"Kontakt","cta.wa":"Bernard auf WhatsApp","ovl.addr":"Strand Medane, Punat, Krk","ovl.hours":"Täglich 09:00 bis 21:00 in der Saison","concept":"Konzept: Marija",
- "hero.label":"Strand Medane · Punat · Insel Krk","hero.t1":"Wasser so klar,","hero.t2":"du zählst die Kiesel","hero.sub":"Kajaktouren mit Bernard","hero.txt":"Geführte Kajaktouren ab Punat mit Schnorchelstopps und Klippenspringen, wenn du dich traust. Einfach für Anfänger und Familien, oder miete ein Kajak und paddle auf eigene Faust.","hero.addr":"Punat, Insel Krk · Google 4,9 aus 237 Bewertungen","hero.cta":"Kajaktour buchen","hint.touch":"Berühren zum Neigen","hint.mouse":"Maus bewegen zum Neigen",
+ "hero.label":"Strand Medane · Punat · Insel Krk","hero.t1":"Wasser so klar,","hero.t2":"du zählst die Kiesel","hero.sub":"Kajaktouren mit Bernard","hero.txt":"Geführte Kajaktouren ab Punat mit Schnorchelstopps und Klippenspringen, wenn du dich traust. Einfach für Anfänger und Familien, dazu Touren zum Sonnenuntergang, private Touren und eine Bootsfahrt zu den Inseln.","hero.addr":"Punat, Insel Krk · 4,9 / 5 aus 160 Bewertungen","hero.cta":"Kajaktour buchen","hint.touch":"Berühren zum Neigen","hint.mouse":"Maus bewegen zum Neigen",
  "gal.label":"Auf dem Wasser","gal.h":"Ein Tag im klaren Flachwasser","gal.sub":"Kiesel unter dem Kajak, Fische unter der Maske und Klippen für Mutige. Wisch dich durch eine Tour.",
  "gal.g1":"Punat, Kroatien","gal.g2":"Insel Krk","gal.g3":"Klippenspringen","gal.g4":"Strand Medane","gal.g5":"Kayak Rent Krk",
- "gal.c1":"Flaches, kristallklares Wasser","gal.c2":"Schnorchelstopps entlang der Küste","gal.c3":"Klippen von etwa 7 bis 8 m und 13 bis 15 m, freiwillig","gal.c4":"Entspanntes Paddeln für Familien mit Kindern","gal.c5":"Kajakverleih mit guter Ausrüstung",
- "bern.label":"Dein Guide","bern.h":"Das ist Bernard","bern.p1":"Bernard ist ein einheimischer Guide hier auf Krk. Er spricht fließend Deutsch und Englisch, bleibt flexibel und hilft gern, egal ob du zum ersten Mal im Kajak sitzt oder für den großen Sprung gekommen bist.","bern.p2":"Er zeigt dir, wie man paddelt, bringt dich zu den Schnorchelplätzen und hinaus zu den Klippen. Spring, wenn du willst, oder feuere die anderen vom Kajak aus an.","bern.c1":"Einheimischer Guide","bern.rev":"Google-Bewertungen","bern.cta":"Bernard schreiben",
- "tours.label":"Touren","tours.h":"Wähle deine Paddeltour","tours.sub":"Vier Wege aufs Wasser, alle ab dem Strand Medane in Punat.",
- "tab1":"Anfänger 3 Std.","tab2":"Schnorcheln + Klippensprung","tab3":"Familientour","tab4":"Kajakverleih","meta.guided":"Geführt von Bernard · ab","meta.self":"Auf eigene Faust · ab",
- "p1.tag":"Etwa 3 Stunden","p1.h":"Anfängerpaket","p1.p":"Noch nie im Kajak gesessen? Perfekt. Bernard erklärt dir am Strand die Grundlagen, dann paddelt ihr gemeinsam in ruhigem Tempo los, mit Zeit zum Schwimmen und Schnorcheln.","p1.l1":"Etwa 3 Stunden auf dem Wasser","p1.l2":"Paddel-Grundlagen vor dem Start","p1.l3":"Schnorcheln im klaren Flachwasser",
- "p2.tag":"Geführt · Sprünge freiwillig","p2.h":"Schnorchel- und Klippensprung-Tour","p2.p":"Die Tour, von der alle erzählen. Paddle die Küste entlang, schnorchle in kristallklarem Wasser und erreiche die Klippen. Spring aus etwa 7 bis 8 m, oder aus 13 bis 15 m, wenn du dich traust. Oder schau einfach zu, es ist völlig freiwillig.","p2.l1":"Schnorchelstopps entlang der Küste","p2.l2":"Klippen von etwa 7 bis 8 m und 13 bis 15 m","p2.l3":"Klippenspringen ist immer freiwillig",
- "p3.tag":"Kinder willkommen","p3.h":"Familientour","p3.p":"Einfach und lustig für Kinder. Bernard hält das Tempo entspannt, passt die Tour an eure Familie an und findet die Stellen, an denen die Kleinen die Fische unter sich sehen.","p3.l1":"Einfach für Familien mit Kindern","p3.l2":"Flexibel, an eure Familie angepasst","p3.l3":"Schnorcheln für die Neugierigen",
- "p4.tag":"Auf eigene Faust","p4.h":"Kajakverleih","p4.p":"Lieber allein unterwegs? Miete ein Kajak mit guter Ausrüstung und paddle in deinem eigenen Tempo durch die Bucht. Bernard gibt dir gern Tipps, wohin es sich lohnt.","p4.l1":"Gute Ausrüstung","p4.l2":"Dein Tempo, deine Route","p4.l3":"Auch Bootstouren, einfach fragen",
- "t.book":"Diese Tour buchen","t.rent":"Nach Verleih fragen","tours.note":"Preise als XX € sind Beispiel-Platzhalter für dieses Konzept. Bernard bestätigt die aktuellen Preise per WhatsApp.",
- "yt.label":"Deine Tour","yt.h":"So läuft dein Tag","yt.tag":"Strand Medane","s1.h":"Bernard schreiben","s1.p":"Wähle eine Tour, einen Tag und wie viele ihr seid. Das Formular unten öffnet WhatsApp mit allem ausgefüllt.","s2.h":"Treffpunkt Strand Medane","s2.p":"Šetalište Antuna Žica-Ulivina 15 in Punat. Bernard stattet dich mit Kajak und Ausrüstung aus.","s3.h":"Hinauspaddeln","s3.p":"Ein paar Tipps am Strand, dann raus aufs klare Wasser. Anfänger und Kinder sind willkommen.","s4.h":"Schnorcheln, springen, genießen","s4.p":"Schnorchle über den Kieseln, spring von den Klippen, wenn du willst, und paddle mit einem Lächeln zurück.",
+ "gal.c1":"Flaches, kristallklares Wasser","gal.c2":"Schnorchelstopps entlang der Küste","gal.c3":"Klippen von etwa 7 bis 8 m und 13 bis 15 m, freiwillig","gal.c4":"Entspanntes Paddeln für Familien mit Kindern","gal.c5":"Zum Sonnenuntergang an einen einsamen Strand",
+ "bern.label":"Dein Guide","bern.h":"Das ist Bernard","bern.p1":"Bernard ist dein persönlicher Guide auf Krk. Er hat über 20 Jahre in Deutschland gelebt, spricht fließend Deutsch und Englisch, bleibt flexibel und hilft gern, egal ob du zum ersten Mal im Kajak sitzt oder für den großen Sprung gekommen bist.","bern.p2":"Vor dem Start gibt es eine gründliche Sicherheitseinweisung, dann geht es zu versteckten Stränden, Höhlen und Schnorchelplätzen und hinaus zu den Klippen. Spring, wenn du willst, oder feuere die anderen vom Kajak aus an.","bern.c1":"Einheimischer Guide","bern.rev":"Bewertungen","bern.cta":"Bernard schreiben",
+ "tours.label":"Touren","tours.h":"Wähle deine Paddeltour","tours.sub":"Drei geführte Kajaktouren und eine Bootsfahrt zu den Inseln. Preise pro Person.",
+ "tab1":"Kajak-Abenteuer","tab2":"Sonnenuntergang","tab3":"Private Tour","tab4":"Bootsfahrt","meta.guided":"Geführt von Bernard",
+ "p1.tag":"3 Std. · 09:00 und 16:00","p1.h":"Kajak-Abenteuer","p1.p":"Bernard führt dich die Küste entlang zu Buchten und einsamen Stränden, vorbei an den höchsten Klippen von Krk und der wilden Felsküste. An den Riffen wird geschnorchelt, mit Seeigeln, Seesternen, Seegurken und bunten Fischen, und wer sich traut, springt von den Klippen.","p1.l1":"3 Stunden, täglich um 09:00 und 16:00","p1.l2":"Kajak, Schnorchelausrüstung und Sicherheitseinweisung","p1.l3":"Schnorcheln an den Riffen: Seeigel, Seesterne, bunte Fische",
+ "p2.tag":"2 Std. · täglich um 18:00","p2.h":"Kajak bei Sonnenuntergang","p2.p":"Paddle an der Küste entlang, vorbei an kleinen Buchten, zu einem einsamen Strand und genieße dort den Sonnenuntergang. Unterwegs erzählt Bernard von der Geschichte und Natur von Krk, über und unter Wasser.","p2.l1":"2 Stunden, täglich um 18:00","p2.l2":"Stabile Sit-on-top-Doppelkajaks und Schwimmwesten","p2.l3":"Einweisung ins Paddeln und Schnorcheln",
+ "p3.tag":"3 bis 7 Std. · auf Anfrage","p3.h":"Private Tour","p3.p":"Eine Tour nur für deine Gruppe, in deinem Tempo. Entdecke die Küste von Krk und ihre versteckten Buchten für mindestens 3 Stunden, oder mach einen halben oder ganzen Paddeltag daraus. Der Tag wird ganz nach euch geplant.","p3.l1":"3 bis 7 Stunden, Startzeit auf Anfrage","p3.l2":"Eiskalte Getränke und Obst der Saison unterwegs","p3.l3":"Schwimmen, Tauchen und Klippensprung nach Lust",
+ "p4.tag":"Etwa 4 Std. · täglich um 11:00","p4.h":"Bootsfahrt mit Kapetan Nemo","p4.p":"Eine Fahrt zu vier traumhaften Stopps: Plavnik, Kormat, Galun und die Buchten bei Stara Baška. Bade in der Bucht Sveti Juraj, halte Ausschau nach Delfinen bei Plavnik, füttere die Möwen und entspanne an Stränden, die man nur mit dem Boot erreicht, wie dem Golden Beach.","p4.l1":"Täglich 11:00 bis 15:00, Abfahrt in Krk","p4.l2":"Begrüßungsgetränk und professioneller Reiseleiter","p4.l3":"Badestopps unterwegs",
+ "t.book":"Diese Tour buchen","tours.note":"Preise pro Person, wie von Kayak Rent Krk veröffentlicht. Bezahlt wird am Treffpunkt.",
+ "yt.label":"Deine Tour","yt.h":"So läuft dein Tag","yt.tag":"Strand Medane","s1.h":"Bernard schreiben","s1.p":"Wähle eine Tour, einen Tag und wie viele ihr seid. Das Formular unten öffnet WhatsApp mit allem ausgefüllt.","s2.h":"Treffpunkt Strand Medane","s2.p":"Šetalište Antuna Žica-Ulivina 15 in Punat. Bernard stattet dich mit Kajak und Ausrüstung aus. Bezahlt wird am Treffpunkt.","s3.h":"Erst Sicherheit, dann los","s3.p":"Eine kurze Sicherheitseinweisung am Strand, dann raus aufs klare Wasser. Die Kajaks sind stabil und leicht zu steuern, Anfänger und Kinder sind willkommen.","s4.h":"Schnorcheln, springen, genießen","s4.p":"Schnorchle über den Kieseln, spring von den Klippen, wenn du willst, und paddle mit einem Lächeln zurück.",
  "gtk.label":"Gut zu wissen","gtk.h":"Bevor du paddelst","gtk.lead":"Ein paar praktische Dinge, damit der Tag entspannt wird. Alles andere einfach Bernard auf WhatsApp fragen.","gtk.cliffnote":"Zwei Klippen, etwa 7 bis 8 m und 13 bis 15 m. Springen ist freiwillig, Zuschauen macht auch Spaß.",
- "gtk.meet":"Treffpunkt","gtk.meetv":"Bereich Strand Medane, Šetalište Antuna Žica-Ulivina 15, 51521 Punat","gtk.hours":"Öffnungszeiten","gtk.hoursv":"In der Saison täglich 09:00 bis 21:00","gtk.bring":"Mitbringen","gtk.bringv":"Badesachen, Handtuch, Sonnencreme, Hut und etwas Wasser. Kleidung, die nass werden darf.","gtk.cliff":"Klippenspringen","gtk.cliffv":"Immer freiwillig. Klippen von etwa 7 bis 8 m und 13 bis 15 m. Spring, oder schau einfach zu.","gtk.kids":"Kinder","gtk.kidsv":"Willkommen. Die Touren sind einfach für Familien mit Kindern.","gtk.weather":"Wetter","gtk.weatherv":"Kajakfahren hängt von Wind und Meer ab. Bernard sagt dir per WhatsApp, wie der Tag aussieht.","gtk.lang":"Sprachen","gtk.langv":"Bernard spricht fließend Deutsch und Englisch.",
+ "gtk.meet":"Treffpunkt","gtk.meetv":"Bereich Strand Medane, Šetalište Antuna Žica-Ulivina 15, 51521 Punat","gtk.hours":"Öffnungszeiten","gtk.hoursv":"In der Saison täglich 09:00 bis 21:00","gtk.bring":"Mitbringen","gtk.bringv":"Badesachen, Handtuch, Sonnencreme, Hut und etwas Wasser. Kleidung, die nass werden darf.","gtk.cliff":"Klippenspringen","gtk.cliffv":"Immer freiwillig. Klippen von etwa 7 bis 8 m und 13 bis 15 m. Spring, oder schau einfach zu.","gtk.kids":"Kinder","gtk.kidsv":"Willkommen. Bei den Kajaktouren zahlen Kinder bis 10 Jahre 40 €, unter 5 Jahren fahren sie gratis mit.","gtk.weather":"Wetter","gtk.weatherv":"Kajakfahren hängt von Wind und Meer ab. Bernard sagt dir per WhatsApp, wie der Tag aussieht.","gtk.lang":"Sprachen","gtk.langv":"Bernard spricht fließend Deutsch und Englisch.",
  "near.label":"In der Nähe","near.h":"Rund um den Strand Medane","near.sub":"Mach einen ganzen Tag daraus, auf der Insel Krk.","n1":"Der Strand direkt am Treffpunkt, zum Schwimmen vor oder nach der Tour.","n2":"Der Ort an der Bucht, für einen Kaffee, ein Eis oder ein Abendessen nach dem Paddeln.","n3t":"Stadt Krk","n3":"Die Altstadt der Insel, schön für einen Abendspaziergang.","near.note":"Frag Bernard nach seinen Lieblingsorten auf der Insel.",
- "book.label":"Buchung","book.h":"Plane deine Tour","book.sub":"Ausfüllen, und WhatsApp öffnet sich mit fertiger Nachricht. Keine Zahlung, kein Konto. Bernard bestätigt die Details.","book.sumh":"Deine Anfrage",
- "f.tour":"Tour","f.t1":"Anfänger","f.t1s":"etwa 3 Std.","f.t2":"Schnorcheln + Klippe","f.t2s":"geführt","f.t3":"Familientour","f.t3s":"Kinder willkommen","f.t4":"Kajakverleih","f.t4s":"auf eigene Faust","f.t5":"Bootstour","f.t5s":"Bernard fragen","f.date":"Datum","f.time":"Uhrzeit","f.tm1":"Morgens","f.tm2":"Nachmittags","f.tm3":"Sonnenuntergang","f.people":"Personen","f.name":"Dein Name","f.nameph":"z. B. Anna","f.send":"Per WhatsApp senden","f.fine":"Öffnet WhatsApp mit deiner vorausgefüllten Anfrage. Du kannst sie vor dem Senden noch ändern.",
+ "book.label":"Buchung","book.h":"Plane deine Tour","book.sub":"Ausfüllen, und WhatsApp öffnet sich mit fertiger Nachricht. Keine Vorauszahlung, kein Konto. Bernard bestätigt die Details, bezahlt wird am Treffpunkt.","book.sumh":"Deine Anfrage",
+ "f.tour":"Tour","f.t1":"Kajak-Abenteuer","f.t1s":"3 Std. · 50 €","f.t2":"Sonnenuntergang","f.t2s":"2 Std. · 50 €","f.t3":"Private Tour","f.t3s":"3 bis 7 Std. · 70 €","f.t4":"Bootsfahrt","f.t4s":"ab 38 €","f.date":"Datum","f.time":"Uhrzeit","f.people":"Personen","f.name":"Dein Name","f.nameph":"z. B. Anna","f.send":"Per WhatsApp senden","f.fine":"Öffnet WhatsApp mit deiner vorausgefüllten Anfrage. Du kannst sie vor dem Senden noch ändern.",
  "faq.label":"FAQ","faq.h":"Fragen vor dem Wasser","faq.sub":"Alles andere einfach Bernard auf WhatsApp fragen.",
- "q1":"Brauche ich Kajak-Erfahrung?","a1":"Nein. Das Anfängerpaket ist für Neulinge gemacht, und Bernard zeigt dir die Grundlagen, bevor es losgeht.","q2":"Muss ich von den Klippen springen?","a2":"Überhaupt nicht. Klippenspringen ist freiwillig. Die Klippen sind etwa 7 bis 8 m und 13 bis 15 m hoch, und du kannst auch einfach vom Kajak aus zuschauen.","q3":"Können wir mit Kindern kommen?","a3":"Ja. Die Touren sind einfach für Familien mit Kindern. Sag Bernard bei der Buchung, wie alt sie sind.","q4":"Welche Sprachen spricht Bernard?","a4":"Fließend Deutsch und Englisch, da kommen die Einweisung und die Witze an.","q5":"Und das Wetter?","a5":"Kajakfahren hängt von Wind und Meer ab. Wenn der Tag nicht passt, schreib Bernard, und er sagt dir, was möglich ist.","q6":"Gibt es auch Bootstouren?","a6":"Ja, Kayak Rent Krk bietet auch Bootstouren an. Frag Bernard auf WhatsApp nach den Details.","q7":"Wie buche ich?","a7":"Über das Formular auf dieser Seite oder per WhatsApp an +385 91 600 6034. Bernard bestätigt deine Tour.",
+ "q1":"Brauche ich Kajak-Erfahrung?","a1":"Nein. Alle Touren sind leicht bis mittel, und Bernard gibt vor dem Start eine Sicherheitseinweisung. Die Kajaks sind stabil und auch für Anfänger leicht zu steuern.","q2":"Muss ich von den Klippen springen?","a2":"Überhaupt nicht. Klippenspringen ist freiwillig. Die Klippen sind etwa 7 bis 8 m und 13 bis 15 m hoch, und du kannst auch einfach vom Kajak aus zuschauen.","q3":"Können wir mit Kindern kommen?","a3":"Ja. Kinder bis 10 Jahre zahlen 40 €, Kinder unter 5 Jahren fahren gratis mit. Sag Bernard bei der Buchung, wie alt sie sind.","q4":"Welche Sprachen spricht Bernard?","a4":"Fließend Deutsch und Englisch, da kommen die Einweisung und die Witze an.","q5":"Und das Wetter?","a5":"Kajakfahren hängt von Wind und Meer ab. Wenn der Tag nicht passt, schreib Bernard, und er sagt dir, was möglich ist.","q6":"Gibt es auch Bootstouren?","a6":"Ja. Die Bootsfahrt mit Kapetan Nemo startet täglich um 11:00 in Krk und ist gegen 15:00 zurück, mit Stopps bei Plavnik, Kormat, Galun und den Buchten bei Stara Baška. 4 Inseln ab 38 €, Rab und 4 Inseln ab 50 €.","q7":"Wie buche ich?","a7":"Über das Formular auf dieser Seite, per WhatsApp an +385 91 600 6034 oder per E-Mail an info@kayak-krk.com. Bernard bestätigt deine Tour.",
  "c.label":"Kontakt","c.h":"Du findest uns am Strand Medane","c.island":"Insel Krk","c.wa":"Telefon und WhatsApp","c.daily":"Jeden Tag, in der Saison","c.guide":"Dein Guide","c.map":"In Karten öffnen",
- "foot.p":"Geführte Kajaktouren mit Schnorcheln und Klippenspringen, Kajakverleih und Bootstouren ab dem Strand Medane, Punat, Insel Krk.","foot.visit":"Besuch","foot.talk":"Kontakt","foot.explore":"Entdecken","fab":"Buchen","bar.s":"Deine Anfrage","bar.btn":"Senden",
- "sum.beginner":"Anfängertour","sum.cliff":"Klippensprung-Tour","sum.family":"Familientour","sum.rent":"Kajakverleih","sum.boat":"Bootstour",
- "fb.beginner":"Kajak für Anfänger","fb.cliff":"Kajak + Klippensprung","fb.family":"Familien-Kajaktour","fb.rent":"Kajakverleih","fb.boat":"Bootstour",
- "p.1":"1 Person","p.n":"{n} Personen","tm.morning":"morgens","tm.afternoon":"nachmittags","tm.sunset":"zum Sonnenuntergang","d.pick":"Datum wählen","d.tom":"Morgen","d.today":"Heute",
- "wa.msg":"Hallo Bernard! Ich möchte buchen: {tour}. Datum: {date}, {time}. Personen: {people}. Name: {name}. Geht das?"
+ "foot.p":"Geführte Kajaktouren mit Schnorcheln und Klippenspringen, Touren zum Sonnenuntergang, private Touren und Bootsfahrten ab dem Strand Medane, Punat, Insel Krk.","foot.visit":"Besuch","foot.talk":"Kontakt","foot.explore":"Entdecken","fab":"Buchen","bar.s":"Deine Anfrage","bar.btn":"Senden","sum.boat":"Bootsfahrt","fb.boat":"Bootsfahrt",
+ "p.1":"1 Person","p.n":"{n} Personen","d.pick":"Datum wählen","d.tom":"Morgen","d.today":"Heute",
+ "wa.msg":"Hallo Bernard! Ich möchte buchen: {tour}. Datum: {date}, {time}. Personen: {people}. Name: {name}. Geht das?",
+ "meta.boat":"Abfahrt in der Stadt Krk",
+ "pr.adult":"Erwachsene",
+ "pr.kid10":"Kinder bis 10 Jahre",
+ "pr.kid5":"Kinder bis 5 Jahre",
+ "pr.free":"gratis",
+ "pr.isl":"4 Inseln, Erwachsene",
+ "pr.islk":"4 Inseln, Kinder 4 bis 11",
+ "pr.rab":"Rab und 4 Inseln, Erwachsene",
+ "pr.rabk":"Rab und 4 Inseln, Kinder 4 bis 11",
+ "pr.inf":"Kinder 1 bis 3 Jahre",
+ "p1.l4":"Klippensprung freiwillig, Fotos von deinem Guide",
+ "p1.l5":"Leicht bis mittel, bis zu 50 Paddler",
+ "p2.l4":"Fotos deiner Tour vom Guide",
+ "p2.l5":"Klippensprung freiwillig, leicht bis mittel",
+ "p3.l4":"Fotos von deinen Tauchgängen und Sprüngen",
+ "p3.l5":"Bis zu 12 Paddler, größere Gruppen auf Anfrage",
+ "p4.l4":"Essen und Getränke nicht inklusive",
+ "p4.l5":"Von 10 bis 120 Gäste",
+ "t.boat":"Bootsfahrt buchen",
+ "gtk.times":"Tourzeiten",
+ "gtk.timesv":"Kajak-Abenteuer 09:00 und 16:00, Sonnenuntergang 18:00, Bootsfahrt 11:00, private Touren auf Anfrage.",
+ "gtk.pay":"Bezahlung",
+ "gtk.payv":"Am Treffpunkt.",
+ "gtk.level":"Schwierigkeit",
+ "gtk.levelv":"Leicht bis mittel. Stabile Kajaks und Schwimmwesten, gut für Anfänger.",
+ "n4t":"Stara Baška",
+ "n4":"Buchten und Strände, die man nur mit dem Boot erreicht. Die Bootsfahrt kommt direkt vorbei.",
+ "f.tmM":"morgens",
+ "f.tmB":"Bootsfahrt",
+ "f.tmA":"nachmittags",
+ "f.tmS":"Sonnenuntergang",
+ "f.tmF":"Flexibel",
+ "f.tmFs":"auf Anfrage",
+ "tm.flex":"Uhrzeit flexibel",
+ "sum.adventure":"Kajak-Abenteuer",
+ "sum.sunset":"Kajak bei Sonnenuntergang",
+ "sum.private":"Private Tour",
+ "fb.adventure":"Kajak-Abenteuer",
+ "fb.sunset":"Kajak bei Sonnenuntergang",
+ "fb.private":"Private Kajaktour",
+ "q8":"Wie bezahle ich?",
+ "a8":"Bezahlt wird direkt am Treffpunkt.",
+ "q9":"Was ist inklusive?",
+ "a9":"Kajaks und Schwimmwesten, eine Sicherheitseinweisung und Fotos von deinem Guide. Beim Kajak-Abenteuer ist die Schnorchelausrüstung dabei, bei privaten Touren gibt es eiskalte Getränke und Obst der Saison.",
+ "q10":"Wie groß sind die Gruppen?",
+ "a10":"Kajak-Abenteuer und Sonnenuntergangstour nehmen bis zu 50 Paddler mit. Private Touren sind nur für deine Gruppe. Die Bootsfahrt findet mit 10 bis 120 Gästen statt.",
+ "c.mail":"E-Mail",
+ "c.tours":"Kajaktouren",
+ "c.boat":"Bootsfahrt"
 },
 it:{
  "logo.sub":"Kayak & gite in barca","nav.book":"Prenota un tour","nav.menu":"MENU","ovl.bernard":"Conosci Bernard","ovl.tours":"Tour","ovl.yt":"Il tuo tour","ovl.gtk":"Buono a sapersi","ovl.book":"Prenotazione","ovl.faq":"FAQ","ovl.contact":"Contatti","cta.wa":"Scrivi a Bernard","ovl.addr":"Spiaggia Medane, Punat, Krk","ovl.hours":"Ogni giorno 09:00 alle 21:00 in stagione","concept":"Concept di Marija",
- "hero.label":"Spiaggia Medane · Punat · isola di Krk","hero.t1":"Acqua così limpida,","hero.t2":"che conti i sassolini","hero.sub":"Tour in kayak con Bernard","hero.txt":"Tour guidati in kayak da Punat con soste snorkeling e tuffi dagli scogli, se hai coraggio. Facili per principianti e famiglie, oppure noleggia un kayak e pagaia da solo.","hero.addr":"Punat, isola di Krk · Google 4,9 da 237 recensioni","hero.cta":"Prenota un tour in kayak","hint.touch":"Tocca per inclinare","hint.mouse":"Muovi il mouse per inclinare",
+ "hero.label":"Spiaggia Medane · Punat · isola di Krk","hero.t1":"Acqua così limpida,","hero.t2":"che conti i sassolini","hero.sub":"Tour in kayak con Bernard","hero.txt":"Tour guidati in kayak da Punat con soste snorkeling e tuffi dagli scogli, se hai coraggio. Facili per principianti e famiglie, con uscite al tramonto, tour privati e una gita in barca tra le isole.","hero.addr":"Punat, isola di Krk · 4,9 / 5 da 160 recensioni","hero.cta":"Prenota un tour in kayak","hint.touch":"Tocca per inclinare","hint.mouse":"Muovi il mouse per inclinare",
  "gal.label":"Sull'acqua","gal.h":"Una giornata nell'acqua limpida","gal.sub":"Sassolini sotto il kayak, pesci sotto la maschera e scogliere per i coraggiosi. Sfoglia un tour.",
  "gal.g1":"Punat, Croazia","gal.g2":"Isola di Krk","gal.g3":"Tuffi dagli scogli","gal.g4":"Spiaggia Medane","gal.g5":"Kayak Rent Krk",
- "gal.c1":"Acqua bassa e cristallina","gal.c2":"Soste snorkeling lungo la costa","gal.c3":"Scogliere di circa 7 a 8 m e 13 a 15 m, facoltative","gal.c4":"Pagaiare facile per famiglie con bambini","gal.c5":"Noleggio kayak con buona attrezzatura",
- "bern.label":"La tua guida","bern.h":"Ecco Bernard","bern.p1":"Bernard è una guida locale qui a Krk. Parla fluentemente tedesco e inglese, è flessibile e sempre disponibile, che sia la tua prima volta in kayak o che tu sia venuto per il grande tuffo.","bern.p2":"Ti insegna a pagaiare, ti porta nei punti snorkeling e fino alle scogliere. Tuffati se vuoi, oppure fai il tifo dal kayak.","bern.c1":"Guida locale","bern.rev":"recensioni Google","bern.cta":"Scrivi a Bernard",
- "tours.label":"Tour","tours.h":"Scegli la tua pagaiata","tours.sub":"Quattro modi per andare in acqua, tutti dalla spiaggia Medane a Punat.",
- "tab1":"Principianti 3 h","tab2":"Snorkeling + tuffi","tab3":"Tour famiglie","tab4":"Noleggio kayak","meta.guided":"Con Bernard · da","meta.self":"In autonomia · da",
- "p1.tag":"Circa 3 ore","p1.h":"Pacchetto principianti","p1.p":"Mai salito su un kayak? Perfetto. Bernard ti spiega le basi in spiaggia, poi uscite insieme con calma, con il tempo per nuotare e fare snorkeling.","p1.l1":"Circa 3 ore in acqua","p1.l2":"Le basi della pagaia prima di partire","p1.l3":"Snorkeling nell'acqua limpida",
- "p2.tag":"Guidato · tuffi facoltativi","p2.h":"Tour snorkeling + tuffi","p2.p":"Il tour di cui tutti parlano. Pagaia lungo la costa, fai snorkeling in acqua cristallina e arriva alle scogliere. Tuffati da circa 7 a 8 m, o da 13 a 15 m se osi. Oppure guarda e basta, è del tutto facoltativo.","p2.l1":"Soste snorkeling lungo la costa","p2.l2":"Scogliere di circa 7 a 8 m e 13 a 15 m","p2.l3":"I tuffi sono sempre facoltativi",
- "p3.tag":"Bambini benvenuti","p3.h":"Tour per famiglie","p3.p":"Facile e divertente per i bambini. Bernard tiene un ritmo tranquillo, adatta il tour alla vostra famiglia e trova i punti dove i più piccoli vedono i pesci sotto di loro.","p3.l1":"Facile per famiglie con bambini","p3.l2":"Flessibile, su misura per voi","p3.l3":"Snorkeling per i più curiosi",
- "p4.tag":"In autonomia","p4.h":"Noleggio kayak","p4.p":"Preferisci esplorare da solo? Noleggia un kayak con buona attrezzatura e pagaia nella baia al tuo ritmo. Bernard ti dà volentieri qualche consiglio su dove andare.","p4.l1":"Buona attrezzatura","p4.l2":"Il tuo ritmo, il tuo percorso","p4.l3":"Anche gite in barca, chiedi pure",
- "t.book":"Prenota questo tour","t.rent":"Chiedi del noleggio","tours.note":"I prezzi indicati come XX € sono segnaposto di esempio per questa proposta. Bernard conferma i prezzi attuali su WhatsApp.",
- "yt.label":"Il tuo tour","yt.h":"Come va la tua giornata","yt.tag":"Spiaggia Medane","s1.h":"Scrivi a Bernard","s1.p":"Scegli un tour, un giorno e quanti siete. Il modulo qui sotto apre WhatsApp con tutto già compilato.","s2.h":"Ritrovo alla spiaggia Medane","s2.p":"Šetalište Antuna Žica-Ulivina 15 a Punat. Bernard ti prepara con kayak e attrezzatura.","s3.h":"Si parte","s3.p":"Qualche consiglio in spiaggia, poi via sull'acqua limpida. Principianti e bambini sono benvenuti.","s4.h":"Snorkeling, tuffi, relax","s4.p":"Snorkeling sopra i sassolini, un tuffo dagli scogli se ti va, e ritorno con il sorriso.",
+ "gal.c1":"Acqua bassa e cristallina","gal.c2":"Soste snorkeling lungo la costa","gal.c3":"Scogliere di circa 7 a 8 m e 13 a 15 m, facoltative","gal.c4":"Pagaiare facile per famiglie con bambini","gal.c5":"Al tramonto verso una spiaggia appartata",
+ "bern.label":"La tua guida","bern.h":"Ecco Bernard","bern.p1":"Bernard è la tua guida personale a Krk. Ha vissuto più di 20 anni in Germania, parla fluentemente tedesco e inglese, è flessibile e sempre disponibile, che sia la tua prima volta in kayak o che tu sia venuto per il grande tuffo.","bern.p2":"Prima di partire fa un vero briefing di sicurezza, poi ti porta su spiagge nascoste, grotte e punti snorkeling, fino alle scogliere. Tuffati se vuoi, oppure fai il tifo dal kayak.","bern.c1":"Guida locale","bern.rev":"recensioni","bern.cta":"Scrivi a Bernard",
+ "tours.label":"Tour","tours.h":"Scegli la tua pagaiata","tours.sub":"Tre tour guidati in kayak e una gita in barca tra le isole. Prezzi a persona.",
+ "tab1":"Avventura in kayak","tab2":"Kayak al tramonto","tab3":"Tour privato","tab4":"Gita in barca","meta.guided":"Con Bernard",
+ "p1.tag":"3 h · 09:00 e 16:00","p1.h":"Avventura in kayak","p1.p":"Bernard ti guida lungo la costa verso insenature e spiagge appartate, sotto le scogliere più alte di Krk e la sua costa selvaggia. Si fa snorkeling vicino agli scogli, tra ricci di mare, stelle marine, oloturie e pesci colorati, e chi ha coraggio si tuffa dalle scogliere.","p1.l1":"3 ore, ogni giorno alle 09:00 e alle 16:00","p1.l2":"Kayak, attrezzatura snorkeling e briefing di sicurezza","p1.l3":"Snorkeling tra gli scogli: ricci, stelle marine, pesci colorati",
+ "p2.tag":"2 h · ogni giorno alle 18:00","p2.h":"Kayak al tramonto","p2.p":"Pagaia lungo la costa, tra piccole cale, fino a una spiaggia appartata e goditi il tramonto. Lungo il percorso Bernard racconta la storia e la natura di Krk, sopra e sotto l'acqua.","p2.l1":"2 ore, ogni giorno alle 18:00","p2.l2":"Kayak doppi sit-on-top stabili e giubbotti salvagente","p2.l3":"Istruzioni per pagaiare e fare snorkeling",
+ "p3.tag":"Da 3 a 7 h · su richiesta","p3.h":"Tour privato","p3.p":"Un tour solo per il tuo gruppo, al tuo ritmo. Esplora la costa di Krk e le sue cale nascoste per almeno 3 ore, oppure fanne una mezza giornata o una giornata intera in kayak. La giornata si organizza intorno a voi.","p3.l1":"Da 3 a 7 ore, orario su richiesta","p3.l2":"Bevande ghiacciate e frutta di stagione","p3.l3":"Nuoto, immersioni e tuffi facoltativi",
+ "p4.tag":"Circa 4 h · ogni giorno alle 11:00","p4.h":"Gita in barca con Kapetan Nemo","p4.p":"Una crociera verso quattro tappe bellissime: Plavnik, Kormat, Galun e le baie vicino a Stara Baška. Fai il bagno nella baia di Sveti Juraj, cerca i delfini vicino a Plavnik, dai da mangiare ai gabbiani e rilassati su spiagge raggiungibili solo in barca, come la Golden Beach.","p4.l1":"Ogni giorno dalle 11:00 alle 15:00, partenza da Krk","p4.l2":"Drink di benvenuto e guida turistica professionale","p4.l3":"Soste per il bagno lungo il percorso",
+ "t.book":"Prenota questo tour","tours.note":"Prezzi a persona, come pubblicati da Kayak Rent Krk. Si paga al punto d'incontro.",
+ "yt.label":"Il tuo tour","yt.h":"Come va la tua giornata","yt.tag":"Spiaggia Medane","s1.h":"Scrivi a Bernard","s1.p":"Scegli un tour, un giorno e quanti siete. Il modulo qui sotto apre WhatsApp con tutto già compilato.","s2.h":"Ritrovo alla spiaggia Medane","s2.p":"Šetalište Antuna Žica-Ulivina 15 a Punat. Bernard ti prepara con kayak e attrezzatura. Si paga al punto d'incontro.","s3.h":"Prima la sicurezza, poi si parte","s3.p":"Un breve briefing di sicurezza in spiaggia, poi via sull'acqua limpida. I kayak sono stabili e facili da guidare, quindi principianti e bambini sono benvenuti.","s4.h":"Snorkeling, tuffi, relax","s4.p":"Snorkeling sopra i sassolini, un tuffo dagli scogli se ti va, e ritorno con il sorriso.",
  "gtk.label":"Buono a sapersi","gtk.h":"Prima di pagaiare","gtk.lead":"Qualche cosa pratica, perché la giornata sia facile. Per tutto il resto, chiedi a Bernard su WhatsApp.","gtk.cliffnote":"Due scogliere, circa 7 a 8 m e 13 a 15 m. Tuffarsi è facoltativo, anche guardare è divertente.",
- "gtk.meet":"Punto d'incontro","gtk.meetv":"Zona spiaggia Medane, Šetalište Antuna Žica-Ulivina 15, 51521 Punat","gtk.hours":"Orari","gtk.hoursv":"In stagione ogni giorno 09:00 alle 21:00","gtk.bring":"Cosa portare","gtk.bringv":"Costume, telo, crema solare, cappello e un po' d'acqua. Vestiti che possono bagnarsi.","gtk.cliff":"Tuffi dagli scogli","gtk.cliffv":"Sempre facoltativi. Scogliere di circa 7 a 8 m e 13 a 15 m. Tuffati, o semplicemente guarda.","gtk.kids":"Bambini","gtk.kidsv":"Benvenuti. I tour sono facili per famiglie con bambini.","gtk.weather":"Meteo","gtk.weatherv":"Il kayak dipende da vento e mare. Bernard ti dice su WhatsApp come si presenta la giornata.","gtk.lang":"Lingue","gtk.langv":"Bernard parla fluentemente tedesco e inglese.",
+ "gtk.meet":"Punto d'incontro","gtk.meetv":"Zona spiaggia Medane, Šetalište Antuna Žica-Ulivina 15, 51521 Punat","gtk.hours":"Orari","gtk.hoursv":"In stagione ogni giorno 09:00 alle 21:00","gtk.bring":"Cosa portare","gtk.bringv":"Costume, telo, crema solare, cappello e un po' d'acqua. Vestiti che possono bagnarsi.","gtk.cliff":"Tuffi dagli scogli","gtk.cliffv":"Sempre facoltativi. Scogliere di circa 7 a 8 m e 13 a 15 m. Tuffati, o semplicemente guarda.","gtk.kids":"Bambini","gtk.kidsv":"Benvenuti. Nei tour in kayak i bambini fino a 10 anni pagano 40 €, sotto i 5 anni sono gratis.","gtk.weather":"Meteo","gtk.weatherv":"Il kayak dipende da vento e mare. Bernard ti dice su WhatsApp come si presenta la giornata.","gtk.lang":"Lingue","gtk.langv":"Bernard parla fluentemente tedesco e inglese.",
  "near.label":"Nei dintorni","near.h":"Intorno alla spiaggia Medane","near.sub":"Fanne una giornata intera sull'isola di Krk.","n1":"La spiaggia accanto al punto d'incontro, per un bagno prima o dopo il tour.","n2":"Il paese sulla baia, per un caffè, un gelato o una cena dopo la pagaiata.","n3t":"Città di Krk","n3":"Il centro storico dell'isola, bello per una passeggiata serale.","near.note":"Chiedi a Bernard i suoi posti preferiti sull'isola.",
- "book.label":"Prenotazione","book.h":"Organizza la tua uscita","book.sub":"Compila e si apre WhatsApp con il messaggio pronto. Nessun pagamento, nessun account. Bernard conferma i dettagli.","book.sumh":"La tua richiesta",
- "f.tour":"Tour","f.t1":"Principianti","f.t1s":"circa 3 h","f.t2":"Snorkeling + tuffi","f.t2s":"guidato","f.t3":"Tour famiglie","f.t3s":"bambini benvenuti","f.t4":"Noleggio kayak","f.t4s":"in autonomia","f.t5":"Gita in barca","f.t5s":"chiedi a Bernard","f.date":"Data","f.time":"Orario","f.tm1":"Mattina","f.tm2":"Pomeriggio","f.tm3":"Tramonto","f.people":"Persone","f.name":"Il tuo nome","f.nameph":"es. Anna","f.send":"Invia su WhatsApp","f.fine":"Apre WhatsApp con la richiesta precompilata. Puoi ancora modificarla prima di inviare.",
+ "book.label":"Prenotazione","book.h":"Organizza la tua uscita","book.sub":"Compila e si apre WhatsApp con il messaggio pronto. Nessun anticipo, nessun account. Bernard conferma i dettagli e si paga al punto d'incontro.","book.sumh":"La tua richiesta",
+ "f.tour":"Tour","f.t1":"Avventura in kayak","f.t1s":"3 h · 50 €","f.t2":"Kayak al tramonto","f.t2s":"2 h · 50 €","f.t3":"Tour privato","f.t3s":"da 3 a 7 h · 70 €","f.t4":"Gita in barca","f.t4s":"da 38 €","f.date":"Data","f.time":"Orario","f.people":"Persone","f.name":"Il tuo nome","f.nameph":"es. Anna","f.send":"Invia su WhatsApp","f.fine":"Apre WhatsApp con la richiesta precompilata. Puoi ancora modificarla prima di inviare.",
  "faq.label":"FAQ","faq.h":"Domande prima dell'acqua","faq.sub":"Per tutto il resto, chiedi a Bernard su WhatsApp.",
- "q1":"Serve esperienza in kayak?","a1":"No. Il pacchetto principianti è pensato per chi inizia, e Bernard ti mostra le basi prima di partire.","q2":"Devo tuffarmi dagli scogli?","a2":"Per niente. I tuffi sono facoltativi. Le scogliere sono alte circa 7 a 8 m e 13 a 15 m, e puoi anche solo guardare dal kayak.","q3":"Possiamo venire con i bambini?","a3":"Sì. I tour sono facili per famiglie con bambini. Di' a Bernard la loro età quando prenoti.","q4":"Che lingue parla Bernard?","a4":"Tedesco e inglese fluenti, così arrivano sia le spiegazioni che le battute.","q5":"E il meteo?","a5":"Il kayak dipende da vento e mare. Se la giornata non sembra giusta, scrivi a Bernard e ti dirà cosa si può fare.","q6":"Fate anche gite in barca?","a6":"Sì, Kayak Rent Krk offre anche gite in barca. Chiedi i dettagli a Bernard su WhatsApp.","q7":"Come prenoto?","a7":"Con il modulo di questa pagina o scrivendo su WhatsApp al +385 91 600 6034. Bernard conferma il tuo tour.",
+ "q1":"Serve esperienza in kayak?","a1":"No. Tutti i tour sono da facili a medi, e Bernard fa un briefing di sicurezza prima di partire. I kayak sono stabili e facili da guidare anche per i principianti.","q2":"Devo tuffarmi dagli scogli?","a2":"Per niente. I tuffi sono facoltativi. Le scogliere sono alte circa 7 a 8 m e 13 a 15 m, e puoi anche solo guardare dal kayak.","q3":"Possiamo venire con i bambini?","a3":"Sì. I bambini fino a 10 anni pagano 40 €, sotto i 5 anni vengono gratis. Di' a Bernard la loro età quando prenoti.","q4":"Che lingue parla Bernard?","a4":"Tedesco e inglese fluenti, così arrivano sia le spiegazioni che le battute.","q5":"E il meteo?","a5":"Il kayak dipende da vento e mare. Se la giornata non sembra giusta, scrivi a Bernard e ti dirà cosa si può fare.","q6":"Fate anche gite in barca?","a6":"Sì. La gita in barca con Kapetan Nemo parte ogni giorno alle 11:00 da Krk e rientra verso le 15:00, con soste a Plavnik, Kormat, Galun e nelle baie vicino a Stara Baška. 4 isole da 38 €, Rab e 4 isole da 50 €.","q7":"Come prenoto?","a7":"Con il modulo di questa pagina, su WhatsApp al +385 91 600 6034 o via email a info@kayak-krk.com. Bernard conferma il tuo tour.",
  "c.label":"Contatti","c.h":"Ci trovi alla spiaggia Medane","c.island":"isola di Krk","c.wa":"Telefono e WhatsApp","c.daily":"Ogni giorno, in stagione","c.guide":"La tua guida","c.map":"Apri in Mappe",
- "foot.p":"Tour guidati in kayak con snorkeling e tuffi, noleggio kayak e gite in barca dalla spiaggia Medane, Punat, isola di Krk.","foot.visit":"Dove","foot.talk":"Parla con noi","foot.explore":"Esplora","fab":"Prenota","bar.s":"La tua richiesta","bar.btn":"Invia",
- "sum.beginner":"Tour principianti","sum.cliff":"Tour con tuffi","sum.family":"Tour famiglie","sum.rent":"Noleggio kayak","sum.boat":"Gita in barca",
- "fb.beginner":"Kayak per principianti","fb.cliff":"Kayak + tuffi","fb.family":"Kayak in famiglia","fb.rent":"Noleggio kayak","fb.boat":"Gita in barca",
- "p.1":"1 persona","p.n":"{n} persone","tm.morning":"mattina","tm.afternoon":"pomeriggio","tm.sunset":"tramonto","d.pick":"Scegli una data","d.tom":"Domani","d.today":"Oggi",
- "wa.msg":"Ciao Bernard! Vorrei prenotare: {tour}. Data: {date}, {time}. Persone: {people}. Nome: {name}. È possibile?"
+ "foot.p":"Tour guidati in kayak con snorkeling e tuffi, uscite al tramonto, tour privati e gite in barca dalla spiaggia Medane, Punat, isola di Krk.","foot.visit":"Dove","foot.talk":"Parla con noi","foot.explore":"Esplora","fab":"Prenota","bar.s":"La tua richiesta","bar.btn":"Invia","sum.boat":"Gita in barca","fb.boat":"Gita in barca",
+ "p.1":"1 persona","p.n":"{n} persone","d.pick":"Scegli una data","d.tom":"Domani","d.today":"Oggi",
+ "wa.msg":"Ciao Bernard! Vorrei prenotare: {tour}. Data: {date}, {time}. Persone: {people}. Nome: {name}. È possibile?",
+ "meta.boat":"Partenza dalla città di Krk",
+ "pr.adult":"Adulti",
+ "pr.kid10":"Bambini fino a 10 anni",
+ "pr.kid5":"Bambini fino a 5 anni",
+ "pr.free":"gratis",
+ "pr.isl":"4 isole, adulti",
+ "pr.islk":"4 isole, bambini da 4 a 11",
+ "pr.rab":"Rab e 4 isole, adulti",
+ "pr.rabk":"Rab e 4 isole, bambini da 4 a 11",
+ "pr.inf":"Bambini da 1 a 3 anni",
+ "p1.l4":"Tuffi facoltativi, foto scattate dalla guida",
+ "p1.l5":"Da facile a medio, fino a 50 partecipanti",
+ "p2.l4":"Foto della tua uscita scattate dalla guida",
+ "p2.l5":"Tuffo facoltativo, da facile a medio",
+ "p3.l4":"Foto delle tue immersioni e dei tuffi",
+ "p3.l5":"Fino a 12 partecipanti, gruppi più grandi su richiesta",
+ "p4.l4":"Cibo e bevande non inclusi",
+ "p4.l5":"Da 10 a 120 ospiti",
+ "t.boat":"Prenota la gita in barca",
+ "gtk.times":"Orari dei tour",
+ "gtk.timesv":"Avventura in kayak 09:00 e 16:00, kayak al tramonto 18:00, gita in barca 11:00, tour privati su richiesta.",
+ "gtk.pay":"Pagamento",
+ "gtk.payv":"Al punto d'incontro.",
+ "gtk.level":"Livello",
+ "gtk.levelv":"Da facile a medio. Kayak stabili e giubbotti salvagente, adatto ai principianti.",
+ "n4t":"Stara Baška",
+ "n4":"Baie e spiagge raggiungibili solo in barca. La gita in barca passa proprio di qui.",
+ "f.tmM":"mattina",
+ "f.tmB":"gita in barca",
+ "f.tmA":"pomeriggio",
+ "f.tmS":"tramonto",
+ "f.tmF":"Flessibile",
+ "f.tmFs":"su richiesta",
+ "tm.flex":"orario flessibile",
+ "sum.adventure":"Avventura in kayak",
+ "sum.sunset":"Kayak al tramonto",
+ "sum.private":"Tour privato",
+ "fb.adventure":"Avventura in kayak",
+ "fb.sunset":"Kayak al tramonto",
+ "fb.private":"Tour privato in kayak",
+ "q8":"Come si paga?",
+ "a8":"Si paga direttamente al punto d'incontro.",
+ "q9":"Cosa è incluso?",
+ "a9":"Kayak e giubbotti salvagente, un briefing di sicurezza e le foto scattate dalla guida. Nell'Avventura in kayak c'è anche l'attrezzatura snorkeling, nei tour privati bevande ghiacciate e frutta di stagione.",
+ "q10":"Quanto sono grandi i gruppi?",
+ "a10":"L'Avventura in kayak e il Kayak al tramonto accolgono fino a 50 partecipanti. I tour privati sono solo per il tuo gruppo. La gita in barca parte con un minimo di 10 e un massimo di 120 ospiti.",
+ "c.mail":"Email",
+ "c.tours":"Tour in kayak",
+ "c.boat":"Gita in barca"
 },
 hr:{
  "logo.sub":"Kajak & izleti brodom","nav.book":"Rezerviraj turu","nav.menu":"IZBORNIK","ovl.bernard":"Upoznaj Bernarda","ovl.tours":"Ture","ovl.yt":"Tvoja tura","ovl.gtk":"Dobro je znati","ovl.book":"Rezervacija","ovl.faq":"Česta pitanja","ovl.contact":"Kontakt","cta.wa":"WhatsApp Bernardu","ovl.addr":"Plaža Medane, Punat, Krk","ovl.hours":"Svaki dan 09:00 do 21:00 u sezoni","concept":"Koncept: Marija",
- "hero.label":"Plaža Medane · Punat · otok Krk","hero.t1":"More tako bistro,","hero.t2":"da brojiš oblutke","hero.sub":"Kajak ture s Bernardom","hero.txt":"Vođene kajak ture iz Punta sa snorkelingom i skokovima sa stijena, ako se usudiš. Lagano za početnike i obitelji, ili unajmi kajak i veslaj sam.","hero.addr":"Punat, otok Krk · Google 4,9 iz 237 recenzija","hero.cta":"Rezerviraj kajak turu","hint.touch":"Dodirni za nagib","hint.mouse":"Pomakni miš za nagib",
+ "hero.label":"Plaža Medane · Punat · otok Krk","hero.t1":"More tako bistro,","hero.t2":"da brojiš oblutke","hero.sub":"Kajak ture s Bernardom","hero.txt":"Vođene kajak ture iz Punta sa snorkelingom i skokovima sa stijena, ako se usudiš. Lagano za početnike i obitelji, uz ture na zalasku sunca, privatne ture i izlet brodom do otoka.","hero.addr":"Punat, otok Krk · 4,9 / 5 iz 160 recenzija","hero.cta":"Rezerviraj kajak turu","hint.touch":"Dodirni za nagib","hint.mouse":"Pomakni miš za nagib",
  "gal.label":"Na moru","gal.h":"Dan u bistrom plićaku","gal.sub":"Oblutci ispod kajaka, ribe ispod maske i stijene za hrabre. Prolistaj turu.",
  "gal.g1":"Punat, Hrvatska","gal.g2":"Otok Krk","gal.g3":"Skokovi sa stijena","gal.g4":"Plaža Medane","gal.g5":"Kayak Rent Krk",
- "gal.c1":"Plitko, kristalno bistro more","gal.c2":"Stanke za snorkeling uz obalu","gal.c3":"Stijene od oko 7 do 8 m i 13 do 15 m, po želji","gal.c4":"Lagano veslanje za obitelji s djecom","gal.c5":"Najam kajaka s dobrom opremom",
- "bern.label":"Tvoj vodič","bern.h":"Upoznaj Bernarda","bern.p1":"Bernard je lokalni vodič ovdje na Krku. Tečno govori njemački i engleski, fleksibilan je i uvijek spreman pomoći, bilo da prvi put sjedaš u kajak ili si došao zbog velikog skoka.","bern.p2":"Pokaže ti kako veslati, odvede te do mjesta za snorkeling i do stijena. Skoči ako želiš, ili navijaj iz kajaka.","bern.c1":"Lokalni vodič","bern.rev":"Google recenzija","bern.cta":"Piši Bernardu",
- "tours.label":"Ture","tours.h":"Odaberi svoju turu","tours.sub":"Četiri načina da izađeš na more, sve s plaže Medane u Puntu.",
- "tab1":"Početnici 3 h","tab2":"Snorkeling + skokovi","tab3":"Obiteljska tura","tab4":"Najam kajaka","meta.guided":"Vodi Bernard · od","meta.self":"Samostalno · od",
- "p1.tag":"Oko 3 sata","p1.h":"Paket za početnike","p1.p":"Nikad nisi bio u kajaku? Savršeno. Bernard ti na plaži pokaže osnove, a onda zajedno isplovite laganim tempom, uz vrijeme za kupanje i snorkeling.","p1.l1":"Oko 3 sata na moru","p1.l2":"Osnove veslanja prije polaska","p1.l3":"Snorkeling u bistrom plićaku",
- "p2.tag":"Vođeno · skokovi po želji","p2.h":"Tura snorkeling + skokovi","p2.p":"Tura o kojoj svi pričaju. Veslaj uz obalu, snorkelaj u kristalno bistrom moru i stigni do stijena. Skoči s oko 7 do 8 m, ili s 13 do 15 m ako se usudiš. Ili samo gledaj, potpuno je po želji.","p2.l1":"Stanke za snorkeling uz obalu","p2.l2":"Stijene od oko 7 do 8 m i 13 do 15 m","p2.l3":"Skakanje je uvijek po želji",
- "p3.tag":"Djeca dobrodošla","p3.h":"Obiteljska tura","p3.p":"Lagano i zabavno za djecu. Bernard drži opušten tempo, prilagodi turu vašoj obitelji i nađe mjesta gdje mališani vide ribe ispod sebe.","p3.l1":"Lagano za obitelji s djecom","p3.l2":"Fleksibilno, prilagođeno vama","p3.l3":"Snorkeling za znatiželjne",
- "p4.tag":"Samostalno","p4.h":"Najam kajaka","p4.p":"Radije istražuješ sam? Unajmi kajak s dobrom opremom i veslaj zaljevom svojim tempom. Bernard ti rado da savjet kamo krenuti.","p4.l1":"Dobra oprema","p4.l2":"Tvoj tempo, tvoja ruta","p4.l3":"I izleti brodom, samo pitaj",
- "t.book":"Rezerviraj ovu turu","t.rent":"Pitaj za najam","tours.note":"Cijene prikazane kao XX € primjer su za ovaj prijedlog. Bernard potvrđuje aktualne cijene na WhatsAppu.",
- "yt.label":"Tvoja tura","yt.h":"Kako izgleda tvoj dan","yt.tag":"Plaža Medane","s1.h":"Javi se Bernardu","s1.p":"Odaberi turu, dan i koliko vas dolazi. Obrazac ispod otvara WhatsApp sa svime ispunjenim.","s2.h":"Nađimo se na plaži Medane","s2.p":"Šetalište Antuna Žica-Ulivina 15 u Puntu. Bernard te opremi kajakom i opremom.","s3.h":"Isplovi","s3.p":"Nekoliko savjeta na plaži, a onda van na bistro more. Početnici i djeca su dobrodošli.","s4.h":"Snorkeling, skok, uživanje","s4.p":"Snorkelaj iznad oblutaka, skoči sa stijena ako želiš i vrati se veslajući s osmijehom.",
+ "gal.c1":"Plitko, kristalno bistro more","gal.c2":"Stanke za snorkeling uz obalu","gal.c3":"Stijene od oko 7 do 8 m i 13 do 15 m, po želji","gal.c4":"Lagano veslanje za obitelji s djecom","gal.c5":"Na zalazak sunca do skrovite plaže",
+ "bern.label":"Tvoj vodič","bern.h":"Upoznaj Bernarda","bern.p1":"Bernard je tvoj osobni vodič na Krku. Više od 20 godina živio je u Njemačkoj, tečno govori njemački i engleski, fleksibilan je i uvijek spreman pomoći, bilo da prvi put sjedaš u kajak ili si došao zbog velikog skoka.","bern.p2":"Prije polaska održi pravi sigurnosni brifing, a onda te vodi do skrivenih plaža, špilja i mjesta za snorkeling te do stijena. Skoči ako želiš, ili navijaj iz kajaka.","bern.c1":"Lokalni vodič","bern.rev":"recenzija","bern.cta":"Piši Bernardu",
+ "tours.label":"Ture","tours.h":"Odaberi svoju turu","tours.sub":"Tri vođene kajak ture i izlet brodom do otoka. Cijene po osobi.",
+ "tab1":"Kajak avantura","tab2":"Kajak na zalasku","tab3":"Privatna tura","tab4":"Izlet brodom","meta.guided":"Vodi Bernard",
+ "p1.tag":"3 h · 09:00 i 16:00","p1.h":"Kajak avantura","p1.p":"Bernard te vodi uz obalu do uvala i skrivenih plaža, ispod najviših stijena Krka i njegove divlje obale. Uz grebene stajete na snorkeling, gdje možeš vidjeti ježince, morske zvijezde, trpove i šarene ribe, a hrabri skaču sa stijena.","p1.l1":"3 sata, svaki dan u 09:00 i 16:00","p1.l2":"Kajak, oprema za snorkeling i sigurnosni brifing","p1.l3":"Snorkeling uz grebene: ježinci, zvjezdače, šarene ribe",
+ "p2.tag":"2 h · svaki dan u 18:00","p2.h":"Kajak na zalasku sunca","p2.p":"Veslaj uz obalu, pokraj malih uvala, do skrovite plaže i uživaj u zalasku sunca. Usput ti Bernard priča o povijesti i prirodi Krka, iznad i ispod površine mora.","p2.l1":"2 sata, svaki dan u 18:00","p2.l2":"Stabilni sit-on-top kajaci za dvoje i prsluci za spašavanje","p2.l3":"Upute za veslanje i snorkeling",
+ "p3.tag":"3 do 7 h · na upit","p3.h":"Privatna tura","p3.p":"Tura samo za tvoju grupu, tvojim tempom. Istraži obalu Krka i njezine skrivene uvale najmanje 3 sata, ili od toga napravi pola dana ili cijeli dan veslanja. Dan se planira prema vama.","p3.l1":"3 do 7 sati, polazak na upit","p3.l2":"Ledeno hladna pića i sezonsko voće","p3.l3":"Kupanje, ronjenje i skokovi po želji",
+ "p4.tag":"Oko 4 h · svaki dan u 11:00","p4.h":"Izlet brodom s Kapetanom Nemom","p4.p":"Krstarenje do četiri prekrasne postaje: Plavnik, Kormat, Galun i uvale kod Stare Baške. Okupaj se u uvali Sveti Juraj, potraži dupine kod Plavnika, nahrani galebove i odmori se na plažama do kojih se stiže samo brodom, poput plaže Golden Beach.","p4.l1":"Svaki dan od 11:00 do 15:00, polazak iz Krka","p4.l2":"Piće dobrodošlice i profesionalni turistički vodič","p4.l3":"Stanke za kupanje usput",
+ "t.book":"Rezerviraj ovu turu","tours.note":"Cijene po osobi, kako ih objavljuje Kayak Rent Krk. Plaća se na mjestu sastanka.",
+ "yt.label":"Tvoja tura","yt.h":"Kako izgleda tvoj dan","yt.tag":"Plaža Medane","s1.h":"Javi se Bernardu","s1.p":"Odaberi turu, dan i koliko vas dolazi. Obrazac ispod otvara WhatsApp sa svime ispunjenim.","s2.h":"Nađimo se na plaži Medane","s2.p":"Šetalište Antuna Žica-Ulivina 15 u Puntu. Bernard te opremi kajakom i opremom. Plaća se na mjestu sastanka.","s3.h":"Prvo sigurnost, onda isplovi","s3.p":"Kratki sigurnosni brifing na plaži, a onda van na bistro more. Kajaci su stabilni i laki za upravljanje, pa su početnici i djeca dobrodošli.","s4.h":"Snorkeling, skok, uživanje","s4.p":"Snorkelaj iznad oblutaka, skoči sa stijena ako želiš i vrati se veslajući s osmijehom.",
  "gtk.label":"Dobro je znati","gtk.h":"Prije veslanja","gtk.lead":"Nekoliko praktičnih stvari, da dan bude lagan. Za sve ostalo pitaj Bernarda na WhatsAppu.","gtk.cliffnote":"Dvije stijene, oko 7 do 8 m i 13 do 15 m. Skakanje je po želji, i gledanje je zabavno.",
- "gtk.meet":"Mjesto sastanka","gtk.meetv":"Kod plaže Medane, Šetalište Antuna Žica-Ulivina 15, 51521 Punat","gtk.hours":"Radno vrijeme","gtk.hoursv":"U sezoni svaki dan 09:00 do 21:00","gtk.bring":"Što ponijeti","gtk.bringv":"Kupaći, ručnik, kremu za sunčanje, kapu i malo vode. Odjeću koja se smije smočiti.","gtk.cliff":"Skokovi sa stijena","gtk.cliffv":"Uvijek po želji. Stijene od oko 7 do 8 m i 13 do 15 m. Skoči, ili samo gledaj.","gtk.kids":"Djeca","gtk.kidsv":"Dobrodošla. Ture su lagane za obitelji s djecom.","gtk.weather":"Vrijeme","gtk.weatherv":"Kajak ovisi o vjetru i moru. Bernard ti na WhatsAppu javi kako dan izgleda.","gtk.lang":"Jezici","gtk.langv":"Bernard tečno govori njemački i engleski.",
+ "gtk.meet":"Mjesto sastanka","gtk.meetv":"Kod plaže Medane, Šetalište Antuna Žica-Ulivina 15, 51521 Punat","gtk.hours":"Radno vrijeme","gtk.hoursv":"U sezoni svaki dan 09:00 do 21:00","gtk.bring":"Što ponijeti","gtk.bringv":"Kupaći, ručnik, kremu za sunčanje, kapu i malo vode. Odjeću koja se smije smočiti.","gtk.cliff":"Skokovi sa stijena","gtk.cliffv":"Uvijek po želji. Stijene od oko 7 do 8 m i 13 do 15 m. Skoči, ili samo gledaj.","gtk.kids":"Djeca","gtk.kidsv":"Dobrodošla. Na kajak turama djeca do 10 godina plaćaju 40 €, a mlađa od 5 godina idu besplatno.","gtk.weather":"Vrijeme","gtk.weatherv":"Kajak ovisi o vjetru i moru. Bernard ti na WhatsAppu javi kako dan izgleda.","gtk.lang":"Jezici","gtk.langv":"Bernard tečno govori njemački i engleski.",
  "near.label":"U blizini","near.h":"Oko plaže Medane","near.sub":"Napravi od toga cijeli dan na otoku Krku.","n1":"Plaža uz samo mjesto sastanka, za kupanje prije ili poslije ture.","n2":"Mjesto na zaljevu, za kavu, sladoled ili večeru nakon veslanja.","n3t":"Grad Krk","n3":"Stari grad otoka, lijep za večernju šetnju.","near.note":"Pitaj Bernarda za njegova omiljena mjesta na otoku.",
- "book.label":"Rezervacija","book.h":"Isplaniraj veslanje","book.sub":"Ispuni i otvara se WhatsApp s gotovom porukom. Bez plaćanja, bez računa. Bernard potvrđuje detalje.","book.sumh":"Tvoj upit",
- "f.tour":"Tura","f.t1":"Početnici","f.t1s":"oko 3 h","f.t2":"Snorkeling + skokovi","f.t2s":"vođeno","f.t3":"Obiteljska tura","f.t3s":"djeca dobrodošla","f.t4":"Najam kajaka","f.t4s":"samostalno","f.t5":"Izlet brodom","f.t5s":"pitaj Bernarda","f.date":"Datum","f.time":"Vrijeme","f.tm1":"Jutro","f.tm2":"Popodne","f.tm3":"Zalazak","f.people":"Osobe","f.name":"Tvoje ime","f.nameph":"npr. Ana","f.send":"Pošalji na WhatsApp","f.fine":"Otvara WhatsApp s unaprijed ispunjenim upitom. Možeš ga još urediti prije slanja.",
+ "book.label":"Rezervacija","book.h":"Isplaniraj veslanje","book.sub":"Ispuni i otvara se WhatsApp s gotovom porukom. Bez predujma, bez računa. Bernard potvrđuje detalje, a plaća se na mjestu sastanka.","book.sumh":"Tvoj upit",
+ "f.tour":"Tura","f.t1":"Kajak avantura","f.t1s":"3 h · 50 €","f.t2":"Kajak na zalasku","f.t2s":"2 h · 50 €","f.t3":"Privatna tura","f.t3s":"3 do 7 h · 70 €","f.t4":"Izlet brodom","f.t4s":"od 38 €","f.date":"Datum","f.time":"Vrijeme","f.people":"Osobe","f.name":"Tvoje ime","f.nameph":"npr. Ana","f.send":"Pošalji na WhatsApp","f.fine":"Otvara WhatsApp s unaprijed ispunjenim upitom. Možeš ga još urediti prije slanja.",
  "faq.label":"Česta pitanja","faq.h":"Pitanja prije mora","faq.sub":"Za sve ostalo pitaj Bernarda na WhatsAppu.",
- "q1":"Trebam li iskustvo s kajakom?","a1":"Ne. Paket za početnike napravljen je za one koji prvi put veslaju, a Bernard ti pokaže osnove prije polaska.","q2":"Moram li skakati sa stijena?","a2":"Nikako. Skokovi su po želji. Stijene su visoke oko 7 do 8 m i 13 do 15 m, a možeš i samo gledati iz kajaka.","q3":"Možemo li doći s djecom?","a3":"Da. Ture su lagane za obitelji s djecom. Reci Bernardu njihovu dob kad rezerviraš.","q4":"Koje jezike Bernard govori?","a4":"Tečno njemački i engleski, pa stignu i upute i šale.","q5":"A vrijeme?","a5":"Kajak ovisi o vjetru i moru. Ako dan ne izgleda dobro, javi se Bernardu i reći će ti što je moguće.","q6":"Imate li i izlete brodom?","a6":"Da, Kayak Rent Krk nudi i izlete brodom. Pitaj Bernarda za detalje na WhatsAppu.","q7":"Kako rezerviram?","a7":"Preko obrasca na ovoj stranici ili porukom na WhatsApp na +385 91 600 6034. Bernard potvrđuje tvoju turu.",
+ "q1":"Trebam li iskustvo s kajakom?","a1":"Ne. Sve ture su lagane do srednje zahtjevne, a Bernard prije polaska održi sigurnosni brifing. Kajaci su stabilni i laki za upravljanje i za početnike.","q2":"Moram li skakati sa stijena?","a2":"Nikako. Skokovi su po želji. Stijene su visoke oko 7 do 8 m i 13 do 15 m, a možeš i samo gledati iz kajaka.","q3":"Možemo li doći s djecom?","a3":"Da. Djeca do 10 godina plaćaju 40 €, a djeca mlađa od 5 godina idu besplatno. Reci Bernardu njihovu dob kad rezerviraš.","q4":"Koje jezike Bernard govori?","a4":"Tečno njemački i engleski, pa stignu i upute i šale.","q5":"A vrijeme?","a5":"Kajak ovisi o vjetru i moru. Ako dan ne izgleda dobro, javi se Bernardu i reći će ti što je moguće.","q6":"Imate li i izlete brodom?","a6":"Da. Izlet brodom s Kapetanom Nemom polazi svaki dan u 11:00 iz Krka i vraća se oko 15:00, uz postaje kod Plavnika, Kormata, Galuna i uvala kod Stare Baške. 4 otoka od 38 €, Rab i 4 otoka od 50 €.","q7":"Kako rezerviram?","a7":"Preko obrasca na ovoj stranici, porukom na WhatsApp na +385 91 600 6034 ili e-mailom na info@kayak-krk.com. Bernard potvrđuje tvoju turu.",
  "c.label":"Kontakt","c.h":"Nađi nas na plaži Medane","c.island":"otok Krk","c.wa":"Telefon i WhatsApp","c.daily":"Svaki dan, u sezoni","c.guide":"Tvoj vodič","c.map":"Otvori u Kartama",
- "foot.p":"Vođene kajak ture sa snorkelingom i skokovima sa stijena, najam kajaka i izleti brodom s plaže Medane, Punat, otok Krk.","foot.visit":"Posjet","foot.talk":"Javi se","foot.explore":"Istraži","fab":"Rezerviraj","bar.s":"Tvoj upit","bar.btn":"Pošalji",
- "sum.beginner":"Tura za početnike","sum.cliff":"Tura sa skokovima","sum.family":"Obiteljska tura","sum.rent":"Najam kajaka","sum.boat":"Izlet brodom",
- "fb.beginner":"Kajak za početnike","fb.cliff":"Kajak + skokovi","fb.family":"Obiteljska kajak tura","fb.rent":"Najam kajaka","fb.boat":"Izlet brodom",
- "p.1":"1 osoba","p.n":"{n} osobe","p.n5":"{n} osoba","tm.morning":"jutro","tm.afternoon":"popodne","tm.sunset":"zalazak","d.pick":"Odaberi datum","d.tom":"Sutra","d.today":"Danas",
- "wa.msg":"Pozdrav Bernarde! Želim rezervirati: {tour}. Datum: {date}, {time}. Osobe: {people}. Ime: {name}. Je li moguće?"
+ "foot.p":"Vođene kajak ture sa snorkelingom i skokovima sa stijena, ture na zalasku sunca, privatne ture i izleti brodom s plaže Medane, Punat, otok Krk.","foot.visit":"Posjet","foot.talk":"Javi se","foot.explore":"Istraži","fab":"Rezerviraj","bar.s":"Tvoj upit","bar.btn":"Pošalji","sum.boat":"Izlet brodom","fb.boat":"Izlet brodom",
+ "p.1":"1 osoba","p.n":"{n} osobe","p.n5":"{n} osoba","d.pick":"Odaberi datum","d.tom":"Sutra","d.today":"Danas",
+ "wa.msg":"Pozdrav Bernarde! Želim rezervirati: {tour}. Datum: {date}, {time}. Osobe: {people}. Ime: {name}. Je li moguće?",
+ "meta.boat":"Polazak iz grada Krka",
+ "pr.adult":"Odrasli",
+ "pr.kid10":"Djeca do 10 godina",
+ "pr.kid5":"Djeca do 5 godina",
+ "pr.free":"besplatno",
+ "pr.isl":"4 otoka, odrasli",
+ "pr.islk":"4 otoka, djeca od 4 do 11",
+ "pr.rab":"Rab i 4 otoka, odrasli",
+ "pr.rabk":"Rab i 4 otoka, djeca od 4 do 11",
+ "pr.inf":"Djeca od 1 do 3 godine",
+ "p1.l4":"Skokovi po želji, fotografije od vodiča",
+ "p1.l5":"Lagano do srednje zahtjevno, do 50 veslača",
+ "p2.l4":"Fotografije s ture od vodiča",
+ "p2.l5":"Skok po želji, lagano do srednje zahtjevno",
+ "p3.l4":"Fotografije tvojih ronjenja i skokova",
+ "p3.l5":"Do 12 veslača, veće grupe na upit",
+ "p4.l4":"Hrana i piće nisu uključeni",
+ "p4.l5":"Od 10 do 120 gostiju",
+ "t.boat":"Rezerviraj izlet brodom",
+ "gtk.times":"Termini",
+ "gtk.timesv":"Kajak avantura u 09:00 i 16:00, kajak na zalasku u 18:00, izlet brodom u 11:00, privatne ture na upit.",
+ "gtk.pay":"Plaćanje",
+ "gtk.payv":"Na mjestu sastanka.",
+ "gtk.level":"Zahtjevnost",
+ "gtk.levelv":"Lagano do srednje. Stabilni kajaci i prsluci za spašavanje, pogodno za početnike.",
+ "n4t":"Stara Baška",
+ "n4":"Uvale i plaže do kojih se stiže samo brodom. Izlet brodom prolazi upravo ovuda.",
+ "f.tmM":"jutro",
+ "f.tmB":"izlet brodom",
+ "f.tmA":"popodne",
+ "f.tmS":"zalazak",
+ "f.tmF":"Fleksibilno",
+ "f.tmFs":"na upit",
+ "tm.flex":"vrijeme po dogovoru",
+ "sum.adventure":"Kajak avantura",
+ "sum.sunset":"Kajak na zalasku sunca",
+ "sum.private":"Privatna tura",
+ "fb.adventure":"Kajak avantura",
+ "fb.sunset":"Kajak na zalasku",
+ "fb.private":"Privatna kajak tura",
+ "q8":"Kako se plaća?",
+ "a8":"Plaća se izravno na mjestu sastanka.",
+ "q9":"Što je uključeno?",
+ "a9":"Kajaci i prsluci za spašavanje, sigurnosni brifing i fotografije od vodiča. Kajak avantura uključuje i opremu za snorkeling, a privatne ture ledeno hladna pića i sezonsko voće.",
+ "q10":"Koliko su velike grupe?",
+ "a10":"Kajak avantura i kajak na zalasku primaju do 50 veslača. Privatne ture su samo za tvoju grupu. Izlet brodom ide s najmanje 10, a najviše 120 gostiju.",
+ "c.mail":"E-mail",
+ "c.tours":"Kajak ture",
+ "c.boat":"Izlet brodom"
 }
 };
 var lang = "en";
@@ -1132,18 +1342,24 @@ function applyLang(l){
   $$("[data-i18n]").forEach(function(el){ el.textContent = t(el.getAttribute("data-i18n")); });
   $$("[data-i18n-ph]").forEach(function(el){ el.setAttribute("placeholder", t(el.getAttribute("data-i18n-ph"))); });
   $$(".lang button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+  var lc = $("#lpickCur"); if(lc) lc.textContent = l.toUpperCase();
   galCaption(); updateSummary(); setHint();
 }
 $$(".lang").forEach(function(group){
   group.addEventListener("click", function(e){
     var b = e.target.closest("button"); if(!b) return;
-    var inHeader = group.id === "langHdr";
-    if(inHeader && mqMobile.matches && !group.classList.contains("open") && b.dataset.lang === lang){ group.classList.add("open"); return; }
-    group.classList.remove("open");
     if(b.dataset.lang !== lang) applyLang(b.dataset.lang);
   });
 });
-document.addEventListener("click", function(e){ var g = $("#langHdr"); if(g.classList.contains("open") && !g.contains(e.target)) g.classList.remove("open"); });
+(function(){
+  var w = $("#lpick"), b = $("#lpickBtn"); if(!w || !b) return;
+  function set(o){ w.classList.toggle("open", o); b.setAttribute("aria-expanded", o ? "true" : "false"); }
+  b.addEventListener("click", function(e){ e.stopPropagation(); set(!w.classList.contains("open")); });
+  $$(".lpick-list button", w).forEach(function(x){ x.addEventListener("click", function(){ setTimeout(function(){ set(false); }, 120); }); });
+  document.addEventListener("click", function(e){ if(!w.contains(e.target)) set(false); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") set(false); });
+  window.addEventListener("scroll", function(){ if(w.classList.contains("open")) set(false); }, {passive: true});
+})();
 
 /* ================= PRELOADER ================= */
 function preDone(){
@@ -1303,7 +1519,7 @@ tabs.forEach(function(b, i){
     e.preventDefault(); showTab(tabs[(i + d + tabs.length) % tabs.length].dataset.tab, true);
   });
 });
-showTab("beginner");
+showTab("adventure");
 
 /* ================= TIMELINE ================= */
 (function(){
@@ -1331,8 +1547,14 @@ function iso(d){ return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pa
 var today = new Date(), tom = new Date(); tom.setDate(tom.getDate() + 1);
 var ISO_TODAY = iso(today), ISO_TOM = iso(tom);
 fDate.min = ISO_TODAY; fDate.value = ISO_TOM;
-function tourVal(){ var c = $('input[name="tour"]:checked'); return c ? c.value : "cliff"; }
-function timeVal(){ var c = $('input[name="time"]:checked'); return c ? c.value : "morning"; }
+function tourVal(){ var c = $('input[name="tour"]:checked'); return c ? c.value : "adventure"; }
+function timeVal(){ var c = $('input[name="time"]:checked'); return c ? c.value : "0900"; }
+var TIMES = {adventure: ["0900", "1600"], sunset: ["1800"], private: ["flex"], boat: ["1100"]};
+function syncTimes(){
+  var ok = TIMES[tourVal()] || ["flex"], has = false;
+  $$("#timeChips .chip").forEach(function(c){ var inp = c.querySelector("input"), on = ok.indexOf(inp.value) > -1; c.hidden = !on; if(on && inp.checked) has = true; });
+  if(!has){ var f = $('#timeChips input[value="' + ok[0] + '"]'); if(f) f.checked = true; }
+}
 function selectTour(v){
   var r = $('input[name="tour"][value="' + v + '"]'); if(r) r.checked = true;
   updateSummary();
@@ -1348,6 +1570,7 @@ function dateShort(){
   return dateFull();
 }
 function updateSummary(){
+  syncTimes();
   var tv = tourVal(), s = t("sum." + tv) + " · " + peopleLabel(people);
   $("#sumTxt").textContent = s + " · " + dateShort();
   $("#barTxt").textContent = s;

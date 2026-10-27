@@ -2,22 +2,17 @@
 <!--
   Taxi Boat Punat, boat excursions on Krk with Captain Bobo: website proposal mockup (Concept by Marija)
 
-  IMAGE SLOTS (optional, put real photos in ./img/ using these exact names):
-    img/hero.jpg  carousel slide 1 + Wild bays tour card
-    img/2.jpg     carousel slide 2 + Taxi boat to Kosljun card
-    img/3.jpg     carousel slide 3 + Plavnik island card
-    img/4.jpg     carousel slide 4 + Sunset tour card
-    img/5.jpg     carousel slide 5 + Private tour card + Good to know + contact
-  No licensed photos are used. Every slot falls back to our own inline SVG
-  illustrations (small wooden taxi boat, Kosljun island with the monastery and
-  cypress trees, Punat bay, sea cave arch, griffon vulture, sunset, waves,
-  seagulls) over a gradient, so the page looks finished without photos.
+  PHOTOS: hotlinked from the business's own site (static.wixstatic.com, their
+  Wix media) in the carousel, tour cards, Good to know and contact. Every
+  photo keeps the onerror fallback to our own inline SVG illustrations, so
+  the page still looks finished if an image fails. Two tour cards (Kosljun,
+  off-season) use the SVG art only (img/2.jpg slot, optional).
   Hero: Three.js (cdnjs, r128) calm Punat bay at sunset: shader water with a
   gentle swell and sun reflection path, low-poly Kosljun island with cypress
   trees and the monastery, flapping seagulls, slow camera drift, pointer
   parallax. Falls back to a static SVG scene without WebGL, when three.js fails
   to load or with prefers-reduced-motion.
-  Prices "from XX €" and durations "X h" are example placeholders to confirm.
+  Tours, durations and prices as published on krkboattrip.com (Oct 2026).
 -->
 <html lang="en">
 <head>
@@ -151,15 +146,26 @@ section{scroll-margin-top:calc(var(--header) + 50px)}
 .logo b{display:block;font-family:var(--serif);font-weight:400;font-size:19px;white-space:nowrap}
 .logo small{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;opacity:.8;margin-top:4px;white-space:nowrap}
 .hdr__r{display:flex;align-items:center;gap:8px;position:relative}
-.lang{display:flex;align-items:center;font-size:12px;font-weight:500;letter-spacing:.12em}
-.lang button{background:none;border:0;padding:8px 6px;cursor:pointer;opacity:.55;transition:opacity .3s;position:relative}
-.lang button[aria-pressed="true"]{opacity:1;text-decoration:underline;text-underline-offset:5px}
-@media (max-width:759px){
-  .hdr .lang button:not([aria-pressed="true"]){display:none}
-  .hdr .lang.open{flex-direction:column;position:absolute;top:-6px;right:72px;background:#fff;color:var(--ink);border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,.16);padding:4px 6px;z-index:5}
-  .hdr .lang.open button{display:block;opacity:.7;text-decoration:none}
-  .hdr .lang.open button[aria-pressed="true"]{opacity:1;font-weight:600}
+.lpick{position:relative}
+.lpick-btn{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:600 12px/1 var(--sans);letter-spacing:.12em;cursor:pointer;opacity:.9}
+.lpick-btn svg{width:18px;height:18px}.lpick-btn .chev{width:14px;height:14px;transition:transform .3s}
+.lpick.open .lpick-btn .chev{transform:rotate(180deg)}
+.hdr .lpick-list{position:absolute;right:0;top:calc(100% + 10px);display:grid;grid-template-columns:1fr;gap:0;min-width:200px;padding:8px;background:#fff;color:var(--navy);border-radius:18px;box-shadow:0 24px 60px -18px rgba(0,0,0,.3);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:80}
+.lpick.open .lpick-list{opacity:1;transform:none;pointer-events:auto}
+.hdr .lpick-list button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border:0;background:none;border-radius:10px;font:400 16px/1.2 var(--sans);letter-spacing:0;text-align:left;color:var(--navy);cursor:pointer}
+.hdr .lpick-list button b{font-weight:600;font-size:12px;letter-spacing:.12em;width:24px;opacity:.6}
+.hdr .lpick-list button:hover{background:var(--linen)}
+.hdr .lpick-list button[aria-pressed="true"]{background:var(--linen);font-weight:600}
+.menu-open .lpick{display:none}
+@media (max-width:560px){
+  .menu-btn>span:first-child{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .menu-btn{padding-left:4px}
+  .hdr .wrap{gap:10px}
+  .hdr .logo{min-width:0;flex:0 1 auto}
+  .hdr .logo>span{min-width:0}
+  .hdr .logo small{overflow:hidden;text-overflow:ellipsis}
 }
+@media (max-width:380px){.lpick-btn{padding:0 9px}.lpick-btn .chev{display:none}}
 .hdr__book{display:none;min-height:40px;padding:0 20px;font-size:12px;background:transparent;border-color:currentColor;color:inherit}
 .hdr__book::before{background:var(--navy)}
 .hdr__book:hover{color:#fff;border-color:var(--navy)}
@@ -182,7 +188,6 @@ section{scroll-margin-top:calc(var(--header) + 50px)}
 .menu-open .ovl ol a{transform:none;transition-delay:calc(.25s + var(--i) * .06s)}
 .ovl__foot{display:grid;gap:16px;margin-top:24px;opacity:0;transform:translateY(12px);transition:opacity .6s .55s,transform .6s var(--out) .55s}
 .menu-open .ovl__foot{opacity:1;transform:none}
-.ovl .lang button{opacity:.55;font-size:13px;padding:10px 14px 10px 0}
 .ovl__contact{font-size:15px;color:rgba(255,255,255,.75);display:flex;flex-wrap:wrap;gap:6px 18px}
 .menu-open .fab,.menu-open .ctag,.menu-open .bbar{opacity:0!important;pointer-events:none!important}
 
@@ -351,7 +356,7 @@ section{scroll-margin-top:calc(var(--header) + 50px)}
 .pts .n{font-family:var(--serif);font-size:15px;color:var(--sun);margin-right:8px}
 .pts h3{font-family:var(--sans);font-size:21px;font-weight:500;line-height:1.3;margin-top:4px}
 .pts p{margin:0;color:rgba(255,255,255,.85)}
-@media(min-width:900px){.pts{grid-template-columns:repeat(3,1fr);gap:40px;border-top:0}.pts li{grid-template-columns:1fr;border-bottom:0;border-top:1px solid rgba(255,255,255,.22);padding-top:28px}.pts .ic{grid-row:auto;margin-bottom:14px}}
+@media(min-width:900px){.pts{grid-template-columns:repeat(2,1fr);gap:0 56px;border-top:0}.pts li{grid-template-columns:1fr;border-bottom:0;border-top:1px solid rgba(255,255,255,.22);padding-top:28px}.pts .ic{grid-row:auto;margin-bottom:14px}}
 
 /* GOOD TO KNOW */
 .gtk__grid{display:grid;gap:36px}
@@ -446,6 +451,8 @@ input[type=date].ctl::-webkit-date-and-time-value{text-align:left}
 .hours{list-style:none;padding:0;margin:30px 0;border-top:1px solid var(--line)}
 .hours li{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:16px}
 .hours li span:last-child{font-variant-numeric:tabular-nums;color:var(--muted);text-align:right}
+.hours a{white-space:nowrap}
+.hours li span:first-child{min-width:0}
 .contact__btns{display:grid;gap:10px}
 .contact__img{aspect-ratio:3/2}
 @media(min-width:900px){.contact__img{aspect-ratio:4/5}#contact{padding-bottom:130px}}
@@ -564,11 +571,15 @@ html select{height:56px;line-height:normal}
       <span><b>Taxi Boat Punat</b><small data-i18n="logo.sub">Boat excursions · Krk</small></span>
     </a>
     <div class="hdr__r">
-      <div class="lang" id="langHdr" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="de" aria-pressed="false">DE</button>
-        <button type="button" data-lang="it" aria-pressed="false">IT</button>
-        <button type="button" data-lang="hr" aria-pressed="false">HR</button>
+      <div class="lpick" id="lpick">
+        <button type="button" class="lpick-btn" id="lpickBtn" aria-haspopup="true" aria-expanded="false" aria-label="Language"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span id="lpickCur">EN</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="lpick-list langs" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true"><b>EN</b><span>English</span></button>
+          <button type="button" data-lang="de" aria-pressed="false"><b>DE</b><span>Deutsch</span></button>
+          <button type="button" data-lang="it" aria-pressed="false"><b>IT</b><span>Italiano</span></button>
+          <button type="button" data-lang="hr" aria-pressed="false"><b>HR</b><span>Hrvatski</span></button>
+          <button type="button" data-lang="hu" aria-pressed="false"><b>HU</b><span>Magyar</span></button>
+        </div>
       </div>
       <a href="#book" class="pill hdr__book" data-i18n="nav.book">Book a tour</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="ovl"><span data-i18n="nav.menu">MENU</span><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
@@ -587,14 +598,8 @@ html select{height:56px;line-height:normal}
     <li><a href="#contact" style="--i:6"><small>07</small><span data-i18n="ovl.contact">Contact</span></a></li>
   </ol>
   <div class="ovl__foot">
-    <div class="lang" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button>
-      <button type="button" data-lang="de" aria-pressed="false">DE</button>
-      <button type="button" data-lang="it" aria-pressed="false">IT</button>
-      <button type="button" data-lang="hr" aria-pressed="false">HR</button>
-    </div>
-    <a href="https://wa.me/385919141658" class="pill pill--linen pill--block" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-i18n="cta.wa">WhatsApp the captain</span></a>
-    <div class="ovl__contact"><a href="tel:+385919141658">+385 91 914 1658</a><span data-i18n="ovl.addr">Punat waterfront, Krk</span><span data-i18n="ovl.hours">Daily 09:00 to 21:00 in season</span></div>
+    <a href="https://wa.me/385919141658" class="pill pill--linen pill--block" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-i18n="cta.wa">WhatsApp us</span></a>
+    <div class="ovl__contact"><a href="tel:+385919141658">+385 91 914 1658</a><a href="mailto:taxiboatpunat@gmail.com">taxiboatpunat@gmail.com</a><span data-i18n="ovl.addr">Obala, opposite the post office, Punat</span><span data-i18n="ovl.hours">Trips April to October, taxi boat all year</span></div>
   </div>
 </nav>
 
@@ -635,7 +640,7 @@ html select{height:56px;line-height:normal}
         <span class="mask"><span data-i18n="hero.t2">with Captain Bobo</span></span>
         <span class="mask"><span class="sub" data-i18n="hero.sub">Boat excursions on Krk</span></span>
       </h1>
-      <p class="hero__txt fade-up d2" data-i18n="hero.txt">Wild bays, a swim into a sea cave, the island of Plavnik and sunset over Košljun. Book direct with the captain.</p>
+      <p class="hero__txt fade-up d2" data-i18n="hero.txt">Wild bays you can only reach by boat, the Love Cave and griffon vultures on Plavnik, sunset rides and the taxi boat to Košljun. Book direct with Bobo and his family.</p>
       <a class="hero__addr fade-up d3" href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="hero.addr">Obala, 51521 Punat · Google 4.9 from 305 reviews</span></a>
       <div class="hero__cta fade-up d4">
         <a href="#book" class="pill pill--grey" data-tour="wild" data-i18n="hero.cta">Book the wild bays tour</a>
@@ -659,15 +664,15 @@ html select{height:56px;line-height:normal}
   <div class="wrap">
     <p class="label" style="justify-content:center;color:rgba(255,255,255,.6)"><span class="num" style="color:var(--sun)">01</span><span data-i18n="gal.label">On the water</span></p>
     <h2 class="rv" data-i18n="gal.h">A day around Krk</h2>
-    <p class="sub rv" data-delay="1" data-i18n="gal.sub">Wild bays, a sea cave, an island monastery and the sun going down over Punat. Swipe through.</p>
+    <p class="sub rv" data-delay="1" data-i18n="gal.sub">Hidden beaches, the Love Cave, griffon vultures on Plavnik and the sun going down over Krk. Swipe through.</p>
   </div>
   <div class="gal" id="gal">
     <div class="gal__track" id="galTrack">
-      <div class="gal__slide cur" data-cap="gal.c1"><div class="art art--cave"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-cave" width="480" height="400" x="-40" y="60"/><use href="#i-waves" width="520" height="104" x="-60" y="400" color="#DDF3F5" opacity=".6"/></svg><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c2"><div class="art art--island"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-hills" width="560" height="120" x="-80" y="170" color="#5C8A9A" opacity=".55"/><use href="#i-koslj" width="380" height="165" x="10" y="150"/><use href="#i-waves" width="560" height="112" x="-80" y="330" color="#fff" opacity=".7"/><use href="#i-taxi" width="150" height="70" x="200" y="380"/></svg><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c3"><div class="art art--cliff"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-vulture" width="220" height="77" x="90" y="70" color="#2B2A2E"/><use href="#i-vulture" width="110" height="38" x="50" y="190" color="#2B2A2E" opacity=".7"/><use href="#i-cliff" width="460" height="190" x="-30" y="250"/><use href="#i-waves" width="520" height="104" x="-60" y="420" color="#fff" opacity=".6"/></svg><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c4"><div class="art art--sunset"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="200" height="200" x="100" y="110" color="#C9843D"/><use href="#i-hills" width="520" height="80" x="-60" y="226" color="#2E3566" opacity=".9"/><use href="#i-koslj" width="170" height="74" x="200" y="230"/><use href="#i-waves" width="520" height="104" x="-60" y="320" color="#FFD98A" opacity=".55"/><use href="#i-taxi" width="210" height="97" x="60" y="330"/></svg><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c5"><div class="art art--bay"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-hills" width="560" height="130" x="-80" y="160" color="#4F8296" opacity=".6"/><use href="#i-anchor" width="90" height="108" x="40" y="60" color="#0A2B5E" opacity=".7"/><use href="#i-taxi" width="260" height="120" x="70" y="300"/><use href="#i-waves" width="520" height="104" x="-60" y="410" color="#fff" opacity=".7"/></svg><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide cur" data-cap="gal.c1"><div class="art art--cave"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-cave" width="480" height="400" x="-40" y="60"/><use href="#i-waves" width="520" height="104" x="-60" y="400" color="#DDF3F5" opacity=".6"/></svg><img src="https://static.wixstatic.com/media/3d5e82_ddaf4a9d041f4da9b8f9062bc621e5f9~mv2_d_1774_1667_s_2.jpg" alt="Swimming into the Love Cave on Plavnik island" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c2"><div class="art art--island"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-hills" width="560" height="120" x="-80" y="170" color="#5C8A9A" opacity=".55"/><use href="#i-koslj" width="380" height="165" x="10" y="150"/><use href="#i-waves" width="560" height="112" x="-80" y="330" color="#fff" opacity=".7"/><use href="#i-taxi" width="150" height="70" x="200" y="380"/></svg><img src="https://static.wixstatic.com/media/3d5e82_98e960bd90b242b788df484146c2d79c~mv2_d_2314_1653_s_2.jpg/v1/fill/w_1600,h_1143,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3d5e82_98e960bd90b242b788df484146c2d79c~mv2_d_2314_1653_s_2.jpg" alt="Golden Beach in the wild bays of Krk, reachable only by boat" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c3"><div class="art art--cliff"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-vulture" width="220" height="77" x="90" y="70" color="#2B2A2E"/><use href="#i-vulture" width="110" height="38" x="50" y="190" color="#2B2A2E" opacity=".7"/><use href="#i-cliff" width="460" height="190" x="-30" y="250"/><use href="#i-waves" width="520" height="104" x="-60" y="420" color="#fff" opacity=".6"/></svg><img src="https://static.wixstatic.com/media/3d5e82_db31ed4f9de9493286f53e7d33d4f855~mv2_d_4400_2297_s_2.jpg/v1/fill/w_1600,h_835,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3d5e82_db31ed4f9de9493286f53e7d33d4f855~mv2_d_4400_2297_s_2.jpg" alt="Griffon vultures over Plavnik island" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c4"><div class="art art--sunset"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="200" height="200" x="100" y="110" color="#C9843D"/><use href="#i-hills" width="520" height="80" x="-60" y="226" color="#2E3566" opacity=".9"/><use href="#i-koslj" width="170" height="74" x="200" y="230"/><use href="#i-waves" width="520" height="104" x="-60" y="320" color="#FFD98A" opacity=".55"/><use href="#i-taxi" width="210" height="97" x="60" y="330"/></svg><img src="https://static.wixstatic.com/media/3d5e82_fb3ab3a096f942909098d9ca90e0983b~mv2.jpg" alt="Sunset boat ride off the island of Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c5"><div class="art art--bay"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-hills" width="560" height="130" x="-80" y="160" color="#4F8296" opacity=".6"/><use href="#i-anchor" width="90" height="108" x="40" y="60" color="#0A2B5E" opacity=".7"/><use href="#i-taxi" width="260" height="120" x="70" y="300"/><use href="#i-waves" width="520" height="104" x="-60" y="410" color="#fff" opacity=".7"/></svg><img src="https://static.wixstatic.com/media/3d5e82_fe75e1855e354829b178b0c4531868a6~mv2.jpg" alt="IVEX, the wooden taxi boat of Taxi Boat Punat" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
     </div>
     <a class="tag-b" href="#tours" id="galTag"><span id="galTagTxt">Wild bays, Krk</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
     <button type="button" class="sqbtn l" id="galPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
@@ -701,9 +706,10 @@ html select{height:56px;line-height:normal}
           <p class="label"><span class="num">02</span><span data-i18n="cap.label">Your captain</span></p>
           <h2 data-i18n="cap.h">Meet Captain Bobo</h2>
         </div>
-        <p class="lead rv" data-i18n="cap.lead">Bobo runs Taxi Boat Punat from the waterfront in Punat, on the island of Krk. Guests know him as friendly, funny and full of stories.</p>
-        <p class="rv" data-delay="1" data-i18n="cap.p1">He takes small groups out to the wild bays, across to the island of Plavnik and over to the monastery on Košljun. Every trip comes with swim stops and the captain's own stories of the island.</p>
-        <p class="rv" data-delay="1" data-i18n="cap.p2">You may have seen his tours on GetMyBoat or Expedia. Here you book direct: one WhatsApp message, straight to the captain.</p>
+        <p class="lead rv" data-i18n="cap.lead">Bobo is a barkariol, a taxi boat driver, which is an old trade in Punat. Once there were more than 30 barkariols here. Today there are five.</p>
+        <p class="rv" data-delay="1" data-i18n="cap.p1">He runs Taxi Boat Punat as a small family business with his wife Helena and their children. Guests know him as friendly, funny and full of stories about the island.</p>
+        <p class="rv" data-delay="1" data-i18n="cap.p2">His boat IVEX is a traditional wooden fishing boat built in 1973: 9&nbsp;m long, for up to 16 passengers, with a Perkins engine of 87&nbsp;PS.</p>
+        <p class="rv" data-delay="1" data-i18n="cap.p3">You may have seen the tours on GetMyBoat or Expedia. Here you book direct: one WhatsApp message to the family.</p>
         <div class="sig rv" data-delay="2">
           <svg viewBox="0 0 100 100" aria-hidden="true" style="color:#0A2B5E"><use href="#i-mark"/></svg>
           <div><b>Bobo</b><small data-i18n="cap.sig">Captain, Taxi Boat Punat</small></div>
@@ -712,9 +718,10 @@ html select{height:56px;line-height:normal}
       <div class="card rv" data-delay="1">
         <h3 data-i18n="dir.h">Why book direct</h3>
         <ul class="ticks">
-          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg><span data-i18n="dir.l1">You talk to Bobo himself, the person who drives the boat</span></li>
+          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg><span data-i18n="dir.l1">You talk to the family who runs the boat, not a booking platform</span></li>
           <li><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-13.3 7.9L3 21l1.1-4.7A9 9 0 1 1 21 12z"/><path d="M8 11h8M8 14h5"/></svg><span data-i18n="dir.l2">Plan the day, the stops and the pace together on WhatsApp</span></li>
-          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.6-1-1.7-1.5-3-1.5-2 0-3.5 1.6-3.5 4s1.5 4 3.5 4c1.3 0 2.4-.5 3-1.5M7 11h6M7 13h6"/></svg><span><span data-i18n="dir.l3">Very fair prices, from</span> <span class="ph">XX&nbsp;€</span></span></li>
+          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.6-1-1.7-1.5-3-1.5-2 0-3.5 1.6-3.5 4s1.5 4 3.5 4c1.3 0 2.4-.5 3-1.5M7 11h6M7 13h6"/></svg><span data-i18n="dir.l3">Shared trips from 29&nbsp;€ per adult, a private boat from 150&nbsp;€</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span data-i18n="dir.l4">Returning guests get 20&nbsp;€ off private trips (code LOY20)</span></li>
         </ul>
         <div class="badge">
           <div class="badge__g">G</div>
@@ -734,48 +741,72 @@ html select{height:56px;line-height:normal}
     <div class="sh rv">
       <p class="label"><span class="num">03</span><span data-i18n="tours.label">Tours</span></p>
       <h2 data-i18n="tours.h">Choose your trip</h2>
-      <p data-i18n="tours.sub">Five ways to see Krk from the water. Small groups, swim stops and a captain who knows every bay.</p>
+      <p data-i18n="tours.sub">Shared trips in summer, a private boat from spring to autumn and the taxi boat all year. Routes are suggestions: the captain adapts them to your wishes and the weather.</p>
     </div>
   </div>
   <div class="peek" id="peek">
     <article class="tcard rv">
-      <div class="frame"><div class="art art--cave"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-cave" width="440" height="367" x="-20" y="80"/><use href="#i-waves" width="520" height="104" x="-60" y="400" color="#DDF3F5" opacity=".6"/></svg><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t1.tag">4 bays · cave</span></div>
-      <h3 data-i18n="t1.h">Wild bays tour</h3>
-      <p class="tcard__meta"><span data-i18n="t1.dur">About 3.5 hours</span> · <span data-i18n="t.from">from</span> <span class="ph">XX&nbsp;€</span></p>
-      <p data-i18n="t1.p">Four wild bays along the Krk coast, with time to swim at each. The highlight: swimming into a sea cave and through underwater tunnels.</p>
-      <ul><li data-i18n="t1.l1">4 bays with swimming stops</li><li data-i18n="t1.l2">Swim into a cave</li><li data-i18n="t1.l3">Underwater tunnels</li></ul>
+      <div class="frame"><div class="art art--cave"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-cave" width="440" height="367" x="-20" y="80"/><use href="#i-waves" width="520" height="104" x="-60" y="400" color="#DDF3F5" opacity=".6"/></svg><img src="https://static.wixstatic.com/media/3d5e82_bb35044a605347f4a71aff2e9cce4749~mv2_d_5760_3840_s_4_2.jpg/v1/fill/w_1600,h_1067,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3d5e82_bb35044a605347f4a71aff2e9cce4749~mv2_d_5760_3840_s_4_2.jpg" alt="Fox Beach in the wild bays of Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t1.tag">Shared or private</span></div>
+      <h3 data-i18n="t1.h">Wild bays</h3>
+      <p class="tcard__meta" data-i18n="t1.meta">3.5&nbsp;h · from 29&nbsp;€ per person</p>
+      <p data-i18n="t1.p">The most beautiful bays of Krk, reachable only by boat. Swim and snorkel, swim into a cave and through tunnels under the rocks, jump off the cliffs.</p>
+      <ul><li data-i18n="t1.l1">Fox, Bishop, Golden, Long and Cornels bays</li><li data-i18n="t1.l2">Shared: 29&nbsp;€ adults, 17&nbsp;€ children up to 12</li><li data-i18n="t1.l3">Private boat: from 240&nbsp;€</li><li data-i18n="t1.l4">Departures 9:00, 13:00 or 15:00, 17:00</li></ul>
       <a href="#book" class="ulink" data-tour="wild"><span data-i18n="t.book">Book this tour</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="1">
-      <div class="frame"><div class="art art--cliff"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-vulture" width="240" height="84" x="80" y="80" color="#2B2A2E"/><use href="#i-cliff" width="460" height="190" x="-30" y="260"/><use href="#i-waves" width="520" height="104" x="-60" y="420" color="#fff" opacity=".6"/></svg><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t2.tag">Small groups</span></div>
-      <h3 data-i18n="t2.h">Trip to Plavnik island</h3>
-      <p class="tcard__meta"><span data-i18n="t.dur">Duration</span> <span class="ph">X&nbsp;h</span> · <span data-i18n="t.from">from</span> <span class="ph">XX&nbsp;€</span></p>
-      <p data-i18n="t2.p">A wild island across the water from Krk. Small groups of around 12 people, and a good chance to see deer, sheep and griffon vultures.</p>
-      <ul><li data-i18n="t2.l1">Groups of around 12 people</li><li data-i18n="t2.l2">Deer, sheep and griffon vultures</li><li data-i18n="t2.l3">Stories from the captain on the way</li></ul>
+      <div class="frame"><div class="art art--cliff"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-vulture" width="240" height="84" x="80" y="80" color="#2B2A2E"/><use href="#i-cliff" width="460" height="190" x="-30" y="260"/><use href="#i-waves" width="520" height="104" x="-60" y="420" color="#fff" opacity=".6"/></svg><img src="https://static.wixstatic.com/media/3d5e82_ddaf4a9d041f4da9b8f9062bc621e5f9~mv2_d_1774_1667_s_2.jpg" alt="Swimming into the Love Cave on Plavnik island" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t2.tag">Shared or private</span></div>
+      <h3 data-i18n="t2.h">Plavnik island</h3>
+      <p class="tcard__meta" data-i18n="t2.meta">5&nbsp;h · from 39&nbsp;€ per person</p>
+      <p data-i18n="t2.p">Plavnik is a large uninhabited island across from Krk and home to griffon vultures. Up to 3 stops and about 2 hours of swimming.</p>
+      <ul><li data-i18n="t2.l1">Love Cave, Shogy secret beach and Shogy green eye</li><li data-i18n="t2.l2">Shared: 39&nbsp;€ adults, 23&nbsp;€ children up to 12</li><li data-i18n="t2.l3">Private boat: from 340&nbsp;€</li><li data-i18n="t2.l4">Departures 9:00, 13:00 or 15:00</li></ul>
       <a href="#book" class="ulink" data-tour="plavnik"><span data-i18n="t.book">Book this tour</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="2">
-      <div class="frame"><div class="art art--sunset"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="220" height="220" x="90" y="100" color="#C9843D"/><use href="#i-hills" width="520" height="80" x="-60" y="226" color="#2E3566" opacity=".9"/><use href="#i-koslj" width="180" height="78" x="190" y="226"/><use href="#i-waves" width="520" height="104" x="-60" y="330" color="#FFD98A" opacity=".55"/><use href="#i-taxi" width="190" height="88" x="40" y="340"/></svg><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t3.tag">Golden hour</span></div>
-      <h3 data-i18n="t3.h">Sunset tour</h3>
-      <p class="tcard__meta"><span data-i18n="t.dur">Duration</span> <span class="ph">X&nbsp;h</span> · <span data-i18n="t.from">from</span> <span class="ph">XX&nbsp;€</span></p>
-      <p data-i18n="t3.p">Out on the water as the light turns gold. Calm sea, Košljun in silhouette and the captain's stories while the sun goes down.</p>
-      <ul><li data-i18n="t3.l1">Golden hour on the water</li><li data-i18n="t3.l2">Views of Košljun island</li><li data-i18n="t3.l3">From the Punat waterfront</li></ul>
+      <div class="frame"><div class="art art--sunset"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="220" height="220" x="90" y="100" color="#C9843D"/><use href="#i-hills" width="520" height="80" x="-60" y="226" color="#2E3566" opacity=".9"/><use href="#i-koslj" width="180" height="78" x="190" y="226"/><use href="#i-waves" width="520" height="104" x="-60" y="330" color="#FFD98A" opacity=".55"/><use href="#i-taxi" width="190" height="88" x="40" y="340"/></svg><img src="https://static.wixstatic.com/media/3d5e82_fb3ab3a096f942909098d9ca90e0983b~mv2.jpg" alt="Sunset boat ride off the island of Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t3.tag">Golden hour</span></div>
+      <h3 data-i18n="t3.h">Sunset in the wild bays</h3>
+      <p class="tcard__meta" data-i18n="t3.meta">2&nbsp;h · 150&nbsp;€ per boat</p>
+      <p data-i18n="t3.p">An evening ride along the wild bays when it gets cooler, back in Punat as the sun goes down. No swim stop on this one.</p>
+      <ul><li data-i18n="t3.l1">Private boat for up to 15 guests</li><li data-i18n="t3.l2">Starts after 18:00, depending on sunset</li><li data-i18n="t3.l3">In the summer season</li></ul>
       <a href="#book" class="ulink" data-tour="sunset"><span data-i18n="t.book">Book this tour</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="3">
-      <div class="frame"><div class="art art--island"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="110" height="110" x="260" y="40" color="#C9843D"/><use href="#i-koslj" width="420" height="182" x="-10" y="150"/><use href="#i-waves" width="560" height="112" x="-80" y="330" color="#fff" opacity=".7"/><use href="#i-taxi" width="170" height="78" x="40" y="380"/></svg><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t4.tag">Taxi boat</span></div>
-      <h3 data-i18n="t4.h">Taxi boat to Košljun</h3>
-      <p class="tcard__meta"><span data-i18n="t.dur">Duration</span> <span class="ph">X&nbsp;h</span> · <span data-i18n="t.from">from</span> <span class="ph">XX&nbsp;€</span></p>
-      <p data-i18n="t4.p">Hop across Punat bay to the small island of Košljun, with its monastery among the cypress trees.</p>
-      <ul><li data-i18n="t4.l1">Island monastery and cypress trees</li><li data-i18n="t4.l2">From the Punat waterfront</li><li data-i18n="t4.l3">Ask the captain about return times</li></ul>
+      <div class="frame"><div class="art art--bay"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-hills" width="560" height="130" x="-80" y="150" color="#4F8296" opacity=".6"/><use href="#i-gull" width="40" height="14" x="90" y="90" color="#0A2B5E"/><use href="#i-gull" width="26" height="9" x="150" y="70" color="#0A2B5E"/><use href="#i-taxi" width="280" height="129" x="60" y="290"/><use href="#i-waves" width="520" height="104" x="-60" y="410" color="#fff" opacity=".7"/></svg><img src="https://static.wixstatic.com/media/3d5e82_245182221dd5470f9f69ef44b8e48cf4~mv2_d_3252_2244_s_2.jpg/v1/fill/w_1600,h_1104,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3d5e82_245182221dd5470f9f69ef44b8e48cf4~mv2_d_3252_2244_s_2.jpg" alt="Bishop Beach in the wild bays of Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t4.tag">Private</span></div>
+      <h3 data-i18n="t4.h">Big trip: wild bays and Plavnik</h3>
+      <p class="tcard__meta" data-i18n="t4.meta">7.5&nbsp;h · from 470&nbsp;€ per boat</p>
+      <p data-i18n="t4.p">Both highlights in one long day: the wild bays of Krk and the island of Plavnik. Swim, snorkel, sunbathe, jump off the rocks and swim into caves. With luck, dolphins.</p>
+      <ul><li data-i18n="t4.l1">Departs 9:00, or after 13:00 to come back at sunset</li><li data-i18n="t4.l2">About 3.5&nbsp;h on the move, the rest is for you</li><li data-i18n="t4.l3">Stops depend on the weather</li></ul>
+      <a href="#book" class="ulink" data-tour="big"><span data-i18n="t.book">Book this tour</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article>
+    <article class="tcard rv" data-delay="4">
+      <div class="frame"><div class="art art--bay"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-hills" width="560" height="130" x="-80" y="160" color="#4F8296" opacity=".6"/><use href="#i-anchor" width="90" height="108" x="40" y="60" color="#0A2B5E" opacity=".7"/><use href="#i-taxi" width="260" height="120" x="70" y="300"/><use href="#i-waves" width="520" height="104" x="-60" y="410" color="#fff" opacity=".7"/></svg><img src="https://static.wixstatic.com/media/3d5e82_98e960bd90b242b788df484146c2d79c~mv2_d_2314_1653_s_2.jpg/v1/fill/w_1600,h_1143,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3d5e82_98e960bd90b242b788df484146c2d79c~mv2_d_2314_1653_s_2.jpg" alt="Golden Beach in the wild bays of Krk, reachable only by boat" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t5.tag">Private</span></div>
+      <h3 data-i18n="t5.h">Full day trip</h3>
+      <p class="tcard__meta" data-i18n="t5.meta">9&nbsp;h · from 560&nbsp;€ per boat</p>
+      <p data-i18n="t5.p">For families and friends who love the sea. Wild bays and Plavnik, lunch on board or in Stara Baška. In good weather the route can go on to Prvić, the prison islands Goli and Sveti Grgur or the sandy beaches of Rab.</p>
+      <ul><li data-i18n="t5.l1">Departs 9:00</li><li data-i18n="t5.l2">4 to 5&nbsp;h on the move, the rest is free time</li><li data-i18n="t5.l3">Small grill on board for your own lunch</li></ul>
+      <a href="#book" class="ulink" data-tour="full"><span data-i18n="t.book">Book this tour</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article>
+    <article class="tcard rv" data-delay="4">
+      <div class="frame"><div class="art art--island"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="110" height="110" x="260" y="40" color="#C9843D"/><use href="#i-koslj" width="420" height="182" x="-10" y="150"/><use href="#i-waves" width="560" height="112" x="-80" y="330" color="#fff" opacity=".7"/><use href="#i-taxi" width="170" height="78" x="40" y="380"/></svg><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t6.tag">Taxi boat</span></div>
+      <h3 data-i18n="t6.h">Taxi boat to Košljun</h3>
+      <p class="tcard__meta" data-i18n="t6.meta">8&nbsp;min · from 5&nbsp;€ per person</p>
+      <p data-i18n="t6.p">Hop across Punat bay to the monastery island of Košljun among the cypress trees.</p>
+      <ul><li data-i18n="t6.l1">Return ticket paid online: 9&nbsp;€ adults, 5&nbsp;€ children up to 12</li><li data-i18n="t6.l2">Paid on the spot: 11&nbsp;€ adults, 6&nbsp;€ children</li><li data-i18n="t6.l3">Summer water bus from 11 June to 12 September</li><li data-i18n="t6.l4">Monastery entry not included (6&nbsp;€ adults, 4&nbsp;€ children)</li></ul>
       <a href="#book" class="ulink" data-tour="koslj"><span data-i18n="t.book">Book this tour</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="4">
-      <div class="frame"><div class="art art--bay"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-hills" width="560" height="130" x="-80" y="150" color="#4F8296" opacity=".6"/><use href="#i-gull" width="40" height="14" x="90" y="90" color="#0A2B5E"/><use href="#i-gull" width="26" height="9" x="150" y="70" color="#0A2B5E"/><use href="#i-taxi" width="280" height="129" x="60" y="290"/><use href="#i-waves" width="520" height="104" x="-60" y="410" color="#fff" opacity=".7"/></svg><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t5.tag">Your way</span></div>
-      <h3 data-i18n="t5.h">Private tour</h3>
-      <p class="tcard__meta"><span data-i18n="t.dur">Duration</span> <span class="ph">X&nbsp;h</span> · <span data-i18n="t.from">from</span> <span class="ph">XX&nbsp;€</span></p>
-      <p data-i18n="t5.p">Your group, your day. Tell the captain what you love and he tailors the route, the stops and the pace to you.</p>
-      <ul><li data-i18n="t5.l1">Just your group on board</li><li data-i18n="t5.l2">Route tailored to you</li><li data-i18n="t5.l3">Planned together on WhatsApp</li></ul>
+      <div class="frame"><div class="art art--bay"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-hills" width="560" height="130" x="-80" y="150" color="#4F8296" opacity=".6"/><use href="#i-gull" width="40" height="14" x="90" y="90" color="#0A2B5E"/><use href="#i-gull" width="26" height="9" x="150" y="70" color="#0A2B5E"/><use href="#i-taxi" width="280" height="129" x="60" y="290"/><use href="#i-waves" width="520" height="104" x="-60" y="410" color="#fff" opacity=".7"/></svg><img src="https://static.wixstatic.com/media/3d5e82_fe75e1855e354829b178b0c4531868a6~mv2.jpg" alt="IVEX, the wooden taxi boat of Taxi Boat Punat" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t7.tag">All year</span></div>
+      <h3 data-i18n="t7.h">Taxi boat transfers</h3>
+      <p class="tcard__meta" data-i18n="t7.meta">From Punat · 50 to 80&nbsp;€ per hour</p>
+      <p data-i18n="t7.p">The taxi boat runs all year. A one hour ride costs 50 to 80&nbsp;€ per boat, depending on the number of guests and the season.</p>
+      <ul><li data-i18n="t7.l1">Prniba (St. Mikul): 8&nbsp;min, 6&nbsp;€ per person</li><li data-i18n="t7.l2">Punat marina: 10&nbsp;min, 7&nbsp;€ per person</li><li data-i18n="t7.l3">Krk town: 30&nbsp;min, 14 to 30&nbsp;€ per person</li><li data-i18n="t7.l4">Kornić, Stara Baška, Rab and more on request</li></ul>
+      <a href="#book" class="ulink" data-tour="private"><span data-i18n="t.plan">Plan it with the captain</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article>
+    <article class="tcard rv" data-delay="4">
+      <div class="frame"><div class="art art--cliff"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-vulture" width="240" height="84" x="80" y="80" color="#2B2A2E"/><use href="#i-cliff" width="460" height="190" x="-30" y="260"/><use href="#i-waves" width="520" height="104" x="-60" y="420" color="#fff" opacity=".6"/></svg><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t8.tag">Spring and autumn</span></div>
+      <h3 data-i18n="t8.h">Off-season private trips</h3>
+      <p class="tcard__meta" data-i18n="t8.meta">5 April to 4 June, 21 September to 31 October</p>
+      <p data-i18n="t8.p">Quiet bays and soft light. The sea is cooler, so swim stops happen only when the weather and the water allow.</p>
+      <ul><li data-i18n="t8.l1">Wild bays, 2&nbsp;h: from 110&nbsp;€</li><li data-i18n="t8.l2">Wild bays and Košljun, 3&nbsp;h: from 160&nbsp;€</li><li data-i18n="t8.l3">Plavnik and wild bays, 4&nbsp;h: from 220&nbsp;€</li><li data-i18n="t8.l4">Plavnik, wild bays and Košljun, 5&nbsp;h: from 260&nbsp;€</li><li data-i18n="t8.l5">Full day, 8&nbsp;h: from 400&nbsp;€</li></ul>
       <a href="#book" class="ulink" data-tour="private"><span data-i18n="t.plan">Plan it with the captain</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
   </div>
@@ -785,7 +816,7 @@ html select{height:56px;line-height:normal}
       <button type="button" class="rbtn" id="peekPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
       <button type="button" class="rbtn" id="peekNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
-    <p class="tr__note" data-i18n="tours.note">Prices shown as XX € and durations shown as X h are example placeholders for this proposal, to be confirmed by the captain.</p>
+    <p class="tr__note" data-i18n="tours.note">Private prices are per boat, for up to 15 guests. Smaller groups pay less, and returning guests get 20&nbsp;€ off private trips with code LOY20.</p>
   </div>
 </section>
 
@@ -798,12 +829,13 @@ html select{height:56px;line-height:normal}
     <p class="label rv"><span class="num">04</span><span data-i18n="board.label">On board</span></p>
     <h2 class="rv" data-i18n="board.h">What every trip has</h2>
     <ol class="pts">
-      <li class="rv"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="2.6"/><circle cx="16" cy="8" r="2.6"/><path d="M3 19c.6-3 2.6-5 5-5s4.4 2 5 5M11 19c.6-3 2.6-5 5-5s4.4 2 5 5"/></svg></span><h3><span class="n">01</span><span data-i18n="b1.h">Small groups</span></h3><p data-i18n="b1.p">Room to move, time to swim and a relaxed pace. On the Plavnik trip the group is around 12 people.</p></li>
-      <li class="rv" data-delay="1"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0"/><path d="M3 21c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0"/><circle cx="14" cy="6" r="2"/><path d="M6 13l4-4 3 2 3-1"/></svg></span><h3><span class="n">02</span><span data-i18n="b2.h">Swim stops</span></h3><p data-i18n="b2.p">Clear Adriatic water in quiet bays, and on the wild bays tour a swim into a cave. Bring your swimwear.</p></li>
+      <li class="rv"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="2.6"/><circle cx="16" cy="8" r="2.6"/><path d="M3 19c.6-3 2.6-5 5-5s4.4 2 5 5M11 19c.6-3 2.6-5 5-5s4.4 2 5 5"/></svg></span><h3><span class="n">01</span><span data-i18n="b1.h">Up to 15 guests</span></h3><p data-i18n="b1.p">Shared trips take at most 15 people, so book early. From 7 people, a private boat is often the better choice.</p></li>
+      <li class="rv" data-delay="1"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0"/><path d="M3 21c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0"/><circle cx="14" cy="6" r="2"/><path d="M6 13l4-4 3 2 3-1"/></svg></span><h3><span class="n">02</span><span data-i18n="b2.h">Swim stops</span></h3><p data-i18n="b2.p">Clear Adriatic water in bays you can only reach by boat. Snorkel, swim into caves and through tunnels under the rocks. Bring your swimwear.</p></li>
       <li class="rv" data-delay="2"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></span><h3><span class="n">03</span><span data-i18n="b3.h">Stories from the captain</span></h3><p data-i18n="b3.p">Bobo is friendly, funny and full of stories about Krk, the bays and the islands around Punat.</p></li>
+      <li class="rv" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 15h18l-2.5 4h-13z"/><path d="M12 3v12M12 4l6 9h-6"/></svg></span><h3><span class="n">04</span><span data-i18n="b4.h">IVEX, built in 1973</span></h3><p data-i18n="b4.p">A traditional wooden fishing boat, 9&nbsp;m long, for up to 16 passengers. On the full day trip there is a small grill on board.</p></li>
     </ol>
     <div class="rv" data-delay="2">
-      <a href="https://wa.me/385919141658?text=Hi%20Captain%20Bobo%2C%20I%20have%20a%20question%20about%20a%20tour." class="pill pill--outline" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-i18n="board.cta">Ask Bobo on WhatsApp</span></a>
+      <a href="https://wa.me/385919141658?text=Hi%20Taxi%20Boat%20Punat%2C%20I%20have%20a%20question%20about%20a%20trip." class="pill pill--outline" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-i18n="board.cta">Ask us on WhatsApp</span></a>
     </div>
   </div>
 </section>
@@ -818,15 +850,17 @@ html select{height:56px;line-height:normal}
     </div>
     <div class="gtk__grid">
       <div class="gtk__img-wrap">
-        <div class="frame gtk__img rv-img"><div class="art art--bay"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-hills" width="800" height="150" x="-100" y="110" color="#4F8296" opacity=".55"/><use href="#i-koslj" width="220" height="95" x="330" y="150"/><use href="#i-taxi" width="260" height="120" x="80" y="230"/><use href="#i-waves" width="800" height="160" x="-100" y="300" color="#fff" opacity=".7"/></svg><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="gtk.tag">Punat waterfront</span></div>
+        <div class="frame gtk__img rv-img"><div class="art art--bay"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-hills" width="800" height="150" x="-100" y="110" color="#4F8296" opacity=".55"/><use href="#i-koslj" width="220" height="95" x="330" y="150"/><use href="#i-taxi" width="260" height="120" x="80" y="230"/><use href="#i-waves" width="800" height="160" x="-100" y="300" color="#fff" opacity=".7"/></svg><img src="https://static.wixstatic.com/media/3d5e82_1db738b7a5d24aa9844576aa60a74ab6~mv2.jpg" alt="Captain Bobo at the Taxi Boat Punat info stand in Punat" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="gtk.tag">Bobo at the info stand</span></div>
       </div>
       <div class="card gtk rv" data-delay="1">
         <dl>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><dt data-i18n="gtk.meet">Meeting point</dt><dd data-i18n="gtk.meetv">Punat waterfront (Obala), 51521 Punat, island of Krk.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><dt data-i18n="gtk.meet">Meeting point</dt><dd data-i18n="gtk.meetv">The red and white info stand on the seafront (Obala), opposite the post office, 51521 Punat. The boats are right there.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M10 17V7h3a3 3 0 0 1 0 6h-3"/></svg><dt data-i18n="gtk.park">Parking</dt><dd data-i18n="gtk.parkv">Park by Hotel Falkensteiner, 250 to 300&nbsp;m away, and walk along the sea. No coins? Pay at the TISAK kiosk with a photo of your number plate.</dd></div>
           <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M5 8h14v12H5z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/><path d="M5 13c2 1 4 1 7 0s5-1 7 0"/></svg><dt data-i18n="gtk.bring">What to bring</dt><dd data-i18n="gtk.bringv">Swimwear and a towel.</dd></div>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><path d="M9 3v1.5M3 9h1.5M4.8 4.8l1 1M13.2 4.8l-1 1"/><path d="M8 19h10a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.5 1.5A2.8 2.8 0 0 0 8 19z"/></svg><dt data-i18n="gtk.weather">Weather</dt><dd data-i18n="gtk.weatherv">The captain checks the weather the day before and lets you know.</dd></div>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="2.6"/><path d="M8 21l1-7-3-3M16 21l-1-7 3-3M9 11h6"/></svg><dt data-i18n="gtk.kids">Kids</dt><dd data-i18n="gtk.kidsv">Kids are welcome on board.</dd></div>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><dt data-i18n="gtk.hours">Hours</dt><dd data-i18n="gtk.hoursv">Daily 09:00 to 21:00 in season.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 15h4"/></svg><dt data-i18n="gtk.pay">Payment</dt><dd data-i18n="gtk.payv">A deposit when you book. The rest on the day, to the captain: cash, card, PayPal, Revolut or Wise.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><path d="M9 3v1.5M3 9h1.5M4.8 4.8l1 1M13.2 4.8l-1 1"/><path d="M8 19h10a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.5 1.5A2.8 2.8 0 0 0 8 19z"/></svg><dt data-i18n="gtk.weather">Weather and cancelling</dt><dd data-i18n="gtk.weatherv">Free cancellation up to 24 hours before. Bad weather or a problem on our side: your booking is refunded automatically.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="2.6"/><path d="M8 21l1-7-3-3M16 21l-1-7 3-3M9 11h6"/></svg><dt data-i18n="gtk.kids">Kids</dt><dd data-i18n="gtk.kidsv">Kids are welcome. Children up to 12 pay less on shared trips and the taxi boat.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg><dt data-i18n="gtk.season">Season</dt><dd data-i18n="gtk.seasonv">Shared trips 5 June to 20 September. Private trips 5 April to 31 October. Taxi boat all year.</dd></div>
         </dl>
       </div>
     </div>
@@ -841,13 +875,16 @@ html select{height:56px;line-height:normal}
       <div class="sh rv">
         <p class="label"><span class="num">06</span><span data-i18n="near.label">What's nearby</span></p>
         <h2 data-i18n="near.h">Around Punat bay</h2>
-        <p data-i18n="near.sub">Punat sits on a sheltered bay on the island of Krk. A few places worth knowing.</p>
+        <p data-i18n="near.sub">Punat sits on a sheltered bay on the island of Krk. Travel times by taxi boat from Punat.</p>
       </div>
       <div>
         <ul class="near">
-          <li class="rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20c3 0 3-1.5 6-1.5s3 1.5 6 1.5 3-1.5 6-1.5"/><path d="M7 17v-5l4-3 4 3v5"/><path d="M15 17V7l1.5-2.5L18 7v10"/><path d="M5 17c0-3 .5-6 1-8 .5 2 1 5 1 8"/></svg></span><span><b data-i18n="nm1">Košljun</b><small data-i18n="n1">An island monastery among cypress trees, right in Punat bay. The taxi boat takes you across.</small></span></li>
-          <li class="rv" data-delay="1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20c3 0 3-1.5 6-1.5s3 1.5 6 1.5 3-1.5 6-1.5"/><path d="M8 4v12M16 6v10"/><path d="M8 5l5 7H8M16 7l4 6h-4"/><path d="M5 16h14"/></svg></span><span><b data-i18n="nm2">Punat marina</b><small data-i18n="n2">The marina of Punat, on the same bay as the waterfront.</small></span></li>
-          <li class="rv" data-delay="2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 20v-8l4-3 4 3v8"/><path d="M15 20V8h4v12"/><path d="M15 8l2-3 2 3"/><path d="M8 15h2"/></svg></span><span><b data-i18n="nm3">Krk town</b><small data-i18n="n3">The island's old town, a good add-on to a day on Krk.</small></span></li>
+          <li class="rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20c3 0 3-1.5 6-1.5s3 1.5 6 1.5 3-1.5 6-1.5"/><path d="M7 17v-5l4-3 4 3v5"/><path d="M15 17V7l1.5-2.5L18 7v10"/><path d="M5 17c0-3 .5-6 1-8 .5 2 1 5 1 8"/></svg></span><span><b data-i18n="nm1">Košljun</b><small data-i18n="n1">The monastery island among cypress trees, right in Punat bay. 8 minutes by boat.</small></span></li>
+          <li class="rv" data-delay="1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20c3 0 3-1.5 6-1.5s3 1.5 6 1.5 3-1.5 6-1.5"/><path d="M8 4v12M16 6v10"/><path d="M8 5l5 7H8M16 7l4 6h-4"/><path d="M5 16h14"/></svg></span><span><b data-i18n="nm2">Punat marina</b><small data-i18n="n2">10 minutes by taxi boat, 7&nbsp;€ per person one way.</small></span></li>
+          <li class="rv" data-delay="2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 20v-8l4-3 4 3v8"/><path d="M15 20V8h4v12"/><path d="M15 8l2-3 2 3"/><path d="M8 15h2"/></svg></span><span><b data-i18n="nm3">Krk town</b><small data-i18n="n3">One of the oldest towns in Croatia. 30 minutes by taxi boat.</small></span></li>
+          <li class="rv" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20c3 0 3-1.5 6-1.5s3 1.5 6 1.5 3-1.5 6-1.5"/><path d="M12 4v11"/><path d="M8 8a4 4 0 0 0 8 0"/><circle cx="12" cy="4" r="1.2"/></svg></span><span><b data-i18n="nm4">Prniba</b><small data-i18n="n4">The little port of St. Mikul. 8 minutes, 6&nbsp;€ per person one way.</small></span></li>
+          <li class="rv" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20c3 0 3-1.5 6-1.5s3 1.5 6 1.5 3-1.5 6-1.5"/><path d="M4 16c3-6 6-9 9-9 2 0 4 2 7 9"/></svg></span><span><b data-i18n="nm5">Stara Baška</b><small data-i18n="n5">About 1 hour by boat, a lunch stop on the full day trip.</small></span></li>
+          <li class="rv" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2B5E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20c3 0 3-1.5 6-1.5s3 1.5 6 1.5 3-1.5 6-1.5"/><circle cx="17" cy="7" r="3"/><path d="M3 16c4-1 8-1 12 0"/></svg></span><span><b data-i18n="nm6">Rab</b><small data-i18n="n6">Sandy beaches, about 2.5 hours by boat.</small></span></li>
         </ul>
       </div>
     </div>
@@ -862,7 +899,7 @@ html select{height:56px;line-height:normal}
         <div class="sh rv">
           <p class="label"><span class="num">07</span><span data-i18n="book.label">Booking</span></p>
           <h2 data-i18n="book.h">Book direct with the captain</h2>
-          <p data-i18n="book.sub">Pick a tour, a date and how many of you. It opens WhatsApp with the message ready for Bobo. No payment here, no account.</p>
+          <p data-i18n="book.sub">Pick a trip, a date and how many of you. It opens WhatsApp with the message ready for Bobo's family. No payment here, no account.</p>
         </div>
         <div class="sum rv" data-delay="1">
           <span class="sum__dot"></span>
@@ -874,17 +911,19 @@ html select{height:56px;line-height:normal}
         <fieldset class="field">
           <legend data-i18n="f.tour">Tour</legend>
           <div class="chips" id="tourChips">
-            <label class="chip"><input type="radio" name="tour" value="wild" checked><span><span data-i18n="f.t1">Wild bays</span><small data-i18n="f.t1s">about 3.5 h</small></span></label>
-            <label class="chip"><input type="radio" name="tour" value="plavnik"><span><span data-i18n="f.t2">Plavnik island</span><small data-i18n="f.t2s">small group</small></span></label>
-            <label class="chip"><input type="radio" name="tour" value="sunset"><span><span data-i18n="f.t3">Sunset</span><small data-i18n="f.t3s">golden hour</small></span></label>
-            <label class="chip"><input type="radio" name="tour" value="koslj"><span><span data-i18n="f.t4">Košljun</span><small data-i18n="f.t4s">taxi boat</small></span></label>
-            <label class="chip chip--wide"><input type="radio" name="tour" value="private"><span><span data-i18n="f.t5">Private tour</span><small data-i18n="f.t5s">tailored to you</small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="wild" checked><span><span data-i18n="f.t1">Wild bays</span><small data-i18n="f.t1s">3.5&nbsp;h</small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="plavnik"><span><span data-i18n="f.t2">Plavnik</span><small data-i18n="f.t2s">5&nbsp;h</small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="sunset"><span><span data-i18n="f.t3">Sunset</span><small data-i18n="f.t3s">2&nbsp;h</small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="big"><span><span data-i18n="f.t4">Big trip</span><small data-i18n="f.t4s">7.5&nbsp;h</small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="full"><span><span data-i18n="f.t5">Full day</span><small data-i18n="f.t5s">9&nbsp;h</small></span></label>
+            <label class="chip"><input type="radio" name="tour" value="koslj"><span><span data-i18n="f.t6">Košljun</span><small data-i18n="f.t6s">taxi boat</small></span></label>
+            <label class="chip chip--wide"><input type="radio" name="tour" value="private"><span><span data-i18n="f.t7">Other trip</span><small data-i18n="f.t7s">taxi, off-season, your idea</small></span></label>
           </div>
         </fieldset>
         <label class="field"><span data-i18n="f.date">Date</span><input type="date" class="ctl" id="fDate" required></label>
         <div class="field"><span data-i18n="f.guests">Guests</span><div class="qty"><button type="button" id="gMinus" aria-label="Fewer">&minus;</button><output id="gOut">4</output><button type="button" id="gPlus" aria-label="More">+</button></div></div>
         <label class="field"><span data-i18n="f.name">Your name</span><input type="text" class="ctl" id="fName" autocomplete="name" placeholder="" data-i18n-ph="f.nameph"></label>
-        <button type="submit" class="pill pill--wa pill--block" id="submitBtn"><svg><use href="#i-wa"/></svg><span data-i18n="f.send">Send to Bobo on WhatsApp</span></button>
+        <button type="submit" class="pill pill--wa pill--block" id="submitBtn"><svg><use href="#i-wa"/></svg><span data-i18n="f.send">Send on WhatsApp</span></button>
         <p class="fine" data-i18n="f.fine">Opens WhatsApp with your request prefilled. You can still edit it before sending.</p>
       </form>
     </div>
@@ -899,15 +938,20 @@ html select{height:56px;line-height:normal}
       <div class="sh rv">
         <p class="label"><span class="num">08</span><span data-i18n="faq.label">FAQ</span></p>
         <h2 data-i18n="faq.h">Before you go</h2>
-        <p data-i18n="faq.sub">Anything else, just ask the captain on WhatsApp.</p>
+        <p data-i18n="faq.sub">Anything else, just ask us on WhatsApp.</p>
       </div>
       <div class="faq__list rv" data-delay="1">
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q1">Where do we meet?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a1">On the Punat waterfront (Obala), 51521 Punat, on the island of Krk. If you need directions, send the captain a WhatsApp message.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q1">Where do we meet?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a1">At the red and white info stand on the Punat seafront (Obala), opposite the post office. Coming from Hotel Falkensteiner, it is the second to last stand in the row closest to the sea. Lost? Send us a WhatsApp message.</p></div></div></div>
         <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q2">What should we bring?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a2">Swimwear and a towel. There are swim stops on the way.</p></div></div></div>
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q3">What if the weather is bad?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a3">The captain checks the weather the day before and lets you know.</p></div></div></div>
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q4">Are kids welcome?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a4">Yes, kids are welcome on board.</p></div></div></div>
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">Can we have the boat just for us?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a5">Yes. Choose the private tour and the captain tailors it to your group.</p></div></div></div>
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q6">Why book here and not on a booking site?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a6">Here you book direct with the captain. One WhatsApp message, and you plan the day with the person who drives the boat.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q3">What if the weather is bad?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a3">If the weather is bad or something goes wrong on our side, your booking is refunded automatically, even within 24 hours of the trip.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q4">Are kids welcome?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a4">Yes. Children up to 12 pay less on shared trips and on the taxi boat to Košljun.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">Can we have the boat just for us?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a5">Yes. Every trip can be private, from the 2&nbsp;h sunset ride at 150&nbsp;€ to the 9&nbsp;h full day. From 7 people a private boat is usually the better choice.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q6">Why book here and not on a booking site?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a6">Here you book direct with the family. One WhatsApp message, and you plan the day with the people who run the boat.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q7">How do we pay?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a7">Only a deposit when you book. The rest is paid on the day, to the captain: cash, card, PayPal, Revolut or Wise.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q8">Can we cancel?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a8">Yes, up to 24 hours before departure, and your deposit is refunded. For anything else, just contact us and we will find a solution.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q9">Where can we park?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a9">The easiest is the car park by Hotel Falkensteiner, 250 to 300&nbsp;m from the boats. Pay at the machine with coins, or at the TISAK kiosk with a photo of your number plate. If that fails, WhatsApp us the photo and the hours, we pay and you pay us back.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q10">Is there a discount for returning guests?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a10">Yes. Returning guests get a 20&nbsp;€ loyalty coupon for private trips: code LOY20. Smaller groups also pay less on private trips.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q11">Can we swim in spring and autumn?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a11">The sea is cooler then, so swim stops happen only when the weather and the water allow. Spring days can feel just like summer.</p></div></div></div>
       </div>
     </div>
   </div>
@@ -921,21 +965,23 @@ html select{height:56px;line-height:normal}
       <div>
         <div class="sh rv">
           <p class="label"><span class="num">09</span><span data-i18n="c.label">Contact</span></p>
-          <h2 data-i18n="c.h">Find us on the Punat waterfront</h2>
+          <h2 data-i18n="c.h">Find us on the Punat seafront</h2>
         </div>
-        <p class="addr rv">Obala, 51521 Punat<br><span data-i18n="c.island">Island of Krk, Croatia</span></p>
-        <p class="rv" data-delay="1"><a href="tel:+385919141658" class="ulink">+385 91 914 1658</a><br><span data-i18n="c.wa" style="color:var(--muted);font-size:15px">Phone and WhatsApp</span></p>
+        <p class="addr rv">Obala, <span data-i18n="c.opp">opposite the post office</span><br>51521 Punat<br><span data-i18n="c.island">Island of Krk, Croatia</span></p>
         <ul class="hours rv" data-delay="1">
-          <li><span data-i18n="c.daily">Daily, in season</span><span>09:00 to 21:00</span></li>
-          <li><span data-i18n="c.cap">Your captain</span><span>Bobo</span></li>
+          <li><span data-i18n="c.bobo">Captain Bobo</span><span><a href="tel:+385995768465">+385&nbsp;99&nbsp;57&nbsp;68&nbsp;465</a></span></li>
+          <li><span data-i18n="c.helena">Helena, WhatsApp and Viber</span><span><a href="tel:+385917823844">+385&nbsp;91&nbsp;78&nbsp;23&nbsp;844</a></span></li>
+          <li><span data-i18n="c.tessza">Tessza, WhatsApp and Viber</span><span><a href="tel:+385919141658">+385&nbsp;91&nbsp;914&nbsp;1658</a></span></li>
+          <li><span data-i18n="c.email">Email</span><span><a href="mailto:taxiboatpunat@gmail.com">taxiboatpunat@gmail.com</a></span></li>
+          <li><span data-i18n="c.season">Season</span><span data-i18n="c.seasonv">April to October</span></li>
         </ul>
         <div class="contact__btns rv" data-delay="2">
-          <a href="https://wa.me/385919141658" class="pill pill--wa" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-i18n="cta.wa">WhatsApp the captain</span></a>
-          <a href="https://maps.google.com/?q=Taxi+Boat+Punat,+Obala,+51521+Punat" class="pill pill--ghost" target="_blank" rel="noopener"><span data-i18n="c.map">Open in Maps</span></a>
+          <a href="https://wa.me/385919141658" class="pill pill--wa" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-i18n="cta.wa">WhatsApp us</span></a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=45.022444%2C14.628056" class="pill pill--ghost" target="_blank" rel="noopener"><span data-i18n="c.map">Open in Maps</span></a>
         </div>
       </div>
       <div class="frame contact__img rv-img">
-        <div class="art art--island"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-hills" width="800" height="140" x="-100" y="90" color="#4F8296" opacity=".55"/><use href="#i-koslj" width="260" height="113" x="300" y="130"/><use href="#i-taxi" width="200" height="92" x="60" y="250"/><use href="#i-waves" width="800" height="160" x="-100" y="290" color="#fff" opacity=".7"/></svg><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
+        <div class="art art--island"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-hills" width="800" height="140" x="-100" y="90" color="#4F8296" opacity=".55"/><use href="#i-koslj" width="260" height="113" x="300" y="130"/><use href="#i-taxi" width="200" height="92" x="60" y="250"/><use href="#i-waves" width="800" height="160" x="-100" y="290" color="#fff" opacity=".7"/></svg><img src="https://static.wixstatic.com/media/3d5e82_fe75e1855e354829b178b0c4531868a6~mv2.jpg" alt="IVEX, the wooden taxi boat of Taxi Boat Punat" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
         <div class="pin"><div class="pin__ring"><svg viewBox="0 0 100 120"><use href="#i-anchor" color="#0A2B5E"/></svg></div></div>
         <span class="tag-b">Punat, Krk</span>
       </div>
@@ -953,10 +999,10 @@ html select{height:56px;line-height:normal}
           <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#i-mark"/></svg>
           <span><b>Taxi Boat Punat</b><small data-i18n="logo.sub">Boat excursions · Krk</small></span>
         </a>
-        <p style="margin-top:16px;max-width:36ch" data-i18n="foot.p">Boat excursions on Krk with Captain Bobo: wild bays, Plavnik island, sunset tours and the taxi boat to Košljun.</p>
+        <p style="margin-top:16px;max-width:36ch" data-i18n="foot.p">Boat excursions and taxi boat from Punat with Captain Bobo and his family: wild bays, Plavnik island, sunset rides, full day trips and Košljun.</p>
       </div>
-      <div><h4 data-i18n="foot.visit">Visit</h4><ul><li>Obala, 51521 Punat</li><li data-i18n="ovl.hours">Daily 09:00 to 21:00 in season</li></ul></div>
-      <div><h4 data-i18n="foot.talk">Talk to us</h4><ul><li><a href="tel:+385919141658">+385 91 914 1658</a></li><li><a href="https://wa.me/385919141658" target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
+      <div><h4 data-i18n="foot.visit">Visit</h4><ul><li>Obala, <span data-i18n="c.opp">opposite the post office</span></li><li>51521 Punat, Krk</li><li data-i18n="ovl.hours">Trips April to October, taxi boat all year</li></ul></div>
+      <div><h4 data-i18n="foot.talk">Talk to us</h4><ul><li><a href="tel:+385995768465">+385&nbsp;99&nbsp;57&nbsp;68&nbsp;465</a></li><li><a href="tel:+385919141658">+385&nbsp;91&nbsp;914&nbsp;1658</a></li><li><a href="mailto:taxiboatpunat@gmail.com">taxiboatpunat@gmail.com</a></li><li><a href="https://wa.me/385919141658" target="_blank" rel="noopener">WhatsApp</a> · <a href="viber://chat?number=%2B385919141658">Viber</a></li><li><a href="https://www.facebook.com/taxiboatpunat/" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/taxiboatpunat/" target="_blank" rel="noopener">Instagram</a></li></ul></div>
       <div><h4 data-i18n="foot.explore">Explore</h4><ul><li><a href="#tours" data-i18n="ovl.tours">Tours</a></li><li><a href="#book" data-i18n="ovl.book">Booking</a></li><li><a href="#faq" data-i18n="ovl.faq">FAQ</a></li></ul></div>
     </div>
     <div class="foot__bot"><span>&copy; <span id="year">2026</span> Taxi Boat Punat</span><span data-i18n="concept">Concept by Marija</span></div>
@@ -982,124 +1028,1260 @@ var WA = "385919141658";
 /* ================= DICTIONARY ================= */
 var T = {
 en:{
- "logo.sub":"Boat excursions · Krk","nav.book":"Book a tour","nav.menu":"MENU","ovl.captain":"Captain Bobo","ovl.tours":"Tours","ovl.board":"On board","ovl.gtk":"Good to know","ovl.nearby":"Nearby","ovl.book":"Booking","ovl.faq":"FAQ","ovl.contact":"Contact","cta.wa":"WhatsApp the captain","ovl.addr":"Punat waterfront, Krk","ovl.hours":"Daily 09:00 to 21:00 in season","concept":"Concept by Marija",
- "hero.label":"Punat · Island of Krk · Croatia","hero.t1":"Out on Punat bay","hero.t2":"with Captain Bobo","hero.sub":"Boat excursions on Krk","hero.txt":"Wild bays, a swim into a sea cave, the island of Plavnik and sunset over Košljun. Book direct with the captain.","hero.addr":"Obala, 51521 Punat · Google 4.9 from 305 reviews","hero.cta":"Book the wild bays tour","hint.touch":"Touch to look around","hint.mouse":"Move the mouse to look around",
- "gal.label":"On the water","gal.h":"A day around Krk","gal.sub":"Wild bays, a sea cave, an island monastery and the sun going down over Punat. Swipe through.",
- "gal.g1":"Wild bays, Krk","gal.g2":"Košljun island","gal.g3":"Plavnik island","gal.g4":"Punat bay","gal.g5":"Punat, Krk, Croatia",
- "gal.c1":"Swim into a sea cave","gal.c2":"The island monastery among cypress trees","gal.c3":"Griffon vultures over Plavnik","gal.c4":"Sunset tour on the water","gal.c5":"Meeting point on the Punat waterfront",
- "cap.label":"Your captain","cap.h":"Meet Captain Bobo","cap.lead":"Bobo runs Taxi Boat Punat from the waterfront in Punat, on the island of Krk. Guests know him as friendly, funny and full of stories.","cap.p1":"He takes small groups out to the wild bays, across to the island of Plavnik and over to the monastery on Košljun. Every trip comes with swim stops and the captain's own stories of the island.","cap.p2":"You may have seen his tours on GetMyBoat or Expedia. Here you book direct: one WhatsApp message, straight to the captain.","cap.sig":"Captain, Taxi Boat Punat",
- "dir.h":"Why book direct","dir.l1":"You talk to Bobo himself, the person who drives the boat","dir.l2":"Plan the day, the stops and the pace together on WhatsApp","dir.l3":"Very fair prices, from","dir.also":"Also listed on GetMyBoat and Expedia.","gtk.rev":"Google reviews",
- "tours.label":"Tours","tours.h":"Choose your trip","tours.sub":"Five ways to see Krk from the water. Small groups, swim stops and a captain who knows every bay.",
- "t.from":"from","t.dur":"Duration","t.book":"Book this tour","t.plan":"Plan it with the captain",
- "t1.tag":"4 bays · cave","t1.h":"Wild bays tour","t1.dur":"About 3.5 hours","t1.p":"Four wild bays along the Krk coast, with time to swim at each. The highlight: swimming into a sea cave and through underwater tunnels.","t1.l1":"4 bays with swimming stops","t1.l2":"Swim into a cave","t1.l3":"Underwater tunnels",
- "t2.tag":"Small groups","t2.h":"Trip to Plavnik island","t2.p":"A wild island across the water from Krk. Small groups of around 12 people, and a good chance to see deer, sheep and griffon vultures.","t2.l1":"Groups of around 12 people","t2.l2":"Deer, sheep and griffon vultures","t2.l3":"Stories from the captain on the way",
- "t3.tag":"Golden hour","t3.h":"Sunset tour","t3.p":"Out on the water as the light turns gold. Calm sea, Košljun in silhouette and the captain's stories while the sun goes down.","t3.l1":"Golden hour on the water","t3.l2":"Views of Košljun island","t3.l3":"From the Punat waterfront",
- "t4.tag":"Taxi boat","t4.h":"Taxi boat to Košljun","t4.p":"Hop across Punat bay to the small island of Košljun, with its monastery among the cypress trees.","t4.l1":"Island monastery and cypress trees","t4.l2":"From the Punat waterfront","t4.l3":"Ask the captain about return times",
- "t5.tag":"Your way","t5.h":"Private tour","t5.p":"Your group, your day. Tell the captain what you love and he tailors the route, the stops and the pace to you.","t5.l1":"Just your group on board","t5.l2":"Route tailored to you","t5.l3":"Planned together on WhatsApp",
- "tours.note":"Prices shown as XX € and durations shown as X h are example placeholders for this proposal, to be confirmed by the captain.",
- "board.label":"On board","board.h":"What every trip has","b1.h":"Small groups","b1.p":"Room to move, time to swim and a relaxed pace. On the Plavnik trip the group is around 12 people.","b2.h":"Swim stops","b2.p":"Clear Adriatic water in quiet bays, and on the wild bays tour a swim into a cave. Bring your swimwear.","b3.h":"Stories from the captain","b3.p":"Bobo is friendly, funny and full of stories about Krk, the bays and the islands around Punat.","board.cta":"Ask Bobo on WhatsApp",
- "gtk.label":"Good to know","gtk.h":"Before you step on board","gtk.tag":"Punat waterfront","gtk.meet":"Meeting point","gtk.meetv":"Punat waterfront (Obala), 51521 Punat, island of Krk.","gtk.bring":"What to bring","gtk.bringv":"Swimwear and a towel.","gtk.weather":"Weather","gtk.weatherv":"The captain checks the weather the day before and lets you know.","gtk.kids":"Kids","gtk.kidsv":"Kids are welcome on board.","gtk.hours":"Hours","gtk.hoursv":"Daily 09:00 to 21:00 in season.",
- "near.label":"What's nearby","near.h":"Around Punat bay","near.sub":"Punat sits on a sheltered bay on the island of Krk. A few places worth knowing.","nm1":"Košljun","n1":"An island monastery among cypress trees, right in Punat bay. The taxi boat takes you across.","nm2":"Punat marina","n2":"The marina of Punat, on the same bay as the waterfront.","nm3":"Krk town","n3":"The island's old town, a good add-on to a day on Krk.",
- "book.label":"Booking","book.h":"Book direct with the captain","book.sub":"Pick a tour, a date and how many of you. It opens WhatsApp with the message ready for Bobo. No payment here, no account.","book.sumh":"Your request",
- "f.tour":"Tour","f.t1":"Wild bays","f.t1s":"about 3.5 h","f.t2":"Plavnik island","f.t2s":"small group","f.t3":"Sunset","f.t3s":"golden hour","f.t4":"Košljun","f.t4s":"taxi boat","f.t5":"Private tour","f.t5s":"tailored to you","f.date":"Date","f.guests":"Guests","f.name":"Your name","f.nameph":"e.g. Anna","f.send":"Send to Bobo on WhatsApp","f.fine":"Opens WhatsApp with your request prefilled. You can still edit it before sending.",
- "faq.label":"FAQ","faq.h":"Before you go","faq.sub":"Anything else, just ask the captain on WhatsApp.",
- "q1":"Where do we meet?","a1":"On the Punat waterfront (Obala), 51521 Punat, on the island of Krk. If you need directions, send the captain a WhatsApp message.","q2":"What should we bring?","a2":"Swimwear and a towel. There are swim stops on the way.","q3":"What if the weather is bad?","a3":"The captain checks the weather the day before and lets you know.","q4":"Are kids welcome?","a4":"Yes, kids are welcome on board.","q5":"Can we have the boat just for us?","a5":"Yes. Choose the private tour and the captain tailors it to your group.","q6":"Why book here and not on a booking site?","a6":"Here you book direct with the captain. One WhatsApp message, and you plan the day with the person who drives the boat.",
- "c.label":"Contact","c.h":"Find us on the Punat waterfront","c.island":"Island of Krk, Croatia","c.wa":"Phone and WhatsApp","c.daily":"Daily, in season","c.cap":"Your captain","c.map":"Open in Maps",
- "foot.p":"Boat excursions on Krk with Captain Bobo: wild bays, Plavnik island, sunset tours and the taxi boat to Košljun.","foot.visit":"Visit","foot.talk":"Talk to us","foot.explore":"Explore","fab":"Book","bar.s":"Your request","bar.btn":"Send",
- "sum.wild":"Wild bays tour","sum.plavnik":"Plavnik island trip","sum.sunset":"Sunset tour","sum.koslj":"Taxi boat to Košljun","sum.private":"Private tour",
- "bar.wild":"Wild bays","bar.plavnik":"Plavnik","bar.sunset":"Sunset","bar.koslj":"Košljun","bar.private":"Private tour",
- "g.1":"1 guest","g.n":"{n} guests","d.pick":"Pick a date","d.tom":"Tomorrow",
- "wa.msg":"Hi Captain Bobo! I would like to book: {tour}. Date: {date}. Guests: {guests}. Name: {name}. Is that possible?"
+ "logo.sub":"Boat excursions · Krk",
+ "nav.book":"Book a tour",
+ "nav.menu":"MENU",
+ "ovl.captain":"Captain Bobo",
+ "ovl.tours":"Tours",
+ "ovl.board":"On board",
+ "ovl.gtk":"Good to know",
+ "ovl.nearby":"Nearby",
+ "ovl.book":"Booking",
+ "ovl.faq":"FAQ",
+ "ovl.contact":"Contact",
+ "cta.wa":"WhatsApp us",
+ "ovl.addr":"Obala, opposite the post office, Punat",
+ "ovl.hours":"Trips April to October, taxi boat all year",
+ "concept":"Concept by Marija",
+ "hero.label":"Punat · Island of Krk · Croatia",
+ "hero.t1":"Out on Punat bay",
+ "hero.t2":"with Captain Bobo",
+ "hero.sub":"Boat excursions on Krk",
+ "hero.txt":"Wild bays you can only reach by boat, the Love Cave and griffon vultures on Plavnik, sunset rides and the taxi boat to Košljun. Book direct with Bobo and his family.",
+ "hero.addr":"Obala, 51521 Punat · Google 4.9 from 305 reviews",
+ "hero.cta":"Book the wild bays tour",
+ "hint.touch":"Touch to look around",
+ "hint.mouse":"Move the mouse to look around",
+ "gal.label":"On the water",
+ "gal.h":"A day around Krk",
+ "gal.sub":"Hidden beaches, the Love Cave, griffon vultures on Plavnik and the sun going down over Krk. Swipe through.",
+ "gal.g1":"Plavnik island",
+ "gal.g2":"Wild bays, Krk",
+ "gal.g3":"Plavnik island",
+ "gal.g4":"Krk at sunset",
+ "gal.g5":"Punat, Krk",
+ "gal.c1":"Swimming into the Love Cave",
+ "gal.c2":"Golden Beach, reachable only by boat",
+ "gal.c3":"Griffon vultures over Plavnik",
+ "gal.c4":"Sunset ride along the wild bays",
+ "gal.c5":"IVEX, our wooden boat from 1973",
+ "cap.label":"Your captain",
+ "cap.h":"Meet Captain Bobo",
+ "cap.lead":"Bobo is a barkariol, a taxi boat driver, which is an old trade in Punat. Once there were more than 30 barkariols here. Today there are five.",
+ "cap.p1":"He runs Taxi Boat Punat as a small family business with his wife Helena and their children. Guests know him as friendly, funny and full of stories about the island.",
+ "cap.p2":"His boat IVEX is a traditional wooden fishing boat built in 1973: 9\u00a0m long, for up to 16 passengers, with a Perkins engine of 87\u00a0PS.",
+ "cap.p3":"You may have seen the tours on GetMyBoat or Expedia. Here you book direct: one WhatsApp message to the family.",
+ "cap.sig":"Captain, Taxi Boat Punat",
+ "dir.h":"Why book direct",
+ "dir.l1":"You talk to the family who runs the boat, not a booking platform",
+ "dir.l2":"Plan the day, the stops and the pace together on WhatsApp",
+ "dir.l3":"Shared trips from 29\u00a0€ per adult, a private boat from 150\u00a0€",
+ "dir.l4":"Returning guests get 20\u00a0€ off private trips (code LOY20)",
+ "dir.also":"Also listed on GetMyBoat and Expedia.",
+ "gtk.rev":"Google reviews",
+ "tours.label":"Tours",
+ "tours.h":"Choose your trip",
+ "tours.sub":"Shared trips in summer, a private boat from spring to autumn and the taxi boat all year. Routes are suggestions: the captain adapts them to your wishes and the weather.",
+ "t.book":"Book this tour",
+ "t.plan":"Plan it with the captain",
+ "t1.tag":"Shared or private",
+ "t1.h":"Wild bays",
+ "t1.meta":"3.5\u00a0h · from 29\u00a0€ per person",
+ "t1.p":"The most beautiful bays of Krk, reachable only by boat. Swim and snorkel, swim into a cave and through tunnels under the rocks, jump off the cliffs.",
+ "t1.l1":"Fox, Bishop, Golden, Long and Cornels bays",
+ "t1.l2":"Shared: 29\u00a0€ adults, 17\u00a0€ children up to 12",
+ "t1.l3":"Private boat: from 240\u00a0€",
+ "t1.l4":"Departures 9:00, 13:00 or 15:00, 17:00",
+ "t2.tag":"Shared or private",
+ "t2.h":"Plavnik island",
+ "t2.meta":"5\u00a0h · from 39\u00a0€ per person",
+ "t2.p":"Plavnik is a large uninhabited island across from Krk and home to griffon vultures. Up to 3 stops and about 2 hours of swimming.",
+ "t2.l1":"Love Cave, Shogy secret beach and Shogy green eye",
+ "t2.l2":"Shared: 39\u00a0€ adults, 23\u00a0€ children up to 12",
+ "t2.l3":"Private boat: from 340\u00a0€",
+ "t2.l4":"Departures 9:00, 13:00 or 15:00",
+ "t3.tag":"Golden hour",
+ "t3.h":"Sunset in the wild bays",
+ "t3.meta":"2\u00a0h · 150\u00a0€ per boat",
+ "t3.p":"An evening ride along the wild bays when it gets cooler, back in Punat as the sun goes down. No swim stop on this one.",
+ "t3.l1":"Private boat for up to 15 guests",
+ "t3.l2":"Starts after 18:00, depending on sunset",
+ "t3.l3":"In the summer season",
+ "t4.tag":"Private",
+ "t4.h":"Big trip: wild bays and Plavnik",
+ "t4.meta":"7.5\u00a0h · from 470\u00a0€ per boat",
+ "t4.p":"Both highlights in one long day: the wild bays of Krk and the island of Plavnik. Swim, snorkel, sunbathe, jump off the rocks and swim into caves. With luck, dolphins.",
+ "t4.l1":"Departs 9:00, or after 13:00 to come back at sunset",
+ "t4.l2":"About 3.5\u00a0h on the move, the rest is for you",
+ "t4.l3":"Stops depend on the weather",
+ "t5.tag":"Private",
+ "t5.h":"Full day trip",
+ "t5.meta":"9\u00a0h · from 560\u00a0€ per boat",
+ "t5.p":"For families and friends who love the sea. Wild bays and Plavnik, lunch on board or in Stara Baška. In good weather the route can go on to Prvić, the prison islands Goli and Sveti Grgur or the sandy beaches of Rab.",
+ "t5.l1":"Departs 9:00",
+ "t5.l2":"4 to 5\u00a0h on the move, the rest is free time",
+ "t5.l3":"Small grill on board for your own lunch",
+ "t6.tag":"Taxi boat",
+ "t6.h":"Taxi boat to Košljun",
+ "t6.meta":"8\u00a0min · from 5\u00a0€ per person",
+ "t6.p":"Hop across Punat bay to the monastery island of Košljun among the cypress trees.",
+ "t6.l1":"Return ticket paid online: 9\u00a0€ adults, 5\u00a0€ children up to 12",
+ "t6.l2":"Paid on the spot: 11\u00a0€ adults, 6\u00a0€ children",
+ "t6.l3":"Summer water bus from 11 June to 12 September",
+ "t6.l4":"Monastery entry not included (6\u00a0€ adults, 4\u00a0€ children)",
+ "t7.tag":"All year",
+ "t7.h":"Taxi boat transfers",
+ "t7.meta":"From Punat · 50 to 80\u00a0€ per hour",
+ "t7.p":"The taxi boat runs all year. A one hour ride costs 50 to 80\u00a0€ per boat, depending on the number of guests and the season.",
+ "t7.l1":"Prniba (St. Mikul): 8\u00a0min, 6\u00a0€ per person",
+ "t7.l2":"Punat marina: 10\u00a0min, 7\u00a0€ per person",
+ "t7.l3":"Krk town: 30\u00a0min, 14 to 30\u00a0€ per person",
+ "t7.l4":"Kornić, Stara Baška, Rab and more on request",
+ "t8.tag":"Spring and autumn",
+ "t8.h":"Off-season private trips",
+ "t8.meta":"5 April to 4 June, 21 September to 31 October",
+ "t8.p":"Quiet bays and soft light. The sea is cooler, so swim stops happen only when the weather and the water allow.",
+ "t8.l1":"Wild bays, 2\u00a0h: from 110\u00a0€",
+ "t8.l2":"Wild bays and Košljun, 3\u00a0h: from 160\u00a0€",
+ "t8.l3":"Plavnik and wild bays, 4\u00a0h: from 220\u00a0€",
+ "t8.l4":"Plavnik, wild bays and Košljun, 5\u00a0h: from 260\u00a0€",
+ "t8.l5":"Full day, 8\u00a0h: from 400\u00a0€",
+ "tours.note":"Private prices are per boat, for up to 15 guests. Smaller groups pay less, and returning guests get 20\u00a0€ off private trips with code LOY20.",
+ "board.label":"On board",
+ "board.h":"What every trip has",
+ "b1.h":"Up to 15 guests",
+ "b1.p":"Shared trips take at most 15 people, so book early. From 7 people, a private boat is often the better choice.",
+ "b2.h":"Swim stops",
+ "b2.p":"Clear Adriatic water in bays you can only reach by boat. Snorkel, swim into caves and through tunnels under the rocks. Bring your swimwear.",
+ "b3.h":"Stories from the captain",
+ "b3.p":"Bobo is friendly, funny and full of stories about Krk, the bays and the islands around Punat.",
+ "b4.h":"IVEX, built in 1973",
+ "b4.p":"A traditional wooden fishing boat, 9\u00a0m long, for up to 16 passengers. On the full day trip there is a small grill on board.",
+ "board.cta":"Ask us on WhatsApp",
+ "gtk.label":"Good to know",
+ "gtk.h":"Before you step on board",
+ "gtk.tag":"Bobo at the info stand",
+ "gtk.meet":"Meeting point",
+ "gtk.meetv":"The red and white info stand on the seafront (Obala), opposite the post office, 51521 Punat. The boats are right there.",
+ "gtk.park":"Parking",
+ "gtk.parkv":"Park by Hotel Falkensteiner, 250 to 300\u00a0m away, and walk along the sea. No coins? Pay at the TISAK kiosk with a photo of your number plate.",
+ "gtk.bring":"What to bring",
+ "gtk.bringv":"Swimwear and a towel.",
+ "gtk.pay":"Payment",
+ "gtk.payv":"A deposit when you book. The rest on the day, to the captain: cash, card, PayPal, Revolut or Wise.",
+ "gtk.weather":"Weather and cancelling",
+ "gtk.weatherv":"Free cancellation up to 24 hours before. Bad weather or a problem on our side: your booking is refunded automatically.",
+ "gtk.kids":"Kids",
+ "gtk.kidsv":"Kids are welcome. Children up to 12 pay less on shared trips and the taxi boat.",
+ "gtk.season":"Season",
+ "gtk.seasonv":"Shared trips 5 June to 20 September. Private trips 5 April to 31 October. Taxi boat all year.",
+ "near.label":"What's nearby",
+ "near.h":"Around Punat bay",
+ "near.sub":"Punat sits on a sheltered bay on the island of Krk. Travel times by taxi boat from Punat.",
+ "nm1":"Košljun",
+ "n1":"The monastery island among cypress trees, right in Punat bay. 8 minutes by boat.",
+ "nm2":"Punat marina",
+ "n2":"10 minutes by taxi boat, 7\u00a0€ per person one way.",
+ "nm3":"Krk town",
+ "n3":"One of the oldest towns in Croatia. 30 minutes by taxi boat.",
+ "nm4":"Prniba",
+ "n4":"The little port of St. Mikul. 8 minutes, 6\u00a0€ per person one way.",
+ "nm5":"Stara Baška",
+ "n5":"About 1 hour by boat, a lunch stop on the full day trip.",
+ "nm6":"Rab",
+ "n6":"Sandy beaches, about 2.5 hours by boat.",
+ "book.label":"Booking",
+ "book.h":"Book direct with the captain",
+ "book.sub":"Pick a trip, a date and how many of you. It opens WhatsApp with the message ready for Bobo's family. No payment here, no account.",
+ "book.sumh":"Your request",
+ "f.tour":"Tour",
+ "f.t1":"Wild bays",
+ "f.t1s":"3.5\u00a0h",
+ "f.t2":"Plavnik",
+ "f.t2s":"5\u00a0h",
+ "f.t3":"Sunset",
+ "f.t3s":"2\u00a0h",
+ "f.t4":"Big trip",
+ "f.t4s":"7.5\u00a0h",
+ "f.t5":"Full day",
+ "f.t5s":"9\u00a0h",
+ "f.t6":"Košljun",
+ "f.t6s":"taxi boat",
+ "f.t7":"Other trip",
+ "f.t7s":"taxi, off-season, your idea",
+ "f.date":"Date",
+ "f.guests":"Guests",
+ "f.name":"Your name",
+ "f.nameph":"e.g. Anna",
+ "f.send":"Send on WhatsApp",
+ "f.fine":"Opens WhatsApp with your request prefilled. You can still edit it before sending.",
+ "faq.label":"FAQ",
+ "faq.h":"Before you go",
+ "faq.sub":"Anything else, just ask us on WhatsApp.",
+ "q1":"Where do we meet?",
+ "a1":"At the red and white info stand on the Punat seafront (Obala), opposite the post office. Coming from Hotel Falkensteiner, it is the second to last stand in the row closest to the sea. Lost? Send us a WhatsApp message.",
+ "q2":"What should we bring?",
+ "a2":"Swimwear and a towel. There are swim stops on the way.",
+ "q3":"What if the weather is bad?",
+ "a3":"If the weather is bad or something goes wrong on our side, your booking is refunded automatically, even within 24 hours of the trip.",
+ "q4":"Are kids welcome?",
+ "a4":"Yes. Children up to 12 pay less on shared trips and on the taxi boat to Košljun.",
+ "q5":"Can we have the boat just for us?",
+ "a5":"Yes. Every trip can be private, from the 2\u00a0h sunset ride at 150\u00a0€ to the 9\u00a0h full day. From 7 people a private boat is usually the better choice.",
+ "q6":"Why book here and not on a booking site?",
+ "a6":"Here you book direct with the family. One WhatsApp message, and you plan the day with the people who run the boat.",
+ "q7":"How do we pay?",
+ "a7":"Only a deposit when you book. The rest is paid on the day, to the captain: cash, card, PayPal, Revolut or Wise.",
+ "q8":"Can we cancel?",
+ "a8":"Yes, up to 24 hours before departure, and your deposit is refunded. For anything else, just contact us and we will find a solution.",
+ "q9":"Where can we park?",
+ "a9":"The easiest is the car park by Hotel Falkensteiner, 250 to 300\u00a0m from the boats. Pay at the machine with coins, or at the TISAK kiosk with a photo of your number plate. If that fails, WhatsApp us the photo and the hours, we pay and you pay us back.",
+ "q10":"Is there a discount for returning guests?",
+ "a10":"Yes. Returning guests get a 20\u00a0€ loyalty coupon for private trips: code LOY20. Smaller groups also pay less on private trips.",
+ "q11":"Can we swim in spring and autumn?",
+ "a11":"The sea is cooler then, so swim stops happen only when the weather and the water allow. Spring days can feel just like summer.",
+ "c.label":"Contact",
+ "c.h":"Find us on the Punat seafront",
+ "c.opp":"opposite the post office",
+ "c.island":"Island of Krk, Croatia",
+ "c.bobo":"Captain Bobo",
+ "c.helena":"Helena, WhatsApp and Viber",
+ "c.tessza":"Tessza, WhatsApp and Viber",
+ "c.email":"Email",
+ "c.season":"Season",
+ "c.seasonv":"April to October",
+ "c.map":"Open in Maps",
+ "foot.p":"Boat excursions and taxi boat from Punat with Captain Bobo and his family: wild bays, Plavnik island, sunset rides, full day trips and Košljun.",
+ "foot.visit":"Visit",
+ "foot.talk":"Talk to us",
+ "foot.explore":"Explore",
+ "fab":"Book",
+ "bar.s":"Your request",
+ "bar.btn":"Send",
+ "sum.wild":"Wild bays tour",
+ "sum.plavnik":"Plavnik island trip",
+ "sum.sunset":"Sunset ride",
+ "sum.big":"Big trip, wild bays and Plavnik",
+ "sum.full":"Full day trip",
+ "sum.koslj":"Taxi boat to Košljun",
+ "sum.private":"Other trip",
+ "bar.wild":"Wild bays",
+ "bar.plavnik":"Plavnik",
+ "bar.sunset":"Sunset",
+ "bar.big":"Big trip",
+ "bar.full":"Full day",
+ "bar.koslj":"Košljun",
+ "bar.private":"Other trip",
+ "g.1":"1 guest",
+ "g.n":"{n} guests",
+ "d.pick":"Pick a date",
+ "d.tom":"Tomorrow",
+ "wa.msg":"Hi Taxi Boat Punat! I would like to book: {tour}. Date: {date}. Guests: {guests}. Name: {name}. Is that possible?"
 },
 de:{
- "logo.sub":"Bootsausflüge · Krk","nav.book":"Tour buchen","nav.menu":"MENÜ","ovl.captain":"Kapitän Bobo","ovl.tours":"Touren","ovl.board":"An Bord","ovl.gtk":"Gut zu wissen","ovl.nearby":"In der Nähe","ovl.book":"Buchung","ovl.faq":"FAQ","ovl.contact":"Kontakt","cta.wa":"Dem Kapitän schreiben","ovl.addr":"Uferpromenade Punat, Krk","ovl.hours":"In der Saison täglich 09:00 bis 21:00","concept":"Konzept: Marija",
- "hero.label":"Punat · Insel Krk · Kroatien","hero.t1":"Raus in die Bucht von Punat","hero.t2":"mit Kapitän Bobo","hero.sub":"Bootsausflüge auf Krk","hero.txt":"Wilde Buchten, in eine Meereshöhle schwimmen, die Insel Plavnik und der Sonnenuntergang über Košljun. Direkt beim Kapitän buchen.","hero.addr":"Obala, 51521 Punat · Google 4,9 aus 305 Bewertungen","hero.cta":"Wilde-Buchten-Tour buchen","hint.touch":"Berühren zum Umsehen","hint.mouse":"Maus bewegen zum Umsehen",
- "gal.label":"Auf dem Wasser","gal.h":"Ein Tag rund um Krk","gal.sub":"Wilde Buchten, eine Meereshöhle, ein Inselkloster und der Sonnenuntergang über Punat. Einfach durchwischen.",
- "gal.g1":"Wilde Buchten, Krk","gal.g2":"Insel Košljun","gal.g3":"Insel Plavnik","gal.g4":"Bucht von Punat","gal.g5":"Punat, Krk, Kroatien",
- "gal.c1":"In eine Meereshöhle schwimmen","gal.c2":"Das Inselkloster zwischen Zypressen","gal.c3":"Gänsegeier über Plavnik","gal.c4":"Sunset-Tour auf dem Wasser","gal.c5":"Treffpunkt an der Uferpromenade von Punat",
- "cap.label":"Dein Kapitän","cap.h":"Das ist Kapitän Bobo","cap.lead":"Bobo führt Taxi Boat Punat von der Uferpromenade in Punat auf der Insel Krk. Gäste kennen ihn als freundlich, lustig und voller Geschichten.","cap.p1":"Er fährt mit kleinen Gruppen zu den wilden Buchten, hinüber zur Insel Plavnik und zum Kloster auf Košljun. Zu jeder Fahrt gehören Badestopps und die Geschichten des Kapitäns über die Insel.","cap.p2":"Vielleicht kennst du seine Touren von GetMyBoat oder Expedia. Hier buchst du direkt: eine WhatsApp-Nachricht, direkt an den Kapitän.","cap.sig":"Kapitän, Taxi Boat Punat",
- "dir.h":"Warum direkt buchen","dir.l1":"Du sprichst mit Bobo selbst, der das Boot fährt","dir.l2":"Tag, Stopps und Tempo gemeinsam per WhatsApp planen","dir.l3":"Sehr faire Preise, ab","dir.also":"Auch bei GetMyBoat und Expedia gelistet.","gtk.rev":"Google-Bewertungen",
- "tours.label":"Touren","tours.h":"Wähle deinen Ausflug","tours.sub":"Fünf Wege, Krk vom Wasser aus zu erleben. Kleine Gruppen, Badestopps und ein Kapitän, der jede Bucht kennt.",
- "t.from":"ab","t.dur":"Dauer","t.book":"Diese Tour buchen","t.plan":"Mit dem Kapitän planen",
- "t1.tag":"4 Buchten · Höhle","t1.h":"Wilde-Buchten-Tour","t1.dur":"Etwa 3,5 Stunden","t1.p":"Vier wilde Buchten an der Küste von Krk, mit Zeit zum Schwimmen in jeder. Das Highlight: in eine Meereshöhle und durch Unterwassertunnel schwimmen.","t1.l1":"4 Buchten mit Badestopps","t1.l2":"In eine Höhle schwimmen","t1.l3":"Unterwassertunnel",
- "t2.tag":"Kleine Gruppen","t2.h":"Ausflug zur Insel Plavnik","t2.p":"Eine wilde Insel gegenüber von Krk. Kleine Gruppen von etwa 12 Personen und gute Chancen auf Hirsche, Schafe und Gänsegeier.","t2.l1":"Gruppen von etwa 12 Personen","t2.l2":"Hirsche, Schafe und Gänsegeier","t2.l3":"Geschichten des Kapitäns unterwegs",
- "t3.tag":"Goldene Stunde","t3.h":"Sunset-Tour","t3.p":"Auf dem Wasser, wenn das Licht golden wird. Ruhige See, Košljun als Silhouette und die Geschichten des Kapitäns, während die Sonne untergeht.","t3.l1":"Goldene Stunde auf dem Wasser","t3.l2":"Blick auf die Insel Košljun","t3.l3":"Ab der Uferpromenade von Punat",
- "t4.tag":"Taxiboot","t4.h":"Taxiboot nach Košljun","t4.p":"Einmal quer über die Bucht von Punat zur kleinen Insel Košljun mit ihrem Kloster zwischen Zypressen.","t4.l1":"Inselkloster und Zypressen","t4.l2":"Ab der Uferpromenade von Punat","t4.l3":"Rückfahrzeiten beim Kapitän erfragen",
- "t5.tag":"Ganz nach dir","t5.h":"Private Tour","t5.p":"Deine Gruppe, dein Tag. Sag dem Kapitän, was ihr mögt, und er passt Route, Stopps und Tempo an euch an.","t5.l1":"Nur eure Gruppe an Bord","t5.l2":"Route nach euren Wünschen","t5.l3":"Gemeinsam per WhatsApp geplant",
- "tours.note":"Preise als XX € und Dauer als X h sind Beispiel-Platzhalter für dieses Konzept und werden vom Kapitän bestätigt.",
- "board.label":"An Bord","board.h":"Das gehört zu jeder Fahrt","b1.h":"Kleine Gruppen","b1.p":"Platz, Zeit zum Schwimmen und ein entspanntes Tempo. Beim Plavnik-Ausflug sind es etwa 12 Personen.","b2.h":"Badestopps","b2.p":"Klares Adriawasser in ruhigen Buchten, und bei der Wilde-Buchten-Tour schwimmst du in eine Höhle. Badesachen mitbringen.","b3.h":"Geschichten vom Kapitän","b3.p":"Bobo ist freundlich, lustig und steckt voller Geschichten über Krk, die Buchten und die Inseln rund um Punat.","board.cta":"Bobo per WhatsApp fragen",
- "gtk.label":"Gut zu wissen","gtk.h":"Bevor du an Bord gehst","gtk.tag":"Uferpromenade Punat","gtk.meet":"Treffpunkt","gtk.meetv":"Uferpromenade von Punat (Obala), 51521 Punat, Insel Krk.","gtk.bring":"Mitbringen","gtk.bringv":"Badesachen und ein Handtuch.","gtk.weather":"Wetter","gtk.weatherv":"Der Kapitän prüft am Vortag das Wetter und sagt dir Bescheid.","gtk.kids":"Kinder","gtk.kidsv":"Kinder sind an Bord willkommen.","gtk.hours":"Zeiten","gtk.hoursv":"In der Saison täglich 09:00 bis 21:00.",
- "near.label":"In der Nähe","near.h":"Rund um die Bucht von Punat","near.sub":"Punat liegt an einer geschützten Bucht auf der Insel Krk. Ein paar Orte, die man kennen sollte.","nm1":"Košljun","n1":"Ein Inselkloster zwischen Zypressen, mitten in der Bucht von Punat. Das Taxiboot bringt dich hinüber.","nm2":"Marina Punat","n2":"Die Marina von Punat, an derselben Bucht wie die Uferpromenade.","nm3":"Stadt Krk","n3":"Die Altstadt der Insel, eine schöne Ergänzung zu einem Tag auf Krk.",
- "book.label":"Buchung","book.h":"Direkt beim Kapitän buchen","book.sub":"Wähle Tour, Datum und wie viele ihr seid. WhatsApp öffnet sich mit fertiger Nachricht an Bobo. Keine Zahlung, kein Konto.","book.sumh":"Deine Anfrage",
- "f.tour":"Tour","f.t1":"Wilde Buchten","f.t1s":"etwa 3,5 Std.","f.t2":"Insel Plavnik","f.t2s":"kleine Gruppe","f.t3":"Sunset","f.t3s":"goldene Stunde","f.t4":"Košljun","f.t4s":"Taxiboot","f.t5":"Private Tour","f.t5s":"ganz nach dir","f.date":"Datum","f.guests":"Gäste","f.name":"Dein Name","f.nameph":"z. B. Anna","f.send":"Per WhatsApp an Bobo senden","f.fine":"Öffnet WhatsApp mit deiner vorausgefüllten Anfrage. Du kannst sie vor dem Senden noch ändern.",
- "faq.label":"FAQ","faq.h":"Bevor es losgeht","faq.sub":"Alles andere einfach den Kapitän per WhatsApp fragen.",
- "q1":"Wo treffen wir uns?","a1":"An der Uferpromenade von Punat (Obala), 51521 Punat, auf der Insel Krk. Wenn du eine Wegbeschreibung brauchst, schreib dem Kapitän per WhatsApp.","q2":"Was sollen wir mitbringen?","a2":"Badesachen und ein Handtuch. Unterwegs gibt es Badestopps.","q3":"Was ist bei schlechtem Wetter?","a3":"Der Kapitän prüft am Vortag das Wetter und sagt dir Bescheid.","q4":"Sind Kinder willkommen?","a4":"Ja, Kinder sind an Bord willkommen.","q5":"Können wir das Boot für uns allein haben?","a5":"Ja. Wähle die private Tour, und der Kapitän passt sie an eure Gruppe an.","q6":"Warum hier buchen und nicht auf einer Buchungsseite?","a6":"Hier buchst du direkt beim Kapitän. Eine WhatsApp-Nachricht, und du planst den Tag mit dem, der das Boot fährt.",
- "c.label":"Kontakt","c.h":"Du findest uns an der Uferpromenade von Punat","c.island":"Insel Krk, Kroatien","c.wa":"Telefon und WhatsApp","c.daily":"Täglich, in der Saison","c.cap":"Dein Kapitän","c.map":"In Karten öffnen",
- "foot.p":"Bootsausflüge auf Krk mit Kapitän Bobo: wilde Buchten, Insel Plavnik, Sunset-Touren und das Taxiboot nach Košljun.","foot.visit":"Besuch","foot.talk":"Kontakt","foot.explore":"Entdecken","fab":"Buchen","bar.s":"Deine Anfrage","bar.btn":"Senden",
- "sum.wild":"Wilde-Buchten-Tour","sum.plavnik":"Ausflug nach Plavnik","sum.sunset":"Sunset-Tour","sum.koslj":"Taxiboot nach Košljun","sum.private":"Private Tour",
- "bar.wild":"Wilde Buchten","bar.plavnik":"Plavnik","bar.sunset":"Sunset","bar.koslj":"Košljun","bar.private":"Private Tour",
- "g.1":"1 Gast","g.n":"{n} Gäste","d.pick":"Datum wählen","d.tom":"Morgen",
- "wa.msg":"Hallo Kapitän Bobo! Ich möchte buchen: {tour}. Datum: {date}. Gäste: {guests}. Name: {name}. Geht das?"
+ "logo.sub":"Bootsausflüge · Krk",
+ "nav.book":"Tour buchen",
+ "nav.menu":"MENÜ",
+ "ovl.captain":"Kapitän Bobo",
+ "ovl.tours":"Touren",
+ "ovl.board":"An Bord",
+ "ovl.gtk":"Gut zu wissen",
+ "ovl.nearby":"In der Nähe",
+ "ovl.book":"Buchung",
+ "ovl.faq":"FAQ",
+ "ovl.contact":"Kontakt",
+ "cta.wa":"Per WhatsApp schreiben",
+ "ovl.addr":"Obala, gegenüber der Post, Punat",
+ "ovl.hours":"Ausflüge April bis Oktober, Taxiboot ganzjährig",
+ "concept":"Konzept: Marija",
+ "hero.label":"Punat · Insel Krk · Kroatien",
+ "hero.t1":"Raus in die Bucht von Punat",
+ "hero.t2":"mit Kapitän Bobo",
+ "hero.sub":"Bootsausflüge auf Krk",
+ "hero.txt":"Wilde Buchten, die nur per Boot erreichbar sind, die Liebeshöhle und Gänsegeier auf Plavnik, Fahrten in den Sonnenuntergang und das Taxiboot nach Košljun. Direkt bei Bobo und seiner Familie buchen.",
+ "hero.addr":"Obala, 51521 Punat · Google 4,9 aus 305 Bewertungen",
+ "hero.cta":"Wilde-Buchten-Tour buchen",
+ "hint.touch":"Berühren zum Umsehen",
+ "hint.mouse":"Maus bewegen zum Umsehen",
+ "gal.label":"Auf dem Wasser",
+ "gal.h":"Ein Tag rund um Krk",
+ "gal.sub":"Versteckte Strände, die Liebeshöhle, Gänsegeier auf Plavnik und der Sonnenuntergang über Krk. Einfach durchwischen.",
+ "gal.g1":"Insel Plavnik",
+ "gal.g2":"Wilde Buchten, Krk",
+ "gal.g3":"Insel Plavnik",
+ "gal.g4":"Krk bei Sonnenuntergang",
+ "gal.g5":"Punat, Krk",
+ "gal.c1":"Hineinschwimmen in die Liebeshöhle",
+ "gal.c2":"Golden Beach, nur per Boot erreichbar",
+ "gal.c3":"Gänsegeier über Plavnik",
+ "gal.c4":"Abendfahrt entlang der wilden Buchten",
+ "gal.c5":"IVEX, unser Holzboot von 1973",
+ "cap.label":"Ihr Kapitän",
+ "cap.h":"Das ist Kapitän Bobo",
+ "cap.lead":"Bobo ist ein Barkariol, ein Taxibootfahrer, und das ist ein altes Handwerk in Punat. Früher gab es hier mehr als 30 Barkariols. Heute sind es noch fünf.",
+ "cap.p1":"Er führt Taxi Boat Punat als kleinen Familienbetrieb, zusammen mit seiner Frau Helena und den Kindern. Gäste kennen ihn als freundlich, lustig und voller Geschichten über die Insel.",
+ "cap.p2":"Sein Boot IVEX ist ein traditionelles hölzernes Fischerboot, gebaut 1973: 9\u00a0m lang, für bis zu 16 Passagiere, mit einem Perkins-Motor mit 87\u00a0PS.",
+ "cap.p3":"Vielleicht kennen Sie die Touren von GetMyBoat oder Expedia. Hier buchen Sie direkt: eine WhatsApp-Nachricht an die Familie.",
+ "cap.sig":"Kapitän, Taxi Boat Punat",
+ "dir.h":"Warum direkt buchen",
+ "dir.l1":"Sie sprechen mit der Familie, die das Boot fährt, nicht mit einer Plattform",
+ "dir.l2":"Tag, Stopps und Tempo gemeinsam per WhatsApp planen",
+ "dir.l3":"Gruppenfahrten ab 29\u00a0€ pro Erwachsenem, privates Boot ab 150\u00a0€",
+ "dir.l4":"Stammgäste erhalten 20\u00a0€ Rabatt auf private Fahrten (Code LOY20)",
+ "dir.also":"Auch bei GetMyBoat und Expedia gelistet.",
+ "gtk.rev":"Google-Bewertungen",
+ "tours.label":"Touren",
+ "tours.h":"Wählen Sie Ihren Ausflug",
+ "tours.sub":"Gruppenfahrten im Sommer, ein privates Boot von Frühling bis Herbst und das Taxiboot das ganze Jahr. Die Routen sind Vorschläge: Der Kapitän passt sie Ihren Wünschen und dem Wetter an.",
+ "t.book":"Diese Tour buchen",
+ "t.plan":"Mit dem Kapitän planen",
+ "t1.tag":"Gruppe oder privat",
+ "t1.h":"Wilde Buchten",
+ "t1.meta":"3,5\u00a0Std. · ab 29\u00a0€ pro Person",
+ "t1.p":"Die schönsten Buchten von Krk, nur per Boot erreichbar. Schwimmen und schnorcheln, in eine Höhle und durch Tunnel unter den Felsen schwimmen, von den Klippen springen.",
+ "t1.l1":"Fox, Bishop, Golden, Long und Cornels Bucht",
+ "t1.l2":"Gruppe: 29\u00a0€ Erwachsene, 17\u00a0€ Kinder bis 12",
+ "t1.l3":"Privates Boot: ab 240\u00a0€",
+ "t1.l4":"Abfahrt 9:00, 13:00 oder 15:00, 17:00",
+ "t2.tag":"Gruppe oder privat",
+ "t2.h":"Insel Plavnik",
+ "t2.meta":"5\u00a0Std. · ab 39\u00a0€ pro Person",
+ "t2.p":"Plavnik ist eine große unbewohnte Insel gegenüber von Krk und Heimat der Gänsegeier. Bis zu 3 Stopps und etwa 2 Stunden zum Schwimmen.",
+ "t2.l1":"Liebeshöhle, Shogy Secret Beach und Shogy Green Eye",
+ "t2.l2":"Gruppe: 39\u00a0€ Erwachsene, 23\u00a0€ Kinder bis 12",
+ "t2.l3":"Privates Boot: ab 340\u00a0€",
+ "t2.l4":"Abfahrt 9:00, 13:00 oder 15:00",
+ "t3.tag":"Goldene Stunde",
+ "t3.h":"Sonnenuntergang in den wilden Buchten",
+ "t3.meta":"2\u00a0Std. · 150\u00a0€ pro Boot",
+ "t3.p":"Eine Abendfahrt entlang der wilden Buchten, wenn es kühler wird, zurück in Punat, wenn die Sonne untergeht. Auf dieser Fahrt gibt es keinen Badestopp.",
+ "t3.l1":"Privates Boot für bis zu 15 Gäste",
+ "t3.l2":"Start nach 18:00, je nach Sonnenuntergang",
+ "t3.l3":"In der Sommersaison",
+ "t4.tag":"Privat",
+ "t4.h":"Große Tour: wilde Buchten und Plavnik",
+ "t4.meta":"7,5\u00a0Std. · ab 470\u00a0€ pro Boot",
+ "t4.p":"Beide Highlights an einem langen Tag: die wilden Buchten von Krk und die Insel Plavnik. Schwimmen, schnorcheln, sonnen, von den Felsen springen und in Höhlen schwimmen. Mit etwas Glück: Delfine.",
+ "t4.l1":"Abfahrt 9:00, oder nach 13:00 mit Rückkehr bei Sonnenuntergang",
+ "t4.l2":"Etwa 3,5\u00a0Std. Fahrt, der Rest gehört Ihnen",
+ "t4.l3":"Die Stopps richten sich nach dem Wetter",
+ "t5.tag":"Privat",
+ "t5.h":"Ganztagesausflug",
+ "t5.meta":"9\u00a0Std. · ab 560\u00a0€ pro Boot",
+ "t5.p":"Für Familien und Freunde, die das Meer lieben. Wilde Buchten und Plavnik, Mittagessen an Bord oder in Stara Baška. Bei gutem Wetter geht es weiter nach Prvić, zu den Gefängnisinseln Goli und Sveti Grgur oder zu den Sandstränden von Rab.",
+ "t5.l1":"Abfahrt 9:00",
+ "t5.l2":"4 bis 5\u00a0Std. Fahrt, der Rest ist freie Zeit",
+ "t5.l3":"Kleiner Grill an Bord für Ihr eigenes Mittagessen",
+ "t6.tag":"Taxiboot",
+ "t6.h":"Taxiboot nach Košljun",
+ "t6.meta":"8\u00a0Min. · ab 5\u00a0€ pro Person",
+ "t6.p":"Einmal quer über die Bucht von Punat zur Klosterinsel Košljun zwischen den Zypressen.",
+ "t6.l1":"Hin und zurück, online bezahlt: 9\u00a0€ Erwachsene, 5\u00a0€ Kinder bis 12",
+ "t6.l2":"Vor Ort bezahlt: 11\u00a0€ Erwachsene, 6\u00a0€ Kinder",
+ "t6.l3":"Wasserbus im Sommer vom 11. Juni bis 12. September",
+ "t6.l4":"Eintritt ins Kloster nicht inbegriffen (6\u00a0€ Erwachsene, 4\u00a0€ Kinder)",
+ "t7.tag":"Ganzjährig",
+ "t7.h":"Transfers mit dem Taxiboot",
+ "t7.meta":"Ab Punat · 50 bis 80\u00a0€ pro Stunde",
+ "t7.p":"Das Taxiboot fährt das ganze Jahr. Eine Stunde Fahrt kostet 50 bis 80\u00a0€ pro Boot, je nach Gästezahl und Saison.",
+ "t7.l1":"Prniba (Sv. Mikul): 8\u00a0Min., 6\u00a0€ pro Person",
+ "t7.l2":"Marina Punat: 10\u00a0Min., 7\u00a0€ pro Person",
+ "t7.l3":"Stadt Krk: 30\u00a0Min., 14 bis 30\u00a0€ pro Person",
+ "t7.l4":"Kornić, Stara Baška, Rab und mehr auf Anfrage",
+ "t8.tag":"Frühling und Herbst",
+ "t8.h":"Private Fahrten in der Nebensaison",
+ "t8.meta":"5. April bis 4. Juni, 21. September bis 31. Oktober",
+ "t8.p":"Ruhige Buchten und weiches Licht. Das Meer ist kühler, deshalb gibt es Badestopps nur, wenn Wetter und Wasser es erlauben.",
+ "t8.l1":"Wilde Buchten, 2\u00a0Std.: ab 110\u00a0€",
+ "t8.l2":"Wilde Buchten und Košljun, 3\u00a0Std.: ab 160\u00a0€",
+ "t8.l3":"Plavnik und wilde Buchten, 4\u00a0Std.: ab 220\u00a0€",
+ "t8.l4":"Plavnik, wilde Buchten und Košljun, 5\u00a0Std.: ab 260\u00a0€",
+ "t8.l5":"Ganzer Tag, 8\u00a0Std.: ab 400\u00a0€",
+ "tours.note":"Preise für private Fahrten gelten pro Boot, für bis zu 15 Gäste. Kleinere Gruppen zahlen weniger, und Stammgäste erhalten mit dem Code LOY20 20\u00a0€ Rabatt auf private Fahrten.",
+ "board.label":"An Bord",
+ "board.h":"Das gehört zu jeder Fahrt",
+ "b1.h":"Bis zu 15 Gäste",
+ "b1.p":"Gruppenfahrten nehmen höchstens 15 Personen mit, also früh buchen. Ab 7 Personen ist ein privates Boot oft die bessere Wahl.",
+ "b2.h":"Badestopps",
+ "b2.p":"Klares Adriawasser in Buchten, die nur per Boot erreichbar sind. Schnorcheln, in Höhlen und durch Tunnel unter den Felsen schwimmen. Badesachen mitbringen.",
+ "b3.h":"Geschichten vom Kapitän",
+ "b3.p":"Bobo ist freundlich, lustig und steckt voller Geschichten über Krk, die Buchten und die Inseln rund um Punat.",
+ "b4.h":"IVEX, Baujahr 1973",
+ "b4.p":"Ein traditionelles hölzernes Fischerboot, 9\u00a0m lang, für bis zu 16 Passagiere. Beim Ganztagesausflug gibt es einen kleinen Grill an Bord.",
+ "board.cta":"Per WhatsApp fragen",
+ "gtk.label":"Gut zu wissen",
+ "gtk.h":"Bevor Sie an Bord gehen",
+ "gtk.tag":"Bobo am Infostand",
+ "gtk.meet":"Treffpunkt",
+ "gtk.meetv":"Der rot-weiße Infostand an der Uferpromenade (Obala), gegenüber der Post, 51521 Punat. Die Boote liegen direkt davor.",
+ "gtk.park":"Parken",
+ "gtk.parkv":"Parken Sie beim Hotel Falkensteiner, 250 bis 300\u00a0m entfernt, und gehen Sie am Meer entlang. Keine Münzen? Am TISAK-Kiosk mit einem Foto Ihres Kennzeichens bezahlen.",
+ "gtk.bring":"Mitbringen",
+ "gtk.bringv":"Badesachen und ein Handtuch.",
+ "gtk.pay":"Bezahlung",
+ "gtk.payv":"Eine Anzahlung bei der Buchung. Den Rest am Tag der Fahrt beim Kapitän: bar, mit Karte, PayPal, Revolut oder Wise.",
+ "gtk.weather":"Wetter und Stornierung",
+ "gtk.weatherv":"Kostenlose Stornierung bis 24 Stunden vorher. Bei schlechtem Wetter oder einem Problem auf unserer Seite wird Ihre Buchung automatisch erstattet.",
+ "gtk.kids":"Kinder",
+ "gtk.kidsv":"Kinder sind willkommen. Kinder bis 12 zahlen bei Gruppenfahrten und beim Taxiboot weniger.",
+ "gtk.season":"Saison",
+ "gtk.seasonv":"Gruppenfahrten 5. Juni bis 20. September. Private Fahrten 5. April bis 31. Oktober. Taxiboot ganzjährig.",
+ "near.label":"In der Nähe",
+ "near.h":"Rund um die Bucht von Punat",
+ "near.sub":"Punat liegt an einer geschützten Bucht auf der Insel Krk. Fahrzeiten mit dem Taxiboot ab Punat.",
+ "nm1":"Košljun",
+ "n1":"Die Klosterinsel zwischen Zypressen, mitten in der Bucht von Punat. 8 Minuten mit dem Boot.",
+ "nm2":"Marina Punat",
+ "n2":"10 Minuten mit dem Taxiboot, 7\u00a0€ pro Person und Strecke.",
+ "nm3":"Stadt Krk",
+ "n3":"Eine der ältesten Städte Kroatiens. 30 Minuten mit dem Taxiboot.",
+ "nm4":"Prniba",
+ "n4":"Der kleine Hafen Sv. Mikul. 8 Minuten, 6\u00a0€ pro Person und Strecke.",
+ "nm5":"Stara Baška",
+ "n5":"Etwa 1 Stunde mit dem Boot, Mittagsstopp beim Ganztagesausflug.",
+ "nm6":"Rab",
+ "n6":"Sandstrände, etwa 2,5 Stunden mit dem Boot.",
+ "book.label":"Buchung",
+ "book.h":"Direkt beim Kapitän buchen",
+ "book.sub":"Wählen Sie Ausflug, Datum und Personenzahl. WhatsApp öffnet sich mit einer fertigen Nachricht an Bobos Familie. Keine Zahlung, kein Konto.",
+ "book.sumh":"Ihre Anfrage",
+ "f.tour":"Tour",
+ "f.t1":"Wilde Buchten",
+ "f.t1s":"3,5\u00a0Std.",
+ "f.t2":"Plavnik",
+ "f.t2s":"5\u00a0Std.",
+ "f.t3":"Sonnenuntergang",
+ "f.t3s":"2\u00a0Std.",
+ "f.t4":"Große Tour",
+ "f.t4s":"7,5\u00a0Std.",
+ "f.t5":"Ganzer Tag",
+ "f.t5s":"9\u00a0Std.",
+ "f.t6":"Košljun",
+ "f.t6s":"Taxiboot",
+ "f.t7":"Andere Fahrt",
+ "f.t7s":"Taxi, Nebensaison, Ihre Idee",
+ "f.date":"Datum",
+ "f.guests":"Gäste",
+ "f.name":"Ihr Name",
+ "f.nameph":"z. B. Anna",
+ "f.send":"Per WhatsApp senden",
+ "f.fine":"Öffnet WhatsApp mit Ihrer vorausgefüllten Anfrage. Sie können sie vor dem Senden noch ändern.",
+ "faq.label":"FAQ",
+ "faq.h":"Bevor es losgeht",
+ "faq.sub":"Alles andere fragen Sie uns einfach per WhatsApp.",
+ "q1":"Wo treffen wir uns?",
+ "a1":"Am rot-weißen Infostand an der Uferpromenade von Punat (Obala), gegenüber der Post. Vom Hotel Falkensteiner kommend ist es der vorletzte Stand in der Reihe direkt am Meer. Nicht gefunden? Schreiben Sie uns per WhatsApp.",
+ "q2":"Was sollen wir mitbringen?",
+ "a2":"Badesachen und ein Handtuch. Unterwegs gibt es Badestopps.",
+ "q3":"Was ist bei schlechtem Wetter?",
+ "a3":"Bei schlechtem Wetter oder einem Problem auf unserer Seite wird Ihre Buchung automatisch erstattet, auch innerhalb von 24 Stunden vor der Fahrt.",
+ "q4":"Sind Kinder willkommen?",
+ "a4":"Ja. Kinder bis 12 zahlen bei Gruppenfahrten und beim Taxiboot nach Košljun weniger.",
+ "q5":"Können wir das Boot für uns allein haben?",
+ "a5":"Ja. Jede Fahrt gibt es auch privat, von der 2-stündigen Sonnenuntergangsfahrt für 150\u00a0€ bis zum 9-stündigen Ganztagesausflug. Ab 7 Personen ist ein privates Boot meist die bessere Wahl.",
+ "q6":"Warum hier buchen und nicht auf einer Buchungsseite?",
+ "a6":"Hier buchen Sie direkt bei der Familie. Eine WhatsApp-Nachricht, und Sie planen den Tag mit den Menschen, die das Boot fahren.",
+ "q7":"Wie bezahlen wir?",
+ "a7":"Bei der Buchung nur eine Anzahlung. Der Rest wird am Tag der Fahrt beim Kapitän bezahlt: bar, mit Karte, PayPal, Revolut oder Wise.",
+ "q8":"Können wir stornieren?",
+ "a8":"Ja, bis 24 Stunden vor der Abfahrt, und Sie erhalten Ihre Anzahlung zurück. In allen anderen Fällen melden Sie sich einfach, wir finden eine Lösung.",
+ "q9":"Wo können wir parken?",
+ "a9":"Am einfachsten auf dem Parkplatz beim Hotel Falkensteiner, 250 bis 300\u00a0m von den Booten. Am Automaten mit Münzen zahlen oder am TISAK-Kiosk mit einem Foto Ihres Kennzeichens. Klappt beides nicht, schicken Sie uns Foto und Stunden per WhatsApp, wir zahlen und Sie geben es uns zurück.",
+ "q10":"Gibt es Rabatt für Stammgäste?",
+ "a10":"Ja. Stammgäste erhalten einen Treue-Gutschein über 20\u00a0€ für private Fahrten: Code LOY20. Kleinere Gruppen zahlen bei privaten Fahrten außerdem weniger.",
+ "q11":"Kann man im Frühling und Herbst baden?",
+ "a11":"Das Meer ist dann kühler, deshalb gibt es Badestopps nur, wenn Wetter und Wasser es erlauben. Frühlingstage können sich aber wie Sommer anfühlen.",
+ "c.label":"Kontakt",
+ "c.h":"Sie finden uns an der Uferpromenade von Punat",
+ "c.opp":"gegenüber der Post",
+ "c.island":"Insel Krk, Kroatien",
+ "c.bobo":"Kapitän Bobo",
+ "c.helena":"Helena, WhatsApp und Viber",
+ "c.tessza":"Tessza, WhatsApp und Viber",
+ "c.email":"E-Mail",
+ "c.season":"Saison",
+ "c.seasonv":"April bis Oktober",
+ "c.map":"In Karten öffnen",
+ "foot.p":"Bootsausflüge und Taxiboot ab Punat mit Kapitän Bobo und seiner Familie: wilde Buchten, Insel Plavnik, Fahrten in den Sonnenuntergang, Ganztagesausflüge und Košljun.",
+ "foot.visit":"Besuch",
+ "foot.talk":"Kontakt",
+ "foot.explore":"Entdecken",
+ "fab":"Buchen",
+ "bar.s":"Ihre Anfrage",
+ "bar.btn":"Senden",
+ "sum.wild":"Wilde-Buchten-Tour",
+ "sum.plavnik":"Ausflug nach Plavnik",
+ "sum.sunset":"Sonnenuntergangsfahrt",
+ "sum.big":"Große Tour, wilde Buchten und Plavnik",
+ "sum.full":"Ganztagesausflug",
+ "sum.koslj":"Taxiboot nach Košljun",
+ "sum.private":"Andere Fahrt",
+ "bar.wild":"Wilde Buchten",
+ "bar.plavnik":"Plavnik",
+ "bar.sunset":"Sonnenuntergang",
+ "bar.big":"Große Tour",
+ "bar.full":"Ganzer Tag",
+ "bar.koslj":"Košljun",
+ "bar.private":"Andere Fahrt",
+ "g.1":"1 Gast",
+ "g.n":"{n} Gäste",
+ "d.pick":"Datum wählen",
+ "d.tom":"Morgen",
+ "wa.msg":"Hallo Taxi Boat Punat! Ich möchte buchen: {tour}. Datum: {date}. Gäste: {guests}. Name: {name}. Geht das?"
 },
 it:{
- "logo.sub":"Escursioni in barca · Krk","nav.book":"Prenota un tour","nav.menu":"MENU","ovl.captain":"Capitano Bobo","ovl.tours":"Tour","ovl.board":"A bordo","ovl.gtk":"Buono a sapersi","ovl.nearby":"Nei dintorni","ovl.book":"Prenotazione","ovl.faq":"FAQ","ovl.contact":"Contatti","cta.wa":"Scrivi al capitano","ovl.addr":"Lungomare di Punat, Krk","ovl.hours":"In stagione ogni giorno 09:00 alle 21:00","concept":"Concept di Marija",
- "hero.label":"Punat · Isola di Krk · Croazia","hero.t1":"Nella baia di Punat","hero.t2":"con il capitano Bobo","hero.sub":"Escursioni in barca a Krk","hero.txt":"Baie selvagge, una nuotata dentro una grotta marina, l'isola di Plavnik e il tramonto su Košljun. Prenota direttamente con il capitano.","hero.addr":"Obala, 51521 Punat · Google 4,9 da 305 recensioni","hero.cta":"Prenota il tour delle baie selvagge","hint.touch":"Tocca per guardarti intorno","hint.mouse":"Muovi il mouse per guardarti intorno",
- "gal.label":"Sull'acqua","gal.h":"Una giornata intorno a Krk","gal.sub":"Baie selvagge, una grotta marina, un monastero su un'isola e il sole che tramonta su Punat. Scorri le immagini.",
- "gal.g1":"Baie selvagge, Krk","gal.g2":"Isola di Košljun","gal.g3":"Isola di Plavnik","gal.g4":"Baia di Punat","gal.g5":"Punat, Krk, Croazia",
- "gal.c1":"Nuotare dentro una grotta marina","gal.c2":"Il monastero dell'isola tra i cipressi","gal.c3":"Grifoni sopra Plavnik","gal.c4":"Tour al tramonto sull'acqua","gal.c5":"Punto d'incontro sul lungomare di Punat",
- "cap.label":"Il tuo capitano","cap.h":"Ecco il capitano Bobo","cap.lead":"Bobo guida Taxi Boat Punat dal lungomare di Punat, sull'isola di Krk. Gli ospiti lo conoscono come simpatico, divertente e pieno di storie.","cap.p1":"Porta piccoli gruppi alle baie selvagge, sull'isola di Plavnik e al monastero di Košljun. Ogni uscita include soste per nuotare e le storie del capitano sull'isola.","cap.p2":"Forse hai visto i suoi tour su GetMyBoat o Expedia. Qui prenoti direttamente: un messaggio WhatsApp, dritto al capitano.","cap.sig":"Capitano, Taxi Boat Punat",
- "dir.h":"Perché prenotare direttamente","dir.l1":"Parli con Bobo in persona, quello che guida la barca","dir.l2":"Giornata, soste e ritmo li decidete insieme su WhatsApp","dir.l3":"Prezzi molto onesti, da","dir.also":"Presente anche su GetMyBoat ed Expedia.","gtk.rev":"recensioni Google",
- "tours.label":"Tour","tours.h":"Scegli la tua gita","tours.sub":"Cinque modi per vedere Krk dal mare. Piccoli gruppi, soste per nuotare e un capitano che conosce ogni baia.",
- "t.from":"da","t.dur":"Durata","t.book":"Prenota questo tour","t.plan":"Organizzalo con il capitano",
- "t1.tag":"4 baie · grotta","t1.h":"Tour delle baie selvagge","t1.dur":"Circa 3,5 ore","t1.p":"Quattro baie selvagge lungo la costa di Krk, con il tempo di nuotare in ognuna. Il momento migliore: entrare a nuoto in una grotta marina e passare nei tunnel sottomarini.","t1.l1":"4 baie con soste per nuotare","t1.l2":"Nuotata dentro una grotta","t1.l3":"Tunnel sottomarini",
- "t2.tag":"Piccoli gruppi","t2.h":"Gita all'isola di Plavnik","t2.p":"Un'isola selvaggia di fronte a Krk. Piccoli gruppi di circa 12 persone e buone possibilità di vedere cervi, pecore e grifoni.","t2.l1":"Gruppi di circa 12 persone","t2.l2":"Cervi, pecore e grifoni","t2.l3":"Le storie del capitano lungo la rotta",
- "t3.tag":"Ora d'oro","t3.h":"Tour al tramonto","t3.p":"In mare mentre la luce diventa dorata. Mare calmo, Košljun in controluce e le storie del capitano mentre il sole tramonta.","t3.l1":"L'ora d'oro sull'acqua","t3.l2":"Vista sull'isola di Košljun","t3.l3":"Dal lungomare di Punat",
- "t4.tag":"Taxi boat","t4.h":"Taxi boat per Košljun","t4.p":"Un salto attraverso la baia di Punat fino alla piccola isola di Košljun, con il suo monastero tra i cipressi.","t4.l1":"Monastero dell'isola e cipressi","t4.l2":"Dal lungomare di Punat","t4.l3":"Chiedi al capitano gli orari di ritorno",
- "t5.tag":"A modo tuo","t5.h":"Tour privato","t5.p":"Il tuo gruppo, la tua giornata. Di' al capitano cosa amate e lui adatta rotta, soste e ritmo a voi.","t5.l1":"Solo il vostro gruppo a bordo","t5.l2":"Rotta su misura","t5.l3":"Organizzato insieme su WhatsApp",
- "tours.note":"I prezzi indicati come XX € e le durate come X h sono segnaposto di esempio per questa proposta, da confermare con il capitano.",
- "board.label":"A bordo","board.h":"Cosa c'è in ogni uscita","b1.h":"Piccoli gruppi","b1.p":"Spazio, tempo per nuotare e un ritmo rilassato. Nella gita a Plavnik il gruppo è di circa 12 persone.","b2.h":"Soste per nuotare","b2.p":"Acqua limpida dell'Adriatico in baie tranquille e, nel tour delle baie selvagge, una nuotata dentro una grotta. Porta il costume.","b3.h":"Le storie del capitano","b3.p":"Bobo è simpatico, divertente e pieno di storie su Krk, le baie e le isole intorno a Punat.","board.cta":"Chiedi a Bobo su WhatsApp",
- "gtk.label":"Buono a sapersi","gtk.h":"Prima di salire a bordo","gtk.tag":"Lungomare di Punat","gtk.meet":"Punto d'incontro","gtk.meetv":"Lungomare di Punat (Obala), 51521 Punat, isola di Krk.","gtk.bring":"Cosa portare","gtk.bringv":"Costume e asciugamano.","gtk.weather":"Meteo","gtk.weatherv":"Il capitano controlla il meteo il giorno prima e ti avvisa.","gtk.kids":"Bambini","gtk.kidsv":"I bambini sono i benvenuti a bordo.","gtk.hours":"Orari","gtk.hoursv":"In stagione ogni giorno 09:00 alle 21:00.",
- "near.label":"Nei dintorni","near.h":"Intorno alla baia di Punat","near.sub":"Punat si trova in una baia riparata sull'isola di Krk. Alcuni luoghi da conoscere.","nm1":"Košljun","n1":"Un monastero su un'isola tra i cipressi, proprio nella baia di Punat. Il taxi boat ti porta di là.","nm2":"Marina di Punat","n2":"Il porto turistico di Punat, sulla stessa baia del lungomare.","nm3":"Città di Krk","n3":"Il centro storico dell'isola, perfetto da aggiungere a una giornata a Krk.",
- "book.label":"Prenotazione","book.h":"Prenota direttamente con il capitano","book.sub":"Scegli tour, data e quanti siete. Si apre WhatsApp con il messaggio pronto per Bobo. Nessun pagamento qui, nessun account.","book.sumh":"La tua richiesta",
- "f.tour":"Tour","f.t1":"Baie selvagge","f.t1s":"circa 3,5 h","f.t2":"Isola di Plavnik","f.t2s":"piccolo gruppo","f.t3":"Tramonto","f.t3s":"ora d'oro","f.t4":"Košljun","f.t4s":"taxi boat","f.t5":"Tour privato","f.t5s":"su misura","f.date":"Data","f.guests":"Persone","f.name":"Il tuo nome","f.nameph":"es. Anna","f.send":"Invia a Bobo su WhatsApp","f.fine":"Apre WhatsApp con la richiesta precompilata. Puoi ancora modificarla prima di inviare.",
- "faq.label":"FAQ","faq.h":"Prima di partire","faq.sub":"Per tutto il resto, chiedi al capitano su WhatsApp.",
- "q1":"Dove ci incontriamo?","a1":"Sul lungomare di Punat (Obala), 51521 Punat, sull'isola di Krk. Se ti servono indicazioni, scrivi al capitano su WhatsApp.","q2":"Cosa dobbiamo portare?","a2":"Costume e asciugamano. Lungo il percorso ci sono soste per nuotare.","q3":"E se il tempo è brutto?","a3":"Il capitano controlla il meteo il giorno prima e ti avvisa.","q4":"I bambini sono i benvenuti?","a4":"Sì, i bambini sono i benvenuti a bordo.","q5":"Possiamo avere la barca solo per noi?","a5":"Sì. Scegli il tour privato e il capitano lo adatta al vostro gruppo.","q6":"Perché prenotare qui e non su un sito di prenotazioni?","a6":"Qui prenoti direttamente con il capitano. Un messaggio WhatsApp e organizzi la giornata con chi guida la barca.",
- "c.label":"Contatti","c.h":"Ci trovi sul lungomare di Punat","c.island":"Isola di Krk, Croazia","c.wa":"Telefono e WhatsApp","c.daily":"Ogni giorno, in stagione","c.cap":"Il tuo capitano","c.map":"Apri in Mappe",
- "foot.p":"Escursioni in barca a Krk con il capitano Bobo: baie selvagge, isola di Plavnik, tour al tramonto e il taxi boat per Košljun.","foot.visit":"Dove","foot.talk":"Parla con noi","foot.explore":"Esplora","fab":"Prenota","bar.s":"La tua richiesta","bar.btn":"Invia",
- "sum.wild":"Tour delle baie selvagge","sum.plavnik":"Gita a Plavnik","sum.sunset":"Tour al tramonto","sum.koslj":"Taxi boat per Košljun","sum.private":"Tour privato",
- "bar.wild":"Baie selvagge","bar.plavnik":"Plavnik","bar.sunset":"Tramonto","bar.koslj":"Košljun","bar.private":"Tour privato",
- "g.1":"1 persona","g.n":"{n} persone","d.pick":"Scegli una data","d.tom":"Domani",
- "wa.msg":"Ciao capitano Bobo! Vorrei prenotare: {tour}. Data: {date}. Persone: {guests}. Nome: {name}. È possibile?"
+ "logo.sub":"Escursioni in barca · Krk",
+ "nav.book":"Prenota un tour",
+ "nav.menu":"MENU",
+ "ovl.captain":"Capitano Bobo",
+ "ovl.tours":"Tour",
+ "ovl.board":"A bordo",
+ "ovl.gtk":"Buono a sapersi",
+ "ovl.nearby":"Nei dintorni",
+ "ovl.book":"Prenotazione",
+ "ovl.faq":"FAQ",
+ "ovl.contact":"Contatti",
+ "cta.wa":"Scrivici su WhatsApp",
+ "ovl.addr":"Obala, di fronte all'ufficio postale, Punat",
+ "ovl.hours":"Gite da aprile a ottobre, taxi boat tutto l'anno",
+ "concept":"Concept di Marija",
+ "hero.label":"Punat · Isola di Krk · Croazia",
+ "hero.t1":"Nella baia di Punat",
+ "hero.t2":"con il capitano Bobo",
+ "hero.sub":"Escursioni in barca a Krk",
+ "hero.txt":"Baie selvagge raggiungibili solo in barca, la Grotta dell'Amore e i grifoni di Plavnik, uscite al tramonto e il taxi boat per Košljun. Prenota direttamente con Bobo e la sua famiglia.",
+ "hero.addr":"Obala, 51521 Punat · Google 4,9 da 305 recensioni",
+ "hero.cta":"Prenota il tour delle baie selvagge",
+ "hint.touch":"Tocca per guardarti intorno",
+ "hint.mouse":"Muovi il mouse per guardarti intorno",
+ "gal.label":"Sull'acqua",
+ "gal.h":"Una giornata intorno a Krk",
+ "gal.sub":"Spiagge nascoste, la Grotta dell'Amore, i grifoni di Plavnik e il sole che tramonta su Krk. Scorri le immagini.",
+ "gal.g1":"Isola di Plavnik",
+ "gal.g2":"Baie selvagge, Krk",
+ "gal.g3":"Isola di Plavnik",
+ "gal.g4":"Krk al tramonto",
+ "gal.g5":"Punat, Krk",
+ "gal.c1":"A nuoto nella Grotta dell'Amore",
+ "gal.c2":"Golden Beach, raggiungibile solo in barca",
+ "gal.c3":"Grifoni sopra Plavnik",
+ "gal.c4":"Tramonto lungo le baie selvagge",
+ "gal.c5":"IVEX, la nostra barca in legno del 1973",
+ "cap.label":"Il tuo capitano",
+ "cap.h":"Ecco il capitano Bobo",
+ "cap.lead":"Bobo è un barkariol, un tassista del mare: un mestiere antico a Punat. Un tempo qui c'erano più di 30 barkariol. Oggi ne sono rimasti cinque.",
+ "cap.p1":"Gestisce Taxi Boat Punat come una piccola impresa di famiglia, con la moglie Helena e i figli. Gli ospiti lo conoscono come simpatico, divertente e pieno di storie sull'isola.",
+ "cap.p2":"La sua barca IVEX è un tradizionale peschereccio in legno costruito nel 1973: 9\u00a0m di lunghezza, fino a 16 passeggeri, motore Perkins da 87\u00a0CV.",
+ "cap.p3":"Forse hai visto i tour su GetMyBoat o Expedia. Qui prenoti direttamente: un messaggio WhatsApp alla famiglia.",
+ "cap.sig":"Capitano, Taxi Boat Punat",
+ "dir.h":"Perché prenotare direttamente",
+ "dir.l1":"Parli con la famiglia che porta la barca, non con una piattaforma",
+ "dir.l2":"Giornata, soste e ritmo li decidete insieme su WhatsApp",
+ "dir.l3":"Gite condivise da 29\u00a0€ a persona, barca privata da 150\u00a0€",
+ "dir.l4":"Chi torna ha 20\u00a0€ di sconto sulle gite private (codice LOY20)",
+ "dir.also":"Presente anche su GetMyBoat ed Expedia.",
+ "gtk.rev":"recensioni Google",
+ "tours.label":"Tour",
+ "tours.h":"Scegli la tua gita",
+ "tours.sub":"Gite condivise d'estate, barca privata dalla primavera all'autunno e taxi boat tutto l'anno. Le rotte sono proposte: il capitano le adatta ai vostri desideri e al meteo.",
+ "t.book":"Prenota questo tour",
+ "t.plan":"Organizzalo con il capitano",
+ "t1.tag":"Condivisa o privata",
+ "t1.h":"Baie selvagge",
+ "t1.meta":"3,5\u00a0h · da 29\u00a0€ a persona",
+ "t1.p":"Le baie più belle di Krk, raggiungibili solo in barca. Nuotare e fare snorkeling, entrare a nuoto in una grotta e nei tunnel sotto le rocce, tuffarsi dagli scogli.",
+ "t1.l1":"Baie Fox, Bishop, Golden, Long e Cornels",
+ "t1.l2":"Condivisa: 29\u00a0€ adulti, 17\u00a0€ bambini fino a 12 anni",
+ "t1.l3":"Barca privata: da 240\u00a0€",
+ "t1.l4":"Partenze 9:00, 13:00 o 15:00, 17:00",
+ "t2.tag":"Condivisa o privata",
+ "t2.h":"Isola di Plavnik",
+ "t2.meta":"5\u00a0h · da 39\u00a0€ a persona",
+ "t2.p":"Plavnik è una grande isola disabitata di fronte a Krk, casa dei grifoni. Fino a 3 soste e circa 2 ore per nuotare.",
+ "t2.l1":"Grotta dell'Amore, Shogy secret beach e Shogy green eye",
+ "t2.l2":"Condivisa: 39\u00a0€ adulti, 23\u00a0€ bambini fino a 12 anni",
+ "t2.l3":"Barca privata: da 340\u00a0€",
+ "t2.l4":"Partenze 9:00, 13:00 o 15:00",
+ "t3.tag":"Ora d'oro",
+ "t3.h":"Tramonto nelle baie selvagge",
+ "t3.meta":"2\u00a0h · 150\u00a0€ a barca",
+ "t3.p":"Un giro serale lungo le baie selvagge quando fa più fresco, di ritorno a Punat mentre il sole tramonta. In questa uscita non c'è sosta per nuotare.",
+ "t3.l1":"Barca privata fino a 15 persone",
+ "t3.l2":"Partenza dopo le 18:00, secondo il tramonto",
+ "t3.l3":"Nella stagione estiva",
+ "t4.tag":"Privata",
+ "t4.h":"Gran tour: baie selvagge e Plavnik",
+ "t4.meta":"7,5\u00a0h · da 470\u00a0€ a barca",
+ "t4.p":"I due momenti migliori in una lunga giornata: le baie selvagge di Krk e l'isola di Plavnik. Nuotare, fare snorkeling, prendere il sole, tuffarsi dagli scogli ed entrare nelle grotte. Con un po' di fortuna, i delfini.",
+ "t4.l1":"Partenza alle 9:00, o dopo le 13:00 per tornare al tramonto",
+ "t4.l2":"Circa 3,5\u00a0h di navigazione, il resto è per voi",
+ "t4.l3":"Le soste dipendono dal meteo",
+ "t5.tag":"Privata",
+ "t5.h":"Gita di un giorno intero",
+ "t5.meta":"9\u00a0h · da 560\u00a0€ a barca",
+ "t5.p":"Per famiglie e amici che amano il mare. Baie selvagge e Plavnik, pranzo a bordo o a Stara Baška. Con il bel tempo si può proseguire per Prvić, le isole prigione di Goli e Sveti Grgur o le spiagge di sabbia di Rab.",
+ "t5.l1":"Partenza alle 9:00",
+ "t5.l2":"Da 4 a 5\u00a0h di navigazione, il resto è tempo libero",
+ "t5.l3":"Piccola griglia a bordo per il vostro pranzo",
+ "t6.tag":"Taxi boat",
+ "t6.h":"Taxi boat per Košljun",
+ "t6.meta":"8\u00a0min · da 5\u00a0€ a persona",
+ "t6.p":"Un salto attraverso la baia di Punat fino all'isola del monastero, Košljun, tra i cipressi.",
+ "t6.l1":"Andata e ritorno pagato online: 9\u00a0€ adulti, 5\u00a0€ bambini fino a 12 anni",
+ "t6.l2":"Pagato sul posto: 11\u00a0€ adulti, 6\u00a0€ bambini",
+ "t6.l3":"Battello estivo dall'11 giugno al 12 settembre",
+ "t6.l4":"Ingresso al monastero non incluso (6\u00a0€ adulti, 4\u00a0€ bambini)",
+ "t7.tag":"Tutto l'anno",
+ "t7.h":"Trasferimenti in taxi boat",
+ "t7.meta":"Da Punat · da 50 a 80\u00a0€ l'ora",
+ "t7.p":"Il taxi boat funziona tutto l'anno. Un'ora di navigazione costa da 50 a 80\u00a0€ a barca, secondo il numero di persone e la stagione.",
+ "t7.l1":"Prniba (Sv. Mikul): 8\u00a0min, 6\u00a0€ a persona",
+ "t7.l2":"Marina di Punat: 10\u00a0min, 7\u00a0€ a persona",
+ "t7.l3":"Città di Krk: 30\u00a0min, da 14 a 30\u00a0€ a persona",
+ "t7.l4":"Kornić, Stara Baška, Rab e altro su richiesta",
+ "t8.tag":"Primavera e autunno",
+ "t8.h":"Gite private in bassa stagione",
+ "t8.meta":"Dal 5 aprile al 4 giugno, dal 21 settembre al 31 ottobre",
+ "t8.p":"Baie tranquille e luce morbida. Il mare è più fresco, quindi le soste per nuotare si fanno solo se meteo e acqua lo permettono.",
+ "t8.l1":"Baie selvagge, 2\u00a0h: da 110\u00a0€",
+ "t8.l2":"Baie selvagge e Košljun, 3\u00a0h: da 160\u00a0€",
+ "t8.l3":"Plavnik e baie selvagge, 4\u00a0h: da 220\u00a0€",
+ "t8.l4":"Plavnik, baie selvagge e Košljun, 5\u00a0h: da 260\u00a0€",
+ "t8.l5":"Giorno intero, 8\u00a0h: da 400\u00a0€",
+ "tours.note":"I prezzi delle gite private sono a barca, fino a 15 persone. I gruppi più piccoli pagano meno e chi torna ha 20\u00a0€ di sconto sulle gite private con il codice LOY20.",
+ "board.label":"A bordo",
+ "board.h":"Cosa c'è in ogni uscita",
+ "b1.h":"Fino a 15 persone",
+ "b1.p":"Le gite condivise portano al massimo 15 persone, quindi prenota presto. Da 7 persone in su conviene spesso la barca privata.",
+ "b2.h":"Soste per nuotare",
+ "b2.p":"Acqua limpida dell'Adriatico in baie raggiungibili solo in barca. Snorkeling, grotte e tunnel sotto le rocce da attraversare a nuoto. Porta il costume.",
+ "b3.h":"Le storie del capitano",
+ "b3.p":"Bobo è simpatico, divertente e pieno di storie su Krk, le baie e le isole intorno a Punat.",
+ "b4.h":"IVEX, costruita nel 1973",
+ "b4.p":"Un tradizionale peschereccio in legno, lungo 9\u00a0m, fino a 16 passeggeri. Nella gita di un giorno intero c'è una piccola griglia a bordo.",
+ "board.cta":"Chiedici su WhatsApp",
+ "gtk.label":"Buono a sapersi",
+ "gtk.h":"Prima di salire a bordo",
+ "gtk.tag":"Bobo al punto info",
+ "gtk.meet":"Punto d'incontro",
+ "gtk.meetv":"Il punto info bianco e rosso sul lungomare (Obala), di fronte all'ufficio postale, 51521 Punat. Le barche sono proprio lì.",
+ "gtk.park":"Parcheggio",
+ "gtk.parkv":"Parcheggia vicino all'Hotel Falkensteiner, a 250 o 300\u00a0m, e cammina lungo il mare. Niente monete? Paga al chiosco TISAK con una foto della targa.",
+ "gtk.bring":"Cosa portare",
+ "gtk.bringv":"Costume e asciugamano.",
+ "gtk.pay":"Pagamento",
+ "gtk.payv":"Un acconto alla prenotazione. Il resto il giorno stesso, al capitano: contanti, carta, PayPal, Revolut o Wise.",
+ "gtk.weather":"Meteo e cancellazione",
+ "gtk.weatherv":"Cancellazione gratuita fino a 24 ore prima. Con il brutto tempo o un problema da parte nostra la prenotazione viene rimborsata automaticamente.",
+ "gtk.kids":"Bambini",
+ "gtk.kidsv":"I bambini sono i benvenuti. Fino a 12 anni pagano meno nelle gite condivise e sul taxi boat.",
+ "gtk.season":"Stagione",
+ "gtk.seasonv":"Gite condivise dal 5 giugno al 20 settembre. Gite private dal 5 aprile al 31 ottobre. Taxi boat tutto l'anno.",
+ "near.label":"Nei dintorni",
+ "near.h":"Intorno alla baia di Punat",
+ "near.sub":"Punat si trova in una baia riparata sull'isola di Krk. Tempi in taxi boat da Punat.",
+ "nm1":"Košljun",
+ "n1":"L'isola del monastero tra i cipressi, proprio nella baia di Punat. 8 minuti in barca.",
+ "nm2":"Marina di Punat",
+ "n2":"10 minuti in taxi boat, 7\u00a0€ a persona sola andata.",
+ "nm3":"Città di Krk",
+ "n3":"Una delle città più antiche della Croazia. 30 minuti in taxi boat.",
+ "nm4":"Prniba",
+ "n4":"Il piccolo porto di Sv. Mikul. 8 minuti, 6\u00a0€ a persona sola andata.",
+ "nm5":"Stara Baška",
+ "n5":"Circa 1 ora in barca, sosta pranzo nella gita di un giorno intero.",
+ "nm6":"Rab",
+ "n6":"Spiagge di sabbia, circa 2,5 ore in barca.",
+ "book.label":"Prenotazione",
+ "book.h":"Prenota direttamente con il capitano",
+ "book.sub":"Scegli gita, data e quanti siete. Si apre WhatsApp con il messaggio pronto per la famiglia di Bobo. Nessun pagamento qui, nessun account.",
+ "book.sumh":"La tua richiesta",
+ "f.tour":"Tour",
+ "f.t1":"Baie selvagge",
+ "f.t1s":"3,5\u00a0h",
+ "f.t2":"Plavnik",
+ "f.t2s":"5\u00a0h",
+ "f.t3":"Tramonto",
+ "f.t3s":"2\u00a0h",
+ "f.t4":"Gran tour",
+ "f.t4s":"7,5\u00a0h",
+ "f.t5":"Giorno intero",
+ "f.t5s":"9\u00a0h",
+ "f.t6":"Košljun",
+ "f.t6s":"taxi boat",
+ "f.t7":"Altra gita",
+ "f.t7s":"taxi, bassa stagione, la tua idea",
+ "f.date":"Data",
+ "f.guests":"Persone",
+ "f.name":"Il tuo nome",
+ "f.nameph":"es. Anna",
+ "f.send":"Invia su WhatsApp",
+ "f.fine":"Apre WhatsApp con la richiesta precompilata. Puoi ancora modificarla prima di inviare.",
+ "faq.label":"FAQ",
+ "faq.h":"Prima di partire",
+ "faq.sub":"Per tutto il resto, chiedici su WhatsApp.",
+ "q1":"Dove ci incontriamo?",
+ "a1":"Al punto info bianco e rosso sul lungomare di Punat (Obala), di fronte all'ufficio postale. Arrivando dall'Hotel Falkensteiner è il penultimo stand della fila più vicina al mare. Non lo trovi? Scrivici su WhatsApp.",
+ "q2":"Cosa dobbiamo portare?",
+ "a2":"Costume e asciugamano. Lungo il percorso ci sono soste per nuotare.",
+ "q3":"E se il tempo è brutto?",
+ "a3":"Con il brutto tempo o se qualcosa va storto da parte nostra, la prenotazione viene rimborsata automaticamente, anche nelle 24 ore prima della gita.",
+ "q4":"I bambini sono i benvenuti?",
+ "a4":"Sì. I bambini fino a 12 anni pagano meno nelle gite condivise e sul taxi boat per Košljun.",
+ "q5":"Possiamo avere la barca solo per noi?",
+ "a5":"Sì. Ogni gita può essere privata, dal giro al tramonto di 2\u00a0h a 150\u00a0€ fino alla giornata intera di 9\u00a0h. Da 7 persone in su la barca privata conviene quasi sempre.",
+ "q6":"Perché prenotare qui e non su un sito di prenotazioni?",
+ "a6":"Qui prenoti direttamente con la famiglia. Un messaggio WhatsApp e organizzi la giornata con chi porta la barca.",
+ "q7":"Come si paga?",
+ "a7":"Alla prenotazione solo un acconto. Il resto si paga il giorno stesso al capitano: contanti, carta, PayPal, Revolut o Wise.",
+ "q8":"Possiamo cancellare?",
+ "a8":"Sì, fino a 24 ore prima della partenza, e l'acconto viene rimborsato. Per qualsiasi altra cosa contattaci e troviamo una soluzione.",
+ "q9":"Dove possiamo parcheggiare?",
+ "a9":"Il modo più semplice è il parcheggio vicino all'Hotel Falkensteiner, a 250 o 300\u00a0m dalle barche. Paga al parchimetro con le monete o al chiosco TISAK con una foto della targa. Se non funziona, mandaci la foto e le ore su WhatsApp: paghiamo noi e tu ci rimborsi.",
+ "q10":"C'è uno sconto per chi torna?",
+ "a10":"Sì. Chi torna riceve un buono fedeltà da 20\u00a0€ per le gite private: codice LOY20. Anche i gruppi più piccoli pagano meno nelle gite private.",
+ "q11":"Si può nuotare in primavera e in autunno?",
+ "a11":"Il mare è più fresco, quindi le soste per nuotare si fanno solo se meteo e acqua lo permettono. Ma certi giorni di primavera sembrano estate.",
+ "c.label":"Contatti",
+ "c.h":"Ci trovi sul lungomare di Punat",
+ "c.opp":"di fronte all'ufficio postale",
+ "c.island":"Isola di Krk, Croazia",
+ "c.bobo":"Capitano Bobo",
+ "c.helena":"Helena, WhatsApp e Viber",
+ "c.tessza":"Tessza, WhatsApp e Viber",
+ "c.email":"Email",
+ "c.season":"Stagione",
+ "c.seasonv":"Da aprile a ottobre",
+ "c.map":"Apri in Mappe",
+ "foot.p":"Escursioni in barca e taxi boat da Punat con il capitano Bobo e la sua famiglia: baie selvagge, isola di Plavnik, tramonti, gite di un giorno intero e Košljun.",
+ "foot.visit":"Dove",
+ "foot.talk":"Parla con noi",
+ "foot.explore":"Esplora",
+ "fab":"Prenota",
+ "bar.s":"La tua richiesta",
+ "bar.btn":"Invia",
+ "sum.wild":"Tour delle baie selvagge",
+ "sum.plavnik":"Gita a Plavnik",
+ "sum.sunset":"Giro al tramonto",
+ "sum.big":"Gran tour, baie selvagge e Plavnik",
+ "sum.full":"Gita di un giorno intero",
+ "sum.koslj":"Taxi boat per Košljun",
+ "sum.private":"Altra gita",
+ "bar.wild":"Baie selvagge",
+ "bar.plavnik":"Plavnik",
+ "bar.sunset":"Tramonto",
+ "bar.big":"Gran tour",
+ "bar.full":"Giorno intero",
+ "bar.koslj":"Košljun",
+ "bar.private":"Altra gita",
+ "g.1":"1 persona",
+ "g.n":"{n} persone",
+ "d.pick":"Scegli una data",
+ "d.tom":"Domani",
+ "wa.msg":"Ciao Taxi Boat Punat! Vorrei prenotare: {tour}. Data: {date}. Persone: {guests}. Nome: {name}. È possibile?"
 },
 hr:{
- "logo.sub":"Izleti brodom · Krk","nav.book":"Rezerviraj izlet","nav.menu":"IZBORNIK","ovl.captain":"Kapetan Bobo","ovl.tours":"Izleti","ovl.board":"Na brodu","ovl.gtk":"Dobro je znati","ovl.nearby":"U blizini","ovl.book":"Rezervacija","ovl.faq":"Česta pitanja","ovl.contact":"Kontakt","cta.wa":"Piši kapetanu","ovl.addr":"Riva u Puntu, Krk","ovl.hours":"U sezoni svaki dan 09:00 do 21:00","concept":"Koncept: Marija",
- "hero.label":"Punat · Otok Krk · Hrvatska","hero.t1":"Puntarskom dragom","hero.t2":"s kapetanom Bobom","hero.sub":"Izleti brodom na Krku","hero.txt":"Divlje uvale, kupanje u morskoj špilji, otok Plavnik i zalazak sunca nad Košljunom. Rezervirajte izravno kod kapetana.","hero.addr":"Obala, 51521 Punat · Google 4,9 iz 305 recenzija","hero.cta":"Rezerviraj izlet u divlje uvale","hint.touch":"Dodirni za pogled okolo","hint.mouse":"Pomakni miš za pogled okolo",
- "gal.label":"Na moru","gal.h":"Dan oko Krka","gal.sub":"Divlje uvale, morska špilja, samostan na otočiću i sunce koje zalazi nad Puntom. Prolistajte.",
- "gal.g1":"Divlje uvale, Krk","gal.g2":"Otočić Košljun","gal.g3":"Otok Plavnik","gal.g4":"Puntarska draga","gal.g5":"Punat, Krk, Hrvatska",
- "gal.c1":"Kupanje u morskoj špilji","gal.c2":"Samostan na otočiću među čempresima","gal.c3":"Bjeloglavi supovi nad Plavnikom","gal.c4":"Izlet u zalazak sunca","gal.c5":"Mjesto sastanka na rivi u Puntu",
- "cap.label":"Vaš kapetan","cap.h":"Upoznajte kapetana Bobu","cap.lead":"Bobo vodi Taxi Boat Punat s rive u Puntu, na otoku Krku. Gosti ga znaju kao ljubaznog, duhovitog i punog priča.","cap.p1":"Male grupe vozi u divlje uvale, na otok Plavnik i do samostana na Košljunu. Svaki izlet uključuje stanke za kupanje i kapetanove priče o otoku.","cap.p2":"Možda ste njegove izlete vidjeli na GetMyBoatu ili Expediji. Ovdje rezervirate izravno: jedna WhatsApp poruka, ravno kapetanu.","cap.sig":"Kapetan, Taxi Boat Punat",
- "dir.h":"Zašto rezervirati izravno","dir.l1":"Razgovarate s Bobom osobno, onim koji vozi brod","dir.l2":"Dan, stanke i tempo dogovarate zajedno na WhatsAppu","dir.l3":"Vrlo poštene cijene, od","dir.also":"Također na GetMyBoatu i Expediji.","gtk.rev":"Google recenzija",
- "tours.label":"Izleti","tours.h":"Odaberite izlet","tours.sub":"Pet načina da Krk vidite s mora. Male grupe, stanke za kupanje i kapetan koji zna svaku uvalu.",
- "t.from":"od","t.dur":"Trajanje","t.book":"Rezerviraj ovaj izlet","t.plan":"Isplaniraj s kapetanom",
- "t1.tag":"4 uvale · špilja","t1.h":"Izlet u divlje uvale","t1.dur":"Oko 3,5 sata","t1.p":"Četiri divlje uvale uz obalu Krka, s vremenom za kupanje u svakoj. Vrhunac: uplivati u morsku špilju i kroz podvodne tunele.","t1.l1":"4 uvale sa stankama za kupanje","t1.l2":"Kupanje u špilji","t1.l3":"Podvodni tuneli",
- "t2.tag":"Male grupe","t2.h":"Izlet na otok Plavnik","t2.p":"Divlji otok preko puta Krka. Male grupe od oko 12 osoba i dobra prilika da vidite jelene, ovce i bjeloglave supove.","t2.l1":"Grupe od oko 12 osoba","t2.l2":"Jeleni, ovce i bjeloglavi supovi","t2.l3":"Kapetanove priče usput",
- "t3.tag":"Zlatni sat","t3.h":"Izlet u zalazak sunca","t3.p":"Na moru dok svjetlo postaje zlatno. Mirno more, Košljun u silueti i kapetanove priče dok sunce zalazi.","t3.l1":"Zlatni sat na moru","t3.l2":"Pogled na otočić Košljun","t3.l3":"S rive u Puntu",
- "t4.tag":"Taxi brod","t4.h":"Taxi brodom na Košljun","t4.p":"Preko Puntarske drage do malog otočića Košljuna, sa samostanom među čempresima.","t4.l1":"Samostan na otočiću i čempresi","t4.l2":"S rive u Puntu","t4.l3":"Vrijeme povratka dogovorite s kapetanom",
- "t5.tag":"Po vašem","t5.h":"Privatni izlet","t5.p":"Vaša grupa, vaš dan. Recite kapetanu što volite i on prilagodi rutu, stanke i tempo vama.","t5.l1":"Samo vaša grupa na brodu","t5.l2":"Ruta po vašoj mjeri","t5.l3":"Dogovoreno zajedno na WhatsAppu",
- "tours.note":"Cijene prikazane kao XX € i trajanja kao X h primjeri su za ovaj prijedlog, a potvrđuje ih kapetan.",
- "board.label":"Na brodu","board.h":"Što ima svaki izlet","b1.h":"Male grupe","b1.p":"Dovoljno mjesta, vremena za kupanje i opušten tempo. Na izletu na Plavnik grupa ima oko 12 osoba.","b2.h":"Stanke za kupanje","b2.p":"Bistro Jadransko more u mirnim uvalama, a na izletu u divlje uvale i kupanje u špilji. Ponesite kupaći.","b3.h":"Kapetanove priče","b3.p":"Bobo je ljubazan, duhovit i pun priča o Krku, uvalama i otocima oko Punta.","board.cta":"Pitajte Bobu na WhatsAppu",
- "gtk.label":"Dobro je znati","gtk.h":"Prije nego se ukrcate","gtk.tag":"Riva u Puntu","gtk.meet":"Mjesto sastanka","gtk.meetv":"Riva u Puntu (Obala), 51521 Punat, otok Krk.","gtk.bring":"Što ponijeti","gtk.bringv":"Kupaći i ručnik.","gtk.weather":"Vrijeme","gtk.weatherv":"Kapetan dan ranije provjeri vremensku prognozu i javi vam.","gtk.kids":"Djeca","gtk.kidsv":"Djeca su dobrodošla na brodu.","gtk.hours":"Radno vrijeme","gtk.hoursv":"U sezoni svaki dan 09:00 do 21:00.",
- "near.label":"U blizini","near.h":"Oko Puntarske drage","near.sub":"Punat leži u zaštićenoj dragi na otoku Krku. Nekoliko mjesta koja vrijedi znati.","nm1":"Košljun","n1":"Samostan na otočiću među čempresima, usred Puntarske drage. Taxi brod vas preveze.","nm2":"Marina Punat","n2":"Puntarska marina, u istoj dragi kao i riva.","nm3":"Grad Krk","n3":"Stari grad otoka, lijep dodatak danu na Krku.",
- "book.label":"Rezervacija","book.h":"Rezervirajte izravno kod kapetana","book.sub":"Odaberite izlet, datum i broj osoba. Otvara se WhatsApp s gotovom porukom za Bobu. Bez plaćanja, bez računa.","book.sumh":"Vaš upit",
- "f.tour":"Izlet","f.t1":"Divlje uvale","f.t1s":"oko 3,5 h","f.t2":"Otok Plavnik","f.t2s":"mala grupa","f.t3":"Zalazak","f.t3s":"zlatni sat","f.t4":"Košljun","f.t4s":"taxi brod","f.t5":"Privatni izlet","f.t5s":"po vašoj mjeri","f.date":"Datum","f.guests":"Osobe","f.name":"Vaše ime","f.nameph":"npr. Ana","f.send":"Pošalji Bobi na WhatsApp","f.fine":"Otvara WhatsApp s unaprijed ispunjenim upitom. Možete ga još urediti prije slanja.",
- "faq.label":"Česta pitanja","faq.h":"Prije polaska","faq.sub":"Za sve ostalo, pitajte kapetana na WhatsAppu.",
- "q1":"Gdje se nalazimo?","a1":"Na rivi u Puntu (Obala), 51521 Punat, na otoku Krku. Ako trebate upute, pošaljite kapetanu poruku na WhatsApp.","q2":"Što trebamo ponijeti?","a2":"Kupaći i ručnik. Usput su stanke za kupanje.","q3":"Što ako je vrijeme loše?","a3":"Kapetan dan ranije provjeri vremensku prognozu i javi vam.","q4":"Jesu li djeca dobrodošla?","a4":"Da, djeca su dobrodošla na brodu.","q5":"Možemo li imati brod samo za sebe?","a5":"Da. Odaberite privatni izlet i kapetan ga prilagodi vašoj grupi.","q6":"Zašto rezervirati ovdje, a ne na stranici za rezervacije?","a6":"Ovdje rezervirate izravno kod kapetana. Jedna WhatsApp poruka i dan planirate s onim tko vozi brod.",
- "c.label":"Kontakt","c.h":"Nađite nas na rivi u Puntu","c.island":"Otok Krk, Hrvatska","c.wa":"Telefon i WhatsApp","c.daily":"Svaki dan, u sezoni","c.cap":"Vaš kapetan","c.map":"Otvori u Kartama",
- "foot.p":"Izleti brodom na Krku s kapetanom Bobom: divlje uvale, otok Plavnik, izleti u zalazak i taxi brod do Košljuna.","foot.visit":"Posjet","foot.talk":"Javite se","foot.explore":"Istraži","fab":"Rezerviraj","bar.s":"Vaš upit","bar.btn":"Pošalji",
- "sum.wild":"Izlet u divlje uvale","sum.plavnik":"Izlet na Plavnik","sum.sunset":"Izlet u zalazak","sum.koslj":"Taxi brod na Košljun","sum.private":"Privatni izlet",
- "bar.wild":"Divlje uvale","bar.plavnik":"Plavnik","bar.sunset":"Zalazak","bar.koslj":"Košljun","bar.private":"Privatni izlet",
- "g.1":"1 osoba","g.n":"{n} osobe","g.n5":"{n} osoba","d.pick":"Odaberi datum","d.tom":"Sutra",
- "wa.msg":"Pozdrav kapetane Bobo! Želim rezervirati: {tour}. Datum: {date}. Osobe: {guests}. Ime: {name}. Je li moguće?"
+ "logo.sub":"Izleti brodom · Krk",
+ "nav.book":"Rezerviraj izlet",
+ "nav.menu":"IZBORNIK",
+ "ovl.captain":"Kapetan Bobo",
+ "ovl.tours":"Izleti",
+ "ovl.board":"Na brodu",
+ "ovl.gtk":"Dobro je znati",
+ "ovl.nearby":"U blizini",
+ "ovl.book":"Rezervacija",
+ "ovl.faq":"Česta pitanja",
+ "ovl.contact":"Kontakt",
+ "cta.wa":"Pišite nam na WhatsApp",
+ "ovl.addr":"Obala, nasuprot pošte, Punat",
+ "ovl.hours":"Izleti od travnja do listopada, taxi brod cijele godine",
+ "concept":"Koncept: Marija",
+ "hero.label":"Punat · Otok Krk · Hrvatska",
+ "hero.t1":"Puntarskom dragom",
+ "hero.t2":"s kapetanom Bobom",
+ "hero.sub":"Izleti brodom na Krku",
+ "hero.txt":"Divlje uvale do kojih se stiže samo brodom, Špilja ljubavi i bjeloglavi supovi na Plavniku, vožnje u zalazak sunca i taxi brod do Košljuna. Rezervirajte izravno kod Bobe i njegove obitelji.",
+ "hero.addr":"Obala, 51521 Punat · Google 4,9 iz 305 recenzija",
+ "hero.cta":"Rezerviraj izlet u divlje uvale",
+ "hint.touch":"Dodirnite za pogled okolo",
+ "hint.mouse":"Pomaknite miš za pogled okolo",
+ "gal.label":"Na moru",
+ "gal.h":"Dan oko Krka",
+ "gal.sub":"Skrivene plaže, Špilja ljubavi, bjeloglavi supovi na Plavniku i sunce koje zalazi nad Krkom. Prolistajte.",
+ "gal.g1":"Otok Plavnik",
+ "gal.g2":"Divlje uvale, Krk",
+ "gal.g3":"Otok Plavnik",
+ "gal.g4":"Krk u zalasku",
+ "gal.g5":"Punat, Krk",
+ "gal.c1":"Uplivavanje u Špilju ljubavi",
+ "gal.c2":"Golden Beach, dostupna samo brodom",
+ "gal.c3":"Bjeloglavi supovi nad Plavnikom",
+ "gal.c4":"Vožnja u zalazak uz divlje uvale",
+ "gal.c5":"IVEX, naš drveni brod iz 1973.",
+ "cap.label":"Vaš kapetan",
+ "cap.h":"Upoznajte kapetana Bobu",
+ "cap.lead":"Bobo je barkariol, vozač taxi broda, a to je stari puntarski zanat. Nekad je u Puntu bilo više od 30 barkariola. Danas ih je pet.",
+ "cap.p1":"Taxi Boat Punat vodi kao mali obiteljski obrt, sa suprugom Helenom i djecom. Gosti ga znaju kao ljubaznog, duhovitog i punog priča o otoku.",
+ "cap.p2":"Njegov brod IVEX je tradicionalni drveni ribarski brod iz 1973.: dug 9\u00a0m, za najviše 16 putnika, s Perkins motorom od 87\u00a0KS.",
+ "cap.p3":"Možda ste izlete vidjeli na GetMyBoatu ili Expediji. Ovdje rezervirate izravno: jedna WhatsApp poruka obitelji.",
+ "cap.sig":"Kapetan, Taxi Boat Punat",
+ "dir.h":"Zašto rezervirati izravno",
+ "dir.l1":"Razgovarate s obitelji koja vozi brod, a ne s platformom",
+ "dir.l2":"Dan, stanke i tempo dogovarate zajedno na WhatsAppu",
+ "dir.l3":"Zajednički izleti od 29\u00a0€ po odrasloj osobi, privatni brod od 150\u00a0€",
+ "dir.l4":"Gosti koji se vraćaju dobivaju 20\u00a0€ popusta na privatne izlete (kod LOY20)",
+ "dir.also":"Također na GetMyBoatu i Expediji.",
+ "gtk.rev":"Google recenzija",
+ "tours.label":"Izleti",
+ "tours.h":"Odaberite izlet",
+ "tours.sub":"Zajednički izleti ljeti, privatni brod od proljeća do jeseni i taxi brod cijele godine. Rute su prijedlozi: kapetan ih prilagođava vašim željama i vremenu.",
+ "t.book":"Rezerviraj ovaj izlet",
+ "t.plan":"Isplanirajte s kapetanom",
+ "t1.tag":"Zajednički ili privatni",
+ "t1.h":"Divlje uvale",
+ "t1.meta":"3,5\u00a0h · od 29\u00a0€ po osobi",
+ "t1.p":"Najljepše uvale Krka, dostupne samo brodom. Kupanje i ronjenje s maskom, uplivavanje u špilju i kroz tunele ispod stijena, skokovi sa stijena.",
+ "t1.l1":"Uvale Fox, Bishop, Golden, Long i Cornels",
+ "t1.l2":"Zajednički: 29\u00a0€ odrasli, 17\u00a0€ djeca do 12 godina",
+ "t1.l3":"Privatni brod: od 240\u00a0€",
+ "t1.l4":"Polasci u 9:00, 13:00 ili 15:00, 17:00",
+ "t2.tag":"Zajednički ili privatni",
+ "t2.h":"Otok Plavnik",
+ "t2.meta":"5\u00a0h · od 39\u00a0€ po osobi",
+ "t2.p":"Plavnik je veliki nenaseljeni otok nasuprot Krku i dom bjeloglavih supova. Do 3 stanke i oko 2 sata kupanja.",
+ "t2.l1":"Špilja ljubavi, Shogy tajna plaža i Shogy zeleno oko",
+ "t2.l2":"Zajednički: 39\u00a0€ odrasli, 23\u00a0€ djeca do 12 godina",
+ "t2.l3":"Privatni brod: od 340\u00a0€",
+ "t2.l4":"Polasci u 9:00, 13:00 ili 15:00",
+ "t3.tag":"Zlatni sat",
+ "t3.h":"Zalazak sunca u divljim uvalama",
+ "t3.meta":"2\u00a0h · 150\u00a0€ po brodu",
+ "t3.p":"Večernja vožnja uz divlje uvale kad postane svježije, povratak u Punat dok sunce zalazi. Na ovoj vožnji nema stanke za kupanje.",
+ "t3.l1":"Privatni brod za najviše 15 osoba",
+ "t3.l2":"Polazak nakon 18:00, ovisno o zalasku",
+ "t3.l3":"U ljetnoj sezoni",
+ "t4.tag":"Privatni",
+ "t4.h":"Veliki izlet: divlje uvale i Plavnik",
+ "t4.meta":"7,5\u00a0h · od 470\u00a0€ po brodu",
+ "t4.p":"Oba vrhunca u jednom dugom danu: divlje uvale Krka i otok Plavnik. Kupanje, ronjenje s maskom, sunčanje, skokovi sa stijena i uplivavanje u špilje. Uz malo sreće, dupini.",
+ "t4.l1":"Polazak u 9:00 ili nakon 13:00, s povratkom u zalazak",
+ "t4.l2":"Oko 3,5\u00a0h vožnje, ostalo je vaše vrijeme",
+ "t4.l3":"Stanke ovise o vremenu",
+ "t5.tag":"Privatni",
+ "t5.h":"Cjelodnevni izlet",
+ "t5.meta":"9\u00a0h · od 560\u00a0€ po brodu",
+ "t5.p":"Za obitelji i prijatelje koji vole more. Divlje uvale i Plavnik, ručak na brodu ili u Staroj Baški. Po lijepom vremenu ruta može nastaviti do Prvića, zatvorskih otoka Golog i Svetog Grgura ili pješčanih plaža Raba.",
+ "t5.l1":"Polazak u 9:00",
+ "t5.l2":"4 do 5\u00a0h vožnje, ostalo je slobodno vrijeme",
+ "t5.l3":"Mali roštilj na brodu za vaš ručak",
+ "t6.tag":"Taxi brod",
+ "t6.h":"Taxi brodom na Košljun",
+ "t6.meta":"8\u00a0min · od 5\u00a0€ po osobi",
+ "t6.p":"Preko Puntarske drage do samostanskog otočića Košljuna, među čempresima.",
+ "t6.l1":"Povratna karta plaćena online: 9\u00a0€ odrasli, 5\u00a0€ djeca do 12 godina",
+ "t6.l2":"Plaćeno na licu mjesta: 11\u00a0€ odrasli, 6\u00a0€ djeca",
+ "t6.l3":"Ljetni vodeni autobus od 11. lipnja do 12. rujna",
+ "t6.l4":"Ulaznica za samostan nije uključena (6\u00a0€ odrasli, 4\u00a0€ djeca)",
+ "t7.tag":"Cijele godine",
+ "t7.h":"Prijevoz taxi brodom",
+ "t7.meta":"Iz Punta · 50 do 80\u00a0€ po satu",
+ "t7.p":"Taxi brod vozi cijele godine. Sat vožnje stoji 50 do 80\u00a0€ po brodu, ovisno o broju putnika i sezoni.",
+ "t7.l1":"Prniba (Sv. Mikul): 8\u00a0min, 6\u00a0€ po osobi",
+ "t7.l2":"Marina Punat: 10\u00a0min, 7\u00a0€ po osobi",
+ "t7.l3":"Grad Krk: 30\u00a0min, 14 do 30\u00a0€ po osobi",
+ "t7.l4":"Kornić, Stara Baška, Rab i ostalo na upit",
+ "t8.tag":"Proljeće i jesen",
+ "t8.h":"Privatni izleti izvan sezone",
+ "t8.meta":"5. travnja do 4. lipnja, 21. rujna do 31. listopada",
+ "t8.p":"Mirne uvale i meko svjetlo. More je hladnije, pa su stanke za kupanje samo kad vrijeme i more dopuštaju.",
+ "t8.l1":"Divlje uvale, 2\u00a0h: od 110\u00a0€",
+ "t8.l2":"Divlje uvale i Košljun, 3\u00a0h: od 160\u00a0€",
+ "t8.l3":"Plavnik i divlje uvale, 4\u00a0h: od 220\u00a0€",
+ "t8.l4":"Plavnik, divlje uvale i Košljun, 5\u00a0h: od 260\u00a0€",
+ "t8.l5":"Cijeli dan, 8\u00a0h: od 400\u00a0€",
+ "tours.note":"Cijene privatnih izleta su po brodu, za najviše 15 osoba. Manje grupe plaćaju manje, a gosti koji se vraćaju dobivaju 20\u00a0€ popusta na privatne izlete uz kod LOY20.",
+ "board.label":"Na brodu",
+ "board.h":"Što ima svaki izlet",
+ "b1.h":"Najviše 15 osoba",
+ "b1.p":"Zajednički izleti primaju najviše 15 osoba, zato rezervirajte na vrijeme. Za 7 i više osoba privatni brod je često bolji izbor.",
+ "b2.h":"Stanke za kupanje",
+ "b2.p":"Bistro Jadransko more u uvalama do kojih se stiže samo brodom. Ronjenje s maskom, špilje i tuneli ispod stijena. Ponesite kupaći.",
+ "b3.h":"Kapetanove priče",
+ "b3.p":"Bobo je ljubazan, duhovit i pun priča o Krku, uvalama i otocima oko Punta.",
+ "b4.h":"IVEX, iz 1973.",
+ "b4.p":"Tradicionalni drveni ribarski brod, dug 9\u00a0m, za najviše 16 putnika. Na cjelodnevnom izletu na brodu je mali roštilj.",
+ "board.cta":"Pitajte nas na WhatsAppu",
+ "gtk.label":"Dobro je znati",
+ "gtk.h":"Prije nego se ukrcate",
+ "gtk.tag":"Bobo na info štandu",
+ "gtk.meet":"Mjesto sastanka",
+ "gtk.meetv":"Crveno bijeli info štand na rivi (Obala), nasuprot pošte, 51521 Punat. Brodovi su odmah tu.",
+ "gtk.park":"Parking",
+ "gtk.parkv":"Parkirajte kod hotela Falkensteiner, 250 do 300\u00a0m dalje, i prošećite uz more. Nemate kovanice? Platite na kiosku TISAK uz fotografiju registarske pločice.",
+ "gtk.bring":"Što ponijeti",
+ "gtk.bringv":"Kupaći i ručnik.",
+ "gtk.pay":"Plaćanje",
+ "gtk.payv":"Predujam pri rezervaciji. Ostatak na dan izleta, kapetanu: gotovinom, karticom, PayPalom, Revolutom ili Wiseom.",
+ "gtk.weather":"Vrijeme i otkazivanje",
+ "gtk.weatherv":"Besplatno otkazivanje do 24 sata prije. Zbog lošeg vremena ili problema s naše strane rezervacija se automatski vraća.",
+ "gtk.kids":"Djeca",
+ "gtk.kidsv":"Djeca su dobrodošla. Djeca do 12 godina plaćaju manje na zajedničkim izletima i taxi brodu.",
+ "gtk.season":"Sezona",
+ "gtk.seasonv":"Zajednički izleti od 5. lipnja do 20. rujna. Privatni izleti od 5. travnja do 31. listopada. Taxi brod cijele godine.",
+ "near.label":"U blizini",
+ "near.h":"Oko Puntarske drage",
+ "near.sub":"Punat leži u zaštićenoj dragi na otoku Krku. Vrijeme vožnje taxi brodom iz Punta.",
+ "nm1":"Košljun",
+ "n1":"Samostanski otočić među čempresima, usred Puntarske drage. 8 minuta brodom.",
+ "nm2":"Marina Punat",
+ "n2":"10 minuta taxi brodom, 7\u00a0€ po osobi u jednom smjeru.",
+ "nm3":"Grad Krk",
+ "n3":"Jedan od najstarijih gradova u Hrvatskoj. 30 minuta taxi brodom.",
+ "nm4":"Prniba",
+ "n4":"Mala luka Sv. Mikul. 8 minuta, 6\u00a0€ po osobi u jednom smjeru.",
+ "nm5":"Stara Baška",
+ "n5":"Oko 1 sat brodom, stanka za ručak na cjelodnevnom izletu.",
+ "nm6":"Rab",
+ "n6":"Pješčane plaže, oko 2,5 sata brodom.",
+ "book.label":"Rezervacija",
+ "book.h":"Rezervirajte izravno kod kapetana",
+ "book.sub":"Odaberite izlet, datum i broj osoba. Otvara se WhatsApp s gotovom porukom za Bobinu obitelj. Bez plaćanja, bez računa.",
+ "book.sumh":"Vaš upit",
+ "f.tour":"Izlet",
+ "f.t1":"Divlje uvale",
+ "f.t1s":"3,5\u00a0h",
+ "f.t2":"Plavnik",
+ "f.t2s":"5\u00a0h",
+ "f.t3":"Zalazak",
+ "f.t3s":"2\u00a0h",
+ "f.t4":"Veliki izlet",
+ "f.t4s":"7,5\u00a0h",
+ "f.t5":"Cijeli dan",
+ "f.t5s":"9\u00a0h",
+ "f.t6":"Košljun",
+ "f.t6s":"taxi brod",
+ "f.t7":"Drugi izlet",
+ "f.t7s":"taxi, izvan sezone, vaša ideja",
+ "f.date":"Datum",
+ "f.guests":"Osobe",
+ "f.name":"Vaše ime",
+ "f.nameph":"npr. Ana",
+ "f.send":"Pošalji na WhatsApp",
+ "f.fine":"Otvara WhatsApp s unaprijed ispunjenim upitom. Možete ga još urediti prije slanja.",
+ "faq.label":"Česta pitanja",
+ "faq.h":"Prije polaska",
+ "faq.sub":"Za sve ostalo, pitajte nas na WhatsAppu.",
+ "q1":"Gdje se nalazimo?",
+ "a1":"Kod crveno bijelog info štanda na rivi u Puntu (Obala), nasuprot pošte. Ako dolazite od hotela Falkensteiner, to je predzadnji štand u redu najbližem moru. Ne možete ga naći? Pošaljite nam poruku na WhatsApp.",
+ "q2":"Što trebamo ponijeti?",
+ "a2":"Kupaći i ručnik. Usput su stanke za kupanje.",
+ "q3":"Što ako je vrijeme loše?",
+ "a3":"Zbog lošeg vremena ili problema s naše strane rezervacija vam se automatski vraća, čak i unutar 24 sata prije izleta.",
+ "q4":"Jesu li djeca dobrodošla?",
+ "a4":"Da. Djeca do 12 godina plaćaju manje na zajedničkim izletima i na taxi brodu do Košljuna.",
+ "q5":"Možemo li imati brod samo za sebe?",
+ "a5":"Da. Svaki izlet može biti privatni, od vožnje u zalazak od 2\u00a0h za 150\u00a0€ do cjelodnevnog izleta od 9\u00a0h. Za 7 i više osoba privatni brod je obično bolji izbor.",
+ "q6":"Zašto rezervirati ovdje, a ne na stranici za rezervacije?",
+ "a6":"Ovdje rezervirate izravno kod obitelji. Jedna WhatsApp poruka i dan planirate s ljudima koji voze brod.",
+ "q7":"Kako se plaća?",
+ "a7":"Pri rezervaciji samo predujam. Ostatak se plaća na dan izleta, kapetanu: gotovinom, karticom, PayPalom, Revolutom ili Wiseom.",
+ "q8":"Možemo li otkazati?",
+ "a8":"Da, do 24 sata prije polaska, i predujam vam se vraća. Za sve ostalo javite nam se pa ćemo naći rješenje.",
+ "q9":"Gdje možemo parkirati?",
+ "a9":"Najjednostavnije na parkiralištu kod hotela Falkensteiner, 250 do 300\u00a0m od brodova. Platite na automatu kovanicama ili na kiosku TISAK uz fotografiju registarske pločice. Ako ne uspije, pošaljite nam fotografiju i broj sati na WhatsApp, mi platimo, a vi nam vratite.",
+ "q10":"Ima li popusta za goste koji se vraćaju?",
+ "a10":"Da. Gosti koji se vraćaju dobivaju kupon vjernosti od 20\u00a0€ za privatne izlete: kod LOY20. Manje grupe također plaćaju manje na privatnim izletima.",
+ "q11":"Može li se kupati u proljeće i jesen?",
+ "a11":"More je tada hladnije, pa su stanke za kupanje samo kad vrijeme i more dopuštaju. Proljetni dani znaju biti kao ljeto.",
+ "c.label":"Kontakt",
+ "c.h":"Nađite nas na rivi u Puntu",
+ "c.opp":"nasuprot pošte",
+ "c.island":"Otok Krk, Hrvatska",
+ "c.bobo":"Kapetan Bobo",
+ "c.helena":"Helena, WhatsApp i Viber",
+ "c.tessza":"Tessza, WhatsApp i Viber",
+ "c.email":"E-pošta",
+ "c.season":"Sezona",
+ "c.seasonv":"Od travnja do listopada",
+ "c.map":"Otvori u Kartama",
+ "foot.p":"Izleti brodom i taxi brod iz Punta s kapetanom Bobom i njegovom obitelji: divlje uvale, otok Plavnik, vožnje u zalazak, cjelodnevni izleti i Košljun.",
+ "foot.visit":"Posjet",
+ "foot.talk":"Javite se",
+ "foot.explore":"Istražite",
+ "fab":"Rezerviraj",
+ "bar.s":"Vaš upit",
+ "bar.btn":"Pošalji",
+ "sum.wild":"Izlet u divlje uvale",
+ "sum.plavnik":"Izlet na Plavnik",
+ "sum.sunset":"Vožnja u zalazak",
+ "sum.big":"Veliki izlet, divlje uvale i Plavnik",
+ "sum.full":"Cjelodnevni izlet",
+ "sum.koslj":"Taxi brod na Košljun",
+ "sum.private":"Drugi izlet",
+ "bar.wild":"Divlje uvale",
+ "bar.plavnik":"Plavnik",
+ "bar.sunset":"Zalazak",
+ "bar.big":"Veliki izlet",
+ "bar.full":"Cijeli dan",
+ "bar.koslj":"Košljun",
+ "bar.private":"Drugi izlet",
+ "g.1":"1 osoba",
+ "g.n":"{n} osobe",
+ "g.n5":"{n} osoba",
+ "d.pick":"Odaberite datum",
+ "d.tom":"Sutra",
+ "wa.msg":"Pozdrav, Taxi Boat Punat! Želim rezervirati: {tour}. Datum: {date}. Osobe: {guests}. Ime: {name}. Je li moguće?"
+},
+hu:{
+ "logo.sub":"Hajókirándulások · Krk",
+ "nav.book":"Túra foglalása",
+ "nav.menu":"MENÜ",
+ "ovl.captain":"Bobo kapitány",
+ "ovl.tours":"Túrák",
+ "ovl.board":"A fedélzeten",
+ "ovl.gtk":"Jó tudni",
+ "ovl.nearby":"A környéken",
+ "ovl.book":"Foglalás",
+ "ovl.faq":"GYIK",
+ "ovl.contact":"Kapcsolat",
+ "cta.wa":"Írjon nekünk WhatsAppon",
+ "ovl.addr":"Obala, a postával szemben, Punat",
+ "ovl.hours":"Kirándulások áprilistól októberig, vízitaxi egész évben",
+ "concept":"Koncepció: Marija",
+ "hero.label":"Punat · Krk szigete · Horvátország",
+ "hero.t1":"Ki a punati öbölbe",
+ "hero.t2":"Bobo kapitánnyal",
+ "hero.sub":"Hajókirándulások Krken",
+ "hero.txt":"Csak hajóval elérhető vad öblök, a Szerelem-barlang és a fakó keselyűk Plavnikon, naplementés hajózás és vízitaxi Košljunra. Foglaljon közvetlenül Bobónál és családjánál.",
+ "hero.addr":"Obala, 51521 Punat · Google 4,9 (305 értékelés)",
+ "hero.cta":"A vad öblök túra foglalása",
+ "hint.touch":"Érintse meg a körbenézéshez",
+ "hint.mouse":"Mozgassa az egeret a körbenézéshez",
+ "gal.label":"A vízen",
+ "gal.h":"Egy nap Krk körül",
+ "gal.sub":"Rejtett strandok, a Szerelem-barlang, fakó keselyűk Plavnikon és a Krk felett lemenő nap. Lapozzon végig.",
+ "gal.g1":"Plavnik sziget",
+ "gal.g2":"Vad öblök, Krk",
+ "gal.g3":"Plavnik sziget",
+ "gal.g4":"Krk naplementében",
+ "gal.g5":"Punat, Krk",
+ "gal.c1":"Beúszás a Szerelem-barlangba",
+ "gal.c2":"Golden Beach, csak hajóval elérhető",
+ "gal.c3":"Fakó keselyűk Plavnik felett",
+ "gal.c4":"Naplementés hajózás a vad öblök mentén",
+ "gal.c5":"IVEX, 1973-as fahajónk",
+ "cap.label":"Az Ön kapitánya",
+ "cap.h":"Ismerje meg Bobo kapitányt",
+ "cap.lead":"Bobo barkariol, vagyis vízitaxis, ami régi mesterség Punatban. Egykor több mint 30 barkariol dolgozott itt. Ma már csak öten vannak.",
+ "cap.p1":"A Taxi Boat Punatot kis családi vállalkozásként viszi feleségével, Helenával és gyermekeikkel. A vendégek barátságosnak, viccesnek és a szigetről szóló történetekkel telinek ismerik.",
+ "cap.p2":"Hajója, az IVEX, 1973-ban épült hagyományos fa halászhajó: 9\u00a0m hosszú, legfeljebb 16 utas fér el rajta, 87\u00a0LE-s Perkins motorral.",
+ "cap.p3":"Lehet, hogy a túrákat a GetMyBoaton vagy az Expedián látta. Itt közvetlenül foglal: egyetlen WhatsApp-üzenet a családnak.",
+ "cap.sig":"Kapitány, Taxi Boat Punat",
+ "dir.h":"Miért közvetlenül foglaljon",
+ "dir.l1":"A hajót vivő családdal beszél, nem egy foglalási oldallal",
+ "dir.l2":"A napot, a megállókat és a tempót együtt tervezik meg WhatsAppon",
+ "dir.l3":"Közös túrák felnőttenként 29\u00a0€-tól, privát hajó 150\u00a0€-tól",
+ "dir.l4":"Visszatérő vendégeinknek 20\u00a0€ kedvezmény a privát túrákra (LOY20 kód)",
+ "dir.also":"A GetMyBoaton és az Expedián is megtalálható.",
+ "gtk.rev":"Google-értékelés",
+ "tours.label":"Túrák",
+ "tours.h":"Válassza ki a túráját",
+ "tours.sub":"Nyáron közös túrák, tavasztól őszig privát hajó, a vízitaxi pedig egész évben. Az útvonalak csak javaslatok: a kapitány az Ön kívánságaihoz és az időjáráshoz igazítja őket.",
+ "t.book":"Ezt a túrát foglalom",
+ "t.plan":"Tervezze meg a kapitánnyal",
+ "t1.tag":"Közös vagy privát",
+ "t1.h":"Vad öblök",
+ "t1.meta":"3,5\u00a0óra · 29\u00a0€-tól személyenként",
+ "t1.p":"Krk legszebb öblei, csak hajóval érhetők el. Úszás és sznorkelezés, beúszás egy barlangba és a sziklák alatti alagutakba, ugrás a sziklákról.",
+ "t1.l1":"Fox, Bishop, Golden, Long és Cornels öböl",
+ "t1.l2":"Közös: 29\u00a0€ felnőtt, 17\u00a0€ gyerek 12 éves korig",
+ "t1.l3":"Privát hajó: 240\u00a0€-tól",
+ "t1.l4":"Indulás 9:00, 13:00 vagy 15:00, 17:00",
+ "t2.tag":"Közös vagy privát",
+ "t2.h":"Plavnik sziget",
+ "t2.meta":"5\u00a0óra · 39\u00a0€-tól személyenként",
+ "t2.p":"Plavnik nagy, lakatlan sziget Krkkel szemben, a fakó keselyűk otthona. Legfeljebb 3 megálló és nagyjából 2 óra úszás.",
+ "t2.l1":"Szerelem-barlang, Shogy titkos strand és Shogy zöld szem",
+ "t2.l2":"Közös: 39\u00a0€ felnőtt, 23\u00a0€ gyerek 12 éves korig",
+ "t2.l3":"Privát hajó: 340\u00a0€-tól",
+ "t2.l4":"Indulás 9:00, 13:00 vagy 15:00",
+ "t3.tag":"Aranyóra",
+ "t3.h":"Naplemente a vad öblökben",
+ "t3.meta":"2\u00a0óra · 150\u00a0€ hajónként",
+ "t3.p":"Esti hajózás a vad öblök mentén, amikor már hűvösebb van, és visszaérkezés Punatba, ahogy lemegy a nap. Ezen az úton nincs fürdési megálló.",
+ "t3.l1":"Privát hajó legfeljebb 15 főre",
+ "t3.l2":"Indulás 18:00 után, a naplementétől függően",
+ "t3.l3":"A nyári szezonban",
+ "t4.tag":"Privát",
+ "t4.h":"Nagy túra: vad öblök és Plavnik",
+ "t4.meta":"7,5\u00a0óra · 470\u00a0€-tól hajónként",
+ "t4.p":"Mindkét fő látnivaló egy hosszú napon: Krk vad öblei és Plavnik szigete. Úszás, sznorkelezés, napozás, ugrás a sziklákról és beúszás a barlangokba. Kis szerencsével delfinek is.",
+ "t4.l1":"Indulás 9:00-kor, vagy 13:00 után, naplementés visszaúttal",
+ "t4.l2":"Kb. 3,5\u00a0óra hajózás, a többi idő az Öné",
+ "t4.l3":"A megállók az időjárástól függenek",
+ "t5.tag":"Privát",
+ "t5.h":"Egész napos túra",
+ "t5.meta":"9\u00a0óra · 560\u00a0€-tól hajónként",
+ "t5.p":"Családoknak és barátoknak, akik szeretik a tengert. Vad öblök és Plavnik, ebéd a hajón vagy Stara Baškán. Jó időben az út folytatódhat Prvićre, a börtönszigetekhez, Golira és Sveti Grgurra, vagy Rab homokos strandjaira.",
+ "t5.l1":"Indulás 9:00-kor",
+ "t5.l2":"4 vagy 5\u00a0óra hajózás, a többi szabadidő",
+ "t5.l3":"Kis grill a fedélzeten a saját ebédjéhez",
+ "t6.tag":"Vízitaxi",
+ "t6.h":"Vízitaxi Košljunra",
+ "t6.meta":"8\u00a0perc · 5\u00a0€-tól személyenként",
+ "t6.p":"Át a punati öblön Košljun kolostorszigetére, a ciprusok közé.",
+ "t6.l1":"Retúrjegy online fizetve: 9\u00a0€ felnőtt, 5\u00a0€ gyerek 12 éves korig",
+ "t6.l2":"Helyszínen fizetve: 11\u00a0€ felnőtt, 6\u00a0€ gyerek",
+ "t6.l3":"Nyári vízibusz június 11. és szeptember 12. között",
+ "t6.l4":"A kolostor belépője nincs benne (6\u00a0€ felnőtt, 4\u00a0€ gyerek)",
+ "t7.tag":"Egész évben",
+ "t7.h":"Vízitaxis transzferek",
+ "t7.meta":"Punatból · óránként 50 és 80\u00a0€ között",
+ "t7.p":"A vízitaxi egész évben jár. Egy óra hajózás hajónként 50 és 80\u00a0€ között, a vendégek számától és a szezontól függően.",
+ "t7.l1":"Prniba (Sv. Mikul): 8\u00a0perc, 6\u00a0€ személyenként",
+ "t7.l2":"Punati kikötő (marina): 10\u00a0perc, 7\u00a0€ személyenként",
+ "t7.l3":"Krk város: 30\u00a0perc, 14 és 30\u00a0€ között személyenként",
+ "t7.l4":"Kornić, Stara Baška, Rab és más úti célok kérésre",
+ "t8.tag":"Tavasz és ősz",
+ "t8.h":"Privát túrák főszezonon kívül",
+ "t8.meta":"Április 5. és június 4., szeptember 21. és október 31. között",
+ "t8.p":"Csendes öblök és lágy fények. A tenger hűvösebb, ezért fürdési megálló csak akkor van, ha az időjárás és a víz engedi.",
+ "t8.l1":"Vad öblök, 2\u00a0óra: 110\u00a0€-tól",
+ "t8.l2":"Vad öblök és Košljun, 3\u00a0óra: 160\u00a0€-tól",
+ "t8.l3":"Plavnik és vad öblök, 4\u00a0óra: 220\u00a0€-tól",
+ "t8.l4":"Plavnik, vad öblök és Košljun, 5\u00a0óra: 260\u00a0€-tól",
+ "t8.l5":"Egész nap, 8\u00a0óra: 400\u00a0€-tól",
+ "tours.note":"A privát túrák ára hajónként értendő, legfeljebb 15 főre. A kisebb csoportok kevesebbet fizetnek, a visszatérő vendégek pedig a LOY20 kóddal 20\u00a0€ kedvezményt kapnak a privát túrákra.",
+ "board.label":"A fedélzeten",
+ "board.h":"Ami minden túrán jár",
+ "b1.h":"Legfeljebb 15 fő",
+ "b1.p":"A közös túrákon legfeljebb 15 fő vehet részt, ezért érdemes időben foglalni. 7 főtől gyakran a privát hajó a jobb választás.",
+ "b2.h":"Fürdési megállók",
+ "b2.p":"Tiszta adriai víz olyan öblökben, amelyek csak hajóval érhetők el. Sznorkelezés, barlangok és alagutak a sziklák alatt. Hozza magával a fürdőruháját.",
+ "b3.h":"A kapitány történetei",
+ "b3.p":"Bobo barátságos, vicces, és tele van történetekkel Krkről, az öblökről és a Punat körüli szigetekről.",
+ "b4.h":"IVEX, 1973-ból",
+ "b4.p":"Hagyományos fa halászhajó, 9\u00a0m hosszú, legfeljebb 16 utasra. Az egész napos túrán kis grill is van a fedélzeten.",
+ "board.cta":"Kérdezzen minket WhatsAppon",
+ "gtk.label":"Jó tudni",
+ "gtk.h":"Mielőtt a fedélzetre lép",
+ "gtk.tag":"Bobo az infóstandnál",
+ "gtk.meet":"Találkozási pont",
+ "gtk.meetv":"A piros-fehér infóstand a tengerparti sétányon (Obala), a postával szemben, 51521 Punat. A hajók rögtön ott vannak.",
+ "gtk.park":"Parkolás",
+ "gtk.parkv":"Parkoljon a Falkensteiner szállodánál, 250 és 300\u00a0m közötti távolságra, és sétáljon a tenger mentén. Nincs aprója? Fizessen a TISAK trafikban a rendszámtábla fotójával.",
+ "gtk.bring":"Mit hozzon",
+ "gtk.bringv":"Fürdőruhát és törölközőt.",
+ "gtk.pay":"Fizetés",
+ "gtk.payv":"Foglaláskor előleg. A többit a túra napján, a kapitánynak: készpénzzel, kártyával, PayPallal, Revoluttal vagy Wise-zal.",
+ "gtk.weather":"Időjárás és lemondás",
+ "gtk.weatherv":"Ingyenes lemondás 24 órával az indulás előttig. Rossz idő vagy a mi oldalunkon felmerülő probléma esetén a foglalást automatikusan visszatérítjük.",
+ "gtk.kids":"Gyerekek",
+ "gtk.kidsv":"A gyerekeket szívesen látjuk. 12 éves korig kevesebbet fizetnek a közös túrákon és a vízitaxin.",
+ "gtk.season":"Szezon",
+ "gtk.seasonv":"Közös túrák június 5. és szeptember 20. között. Privát túrák április 5. és október 31. között. Vízitaxi egész évben.",
+ "near.label":"A környéken",
+ "near.h":"A punati öböl körül",
+ "near.sub":"Punat egy védett öbölben fekszik Krk szigetén. Menetidők vízitaxival Punatból.",
+ "nm1":"Košljun",
+ "n1":"A kolostorsziget a ciprusok között, a punati öböl közepén. 8 perc hajóval.",
+ "nm2":"Punati kikötő",
+ "n2":"10 perc vízitaxival, egy útra 7\u00a0€ személyenként.",
+ "nm3":"Krk város",
+ "n3":"Horvátország egyik legrégebbi városa. 30 perc vízitaxival.",
+ "nm4":"Prniba",
+ "n4":"Sv. Mikul kis kikötője. 8 perc, egy útra 6\u00a0€ személyenként.",
+ "nm5":"Stara Baška",
+ "n5":"Kb. 1 óra hajóval, ebédmegálló az egész napos túrán.",
+ "nm6":"Rab",
+ "n6":"Homokos strandok, kb. 2,5 óra hajóval.",
+ "book.label":"Foglalás",
+ "book.h":"Foglaljon közvetlenül a kapitánynál",
+ "book.sub":"Válasszon túrát, dátumot és létszámot. Megnyílik a WhatsApp egy kész üzenettel Bobo családjának. Itt nincs fizetés és nincs regisztráció.",
+ "book.sumh":"Az Ön kérése",
+ "f.tour":"Túra",
+ "f.t1":"Vad öblök",
+ "f.t1s":"3,5\u00a0óra",
+ "f.t2":"Plavnik",
+ "f.t2s":"5\u00a0óra",
+ "f.t3":"Naplemente",
+ "f.t3s":"2\u00a0óra",
+ "f.t4":"Nagy túra",
+ "f.t4s":"7,5\u00a0óra",
+ "f.t5":"Egész nap",
+ "f.t5s":"9\u00a0óra",
+ "f.t6":"Košljun",
+ "f.t6s":"vízitaxi",
+ "f.t7":"Más túra",
+ "f.t7s":"taxi, szezonon kívül, saját ötlet",
+ "f.date":"Dátum",
+ "f.guests":"Létszám",
+ "f.name":"Az Ön neve",
+ "f.nameph":"pl. Anna",
+ "f.send":"Küldés WhatsAppon",
+ "f.fine":"Megnyitja a WhatsAppot az előre kitöltött kéréssel. Küldés előtt még módosíthatja.",
+ "faq.label":"GYIK",
+ "faq.h":"Indulás előtt",
+ "faq.sub":"Minden másról kérdezzen minket WhatsAppon.",
+ "q1":"Hol találkozunk?",
+ "a1":"A piros-fehér infóstandnál a punati tengerparti sétányon (Obala), a postával szemben. A Falkensteiner szálloda felől érkezve ez az utolsó előtti stand a tengerhez legközelebbi sorban. Nem találja? Írjon nekünk WhatsAppon.",
+ "q2":"Mit hozzunk magunkkal?",
+ "a2":"Fürdőruhát és törölközőt. Útközben fürdési megállók vannak.",
+ "q3":"Mi van, ha rossz az idő?",
+ "a3":"Rossz idő vagy a mi oldalunkon felmerülő probléma esetén a foglalást automatikusan visszatérítjük, akár a túra előtti 24 órán belül is.",
+ "q4":"Jöhetnek gyerekek?",
+ "a4":"Igen. 12 éves korig kevesebbet fizetnek a közös túrákon és a košljuni vízitaxin.",
+ "q5":"Lehet a hajó csak a miénk?",
+ "a5":"Igen. Minden túra lehet privát, a 2\u00a0órás, 150\u00a0€-s naplementés hajózástól a 9\u00a0órás egész napos túráig. 7 főtől általában a privát hajó a jobb választás.",
+ "q6":"Miért itt foglaljunk, és ne egy foglalási oldalon?",
+ "a6":"Itt közvetlenül a családnál foglal. Egyetlen WhatsApp-üzenet, és a napot azokkal tervezi meg, akik a hajót viszik.",
+ "q7":"Hogyan fizetünk?",
+ "a7":"Foglaláskor csak előleget kell fizetni. A többit a túra napján fizeti a kapitánynak: készpénzzel, kártyával, PayPallal, Revoluttal vagy Wise-zal.",
+ "q8":"Lemondhatjuk?",
+ "a8":"Igen, 24 órával az indulás előttig, és az előleget visszakapja. Minden más esetben keressen minket, és találunk megoldást.",
+ "q9":"Hol parkolhatunk?",
+ "a9":"A legegyszerűbb a Falkensteiner szálloda melletti parkoló, 250 és 300\u00a0m közötti távolságra a hajóktól. Fizessen az automatánál aprópénzzel, vagy a TISAK trafikban a rendszámtábla fotójával. Ha egyik sem megy, küldje el WhatsAppon a fotót és az órák számát: mi kifizetjük, Ön pedig visszaadja nekünk.",
+ "q10":"Van kedvezmény visszatérő vendégeknek?",
+ "a10":"Igen. A visszatérő vendégek 20\u00a0€-s hűségkupont kapnak a privát túrákra: LOY20 kód. A kisebb csoportok is kevesebbet fizetnek a privát túrákon.",
+ "q11":"Lehet fürödni tavasszal és ősszel?",
+ "a11":"A tenger ilyenkor hűvösebb, ezért fürdési megálló csak akkor van, ha az időjárás és a víz engedi. A tavaszi napok viszont olyanok lehetnek, mint a nyár.",
+ "c.label":"Kapcsolat",
+ "c.h":"Megtalál minket a punati sétányon",
+ "c.opp":"a postával szemben",
+ "c.island":"Krk szigete, Horvátország",
+ "c.bobo":"Bobo kapitány",
+ "c.helena":"Helena, WhatsApp és Viber",
+ "c.tessza":"Tessza, WhatsApp és Viber",
+ "c.email":"E-mail",
+ "c.season":"Szezon",
+ "c.seasonv":"Áprilistól októberig",
+ "c.map":"Megnyitás a Térképben",
+ "foot.p":"Hajókirándulások és vízitaxi Punatból Bobo kapitánnyal és családjával: vad öblök, Plavnik sziget, naplementés hajózás, egész napos túrák és Košljun.",
+ "foot.visit":"Látogasson el",
+ "foot.talk":"Írjon nekünk",
+ "foot.explore":"Felfedezés",
+ "fab":"Foglalás",
+ "bar.s":"Az Ön kérése",
+ "bar.btn":"Küldés",
+ "sum.wild":"Vad öblök túra",
+ "sum.plavnik":"Kirándulás Plavnikra",
+ "sum.sunset":"Naplementés hajózás",
+ "sum.big":"Nagy túra, vad öblök és Plavnik",
+ "sum.full":"Egész napos túra",
+ "sum.koslj":"Vízitaxi Košljunra",
+ "sum.private":"Más túra",
+ "bar.wild":"Vad öblök",
+ "bar.plavnik":"Plavnik",
+ "bar.sunset":"Naplemente",
+ "bar.big":"Nagy túra",
+ "bar.full":"Egész nap",
+ "bar.koslj":"Košljun",
+ "bar.private":"Más túra",
+ "g.1":"1 fő",
+ "g.n":"{n} fő",
+ "d.pick":"Válasszon dátumot",
+ "d.tom":"Holnap",
+ "wa.msg":"Jó napot, Taxi Boat Punat! Szeretnék foglalni: {tour}. Dátum: {date}. Létszám: {guests}. Név: {name}. Lehetséges?"
 }
 };
 var lang = "en";
@@ -1117,19 +2299,20 @@ function applyLang(l){
   try{ localStorage.setItem("tbp-lang", l); }catch(e){}
   $$("[data-i18n]").forEach(function(el){ el.textContent = t(el.getAttribute("data-i18n")); });
   $$("[data-i18n-ph]").forEach(function(el){ el.setAttribute("placeholder", t(el.getAttribute("data-i18n-ph"))); });
-  $$(".lang button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+  $$(".lpick-list button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+  var lc = $("#lpickCur"); if(lc) lc.textContent = l.toUpperCase();
   galCaption(); updateSummary(); setHint();
 }
-$$(".lang").forEach(function(group){
-  group.addEventListener("click", function(e){
-    var b = e.target.closest("button"); if(!b) return;
-    var inHeader = group.id === "langHdr";
-    if(inHeader && mqMobile.matches && !group.classList.contains("open") && b.dataset.lang === lang){ group.classList.add("open"); return; }
-    group.classList.remove("open");
-    if(b.dataset.lang !== lang) applyLang(b.dataset.lang);
-  });
-});
-document.addEventListener("click", function(e){ var g = $("#langHdr"); if(g.classList.contains("open") && !g.contains(e.target)) g.classList.remove("open"); });
+/* language picker */
+(function(){
+  var w = $("#lpick"), b = $("#lpickBtn"); if(!w || !b) return;
+  function set(o){ w.classList.toggle("open", o); b.setAttribute("aria-expanded", o ? "true" : "false"); }
+  b.addEventListener("click", function(e){ e.stopPropagation(); set(!w.classList.contains("open")); });
+  $$(".lpick-list button", w).forEach(function(x){ x.addEventListener("click", function(){ if(x.dataset.lang !== lang) applyLang(x.dataset.lang); setTimeout(function(){ set(false); }, 120); }); });
+  document.addEventListener("click", function(e){ if(!w.contains(e.target)) set(false); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") set(false); });
+  window.addEventListener("scroll", function(){ if(w.classList.contains("open")) set(false); }, {passive: true});
+})();
 
 /* ================= PRELOADER ================= */
 function preDone(){
@@ -1302,7 +2485,7 @@ var fDate = $("#fDate"), fName = $("#fName"), gOut = $("#gOut"), guests = 4, tom
 })();
 function tourVal(){ var c = $('input[name="tour"]:checked'); return c ? c.value : "wild"; }
 function selectTour(v){ var r = $('input[name="tour"][value="' + v + '"]'); if(r) r.checked = true; updateSummary(); }
-function setG(v){ guests = Math.max(1, Math.min(12, v)); gOut.value = guests; gOut.textContent = guests; updateSummary(); }
+function setG(v){ guests = Math.max(1, Math.min(15, v)); gOut.value = guests; gOut.textContent = guests; updateSummary(); }
 $("#gMinus").addEventListener("click", function(){ setG(guests - 1); });
 $("#gPlus").addEventListener("click", function(){ setG(guests + 1); });
 function dateLabel(){
@@ -1582,9 +2765,9 @@ applyLang(lang);
 </style>
 <script id="mdp-js">
 (function(){
-  var TXT={hr:["Odaberite datum","Danas","Zatvoreno"],en:["Choose a date","Today","Closed"],de:["Datum wählen","Heute","Geschlossen"],it:["Scegli la data","Oggi","Chiuso"],sl:["Izberite datum","Danes","Zaprto"]};
+  var TXT={hu:["Válasszon dátumot","Ma","Zárva"],hr:["Odaberite datum","Danas","Zatvoreno"],en:["Choose a date","Today","Closed"],de:["Datum wählen","Heute","Geschlossen"],it:["Scegli la data","Oggi","Chiuso"],sl:["Izberite datum","Danes","Zaprto"]};
   function lang(){var l=(document.documentElement.lang||"en").slice(0,2).toLowerCase();return TXT[l]?l:"en";}
-  function loc(){return {hr:"hr-HR",en:"en-GB",de:"de-DE",it:"it-IT",sl:"sl-SI"}[lang()];}
+  function loc(){return {hu:"hu-HU",hr:"hr-HR",en:"en-GB",de:"de-DE",it:"it-IT",sl:"sl-SI"}[lang()];}
   function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
   function parse(s){if(!s)return null;var p=s.split("-");return p.length===3?new Date(+p[0],+p[1]-1,+p[2]):null;}
   function today(){var t=new Date();return new Date(t.getFullYear(),t.getMonth(),t.getDate());}

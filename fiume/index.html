@@ -81,11 +81,18 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;paddin
 .logo small{font-size:9px;letter-spacing:.42em;text-transform:uppercase;opacity:.75;margin-bottom:5px;font-weight:500}
 .logo b{font-family:var(--serif);font-weight:400;font-size:25px;letter-spacing:.02em}
 .hdr-r{display:flex;align-items:center;gap:10px}
-.langs{position:relative;display:flex;gap:2px}
-.langs button{font-size:12px;font-weight:500;letter-spacing:.12em;padding:9px 7px;opacity:.6;transition:opacity .3s;position:relative}
-.langs button::after{content:"";position:absolute;left:7px;right:7px;bottom:4px;height:1px;background:currentColor;transform:scaleX(0);transition:transform .4s var(--ease)}
-.langs button[aria-pressed="true"]{opacity:1}
-.langs button[aria-pressed="true"]::after{transform:scaleX(1)}
+.lpick{position:relative}
+.lpick-btn{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:600 12px/1 var(--sans);letter-spacing:.12em;cursor:pointer;opacity:.9}
+.lpick-btn svg{width:18px;height:18px}.lpick-btn .chev{width:14px;height:14px;transition:transform .3s}
+.lpick.open .lpick-btn .chev{transform:rotate(180deg)}
+.hdr .lpick-list{position:absolute;right:0;top:calc(100% + 10px);display:grid;grid-template-columns:1fr;gap:0;min-width:200px;padding:8px;background:#fff;color:var(--ink);border-radius:18px;box-shadow:0 24px 60px -18px rgba(15,26,34,.35);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:90}
+.lpick.open .lpick-list{opacity:1;transform:none;pointer-events:auto}
+.hdr .lpick-list button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border-radius:10px;font:400 16px/1.2 var(--sans);letter-spacing:0;text-align:left;color:var(--ink);cursor:pointer}
+.hdr .lpick-list button b{font-weight:600;font-size:12px;letter-spacing:.12em;width:24px;opacity:.6}
+.hdr .lpick-list button:hover{background:var(--linen)}
+.hdr .lpick-list button[aria-pressed="true"]{background:var(--linen);font-weight:600}
+.menu-open .lpick{display:none}
+@media (max-width:380px){.lpick-btn{padding:0 9px}.lpick-btn .chev{display:none}}
 .menu-btn{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.16em;padding:10px 0 10px 6px}
 .burger{width:22px;height:14px;position:relative;display:inline-block}
 .burger i{position:absolute;left:0;right:0;height:1.5px;background:currentColor;transition:transform .45s var(--ease),opacity .3s,top .45s var(--ease)}
@@ -95,14 +102,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;paddin
 .menu-open .burger i:nth-child(3){top:6px;transform:rotate(-45deg)}
 .menu-open .hdr{color:#fff;background:transparent;box-shadow:none}
 .hdr-book{display:none!important}
-/* mobile language popover */
-@media (max-width:759px){
-  .hdr .langs button:not([aria-pressed="true"]){display:none}
-  .hdr .langs.open{flex-direction:column;position:absolute;top:2px;right:-6px;background:#fff;color:var(--text);border-radius:4px;box-shadow:0 12px 40px rgba(0,0,0,.14);padding:4px}
-  .hdr .langs.open button{display:block;opacity:.7}
-  .hdr .langs.open button[aria-pressed="true"]{opacity:1}
-  .hdr .langs.open::before{content:"";width:44px;height:0}
-}
 
 /* overlay menu */
 .ovl{position:fixed;inset:0;z-index:75;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:calc(var(--hh) + 28px) var(--g) calc(28px + env(safe-area-inset-bottom));clip-path:inset(0 0 100% 0);transition:clip-path .8s var(--ease-io);visibility:hidden}
@@ -114,8 +113,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;paddin
 .menu-open .ovl ol a{transform:none;transition-delay:calc(.25s + var(--i) * .06s)}
 .ovl-foot{display:grid;gap:18px;opacity:0;transform:translateY(12px);transition:opacity .6s .55s,transform .6s var(--ease) .55s}
 .menu-open .ovl-foot{opacity:1;transform:none}
-.ovl .langs button{opacity:.55;font-size:13px;padding:10px 12px 10px 0}
-.ovl .langs button::after{left:0;right:12px}
 .ovl-contact{font-size:15px;color:rgba(255,255,255,.75);display:flex;flex-wrap:wrap;gap:6px 18px}
 .menu-open{overflow:hidden}
 
@@ -858,11 +855,14 @@ html select{height:56px;line-height:normal}
   <div class="wrap">
     <a href="#top" class="logo" aria-label="Konoba Fiume"><small>Konoba</small><b>Fiume</b></a>
     <div class="hdr-r">
-      <div class="langs" id="langsHdr" role="group" aria-label="Language">
-        <button type="button" data-lang="hr" aria-pressed="true">HR</button>
-        <button type="button" data-lang="en" aria-pressed="false">EN</button>
-        <button type="button" data-lang="it" aria-pressed="false">IT</button>
-        <button type="button" data-lang="de" aria-pressed="false">DE</button>
+      <div class="lpick" id="lpick">
+        <button type="button" class="lpick-btn" id="lpickBtn" aria-haspopup="true" aria-expanded="false" aria-label="Language"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span id="lpickCur">HR</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="lpick-list langs" role="group" aria-label="Language">
+          <button type="button" data-lang="hr" aria-pressed="true"><b>HR</b><span>Hrvatski</span></button>
+          <button type="button" data-lang="en" aria-pressed="false"><b>EN</b><span>English</span></button>
+          <button type="button" data-lang="it" aria-pressed="false"><b>IT</b><span>Italiano</span></button>
+          <button type="button" data-lang="de" aria-pressed="false"><b>DE</b><span>Deutsch</span></button>
+        </div>
       </div>
       <a href="#rezervacija" class="pill pill-dark hdr-book"><span data-i18n="nav.book">Rezerviraj</span></a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="ovl"><span>MENU</span><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
@@ -881,12 +881,6 @@ html select{height:56px;line-height:normal}
     <li><a href="#kontakt" style="--i:5"><small>06</small><span data-i18n="sub.contact">Kontakt</span></a></li>
   </ol>
   <div class="ovl-foot">
-    <div class="langs" role="group" aria-label="Language">
-      <button type="button" data-lang="hr" aria-pressed="true">HR</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
-      <button type="button" data-lang="it" aria-pressed="false">IT</button>
-      <button type="button" data-lang="de" aria-pressed="false">DE</button>
-    </div>
     <a href="#rezervacija" class="pill pill-linen"><span data-i18n="hero.cta">Rezerviraj stol</span><i class="arr"></i></a>
     <div class="ovl-contact"><a class="alink" href="tel:+38551312108">+385 51 312 108</a><a class="alink" href="mailto:konoba.fiume@gmail.com">konoba.fiume@gmail.com</a></div>
   </div>
@@ -1553,19 +1547,13 @@ function applyLang(l){
   $$("[data-i18n]").forEach(function(el){ el.textContent = t(el.getAttribute("data-i18n")); });
   $$("[data-i18n-html]").forEach(function(el){ el.innerHTML = t(el.getAttribute("data-i18n-html")); });
   $$(".langs button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+  var lc = document.getElementById("lpickCur"); if(lc) lc.textContent = l.toUpperCase();
   renderBoard(); renderCards(false); carCaption(); updateHours(); refreshSlots(); updateSummary(); setHint();
   requestAnimationFrame(moveSubInd);
 }
-$$(".langs").forEach(function(group){
-  group.addEventListener("click", function(e){
-    var b = e.target.closest("button"); if(!b) return;
-    var inHeader = group.id === "langsHdr";
-    if(inHeader && mqMobile.matches && !group.classList.contains("open") && b.dataset.lang === lang){ group.classList.add("open"); return; }
-    group.classList.remove("open");
-    if(b.dataset.lang !== lang) applyLang(b.dataset.lang);
-  });
+$$(".langs button").forEach(function(b){
+  b.addEventListener("click", function(){ if(b.dataset.lang !== lang) applyLang(b.dataset.lang); });
 });
-document.addEventListener("click", function(e){ var g = $("#langsHdr"); if(g.classList.contains("open") && !g.contains(e.target)) g.classList.remove("open"); });
 
 /* ================= PRELOADER ================= */
 setTimeout(function(){ document.documentElement.classList.add("ready"); }, RM ? 150 : 1450);
@@ -2270,6 +2258,15 @@ if(document.readyState === "complete") loadThree(); else window.addEventListener
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();
+</script>
+<script>
+(function(){var w=document.getElementById("lpick"),b=document.getElementById("lpickBtn");if(!w||!b)return;
+function set(o){w.classList.toggle("open",o);b.setAttribute("aria-expanded",o?"true":"false");}
+b.addEventListener("click",function(e){e.stopPropagation();set(!w.classList.contains("open"));});
+w.querySelectorAll(".lpick-list button").forEach(function(x){x.addEventListener("click",function(){setTimeout(function(){set(false)},120);});});
+document.addEventListener("click",function(e){if(!w.contains(e.target))set(false);});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")set(false);});
+window.addEventListener("scroll",function(){if(w.classList.contains("open"))set(false);},{passive:true});})();
 </script>
 </body>
 </html>

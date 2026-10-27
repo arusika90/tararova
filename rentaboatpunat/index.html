@@ -2,13 +2,9 @@
 <!--
   Rent a Boat Punat, motorboat rental at Punat harbour, island of Krk: website proposal mockup (Concept by Marija)
 
-  IMAGE SLOTS (optional, put real photos in ./img/ using these exact names):
-    img/hero.jpg  carousel slide 1 (harbour exit) + How it works image
-    img/2.jpg     carousel slide 2 + Beneteau 550 card
-    img/3.jpg     carousel slide 3 + Family boat card
-    img/4.jpg     carousel slide 4 + Big group boat card
-    img/5.jpg     carousel slide 5 + contact image
-  No licensed photos are used. Every slot falls back to our own inline SVG
+  PHOTOS: hotlinked from the business's own site (rent-a-boat-punat.com/wp-content/uploads).
+    Carousel 1 to 5, the three boat cards, How it works and contact image.
+  Every slot falls back to our own inline SVG
   illustrations (motorboat top and side view, buoy, marina with masts,
   map-style Krk coastline, anchor, fuel and compass icons) over a gradient.
   Hero: Three.js (cdnjs, r128) glossy low-poly white motorboat cruising over a
@@ -16,7 +12,7 @@
   water, scroll swings the camera, pointer parallax. Falls back to a static
   SVG top view without WebGL, when three.js fails to load or with
   prefers-reduced-motion.
-  Prices "from XX €" are example placeholders to edit.
+  Prices "from XX €" are example placeholders to edit (their site publishes no prices).
 -->
 <html lang="en">
 <head>
@@ -26,14 +22,14 @@
 <title>Rent a Boat Punat</title>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Rent a Boat Punat">
-<meta property="og:description" content="Rent a Boat Punat. Motorboat rental right at the exit of Punat harbour, island of Krk. From smaller boats up to a boat for 10.">
+<meta property="og:description" content="Rent a Boat Punat. The oldest boat rental on the island of Krk: 17 motorboats in the centre of Punat harbour, for 5 to 10 people.">
 <meta property="og:url" content="https://tararova.com/rentaboatpunat/">
 <meta property="og:image" content="https://tararova.com/rentaboatpunat/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<meta name="description" content="Rent a Boat Punat. Motorboat rental right at the exit of Punat harbour, island of Krk. From smaller boats up to a boat for 10.">
+<meta name="description" content="Rent a Boat Punat. The oldest boat rental on the island of Krk: 17 motorboats in the centre of Punat harbour, for 5 to 10 people.">
 <meta name="theme-color" content="#0C2448">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -149,15 +145,18 @@ section{scroll-margin-top:calc(var(--header) + 50px)}
 .logo b{display:block;font-family:var(--serif);font-weight:400;font-size:18px;white-space:nowrap}
 .logo small{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;opacity:.8;margin-top:4px;white-space:nowrap}
 .hdr__r{display:flex;align-items:center;gap:6px;position:relative;flex:none}
-.lang{display:flex;align-items:center;font-size:12px;font-weight:500;letter-spacing:.12em}
-.lang button{background:none;border:0;padding:8px 6px;cursor:pointer;opacity:.55;transition:opacity .3s;position:relative}
-.lang button[aria-pressed="true"]{opacity:1;text-decoration:underline;text-underline-offset:5px}
-@media (max-width:759px){
-  .hdr .lang button:not([aria-pressed="true"]){display:none}
-  .hdr .lang.open{flex-direction:column;position:absolute;top:-6px;right:72px;background:#fff;color:var(--ink);border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,.16);padding:4px 6px;z-index:5}
-  .hdr .lang.open button{display:block;opacity:.7;text-decoration:none}
-  .hdr .lang.open button[aria-pressed="true"]{opacity:1;font-weight:600}
-}
+.lpick{position:relative;flex:none}
+.lpick-btn{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:600 12px/1 var(--sans);letter-spacing:.12em;cursor:pointer;opacity:.9}
+.lpick-btn svg{width:18px;height:18px;flex:none}.lpick-btn .chev{width:14px;height:14px;transition:transform .3s}
+.lpick.open .lpick-btn .chev{transform:rotate(180deg)}
+.lpick-list{position:absolute;right:0;top:calc(100% + 10px);display:grid;grid-template-columns:1fr;min-width:200px;padding:8px;background:#fff;color:var(--navy);border-radius:18px;box-shadow:0 24px 60px -18px rgba(0,0,0,.3);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:95}
+.lpick.open .lpick-list{opacity:1;transform:none;pointer-events:auto}
+.lpick-list button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border:0;border-radius:10px;background:none;font:400 16px/1.2 var(--sans);letter-spacing:0;text-align:left;color:var(--navy);cursor:pointer}
+.lpick-list button b{font-weight:600;font-size:12px;letter-spacing:.12em;width:24px;opacity:.6}
+.lpick-list button:hover{background:var(--mist)}
+.lpick-list button[aria-pressed="true"]{background:var(--mist);font-weight:600}
+.menu-open .lpick{display:none}
+@media (max-width:420px){.lpick-btn{padding:0 9px;gap:5px}.lpick-btn .chev{display:none}.menu-btn>span:first-child{display:none}}
 .hdr__book{display:none;min-height:40px;padding:0 20px;font-size:12px;background:transparent;border-color:currentColor;color:inherit}
 .hdr__book::before{background:var(--navy)}
 .hdr__book:hover{color:#fff;border-color:var(--navy)}
@@ -181,7 +180,6 @@ section{scroll-margin-top:calc(var(--header) + 50px)}
 .menu-open .ovl ol a{transform:none;transition-delay:calc(.25s + var(--i) * .06s)}
 .ovl__foot{display:grid;gap:16px;margin-top:24px;opacity:0;transform:translateY(12px);transition:opacity .6s .55s,transform .6s var(--out) .55s}
 .menu-open .ovl__foot{opacity:1;transform:none}
-.ovl .lang button{opacity:.55;font-size:13px;padding:10px 14px 10px 0}
 .ovl__contact{font-size:15px;color:rgba(255,255,255,.75);display:flex;flex-wrap:wrap;gap:6px 18px}
 .menu-open .fab,.menu-open .ctag,.menu-open .bbar{opacity:0!important;pointer-events:none!important}
 
@@ -324,6 +322,19 @@ section{scroll-margin-top:calc(var(--header) + 50px)}
 .rbtn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
 .rbtn svg{width:16px;height:16px}
 .tr__note{margin-top:22px;font-size:14px;color:var(--muted)}
+.fl{margin-top:34px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.fl summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;cursor:pointer;font-family:var(--serif);font-size:21px;line-height:1.3}
+.fl summary::-webkit-details-marker{display:none}
+.fl__chev{width:34px;height:34px;flex:none;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;transition:transform .4s var(--out),background .3s,color .3s}
+.fl__chev svg{width:16px;height:16px}
+.fl[open] .fl__chev{transform:rotate(180deg);background:var(--navy);border-color:var(--navy);color:#fff}
+.fl table{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:14px}
+.fl th{font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 10px 10px 0;border-bottom:1px solid var(--line)}
+.fl td{padding:12px 10px 12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.fl tbody tr:last-child td{border-bottom:0}
+.fl td b{display:block;font-weight:500}
+.fl td small{display:block;font-size:13px;color:var(--muted)}
+.fl th:last-child,.fl td:last-child{text-align:right;padding-right:0;font-variant-numeric:tabular-nums;white-space:nowrap}
 @media(min-width:900px){.tcard{flex-basis:360px}}
 
 /* HOW IT WORKS */
@@ -565,11 +576,14 @@ html select{height:56px;line-height:normal}
       <span><b>Rent a Boat Punat</b><small data-i18n="logo.sub">Motorboat rental · Krk</small></span>
     </a>
     <div class="hdr__r">
-      <div class="lang" id="langHdr" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="de" aria-pressed="false">DE</button>
-        <button type="button" data-lang="it" aria-pressed="false">IT</button>
-        <button type="button" data-lang="hr" aria-pressed="false">HR</button>
+      <div class="lpick" id="lpick">
+        <button type="button" class="lpick-btn" id="lpickBtn" aria-haspopup="true" aria-expanded="false" aria-label="Language"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span id="lpickCur">EN</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="lpick-list langs" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true"><b>EN</b><span>English</span></button>
+          <button type="button" data-lang="de" aria-pressed="false"><b>DE</b><span>Deutsch</span></button>
+          <button type="button" data-lang="it" aria-pressed="false"><b>IT</b><span>Italiano</span></button>
+          <button type="button" data-lang="hr" aria-pressed="false"><b>HR</b><span>Hrvatski</span></button>
+        </div>
       </div>
       <a href="#book" class="pill hdr__book" data-i18n="nav.book">Book a boat</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="ovl"><span data-i18n="nav.menu">MENU</span><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
@@ -588,12 +602,6 @@ html select{height:56px;line-height:normal}
     <li><a href="#contact" style="--i:6"><small>07</small><span data-i18n="ovl.contact">Contact</span></a></li>
   </ol>
   <div class="ovl__foot">
-    <div class="lang" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button>
-      <button type="button" data-lang="de" aria-pressed="false">DE</button>
-      <button type="button" data-lang="it" aria-pressed="false">IT</button>
-      <button type="button" data-lang="hr" aria-pressed="false">HR</button>
-    </div>
     <a href="#book" class="pill pill--mist pill--block"><span data-i18n="nav.book">Book a boat</span></a>
     <div class="ovl__contact"><a href="tel:+385914575566">+385&nbsp;91&nbsp;457&nbsp;5566</a><span>Obala 107, Punat</span><span data-i18n="ovl.hours">Daily 08:00 to 20:00 in season</span></div>
   </div>
@@ -630,7 +638,7 @@ html select{height:56px;line-height:normal}
         <span class="mask"><span data-i18n="hero.t2">the whole bay ahead</span></span>
         <span class="mask"><span class="sub" data-i18n="hero.sub">Motorboat rental in Punat</span></span>
       </h1>
-      <p class="hero__txt fade-up d2" data-i18n="hero.txt">Boats right at the exit of Punat harbour. Reach the most spectacular beaches of Krk and the nearby islands, at your own pace.</p>
+      <p class="hero__txt fade-up d2" data-i18n="hero.txt">17 boats in the centre of Punat harbour. Reach the most spectacular beaches of Krk and the nearby islands, at your own pace.</p>
       <a class="hero__addr fade-up d3" href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="hero.addr">Obala 107, Punat · Google 4.9 from 128 reviews</span></a>
       <div class="hero__cta fade-up d4">
         <a href="#book" class="pill pill--grey" data-i18n="hero.cta">Book a boat</a>
@@ -654,20 +662,20 @@ html select{height:56px;line-height:normal}
   <div class="wrap">
     <p class="label" style="justify-content:center;color:rgba(255,255,255,.6)"><span class="num">01</span><span data-i18n="gal.label">On the water</span></p>
     <h2 class="rv" data-i18n="gal.h">A day out from Punat</h2>
-    <p class="sub rv" data-delay="1" data-i18n="gal.sub">From the harbour exit to the beaches of Krk. Five snapshots of a day on your own boat.</p>
+    <p class="sub rv" data-delay="1" data-i18n="gal.sub">From the centre of Punat harbour to the bays of Krk and beyond. Five snapshots of a day on your own boat.</p>
   </div>
   <div class="gal" id="gal">
     <div class="gal__track" id="galTrack">
-      <div class="gal__slide cur" data-cap="gal.c1"><div class="art art--harbour"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-marina" width="440" height="220" x="-20" y="150" color="#0C2448"/><use href="#i-side" width="230" height="92" x="90" y="330" color="#0C2448"/><use href="#i-waves" width="520" height="104" x="-60" y="410" color="#fff" opacity=".7"/></svg><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c2"><div class="art art--sea"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><path d="M190 300L80 520H110L196 312z" fill="#fff" opacity=".25"/><path d="M210 300L320 520H290L204 312z" fill="#fff" opacity=".25"/><path d="M192 300C186 380 178 450 168 520H232C222 450 214 380 208 300z" fill="url(#gFoam)" opacity=".7"/><use href="#i-top" width="80" height="200" x="160" y="110" color="#0C2448"/><use href="#i-waves" width="520" height="104" x="-60" y="40" color="#9FD6EA" opacity=".5"/></svg><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c3"><div class="art art--cove"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="130" height="130" x="240" y="40" color="#0C2448"/><path d="M0 230C60 200 120 190 170 206C220 222 260 200 310 190C350 182 380 190 400 200V260H0z" fill="#E9E3D6"/><path d="M0 250C80 238 160 246 240 240C300 236 360 238 400 244V500H0z" fill="#43A6C4" opacity=".55"/><use href="#i-side" width="200" height="80" x="110" y="270" color="#0C2448"/><use href="#i-buoy" width="40" height="55" x="60" y="330" color="#0C2448"/><use href="#i-waves" width="560" height="112" x="-80" y="380" color="#fff" opacity=".7"/></svg><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c4"><div class="art art--map"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-krk" width="360" height="360" x="20" y="70" color="#0C2448"/></svg><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
-      <div class="gal__slide" data-cap="gal.c5"><div class="art art--dusk"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-marina" width="440" height="220" x="-20" y="170" color="#E6E9EC" opacity=".8"/><use href="#i-anchor" width="90" height="108" x="155" y="60" color="#fff" opacity=".85"/><use href="#i-buoy" width="46" height="63" x="300" y="360" color="#0C2448"/><use href="#i-waves" width="520" height="104" x="-60" y="410" color="#fff" opacity=".5"/></svg><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide cur" data-cap="gal.c1"><div class="art art--harbour"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-marina" width="440" height="220" x="-20" y="150" color="#0C2448"/><use href="#i-side" width="230" height="92" x="90" y="330" color="#0C2448"/><use href="#i-waves" width="520" height="104" x="-60" y="410" color="#fff" opacity=".7"/></svg><img src="https://rent-a-boat-punat.com/wp-content/uploads/2019/07/punat5-1.webp" alt="Speedboat from Rent a Boat Punat anchored in a small bay with a sandy beach on Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c2"><div class="art art--sea"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><path d="M190 300L80 520H110L196 312z" fill="#fff" opacity=".25"/><path d="M210 300L320 520H290L204 312z" fill="#fff" opacity=".25"/><path d="M192 300C186 380 178 450 168 520H232C222 450 214 380 208 300z" fill="url(#gFoam)" opacity=".7"/><use href="#i-top" width="80" height="200" x="160" y="110" color="#0C2448"/><use href="#i-waves" width="520" height="104" x="-60" y="40" color="#9FD6EA" opacity=".5"/></svg><img src="https://rent-a-boat-punat.com/wp-content/uploads/2025/05/295-PN.webp" alt="Beneteau Flyer 550 Sun Deck (295 PN) from the Rent a Boat Punat fleet" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c3"><div class="art art--cove"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="130" height="130" x="240" y="40" color="#0C2448"/><path d="M0 230C60 200 120 190 170 206C220 222 260 200 310 190C350 182 380 190 400 200V260H0z" fill="#E9E3D6"/><path d="M0 250C80 238 160 246 240 240C300 236 360 238 400 244V500H0z" fill="#43A6C4" opacity=".55"/><use href="#i-side" width="200" height="80" x="110" y="270" color="#0C2448"/><use href="#i-buoy" width="40" height="55" x="60" y="330" color="#0C2448"/><use href="#i-waves" width="560" height="112" x="-80" y="380" color="#fff" opacity=".7"/></svg><img src="https://rent-a-boat-punat.com/wp-content/uploads/2019/07/punat3.jpg" alt="Speedboat in a small bay with a rocky beach on the island of Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c4"><div class="art art--map"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-krk" width="360" height="360" x="20" y="70" color="#0C2448"/></svg><img src="https://rent-a-boat-punat.com/wp-content/uploads/2019/07/punat2_03-1.webp" alt="Rental speedboats moored in a small bay with a rocky beach" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
+      <div class="gal__slide" data-cap="gal.c5"><div class="art art--dusk"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-marina" width="440" height="220" x="-20" y="170" color="#E6E9EC" opacity=".8"/><use href="#i-anchor" width="90" height="108" x="155" y="60" color="#fff" opacity=".85"/><use href="#i-buoy" width="46" height="63" x="300" y="360" color="#0C2448"/><use href="#i-waves" width="520" height="104" x="-60" y="410" color="#fff" opacity=".5"/></svg><img src="https://rent-a-boat-punat.com/wp-content/uploads/2021/06/Sunset_Rab.jpg" alt="Speedboats at sunset by the island of Rab" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div></div>
     </div>
-    <a class="tag-b" href="#fleet" id="galTag"><span id="galTagTxt">Punat, Krk</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
+    <a class="tag-b" href="#fleet" id="galTag"><span id="galTagTxt">Krk bays</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></a>
     <button type="button" class="sqbtn l" id="galPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
     <button type="button" class="sqbtn r" id="galNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
-    <div class="cap" id="galCap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 17c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0"/></svg><span id="galCapTxt">Right at the exit of Punat harbour</span></div>
+    <div class="cap" id="galCap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 17c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0"/></svg><span id="galCapTxt">A small bay with a sandy beach</span></div>
     <div class="gal__count" id="galCount">1/5</div>
     <div class="gal__prog"><i id="galProg"></i></div>
   </div>
@@ -694,10 +702,10 @@ html select{height:56px;line-height:normal}
       <div>
         <div class="sh rv">
           <p class="label"><span class="num">02</span><span data-i18n="intro.label">Rent a Boat Punat</span></p>
-          <h2 data-i18n="intro.h">Family-run, right at the harbour exit</h2>
+          <h2 data-i18n="intro.h">The oldest boat rental on Krk</h2>
         </div>
-        <p class="lead rv" data-i18n="intro.lead">We are a family-run boat rental at the exit of Punat harbour on Krk. You park nearby, walk down to the pier and your boat is waiting.</p>
-        <p class="rv" data-delay="1" data-i18n="intro.p1">From smaller boats up to a large boat for 10 people. Every boat is well maintained, and before you leave we show you everything right at the boat.</p>
+        <p class="lead rv" data-i18n="intro.lead">We are the oldest boat rental company on the island of Krk, family-run, with 17 boats in the centre of Punat harbour. Many of our guests come back every summer.</p>
+        <p class="rv" data-delay="1" data-i18n="intro.p1">From boats for 5 up to the Beneteau Flyer 7.7 for 10 people. Every boat has complete safety gear on board, and before you leave we show you everything right at the boat.</p>
         <p class="rv" data-delay="1" data-i18n="intro.p2">Booking is easy: one WhatsApp message with the day and how many of you, and we take it from there. Fair prices, friendly owners and staff.</p>
         <div class="sig rv" data-delay="2">
           <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#0C2448" stroke-width="1.2" opacity=".5"/><path d="M50 22a6 6 0 1 0 0 .01M50 28V78M36 44H64M24 60C24 72 36 80 50 80C64 80 76 72 76 60L68 65M24 60L32 65" fill="none" stroke="#0C2448" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="16" r="3.4" fill="#D3202A"/></svg>
@@ -723,33 +731,33 @@ html select{height:56px;line-height:normal}
   <div class="wrap">
     <div class="sh rv">
       <p class="label"><span class="num">03</span><span data-i18n="fleet.label">Our boats</span></p>
-      <h2 data-i18n="fleet.h">From small boats to a boat for 10</h2>
-      <p data-i18n="fleet.sub">A peek at the fleet. Tell us how many of you are coming and we suggest the right boat.</p>
+      <h2 data-i18n="fleet.h">17 boats, from 5 to 10 people</h2>
+      <p data-i18n="fleet.sub">Three examples from the fleet, the full list is below. Tell us how many of you are coming and we suggest the right boat.</p>
     </div>
   </div>
   <div class="peek" id="peek">
     <article class="tcard rv">
-      <div class="frame"><div class="art art--sea"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-waves" width="520" height="104" x="-60" y="80" color="#9FD6EA" opacity=".5"/><use href="#i-side" width="340" height="136" x="30" y="220" color="#0C2448"/><use href="#i-waves" width="560" height="112" x="-80" y="350" color="#fff" opacity=".6"/></svg><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="b1.tag">For 4</span></div>
-      <h3>Beneteau 550 Flyer Sundeck</h3>
+      <div class="frame"><div class="art art--sea"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-waves" width="520" height="104" x="-60" y="80" color="#9FD6EA" opacity=".5"/><use href="#i-side" width="340" height="136" x="30" y="220" color="#0C2448"/><use href="#i-waves" width="560" height="112" x="-80" y="350" color="#fff" opacity=".6"/></svg><img src="https://rent-a-boat-punat.com/wp-content/uploads/2025/05/295-PN.webp" alt="Beneteau Flyer 550 Sun Deck motorboat for up to 6 people" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="b1.tag">Up to 6</span></div>
+      <h3>Beneteau Flyer 550 Sun Deck</h3>
       <p class="tcard__meta"><span data-i18n="b.from">Motorboat · from</span> <span class="ph">XX&nbsp;€</span> <span data-i18n="b.day">per day</span></p>
-      <p data-i18n="b1.p">A motorboat for four with a sundeck at the bow. Swim, lie in the sun, then move on to the next bay.</p>
-      <ul><li data-i18n="b1.l1">For 4 people</li><li data-i18n="b1.l2">Sundeck at the bow</li><li data-i18n="b1.l3">Briefing at the boat before you leave</li></ul>
+      <p data-i18n="b1.p">A motorboat for up to six with a sundeck at the bow. Swim, lie in the sun, then move on to the next bay.</p>
+      <ul><li data-i18n="b1.l1">Up to 6 people</li><li data-i18n="b1.l2">Sundeck at the bow, Yamaha 115&nbsp;HP</li><li data-i18n="b1.l3">Briefing at the boat before you leave</li></ul>
       <a href="#book" class="ulink" data-boat="b550"><span data-i18n="b.pick">Choose this boat</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="1">
-      <div class="frame"><div class="art art--cove"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="120" height="120" x="250" y="40" color="#0C2448"/><use href="#i-buoy" width="50" height="68" x="50" y="250" color="#0C2448"/><use href="#i-side" width="260" height="104" x="110" y="250" color="#0C2448"/><use href="#i-waves" width="560" height="112" x="-80" y="350" color="#fff" opacity=".7"/></svg><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="b2.tag">Families</span></div>
-      <h3 data-i18n="b2.h">Family boat</h3>
+      <div class="frame"><div class="art art--cove"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-sun" width="120" height="120" x="250" y="40" color="#0C2448"/><use href="#i-buoy" width="50" height="68" x="50" y="250" color="#0C2448"/><use href="#i-side" width="260" height="104" x="110" y="250" color="#0C2448"/><use href="#i-waves" width="560" height="112" x="-80" y="350" color="#fff" opacity=".7"/></svg><img src="https://rent-a-boat-punat.com/wp-content/uploads/2025/05/322-PN.webp" alt="Elan 18 CC centre console boat for up to 5 people" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="b2.tag">Families</span></div>
+      <h3>Elan 18 CC</h3>
       <p class="tcard__meta"><span data-i18n="b.from">Motorboat · from</span> <span class="ph">XX&nbsp;€</span> <span data-i18n="b.day">per day</span></p>
-      <p data-i18n="b2.p">A smaller boat for a family day on the water. Ask us which boats are free on your dates.</p>
-      <ul><li data-i18n="b2.l1">Smaller, for a family or a few friends</li><li data-i18n="b2.l2">Well maintained</li><li data-i18n="b2.l3">Ask us which boat is free</li></ul>
+      <p data-i18n="b2.p">A compact centre console boat for a family day on the water. We have two of them.</p>
+      <ul><li data-i18n="b2.l1">Up to 5 people</li><li data-i18n="b2.l2">Suzuki 115&nbsp;HP or Yamaha 100&nbsp;HP</li><li data-i18n="b2.l3">Ask us which boat is free</li></ul>
       <a href="#book" class="ulink" data-boat="family"><span data-i18n="b.pick">Choose this boat</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="2">
-      <div class="frame"><div class="art art--harbour"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-marina" width="440" height="220" x="-20" y="90" color="#0C2448" opacity=".45"/><use href="#i-side" width="380" height="152" x="10" y="250" color="#0C2448"/><use href="#i-waves" width="560" height="112" x="-80" y="380" color="#fff" opacity=".7"/></svg><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="b3.tag">Up to 10</span></div>
-      <h3 data-i18n="b3.h">Big group boat</h3>
+      <div class="frame"><div class="art art--harbour"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-marina" width="440" height="220" x="-20" y="90" color="#0C2448" opacity=".45"/><use href="#i-side" width="380" height="152" x="10" y="250" color="#0C2448"/><use href="#i-waves" width="560" height="112" x="-80" y="380" color="#fff" opacity=".7"/></svg><img src="https://rent-a-boat-punat.com/wp-content/uploads/2025/05/286562-BS.jpg" alt="Beneteau Flyer 7.7 SD, the largest boat in the fleet, for up to 10 people" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="b3.tag">Up to 10</span></div>
+      <h3>Beneteau Flyer 7.7 SD</h3>
       <p class="tcard__meta"><span data-i18n="b.from">Motorboat · from</span> <span class="ph">XX&nbsp;€</span> <span data-i18n="b.day">per day</span></p>
-      <p data-i18n="b3.p">One large boat for the whole group, up to 10 people. Skipper on request, just ask.</p>
-      <ul><li data-i18n="b3.l1">Up to 10 people</li><li data-i18n="b3.l2">Skipper on request: ask us</li><li data-i18n="b3.l3">Room for the whole group</li></ul>
+      <p data-i18n="b3.p">Our largest boat, for the whole group of up to 10 people. Two Mercury engines of 150&nbsp;HP each.</p>
+      <ul><li data-i18n="b3.l1">Up to 10 people</li><li data-i18n="b3.l2">2&nbsp;&times;&nbsp;Mercury 150&nbsp;HP</li><li data-i18n="b3.l3">Room for the whole group</li></ul>
       <a href="#book" class="ulink" data-boat="big"><span data-i18n="b.pick">Choose this boat</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
   </div>
@@ -759,7 +767,32 @@ html select{height:56px;line-height:normal}
       <button type="button" class="rbtn" id="peekPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
       <button type="button" class="rbtn" id="peekNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
-    <p class="tr__note" data-i18n="fleet.note">Prices shown as XX € are example placeholders for this proposal. Ask us for current prices and which boats are free.</p>
+    <details class="fl rv">
+      <summary><span data-i18n="fl.sum">See all 17 boats</span><span class="fl__chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+      <table>
+        <thead><tr><th data-i18n="fl.boat">Boat</th><th data-i18n="fl.eng">Engine</th><th data-i18n="fl.ppl">People</th></tr></thead>
+        <tbody>
+          <tr><td><b>Beneteau Flyer 7.7 SD</b><small>286562&nbsp;BŠ</small></td><td>2&nbsp;&times;&nbsp;Mercury 150&nbsp;HP</td><td>10</td></tr>
+          <tr><td><b>Sessa Key Largo 25</b><small>239817&nbsp;PN</small></td><td>Suzuki 300&nbsp;HP</td><td>9</td></tr>
+          <tr><td><b>Sessa Key Largo 25</b><small>414&nbsp;KK</small></td><td>Suzuki 250&nbsp;HP</td><td>9</td></tr>
+          <tr><td><b>Sessa Key Largo 22</b><small>339&nbsp;PN</small></td><td>Yamaha 150&nbsp;HP</td><td>8</td></tr>
+          <tr><td><b>Sessa Key Largo 22</b><small>242255&nbsp;PN</small></td><td>Yamaha 200&nbsp;HP</td><td>8</td></tr>
+          <tr><td><b>Beneteau Flyer 650 SD</b><small>114&nbsp;ŠL</small></td><td>Suzuki 200&nbsp;HP</td><td>8</td></tr>
+          <tr><td><b>Sessa Key Largo 20</b><small>368&nbsp;PN</small></td><td>Tohatsu 140&nbsp;HP</td><td>7</td></tr>
+          <tr><td><b>Jeanneau Cap Camarat</b><small>262813&nbsp;PN</small></td><td>Yamaha 150&nbsp;HP</td><td>7</td></tr>
+          <tr><td><b>Jeanneau Cap Camarat</b><small>291338&nbsp;PN</small></td><td>Suzuki 140&nbsp;HP</td><td>7</td></tr>
+          <tr><td><b>Teorema 20</b><small>280463&nbsp;PN</small></td><td>Yamaha 130&nbsp;HP</td><td>7</td></tr>
+          <tr><td><b>Teorema 20</b><small>281347&nbsp;PN</small></td><td>Yamaha 130&nbsp;HP</td><td>7</td></tr>
+          <tr><td><b>Teorema 20</b><small>280293&nbsp;PN</small></td><td>Evinrude 90&nbsp;HP</td><td>7</td></tr>
+          <tr><td><b>Elan 650 Sun Deck</b><small>327&nbsp;PN</small></td><td>Yamaha 200&nbsp;HP</td><td>6</td></tr>
+          <tr><td><b>Beneteau Flyer 550 Sun Deck</b><small>295&nbsp;PN</small></td><td>Yamaha 115&nbsp;HP</td><td>6</td></tr>
+          <tr><td><b>Beneteau Flyer 550 Sun Deck</b><small>302&nbsp;PN</small></td><td>Yamaha 115&nbsp;HP</td><td>6</td></tr>
+          <tr><td><b>Elan 18 CC</b><small>322&nbsp;PN</small></td><td>Suzuki 115&nbsp;HP</td><td>5</td></tr>
+          <tr><td><b>Elan 18 CC</b><small>160&nbsp;PN</small></td><td>Yamaha 100&nbsp;HP</td><td>5</td></tr>
+        </tbody>
+      </table>
+    </details>
+    <p class="tr__note" data-i18n="fleet.note">Prices shown as XX&nbsp;€ are example placeholders for this proposal. Ask us for current prices and which boats are free. Rental by the day or by the week.</p>
   </div>
 </section>
 
@@ -773,14 +806,14 @@ html select{height:56px;line-height:normal}
     </div>
     <div class="how__body">
       <div class="how__img-wrap">
-        <div class="frame how__img rv-img"><div class="art art--harbour"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-marina" width="640" height="320" x="-20" y="20" color="#0C2448" opacity=".7"/><use href="#i-buoy" width="46" height="63" x="70" y="250" color="#0C2448"/><use href="#i-side" width="300" height="120" x="200" y="230" color="#0C2448"/><use href="#i-waves" width="800" height="160" x="-100" y="300" color="#fff" opacity=".7"/></svg><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="how.tag">Punat harbour exit</span></div>
+        <div class="frame how__img rv-img"><div class="art art--harbour"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-marina" width="640" height="320" x="-20" y="20" color="#0C2448" opacity=".7"/><use href="#i-buoy" width="46" height="63" x="70" y="250" color="#0C2448"/><use href="#i-side" width="300" height="120" x="200" y="230" color="#0C2448"/><use href="#i-waves" width="800" height="160" x="-100" y="300" color="#fff" opacity=".7"/></svg><img src="https://rent-a-boat-punat.com/wp-content/uploads/2019/07/punat4-1.webp" alt="Speedboat from Rent a Boat Punat in a small bay with a sandy beach" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="how.tag">Punat harbour</span></div>
       </div>
       <ol class="tl" id="tl">
         <span class="tl__track"></span><span class="tl__fill" id="tlFill"></span>
         <li class="step"><span class="step__dot">1</span><h3 data-i18n="s1.h">Book</h3><p data-i18n="s1.p">Pick a boat, a date and how many of you, and send it via WhatsApp. We confirm by message.</p></li>
-        <li class="step"><span class="step__dot">2</span><h3 data-i18n="s2.h">Briefing at the boat</h3><p data-i18n="s2.p">Park nearby and come to the pier at the harbour exit. We show you the boat and everything you need before you leave.</p></li>
+        <li class="step"><span class="step__dot">2</span><h3 data-i18n="s2.h">Briefing at the boat</h3><p data-i18n="s2.p">Park nearby and come to the pier in the centre of Punat harbour. Check-in is at 09:00. We show you the boat and everything you need before you leave.</p></li>
         <li class="step"><span class="step__dot">3</span><h3 data-i18n="s3.h">Enjoy</h3><p data-i18n="s3.p">Head out to the beaches and bays of Krk and the nearby islands. Swim, explore, take your time.</p></li>
-        <li class="step"><span class="step__dot">4</span><h3 data-i18n="s4.h">Return</h3><p data-i18n="s4.p">Bring the boat back to the harbour exit at the agreed time. That's it.</p></li>
+        <li class="step"><span class="step__dot">4</span><h3 data-i18n="s4.h">Return</h3><p data-i18n="s4.p">Bring the boat back by 19:00 with a full tank. That's it.</p></li>
       </ol>
     </div>
   </div>
@@ -807,11 +840,14 @@ html select{height:56px;line-height:normal}
       <div class="gtk rv" data-delay="1">
         <h3 data-i18n="ovl.gtk">Good to know</h3>
         <dl>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.2"/><path d="M5.5 16c.6-1.6 2-2.4 3.5-2.4s2.9.8 3.5 2.4M15 10h3M15 13h3"/></svg><dt data-i18n="gtk.lic">Boat licence</dt><dd><span class="ask" data-i18n="ask">Ask us</span><span data-i18n="gtk.licv">Tell us which boat you want and we tell you what you need.</span></dd></div>
-          <div class="gtk__row"><svg><use href="#i-fuel"/></svg><dt data-i18n="gtk.fuel">Fuel</dt><dd><span class="ask" data-i18n="ask">Ask us</span><span data-i18n="gtk.fuelv">We explain how fuel works for your boat and your day.</span></dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.2"/><path d="M5.5 16c.6-1.6 2-2.4 3.5-2.4s2.9.8 3.5 2.4M15 10h3M15 13h3"/></svg><dt data-i18n="gtk.lic">Boat licence</dt><dd><span class="ask" data-i18n="req">Required</span><span data-i18n="gtk.licv">Renting a boat is only possible with a valid boat licence.</span></dd></div>
+          <div class="gtk__row"><svg><use href="#i-fuel"/></svg><dt data-i18n="gtk.fuel">Fuel</dt><dd data-i18n="gtk.fuelv">Your boat comes with a full tank and goes back full.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><dt data-i18n="gtk.ci">Check-in and check-out</dt><dd data-i18n="gtk.civ">Check-in at 09:00, check-out by 19:00.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg><dt data-i18n="gtk.per">Rental period</dt><dd data-i18n="gtk.perv">By the day or by the week.</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path d="M6 6l3.5 3.5M18 6l-3.5 3.5M6 18l3.5-3.5M18 18l-3.5-3.5"/></svg><dt data-i18n="gtk.safe">Safety</dt><dd data-i18n="gtk.safev">Every boat has complete safety gear on board.</dd></div>
           <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><dt data-i18n="gtk.dep">Deposit</dt><dd><span class="ask" data-i18n="ask">Ask us</span><span data-i18n="gtk.depv">We explain it when you book.</span></dd></div>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M10 16V8h3a2.5 2.5 0 0 1 0 5h-3"/></svg><dt data-i18n="gtk.park">Parking</dt><dd data-i18n="gtk.parkv">Plenty of parking nearby, right by the harbour exit.</dd></div>
-          <div class="gtk__row"><svg><use href="#i-helm"/></svg><dt data-i18n="gtk.skip">Skipper</dt><dd><span class="ask" data-i18n="ask">Ask us</span><span data-i18n="gtk.skipv">Available on request.</span></dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M10 16V8h3a2.5 2.5 0 0 1 0 5h-3"/></svg><dt data-i18n="gtk.park">Parking</dt><dd data-i18n="gtk.parkv">Plenty of parking nearby, close to the harbour.</dd></div>
+          <div class="gtk__row"><svg><use href="#i-helm"/></svg><dt data-i18n="gtk.skip">Skipper</dt><dd><span class="ask" data-i18n="ask">Ask us</span><span data-i18n="gtk.skipv">Ask us whether a skipper is possible on your date.</span></dd></div>
           <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><dt data-i18n="gtk.hours">Hours</dt><dd data-i18n="gtk.hoursv">Open daily 08:00 to 20:00 in season.</dd></div>
         </dl>
       </div>
@@ -827,7 +863,7 @@ html select{height:56px;line-height:normal}
         <div class="sh rv">
           <p class="label"><span class="num">06</span><span data-i18n="ovl.nearby">What's nearby</span></p>
           <h2 data-i18n="near.h">Where the boat takes you</h2>
-          <p data-i18n="near.sub">Punat sits in a bay on the island of Krk. From the harbour exit, the coast is yours.</p>
+          <p data-i18n="near.sub">Punat sits in a bay on the island of Krk. From the harbour, the coast is yours.</p>
         </div>
         <div class="frame near__map rv-img"><div class="art art--map"><svg class="ill" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet"><use href="#i-krk" width="300" height="300" color="#0C2448"/></svg></div><span class="tag-b" data-i18n="near.tag">Island of Krk</span></div>
       </div>
@@ -864,8 +900,8 @@ html select{height:56px;line-height:normal}
         <fieldset class="field">
           <legend data-i18n="f.boat">Boat</legend>
           <div class="chips" id="boatChips">
-            <label class="chip"><input type="radio" name="boat" value="b550" checked><span><span>Beneteau 550</span><small data-i18n="f.b1s">for 4</small></span></label>
-            <label class="chip"><input type="radio" name="boat" value="family"><span><span data-i18n="f.b2">Family boat</span><small data-i18n="f.b2s">smaller</small></span></label>
+            <label class="chip"><input type="radio" name="boat" value="b550" checked><span><span>Beneteau 550</span><small data-i18n="f.b1s">up to 6</small></span></label>
+            <label class="chip"><input type="radio" name="boat" value="family"><span><span data-i18n="f.b2">Family boat</span><small data-i18n="f.b2s">Elan 18 CC, up to 5</small></span></label>
             <label class="chip"><input type="radio" name="boat" value="big"><span><span data-i18n="f.b3">Big group</span><small data-i18n="f.b3s">up to 10</small></span></label>
             <label class="chip"><input type="radio" name="boat" value="any"><span><span data-i18n="f.b4">Not sure</span><small data-i18n="f.b4s">help me choose</small></span></label>
           </div>
@@ -875,11 +911,11 @@ html select{height:56px;line-height:normal}
           <div class="field"><span data-i18n="f.days">Days</span><div class="qty"><button type="button" id="dMinus" aria-label="Fewer days">&minus;</button><output id="dOut">1</output><button type="button" id="dPlus" aria-label="More days">+</button></div></div>
           <div class="field"><span data-i18n="f.people">People</span><div class="qty"><button type="button" id="pMinus" aria-label="Fewer people">&minus;</button><output id="pOut">4</output><button type="button" id="pPlus" aria-label="More people">+</button></div></div>
         </div>
-        <p class="warn" id="warn" data-i18n="f.warn">The Beneteau 550 is for 4. For more people, pick another boat or ask us.</p>
+        <p class="warn" id="warn">This boat takes up to 6 people. For more, pick another boat or ask us.</p>
         <fieldset class="field">
           <legend data-i18n="f.skip">Skipper</legend>
           <div class="chips" id="skipChips">
-            <label class="chip"><input type="radio" name="skip" value="yes"><span><span data-i18n="f.yes">Yes, please</span><small data-i18n="f.yess">on request</small></span></label>
+            <label class="chip"><input type="radio" name="skip" value="yes"><span><span data-i18n="f.yes">Yes, please</span><small data-i18n="f.yess">ask us</small></span></label>
             <label class="chip"><input type="radio" name="skip" value="no" checked><span><span data-i18n="f.no">No</span><small data-i18n="f.nos">we drive</small></span></label>
           </div>
         </fieldset>
@@ -902,12 +938,13 @@ html select{height:56px;line-height:normal}
         <p data-i18n="faq.sub">Anything else, just ask on WhatsApp.</p>
       </div>
       <div class="faq__list rv" data-delay="1">
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q1">Do I need a boat licence?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a1">Ask us. Tell us which boat you want and we tell you what you need.</p></div></div></div>
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q2">Can we rent with a skipper?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a2">A skipper is available on request. Ask us when you book.</p></div></div></div>
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q3">How many people fit on a boat?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a3">We have boats from smaller ones up to a large boat for 10 people. The Beneteau 550 Flyer Sundeck is for 4.</p></div></div></div>
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q4">Is there a deposit, and how does fuel work?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a4">Ask us. We explain both when you book and again at the briefing at the boat.</p></div></div></div>
-        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">Where do we park?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a5">There is plenty of parking nearby, right by the harbour exit at Obala 107, Punat.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q1">Do I need a boat licence?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a1">Yes. Renting a boat is only possible with a valid boat licence.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q2">Can we rent with a skipper?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a2">Ask us when you book and we tell you whether a skipper is possible on your date.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q3">How many people fit on a boat?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a3">Our 17 boats take from 5 to 10 people. The Beneteau Flyer 550 Sun Deck takes up to 6, the Beneteau Flyer 7.7 SD up to 10.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q4">Is there a deposit, and how does fuel work?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a4">The boat comes with a full tank and goes back full. For the deposit, just ask us: we explain it when you book.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">Where do we park?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a5">There is plenty of parking nearby, close to the harbour at Obala 107, Punat.</p></div></div></div>
         <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q6">How do I book?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a6">Send your request from this page or write to +385 91 457 5566 on WhatsApp. We confirm by message.</p></div></div></div>
+        <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q7">Can you recommend a place to stay in Punat?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a7">Yes. The Orlić family apartments in Punat are about 300&nbsp;m from the beach: Apartment Irena for up to 5, Apartment Nikola for up to 4 and a studio for 2. Air conditioning, Wi-Fi, satellite TV, terrace, barbecue and parking. Ask us for details.</p></div></div></div>
       </div>
     </div>
   </div>
@@ -921,12 +958,14 @@ html select{height:56px;line-height:normal}
       <div>
         <div class="sh rv">
           <p class="label"><span class="num">09</span><span data-i18n="ovl.contact">Contact</span></p>
-          <h2 data-i18n="c.h">Find us at the harbour exit</h2>
+          <h2 data-i18n="c.h">Find us in Punat harbour</h2>
         </div>
         <p class="addr rv">Obala 107<br>51521 Punat, <span data-i18n="c.isl">island of Krk</span></p>
         <p class="rv" data-delay="1"><a href="tel:+385914575566" class="ulink">+385&nbsp;91&nbsp;457&nbsp;5566</a><br><span data-i18n="c.wa" style="color:var(--muted);font-size:15px">Phone and WhatsApp</span></p>
+        <p class="rv" data-delay="1"><a href="tel:+385917809168" class="ulink">+385&nbsp;91&nbsp;780&nbsp;9168</a><br><a href="mailto:punat.rentaboat@gmail.com" class="ulink">punat.rentaboat@gmail.com</a></p>
         <ul class="hours rv" data-delay="1">
           <li><span data-i18n="c.daily">Daily, in season</span><span>08:00 to 20:00</span></li>
+          <li><span data-i18n="c.ci">Check-in / check-out</span><span>09:00 / 19:00</span></li>
           <li><span data-i18n="gtk.park">Parking</span><span data-i18n="c.parkv">Plenty nearby</span></li>
         </ul>
         <div class="contact__btns rv" data-delay="2">
@@ -935,7 +974,7 @@ html select{height:56px;line-height:normal}
         </div>
       </div>
       <div class="frame contact__img rv-img">
-        <div class="art art--cove"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-marina" width="600" height="300" x="0" y="40" color="#0C2448" opacity=".55"/><use href="#i-buoy" width="40" height="55" x="480" y="250" color="#0C2448"/><use href="#i-side" width="220" height="88" x="60" y="250" color="#0C2448"/><use href="#i-waves" width="800" height="160" x="-100" y="290" color="#fff" opacity=".7"/></svg><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
+        <div class="art art--cove"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-marina" width="600" height="300" x="0" y="40" color="#0C2448" opacity=".55"/><use href="#i-buoy" width="40" height="55" x="480" y="250" color="#0C2448"/><use href="#i-side" width="220" height="88" x="60" y="250" color="#0C2448"/><use href="#i-waves" width="800" height="160" x="-100" y="290" color="#fff" opacity=".7"/></svg><img src="https://rent-a-boat-punat.com/wp-content/uploads/2019/07/punat5-1.webp" alt="Speedboat from Rent a Boat Punat in a quiet bay on Krk" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
         <div class="pin"><div class="pin__ring"><svg viewBox="0 0 100 120"><use href="#i-anchor" color="#0C2448"/></svg></div></div>
         <span class="tag-b">Punat, Croatia</span>
       </div>
@@ -953,10 +992,10 @@ html select{height:56px;line-height:normal}
           <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><path d="M50 22a6 6 0 1 0 0 .01M50 28V78M36 44H64M24 60C24 72 36 80 50 80C64 80 76 72 76 60L68 65M24 60L32 65" fill="none" stroke="#C5CBD3" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="16" r="3.4" fill="#D3202A"/></svg>
           <span><b>Rent a Boat Punat</b><small data-i18n="logo.sub">Motorboat rental · Krk</small></span>
         </a>
-        <p style="margin-top:16px;max-width:36ch" data-i18n="foot.p">Motorboat rental right at the exit of Punat harbour, island of Krk.</p>
+        <p style="margin-top:16px;max-width:36ch" data-i18n="foot.p">The oldest boat rental on the island of Krk. 17 boats in the centre of Punat harbour.</p>
       </div>
       <div><h4 data-i18n="foot.visit">Visit</h4><ul><li>Obala 107, 51521 Punat</li><li data-i18n="ovl.hours">Daily 08:00 to 20:00 in season</li></ul></div>
-      <div><h4 data-i18n="foot.talk">Talk to us</h4><ul><li><a href="tel:+385914575566">+385&nbsp;91&nbsp;457&nbsp;5566</a></li><li><a href="https://wa.me/385914575566" target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
+      <div><h4 data-i18n="foot.talk">Talk to us</h4><ul><li><a href="tel:+385914575566">+385&nbsp;91&nbsp;457&nbsp;5566</a></li><li><a href="tel:+385917809168">+385&nbsp;91&nbsp;780&nbsp;9168</a></li><li><a href="https://wa.me/385914575566" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:punat.rentaboat@gmail.com">punat.rentaboat@gmail.com</a></li></ul></div>
       <div><h4 data-i18n="foot.explore">Explore</h4><ul><li><a href="#fleet" data-i18n="ovl.fleet">Boats</a></li><li><a href="#book" data-i18n="ovl.book">Booking</a></li><li><a href="#faq" data-i18n="ovl.faq">FAQ</a></li></ul></div>
     </div>
     <div class="foot__bot"><span>&copy; <span id="year">2026</span> Rent a Boat Punat</span><span data-i18n="concept">Concept by Marija</span></div>
@@ -983,106 +1022,110 @@ var WA = "385914575566";
 var T = {
 en:{
  "logo.sub":"Motorboat rental · Krk","nav.book":"Book a boat","nav.menu":"MENU","ovl.fleet":"Boats","ovl.how":"How it works","ovl.gtk":"Good to know","ovl.nearby":"What's nearby","ovl.book":"Booking","ovl.faq":"FAQ","ovl.contact":"Contact","cta.wa":"WhatsApp us","ovl.hours":"Daily 08:00 to 20:00 in season","concept":"Concept by Marija","sub.intro":"About",
- "hero.label":"Punat harbour · Island of Krk","hero.t1":"Your own boat,","hero.t2":"the whole bay ahead","hero.sub":"Motorboat rental in Punat","hero.txt":"Boats right at the exit of Punat harbour. Reach the most spectacular beaches of Krk and the nearby islands, at your own pace.","hero.addr":"Obala 107, Punat · Google 4.9 from 128 reviews","hero.cta":"Book a boat","hint.touch":"Touch to look around","hint.mouse":"Move the mouse to look around",
+ "hero.label":"Punat harbour · Island of Krk","hero.t1":"Your own boat,","hero.t2":"the whole bay ahead","hero.sub":"Motorboat rental in Punat","hero.txt":"17 boats in the centre of Punat harbour. Reach the most spectacular beaches of Krk and the nearby islands, at your own pace.","hero.addr":"Obala 107, Punat · Google 4.9 from 128 reviews","hero.cta":"Book a boat","hint.touch":"Touch to look around","hint.mouse":"Move the mouse to look around",
  "finder.s":"Pick a date • {n}",
- "gal.label":"On the water","gal.h":"A day out from Punat","gal.sub":"From the harbour exit to the beaches of Krk. Five snapshots of a day on your own boat.",
- "gal.g1":"Punat, Krk","gal.g2":"Beneteau 550","gal.g3":"Krk beaches","gal.g4":"Island of Krk","gal.g5":"Punat harbour",
- "gal.c1":"Right at the exit of Punat harbour","gal.c2":"Beneteau 550 Flyer Sundeck, for 4","gal.c3":"The most spectacular beaches of Krk","gal.c4":"Krk and the nearby islands, your route","gal.c5":"Back at the harbour, parking close by",
- "intro.label":"Rent a Boat Punat","intro.h":"Family-run, right at the harbour exit","intro.lead":"We are a family-run boat rental at the exit of Punat harbour on Krk. You park nearby, walk down to the pier and your boat is waiting.","intro.p1":"From smaller boats up to a large boat for 10 people. Every boat is well maintained, and before you leave we show you everything right at the boat.","intro.p2":"Booking is easy: one WhatsApp message with the day and how many of you, and we take it from there. Fair prices, friendly owners and staff.","intro.sig":"Owners and team","gtk.rev":"Google reviews",
- "fleet.label":"Our boats","fleet.h":"From small boats to a boat for 10","fleet.sub":"A peek at the fleet. Tell us how many of you are coming and we suggest the right boat.",
+ "gal.label":"On the water","gal.h":"A day out from Punat","gal.sub":"From the centre of Punat harbour to the bays of Krk and beyond. Five snapshots of a day on your own boat.",
+ "gal.g1":"Krk bays","gal.g2":"Beneteau 550","gal.g3":"Krk beaches","gal.g4":"Island of Krk","gal.g5":"Island of Rab",
+ "gal.c1":"A small bay with a sandy beach","gal.c2":"Beneteau Flyer 550 Sun Deck, up to 6","gal.c3":"The most spectacular beaches of Krk","gal.c4":"Krk and the nearby islands, your route","gal.c5":"Sunset by the island of Rab",
+ "intro.label":"Rent a Boat Punat","intro.h":"The oldest boat rental on Krk","intro.lead":"We are the oldest boat rental company on the island of Krk, family-run, with 17 boats in the centre of Punat harbour. Many of our guests come back every summer.","intro.p1":"From boats for 5 up to the Beneteau Flyer 7.7 for 10 people. Every boat has complete safety gear on board, and before you leave we show you everything right at the boat.","intro.p2":"Booking is easy: one WhatsApp message with the day and how many of you, and we take it from there. Fair prices, friendly owners and staff.","intro.sig":"Owners and team","gtk.rev":"Google reviews",
+ "fleet.label":"Our boats","fleet.h":"17 boats, from 5 to 10 people","fleet.sub":"Three examples from the fleet, the full list is below. Tell us how many of you are coming and we suggest the right boat.",
  "b.from":"Motorboat · from","b.day":"per day","b.pick":"Choose this boat",
- "b1.tag":"For 4","b1.p":"A motorboat for four with a sundeck at the bow. Swim, lie in the sun, then move on to the next bay.","b1.l1":"For 4 people","b1.l2":"Sundeck at the bow","b1.l3":"Briefing at the boat before you leave",
- "b2.tag":"Families","b2.h":"Family boat","b2.p":"A smaller boat for a family day on the water. Ask us which boats are free on your dates.","b2.l1":"Smaller, for a family or a few friends","b2.l2":"Well maintained","b2.l3":"Ask us which boat is free",
- "b3.tag":"Up to 10","b3.h":"Big group boat","b3.p":"One large boat for the whole group, up to 10 people. Skipper on request, just ask.","b3.l1":"Up to 10 people","b3.l2":"Skipper on request: ask us","b3.l3":"Room for the whole group",
- "fleet.note":"Prices shown as XX € are example placeholders for this proposal. Ask us for current prices and which boats are free.",
- "how.h":"Four steps to the water","how.tag":"Punat harbour exit","s1.h":"Book","s1.p":"Pick a boat, a date and how many of you, and send it via WhatsApp. We confirm by message.","s2.h":"Briefing at the boat","s2.p":"Park nearby and come to the pier at the harbour exit. We show you the boat and everything you need before you leave.","s3.h":"Enjoy","s3.p":"Head out to the beaches and bays of Krk and the nearby islands. Swim, explore, take your time.","s4.h":"Return","s4.p":"Bring the boat back to the harbour exit at the agreed time. That's it.",
- "gtk.h":"Before you set off","gtk.sub":"The short answers. For anything else, a quick WhatsApp is the fastest way.","ask":"Ask us","gtk.lic":"Boat licence","gtk.licv":"Tell us which boat you want and we tell you what you need.","gtk.fuel":"Fuel","gtk.fuelv":"We explain how fuel works for your boat and your day.","gtk.dep":"Deposit","gtk.depv":"We explain it when you book.","gtk.park":"Parking","gtk.parkv":"Plenty of parking nearby, right by the harbour exit.","gtk.skip":"Skipper","gtk.skipv":"Available on request.","gtk.hours":"Hours","gtk.hoursv":"Open daily 08:00 to 20:00 in season.",
- "near.h":"Where the boat takes you","near.sub":"Punat sits in a bay on the island of Krk. From the harbour exit, the coast is yours.","near.tag":"Island of Krk","n1.h":"Beaches and bays of Krk","n1":"The most spectacular beaches of Krk, reached from the water","n1d":"By boat","n2":"The small green island in the bay, right in front of Punat","n2d":"In the bay","n3":"The harbour town where your day starts and ends","n3d":"Start here","n4.h":"Nearby islands","n4":"Further out, for a longer day on the water","n4d":"Further out","near.note":"Not sure where to go? Ask us at the briefing, we know these waters.",
+ "b1.tag":"Up to 6","b1.p":"A motorboat for up to six with a sundeck at the bow. Swim, lie in the sun, then move on to the next bay.","b1.l1":"Up to 6 people","b1.l2":"Sundeck at the bow, Yamaha 115 HP","b1.l3":"Briefing at the boat before you leave",
+ "b2.tag":"Families","b2.h":"Family boat","b2.p":"A compact centre console boat for a family day on the water. We have two of them.","b2.l1":"Up to 5 people","b2.l2":"Suzuki 115 HP or Yamaha 100 HP","b2.l3":"Ask us which boat is free",
+ "b3.tag":"Up to 10","b3.h":"Big group boat","b3.p":"Our largest boat, for the whole group of up to 10 people. Two Mercury engines of 150 HP each.","b3.l1":"Up to 10 people","b3.l2":"2 × Mercury 150 HP","b3.l3":"Room for the whole group",
+ "fleet.note":"Prices shown as XX € are example placeholders for this proposal. Ask us for current prices and which boats are free. Rental by the day or by the week.",
+ "how.h":"Four steps to the water","how.tag":"Punat harbour","s1.h":"Book","s1.p":"Pick a boat, a date and how many of you, and send it via WhatsApp. We confirm by message.","s2.h":"Briefing at the boat","s2.p":"Park nearby and come to the pier in the centre of Punat harbour. Check-in is at 09:00. We show you the boat and everything you need before you leave.","s3.h":"Enjoy","s3.p":"Head out to the beaches and bays of Krk and the nearby islands. Swim, explore, take your time.","s4.h":"Return","s4.p":"Bring the boat back by 19:00 with a full tank. That's it.",
+ "gtk.h":"Before you set off","gtk.sub":"The short answers. For anything else, a quick WhatsApp is the fastest way.","ask":"Ask us","gtk.lic":"Boat licence","gtk.licv":"Renting a boat is only possible with a valid boat licence.","gtk.fuel":"Fuel","gtk.fuelv":"Your boat comes with a full tank and goes back full.","gtk.dep":"Deposit","gtk.depv":"We explain it when you book.","gtk.park":"Parking","gtk.parkv":"Plenty of parking nearby, close to the harbour.","gtk.skip":"Skipper","gtk.skipv":"Ask us whether a skipper is possible on your date.","gtk.hours":"Hours","gtk.hoursv":"Open daily 08:00 to 20:00 in season.",
+ "near.h":"Where the boat takes you","near.sub":"Punat sits in a bay on the island of Krk. From the harbour, the coast is yours.","near.tag":"Island of Krk","n1.h":"Beaches and bays of Krk","n1":"The most spectacular beaches of Krk, reached from the water","n1d":"By boat","n2":"The small green island in the bay, right in front of Punat","n2d":"In the bay","n3":"The harbour town where your day starts and ends","n3d":"Start here","n4.h":"Nearby islands","n4":"Further out, for a longer day on the water","n4d":"Further out","near.note":"Not sure where to go? Ask us at the briefing, we know these waters.",
  "book.h":"Tell us your day","book.sub":"Fill this in and WhatsApp opens with the message ready. No payment, no account. We confirm by message.","book.sumh":"Your request",
- "f.boat":"Boat","f.b1s":"for 4","f.b2":"Family boat","f.b2s":"smaller","f.b3":"Big group","f.b3s":"up to 10","f.b4":"Not sure","f.b4s":"help me choose","f.date":"Date","f.days":"Days","f.people":"People","f.warn":"The Beneteau 550 is for 4. For more people, pick another boat or ask us.","f.skip":"Skipper","f.yes":"Yes, please","f.yess":"on request","f.no":"No","f.nos":"we drive","f.name":"Your name","f.nameph":"e.g. Anna","f.send":"Send via WhatsApp","f.fine":"Opens WhatsApp with your request prefilled. You can still edit it before sending.",
+ "f.boat":"Boat","f.b1s":"up to 6","f.b2":"Family boat","f.b2s":"Elan 18 CC, up to 5","f.b3":"Big group","f.b3s":"up to 10","f.b4":"Not sure","f.b4s":"help me choose","f.date":"Date","f.days":"Days","f.people":"People","f.warn":"This boat takes up to {n} people. For more, pick another boat or ask us.","f.skip":"Skipper","f.yes":"Yes, please","f.yess":"ask us","f.no":"No","f.nos":"we drive","f.name":"Your name","f.nameph":"e.g. Anna","f.send":"Send via WhatsApp","f.fine":"Opens WhatsApp with your request prefilled. You can still edit it before sending.",
  "faq.h":"Quick answers","faq.sub":"Anything else, just ask on WhatsApp.",
- "q1":"Do I need a boat licence?","a1":"Ask us. Tell us which boat you want and we tell you what you need.","q2":"Can we rent with a skipper?","a2":"A skipper is available on request. Ask us when you book.","q3":"How many people fit on a boat?","a3":"We have boats from smaller ones up to a large boat for 10 people. The Beneteau 550 Flyer Sundeck is for 4.","q4":"Is there a deposit, and how does fuel work?","a4":"Ask us. We explain both when you book and again at the briefing at the boat.","q5":"Where do we park?","a5":"There is plenty of parking nearby, right by the harbour exit at Obala 107, Punat.","q6":"How do I book?","a6":"Send your request from this page or write to +385 91 457 5566 on WhatsApp. We confirm by message.",
- "c.h":"Find us at the harbour exit","c.isl":"island of Krk","c.wa":"Phone and WhatsApp","c.daily":"Daily, in season","c.parkv":"Plenty nearby","c.map":"Open in Maps",
- "foot.p":"Motorboat rental right at the exit of Punat harbour, island of Krk.","foot.visit":"Visit","foot.talk":"Talk to us","foot.explore":"Explore","fab":"Book","bar.btn":"Send",
- "boat.b550":"Beneteau 550","boat.family":"Family boat","boat.big":"Big group boat","boat.any":"Help me choose","d.1":"1 day","d.n":"{n} days","p.1":"1 person","p.n":"{n} people","sk.yes":"with skipper","sk.no":"without skipper","d.pick":"pick a date",
+ "q1":"Do I need a boat licence?","a1":"Yes. Renting a boat is only possible with a valid boat licence.","q2":"Can we rent with a skipper?","a2":"Ask us when you book and we tell you whether a skipper is possible on your date.","q3":"How many people fit on a boat?","a3":"Our 17 boats take from 5 to 10 people. The Beneteau Flyer 550 Sun Deck takes up to 6, the Beneteau Flyer 7.7 SD up to 10.","q4":"Is there a deposit, and how does fuel work?","a4":"The boat comes with a full tank and goes back full. For the deposit, just ask us: we explain it when you book.","q5":"Where do we park?","a5":"There is plenty of parking nearby, close to the harbour at Obala 107, Punat.","q6":"How do I book?","a6":"Send your request from this page or write to +385 91 457 5566 on WhatsApp. We confirm by message.",
+ "c.h":"Find us in Punat harbour","c.isl":"island of Krk","c.wa":"Phone and WhatsApp","c.daily":"Daily, in season","c.parkv":"Plenty nearby","c.map":"Open in Maps",
+ "foot.p":"The oldest boat rental on the island of Krk. 17 boats in the centre of Punat harbour.","foot.visit":"Visit","foot.talk":"Talk to us","foot.explore":"Explore","fab":"Book","bar.btn":"Send",
+ "boat.b550":"Beneteau 550","boat.family":"Elan 18 CC","boat.big":"Beneteau Flyer 7.7","boat.any":"Help me choose","d.1":"1 day","d.n":"{n} days","p.1":"1 person","p.n":"{n} people","sk.yes":"with skipper","sk.no":"without skipper","d.pick":"pick a date",
+ "fl.sum":"See all 17 boats","fl.boat":"Boat","fl.eng":"Engine","fl.ppl":"People","req":"Required","gtk.ci":"Check-in and check-out","gtk.civ":"Check-in at 09:00, check-out by 19:00.","gtk.per":"Rental period","gtk.perv":"By the day or by the week.","gtk.safe":"Safety","gtk.safev":"Every boat has complete safety gear on board.","q7":"Can you recommend a place to stay in Punat?","a7":"Yes. The Orlić family apartments in Punat are about 300 m from the beach: Apartment Irena for up to 5, Apartment Nikola for up to 4 and a studio for 2. Air conditioning, Wi-Fi, satellite TV, terrace, barbecue and parking. Ask us for details.","c.ci":"Check-in / check-out",
  "wa.msg":"Hi Rent a Boat Punat! I would like to rent a boat.\nBoat: {boat}\nDate: {date}\nDays: {days}\nPeople: {people}\nSkipper: {skip}\nName: {name}\nIs it available?"
 },
 de:{
  "logo.sub":"Motorbootverleih · Krk","nav.book":"Boot buchen","nav.menu":"MENÜ","ovl.fleet":"Boote","ovl.how":"So geht es","ovl.gtk":"Gut zu wissen","ovl.nearby":"In der Nähe","ovl.book":"Buchung","ovl.faq":"FAQ","ovl.contact":"Kontakt","cta.wa":"Per WhatsApp schreiben","ovl.hours":"Täglich 08:00 bis 20:00 in der Saison","concept":"Konzept: Marija","sub.intro":"Über uns",
- "hero.label":"Hafen Punat · Insel Krk","hero.t1":"Dein eigenes Boot,","hero.t2":"die ganze Bucht vor dir","hero.sub":"Motorbootverleih in Punat","hero.txt":"Boote direkt an der Hafenausfahrt von Punat. Erreiche die schönsten Strände von Krk und die Inseln in der Nähe, in deinem eigenen Tempo.","hero.addr":"Obala 107, Punat · Google 4,9 aus 128 Bewertungen","hero.cta":"Boot buchen","hint.touch":"Berühren zum Umschauen","hint.mouse":"Maus bewegen zum Umschauen",
+ "hero.label":"Hafen Punat · Insel Krk","hero.t1":"Dein eigenes Boot,","hero.t2":"die ganze Bucht vor dir","hero.sub":"Motorbootverleih in Punat","hero.txt":"17 Boote mitten im Hafen von Punat. Erreiche die schönsten Strände von Krk und die Inseln in der Nähe, in deinem eigenen Tempo.","hero.addr":"Obala 107, Punat · Google 4,9 aus 128 Bewertungen","hero.cta":"Boot buchen","hint.touch":"Berühren zum Umschauen","hint.mouse":"Maus bewegen zum Umschauen",
  "finder.s":"Datum wählen • {n}",
- "gal.label":"Auf dem Wasser","gal.h":"Ein Tag ab Punat","gal.sub":"Von der Hafenausfahrt zu den Stränden von Krk. Fünf Momente eines Tages mit eigenem Boot.",
- "gal.g1":"Punat, Krk","gal.g2":"Beneteau 550","gal.g3":"Strände von Krk","gal.g4":"Insel Krk","gal.g5":"Hafen Punat",
- "gal.c1":"Direkt an der Hafenausfahrt von Punat","gal.c2":"Beneteau 550 Flyer Sundeck, für 4","gal.c3":"Die schönsten Strände von Krk","gal.c4":"Krk und die Inseln in der Nähe, deine Route","gal.c5":"Zurück im Hafen, Parkplätze ganz nah",
- "intro.label":"Rent a Boat Punat","intro.h":"Familienbetrieb, direkt an der Hafenausfahrt","intro.lead":"Wir sind ein familiengeführter Bootsverleih an der Hafenausfahrt von Punat auf Krk. Du parkst in der Nähe, gehst zum Steg, und dein Boot wartet schon.","intro.p1":"Von kleineren Booten bis zu einem großen Boot für 10 Personen. Jedes Boot ist gut gepflegt, und vor der Abfahrt zeigen wir dir alles direkt am Boot.","intro.p2":"Buchen ist einfach: eine WhatsApp-Nachricht mit dem Tag und wie viele ihr seid, den Rest übernehmen wir. Faire Preise, freundliche Inhaber und Team.","intro.sig":"Inhaber und Team","gtk.rev":"Google-Bewertungen",
- "fleet.label":"Unsere Boote","fleet.h":"Vom kleinen Boot bis zum Boot für 10","fleet.sub":"Ein Blick auf die Flotte. Sag uns, wie viele ihr seid, und wir schlagen das passende Boot vor.",
+ "gal.label":"Auf dem Wasser","gal.h":"Ein Tag ab Punat","gal.sub":"Vom Hafen Punat zu den Buchten von Krk und weiter. Fünf Momente eines Tages mit eigenem Boot.",
+ "gal.g1":"Buchten von Krk","gal.g2":"Beneteau 550","gal.g3":"Strände von Krk","gal.g4":"Insel Krk","gal.g5":"Insel Rab",
+ "gal.c1":"Eine kleine Bucht mit Sandstrand","gal.c2":"Beneteau Flyer 550 Sun Deck, bis 6 Personen","gal.c3":"Die schönsten Strände von Krk","gal.c4":"Krk und die Inseln in der Nähe, deine Route","gal.c5":"Sonnenuntergang vor der Insel Rab",
+ "intro.label":"Rent a Boat Punat","intro.h":"Der älteste Bootsverleih auf Krk","intro.lead":"Wir sind der älteste Bootsverleih auf der Insel Krk, ein Familienbetrieb mit 17 Booten mitten im Hafen von Punat. Viele unserer Gäste kommen jeden Sommer wieder.","intro.p1":"Von Booten für 5 bis zur Beneteau Flyer 7.7 für 10 Personen. Jedes Boot hat eine komplette Sicherheitsausrüstung an Bord, und vor der Abfahrt zeigen wir dir alles direkt am Boot.","intro.p2":"Buchen ist einfach: eine WhatsApp-Nachricht mit dem Tag und wie viele ihr seid, den Rest übernehmen wir. Faire Preise, freundliche Inhaber und Team.","intro.sig":"Inhaber und Team","gtk.rev":"Google-Bewertungen",
+ "fleet.label":"Unsere Boote","fleet.h":"17 Boote, für 5 bis 10 Personen","fleet.sub":"Drei Beispiele aus der Flotte, die ganze Liste findest du unten. Sag uns, wie viele ihr seid, und wir schlagen das passende Boot vor.",
  "b.from":"Motorboot · ab","b.day":"pro Tag","b.pick":"Dieses Boot wählen",
- "b1.tag":"Für 4","b1.p":"Ein Motorboot für vier mit Sonnendeck am Bug. Schwimmen, in der Sonne liegen, weiter zur nächsten Bucht.","b1.l1":"Für 4 Personen","b1.l2":"Sonnendeck am Bug","b1.l3":"Einweisung am Boot vor der Abfahrt",
- "b2.tag":"Familien","b2.h":"Familienboot","b2.p":"Ein kleineres Boot für einen Familientag auf dem Wasser. Frag uns, welche Boote an deinen Tagen frei sind.","b2.l1":"Kleiner, für Familie oder ein paar Freunde","b2.l2":"Gut gepflegt","b2.l3":"Frag uns, welches Boot frei ist",
- "b3.tag":"Bis 10","b3.h":"Boot für große Gruppen","b3.p":"Ein großes Boot für die ganze Gruppe, bis zu 10 Personen. Skipper auf Anfrage, frag einfach.","b3.l1":"Bis zu 10 Personen","b3.l2":"Skipper auf Anfrage: frag uns","b3.l3":"Platz für die ganze Gruppe",
- "fleet.note":"Preise als XX € sind Beispiel-Platzhalter für dieses Konzept. Frag uns nach aktuellen Preisen und freien Booten.",
- "how.h":"Vier Schritte aufs Wasser","how.tag":"Hafenausfahrt Punat","s1.h":"Buchen","s1.p":"Wähle Boot, Datum und Personenzahl und schick es per WhatsApp. Wir bestätigen per Nachricht.","s2.h":"Einweisung am Boot","s2.p":"Park in der Nähe und komm zum Steg an der Hafenausfahrt. Wir zeigen dir das Boot und alles, was du brauchst.","s3.h":"Genießen","s3.p":"Fahr zu den Stränden und Buchten von Krk und zu den Inseln in der Nähe. Schwimmen, entdecken, Zeit lassen.","s4.h":"Zurückbringen","s4.p":"Bring das Boot zur vereinbarten Zeit zurück zur Hafenausfahrt. Das war es schon.",
- "gtk.h":"Bevor es losgeht","gtk.sub":"Die kurzen Antworten. Für alles andere ist eine WhatsApp der schnellste Weg.","ask":"Frag uns","gtk.lic":"Bootsführerschein","gtk.licv":"Sag uns, welches Boot du möchtest, und wir sagen dir, was du brauchst.","gtk.fuel":"Treibstoff","gtk.fuelv":"Wir erklären dir, wie es mit dem Treibstoff für dein Boot und deinen Tag läuft.","gtk.dep":"Kaution","gtk.depv":"Wir erklären es bei der Buchung.","gtk.park":"Parken","gtk.parkv":"Viele Parkplätze in der Nähe, direkt an der Hafenausfahrt.","gtk.skip":"Skipper","gtk.skipv":"Auf Anfrage.","gtk.hours":"Öffnungszeiten","gtk.hoursv":"Täglich 08:00 bis 20:00 in der Saison.",
- "near.h":"Wohin dich das Boot bringt","near.sub":"Punat liegt in einer Bucht auf der Insel Krk. Ab der Hafenausfahrt gehört dir die Küste.","near.tag":"Insel Krk","n1.h":"Strände und Buchten von Krk","n1":"Die schönsten Strände von Krk, vom Wasser aus erreicht","n1d":"Mit dem Boot","n2":"Die kleine grüne Insel in der Bucht, direkt vor Punat","n2d":"In der Bucht","n3":"Der Hafenort, wo dein Tag beginnt und endet","n3d":"Start hier","n4.h":"Inseln in der Nähe","n4":"Weiter draußen, für einen längeren Tag auf dem Wasser","n4d":"Weiter draußen","near.note":"Unsicher, wohin? Frag uns bei der Einweisung, wir kennen diese Gewässer.",
+ "b1.tag":"Bis 6","b1.p":"Ein Motorboot für bis zu sechs Personen mit Sonnendeck am Bug. Schwimmen, in der Sonne liegen, weiter zur nächsten Bucht.","b1.l1":"Bis zu 6 Personen","b1.l2":"Sonnendeck am Bug, Yamaha 115 PS","b1.l3":"Einweisung am Boot vor der Abfahrt",
+ "b2.tag":"Familien","b2.h":"Familienboot","b2.p":"Ein kompaktes Boot mit Mittelkonsole für einen Familientag auf dem Wasser. Wir haben zwei davon.","b2.l1":"Bis zu 5 Personen","b2.l2":"Suzuki 115 PS oder Yamaha 100 PS","b2.l3":"Frag uns, welches Boot frei ist",
+ "b3.tag":"Bis 10","b3.h":"Boot für große Gruppen","b3.p":"Unser größtes Boot, für die ganze Gruppe mit bis zu 10 Personen. Zwei Mercury-Motoren mit je 150 PS.","b3.l1":"Bis zu 10 Personen","b3.l2":"2 × Mercury 150 PS","b3.l3":"Platz für die ganze Gruppe",
+ "fleet.note":"Preise als XX € sind Beispiel-Platzhalter für dieses Konzept. Frag uns nach aktuellen Preisen und freien Booten. Miete tageweise oder wochenweise.",
+ "how.h":"Vier Schritte aufs Wasser","how.tag":"Hafen Punat","s1.h":"Buchen","s1.p":"Wähle Boot, Datum und Personenzahl und schick es per WhatsApp. Wir bestätigen per Nachricht.","s2.h":"Einweisung am Boot","s2.p":"Park in der Nähe und komm zum Steg mitten im Hafen von Punat. Check-in ist um 09:00. Wir zeigen dir das Boot und alles, was du brauchst.","s3.h":"Genießen","s3.p":"Fahr zu den Stränden und Buchten von Krk und zu den Inseln in der Nähe. Schwimmen, entdecken, Zeit lassen.","s4.h":"Zurückbringen","s4.p":"Bring das Boot bis 19:00 vollgetankt zurück. Das war es schon.",
+ "gtk.h":"Bevor es losgeht","gtk.sub":"Die kurzen Antworten. Für alles andere ist eine WhatsApp der schnellste Weg.","ask":"Frag uns","gtk.lic":"Bootsführerschein","gtk.licv":"Ein Boot mieten kannst du nur mit gültigem Bootsführerschein.","gtk.fuel":"Treibstoff","gtk.fuelv":"Dein Boot ist vollgetankt und wird vollgetankt zurückgegeben.","gtk.dep":"Kaution","gtk.depv":"Wir erklären es bei der Buchung.","gtk.park":"Parken","gtk.parkv":"Viele Parkplätze in der Nähe, nah am Hafen.","gtk.skip":"Skipper","gtk.skipv":"Frag uns, ob an deinem Termin ein Skipper möglich ist.","gtk.hours":"Öffnungszeiten","gtk.hoursv":"Täglich 08:00 bis 20:00 in der Saison.",
+ "near.h":"Wohin dich das Boot bringt","near.sub":"Punat liegt in einer Bucht auf der Insel Krk. Ab dem Hafen gehört dir die Küste.","near.tag":"Insel Krk","n1.h":"Strände und Buchten von Krk","n1":"Die schönsten Strände von Krk, vom Wasser aus erreicht","n1d":"Mit dem Boot","n2":"Die kleine grüne Insel in der Bucht, direkt vor Punat","n2d":"In der Bucht","n3":"Der Hafenort, wo dein Tag beginnt und endet","n3d":"Start hier","n4.h":"Inseln in der Nähe","n4":"Weiter draußen, für einen längeren Tag auf dem Wasser","n4d":"Weiter draußen","near.note":"Unsicher, wohin? Frag uns bei der Einweisung, wir kennen diese Gewässer.",
  "book.h":"Erzähl uns von deinem Tag","book.sub":"Ausfüllen, und WhatsApp öffnet sich mit fertiger Nachricht. Keine Zahlung, kein Konto. Wir bestätigen per Nachricht.","book.sumh":"Deine Anfrage",
- "f.boat":"Boot","f.b1s":"für 4","f.b2":"Familienboot","f.b2s":"kleiner","f.b3":"Große Gruppe","f.b3s":"bis 10","f.b4":"Unsicher","f.b4s":"hilf mir","f.date":"Datum","f.days":"Tage","f.people":"Personen","f.warn":"Die Beneteau 550 ist für 4. Für mehr Personen wähle ein anderes Boot oder frag uns.","f.skip":"Skipper","f.yes":"Ja, bitte","f.yess":"auf Anfrage","f.no":"Nein","f.nos":"wir fahren selbst","f.name":"Dein Name","f.nameph":"z. B. Anna","f.send":"Per WhatsApp senden","f.fine":"Öffnet WhatsApp mit deiner vorausgefüllten Anfrage. Du kannst sie vor dem Senden noch ändern.",
+ "f.boat":"Boot","f.b1s":"bis 6","f.b2":"Familienboot","f.b2s":"Elan 18 CC, bis 5","f.b3":"Große Gruppe","f.b3s":"bis 10","f.b4":"Unsicher","f.b4s":"hilf mir","f.date":"Datum","f.days":"Tage","f.people":"Personen","f.warn":"Dieses Boot ist für bis zu {n} Personen. Für mehr wähle ein anderes Boot oder frag uns.","f.skip":"Skipper","f.yes":"Ja, bitte","f.yess":"frag uns","f.no":"Nein","f.nos":"wir fahren selbst","f.name":"Dein Name","f.nameph":"z. B. Anna","f.send":"Per WhatsApp senden","f.fine":"Öffnet WhatsApp mit deiner vorausgefüllten Anfrage. Du kannst sie vor dem Senden noch ändern.",
  "faq.h":"Kurze Antworten","faq.sub":"Alles andere einfach per WhatsApp fragen.",
- "q1":"Brauche ich einen Bootsführerschein?","a1":"Frag uns. Sag uns, welches Boot du möchtest, und wir sagen dir, was du brauchst.","q2":"Können wir mit Skipper mieten?","a2":"Ein Skipper ist auf Anfrage möglich. Frag uns bei der Buchung.","q3":"Wie viele Personen passen auf ein Boot?","a3":"Wir haben Boote von kleineren bis zu einem großen Boot für 10 Personen. Die Beneteau 550 Flyer Sundeck ist für 4.","q4":"Gibt es eine Kaution, und wie läuft es mit dem Treibstoff?","a4":"Frag uns. Wir erklären beides bei der Buchung und noch einmal bei der Einweisung am Boot.","q5":"Wo können wir parken?","a5":"Es gibt viele Parkplätze in der Nähe, direkt an der Hafenausfahrt, Obala 107, Punat.","q6":"Wie buche ich?","a6":"Schick deine Anfrage von dieser Seite oder schreib per WhatsApp an +385 91 457 5566. Wir bestätigen per Nachricht.",
- "c.h":"Du findest uns an der Hafenausfahrt","c.isl":"Insel Krk","c.wa":"Telefon und WhatsApp","c.daily":"Täglich, in der Saison","c.parkv":"Viele in der Nähe","c.map":"In Karten öffnen",
- "foot.p":"Motorbootverleih direkt an der Hafenausfahrt von Punat, Insel Krk.","foot.visit":"Besuch","foot.talk":"Kontakt","foot.explore":"Entdecken","fab":"Buchen","bar.btn":"Senden",
- "boat.b550":"Beneteau 550","boat.family":"Familienboot","boat.big":"Boot für große Gruppen","boat.any":"Bitte Boot vorschlagen","d.1":"1 Tag","d.n":"{n} Tage","p.1":"1 Person","p.n":"{n} Personen","sk.yes":"mit Skipper","sk.no":"ohne Skipper","d.pick":"Datum wählen",
+ "q1":"Brauche ich einen Bootsführerschein?","a1":"Ja. Ein Boot mieten kannst du nur mit gültigem Bootsführerschein.","q2":"Können wir mit Skipper mieten?","a2":"Frag uns bei der Buchung, dann sagen wir dir, ob an deinem Termin ein Skipper möglich ist.","q3":"Wie viele Personen passen auf ein Boot?","a3":"Unsere 17 Boote sind für 5 bis 10 Personen. Die Beneteau Flyer 550 Sun Deck ist für bis zu 6, die Beneteau Flyer 7.7 SD für bis zu 10 Personen.","q4":"Gibt es eine Kaution, und wie läuft es mit dem Treibstoff?","a4":"Das Boot ist vollgetankt und wird vollgetankt zurückgegeben. Zur Kaution frag uns einfach: Wir erklären es bei der Buchung.","q5":"Wo können wir parken?","a5":"Es gibt viele Parkplätze in der Nähe, nah am Hafen, Obala 107, Punat.","q6":"Wie buche ich?","a6":"Schick deine Anfrage von dieser Seite oder schreib per WhatsApp an +385 91 457 5566. Wir bestätigen per Nachricht.",
+ "c.h":"Du findest uns im Hafen von Punat","c.isl":"Insel Krk","c.wa":"Telefon und WhatsApp","c.daily":"Täglich, in der Saison","c.parkv":"Viele in der Nähe","c.map":"In Karten öffnen",
+ "foot.p":"Der älteste Bootsverleih auf der Insel Krk. 17 Boote mitten im Hafen von Punat.","foot.visit":"Besuch","foot.talk":"Kontakt","foot.explore":"Entdecken","fab":"Buchen","bar.btn":"Senden",
+ "boat.b550":"Beneteau 550","boat.family":"Elan 18 CC","boat.big":"Beneteau Flyer 7.7","boat.any":"Bitte Boot vorschlagen","d.1":"1 Tag","d.n":"{n} Tage","p.1":"1 Person","p.n":"{n} Personen","sk.yes":"mit Skipper","sk.no":"ohne Skipper","d.pick":"Datum wählen",
+ "fl.sum":"Alle 17 Boote ansehen","fl.boat":"Boot","fl.eng":"Motor","fl.ppl":"Personen","req":"Pflicht","gtk.ci":"Check-in und Check-out","gtk.civ":"Check-in um 09:00, Check-out bis 19:00.","gtk.per":"Mietdauer","gtk.perv":"Tageweise oder wochenweise.","gtk.safe":"Sicherheit","gtk.safev":"Jedes Boot hat eine komplette Sicherheitsausrüstung an Bord.","q7":"Könnt ihr eine Unterkunft in Punat empfehlen?","a7":"Ja. Die Apartments der Familie Orlić in Punat liegen etwa 300 m vom Strand: Apartment Irena für bis zu 5, Apartment Nikola für bis zu 4 und ein Studio für 2 Personen. Klimaanlage, WLAN, Sat-TV, Terrasse, Grill und Parkplatz. Frag uns nach Details.","c.ci":"Check-in / Check-out",
  "wa.msg":"Hallo Rent a Boat Punat! Ich möchte ein Boot mieten.\nBoot: {boat}\nDatum: {date}\nTage: {days}\nPersonen: {people}\nSkipper: {skip}\nName: {name}\nIst es verfügbar?"
 },
 it:{
  "logo.sub":"Noleggio barche a motore · Krk","nav.book":"Prenota una barca","nav.menu":"MENU","ovl.fleet":"Barche","ovl.how":"Come funziona","ovl.gtk":"Buono a sapersi","ovl.nearby":"Nei dintorni","ovl.book":"Prenotazione","ovl.faq":"FAQ","ovl.contact":"Contatti","cta.wa":"Scrivici su WhatsApp","ovl.hours":"Ogni giorno 08:00 alle 20:00 in stagione","concept":"Concept di Marija","sub.intro":"Chi siamo",
- "hero.label":"Porto di Punat · Isola di Krk","hero.t1":"La tua barca,","hero.t2":"tutta la baia davanti","hero.sub":"Noleggio barche a motore a Punat","hero.txt":"Barche proprio all'uscita del porto di Punat. Raggiungi le spiagge più spettacolari di Krk e le isole vicine, con i tuoi tempi.","hero.addr":"Obala 107, Punat · Google 4,9 da 128 recensioni","hero.cta":"Prenota una barca","hint.touch":"Tocca per guardarti intorno","hint.mouse":"Muovi il mouse per guardarti intorno",
+ "hero.label":"Porto di Punat · Isola di Krk","hero.t1":"La tua barca,","hero.t2":"tutta la baia davanti","hero.sub":"Noleggio barche a motore a Punat","hero.txt":"17 barche nel centro del porto di Punat. Raggiungi le spiagge più spettacolari di Krk e le isole vicine, con i tuoi tempi.","hero.addr":"Obala 107, Punat · Google 4,9 da 128 recensioni","hero.cta":"Prenota una barca","hint.touch":"Tocca per guardarti intorno","hint.mouse":"Muovi il mouse per guardarti intorno",
  "finder.s":"Scegli una data • {n}",
- "gal.label":"Sull'acqua","gal.h":"Una giornata da Punat","gal.sub":"Dall'uscita del porto alle spiagge di Krk. Cinque momenti di una giornata sulla tua barca.",
- "gal.g1":"Punat, Krk","gal.g2":"Beneteau 550","gal.g3":"Spiagge di Krk","gal.g4":"Isola di Krk","gal.g5":"Porto di Punat",
- "gal.c1":"Proprio all'uscita del porto di Punat","gal.c2":"Beneteau 550 Flyer Sundeck, per 4","gal.c3":"Le spiagge più spettacolari di Krk","gal.c4":"Krk e le isole vicine, il tuo itinerario","gal.c5":"Di nuovo in porto, parcheggio vicino",
- "intro.label":"Rent a Boat Punat","intro.h":"Gestione familiare, all'uscita del porto","intro.lead":"Siamo un noleggio barche a gestione familiare all'uscita del porto di Punat, sull'isola di Krk. Parcheggi vicino, scendi al molo e la tua barca ti aspetta.","intro.p1":"Da barche più piccole fino a una grande barca per 10 persone. Ogni barca è ben tenuta, e prima di partire ti spieghiamo tutto direttamente in barca.","intro.p2":"Prenotare è facile: un messaggio WhatsApp con il giorno e quanti siete, al resto pensiamo noi. Prezzi onesti, titolari e staff cordiali.","intro.sig":"Titolari e team","gtk.rev":"recensioni Google",
- "fleet.label":"Le nostre barche","fleet.h":"Dalle barche piccole a una barca per 10","fleet.sub":"Uno sguardo alla flotta. Dicci quanti siete e ti consigliamo la barca giusta.",
+ "gal.label":"Sull'acqua","gal.h":"Una giornata da Punat","gal.sub":"Dal porto di Punat alle baie di Krk e oltre. Cinque momenti di una giornata sulla tua barca.",
+ "gal.g1":"Baie di Krk","gal.g2":"Beneteau 550","gal.g3":"Spiagge di Krk","gal.g4":"Isola di Krk","gal.g5":"Isola di Rab",
+ "gal.c1":"Una piccola baia con spiaggia di sabbia","gal.c2":"Beneteau Flyer 550 Sun Deck, fino a 6","gal.c3":"Le spiagge più spettacolari di Krk","gal.c4":"Krk e le isole vicine, il tuo itinerario","gal.c5":"Tramonto vicino all'isola di Rab",
+ "intro.label":"Rent a Boat Punat","intro.h":"Il noleggio barche più antico di Krk","intro.lead":"Siamo il noleggio barche più antico dell'isola di Krk, a gestione familiare, con 17 barche nel centro del porto di Punat. Molti ospiti tornano da noi ogni estate.","intro.p1":"Da barche per 5 fino alla Beneteau Flyer 7.7 per 10 persone. Ogni barca ha a bordo l'equipaggiamento di sicurezza completo, e prima di partire ti spieghiamo tutto direttamente in barca.","intro.p2":"Prenotare è facile: un messaggio WhatsApp con il giorno e quanti siete, al resto pensiamo noi. Prezzi onesti, titolari e staff cordiali.","intro.sig":"Titolari e team","gtk.rev":"recensioni Google",
+ "fleet.label":"Le nostre barche","fleet.h":"17 barche, da 5 a 10 persone","fleet.sub":"Tre esempi dalla flotta, l'elenco completo è qui sotto. Dicci quanti siete e ti consigliamo la barca giusta.",
  "b.from":"Barca a motore · da","b.day":"al giorno","b.pick":"Scegli questa barca",
- "b1.tag":"Per 4","b1.p":"Una barca a motore per quattro con prendisole a prua. Un bagno, un po' di sole, poi via verso la baia successiva.","b1.l1":"Per 4 persone","b1.l2":"Prendisole a prua","b1.l3":"Briefing in barca prima di partire",
- "b2.tag":"Famiglie","b2.h":"Barca per famiglie","b2.p":"Una barca più piccola per una giornata in famiglia sull'acqua. Chiedici quali barche sono libere nelle tue date.","b2.l1":"Più piccola, per una famiglia o pochi amici","b2.l2":"Ben tenuta","b2.l3":"Chiedici quale barca è libera",
- "b3.tag":"Fino a 10","b3.h":"Barca per gruppi","b3.p":"Una grande barca per tutto il gruppo, fino a 10 persone. Skipper su richiesta, basta chiedere.","b3.l1":"Fino a 10 persone","b3.l2":"Skipper su richiesta: chiedici","b3.l3":"Spazio per tutto il gruppo",
- "fleet.note":"I prezzi indicati come XX € sono segnaposto di esempio per questa proposta. Chiedici i prezzi attuali e quali barche sono libere.",
- "how.h":"Quattro passi verso il mare","how.tag":"Uscita del porto di Punat","s1.h":"Prenota","s1.p":"Scegli barca, data e numero di persone e invia tutto su WhatsApp. Confermiamo con un messaggio.","s2.h":"Briefing in barca","s2.p":"Parcheggia vicino e vieni al molo all'uscita del porto. Ti mostriamo la barca e tutto quello che ti serve prima di partire.","s3.h":"Goditela","s3.p":"Vai verso le spiagge e le baie di Krk e le isole vicine. Nuota, esplora, prenditi il tuo tempo.","s4.h":"Rientro","s4.p":"Riporta la barca all'uscita del porto all'orario concordato. Tutto qui.",
- "gtk.h":"Prima di partire","gtk.sub":"Le risposte brevi. Per tutto il resto, un WhatsApp è il modo più veloce.","ask":"Chiedici","gtk.lic":"Patente nautica","gtk.licv":"Dicci quale barca vuoi e ti diciamo cosa serve.","gtk.fuel":"Carburante","gtk.fuelv":"Ti spieghiamo come funziona il carburante per la tua barca e la tua giornata.","gtk.dep":"Cauzione","gtk.depv":"Te la spieghiamo al momento della prenotazione.","gtk.park":"Parcheggio","gtk.parkv":"Tanto parcheggio vicino, proprio all'uscita del porto.","gtk.skip":"Skipper","gtk.skipv":"Disponibile su richiesta.","gtk.hours":"Orari","gtk.hoursv":"Aperto ogni giorno 08:00 alle 20:00 in stagione.",
- "near.h":"Dove ti porta la barca","near.sub":"Punat si trova in una baia sull'isola di Krk. Dall'uscita del porto, la costa è tua.","near.tag":"Isola di Krk","n1.h":"Spiagge e baie di Krk","n1":"Le spiagge più spettacolari di Krk, raggiunte dal mare","n1d":"In barca","n2":"La piccola isola verde nella baia, proprio davanti a Punat","n2d":"Nella baia","n3":"Il paese col porto dove la giornata inizia e finisce","n3d":"Si parte qui","n4.h":"Isole vicine","n4":"Più al largo, per una giornata più lunga in mare","n4d":"Più al largo","near.note":"Non sai dove andare? Chiedici al briefing, conosciamo queste acque.",
+ "b1.tag":"Fino a 6","b1.p":"Una barca a motore fino a sei persone con prendisole a prua. Un bagno, un po' di sole, poi via verso la baia successiva.","b1.l1":"Fino a 6 persone","b1.l2":"Prendisole a prua, Yamaha 115 CV","b1.l3":"Briefing in barca prima di partire",
+ "b2.tag":"Famiglie","b2.h":"Barca per famiglie","b2.p":"Una barca compatta con consolle centrale per una giornata in famiglia sull'acqua. Ne abbiamo due.","b2.l1":"Fino a 5 persone","b2.l2":"Suzuki 115 CV o Yamaha 100 CV","b2.l3":"Chiedici quale barca è libera",
+ "b3.tag":"Fino a 10","b3.h":"Barca per gruppi","b3.p":"La nostra barca più grande, per tutto il gruppo fino a 10 persone. Due motori Mercury da 150 CV.","b3.l1":"Fino a 10 persone","b3.l2":"2 × Mercury 150 CV","b3.l3":"Spazio per tutto il gruppo",
+ "fleet.note":"I prezzi indicati come XX € sono segnaposto di esempio per questa proposta. Chiedici i prezzi attuali e quali barche sono libere. Noleggio giornaliero o settimanale.",
+ "how.h":"Quattro passi verso il mare","how.tag":"Porto di Punat","s1.h":"Prenota","s1.p":"Scegli barca, data e numero di persone e invia tutto su WhatsApp. Confermiamo con un messaggio.","s2.h":"Briefing in barca","s2.p":"Parcheggia vicino e vieni al molo nel centro del porto di Punat. Il check-in è alle 09:00. Ti mostriamo la barca e tutto quello che ti serve prima di partire.","s3.h":"Goditela","s3.p":"Vai verso le spiagge e le baie di Krk e le isole vicine. Nuota, esplora, prenditi il tuo tempo.","s4.h":"Rientro","s4.p":"Riporta la barca entro le 19:00 con il pieno. Tutto qui.",
+ "gtk.h":"Prima di partire","gtk.sub":"Le risposte brevi. Per tutto il resto, un WhatsApp è il modo più veloce.","ask":"Chiedici","gtk.lic":"Patente nautica","gtk.licv":"Il noleggio è possibile solo con una patente nautica valida.","gtk.fuel":"Carburante","gtk.fuelv":"La barca ti viene consegnata con il pieno e va riconsegnata con il pieno.","gtk.dep":"Cauzione","gtk.depv":"Te la spieghiamo al momento della prenotazione.","gtk.park":"Parcheggio","gtk.parkv":"Tanto parcheggio vicino, a due passi dal porto.","gtk.skip":"Skipper","gtk.skipv":"Chiedici se nella tua data è possibile avere uno skipper.","gtk.hours":"Orari","gtk.hoursv":"Aperto ogni giorno 08:00 alle 20:00 in stagione.",
+ "near.h":"Dove ti porta la barca","near.sub":"Punat si trova in una baia sull'isola di Krk. Dal porto, la costa è tua.","near.tag":"Isola di Krk","n1.h":"Spiagge e baie di Krk","n1":"Le spiagge più spettacolari di Krk, raggiunte dal mare","n1d":"In barca","n2":"La piccola isola verde nella baia, proprio davanti a Punat","n2d":"Nella baia","n3":"Il paese col porto dove la giornata inizia e finisce","n3d":"Si parte qui","n4.h":"Isole vicine","n4":"Più al largo, per una giornata più lunga in mare","n4d":"Più al largo","near.note":"Non sai dove andare? Chiedici al briefing, conosciamo queste acque.",
  "book.h":"Raccontaci la tua giornata","book.sub":"Compila e si apre WhatsApp con il messaggio pronto. Nessun pagamento, nessun account. Confermiamo con un messaggio.","book.sumh":"La tua richiesta",
- "f.boat":"Barca","f.b1s":"per 4","f.b2":"Per famiglie","f.b2s":"più piccola","f.b3":"Gruppo","f.b3s":"fino a 10","f.b4":"Non so","f.b4s":"aiutatemi","f.date":"Data","f.days":"Giorni","f.people":"Persone","f.warn":"La Beneteau 550 è per 4. Per più persone scegli un'altra barca o chiedici.","f.skip":"Skipper","f.yes":"Sì, grazie","f.yess":"su richiesta","f.no":"No","f.nos":"guidiamo noi","f.name":"Il tuo nome","f.nameph":"es. Anna","f.send":"Invia su WhatsApp","f.fine":"Apre WhatsApp con la richiesta precompilata. Puoi ancora modificarla prima di inviare.",
+ "f.boat":"Barca","f.b1s":"fino a 6","f.b2":"Per famiglie","f.b2s":"Elan 18 CC, fino a 5","f.b3":"Gruppo","f.b3s":"fino a 10","f.b4":"Non so","f.b4s":"aiutatemi","f.date":"Data","f.days":"Giorni","f.people":"Persone","f.warn":"Questa barca porta fino a {n} persone. Per più persone scegli un'altra barca o chiedici.","f.skip":"Skipper","f.yes":"Sì, grazie","f.yess":"chiedici","f.no":"No","f.nos":"guidiamo noi","f.name":"Il tuo nome","f.nameph":"es. Anna","f.send":"Invia su WhatsApp","f.fine":"Apre WhatsApp con la richiesta precompilata. Puoi ancora modificarla prima di inviare.",
  "faq.h":"Risposte rapide","faq.sub":"Per tutto il resto, chiedici su WhatsApp.",
- "q1":"Serve la patente nautica?","a1":"Chiedici. Dicci quale barca vuoi e ti diciamo cosa serve.","q2":"Si può noleggiare con skipper?","a2":"Lo skipper è disponibile su richiesta. Chiedici quando prenoti.","q3":"Quante persone entrano in una barca?","a3":"Abbiamo barche dalle più piccole fino a una grande barca per 10 persone. La Beneteau 550 Flyer Sundeck è per 4.","q4":"C'è una cauzione, e come funziona il carburante?","a4":"Chiedici. Ti spieghiamo entrambe le cose quando prenoti e di nuovo al briefing in barca.","q5":"Dove parcheggiamo?","a5":"C'è tanto parcheggio vicino, proprio all'uscita del porto, Obala 107, Punat.","q6":"Come prenoto?","a6":"Invia la richiesta da questa pagina o scrivi su WhatsApp al +385 91 457 5566. Confermiamo con un messaggio.",
- "c.h":"Ci trovi all'uscita del porto","c.isl":"isola di Krk","c.wa":"Telefono e WhatsApp","c.daily":"Ogni giorno, in stagione","c.parkv":"Tanto, vicino","c.map":"Apri in Mappe",
- "foot.p":"Noleggio barche a motore proprio all'uscita del porto di Punat, isola di Krk.","foot.visit":"Dove","foot.talk":"Parla con noi","foot.explore":"Esplora","fab":"Prenota","bar.btn":"Invia",
- "boat.b550":"Beneteau 550","boat.family":"Barca per famiglie","boat.big":"Barca per gruppi","boat.any":"Consigliatemi voi","d.1":"1 giorno","d.n":"{n} giorni","p.1":"1 persona","p.n":"{n} persone","sk.yes":"con skipper","sk.no":"senza skipper","d.pick":"scegli una data",
+ "q1":"Serve la patente nautica?","a1":"Sì. Il noleggio è possibile solo con una patente nautica valida.","q2":"Si può noleggiare con skipper?","a2":"Chiedici quando prenoti e ti diciamo se nella tua data è possibile avere uno skipper.","q3":"Quante persone entrano in una barca?","a3":"Le nostre 17 barche portano da 5 a 10 persone. La Beneteau Flyer 550 Sun Deck fino a 6, la Beneteau Flyer 7.7 SD fino a 10.","q4":"C'è una cauzione, e come funziona il carburante?","a4":"La barca ha il pieno alla consegna e va riconsegnata con il pieno. Per la cauzione chiedici: te la spieghiamo quando prenoti.","q5":"Dove parcheggiamo?","a5":"C'è tanto parcheggio vicino, a due passi dal porto, Obala 107, Punat.","q6":"Come prenoto?","a6":"Invia la richiesta da questa pagina o scrivi su WhatsApp al +385 91 457 5566. Confermiamo con un messaggio.",
+ "c.h":"Ci trovi nel porto di Punat","c.isl":"isola di Krk","c.wa":"Telefono e WhatsApp","c.daily":"Ogni giorno, in stagione","c.parkv":"Tanto, vicino","c.map":"Apri in Mappe",
+ "foot.p":"Il noleggio barche più antico dell'isola di Krk. 17 barche nel centro del porto di Punat.","foot.visit":"Dove","foot.talk":"Parla con noi","foot.explore":"Esplora","fab":"Prenota","bar.btn":"Invia",
+ "boat.b550":"Beneteau 550","boat.family":"Elan 18 CC","boat.big":"Beneteau Flyer 7.7","boat.any":"Consigliatemi voi","d.1":"1 giorno","d.n":"{n} giorni","p.1":"1 persona","p.n":"{n} persone","sk.yes":"con skipper","sk.no":"senza skipper","d.pick":"scegli una data",
+ "fl.sum":"Vedi tutte le 17 barche","fl.boat":"Barca","fl.eng":"Motore","fl.ppl":"Persone","req":"Obbligatoria","gtk.ci":"Check-in e check-out","gtk.civ":"Check-in alle 09:00, check-out entro le 19:00.","gtk.per":"Durata del noleggio","gtk.perv":"A giornata o a settimana.","gtk.safe":"Sicurezza","gtk.safev":"Ogni barca ha a bordo l'equipaggiamento di sicurezza completo.","q7":"Ci consigliate un alloggio a Punat?","a7":"Sì. Gli appartamenti della famiglia Orlić a Punat sono a circa 300 m dalla spiaggia: Appartamento Irena fino a 5 persone, Appartamento Nikola fino a 4 e uno studio per 2. Aria condizionata, Wi-Fi, TV satellitare, terrazza, barbecue e parcheggio. Chiedici i dettagli.","c.ci":"Check-in / check-out",
  "wa.msg":"Ciao Rent a Boat Punat! Vorrei noleggiare una barca.\nBarca: {boat}\nData: {date}\nGiorni: {days}\nPersone: {people}\nSkipper: {skip}\nNome: {name}\nÈ disponibile?"
 },
 hr:{
  "logo.sub":"Najam glisera · Krk","nav.book":"Rezerviraj brod","nav.menu":"IZBORNIK","ovl.fleet":"Brodovi","ovl.how":"Kako funkcionira","ovl.gtk":"Dobro je znati","ovl.nearby":"U blizini","ovl.book":"Rezervacija","ovl.faq":"Česta pitanja","ovl.contact":"Kontakt","cta.wa":"Piši nam na WhatsApp","ovl.hours":"Svaki dan 08:00 do 20:00 u sezoni","concept":"Koncept: Marija","sub.intro":"O nama",
- "hero.label":"Luka Punat · Otok Krk","hero.t1":"Tvoj vlastiti brod,","hero.t2":"cijela uvala pred tobom","hero.sub":"Najam glisera u Puntu","hero.txt":"Brodovi odmah na izlazu iz luke Punat. Doplovite do najljepših plaža Krka i obližnjih otoka, svojim tempom.","hero.addr":"Obala 107, Punat · Google 4,9 iz 128 recenzija","hero.cta":"Rezerviraj brod","hint.touch":"Dodirni i razgledaj","hint.mouse":"Pomakni miš i razgledaj",
+ "hero.label":"Luka Punat · Otok Krk","hero.t1":"Tvoj vlastiti brod,","hero.t2":"cijela uvala pred tobom","hero.sub":"Najam glisera u Puntu","hero.txt":"17 brodova u središtu luke Punat. Doplovite do najljepših plaža Krka i obližnjih otoka, svojim tempom.","hero.addr":"Obala 107, Punat · Google 4,9 iz 128 recenzija","hero.cta":"Rezerviraj brod","hint.touch":"Dodirni i razgledaj","hint.mouse":"Pomakni miš i razgledaj",
  "finder.s":"Odaberi datum • {n}",
- "gal.label":"Na moru","gal.h":"Dan na moru iz Punta","gal.sub":"Od izlaza iz luke do plaža Krka. Pet trenutaka dana na vlastitom brodu.",
- "gal.g1":"Punat, Krk","gal.g2":"Beneteau 550","gal.g3":"Plaže Krka","gal.g4":"Otok Krk","gal.g5":"Luka Punat",
- "gal.c1":"Odmah na izlazu iz luke Punat","gal.c2":"Beneteau 550 Flyer Sundeck, za 4","gal.c3":"Najljepše plaže Krka","gal.c4":"Krk i obližnji otoci, vaša ruta","gal.c5":"Natrag u luci, parking blizu",
- "intro.label":"Rent a Boat Punat","intro.h":"Obiteljski, na samom izlazu iz luke","intro.lead":"Mi smo obiteljski najam brodova na izlazu iz luke Punat na Krku. Parkirate u blizini, spustite se do mola i brod vas već čeka.","intro.p1":"Od manjih brodova do velikog broda za 10 osoba. Svaki brod je dobro održavan, a prije polaska sve vam pokažemo na samom brodu.","intro.p2":"Rezervacija je jednostavna: jedna WhatsApp poruka s danom i brojem osoba, ostalo preuzimamo mi. Poštene cijene, ljubazni vlasnici i osoblje.","intro.sig":"Vlasnici i tim","gtk.rev":"Google recenzija",
- "fleet.label":"Naši brodovi","fleet.h":"Od malih brodova do broda za 10","fleet.sub":"Pogled na flotu. Recite nam koliko vas dolazi i predložit ćemo pravi brod.",
+ "gal.label":"Na moru","gal.h":"Dan na moru iz Punta","gal.sub":"Od luke Punat do uvala Krka i dalje. Pet trenutaka dana na vlastitom brodu.",
+ "gal.g1":"Uvale Krka","gal.g2":"Beneteau 550","gal.g3":"Plaže Krka","gal.g4":"Otok Krk","gal.g5":"Otok Rab",
+ "gal.c1":"Mala uvala s pješčanom plažom","gal.c2":"Beneteau Flyer 550 Sun Deck, do 6 osoba","gal.c3":"Najljepše plaže Krka","gal.c4":"Krk i obližnji otoci, vaša ruta","gal.c5":"Zalazak sunca kod otoka Raba",
+ "intro.label":"Rent a Boat Punat","intro.h":"Najstariji najam brodova na Krku","intro.lead":"Mi smo najstarija tvrtka za najam brodova na otoku Krku, obiteljska, sa 17 brodova u središtu luke Punat. Mnogi nam se gosti vraćaju svako ljeto.","intro.p1":"Od brodova za 5 osoba do Beneteau Flyer 7.7 za 10 osoba. Svaki brod ima kompletnu sigurnosnu opremu, a prije polaska sve vam pokažemo na samom brodu.","intro.p2":"Rezervacija je jednostavna: jedna WhatsApp poruka s danom i brojem osoba, ostalo preuzimamo mi. Poštene cijene, ljubazni vlasnici i osoblje.","intro.sig":"Vlasnici i tim","gtk.rev":"Google recenzija",
+ "fleet.label":"Naši brodovi","fleet.h":"17 brodova, od 5 do 10 osoba","fleet.sub":"Tri primjera iz flote, cijeli popis je ispod. Recite nam koliko vas dolazi i predložit ćemo pravi brod.",
  "b.from":"Gliser · od","b.day":"po danu","b.pick":"Odaberi ovaj brod",
- "b1.tag":"Za 4","b1.p":"Gliser za četvero sa sunčalištem na pramcu. Kupanje, sunce, pa dalje do sljedeće uvale.","b1.l1":"Za 4 osobe","b1.l2":"Sunčalište na pramcu","b1.l3":"Upute na brodu prije polaska",
- "b2.tag":"Obitelji","b2.h":"Obiteljski brod","b2.p":"Manji brod za obiteljski dan na moru. Pitajte nas koji su brodovi slobodni u vašem terminu.","b2.l1":"Manji, za obitelj ili par prijatelja","b2.l2":"Dobro održavan","b2.l3":"Pitajte nas koji je slobodan",
- "b3.tag":"Do 10","b3.h":"Brod za veće grupe","b3.p":"Jedan veliki brod za cijelu grupu, do 10 osoba. Skiper na upit, samo pitajte.","b3.l1":"Do 10 osoba","b3.l2":"Skiper na upit: pitajte nas","b3.l3":"Mjesta za cijelu grupu",
- "fleet.note":"Cijene prikazane kao XX € primjer su za ovaj prijedlog. Pitajte nas za aktualne cijene i slobodne brodove.",
- "how.h":"Četiri koraka do mora","how.tag":"Izlaz iz luke Punat","s1.h":"Rezervirajte","s1.p":"Odaberite brod, datum i broj osoba i pošaljite na WhatsApp. Potvrđujemo porukom.","s2.h":"Upute na brodu","s2.p":"Parkirajte u blizini i dođite do mola na izlazu iz luke. Pokažemo vam brod i sve što trebate prije polaska.","s3.h":"Uživajte","s3.p":"Zaplovite do plaža i uvala Krka i obližnjih otoka. Kupajte se, istražujte, ne žurite.","s4.h":"Povratak","s4.p":"Vratite brod na izlaz iz luke u dogovoreno vrijeme. To je sve.",
- "gtk.h":"Prije isplovljavanja","gtk.sub":"Kratki odgovori. Za sve ostalo, WhatsApp poruka je najbrža.","ask":"Pitajte","gtk.lic":"Dozvola za brod","gtk.licv":"Recite nam koji brod želite i reći ćemo vam što trebate.","gtk.fuel":"Gorivo","gtk.fuelv":"Objasnimo vam kako ide gorivo za vaš brod i vaš dan.","gtk.dep":"Polog","gtk.depv":"Objasnimo vam pri rezervaciji.","gtk.park":"Parking","gtk.parkv":"Puno parkinga u blizini, odmah uz izlaz iz luke.","gtk.skip":"Skiper","gtk.skipv":"Na upit.","gtk.hours":"Radno vrijeme","gtk.hoursv":"Svaki dan 08:00 do 20:00 u sezoni.",
- "near.h":"Kamo vas brod vodi","near.sub":"Punat leži u uvali na otoku Krku. Od izlaza iz luke, obala je vaša.","near.tag":"Otok Krk","n1.h":"Plaže i uvale Krka","n1":"Najljepše plaže Krka, s mora","n1d":"Brodom","n2":"Mali zeleni otočić u uvali, točno ispred Punta","n2d":"U uvali","n3":"Mjesto s lukom gdje vaš dan počinje i završava","n3d":"Polazak","n4.h":"Obližnji otoci","n4":"Malo dalje, za duži dan na moru","n4d":"Dalje","near.note":"Ne znate kamo? Pitajte nas na uputama, poznajemo ovo more.",
+ "b1.tag":"Do 6","b1.p":"Gliser za do šest osoba sa sunčalištem na pramcu. Kupanje, sunce, pa dalje do sljedeće uvale.","b1.l1":"Do 6 osoba","b1.l2":"Sunčalište na pramcu, Yamaha 115 KS","b1.l3":"Upute na brodu prije polaska",
+ "b2.tag":"Obitelji","b2.h":"Obiteljski brod","b2.p":"Kompaktan brod sa središnjom konzolom za obiteljski dan na moru. Imamo dva takva.","b2.l1":"Do 5 osoba","b2.l2":"Suzuki 115 KS ili Yamaha 100 KS","b2.l3":"Pitajte nas koji je slobodan",
+ "b3.tag":"Do 10","b3.h":"Brod za veće grupe","b3.p":"Naš najveći brod, za cijelu grupu do 10 osoba. Dva Mercury motora od po 150 KS.","b3.l1":"Do 10 osoba","b3.l2":"2 × Mercury 150 KS","b3.l3":"Mjesta za cijelu grupu",
+ "fleet.note":"Cijene prikazane kao XX € primjer su za ovaj prijedlog. Pitajte nas za aktualne cijene i slobodne brodove. Najam na dan ili na tjedan.",
+ "how.h":"Četiri koraka do mora","how.tag":"Luka Punat","s1.h":"Rezervirajte","s1.p":"Odaberite brod, datum i broj osoba i pošaljite na WhatsApp. Potvrđujemo porukom.","s2.h":"Upute na brodu","s2.p":"Parkirajte u blizini i dođite do mola u središtu luke Punat. Preuzimanje je u 09:00. Pokažemo vam brod i sve što trebate prije polaska.","s3.h":"Uživajte","s3.p":"Zaplovite do plaža i uvala Krka i obližnjih otoka. Kupajte se, istražujte, ne žurite.","s4.h":"Povratak","s4.p":"Vratite brod do 19:00 s punim spremnikom. To je sve.",
+ "gtk.h":"Prije isplovljavanja","gtk.sub":"Kratki odgovori. Za sve ostalo, WhatsApp poruka je najbrža.","ask":"Pitajte","gtk.lic":"Dozvola za brod","gtk.licv":"Najam broda moguć je samo uz važeću dozvolu za upravljanje brodicom.","gtk.fuel":"Gorivo","gtk.fuelv":"Brod dobivate s punim spremnikom i vraćate ga pun.","gtk.dep":"Polog","gtk.depv":"Objasnimo vam pri rezervaciji.","gtk.park":"Parking","gtk.parkv":"Puno parkinga u blizini, blizu luke.","gtk.skip":"Skiper","gtk.skipv":"Pitajte nas je li skiper moguć u vašem terminu.","gtk.hours":"Radno vrijeme","gtk.hoursv":"Svaki dan 08:00 do 20:00 u sezoni.",
+ "near.h":"Kamo vas brod vodi","near.sub":"Punat leži u uvali na otoku Krku. Od luke, obala je vaša.","near.tag":"Otok Krk","n1.h":"Plaže i uvale Krka","n1":"Najljepše plaže Krka, s mora","n1d":"Brodom","n2":"Mali zeleni otočić u uvali, točno ispred Punta","n2d":"U uvali","n3":"Mjesto s lukom gdje vaš dan počinje i završava","n3d":"Polazak","n4.h":"Obližnji otoci","n4":"Malo dalje, za duži dan na moru","n4d":"Dalje","near.note":"Ne znate kamo? Pitajte nas na uputama, poznajemo ovo more.",
  "book.h":"Recite nam o svom danu","book.sub":"Ispunite i otvara se WhatsApp s gotovom porukom. Bez plaćanja, bez računa. Potvrđujemo porukom.","book.sumh":"Vaš upit",
- "f.boat":"Brod","f.b1s":"za 4","f.b2":"Obiteljski","f.b2s":"manji","f.b3":"Veća grupa","f.b3s":"do 10","f.b4":"Ne znam","f.b4s":"pomozite","f.date":"Datum","f.days":"Dani","f.people":"Osobe","f.warn":"Beneteau 550 je za 4 osobe. Za više osoba odaberite drugi brod ili nas pitajte.","f.skip":"Skiper","f.yes":"Da, molim","f.yess":"na upit","f.no":"Ne","f.nos":"vozimo sami","f.name":"Vaše ime","f.nameph":"npr. Ana","f.send":"Pošalji na WhatsApp","f.fine":"Otvara WhatsApp s unaprijed ispunjenim upitom. Možete ga još urediti prije slanja.",
+ "f.boat":"Brod","f.b1s":"do 6","f.b2":"Obiteljski","f.b2s":"Elan 18 CC, do 5","f.b3":"Veća grupa","f.b3s":"do 10","f.b4":"Ne znam","f.b4s":"pomozite","f.date":"Datum","f.days":"Dani","f.people":"Osobe","f.warn":"Ovaj brod prima do {n} osoba. Za više osoba odaberite drugi brod ili nas pitajte.","f.skip":"Skiper","f.yes":"Da, molim","f.yess":"pitajte","f.no":"Ne","f.nos":"vozimo sami","f.name":"Vaše ime","f.nameph":"npr. Ana","f.send":"Pošalji na WhatsApp","f.fine":"Otvara WhatsApp s unaprijed ispunjenim upitom. Možete ga još urediti prije slanja.",
  "faq.h":"Brzi odgovori","faq.sub":"Za sve ostalo, pitajte na WhatsAppu.",
- "q1":"Treba li mi dozvola za brod?","a1":"Pitajte nas. Recite nam koji brod želite i reći ćemo vam što trebate.","q2":"Možemo li unajmiti brod sa skiperom?","a2":"Skiper je dostupan na upit. Pitajte nas pri rezervaciji.","q3":"Koliko osoba stane na brod?","a3":"Imamo brodove od manjih do velikog broda za 10 osoba. Beneteau 550 Flyer Sundeck je za 4 osobe.","q4":"Postoji li polog i kako ide gorivo?","a4":"Pitajte nas. Objasnimo oboje pri rezervaciji i ponovno na uputama na brodu.","q5":"Gdje možemo parkirati?","a5":"Puno parkinga je u blizini, odmah uz izlaz iz luke, Obala 107, Punat.","q6":"Kako rezerviram?","a6":"Pošaljite upit s ove stranice ili pišite na WhatsApp +385 91 457 5566. Potvrđujemo porukom.",
- "c.h":"Nađite nas na izlazu iz luke","c.isl":"otok Krk","c.wa":"Telefon i WhatsApp","c.daily":"Svaki dan, u sezoni","c.parkv":"Puno u blizini","c.map":"Otvori u Kartama",
- "foot.p":"Najam glisera odmah na izlazu iz luke Punat, otok Krk.","foot.visit":"Posjet","foot.talk":"Javite se","foot.explore":"Istraži","fab":"Rezerviraj","bar.btn":"Pošalji",
- "boat.b550":"Beneteau 550","boat.family":"Obiteljski brod","boat.big":"Brod za veće grupe","boat.any":"Predložite mi brod","d.1":"1 dan","d.n":"{n} dana","p.1":"1 osoba","p.n":"{n} osobe","p.n5":"{n} osoba","sk.yes":"sa skiperom","sk.no":"bez skipera","d.pick":"odaberi datum",
+ "q1":"Treba li mi dozvola za brod?","a1":"Da. Najam broda moguć je samo uz važeću dozvolu za upravljanje brodicom.","q2":"Možemo li unajmiti brod sa skiperom?","a2":"Pitajte nas pri rezervaciji i reći ćemo vam je li skiper moguć u vašem terminu.","q3":"Koliko osoba stane na brod?","a3":"Naših 17 brodova prima od 5 do 10 osoba. Beneteau Flyer 550 Sun Deck prima do 6 osoba, Beneteau Flyer 7.7 SD do 10.","q4":"Postoji li polog i kako ide gorivo?","a4":"Brod dobivate s punim spremnikom i vraćate ga pun. Za polog nas pitajte: objasnimo vam pri rezervaciji.","q5":"Gdje možemo parkirati?","a5":"Puno parkinga je u blizini, blizu luke, Obala 107, Punat.","q6":"Kako rezerviram?","a6":"Pošaljite upit s ove stranice ili pišite na WhatsApp +385 91 457 5566. Potvrđujemo porukom.",
+ "c.h":"Nađite nas u luci Punat","c.isl":"otok Krk","c.wa":"Telefon i WhatsApp","c.daily":"Svaki dan, u sezoni","c.parkv":"Puno u blizini","c.map":"Otvori u Kartama",
+ "foot.p":"Najstariji najam brodova na otoku Krku. 17 brodova u središtu luke Punat.","foot.visit":"Posjet","foot.talk":"Javite se","foot.explore":"Istraži","fab":"Rezerviraj","bar.btn":"Pošalji",
+ "boat.b550":"Beneteau 550","boat.family":"Elan 18 CC","boat.big":"Beneteau Flyer 7.7","boat.any":"Predložite mi brod","d.1":"1 dan","d.n":"{n} dana","p.1":"1 osoba","p.n":"{n} osobe","p.n5":"{n} osoba","sk.yes":"sa skiperom","sk.no":"bez skipera","d.pick":"odaberi datum",
+ "fl.sum":"Pogledajte svih 17 brodova","fl.boat":"Brod","fl.eng":"Motor","fl.ppl":"Osobe","req":"Obavezno","gtk.ci":"Preuzimanje i povratak","gtk.civ":"Preuzimanje u 09:00, povratak do 19:00.","gtk.per":"Trajanje najma","gtk.perv":"Na dan ili na tjedan.","gtk.safe":"Sigurnost","gtk.safev":"Svaki brod ima kompletnu sigurnosnu opremu.","q7":"Možete li preporučiti smještaj u Puntu?","a7":"Da. Apartmani obitelji Orlić u Puntu udaljeni su oko 300 m od plaže: apartman Irena za do 5 osoba, apartman Nikola za do 4 i studio za 2 osobe. Klima, Wi-Fi, satelitska TV, terasa, roštilj i parking. Pitajte nas za detalje.","c.ci":"Preuzimanje / povratak",
  "wa.msg":"Pozdrav Rent a Boat Punat! Želim unajmiti brod.\nBrod: {boat}\nDatum: {date}\nDani: {days}\nOsobe: {people}\nSkiper: {skip}\nIme: {name}\nJe li slobodno?"
 }
 };
@@ -1101,19 +1144,26 @@ function applyLang(l){
   try{ localStorage.setItem("rbp-lang", l); }catch(e){}
   $$("[data-i18n]").forEach(function(el){ el.textContent = t(el.getAttribute("data-i18n")); });
   $$("[data-i18n-ph]").forEach(function(el){ el.setAttribute("placeholder", t(el.getAttribute("data-i18n-ph"))); });
-  $$(".lang button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+  $$(".langs button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+  var lc = $("#lpickCur"); if(lc) lc.textContent = l.toUpperCase();
   galCaption(); updateSummary(); setHint();
 }
-$$(".lang").forEach(function(group){
+$$(".langs").forEach(function(group){
   group.addEventListener("click", function(e){
-    var b = e.target.closest("button"); if(!b) return;
-    var inHeader = group.id === "langHdr";
-    if(inHeader && mqMobile.matches && !group.classList.contains("open") && b.dataset.lang === lang){ group.classList.add("open"); return; }
-    group.classList.remove("open");
+    var b = e.target.closest("button[data-lang]"); if(!b) return;
     if(b.dataset.lang !== lang) applyLang(b.dataset.lang);
   });
 });
-document.addEventListener("click", function(e){ var g = $("#langHdr"); if(g.classList.contains("open") && !g.contains(e.target)) g.classList.remove("open"); });
+/* header language picker */
+(function(){
+  var w = $("#lpick"), b = $("#lpickBtn"); if(!w || !b) return;
+  function set(o){ w.classList.toggle("open", o); b.setAttribute("aria-expanded", o ? "true" : "false"); }
+  b.addEventListener("click", function(e){ e.stopPropagation(); set(!w.classList.contains("open")); });
+  $$(".lpick-list button", w).forEach(function(x){ x.addEventListener("click", function(){ setTimeout(function(){ set(false); }, 120); }); });
+  document.addEventListener("click", function(e){ if(!w.contains(e.target)) set(false); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") set(false); });
+  window.addEventListener("scroll", function(){ if(w.classList.contains("open")) set(false); }, {passive: true});
+})();
 
 /* ================= PRELOADER ================= */
 function preDone(){
@@ -1292,6 +1342,7 @@ var fDate = $("#fDate"), fName = $("#fName"), dOut = $("#dOut"), pOut = $("#pOut
   var d = new Date(); d.setDate(d.getDate() + 1);
   fDate.min = d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
 })();
+var BOAT_CAP = {b550: 6, family: 5, big: 10};
 function boatVal(){ var c = $('input[name="boat"]:checked'); return c ? c.value : "b550"; }
 function skipVal(){ var c = $('input[name="skip"]:checked'); return c ? c.value : "no"; }
 function selectBoat(v){
@@ -1315,7 +1366,9 @@ function updateSummary(){
   $("#barTxt").textContent = b + " · " + daysLabel(days);
   $("#finderB").textContent = b;
   $("#finderS").textContent = fDate.value ? dateLabel() + " • " + peopleLabel(people) : t("finder.s").replace("{n}", peopleLabel(people));
-  $("#warn").classList.toggle("on", boatVal() === "b550" && people > 4);
+  var cap = BOAT_CAP[boatVal()];
+  $("#warn").textContent = t("f.warn").replace("{n}", cap || 10);
+  $("#warn").classList.toggle("on", !!cap && people > cap);
 }
 $("#boatChips").addEventListener("change", updateSummary);
 $("#skipChips").addEventListener("change", updateSummary);

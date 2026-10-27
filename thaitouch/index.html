@@ -2,19 +2,14 @@
 <!--
   Thai Touch Massage, Opatija: website proposal mockup (Concept by Marija)
 
-  IMAGE SLOTS (optional, put real photos in ./img/ using these exact names):
-    img/hero.jpg   gallery slide 1 + Traditional Thai card
-    img/2.jpg      gallery slide 2 + Royal Thai (herbal compress) card
-    img/3.jpg      gallery slide 3 + premises / intro
-    img/4.jpg      gallery slide 4 + aromatherapy oil card + contact
-    img/5.jpg      gallery slide 5 + gift voucher
-  No licensed photos are used. Every slot falls back to our own inline SVG
+  PHOTOS: hotlinked from the salon's own site (thai-touch-massage.com/wp-content/uploads).
+  Treatments, durations and prices taken from their published price list.
+  Every slot falls back to our own inline SVG
   illustrations (lotus, frangipani, herbal compress ball, Thai pattern border,
   candles, bamboo, hands) over a soft gradient, so the page looks finished
   without photos. Hero: Three.js (cdnjs, r128) dark water with floating lotus
   petals and frangipani, candle-light reflections and touch ripples. Falls back
   to a static SVG scene without WebGL or with prefers-reduced-motion.
-  Prices "from XX €" are placeholders to edit.
 -->
 <html lang="en">
 <head>
@@ -24,14 +19,14 @@
 <title>Thai Touch Massage Opatija</title>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Thai Touch Massage Opatija">
-<meta property="og:description" content="Thai Touch Massage, Opatija. Authentic Thai massage by a team of Thai therapists. Open daily 10:00 to 22:00.">
+<meta property="og:description" content="Thai Touch Massage, Opatija. Authentic Thai massage by therapists from Thailand. May to October daily 10:00 to 22:00, November to April Tuesday to Sunday.">
 <meta property="og:url" content="https://tararova.com/thaitouch/">
 <meta property="og:image" content="https://tararova.com/thaitouch/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<meta name="description" content="Thai Touch Massage, Opatija. Authentic Thai massage by a team of Thai therapists. Open daily 10:00 to 22:00.">
+<meta name="description" content="Thai Touch Massage, Opatija. Authentic Thai massage by therapists from Thailand. May to October daily 10:00 to 22:00, November to April Tuesday to Sunday.">
 <meta name="theme-color" content="#0B0B0B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -149,9 +144,19 @@ section{scroll-margin-top:calc(var(--header) + 20px)}
 .logo b{display:block;font-family:var(--serif);font-weight:400;font-size:19px}
 .logo small{display:block;font-size:9px;letter-spacing:.24em;text-transform:uppercase;opacity:.8;margin-top:4px}
 .hdr__r{display:flex;align-items:center;gap:10px}
-.lang{display:flex;align-items:center;font-size:12px;font-weight:500;letter-spacing:.12em;position:relative}
-.lang button{background:none;border:0;padding:8px 6px;cursor:pointer;opacity:.55;transition:opacity .3s}
-.lang button[aria-pressed="true"]{opacity:1;text-decoration:underline;text-underline-offset:5px}
+.lpick{position:relative}
+.lpick-btn{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:600 12px/1 var(--sans);letter-spacing:.12em;cursor:pointer;opacity:.9}
+.lpick-btn svg{width:18px;height:18px;flex:none}.lpick-btn .chev{width:14px;height:14px;transition:transform .3s}
+.lpick.open .lpick-btn .chev{transform:rotate(180deg)}
+.lpick-list{position:absolute;right:0;top:calc(100% + 10px);display:grid;grid-template-columns:1fr;min-width:200px;padding:8px;background:#fff;color:var(--ink);border-radius:18px;box-shadow:0 24px 60px -18px rgba(0,0,0,.3);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:95}
+.lpick.open .lpick-list{opacity:1;transform:none;pointer-events:auto}
+.lpick-list button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border:0;border-radius:10px;background:none;font:400 16px/1.2 var(--sans);letter-spacing:0;text-align:left;color:var(--ink);cursor:pointer}
+.lpick-list button b{font-weight:600;font-size:12px;letter-spacing:.12em;width:24px;color:var(--gold-d)}
+.lpick-list button:hover{background:var(--linen)}
+.lpick-list button[aria-pressed="true"]{background:var(--linen);font-weight:600}
+.menu-open .lpick{display:none}
+@media (max-width:380px){.lpick-btn{padding:0 9px}.lpick-btn .chev{display:none}}
+@media (max-width:440px){.logo small{white-space:nowrap}.menu-btn>span:first-child{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
 .hdr__book{display:none;min-height:40px;padding:0 20px;font-size:12px;background:transparent;border-color:currentColor;color:inherit}
 .hdr__book::before{background:var(--ink)}
 .hdr__book:hover{color:#fff;border-color:var(--ink)}
@@ -162,12 +167,6 @@ section{scroll-margin-top:calc(var(--header) + 20px)}
 .menu-open .burger i:nth-child(1){top:6px;transform:rotate(45deg)}
 .menu-open .burger i:nth-child(2){opacity:0}
 .menu-open .burger i:nth-child(3){top:6px;transform:rotate(-45deg)}
-@media(max-width:759px){
-  .hdr .lang button:not([aria-pressed="true"]){display:none}
-  .hdr .lang.open{flex-direction:column;position:absolute;top:-10px;right:-4px;background:#fff;color:var(--ink);border-radius:4px;box-shadow:0 12px 40px rgba(0,0,0,.16);padding:4px;z-index:5}
-  .hdr .lang.open button{display:block;opacity:.7}
-  .hdr .lang.open button[aria-pressed="true"]{opacity:1}
-}
 @media(min-width:760px){.hdr__book{display:inline-flex}}
 /* overlay menu */
 .ovl{position:fixed;inset:0;z-index:85;background:var(--teal-d);color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:calc(var(--header) + 28px) var(--gutter) calc(28px + env(safe-area-inset-bottom));clip-path:inset(0 0 100% 0);transition:clip-path .8s var(--out);visibility:hidden}
@@ -179,7 +178,6 @@ section{scroll-margin-top:calc(var(--header) + 20px)}
 .menu-open .ovl ol a{transform:none;transition-delay:calc(.25s + var(--i) * .06s)}
 .ovl-foot{display:grid;gap:18px;opacity:0;transform:translateY(12px);transition:opacity .6s .55s,transform .6s var(--out) .55s}
 .menu-open .ovl-foot{opacity:1;transform:none}
-.ovl .lang button{opacity:.55;font-size:13px;padding:10px 14px 10px 0}
 .ovl-contact{font-size:15px;color:rgba(255,255,255,.75);display:flex;flex-wrap:wrap;gap:6px 18px}
 .ovl .pill{width:100%}
 .menu-open .fab,.menu-open .ctag,.menu-open .sbar{opacity:0!important;pointer-events:none!important}
@@ -327,6 +325,20 @@ section{scroll-margin-top:calc(var(--header) + 20px)}
 .price b{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
 .price small{font-size:13px;color:var(--muted)}
 .tr__note{margin-top:22px;font-size:14px;color:var(--muted)}
+.plist{margin-top:64px}
+.plist__h{font-family:var(--serif);font-size:30px;line-height:1.2;margin:0 0 6px}
+.plist__lead{color:var(--muted);margin:0;max-width:52ch}
+.plist__grps{display:grid;gap:34px;margin-top:28px}
+.plist h4{margin:0 0 8px;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d)}
+.plist ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.plist li{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.plist li b{display:block;font-weight:500;font-size:17px;line-height:1.35}
+.plist li small{display:block;font-size:14px;color:var(--muted);line-height:1.45;margin-top:3px}
+.plist__p{flex:none;text-align:right;font-size:15px;line-height:1.65;font-variant-numeric:tabular-nums;white-space:nowrap}
+.plist__p i{font-style:normal;color:var(--muted);margin-right:6px}
+.hours-note{font-size:14px;color:var(--muted);margin:-14px 0 24px}
+.socials{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:18px}
+@media(min-width:900px){.plist__grps{grid-template-columns:1fr 1fr;gap:44px 80px}}
 @media(min-width:900px){.panel{grid-template-columns:1fr 1fr;gap:80px;align-items:start}.tabs{margin:0;padding:4px 0 10px}}
 
 /* SESSION timeline */
@@ -384,6 +396,7 @@ input[type=date].ctl::-webkit-date-and-time-value{text-align:left}
 .ctl.err{border-color:#E08A7C}
 .chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .chips--2{grid-template-columns:repeat(2,1fr)}
+.chips--4{grid-template-columns:repeat(4,1fr)}
 .chip{position:relative}
 .chip input{position:absolute;opacity:0;pointer-events:none}
 .chip>span{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:56px;padding:6px 8px;border:1px solid rgba(255,255,255,.22);border-radius:4px;font-size:15px;cursor:pointer;line-height:1.25;text-align:center;transition:background .35s,color .35s,border-color .35s}
@@ -652,11 +665,14 @@ html select{height:56px;line-height:normal}
       <span><b>Thai Touch</b><small>Massage · Opatija</small></span>
     </a>
     <div class="hdr__r">
-      <div class="lang" id="hdrLang" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="hr" aria-pressed="false">HR</button>
-        <button type="button" data-lang="de" aria-pressed="false">DE</button>
-        <button type="button" data-lang="it" aria-pressed="false">IT</button>
+      <div class="lpick" id="lpick">
+        <button type="button" class="lpick-btn" id="lpickBtn" aria-haspopup="true" aria-expanded="false" aria-label="Language"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span id="lpickCur">EN</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="lpick-list langs" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true"><b>EN</b><span>English</span></button>
+          <button type="button" data-lang="hr" aria-pressed="false"><b>HR</b><span>Hrvatski</span></button>
+          <button type="button" data-lang="de" aria-pressed="false"><b>DE</b><span>Deutsch</span></button>
+          <button type="button" data-lang="it" aria-pressed="false"><b>IT</b><span>Italiano</span></button>
+        </div>
       </div>
       <a href="#booking" class="pill hdr__book" data-i18n="nav.book">Book</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="ovl"><span data-i18n="nav.menu">Menu</span><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
@@ -675,14 +691,8 @@ html select{height:56px;line-height:normal}
     <li><a href="#contact" style="--i:6"><small>07</small><span data-i18n="nav.contact">Contact</span></a></li>
   </ol>
   <div class="ovl-foot">
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button>
-      <button type="button" data-lang="hr" aria-pressed="false">HR</button>
-      <button type="button" data-lang="de" aria-pressed="false">DE</button>
-      <button type="button" data-lang="it" aria-pressed="false">IT</button>
-    </div>
     <a class="pill pill--linen" href="#booking" data-i18n="nav.bookWa">Book via WhatsApp</a>
-    <div class="ovl-contact"><a href="tel:+385913078889">+385&nbsp;91&nbsp;307&nbsp;8889</a><span data-i18n="ovl.hours">Open daily 10:00 to 22:00</span></div>
+    <div class="ovl-contact"><a href="tel:+385913078889">+385&nbsp;91&nbsp;307&nbsp;8889</a><a href="mailto:massagethaitouch@gmail.com">massagethaitouch@gmail.com</a><span data-i18n="ovl.hours">May to Oct daily 10:00 to 22:00, Nov to Apr Tue to Sun</span></div>
   </div>
 </nav>
 
@@ -729,7 +739,7 @@ html select{height:56px;line-height:normal}
 <div class="finder">
   <a href="#booking" id="finder">
     <svg class="finder__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
-    <span class="finder__t"><b id="finderT">Royal Thai 2h</b><small id="finderS" data-i18n="finder.sub">Today • 1 person</small></span>
+    <span class="finder__t"><b id="finderT">Royal Massage 2h</b><small id="finderS" data-i18n="finder.sub">Today • 1 person</small></span>
     <span class="finder__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
   </a>
 </div>
@@ -753,17 +763,18 @@ html select{height:56px;line-height:normal}
     <p class="sub rv" data-delay="1" data-i18n="gal.sub">Beautiful premises in the heart of Opatija, warm light and the scent of Thai herbs.</p>
     <div class="gal rv" data-delay="1" id="gal">
       <div class="gal__track" id="galTrack">
-        <div class="gal__slide cur"><div class="art art--hero"><img src="img/hero.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c1">Traditional Thai massage</span></span></div>
-        <div class="gal__slide"><div class="art art--2"><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c2">Hot herbal compress</span></span></div>
-        <div class="gal__slide"><div class="art art--3"><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c3">The premises</span></span></div>
-        <div class="gal__slide"><div class="art art--4"><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c4">Aromatherapy oil massage</span></span></div>
-        <div class="gal__slide"><div class="art art--5"><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c5">Gift vouchers</span></span></div>
+        <div class="gal__slide cur"><div class="art art--hero"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/Thai-touch-massage-opatija-1536x864.webp" alt="Thai Touch Massage salon in Opatija" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c1">Thai Touch Massage Opatija</span></span></div>
+        <div class="gal__slide"><div class="art art--2"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/Thai-massage-768x1024.webp" alt="Therapist giving a traditional Thai massage at Thai Touch" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c2">Traditional Thai massage</span></span></div>
+        <div class="gal__slide"><div class="art art--3"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/Thai-touch-Opatija-1536x864.webp" alt="The Thai Touch salon in Opatija" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c3">The salon in Opatija</span></span></div>
+        <div class="gal__slide"><div class="art art--4"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/thai-massages-1024x768.webp" alt="Thai massage treatment at Thai Touch Massage" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c4">Therapists from Thailand</span></span></div>
+        <div class="gal__slide"><div class="art art--5"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/Thai-touch-massage-opatija-1-1536x864.webp" alt="Thai Touch Massage, Ul. Viktora cara Emina 3, Opatija" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c5">Ul. Viktora cara Emina 3</span></span></div>
+        <div class="gal__slide"><div class="art art--2"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/Thailand-massage-1024x768.webp" alt="Traditional Thai massage by a therapist from Thailand" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c6">Authentic Thai technique</span></span></div>
       </div>
       <a class="tag-b" href="https://maps.google.com/?q=Thai+Touch+Massage,+Ul.+Viktora+cara+Emina+3,+51410+Opatija" target="_blank" rel="noopener">Opatija, Croatia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5l7 7-7 7"/></svg></a>
       <button class="sqbtn l" type="button" id="galPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="sqbtn r" type="button" id="galNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button>
       <span class="gal__prog"><i id="galProg"></i></span>
-      <span class="gal__count" id="galCount" aria-live="polite">1/5</span>
+      <span class="gal__count" id="galCount" aria-live="polite">1/6</span>
     </div>
   </div>
 </section>
@@ -778,9 +789,10 @@ html select{height:56px;line-height:normal}
     </div>
     <div class="intro__grid">
       <div>
-        <p class="lead rv" data-i18n="intro.lead">Thai Touch is a team of therapists from Thailand. Authentic technique, learned at home and brought to the Adriatic.</p>
-        <p class="rv" data-delay="1" data-i18n="intro.p1">You are welcomed at a reception that takes a moment to explain each treatment, so you choose the one that suits you today. The premises are beautiful, calm and warm.</p>
+        <p class="lead rv" data-i18n="intro.lead">Thai Touch is a team of therapists from Thailand. Each is a graduate of a leading school of traditional Thai medicine, with 5 to 10 years of experience.</p>
+        <p class="rv" data-delay="1" data-i18n="intro.p1">Thai massage is a therapeutic art. Our therapists work with their hands, palms, arms, elbows, knees and feet, and sometimes with warm herbal compresses: pressing and rolling, squeezing, assisted stretching and gentle bending.</p>
         <p class="rv" data-delay="2" data-i18n="intro.p2">During the session the therapist checks how you feel and adjusts the pressure. Nothing is rushed, nothing is forced.</p>
+        <p class="rv" data-delay="2" data-i18n="intro.p3">Our promise: only authentic treatments, fixed published prices and the same standard in all four Thai Touch salons, in Opatija, Rijeka, Mali Lošinj and Rab.</p>
         <div class="sig rv" data-delay="2">
           <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#C9A45C" stroke-width="1"/><g fill="none" stroke="#E8A8B8" stroke-width="2" stroke-linejoin="round"><path d="M50 22C58 34 62 50 50 68C38 50 42 34 50 22z"/><path d="M50 68C34 64 24 54 22 40C36 42 46 52 50 68z"/><path d="M50 68C66 64 76 54 78 40C64 42 54 52 50 68z"/></g></svg>
           <div><b>Mina</b><small data-i18n="intro.role">Thai therapist, Thai Touch team</small></div>
@@ -794,7 +806,7 @@ html select{height:56px;line-height:normal}
         </div>
       </div>
       <div class="frame intro__img rv-img">
-        <div class="art art--3" data-par="0.1"><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
+        <div class="art art--3" data-par="0.1"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/Thai-touch-Opatija-1024x576.webp" alt="The Thai Touch Massage salon in Opatija" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
         <span class="tag-b">Opatija, Croatia</span>
         <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="intro.cap">Ul. Viktora cara Emina 3</span></span>
       </div>
@@ -810,65 +822,123 @@ html select{height:56px;line-height:normal}
     <div class="sh rv">
       <p class="label"><span class="num">02</span><span data-i18n="tr.label">Treatments</span></p>
       <h2 data-i18n="tr.title">Choose your massage</h2>
-      <p data-i18n="tr.lead">Four ways to let go. Pick a treatment, then a duration of 60, 90 or 120&nbsp;minutes.</p>
+      <p data-i18n="tr.lead">Traditional Thai treatments by therapists from Thailand. Pick a massage, then a duration from 30 to 120&nbsp;minutes.</p>
     </div>
     <div class="tabs rv" role="tablist" aria-label="Treatments" id="tabs">
-      <button class="tab" role="tab" aria-selected="true" data-tab="trad" data-i18n="t.trad">Traditional Thai</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="royal" data-i18n="t.royal">Royal Thai</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="oil" data-i18n="t.oil">Aromatherapy oil</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="tailor" data-i18n="t.tailor">Tailored</button>
+      <button class="tab" role="tab" aria-selected="true" data-tab="trad" data-i18n="t.trad">Thai Classic</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="royal" data-i18n="t.royal">Royal Massage</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="oil" data-i18n="t.oil">Thai Oil</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="aroma" data-i18n="t.aroma">Aroma Therapy</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="stone" data-i18n="t.stone">Hot Stone</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="foot" data-i18n="t.foot">Foot Massage</button>
     </div>
     <div class="panels rv" data-delay="1">
-      <article class="panel on" data-panel="trad" data-def="60" data-p60="XX" data-p90="XX" data-p120="XX">
-        <div class="frame"><div class="art art--hero"><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b">Classic</span></div>
+      <article class="panel on" data-panel="trad" data-def="60" data-p60="50" data-p90="60" data-p120="75">
+        <div class="frame"><div class="art art--hero"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/Thai-massage-768x1024.webp" alt="Traditional Thai massage at Thai Touch Massage" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b">Classic</span></div>
         <div>
-          <h3 data-i18n="p1.t">Traditional Thai massage</h3>
-          <p class="panel__meta" data-i18n="p1.m">No oil · in loose clothing · 1 or 2 hours</p>
-          <p data-i18n="p1.p">The original. Acupressure along the energy lines, deep stretches and the rhythm of the therapist's body weight. You leave taller.</p>
-          <ul><li data-i18n="p1.l1">Acupressure and assisted stretching</li><li data-i18n="p1.l2">Therapist checks your comfort during the session</li><li data-i18n="p1.l3">Pressure adjusted to you</li></ul>
+          <h3 data-i18n="p1.t">Thai Classic massage</h3>
+          <p class="panel__meta" data-i18n="p1.m">Clothed · no oil · 60, 90 or 120&nbsp;min</p>
+          <p data-i18n="p1.p">A whole-body massage in comfortable clothing. Traditional pressure points, deep stretches and the rhythm of the therapist's body weight. The choice for stretching and deep pressure-point work.</p>
+          <ul><li data-i18n="p1.l1">Pressure points along the energy lines</li><li data-i18n="p1.l2">Assisted stretching</li><li data-i18n="p1.l3">Pressure adjusted to you</li></ul>
           <div class="durs" role="group"><button type="button" class="dur" data-d="60" aria-pressed="true">60<small>min</small></button><button type="button" class="dur" data-d="90" aria-pressed="false">90<small>min</small></button><button type="button" class="dur" data-d="120" aria-pressed="false">120<small>min</small></button></div>
-          <div class="price"><span data-i18n="tr.from">from</span><b><span class="pv">XX</span>&nbsp;€</b><small data-i18n="tr.ex">example price</small></div>
+          <div class="price"><span data-i18n="tr.from">Price</span><b><span class="pv">50</span>&nbsp;€</b><small data-i18n="tr.ex">cash only</small></div>
           <button type="button" class="ulink" data-pick="trad"><span data-i18n="tr.pick">Book this massage</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </article>
-      <article class="panel" data-panel="royal" data-def="120" data-p60="XX" data-p90="XX" data-p120="XX">
-        <div class="frame"><div class="art art--2"><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b">Signature · 2h</span></div>
+      <article class="panel" data-panel="royal" data-def="120" data-p90="75" data-p120="90">
+        <div class="frame"><div class="art art--2"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/Thailand-massage-1024x768.webp" alt="Thai massage by a therapist from Thailand" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="p2.tag">Signature</span></div>
         <div>
-          <h3 data-i18n="p2.t">Royal Thai massage</h3>
-          <p class="panel__meta" data-i18n="p2.m">2 hours · three treatments in one</p>
-          <p data-i18n="p2.p">Traditional Thai massage, then a hot herbal compress pressed along tired muscles, finished with warm oil. The full ritual, best taken as 120 minutes.</p>
-          <ul><li data-i18n="p2.l1">Traditional Thai massage</li><li data-i18n="p2.l2">Hot herbal compress</li><li data-i18n="p2.l3">Oil massage to finish</li></ul>
-          <div class="durs" role="group"><button type="button" class="dur" data-d="60" aria-pressed="false">60<small>min</small></button><button type="button" class="dur" data-d="90" aria-pressed="false">90<small>min</small></button><button type="button" class="dur" data-d="120" aria-pressed="true">120<small>min</small></button></div>
-          <div class="price"><span data-i18n="tr.from">from</span><b><span class="pv">XX</span>&nbsp;€</b><small data-i18n="tr.ex">example price</small></div>
+          <h3 data-i18n="p2.t">Royal Massage</h3>
+          <p class="panel__meta" data-i18n="p2.m">Signature ritual · 90 or 120&nbsp;min</p>
+          <p data-i18n="p2.p">Thai massage combined with hot herbal pouches and aroma oil, with some stretching at the end. Our pick for tired, sore muscles.</p>
+          <ul><li data-i18n="p2.l1">Traditional Thai massage</li><li data-i18n="p2.l2">Hot herbal pouches</li><li data-i18n="p2.l3">Aroma oil and stretching to finish</li></ul>
+          <div class="durs" role="group"><button type="button" class="dur" data-d="90" aria-pressed="false">90<small>min</small></button><button type="button" class="dur" data-d="120" aria-pressed="true">120<small>min</small></button></div>
+          <div class="price"><span data-i18n="tr.from">Price</span><b><span class="pv">90</span>&nbsp;€</b><small data-i18n="tr.ex">cash only</small></div>
           <button type="button" class="ulink" data-pick="royal"><span data-i18n="tr.pick">Book this massage</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </article>
-      <article class="panel" data-panel="oil" data-def="60" data-p60="XX" data-p90="XX" data-p120="XX">
-        <div class="frame"><div class="art art--4"><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b">Relax</span></div>
+      <article class="panel" data-panel="oil" data-def="60" data-p60="55" data-p90="70" data-p120="80">
+        <div class="frame"><div class="art art--4"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/thai-massages-1024x768.webp" alt="Thai oil massage at Thai Touch Massage" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b">Relax</span></div>
         <div>
-          <h3 data-i18n="p3.t">Aromatherapy oil massage</h3>
-          <p class="panel__meta" data-i18n="p3.m">Warm oil · gentle to medium pressure · 1 or 2 hours</p>
-          <p data-i18n="p3.p">Long, flowing strokes with warm aromatic oil. Softer than the traditional massage, made for switching off completely.</p>
-          <ul><li data-i18n="p3.l1">Warm aromatherapy oil</li><li data-i18n="p3.l2">Slow, flowing technique</li><li data-i18n="p3.l3">Pressure adjusted to you</li></ul>
+          <h3 data-i18n="p3.t">Thai Oil Massage</h3>
+          <p class="panel__meta" data-i18n="p3.m">Oil · whole body · 60, 90 or 120&nbsp;min</p>
+          <p data-i18n="p3.p">Whole-body relaxation with oil and pressure-point work, finished with Thai tiger balm.</p>
+          <ul><li data-i18n="p3.l1">Warm oil, whole body</li><li data-i18n="p3.l2">Pressure-point work</li><li data-i18n="p3.l3">Thai tiger balm</li></ul>
           <div class="durs" role="group"><button type="button" class="dur" data-d="60" aria-pressed="true">60<small>min</small></button><button type="button" class="dur" data-d="90" aria-pressed="false">90<small>min</small></button><button type="button" class="dur" data-d="120" aria-pressed="false">120<small>min</small></button></div>
-          <div class="price"><span data-i18n="tr.from">from</span><b><span class="pv">XX</span>&nbsp;€</b><small data-i18n="tr.ex">example price</small></div>
+          <div class="price"><span data-i18n="tr.from">Price</span><b><span class="pv">55</span>&nbsp;€</b><small data-i18n="tr.ex">cash only</small></div>
           <button type="button" class="ulink" data-pick="oil"><span data-i18n="tr.pick">Book this massage</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </article>
-      <article class="panel" data-panel="tailor" data-def="60" data-p60="XX" data-p90="XX" data-p120="XX">
-        <div class="frame"><div class="art art--3"><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="p4.tag">Just for you</span></div>
+      <article class="panel" data-panel="aroma" data-def="60" data-p60="55" data-p90="70" data-p120="80">
+        <div class="frame"><div class="art art--5"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/Thai-touch-massage-1536x864.webp" alt="Aroma therapy massage at Thai Touch Massage" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="p4.tag">Gentle</span></div>
         <div>
-          <h3 data-i18n="p4.t">Tailored massage</h3>
-          <p class="panel__meta" data-i18n="p4.m">Your focus · your pressure · 1 or 2 hours</p>
-          <p data-i18n="p4.p">Tell the reception what hurts, what you like and what you avoid. The therapist builds the session around it.</p>
-          <ul><li data-i18n="p4.l1">Focus on back, neck, legs or feet</li><li data-i18n="p4.l2">Mix of Thai and oil techniques</li><li data-i18n="p4.l3">Explained at reception before you start</li></ul>
+          <h3 data-i18n="p4.t">Aroma Therapy</h3>
+          <p class="panel__meta" data-i18n="p4.m">Aromatic oils · gentle · 60, 90 or 120&nbsp;min</p>
+          <p data-i18n="p4.p">A gentler, calming whole-body massage with aromatic oils. A good choice for a first visit.</p>
+          <ul><li data-i18n="p4.l1">Aromatic oils</li><li data-i18n="p4.l2">Soft, calming strokes</li><li data-i18n="p4.l3">Ideal for a first Thai massage</li></ul>
           <div class="durs" role="group"><button type="button" class="dur" data-d="60" aria-pressed="true">60<small>min</small></button><button type="button" class="dur" data-d="90" aria-pressed="false">90<small>min</small></button><button type="button" class="dur" data-d="120" aria-pressed="false">120<small>min</small></button></div>
-          <div class="price"><span data-i18n="tr.from">from</span><b><span class="pv">XX</span>&nbsp;€</b><small data-i18n="tr.ex">example price</small></div>
-          <button type="button" class="ulink" data-pick="tailor"><span data-i18n="tr.pick">Book this massage</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <div class="price"><span data-i18n="tr.from">Price</span><b><span class="pv">55</span>&nbsp;€</b><small data-i18n="tr.ex">cash only</small></div>
+          <button type="button" class="ulink" data-pick="aroma"><span data-i18n="tr.pick">Book this massage</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </article>
+      <article class="panel" data-panel="stone" data-def="90" data-p90="75" data-p120="90">
+        <div class="frame"><div class="art art--3"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/Thai-touch-massage-opatija-1-1536x864.webp" alt="Thai Touch Massage salon in Opatija" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="p2.tag">Signature</span></div>
+        <div>
+          <h3 data-i18n="p5.t">Hot Stone Massage</h3>
+          <p class="panel__meta" data-i18n="p5.m">Signature ritual · 90 or 120&nbsp;min</p>
+          <p data-i18n="p5.p">A whole-body massage with warm lava stones placed along the body's energy lines.</p>
+          <ul><li data-i18n="p5.l1">Warm lava stones</li><li data-i18n="p5.l2">Placed along the energy lines</li><li data-i18n="p5.l3">Deeply warming and relaxing</li></ul>
+          <div class="durs" role="group"><button type="button" class="dur" data-d="90" aria-pressed="true">90<small>min</small></button><button type="button" class="dur" data-d="120" aria-pressed="false">120<small>min</small></button></div>
+          <div class="price"><span data-i18n="tr.from">Price</span><b><span class="pv">75</span>&nbsp;€</b><small data-i18n="tr.ex">cash only</small></div>
+          <button type="button" class="ulink" data-pick="stone"><span data-i18n="tr.pick">Book this massage</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </article>
+      <article class="panel" data-panel="foot" data-def="60" data-p30="30" data-p60="40">
+        <div class="frame"><div class="art art--4"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/Thai-touch-Opatija-1024x576.webp" alt="The Thai Touch salon in Opatija" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="p6.tag">Reflexology</span></div>
+        <div>
+          <h3 data-i18n="p6.t">Foot Massage</h3>
+          <p class="panel__meta" data-i18n="p6.m">Reflexology · 30 or 60&nbsp;min</p>
+          <p data-i18n="p6.p">Reflexology on the feet and legs. Light on time, big on relief after a day on the Lungomare.</p>
+          <ul><li data-i18n="p6.l1">Reflexology points on the feet</li><li data-i18n="p6.l2">Feet and lower legs</li><li data-i18n="p6.l3">30 or 60 minutes</li></ul>
+          <div class="durs" role="group"><button type="button" class="dur" data-d="30" aria-pressed="false">30<small>min</small></button><button type="button" class="dur" data-d="60" aria-pressed="true">60<small>min</small></button></div>
+          <div class="price"><span data-i18n="tr.from">Price</span><b><span class="pv">40</span>&nbsp;€</b><small data-i18n="tr.ex">cash only</small></div>
+          <button type="button" class="ulink" data-pick="foot"><span data-i18n="tr.pick">Book this massage</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </article>
     </div>
-    <p class="tr__note rv" data-i18n="tr.note">Prices shown as "XX €" are placeholders. The final price list is added from the salon.</p>
+    <p class="tr__note rv" data-i18n="tr.note">Prices are the same in all four Thai Touch salons. Payment in cash only, cards are not accepted. We only offer the traditional treatments on this price list.</p>
+    <div class="plist rv" id="prices">
+      <h3 class="plist__h" data-i18n="pl.t">Full price list</h3>
+      <p class="plist__lead" data-i18n="pl.lead">All 18 treatments, durations and prices in euros. Valid in Opatija, Rijeka, Mali Lošinj and Rab.</p>
+      <div class="plist__grps">
+        <div><h4 data-i18n="pl.g1">Thai &amp; oil massages</h4><ul>
+          <li><div><b data-i18n="pl.n1">Thai Classic (clothed)</b><small data-i18n="pl.d1">A clothed whole-body massage with pressure points and stretching.</small></div><span class="plist__p"><i>60&nbsp;min</i>50&nbsp;€<br><i>90&nbsp;min</i>60&nbsp;€<br><i>120&nbsp;min</i>75&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n2">Thai Oil Massage</b><small data-i18n="pl.d2">Whole-body relaxation with oil, pressure points and Thai tiger balm.</small></div><span class="plist__p"><i>60&nbsp;min</i>55&nbsp;€<br><i>90&nbsp;min</i>70&nbsp;€<br><i>120&nbsp;min</i>80&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n3">Aroma Therapy</b><small data-i18n="pl.d3">A gentler, calming whole-body massage with aromatic oils.</small></div><span class="plist__p"><i>60&nbsp;min</i>55&nbsp;€<br><i>90&nbsp;min</i>70&nbsp;€<br><i>120&nbsp;min</i>80&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n4">Coconut Dream</b><small data-i18n="pl.d4">Whole-body aroma massage with coconut oil for soft, moisturised skin.</small></div><span class="plist__p"><i>60&nbsp;min</i>60&nbsp;€<br><i>90&nbsp;min</i>75&nbsp;€<br><i>120&nbsp;min</i>85&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n5">Aloe Vera Massage</b><small data-i18n="pl.d5">A cooling whole-body massage for sun-exposed skin, with aloe from our garden.</small></div><span class="plist__p"><i>60&nbsp;min</i>60&nbsp;€<br><i>90&nbsp;min</i>75&nbsp;€<br><i>120&nbsp;min</i>85&nbsp;€</span></li>
+        </ul></div>
+        <div><h4 data-i18n="pl.g2">Signature rituals</h4><ul>
+          <li><div><b data-i18n="pl.n6">Royal Massage Signature</b><small data-i18n="pl.d6">Thai massage with hot herbal pouches and aroma oil, stretching at the end.</small></div><span class="plist__p"><i>90&nbsp;min</i>75&nbsp;€<br><i>120&nbsp;min</i>90&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n7">Hot Stone Massage</b><small data-i18n="pl.d7">Whole-body massage with warm lava stones along the energy lines.</small></div><span class="plist__p"><i>90&nbsp;min</i>75&nbsp;€<br><i>120&nbsp;min</i>90&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n8">Detox</b><small data-i18n="pl.d8">Whole-body massage with a layer of Dead Sea clay to refresh the skin.</small></div><span class="plist__p"><i>90&nbsp;min</i>75&nbsp;€<br><i>120&nbsp;min</i>90&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n9">Coffee Body Scrub</b><small data-i18n="pl.d9">A coffee body scrub followed by an aroma massage.</small></div><span class="plist__p"><i>90&nbsp;min</i>75&nbsp;€<br><i>120&nbsp;min</i>90&nbsp;€</span></li>
+        </ul></div>
+        <div><h4 data-i18n="pl.g3">Back &amp; relax</h4><ul>
+          <li><div><b data-i18n="pl.n10">Relax Massage</b><small data-i18n="pl.d10">Hands, neck, shoulders and head.</small></div><span class="plist__p"><i>30&nbsp;min</i>30&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n11">Back Massage</b><small data-i18n="pl.d11">Back, neck and shoulders.</small></div><span class="plist__p"><i>30&nbsp;min</i>35&nbsp;€<br><i>60&nbsp;min</i>45&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n12">Back Royal Massage</b><small data-i18n="pl.d12">Back, neck and shoulders with hot herbal pouches.</small></div><span class="plist__p"><i>60&nbsp;min</i>55&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n13">Hot Stone Back Massage</b><small data-i18n="pl.d13">Back, neck and shoulders with warm lava stones.</small></div><span class="plist__p"><i>60&nbsp;min</i>55&nbsp;€</span></li>
+        </ul></div>
+        <div><h4 data-i18n="pl.g4">Face &amp; feet</h4><ul>
+          <li><div><b data-i18n="pl.n14">Foot Massage</b><small data-i18n="pl.d14">Reflexology on the feet and legs.</small></div><span class="plist__p"><i>30&nbsp;min</i>30&nbsp;€<br><i>60&nbsp;min</i>40&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n15">Face Scrub + Massage + Mask</b><small data-i18n="pl.d15">All three facial treatments in one.</small></div><span class="plist__p"><i>60&nbsp;min</i>40&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n16">Face Scrub</b><small data-i18n="pl.d16">Exfoliates and refines skin tone and texture.</small></div><span class="plist__p"><i>30&nbsp;min</i>30&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n17">Face Massage</b><small data-i18n="pl.d17">Relaxes the facial muscles and helps reduce puffiness.</small></div><span class="plist__p"><i>30&nbsp;min</i>30&nbsp;€</span></li>
+          <li><div><b data-i18n="pl.n18">Face Mask</b><small data-i18n="pl.d18">Helps the skin absorb nourishing ingredients.</small></div><span class="plist__p"><i>30&nbsp;min</i>30&nbsp;€</span></li>
+        </ul></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -885,8 +955,8 @@ html select{height:56px;line-height:normal}
     <div class="session__body">
       <div class="session__img-wrap">
         <div class="frame session__img rv-img">
-          <div class="art art--2" data-par="0.1"><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
-          <span class="tag-b" data-i18n="se.tag">Hot herbal compress</span>
+          <div class="art art--2" data-par="0.1"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/Thailand-massage-1024x768.webp" alt="Traditional Thai massage at Thai Touch Massage" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
+          <span class="tag-b" data-i18n="se.tag">Thai massage</span>
           <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Opatija, Croatia</span>
         </div>
       </div>
@@ -894,7 +964,7 @@ html select{height:56px;line-height:normal}
         <li aria-hidden="true" style="list-style:none"><span class="tl__track"></span><span class="tl__fill" id="tlFill"></span></li>
         <li class="step"><span class="step__dot">1</span><h3 data-i18n="s1.t">Welcome at reception</h3><p data-i18n="s1.p">Arrive 10 minutes early. The reception explains the treatments and helps you choose.</p></li>
         <li class="step"><span class="step__dot">2</span><h3 data-i18n="s2.t">Settle in</h3><p data-i18n="s2.p">Loose clothing for Thai massage, a warm room and a moment to breathe.</p></li>
-        <li class="step"><span class="step__dot">3</span><h3 data-i18n="s3.t">The massage</h3><p data-i18n="s3.p">60, 90 or 120 minutes. Your therapist checks your comfort and adjusts the pressure as you go.</p></li>
+        <li class="step"><span class="step__dot">3</span><h3 data-i18n="s3.t">The massage</h3><p data-i18n="s3.p">From 30 to 120 minutes. Your therapist checks your comfort and adjusts the pressure as you go.</p></li>
         <li class="step"><span class="step__dot">4</span><h3 data-i18n="s4.t">Slow return</h3><p data-i18n="s4.p">A few quiet minutes before you step back out onto the streets of Opatija.</p></li>
       </ol>
     </div>
@@ -915,12 +985,22 @@ html select{height:56px;line-height:normal}
           <div class="gtk__row">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>
             <dt data-i18n="gtk.hours">Opening hours</dt>
-            <dd data-i18n="gtk.hoursV">Open daily, 10:00 to 22:00</dd>
+            <dd data-i18n="gtk.hoursV">May to October: every day, 10:00 to 22:00<br>November to April: Tuesday to Sunday, 10:00 to 22:00, Monday closed</dd>
           </div>
           <div class="gtk__row">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 1.5"/></svg>
             <dt data-i18n="gtk.arrive">Arrival</dt>
             <dd data-i18n="gtk.arriveV">Please arrive 10 minutes before your session</dd>
+          </div>
+          <div class="gtk__row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V5a2 2 0 0 1 2-2h8l6 6v12"/><path d="M14 3v6h6M9 14h6M9 17.5h4"/></svg>
+            <dt data-i18n="gtk.walk">Walk-ins</dt>
+            <dd data-i18n="gtk.walkV">Welcome whenever a therapist is free. In summer we recommend calling ahead.</dd>
+          </div>
+          <div class="gtk__row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></svg>
+            <dt data-i18n="gtk.pay">Payment</dt>
+            <dd data-i18n="gtk.payV">Cash only, cards are not accepted</dd>
           </div>
           <div class="gtk__row">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8.5" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.5"/><path d="M2.5 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.3c3.2-.4 6.5 1.6 6.5 5.7"/></svg>
@@ -934,8 +1014,13 @@ html select{height:56px;line-height:normal}
           </div>
           <div class="gtk__row">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5h3.2l1.8 4.6-2.4 1.5a11.5 11.5 0 0 0 6.8 6.8l1.5-2.4 4.6 1.8v3.2a2 2 0 0 1-2 2A17.5 17.5 0 0 1 3 5.5a2 2 0 0 1 2-2z"/></svg>
-            <dt data-i18n="gtk.phone">Phone / WhatsApp</dt>
+            <dt data-i18n="gtk.phone">Phone</dt>
             <dd><a href="tel:+385913078889">+385&nbsp;91&nbsp;307&nbsp;8889</a></dd>
+          </div>
+          <div class="gtk__row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>
+            <dt data-i18n="gtk.email">E-mail</dt>
+            <dd><a href="mailto:massagethaitouch@gmail.com">massagethaitouch@gmail.com</a></dd>
           </div>
         </dl>
       </aside>
@@ -943,7 +1028,8 @@ html select{height:56px;line-height:normal}
         <h3 style="font-family:var(--serif);font-size:24px;margin-bottom:14px" data-i18n="near.t">What's nearby</h3>
         <ul class="near">
           <li><span class="near__ic"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V10l6-5 6 5v10M10 20v-5h4v5"/></svg></span><div><b data-i18n="near.1">Opatija center</b><small data-i18n="near.1s">Cafés, parks and the old villas</small></div></li>
-          <li><span class="near__ic"><svg viewBox="0 0 24 24"><path d="M3 16c3-2 6-2 9 0s6 2 9 0M3 20c3-2 6-2 9 0s6 2 9 0M6 12l6-7 6 7"/></svg></span><div><b data-i18n="near.2">Lungomare</b><small data-i18n="near.2s">The seaside promenade, perfect after a massage</small></div></li>
+          <li><span class="near__ic"><svg viewBox="0 0 24 24"><path d="M3 16c3-2 6-2 9 0s6 2 9 0M3 20c3-2 6-2 9 0s6 2 9 0M6 12l6-7 6 7"/></svg></span><div><b data-i18n="near.2">Lungomare</b><small data-i18n="near.2s">The seaside promenade, a short walk from the salon</small></div></li>
+          <li><span class="near__ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><b data-i18n="near.3">Maršala Tita street</b><small data-i18n="near.3s">The salon is just below Opatija's main street</small></div></li>
         </ul>
         <svg class="border-thai" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true" style="margin-top:28px"><use href="#i-thai" width="400" height="24"/></svg>
       </div>
@@ -965,15 +1051,18 @@ html select{height:56px;line-height:normal}
         <fieldset class="field">
           <legend data-i18n="f.treat">Treatment</legend>
           <div class="chips chips--2" id="fTreat">
-            <label class="chip"><input type="radio" name="treat" value="trad"><span><span data-i18n="t.trad">Traditional Thai</span></span></label>
-            <label class="chip"><input type="radio" name="treat" value="royal" checked><span><span data-i18n="t.royal">Royal Thai</span><small>2h</small></span></label>
-            <label class="chip"><input type="radio" name="treat" value="oil"><span><span data-i18n="t.oil">Aromatherapy oil</span></span></label>
-            <label class="chip"><input type="radio" name="treat" value="tailor"><span><span data-i18n="t.tailor">Tailored</span></span></label>
+            <label class="chip"><input type="radio" name="treat" value="trad"><span><span data-i18n="t.trad">Thai Classic</span></span></label>
+            <label class="chip"><input type="radio" name="treat" value="royal" checked><span><span data-i18n="t.royal">Royal Massage</span></span></label>
+            <label class="chip"><input type="radio" name="treat" value="oil"><span><span data-i18n="t.oil">Thai Oil</span></span></label>
+            <label class="chip"><input type="radio" name="treat" value="aroma"><span><span data-i18n="t.aroma">Aroma Therapy</span></span></label>
+            <label class="chip"><input type="radio" name="treat" value="stone"><span><span data-i18n="t.stone">Hot Stone</span></span></label>
+            <label class="chip"><input type="radio" name="treat" value="foot"><span><span data-i18n="t.foot">Foot Massage</span></span></label>
           </div>
         </fieldset>
         <fieldset class="field">
           <legend data-i18n="f.dur">Duration</legend>
-          <div class="chips" id="fDur">
+          <div class="chips chips--4" id="fDur">
+            <label class="chip"><input type="radio" name="dur" value="30"><span>30&nbsp;min</span></label>
             <label class="chip"><input type="radio" name="dur" value="60"><span>60&nbsp;min</span></label>
             <label class="chip"><input type="radio" name="dur" value="90"><span>90&nbsp;min</span></label>
             <label class="chip"><input type="radio" name="dur" value="120" checked><span>120&nbsp;min</span></label>
@@ -994,10 +1083,11 @@ html select{height:56px;line-height:normal}
         </div>
         <label class="field"><span data-i18n="f.name">Your name</span><input class="ctl" type="text" id="fName" name="name" autocomplete="name" data-i18n-ph="f.nameph" placeholder="Optional"></label>
         <button type="submit" class="pill pill--linen" id="sendBtn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg><span data-i18n="f.send">Send request on WhatsApp</span></button>
-        <p class="fine" data-i18n="f.fine">No payment online. You only confirm the time in the chat.</p>
+        <p class="fine" data-i18n="f.fine">No payment online. You only confirm the time in the chat. Payment at the salon in cash only.</p>
       </form>
       <div class="book__side rv" data-delay="1">
-        <div class="soon"><span class="soon__dot" aria-hidden="true"></span><div><b data-i18n="bk.openNow">Open daily</b><p data-i18n="bk.openP">10:00 to 22:00, every day of the week. Same-day bookings are often possible, just ask.</p></div></div>
+        <div class="soon"><span class="soon__dot" aria-hidden="true"></span><div><b data-i18n="bk.openNow">Open all year</b><p data-i18n="bk.openP">May to October every day 10:00 to 22:00. November to April Tuesday to Sunday 10:00 to 22:00, Monday closed. Walk-ins are welcome whenever a therapist is free.</p></div></div>
+        <div class="soon"><span class="soon__dot" aria-hidden="true"></span><div><b data-i18n="bk.callB">Call or e-mail</b><p><span data-i18n="bk.callP">Prefer to call? Ring +385&nbsp;91&nbsp;307&nbsp;8889. By e-mail, tell us the treatment, duration, preferred date and time and your phone number, and we reply to confirm:</span> <a href="mailto:massagethaitouch@gmail.com" style="text-decoration:underline;text-underline-offset:3px">massagethaitouch@gmail.com</a></p></div></div>
         <div class="soon"><span class="soon__dot" aria-hidden="true"></span><div><b data-i18n="bk.coupleB">Two people</b><p data-i18n="bk.coupleP">Coming as a couple or with a friend? Set persons to 2 and we will arrange it.</p></div></div>
       </div>
     </div>
@@ -1069,10 +1159,15 @@ html select{height:56px;line-height:normal}
       <p data-i18n="faq.lead">Anything else? Call or write on WhatsApp.</p>
     </div>
     <div class="faq__list rv" data-delay="1">
-      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q1">Do I need to book in advance?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a1">Booking is recommended so your preferred time is free. Send a WhatsApp request through the form or call us.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q1">Do I need to book in advance?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a1">Walk-ins are welcome whenever a therapist is free. To be sure of your time, especially in summer, call us or send a request through the form.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q7">Where is the salon?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a7">At Ul. Viktora cara Emina 3 in Opatija, just below Maršala Tita street and a short walk from the Lungomare.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q8">Are you open in winter?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a8">Yes, we are open all year. May to October every day 10:00 to 22:00. November to April Tuesday to Sunday 10:00 to 22:00, Monday closed.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q2">What should I wear for Thai massage?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a2">Traditional Thai massage is done in loose, comfortable clothing without oil. For oil massages you undress to your comfort level and are covered with a towel.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q3">How strong is the pressure?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a3">As strong as you want. Your therapist checks your comfort during the session and adjusts the pressure right away.</p></div></div></div>
-      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q4">What is the Royal Thai massage?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a4">A 2-hour ritual: traditional Thai massage, a hot herbal compress and an oil massage to finish.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q4">What is the Royal Massage?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a4">Our signature ritual of 90 or 120 minutes: Thai massage combined with hot herbal pouches and aroma oil, with some stretching at the end.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q9">Can I pay by card?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a9">No. Payment is in cash only, cards are not accepted.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q10">Which massage should I choose?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a10">For stretching and deep pressure-point work, choose the Thai Classic. To relax, take the Thai Oil Massage or Aroma Therapy. For tired, sore muscles, the Royal Massage.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q11">Do you offer other kinds of massage?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a11">We only provide the traditional treatments listed on our price list.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">Can we come as a couple?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a5">Ask us. Set persons to 2 in the booking form and we will arrange it with you on WhatsApp.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q6">Do you sell gift vouchers?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a6">Ask us. Use the voucher block above to send a request and we reply with the details.</p></div></div></div>
     </div>
@@ -1088,7 +1183,7 @@ html select{height:56px;line-height:normal}
         <p class="addr" style="margin-top:14px">Thai Touch Massage<br>Ul. Viktora cara Emina 3<br>51410 Opatija, Croatia</p>
         <a class="ulink" href="https://maps.google.com/?q=Thai+Touch+Massage,+Ul.+Viktora+cara+Emina+3,+51410+Opatija" target="_blank" rel="noopener"><span data-i18n="c.map">Open in Google Maps</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <ul class="hours" id="hours">
-          <li data-days="1"><span data-i18n="d.mon">Monday</span><span>10:00 to 22:00</span></li>
+          <li data-days="1"><span data-i18n="d.mon">Monday</span><span>10:00 to 22:00&nbsp;*</span></li>
           <li data-days="2"><span data-i18n="d.tue">Tuesday</span><span>10:00 to 22:00</span></li>
           <li data-days="3"><span data-i18n="d.wed">Wednesday</span><span>10:00 to 22:00</span></li>
           <li data-days="4"><span data-i18n="d.thu">Thursday</span><span>10:00 to 22:00</span></li>
@@ -1096,13 +1191,19 @@ html select{height:56px;line-height:normal}
           <li data-days="6"><span data-i18n="d.sat">Saturday</span><span>10:00 to 22:00</span></li>
           <li data-days="0"><span data-i18n="d.sun">Sunday</span><span>10:00 to 22:00</span></li>
         </ul>
+        <p class="hours-note" data-i18n="c.note">* May to October open every day. November to April closed on Mondays.</p>
         <div class="contact__btns">
           <a class="pill pill--wa" href="https://wa.me/385913078889" target="_blank" rel="noopener">WhatsApp</a>
           <a class="pill pill--ghost" href="tel:+385913078889">+385&nbsp;91&nbsp;307&nbsp;8889</a>
         </div>
+        <div class="socials">
+          <a class="ulink" href="mailto:massagethaitouch@gmail.com">massagethaitouch@gmail.com</a>
+          <a class="ulink" href="https://www.instagram.com/thaitouchopatija/" target="_blank" rel="noopener">Instagram</a>
+          <a class="ulink" href="https://www.facebook.com/profile.php?id=100064014703715" target="_blank" rel="noopener">Facebook</a>
+        </div>
       </div>
       <div class="frame contact__img rv-img">
-        <div class="art art--4" data-par="0.08"><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
+        <div class="art art--4" data-par="0.08"><img src="https://thai-touch-massage.com/wp-content/uploads/2026/09/Thai-touch-massage-opatija-1536x864.webp" alt="Thai Touch Massage salon, Ul. Viktora cara Emina 3, Opatija" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
         <span class="tag-b">Opatija, Croatia</span>
         <span class="pin" aria-hidden="true"><span class="pin__ring"><svg viewBox="0 0 24 24" fill="none" stroke="#1B1B1B" stroke-width="1.4"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span></span>
       </div>
@@ -1120,14 +1221,15 @@ html select{height:56px;line-height:normal}
           <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".5"/><g fill="none" stroke="#E8A8B8" stroke-width="2.4" stroke-linejoin="round"><path d="M50 22C58 34 62 50 50 68C38 50 42 34 50 22z"/><path d="M50 68C34 64 24 54 22 40C36 42 46 52 50 68z"/><path d="M50 68C66 64 76 54 78 40C64 42 54 52 50 68z"/></g><path d="M28 74C40 70 60 70 72 74" fill="none" stroke="#C9A45C" stroke-width="2" stroke-linecap="round"/></svg>
           <span><b>Thai Touch</b><small>Massage · Opatija</small></span>
         </a>
-        <p style="margin-top:18px;max-width:34ch" data-i18n="ft.p">Authentic Thai massage by a team of Thai therapists. Open daily 10:00 to 22:00.</p>
+        <p style="margin-top:18px;max-width:34ch" data-i18n="ft.p">Authentic Thai massage by therapists from Thailand, in Opatija.</p>
+        <p style="max-width:34ch" data-i18n="ft.more">Thai Touch also has salons in Rijeka, Mali Lošinj and Rab.</p>
       </div>
       <div><h4 data-i18n="ft.visit">Visit</h4><p>Ul. Viktora cara Emina 3<br>51410 Opatija, Croatia</p></div>
-      <div><h4 data-i18n="ft.talk">Talk to us</h4><p><a href="tel:+385913078889">+385&nbsp;91&nbsp;307&nbsp;8889</a><br><a href="https://wa.me/385913078889" target="_blank" rel="noopener">WhatsApp</a></p></div>
-      <div><h4 data-i18n="ft.hours">Hours</h4><p data-i18n="ft.hoursV">Every day<br>10:00 to 22:00</p></div>
+      <div><h4 data-i18n="ft.talk">Talk to us</h4><p><a href="tel:+385913078889">+385&nbsp;91&nbsp;307&nbsp;8889</a><br><a href="mailto:massagethaitouch@gmail.com">massagethaitouch@gmail.com</a><br><a href="https://www.instagram.com/thaitouchopatija/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/profile.php?id=100064014703715" target="_blank" rel="noopener">Facebook</a></p></div>
+      <div><h4 data-i18n="ft.hours">Hours</h4><p data-i18n="ft.hoursV">May to Oct: every day 10:00 to 22:00<br>Nov to Apr: Tue to Sun 10:00 to 22:00</p><p data-i18n="ft.cash">Cash only</p></div>
     </div>
     <div class="foot__bot">
-      <span>© <span id="year">2026</span> Thai Touch Massage</span>
+      <span>© <span id="year">2026</span> Thai Touch Massage · KANCHANA, obrt za masažu tijela, Viktora cara Emina 3, Opatija, MB 98109677</span>
       <span data-i18n="ft.concept">Website concept by Marija. Proposal mockup, not a live site.</span>
     </div>
   </div>
@@ -1135,7 +1237,7 @@ html select{height:56px;line-height:normal}
 
 <a class="fab" id="fab" href="#booking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="fab">Book</span></a>
 <div class="sbar" id="sbar" aria-hidden="true">
-  <div><small data-i18n="sb.sel">Your selection</small><b id="sbarT">Royal Thai · 120 min</b></div>
+  <div><small data-i18n="sb.sel">Your selection</small><b id="sbarT">Royal Massage · 120&nbsp;min</b></div>
   <button type="button" class="pill" id="sbarBtn" data-i18n="sb.btn">Send</button>
 </div>
 <span class="ctag" aria-hidden="true">Concept by Marija</span>
@@ -1154,7 +1256,7 @@ html select{height:56px;line-height:normal}
     "js.today":"Today","js.prev":"Previous","js.next":"Next","finder.today":"Today","finder.p1":"1 person","finder.pn":"persons",
     "wa.hello":"Hello Thai Touch!","wa.want":"I would like to book","wa.dur":"Duration","wa.date":"Date","wa.flex":"flexible","wa.time":"Time","wa.persons":"Persons","wa.name":"Name","wa.thanks":"Thank you!",
     "wa.giftA":"I would like to order a gift voucher","wa.total":"total",
-    "t.trad":"Traditional Thai","t.royal":"Royal Thai","t.oil":"Aromatherapy oil","t.tailor":"Tailored","f.morning":"Morning","f.afternoon":"Afternoon","f.evening":"Evening"
+    "t.trad":"Thai Classic","t.royal":"Royal Massage","t.oil":"Thai Oil","t.aroma":"Aroma Therapy","t.stone":"Hot Stone","t.foot":"Foot Massage","f.morning":"Morning","f.afternoon":"Afternoon","f.evening":"Evening"
   };
   var HR = {
     "nav.book":"Rezerviraj","nav.menu":"Izbornik","nav.intro":"Naš tim","nav.treat":"Tretmani","nav.session":"Vaš termin","nav.booking":"Rezervacija","nav.gift":"Poklon bon","nav.faq":"Pitanja","nav.contact":"Kontakt","nav.bookWa":"Rezerviraj putem WhatsAppa","ovl.hours":"Otvoreno svaki dan 10:00 do 22:00",
@@ -1255,6 +1357,162 @@ html select{height:56px;line-height:normal}
     "js.today":"Oggi","js.prev":"Precedente","js.next":"Successiva","finder.today":"Oggi","finder.p1":"1 persona","finder.pn":"persone",
     "wa.hello":"Ciao Thai Touch!","wa.want":"Vorrei prenotare","wa.dur":"Durata","wa.date":"Data","wa.flex":"flessibile","wa.time":"Orario","wa.persons":"Persone","wa.name":"Nome","wa.thanks":"Grazie!","wa.giftA":"Vorrei ordinare un buono regalo","wa.total":"totale"
   };
+  /* real Thai Touch content (treatments, prices, seasonal hours, cash only): overrides + new keys */
+  var HR2 = {
+    "ovl.hours":"Svibanj do listopad svaki dan 10:00 do 22:00, studeni do travanj uto do ned",
+    "gal.c1":"Thai Touch Massage Opatija","gal.c2":"Tradicionalna tajlandska masaža","gal.c3":"Salon u Opatiji","gal.c4":"Terapeuti s Tajlanda","gal.c5":"Ul. Viktora cara Emina 3","gal.c6":"Autentična tajlandska tehnika",
+    "intro.lead":"Thai Touch je tim terapeuta s Tajlanda. Svatko od njih završio je jednu od vodećih škola tradicionalne tajlandske medicine i ima 5 do 10 godina iskustva.",
+    "intro.p1":"Tajlandska masaža terapeutska je vještina. Naši terapeuti rade šakama, dlanovima, rukama, laktovima, koljenima i stopalima, a ponekad i toplim biljnim oblozima: pritiskanje i valjanje, stiskanje, asistirano istezanje i nježno savijanje.",
+    "intro.p3":"Naše obećanje: samo autentični tretmani, fiksne objavljene cijene i isti standard u sva četiri Thai Touch salona, u Opatiji, Rijeci, Malom Lošinju i na Rabu.",
+    "tr.lead":"Tradicionalni tajlandski tretmani terapeuta s Tajlanda. Odaberite masažu, zatim trajanje od 30 do 120&nbsp;minuta.",
+    "t.trad":"Thai Classic","t.royal":"Royal masaža","t.oil":"Masaža uljem","t.aroma":"Aromaterapija","t.stone":"Vruće kamenje","t.foot":"Masaža stopala",
+    "p1.t":"Thai Classic masaža","p1.m":"U odjeći · bez ulja · 60, 90 ili 120&nbsp;min","p1.p":"Masaža cijelog tijela u udobnoj odjeći. Tradicionalne točke pritiska, duboka istezanja i ritam težine tijela terapeuta. Pravi izbor za istezanje i dubok rad na točkama pritiska.","p1.l1":"Točke pritiska duž energetskih linija","p1.l2":"Asistirano istezanje","p1.l3":"Pritisak prilagođen vama",
+    "p2.tag":"Specijalitet","p2.t":"Royal masaža","p2.m":"Ritual kuće · 90 ili 120&nbsp;min","p2.p":"Tajlandska masaža u kombinaciji s vrućim biljnim jastučićima i aroma uljem, uz malo istezanja na kraju. Naš izbor za umorne i bolne mišiće.","p2.l1":"Tradicionalna tajlandska masaža","p2.l2":"Vrući biljni jastučići","p2.l3":"Aroma ulje i istezanje za kraj",
+    "p3.t":"Thai Oil masaža","p3.m":"Ulje · cijelo tijelo · 60, 90 ili 120&nbsp;min","p3.p":"Opuštanje cijelog tijela uljem i radom na točkama pritiska, uz tajlandski tiger balm za kraj.","p3.l1":"Toplo ulje, cijelo tijelo","p3.l2":"Rad na točkama pritiska","p3.l3":"Tajlandski tiger balm",
+    "p4.tag":"Nježno","p4.t":"Aromaterapija","p4.m":"Aromatična ulja · nježno · 60, 90 ili 120&nbsp;min","p4.p":"Nježnija, umirujuća masaža cijelog tijela aromatičnim uljima. Dobar izbor za prvi posjet.","p4.l1":"Aromatična ulja","p4.l2":"Mekani, umirujući pokreti","p4.l3":"Idealno za prvu tajlandsku masažu",
+    "p5.t":"Masaža vrućim kamenjem","p5.m":"Ritual kuće · 90 ili 120&nbsp;min","p5.p":"Masaža cijelog tijela toplim vulkanskim kamenjem postavljenim duž energetskih linija tijela.","p5.l1":"Toplo vulkansko kamenje","p5.l2":"Postavljeno duž energetskih linija","p5.l3":"Duboko grije i opušta",
+    "p6.tag":"Refleksologija","p6.t":"Masaža stopala","p6.m":"Refleksologija · 30 ili 60&nbsp;min","p6.p":"Refleksologija stopala i nogu. Kratko traje, a donosi veliko olakšanje nakon dana na Lungomareu.","p6.l1":"Refleksne točke na stopalima","p6.l2":"Stopala i potkoljenice","p6.l3":"30 ili 60 minuta",
+    "tr.from":"Cijena","tr.ex":"samo gotovina","tr.note":"Cijene su iste u sva četiri Thai Touch salona. Plaćanje isključivo gotovinom, kartice ne primamo. Nudimo samo tradicionalne tretmane s ovog cjenika.",
+    "pl.t":"Cijeli cjenik","pl.lead":"Svih 18 tretmana, trajanja i cijene u eurima. Vrijedi u Opatiji, Rijeci, Malom Lošinju i na Rabu.","pl.g1":"Tajlandske masaže i masaže uljem","pl.g2":"Rituali kuće","pl.g3":"Leđa i opuštanje","pl.g4":"Lice i stopala",
+    "pl.n1":"Thai Classic (u odjeći)","pl.d1":"Masaža cijelog tijela u odjeći, s točkama pritiska i istezanjem.",
+    "pl.n2":"Thai Oil masaža","pl.d2":"Opuštanje cijelog tijela uljem, točkama pritiska i tajlandskim tiger balmom.",
+    "pl.n3":"Aromaterapija","pl.d3":"Nježnija, umirujuća masaža cijelog tijela aromatičnim uljima.",
+    "pl.n4":"Coconut Dream","pl.d4":"Aroma masaža cijelog tijela kokosovim uljem za meku, njegovanu kožu.",
+    "pl.n5":"Masaža aloe verom","pl.d5":"Osvježavajuća masaža cijelog tijela za kožu izloženu suncu, s aloe verom iz našeg vrta.",
+    "pl.n6":"Royal Massage Signature","pl.d6":"Tajlandska masaža s vrućim biljnim jastučićima i aroma uljem, istezanje na kraju.",
+    "pl.n7":"Masaža vrućim kamenjem","pl.d7":"Masaža cijelog tijela toplim vulkanskim kamenjem duž energetskih linija.",
+    "pl.n8":"Detox","pl.d8":"Masaža cijelog tijela sa slojem gline s Mrtvog mora koja osvježava kožu.",
+    "pl.n9":"Piling tijela kavom","pl.d9":"Piling tijela kavom, a zatim aroma masaža.",
+    "pl.n10":"Relax masaža","pl.d10":"Šake, vrat, ramena i glava.",
+    "pl.n11":"Masaža leđa","pl.d11":"Leđa, vrat i ramena.",
+    "pl.n12":"Royal masaža leđa","pl.d12":"Leđa, vrat i ramena s vrućim biljnim jastučićima.",
+    "pl.n13":"Masaža leđa vrućim kamenjem","pl.d13":"Leđa, vrat i ramena s toplim vulkanskim kamenjem.",
+    "pl.n14":"Masaža stopala","pl.d14":"Refleksologija stopala i nogu.",
+    "pl.n15":"Piling + masaža + maska lica","pl.d15":"Sva tri tretmana lica u jednom.",
+    "pl.n16":"Piling lica","pl.d16":"Uklanja odumrle stanice i ujednačuje ton i teksturu kože.",
+    "pl.n17":"Masaža lica","pl.d17":"Opušta mišiće lica i pomaže smanjiti podbuhlost.",
+    "pl.n18":"Maska za lice","pl.d18":"Pomaže koži upiti hranjive sastojke.",
+    "se.tag":"Tajlandska masaža","s3.p":"Od 30 do 120 minuta. Terapeut provjerava vašu udobnost i usput prilagođava pritisak.",
+    "gtk.hoursV":"Svibanj do listopad: svaki dan, 10:00 do 22:00<br>Studeni do travanj: utorak do nedjelja, 10:00 do 22:00, ponedjeljkom zatvoreno",
+    "gtk.walk":"Bez najave","gtk.walkV":"Dobrodošli ste kad god je terapeut slobodan. Ljeti preporučujemo da nazovete unaprijed.","gtk.pay":"Plaćanje","gtk.payV":"Samo gotovina, kartice ne primamo","gtk.phone":"Telefon","gtk.email":"E-mail",
+    "near.2s":"Šetnica uz more, nekoliko minuta hoda od salona","near.3":"Ulica Maršala Tita","near.3s":"Salon je odmah ispod glavne opatijske ulice",
+    "f.fine":"Bez plaćanja online. Termin samo potvrđujete u razgovoru. U salonu se plaća isključivo gotovinom.",
+    "bk.openNow":"Otvoreno cijele godine","bk.openP":"Od svibnja do listopada svaki dan 10:00 do 22:00. Od studenog do travnja utorak do nedjelja 10:00 do 22:00, ponedjeljkom zatvoreno. Bez najave ste dobrodošli kad god je terapeut slobodan.",
+    "bk.callB":"Nazovite ili pošaljite e-mail","bk.callP":"Radije biste nazvali? Nazovite +385&nbsp;91&nbsp;307&nbsp;8889. U e-mailu navedite tretman, trajanje, željeni datum i vrijeme te broj telefona, a mi odgovaramo s potvrdom:",
+    "a1":"Bez najave ste dobrodošli kad god je terapeut slobodan. Kako biste bili sigurni u svoj termin, osobito ljeti, nazovite nas ili pošaljite zahtjev putem obrasca.",
+    "q4":"Što je Royal masaža?","a4":"Naš ritual kuće od 90 ili 120 minuta: tajlandska masaža s vrućim biljnim jastučićima i aroma uljem, uz malo istezanja na kraju.",
+    "q7":"Gdje se nalazi salon?","a7":"U Ul. Viktora cara Emina 3 u Opatiji, odmah ispod Ulice Maršala Tita i nekoliko minuta hoda od Lungomarea.",
+    "q8":"Radite li zimi?","a8":"Da, otvoreni smo cijele godine. Od svibnja do listopada svaki dan 10:00 do 22:00. Od studenog do travnja utorak do nedjelja 10:00 do 22:00, ponedjeljkom zatvoreno.",
+    "q9":"Mogu li platiti karticom?","a9":"Ne. Plaćanje je isključivo gotovinom, kartice ne primamo.",
+    "q10":"Koju masažu odabrati?","a10":"Za istezanje i dubok rad na točkama pritiska odaberite Thai Classic. Za opuštanje Thai Oil masažu ili aromaterapiju. Za umorne i bolne mišiće Royal masažu.",
+    "q11":"Nudite li i druge vrste masaže?","a11":"Nudimo samo tradicionalne tretmane s našeg cjenika.",
+    "c.note":"* Od svibnja do listopada otvoreno svaki dan. Od studenog do travnja ponedjeljkom zatvoreno.",
+    "ft.p":"Autentična tajlandska masaža terapeuta s Tajlanda, u Opatiji.","ft.more":"Thai Touch ima salone i u Rijeci, Malom Lošinju i na Rabu.","ft.hoursV":"Svibanj do listopad: svaki dan 10:00 do 22:00<br>Studeni do travanj: uto do ned 10:00 do 22:00","ft.cash":"Samo gotovina",
+    "finder.pn5":"osoba"
+  };
+  var DE2 = {
+    "ovl.hours":"Mai bis Okt täglich 10:00 bis 22:00, Nov bis Apr Di bis So",
+    "gal.c1":"Thai Touch Massage Opatija","gal.c2":"Traditionelle Thai-Massage","gal.c3":"Der Salon in Opatija","gal.c4":"Therapeutinnen aus Thailand","gal.c5":"Ul. Viktora cara Emina 3","gal.c6":"Authentische Thai-Technik",
+    "intro.lead":"Thai Touch ist ein Team von Therapeutinnen aus Thailand. Jede hat eine führende Schule für traditionelle Thai-Medizin abgeschlossen und bringt 5 bis 10 Jahre Erfahrung mit.",
+    "intro.p1":"Thai-Massage ist eine therapeutische Kunst. Unsere Therapeutinnen arbeiten mit Händen, Handflächen, Armen, Ellbogen, Knien und Füßen, manchmal auch mit warmen Kräuterstempeln: Drücken und Rollen, Kneten, geführte Dehnungen und sanftes Beugen.",
+    "intro.p3":"Unser Versprechen: nur authentische Behandlungen, feste veröffentlichte Preise und derselbe Standard in allen vier Thai Touch Salons, in Opatija, Rijeka, Mali Lošinj und Rab.",
+    "tr.lead":"Traditionelle Thai-Behandlungen von Therapeutinnen aus Thailand. Wählen Sie eine Massage, dann eine Dauer von 30 bis 120&nbsp;Minuten.",
+    "t.trad":"Thai Classic","t.royal":"Royal Massage","t.oil":"Thai-Ölmassage","t.aroma":"Aromatherapie","t.stone":"Hot Stone","t.foot":"Fußmassage",
+    "p1.t":"Thai Classic Massage","p1.m":"Bekleidet · ohne Öl · 60, 90 oder 120&nbsp;Min.","p1.p":"Eine Ganzkörpermassage in bequemer Kleidung. Traditionelle Druckpunkte, tiefe Dehnungen und der Rhythmus des Körpergewichts der Therapeutin. Die Wahl für Dehnung und intensive Druckpunktarbeit.","p1.l1":"Druckpunkte entlang der Energielinien","p1.l2":"Geführte Dehnungen","p1.l3":"Druck auf Sie abgestimmt",
+    "p2.tag":"Signature","p2.t":"Royal Massage","p2.m":"Signature-Ritual · 90 oder 120&nbsp;Min.","p2.p":"Thai-Massage kombiniert mit heißen Kräuterstempeln und Aromaöl, mit etwas Dehnung zum Abschluss. Unsere Empfehlung für müde, verspannte Muskeln.","p2.l1":"Traditionelle Thai-Massage","p2.l2":"Heiße Kräuterstempel","p2.l3":"Aromaöl und Dehnung zum Abschluss",
+    "p3.t":"Thai-Ölmassage","p3.m":"Öl · Ganzkörper · 60, 90 oder 120&nbsp;Min.","p3.p":"Ganzkörperentspannung mit Öl und Druckpunktarbeit, zum Abschluss mit thailändischem Tigerbalsam.","p3.l1":"Warmes Öl, ganzer Körper","p3.l2":"Druckpunktarbeit","p3.l3":"Thailändischer Tigerbalsam",
+    "p4.tag":"Sanft","p4.t":"Aromatherapie","p4.m":"Aromaöle · sanft · 60, 90 oder 120&nbsp;Min.","p4.p":"Eine sanftere, beruhigende Ganzkörpermassage mit Aromaölen. Eine gute Wahl für den ersten Besuch.","p4.l1":"Aromatische Öle","p4.l2":"Weiche, beruhigende Griffe","p4.l3":"Ideal für die erste Thai-Massage",
+    "p5.t":"Hot-Stone-Massage","p5.m":"Signature-Ritual · 90 oder 120&nbsp;Min.","p5.p":"Eine Ganzkörpermassage mit warmen Lavasteinen, die entlang der Energielinien des Körpers aufgelegt werden.","p5.l1":"Warme Lavasteine","p5.l2":"Entlang der Energielinien aufgelegt","p5.l3":"Tief wärmend und entspannend",
+    "p6.tag":"Reflexzonen","p6.t":"Fußmassage","p6.m":"Reflexzonen · 30 oder 60&nbsp;Min.","p6.p":"Reflexzonenmassage an Füßen und Beinen. Kurz in der Zeit, groß in der Wirkung nach einem Tag auf dem Lungomare.","p6.l1":"Reflexzonen der Füße","p6.l2":"Füße und Unterschenkel","p6.l3":"30 oder 60 Minuten",
+    "tr.from":"Preis","tr.ex":"nur bar","tr.note":"Die Preise sind in allen vier Thai Touch Salons gleich. Zahlung nur in bar, Karten werden nicht akzeptiert. Wir bieten nur die traditionellen Behandlungen dieser Preisliste an.",
+    "pl.t":"Vollständige Preisliste","pl.lead":"Alle 18 Behandlungen, Dauer und Preise in Euro. Gültig in Opatija, Rijeka, Mali Lošinj und Rab.","pl.g1":"Thai- &amp; Ölmassagen","pl.g2":"Signature-Rituale","pl.g3":"Rücken &amp; Entspannung","pl.g4":"Gesicht &amp; Füße",
+    "pl.n1":"Thai Classic (bekleidet)","pl.d1":"Bekleidete Ganzkörpermassage mit Druckpunkten und Dehnungen.",
+    "pl.n2":"Thai-Ölmassage","pl.d2":"Ganzkörperentspannung mit Öl, Druckpunkten und thailändischem Tigerbalsam.",
+    "pl.n3":"Aromatherapie","pl.d3":"Eine sanftere, beruhigende Ganzkörpermassage mit Aromaölen.",
+    "pl.n4":"Coconut Dream","pl.d4":"Ganzkörper-Aromamassage mit Kokosöl für weiche, gepflegte Haut.",
+    "pl.n5":"Aloe-Vera-Massage","pl.d5":"Kühlende Ganzkörpermassage für sonnenbeanspruchte Haut, mit Aloe aus unserem Garten.",
+    "pl.n6":"Royal Massage Signature","pl.d6":"Thai-Massage mit heißen Kräuterstempeln und Aromaöl, Dehnung zum Abschluss.",
+    "pl.n7":"Hot-Stone-Massage","pl.d7":"Ganzkörpermassage mit warmen Lavasteinen entlang der Energielinien.",
+    "pl.n8":"Detox","pl.d8":"Ganzkörpermassage mit einer Schicht Tonerde vom Toten Meer, die die Haut erfrischt.",
+    "pl.n9":"Kaffee-Körperpeeling","pl.d9":"Ein Kaffee-Körperpeeling, danach eine Aromamassage.",
+    "pl.n10":"Relax-Massage","pl.d10":"Hände, Nacken, Schultern und Kopf.",
+    "pl.n11":"Rückenmassage","pl.d11":"Rücken, Nacken und Schultern.",
+    "pl.n12":"Royal Rückenmassage","pl.d12":"Rücken, Nacken und Schultern mit heißen Kräuterstempeln.",
+    "pl.n13":"Hot-Stone-Rückenmassage","pl.d13":"Rücken, Nacken und Schultern mit warmen Lavasteinen.",
+    "pl.n14":"Fußmassage","pl.d14":"Reflexzonenmassage an Füßen und Beinen.",
+    "pl.n15":"Gesichtspeeling + Massage + Maske","pl.d15":"Alle drei Gesichtsbehandlungen in einer.",
+    "pl.n16":"Gesichtspeeling","pl.d16":"Peelt und verfeinert Hautton und Hautbild.",
+    "pl.n17":"Gesichtsmassage","pl.d17":"Entspannt die Gesichtsmuskeln und hilft gegen Schwellungen.",
+    "pl.n18":"Gesichtsmaske","pl.d18":"Hilft der Haut, pflegende Wirkstoffe aufzunehmen.",
+    "se.tag":"Thai-Massage","s3.p":"30 bis 120 Minuten. Ihre Therapeutin fragt nach Ihrem Wohlbefinden und passt den Druck laufend an.",
+    "gtk.hoursV":"Mai bis Oktober: täglich, 10:00 bis 22:00<br>November bis April: Dienstag bis Sonntag, 10:00 bis 22:00, Montag geschlossen",
+    "gtk.walk":"Ohne Termin","gtk.walkV":"Willkommen, wann immer eine Therapeutin frei ist. Im Sommer empfehlen wir, vorher anzurufen.","gtk.pay":"Zahlung","gtk.payV":"Nur bar, Karten werden nicht akzeptiert","gtk.phone":"Telefon","gtk.email":"E-Mail",
+    "near.2s":"Die Uferpromenade, wenige Gehminuten vom Salon","near.3":"Maršala-Tita-Straße","near.3s":"Der Salon liegt direkt unterhalb der Hauptstraße von Opatija",
+    "f.fine":"Keine Online-Zahlung. Sie bestätigen nur die Zeit im Chat. Bezahlt wird im Salon, nur in bar.",
+    "bk.openNow":"Ganzjährig geöffnet","bk.openP":"Mai bis Oktober täglich 10:00 bis 22:00. November bis April Dienstag bis Sonntag 10:00 bis 22:00, Montag geschlossen. Ohne Termin sind Sie willkommen, wann immer eine Therapeutin frei ist.",
+    "bk.callB":"Anrufen oder E-Mail","bk.callP":"Lieber anrufen? Wählen Sie +385&nbsp;91&nbsp;307&nbsp;8889. Per E-Mail nennen Sie uns Behandlung, Dauer, Wunschdatum und Uhrzeit sowie Ihre Telefonnummer, und wir bestätigen Ihnen den Termin:",
+    "a1":"Ohne Termin sind Sie willkommen, wann immer eine Therapeutin frei ist. Um Ihre Wunschzeit sicher zu haben, besonders im Sommer, rufen Sie uns an oder senden Sie eine Anfrage über das Formular.",
+    "q4":"Was ist die Royal Massage?","a4":"Unser Signature-Ritual mit 90 oder 120 Minuten: Thai-Massage kombiniert mit heißen Kräuterstempeln und Aromaöl, mit etwas Dehnung zum Abschluss.",
+    "q7":"Wo ist der Salon?","a7":"In der Ul. Viktora cara Emina 3 in Opatija, direkt unterhalb der Maršala-Tita-Straße und wenige Gehminuten vom Lungomare.",
+    "q8":"Haben Sie im Winter geöffnet?","a8":"Ja, wir sind das ganze Jahr geöffnet. Mai bis Oktober täglich 10:00 bis 22:00. November bis April Dienstag bis Sonntag 10:00 bis 22:00, Montag geschlossen.",
+    "q9":"Kann ich mit Karte zahlen?","a9":"Nein. Die Zahlung erfolgt nur in bar, Karten werden nicht akzeptiert.",
+    "q10":"Welche Massage soll ich wählen?","a10":"Für Dehnung und intensive Druckpunktarbeit wählen Sie die Thai Classic. Zum Entspannen die Thai-Ölmassage oder Aromatherapie. Für müde, verspannte Muskeln die Royal Massage.",
+    "q11":"Bieten Sie auch andere Massagen an?","a11":"Wir bieten nur die traditionellen Behandlungen unserer Preisliste an.",
+    "c.note":"* Mai bis Oktober täglich geöffnet. November bis April montags geschlossen.",
+    "ft.p":"Authentische Thai-Massage von Therapeutinnen aus Thailand, in Opatija.","ft.more":"Thai Touch hat auch Salons in Rijeka, Mali Lošinj und Rab.","ft.hoursV":"Mai bis Okt: täglich 10:00 bis 22:00<br>Nov bis Apr: Di bis So 10:00 bis 22:00","ft.cash":"Nur Barzahlung"
+  };
+  var IT2 = {
+    "ovl.hours":"Maggio a ottobre ogni giorno dalle 10:00 alle 22:00, novembre ad aprile mar a dom",
+    "gal.c1":"Thai Touch Massage Opatija","gal.c2":"Massaggio thai tradizionale","gal.c3":"Il salone a Opatija","gal.c4":"Terapiste dalla Thailandia","gal.c5":"Ul. Viktora cara Emina 3","gal.c6":"Tecnica thai autentica",
+    "intro.lead":"Thai Touch è un team di terapiste dalla Thailandia. Ognuna si è diplomata in una delle principali scuole di medicina tradizionale thailandese e ha dai 5 ai 10 anni di esperienza.",
+    "intro.p1":"Il massaggio thai è un'arte terapeutica. Le nostre terapiste lavorano con mani, palmi, braccia, gomiti, ginocchia e piedi, a volte anche con caldi tamponi alle erbe: pressioni e rotolamenti, impastamenti, stretching assistito e piegamenti delicati.",
+    "intro.p3":"La nostra promessa: solo trattamenti autentici, prezzi fissi e pubblicati e lo stesso standard in tutti e quattro i saloni Thai Touch, a Opatija, Rijeka, Mali Lošinj e Rab.",
+    "tr.lead":"Trattamenti thai tradizionali di terapiste dalla Thailandia. Scegliete un massaggio, poi una durata da 30 a 120&nbsp;minuti.",
+    "t.trad":"Thai Classic","t.royal":"Royal Massage","t.oil":"Thai con olio","t.aroma":"Aromaterapia","t.stone":"Pietre calde","t.foot":"Massaggio ai piedi",
+    "p1.t":"Massaggio Thai Classic","p1.m":"Vestiti · senza olio · 60, 90 o 120&nbsp;min","p1.p":"Un massaggio total body in abiti comodi. Punti di pressione tradizionali, allungamenti profondi e il ritmo del peso corporeo della terapista. La scelta per lo stretching e il lavoro profondo sui punti di pressione.","p1.l1":"Punti di pressione lungo le linee energetiche","p1.l2":"Stretching assistito","p1.l3":"Pressione regolata su di voi",
+    "p2.tag":"Signature","p2.t":"Royal Massage","p2.m":"Rituale signature · 90 o 120&nbsp;min","p2.p":"Massaggio thai abbinato a tamponi caldi alle erbe e olio aromatico, con un po' di stretching alla fine. Il nostro consiglio per muscoli stanchi e doloranti.","p2.l1":"Massaggio thai tradizionale","p2.l2":"Tamponi caldi alle erbe","p2.l3":"Olio aromatico e stretching per finire",
+    "p3.t":"Massaggio thai con olio","p3.m":"Olio · total body · 60, 90 o 120&nbsp;min","p3.p":"Rilassamento total body con olio e lavoro sui punti di pressione, per finire con balsamo di tigre thailandese.","p3.l1":"Olio caldo, tutto il corpo","p3.l2":"Lavoro sui punti di pressione","p3.l3":"Balsamo di tigre thailandese",
+    "p4.tag":"Delicato","p4.t":"Aromaterapia","p4.m":"Oli aromatici · delicato · 60, 90 o 120&nbsp;min","p4.p":"Un massaggio total body più delicato e calmante con oli aromatici. Ottimo per la prima visita.","p4.l1":"Oli aromatici","p4.l2":"Movimenti morbidi e calmanti","p4.l3":"Ideale per il primo massaggio thai",
+    "p5.t":"Massaggio con pietre calde","p5.m":"Rituale signature · 90 o 120&nbsp;min","p5.p":"Un massaggio total body con pietre laviche calde posate lungo le linee energetiche del corpo.","p5.l1":"Pietre laviche calde","p5.l2":"Posate lungo le linee energetiche","p5.l3":"Profondamente caldo e rilassante",
+    "p6.tag":"Riflessologia","p6.t":"Massaggio ai piedi","p6.m":"Riflessologia · 30 o 60&nbsp;min","p6.p":"Riflessologia su piedi e gambe. Breve nel tempo, grande nel sollievo dopo una giornata sul Lungomare.","p6.l1":"Punti riflessi del piede","p6.l2":"Piedi e polpacci","p6.l3":"30 o 60 minuti",
+    "tr.from":"Prezzo","tr.ex":"solo contanti","tr.note":"I prezzi sono uguali in tutti e quattro i saloni Thai Touch. Pagamento solo in contanti, non accettiamo carte. Offriamo solo i trattamenti tradizionali di questo listino.",
+    "pl.t":"Listino completo","pl.lead":"Tutti i 18 trattamenti, durate e prezzi in euro. Valido a Opatija, Rijeka, Mali Lošinj e Rab.","pl.g1":"Massaggi thai e con olio","pl.g2":"Rituali signature","pl.g3":"Schiena e relax","pl.g4":"Viso e piedi",
+    "pl.n1":"Thai Classic (vestiti)","pl.d1":"Massaggio total body da vestiti, con punti di pressione e stretching.",
+    "pl.n2":"Massaggio thai con olio","pl.d2":"Rilassamento total body con olio, punti di pressione e balsamo di tigre thailandese.",
+    "pl.n3":"Aromaterapia","pl.d3":"Un massaggio total body più delicato e calmante con oli aromatici.",
+    "pl.n4":"Coconut Dream","pl.d4":"Massaggio aromatico total body con olio di cocco per una pelle morbida e idratata.",
+    "pl.n5":"Massaggio all'aloe vera","pl.d5":"Massaggio rinfrescante total body per la pelle esposta al sole, con aloe del nostro giardino.",
+    "pl.n6":"Royal Massage Signature","pl.d6":"Massaggio thai con tamponi caldi alle erbe e olio aromatico, stretching finale.",
+    "pl.n7":"Massaggio con pietre calde","pl.d7":"Massaggio total body con pietre laviche calde lungo le linee energetiche.",
+    "pl.n8":"Detox","pl.d8":"Massaggio total body con uno strato di argilla del Mar Morto che rinnova la pelle.",
+    "pl.n9":"Scrub corpo al caffè","pl.d9":"Uno scrub corpo al caffè seguito da un massaggio aromatico.",
+    "pl.n10":"Massaggio relax","pl.d10":"Mani, collo, spalle e testa.",
+    "pl.n11":"Massaggio alla schiena","pl.d11":"Schiena, collo e spalle.",
+    "pl.n12":"Royal Massage schiena","pl.d12":"Schiena, collo e spalle con tamponi caldi alle erbe.",
+    "pl.n13":"Pietre calde schiena","pl.d13":"Schiena, collo e spalle con pietre laviche calde.",
+    "pl.n14":"Massaggio ai piedi","pl.d14":"Riflessologia su piedi e gambe.",
+    "pl.n15":"Scrub + massaggio + maschera viso","pl.d15":"Tutti e tre i trattamenti viso in uno.",
+    "pl.n16":"Scrub viso","pl.d16":"Esfolia e migliora tono e grana della pelle.",
+    "pl.n17":"Massaggio viso","pl.d17":"Rilassa i muscoli del viso e aiuta a ridurre il gonfiore.",
+    "pl.n18":"Maschera viso","pl.d18":"Aiuta la pelle ad assorbire principi nutrienti.",
+    "se.tag":"Massaggio thai","s3.p":"Da 30 a 120 minuti. La terapista controlla il vostro comfort e regola la pressione man mano.",
+    "gtk.hoursV":"Da maggio a ottobre: tutti i giorni, dalle 10:00 alle 22:00<br>Da novembre ad aprile: da martedì a domenica, dalle 10:00 alle 22:00, lunedì chiuso",
+    "gtk.walk":"Senza prenotazione","gtk.walkV":"Benvenuti ogni volta che una terapista è libera. In estate consigliamo di chiamare prima.","gtk.pay":"Pagamento","gtk.payV":"Solo contanti, non accettiamo carte","gtk.phone":"Telefono","gtk.email":"E-mail",
+    "near.2s":"La passeggiata sul mare, a pochi passi dal salone","near.3":"Via Maršala Tita","near.3s":"Il salone è appena sotto la via principale di Opatija",
+    "f.fine":"Nessun pagamento online. Confermate solo l'orario in chat. In salone si paga solo in contanti.",
+    "bk.openNow":"Aperto tutto l'anno","bk.openP":"Da maggio a ottobre tutti i giorni dalle 10:00 alle 22:00. Da novembre ad aprile da martedì a domenica dalle 10:00 alle 22:00, lunedì chiuso. Senza prenotazione siete i benvenuti quando una terapista è libera.",
+    "bk.callB":"Chiamate o scrivete","bk.callP":"Preferite chiamare? Il numero è +385&nbsp;91&nbsp;307&nbsp;8889. Per e-mail indicateci trattamento, durata, data e orario preferiti e il vostro numero di telefono, vi rispondiamo con la conferma:",
+    "a1":"Senza prenotazione siete i benvenuti quando una terapista è libera. Per essere sicuri dell'orario, soprattutto in estate, chiamateci o inviate una richiesta dal modulo.",
+    "q4":"Cos'è il Royal Massage?","a4":"Il nostro rituale signature da 90 o 120 minuti: massaggio thai con tamponi caldi alle erbe e olio aromatico, con un po' di stretching alla fine.",
+    "q7":"Dove si trova il salone?","a7":"In Ul. Viktora cara Emina 3 a Opatija, appena sotto via Maršala Tita e a pochi passi dal Lungomare.",
+    "q8":"Siete aperti in inverno?","a8":"Sì, siamo aperti tutto l'anno. Da maggio a ottobre tutti i giorni dalle 10:00 alle 22:00. Da novembre ad aprile da martedì a domenica dalle 10:00 alle 22:00, lunedì chiuso.",
+    "q9":"Posso pagare con la carta?","a9":"No. Il pagamento è solo in contanti, non accettiamo carte.",
+    "q10":"Quale massaggio scegliere?","a10":"Per stretching e lavoro profondo sui punti di pressione scegliete il Thai Classic. Per rilassarvi il massaggio thai con olio o l'aromaterapia. Per muscoli stanchi e doloranti il Royal Massage.",
+    "q11":"Offrite altri tipi di massaggio?","a11":"Offriamo solo i trattamenti tradizionali del nostro listino.",
+    "c.note":"* Da maggio a ottobre aperto tutti i giorni. Da novembre ad aprile chiuso il lunedì.",
+    "ft.p":"Autentico massaggio thai di terapiste dalla Thailandia, a Opatija.","ft.more":"Thai Touch ha saloni anche a Rijeka, Mali Lošinj e Rab.","ft.hoursV":"Maggio a ottobre: tutti i giorni dalle 10:00 alle 22:00<br>Novembre ad aprile: mar a dom dalle 10:00 alle 22:00","ft.cash":"Solo contanti"
+  };
+  [[HR,HR2],[DE,DE2],[IT,IT2]].forEach(function(p){ for(var k in p[1]) p[0][k] = p[1][k]; delete p[0]["t.tailor"]; });
   var DICT = {en:EN, hr:HR, de:DE, it:IT}, lang = "en";
   /* capture EN from the page */
   $$("[data-i18n]").forEach(function(el){ var k = el.dataset.i18n; if(!(k in EN)) EN[k] = el.innerHTML; });
@@ -1266,21 +1524,22 @@ html select{height:56px;line-height:normal}
     document.documentElement.lang = lang;
     $$("[data-i18n]").forEach(function(el){ el.innerHTML = t(el.dataset.i18n); });
     $$("[data-i18n-ph]").forEach(function(el){ el.placeholder = t(el.dataset.i18nPh); });
-    $$(".lang button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === lang ? "true" : "false"); });
+    $$(".lpick-list [data-lang]").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === lang ? "true" : "false"); });
+    var lc = $("#lpickCur"); if(lc) lc.textContent = lang.toUpperCase();
     $("#galPrev").setAttribute("aria-label", t("js.prev")); $("#galNext").setAttribute("aria-label", t("js.next"));
     markToday(); syncSel(); updateGift(true);
     try{ localStorage.setItem("tt-lang", lang); }catch(e){}
   }
-  var hdrLang = $("#hdrLang");
-  $$(".lang button").forEach(function(b){
-    b.addEventListener("click", function(e){
-      if(hdrLang.contains(b) && window.innerWidth < 760 && !hdrLang.classList.contains("open") && b.getAttribute("aria-pressed") === "true"){ hdrLang.classList.add("open"); return; }
-      hdrLang.classList.remove("open");
-      applyLang(b.dataset.lang);
-      if(document.body.classList.contains("menu-open")) return;
-    });
+  /* header language picker (globe pill + dropdown) */
+  var lpick = $("#lpick"), lpickBtn = $("#lpickBtn");
+  function setPick(o){ lpick.classList.toggle("open", o); lpickBtn.setAttribute("aria-expanded", o ? "true" : "false"); }
+  lpickBtn.addEventListener("click", function(e){ e.stopPropagation(); setPick(!lpick.classList.contains("open")); });
+  $$(".lpick-list [data-lang]").forEach(function(b){
+    b.addEventListener("click", function(){ applyLang(b.dataset.lang); setTimeout(function(){ setPick(false); }, 120); });
   });
-  document.addEventListener("click", function(e){ if(!hdrLang.contains(e.target)) hdrLang.classList.remove("open"); });
+  document.addEventListener("click", function(e){ if(!lpick.contains(e.target)) setPick(false); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") setPick(false); });
+  window.addEventListener("scroll", function(){ if(lpick.classList.contains("open")) setPick(false); }, {passive:true});
 
   function markToday(){
     var d = String(new Date().getDay());
@@ -1299,7 +1558,7 @@ html select{height:56px;line-height:normal}
   function setMenu(open){
     document.body.classList.toggle("menu-open", open);
     menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    hdrLang.classList.remove("open");
+    setPick(false);
   }
   menuBtn.addEventListener("click", function(){ setMenu(!document.body.classList.contains("menu-open")); });
   $$("#ovl a[href^='#']").forEach(function(a){ a.addEventListener("click", function(){ setMenu(false); }); });
@@ -1718,8 +1977,8 @@ html select{height:56px;line-height:normal}
   function syncSel(){
     var name = t("t." + selTreat()), d = selDur();
     $("#sbarT").textContent = name + " · " + d + NB + "min";
-    $("#finderT").textContent = name + " " + (d === "120" ? "2h" : d === "90" ? "90" + NB + "min" : "1h");
-    $("#finderS").textContent = t("finder.today") + " • " + (persons === 1 ? t("finder.p1") : persons + " " + t("finder.pn"));
+    $("#finderT").textContent = name + " " + (d === "120" ? "2h" : d === "60" ? "1h" : d + NB + "min");
+    $("#finderS").textContent = t("finder.today") + " • " + (persons === 1 ? t("finder.p1") : persons + " " + ((persons >= 5 && t("finder.pn5") !== "finder.pn5") ? t("finder.pn5") : t("finder.pn")));
     $("#pOut").textContent = persons;
   }
   $$("#fTreat input, #fDur input").forEach(function(i){ i.addEventListener("change", syncSel); });

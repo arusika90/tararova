@@ -15,7 +15,7 @@
   Hero: Three.js (cdnjs, r128) underwater scene loaded lazily: light rays, bubbles,
   fish, a wreck silhouette, camera descends on scroll, pointer tilts the view.
   Falls back to the static SVG scene without WebGL or with prefers-reduced-motion.
-  Prices "from XX €" are placeholders to edit.
+  Photos are hotlinked from marinesport.hr; prices are from their 2026 price list.
 -->
 <html lang="en">
 <head>
@@ -174,6 +174,19 @@ section{scroll-margin-top:calc(var(--header) + 20px)}
 .burger i:first-child{top:0}.burger i:last-child{top:10px}
 .menu-open .burger i:first-child{top:5px;transform:rotate(45deg)}
 .menu-open .burger i:last-child{top:5px;transform:rotate(-45deg)}
+/* language picker */
+.lpick{position:relative}
+.lpick-btn{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:600 13px/1 var(--sans);letter-spacing:.1em;cursor:pointer;opacity:.9}
+.lpick-btn svg{width:18px;height:18px;flex:none}.lpick-btn .chev{width:14px;height:14px;transition:transform .3s}
+.lpick.open .lpick-btn .chev{transform:rotate(180deg)}
+.lpick-list{position:absolute;right:0;top:calc(100% + 10px);display:grid;grid-template-columns:1fr;min-width:200px;padding:8px;background:#fff;color:var(--navy);border-radius:18px;box-shadow:0 24px 60px -18px rgba(0,0,0,.3);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:80}
+.lpick.open .lpick-list{opacity:1;transform:none;pointer-events:auto}
+.lpick-list button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border:0;border-radius:10px;background:none;cursor:pointer;font:400 16px/1.2 var(--sans);text-align:left;color:var(--navy)}
+.lpick-list button b{font-weight:600;font-size:12px;letter-spacing:.12em;width:24px;opacity:.6}
+.lpick-list button:hover{background:var(--foam)}
+.lpick-list button[aria-pressed="true"]{background:var(--foam);font-weight:600}
+.menu-open .lpick{display:none}
+@media (max-width:380px){.lpick-btn{padding:0 9px}.lpick-btn .chev{display:none}}
 @media(min-width:700px){.hdr__book{display:inline-flex}.hdr .lang{display:flex}}
 
 /* MENU overlay */
@@ -181,7 +194,7 @@ section{scroll-margin-top:calc(var(--header) + 20px)}
 .menu-open .menu{opacity:1;visibility:visible;transition:opacity .45s var(--ease)}
 .menu nav a{display:block;padding:10px 0;font:400 32px/1.15 var(--serif);border-bottom:1px solid #EEE;opacity:0;transform:translateY(18px);transition:opacity .5s,transform .7s var(--out)}
 .menu-open .menu nav a{opacity:1;transform:none}
-.menu nav a:nth-child(2){transition-delay:.04s}.menu nav a:nth-child(3){transition-delay:.08s}.menu nav a:nth-child(4){transition-delay:.12s}.menu nav a:nth-child(5){transition-delay:.16s}.menu nav a:nth-child(6){transition-delay:.2s}.menu nav a:nth-child(7){transition-delay:.24s}.menu nav a:nth-child(8){transition-delay:.28s}
+.menu nav a:nth-child(2){transition-delay:.04s}.menu nav a:nth-child(3){transition-delay:.08s}.menu nav a:nth-child(4){transition-delay:.12s}.menu nav a:nth-child(5){transition-delay:.16s}.menu nav a:nth-child(6){transition-delay:.2s}.menu nav a:nth-child(7){transition-delay:.24s}.menu nav a:nth-child(8){transition-delay:.28s}.menu nav a:nth-child(9){transition-delay:.32s}
 .menu-foot{margin-top:auto;padding-top:28px;display:grid;gap:18px}
 .menu .lang{display:flex;color:var(--navy);font-size:14px}
 .menu .lang button{padding:10px 8px}
@@ -337,6 +350,17 @@ section{scroll-margin-top:calc(var(--header) + 20px)}
 .tp .mini{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .tp .mini svg{width:16px;height:16px}
 .pr__note{margin-top:30px;font-size:14px;color:var(--muted)}
+.plist{margin-top:64px;scroll-margin-top:calc(var(--header) + 70px)}
+.plist__h h3{font-family:var(--serif);font-size:30px;line-height:1.2}
+.plist__h p{color:var(--muted);margin:8px 0 0;font-size:15px}
+.plist__grid{display:grid;gap:14px;margin-top:24px}
+.plist__card{background:var(--sand);border-radius:20px;padding:22px 22px 10px}
+.plist__card h4{margin:0 0 6px;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--orange-d)}
+.plist__card ul{list-style:none;margin:0;padding:0}
+.plist__card li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.35}
+.plist__card li:last-child{border-bottom:0}
+.plist__card li b{font-family:var(--serif);font-weight:400;font-size:20px;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media(min-width:900px){.plist__grid{grid-template-columns:repeat(3,1fr);align-items:start}}
 @media(min-width:900px){.tp{grid-template-columns:1fr 1fr;gap:80px;align-items:center}.tp .frame{aspect-ratio:4/5;max-height:none}.tp .pill{width:auto}}
 
 /* SITES peek carousel */
@@ -363,6 +387,16 @@ section{scroll-margin-top:calc(var(--header) + 20px)}
 .rbtn:hover{background:var(--navy);color:#fff}
 .rbtn svg{width:16px;height:16px}
 @media(min-width:900px){.tcard{flex-basis:360px}}
+.stbl{margin-top:44px;background:#fff;border-radius:20px;padding:22px}
+.stbl h3{font-family:var(--serif);font-size:26px;margin-bottom:8px}
+.stbl ul{list-style:none;margin:0;padding:0}
+.stbl li{display:grid;grid-template-columns:1fr auto;gap:2px 14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;align-items:baseline}
+.stbl li:last-child{border-bottom:0}
+.stbl li b{font-weight:600;font-size:16px}
+.stbl li span{color:var(--muted);font-size:14px}
+.stbl li em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums;font-size:14px;white-space:nowrap}
+.stbl__note{margin:12px 0 0;font-size:14px;color:var(--muted)}
+@media(min-width:900px){.stbl{padding:30px 34px}.stbl li{grid-template-columns:1fr 1fr 2fr 1fr}.stbl li em:last-child{text-align:right}.stbl li em:nth-of-type(1){text-align:left}}
 
 /* DIVE DAY timeline */
 .day__body{display:grid;gap:36px}
@@ -647,8 +681,14 @@ html select{height:56px;line-height:normal}
       <span><b>Marine Sport</b><small>Dive Center</small></span>
     </a>
     <div class="hdr__r">
-      <div class="lang" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button><i></i><button type="button" data-lang="de" aria-pressed="false">DE</button><i></i><button type="button" data-lang="hr" aria-pressed="false">HR</button><i></i><button type="button" data-lang="it" aria-pressed="false">IT</button>
+      <div class="lpick" id="lpick">
+        <button type="button" class="lpick-btn" id="lpickBtn" aria-haspopup="true" aria-expanded="false" aria-label="Language"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span id="lpickCur">EN</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="lpick-list langs" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true"><b>EN</b><span>English</span></button>
+          <button type="button" data-lang="de" aria-pressed="false"><b>DE</b><span>Deutsch</span></button>
+          <button type="button" data-lang="hr" aria-pressed="false"><b>HR</b><span>Hrvatski</span></button>
+          <button type="button" data-lang="it" aria-pressed="false"><b>IT</b><span>Italiano</span></button>
+        </div>
       </div>
       <a href="#book" class="pill hdr__book" data-i18n="hdr.book">Book a dive</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span id="menuLbl" data-i18n="menu">Menu</span><span class="burger"><i></i><i></i></span></button>
@@ -661,6 +701,7 @@ html select{height:56px;line-height:normal}
     <a href="#top" data-i18n="nav.home">Home</a>
     <a href="#gallery" data-i18n="nav.gal">Gallery</a>
     <a href="#programs" data-i18n="nav.prog">Dive programs</a>
+    <a href="#prices" data-i18n="nav.prices">Prices</a>
     <a href="#sites" data-i18n="nav.sites">Dive sites</a>
     <a href="#know" data-i18n="nav.know">Good to know</a>
     <a href="#book" data-i18n="nav.book">Book</a>
@@ -668,9 +709,6 @@ html select{height:56px;line-height:normal}
     <a href="#contact" data-i18n="nav.contact">Contact</a>
   </nav>
   <div class="menu-foot">
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button><i></i><button type="button" data-lang="de" aria-pressed="false">DE</button><i></i><button type="button" data-lang="hr" aria-pressed="false">HR</button><i></i><button type="button" data-lang="it" aria-pressed="false">IT</button>
-    </div>
     <a href="#book" class="pill" data-i18n="hdr.book">Book a dive</a>
     <a class="menu-tel" href="tel:+385915157212">+385 91 515 7212 · WhatsApp</a>
   </div>
@@ -740,6 +778,7 @@ html select{height:56px;line-height:normal}
   <div class="subnav__in" id="subnav">
     <a href="#gallery" data-i18n="nav.gal">Gallery</a>
     <a href="#programs" data-i18n="nav.prog">Dive programs</a>
+    <a href="#prices" data-i18n="nav.prices">Prices</a>
     <a href="#sites" data-i18n="nav.sites">Dive sites</a>
     <a href="#know" data-i18n="nav.know">Good to know</a>
     <a href="#book" data-i18n="nav.book">Book</a>
@@ -757,19 +796,19 @@ html select{height:56px;line-height:normal}
       <div class="gal__track" id="galTrack">
         <div class="gal__slide cur"><div class="art art--sea">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use class="ray" href="#i-ray" x="60" y="-10" width="90" height="420" opacity=".7"/><use class="ray r2" href="#i-ray" x="220" y="-10" width="70" height="380" opacity=".6"/><g class="bob" color="#06203F"><use href="#i-diver" x="40" y="200" width="300" height="150"/></g><use class="bub" href="#i-bubble" x="330" y="190" width="14" height="14"/><use class="bub k2" href="#i-bubble" x="350" y="160" width="10" height="10"/><use class="bub k3" href="#i-bubble" x="318" y="140" width="8" height="8"/><g color="#0B3D6B" class="bob b2"><use href="#i-fish" x="60" y="420" width="26" height="13"/><use href="#i-fish" x="96" y="432" width="20" height="10"/><use href="#i-fish" x="80" y="448" width="22" height="11"/></g></svg>
-          <img src="img/hero.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c1">Boat dive, Kvarner bay</span></span></div>
+          <img src="https://www.marinesport.hr/assets/home/home-slide1.jpg" alt="Diving with Marine Sport in Kvarner bay" fetchpriority="high" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c1">Boat dive, Kvarner bay</span></span></div>
         <div class="gal__slide"><div class="art art--boat">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#i-bay" x="-40" y="60" width="480" height="264"/><g class="bob"><use href="#i-rib" x="90" y="300" width="250" height="107"/></g><path d="M40 420c40-10 80-10 120 0M240 440c40-10 80-10 120 0" stroke="#fff" stroke-width="1" fill="none" opacity=".5"/></svg>
-          <img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c2">The RIB, Mošćenička Draga harbour</span></span></div>
+          <img src="https://www.marinesport.hr/assets/home/home-slide2.jpg" alt="Marine Sport dive trip from Mošćenička Draga" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c2">The dive boat, Mošćenička Draga</span></span></div>
         <div class="gal__slide"><div class="art art--wreck">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use class="ray" href="#i-ray" x="140" y="-10" width="120" height="460" opacity=".5"/><g color="#8FD3F4"><use href="#i-wreck" x="20" y="240" width="360" height="160"/></g><g class="bob b2" color="#06203F"><use href="#i-diver" x="200" y="120" width="170" height="85"/></g><use class="bub" href="#i-bubble" x="366" y="110" width="10" height="10"/><use class="bub k3" href="#i-bubble" x="376" y="90" width="7" height="7"/></svg>
-          <img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c3">Wreck dive</span></span></div>
+          <img src="https://www.marinesport.hr/assets/diving/diving-slide1.jpg" alt="Underwater at a Marine Sport dive site" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c3">Wreck dive</span></span></div>
         <div class="gal__slide"><div class="art art--reef">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M0 500V380c60-30 120-20 180-40s120-10 220-30v190z" fill="#0A3C6E" opacity=".8"/><use href="#i-sponge" x="40" y="300" width="150" height="118"/><use href="#i-sponge" x="250" y="340" width="110" height="86"/><g class="bob"><use href="#i-nudi" x="150" y="230" width="190" height="95"/></g><g class="bob b2" color="#0B3D6B"><use href="#i-fish" x="60" y="120" width="24" height="12"/><use href="#i-fish" x="92" y="130" width="18" height="9"/></g><use class="bub k2" href="#i-bubble" x="60" y="200" width="9" height="9"/></svg>
-          <img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c4">Shore reef, nudibranchs and sponges</span></span></div>
+          <img src="https://www.marinesport.hr/assets/diving/diving-slide2.jpg" alt="Divers at a dive site near Mošćenička Draga" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c4">Shore reef, nudibranchs and sponges</span></span></div>
         <div class="gal__slide"><div class="art art--course">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g class="bob"><use href="#i-gauge" x="100" y="120" width="200" height="200"/></g><use href="#i-flag" x="60" y="360" width="90" height="66"/><use class="bub" href="#i-bubble" x="300" y="380" width="14" height="14"/><use class="bub k3" href="#i-bubble" x="330" y="350" width="9" height="9"/></svg>
-          <img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c5">Courses: SSI, PADI, CMAS</span></span></div>
+          <img src="https://www.marinesport.hr/assets/courses/courses-slide1.jpg" alt="Diving course with Marine Sport" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c5">Courses: SSI, PADI, CMAS</span></span></div>
       </div>
       <a class="tag-b" href="https://maps.google.com/?q=Marine+Sport+Dive+Center,+Aleja+Slatina+2,+51417+Mo%C5%A1%C4%87eni%C4%8Dka+Draga" target="_blank" rel="noopener">Mošćenička Draga, Croatia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5l7 7-7 7"/></svg></a>
       <button class="sqbtn l" type="button" id="galPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -787,22 +826,24 @@ html select{height:56px;line-height:normal}
     <div class="sh rv"><p class="label"><span class="num">01</span><span data-i18n="intro.label">The team and the bay</span></p><h2 data-i18n="intro.t">A small team, a big bay</h2></div>
     <div class="intro__grid">
       <div>
-        <p class="lead rv" data-i18n="intro.lead">Robert and the crew run Marine Sport from the harbour of Mošćenička Draga, on the Opatija riviera.</p>
-        <p class="rv" data-delay="1" data-i18n="intro.p1">Boat dives with Goran at the helm, shore dives straight from the beach, and more than 16 dive sites across Kvarner bay. Igor, David, Dario and Robi guide mixed groups of all ages and levels, with good equipment and a calm, safety-first way of doing things.</p>
-        <p class="rv" data-delay="2" data-i18n="intro.p2">Great visibility and usually warm water. Colourful nudibranchs and yellow sponges on the shore dives, and wreck dives including Lina and Vis for certified divers.</p>
+        <p class="lead rv" data-i18n="intro.lead">Roby and the crew have run Marine Sport since 2000, right on the seafront by Hotel Marina in Mošćenička Draga, on the Opatija riviera.</p>
+        <p class="rv" data-delay="1" data-i18n="intro.p1">Boat dives with Goran at the helm, shore dives straight from the beach, and more than 16 dive sites across Kvarner bay. Roby, Edo and Bojana teach and guide mixed groups of all ages and levels in several languages, with a calm, safety-first way of doing things.</p>
+        <p class="rv" data-delay="2" data-i18n="intro.p2">Great visibility and usually warm water. Colourful nudibranchs and yellow sponges on the shore dives, red coral walls by boat, and the wrecks Lina and Vis for advanced and technical divers.</p>
+        <p class="rv" data-delay="2" data-i18n="intro.p3">At the center: a wet room with showers, a compressor room, a small workshop for repairs and a shaded corner to log dives or study theory. Rental equipment is serviced regularly and renewed every year. Come as a guest, leave as a friend.</p>
         <ul class="team rv" data-delay="2" aria-label="Team">
-          <li class="o"><i>R</i>Robert <small data-i18n="intro.owner">· owner, instructor</small></li><li><i>G</i>Goran <small data-i18n="intro.boat">· boat</small></li><li><i>I</i>Igor</li><li><i>D</i>David</li><li><i>D</i>Dario</li><li><i>R</i>Robi</li>
+          <li class="o"><i>R</i>Roby <small data-i18n="intro.owner">· owner, instructor</small></li><li><i>G</i>Goran <small data-i18n="intro.boat">· captain, divemaster</small></li><li><i>E</i>Edo <small data-i18n="intro.instr">· instructor</small></li><li><i>B</i>Bojana <small data-i18n="intro.instr">· instructor</small></li><li><i>L</i>Laura <small data-i18n="intro.design">· service designer</small></li>
         </ul>
         <div class="stats rv" data-delay="3">
           <div class="stat"><b><span data-count="16">0</span><sup>+</sup></b><small data-i18n="stat.sites">dive sites</small></div>
           <div class="stat"><b>3</b><small data-i18n="stat.fed">federations: SSI, PADI, CMAS</small></div>
-          <div class="stat"><b><span data-count="4.8" data-dec="1">0</span></b><small data-i18n="stat.rating">Google rating</small></div>
+          <div class="stat"><b>2000</b><small data-i18n="stat.since">in the bay since</small></div>
         </div>
       </div>
       <div>
         <div class="frame intro__img rv-img">
           <div class="art art--boat">
             <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#i-bay" x="-60" y="40" width="520" height="286"/><g class="bob"><use href="#i-rib" x="60" y="310" width="280" height="120"/></g></svg>
+            <img src="https://www.marinesport.hr/assets/accommodations/mdraga.jpg" alt="Mošćenička Draga bay, home of Marine Sport Dive Center" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'">
           </div>
           <span class="tag-b">Mošćenička Draga</span>
         </div>
@@ -818,7 +859,7 @@ html select{height:56px;line-height:normal}
 <!-- 02 Programs -->
 <section class="sec bg-white" id="programs">
   <div class="wrap">
-    <div class="sh rv"><p class="label"><span class="num">02</span><span data-i18n="prog.label">Dive programs</span></p><h2 data-i18n="prog.t">Pick your dive</h2><p data-i18n="prog.sub">From a first breath underwater to wreck dives. Prices shown are examples.</p></div>
+    <div class="sh rv"><p class="label"><span class="num">02</span><span data-i18n="prog.label">Dive programs</span></p><h2 data-i18n="prog.t">Pick your dive</h2><p data-i18n="prog.sub">From a first breath underwater to deep wrecks. Prices in euro, per person.</p></div>
     <div class="tabs rv" role="tablist" aria-label="Dive programs" id="tabs">
       <button class="tab" role="tab" id="tab-try" aria-selected="true" aria-controls="tp-try" data-tab="try" data-i18n="tab.try">Try dive</button>
       <button class="tab" role="tab" id="tab-fun" aria-selected="false" aria-controls="tp-fun" data-tab="fun" data-i18n="tab.fun">Fun dives</button>
@@ -829,10 +870,10 @@ html select{height:56px;line-height:normal}
       <div class="tp on" id="tp-try" role="tabpanel" aria-labelledby="tab-try">
         <div class="frame"><div class="art art--sea">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use class="ray" href="#i-ray" x="100" y="-10" width="120" height="440" opacity=".7"/><g class="bob" color="#06203F"><use href="#i-diver" x="30" y="180" width="320" height="160"/></g><use class="bub" href="#i-bubble" x="340" y="170" width="14" height="14"/><use class="bub k2" href="#i-bubble" x="356" y="140" width="9" height="9"/></svg>
-          <img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="tag.first">First time</span></div>
+          <img src="https://www.marinesport.hr/assets/home/home-slide1.jpg" alt="Try scuba diving with an instructor" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="tag.first">First time</span></div>
         <div>
           <h3 data-i18n="try.t">Discover scuba, your first dive</h3>
-          <div class="tp__meta"><b><span data-i18n="from">from</span> <span class="ph">XX</span>&nbsp;€</b><span data-i18n="try.m">per person · no experience needed</span></div>
+          <div class="tp__meta"><b>80&nbsp;€</b><span data-i18n="try.m">per person · no experience needed</span></div>
           <p data-i18n="try.p">Never dived before? A short briefing, a calm shallow dive with an instructor right beside you, and the bay from a completely new angle.</p>
           <ul><li data-i18n="try.b1">No certification needed</li><li data-i18n="try.b2">Instructor at your side the whole dive</li><li data-i18n="try.b3">Equipment from the center</li></ul>
           <a class="pill" href="#book" data-prog="try" data-i18n="cta.book">Book this</a>
@@ -841,10 +882,10 @@ html select{height:56px;line-height:normal}
       <div class="tp" id="tp-fun" role="tabpanel" aria-labelledby="tab-fun">
         <div class="frame"><div class="art art--boat">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#i-bay" x="-40" y="30" width="480" height="264"/><g class="bob"><use href="#i-rib" x="80" y="290" width="260" height="111"/></g><g color="#0B3D6B" class="bob b2"><use href="#i-fish" x="60" y="440" width="24" height="12"/><use href="#i-fish" x="92" y="452" width="18" height="9"/></g></svg>
-          <img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="tag.cert">Certified divers</span></div>
+          <img src="https://www.marinesport.hr/assets/home/home-slide2.jpg" alt="Fun dive from the Marine Sport boat" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="tag.cert">Certified divers</span></div>
         <div>
           <h3 data-i18n="fun.t">Fun dives for certified divers</h3>
-          <div class="tp__meta"><b><span data-i18n="from">from</span> <span class="ph">XX</span>&nbsp;€</b><span data-i18n="fun.m">per dive · boat or shore</span></div>
+          <div class="tp__meta"><b><span data-i18n="from">from</span> 20&nbsp;€</b><span data-i18n="fun.m">per shore dive · boat dive 40&nbsp;€</span></div>
           <p data-i18n="fun.p">Boat dives and shore dives on more than 16 sites in Kvarner bay. Mixed groups of all levels are welcome, and the team picks the site to match the day.</p>
           <ul><li data-i18n="fun.b1">Boat dive with Goran or shore dive from the beach</li><li data-i18n="fun.b2">Bring your certification card</li><li data-i18n="fun.b3">Equipment rental available</li></ul>
           <a class="pill" href="#book" data-prog="fun" data-i18n="cta.book">Book this</a>
@@ -853,10 +894,10 @@ html select{height:56px;line-height:normal}
       <div class="tp" id="tp-course" role="tabpanel" aria-labelledby="tab-course">
         <div class="frame"><div class="art art--course">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g class="bob"><use href="#i-gauge" x="110" y="100" width="190" height="190"/></g><use href="#i-flag" x="50" y="350" width="100" height="73"/><use class="bub" href="#i-bubble" x="300" y="370" width="14" height="14"/></svg>
-          <img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b">SSI · PADI · CMAS</span></div>
+          <img src="https://www.marinesport.hr/assets/courses/courses-slide1.jpg" alt="SSI, PADI and CMAS diving course" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b">SSI · PADI · CMAS</span></div>
         <div>
           <h3 data-i18n="course.t">Courses: SSI, PADI and CMAS</h3>
-          <div class="tp__meta"><b><span data-i18n="from">from</span> <span class="ph">XX</span>&nbsp;€</b><span data-i18n="course.m">per course · beginner to advanced</span></div>
+          <div class="tp__meta"><b>480&nbsp;€</b><span data-i18n="course.m">per person · diving course</span></div>
           <p data-i18n="course.p">From your first certification to advanced levels, with the federation you prefer. Theory, pool or shallow water, then open water dives in the bay.</p>
           <ul><li data-i18n="course.b1">SSI, PADI and CMAS</li><li data-i18n="course.b2">From first-time to advanced</li><li data-i18n="course.b3">All ages and levels welcome</li></ul>
           <a class="pill" href="#book" data-prog="course" data-i18n="cta.book">Book this</a>
@@ -865,17 +906,25 @@ html select{height:56px;line-height:normal}
       <div class="tp" id="tp-wreck" role="tabpanel" aria-labelledby="tab-wreck">
         <div class="frame"><div class="art art--wreck">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use class="ray" href="#i-ray" x="150" y="-10" width="110" height="420" opacity=".5"/><g color="#8FD3F4"><use href="#i-wreck" x="10" y="250" width="380" height="168"/></g><g class="bob" color="#06203F"><use href="#i-diver" x="190" y="110" width="180" height="90"/></g><use class="bub" href="#i-bubble" x="360" y="100" width="10" height="10"/></svg>
-          <img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b">Lina · Vis</span></div>
+          <img src="https://www.marinesport.hr/assets/diving/diving-slide1.jpg" alt="Wreck diving in Kvarner bay" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b">Lina · Vis</span></div>
         <div>
           <h3 data-i18n="wreck.t">Wreck dives</h3>
-          <div class="tp__meta"><b><span data-i18n="from">from</span> <span class="ph">XX</span>&nbsp;€</b><span data-i18n="wreck.m">per dive · certified divers</span></div>
+          <div class="tp__meta"><b><span data-i18n="from">from</span> 50&nbsp;€</b><span data-i18n="wreck.m">per dive · Lina 50&nbsp;€, Vis 70&nbsp;€</span></div>
           <p data-i18n="wreck.p">Wreck dives including Lina and Vis, by boat, for certified divers with the right level. Ask the team which wreck suits your experience.</p>
           <ul><li data-i18n="wreck.b1">Wrecks including Lina and Vis</li><li data-i18n="wreck.b2">Boat dive with the crew</li><li data-i18n="wreck.b3">Certification card required</li></ul>
           <a class="pill" href="#book" data-prog="wreck" data-i18n="cta.book">Book this</a>
         </div>
       </div>
     </div>
-    <p class="pr__note rv" data-i18n="prog.note">Prices marked XX&nbsp;€ are examples and will be replaced with the real price list.</p>
+    <div class="plist" id="prices">
+      <div class="plist__h rv"><h3 data-i18n="pl.t">Price list</h3><p data-i18n="pl.sub">2026 season, in euro. Group discounts for 10 or more people.</p></div>
+      <div class="plist__grid">
+      <div class="plist__card rv"><h4 data-i18n="pl.dive">Diving</h4><ul><li><span data-i18n="pl.shore">Shore dive</span><b>20&nbsp;€</b></li><li><span data-i18n="pl.night">Night dive from the shore</span><b>30&nbsp;€</b></li><li><span data-i18n="pl.boat">Boat dive</span><b>40&nbsp;€</b></li><li><span data-i18n="pl.lina">Wreck dive Lina</span><b>50&nbsp;€</b></li><li><span data-i18n="pl.vis">Wreck dive Vis</span><b>70&nbsp;€</b></li><li><span data-i18n="pl.guide">Individual guide</span><b>30&nbsp;€</b></li><li><span data-i18n="pl.nondiver">Non-divers on board</span><b>25&nbsp;€</b></li><li><span data-i18n="pl.nitrox">Nitrox fill, add-on</span><b>6&nbsp;€</b></li></ul></div>
+      <div class="plist__card rv" data-delay="1"><h4 data-i18n="pl.rent">Equipment rental, per day</h4><ul><li><span data-i18n="pl.full">Complete equipment</span><b>30&nbsp;€</b></li><li><span data-i18n="pl.abc">ABC equipment</span><b>10&nbsp;€</b></li><li><span data-i18n="pl.bcd">BCD</span><b>8&nbsp;€</b></li><li><span data-i18n="pl.reg">Regulator</span><b>8&nbsp;€</b></li><li><span data-i18n="pl.comp">Dive computer</span><b>8&nbsp;€</b></li><li><span data-i18n="pl.suit">Wetsuit</span><b>8&nbsp;€</b></li><li><span data-i18n="pl.torch">Torch</span><b>8&nbsp;€</b></li><li><span data-i18n="pl.tank">Tank, per dive</span><b>5&nbsp;€</b></li></ul></div>
+      <div class="plist__card rv" data-delay="2"><h4 data-i18n="pl.course">Courses, per person</h4><ul><li><span data-i18n="pl.try">Try Scuba Diving</span><b>80&nbsp;€</b></li><li><span data-i18n="pl.update">Scuba Skills Update</span><b>80&nbsp;€</b></li><li><span data-i18n="pl.oc">Diving course</span><b>480&nbsp;€</b></li><li><span data-i18n="pl.spec">Specialty course</span><b>180&nbsp;€</b></li></ul></div>
+      </div>
+    </div>
+    <p class="pr__note rv" data-i18n="prog.note">Prices in euro, valid from 1 April to 31 December 2026. Air fills and weights are free. Payment in cash at the center.</p>
   </div>
 </section>
 
@@ -883,49 +932,76 @@ html select{height:56px;line-height:normal}
 <section class="sec bg-sand has-deco" id="sites">
   <svg class="deco d2" style="right:-50px;bottom:-24px;width:200px;color:#B8A98E;opacity:.28" viewBox="0 0 140 110" aria-hidden="true"><use href="#i-sponge" width="140" height="110"/></svg>
   <div class="wrap">
-    <div class="sh rv"><p class="label"><span class="num">03</span><span data-i18n="sites.label">Dive sites</span></p><h2 data-i18n="sites.t">More than 16 sites in Kvarner bay</h2><p data-i18n="sites.sub">Wrecks, reefs and walls, by boat or straight from the shore.</p></div>
+    <div class="sh rv"><p class="label"><span class="num">03</span><span data-i18n="sites.label">Dive sites</span></p><h2 data-i18n="sites.t">More than 16 sites in Kvarner bay</h2><p data-i18n="sites.sub">Walls, red corals, reefs and two deep wrecks, by boat or straight from the shore.</p></div>
   </div>
   <div class="peek" id="peek">
     <article class="tcard rv">
       <div class="frame"><div class="art art--wreck">
         <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use class="ray" href="#i-ray" x="120" y="-10" width="120" height="440" opacity=".5"/><g color="#8FD3F4"><use href="#i-wreck" x="20" y="230" width="360" height="160"/></g><use class="bub" href="#i-bubble" x="300" y="150" width="12" height="12"/></svg>
-        <img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="tag.wreck">Wreck</span></div>
+        <img src="https://www.marinesport.hr/assets/diving/diving-slide1.jpg" alt="Wreck Lina dive site" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="tag.wreck">Wreck</span></div>
       <h3 data-i18n="s1.t">Wreck Lina</h3>
-      <p class="tcard__meta" data-i18n="s1.m">Boat dive · certified divers</p>
-      <p data-i18n="s1.p">One of the wrecks we dive from the boat. Ask the team about the depth and the level you need.</p>
+      <p class="tcard__meta" data-i18n="s1.m">Boat · 28-52&nbsp;m · advanced divers</p>
+      <p data-i18n="s1.p">Excellent visibility and no current. A deep wreck and wall dive, about 1&nbsp;h 20&nbsp;min out by boat.</p>
       <a class="ulink" href="#book" data-prog="wreck"><span data-i18n="cta.bookwreck">Book a wreck dive</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="1">
       <div class="frame"><div class="art art--sea">
         <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use class="ray r2" href="#i-ray" x="200" y="-10" width="100" height="460" opacity=".6"/><g color="#041A36" opacity=".9"><use href="#i-wreck" x="40" y="280" width="320" height="142"/></g><g class="bob" color="#06203F"><use href="#i-diver" x="150" y="120" width="200" height="100"/></g><use class="bub k2" href="#i-bubble" x="345" y="100" width="10" height="10"/></svg>
-        <img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="tag.wreck">Wreck</span></div>
+        <img src="https://www.marinesport.hr/assets/diving/diving-slide3.jpg" alt="Wreck Vis dive site" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="tag.wreck">Wreck</span></div>
       <h3 data-i18n="s2.t">Wreck Vis</h3>
-      <p class="tcard__meta" data-i18n="s2.m">Boat dive · certified divers</p>
-      <p data-i18n="s2.p">The second wreck on the list. A boat trip out with the crew and a dive for those with the right experience.</p>
+      <p class="tcard__meta" data-i18n="s2.m">Boat · 37-60&nbsp;m · technical divers</p>
+      <p data-i18n="s2.p">A deep wreck for technical divers, about 1&nbsp;h 15&nbsp;min out by boat. No current, good visibility.</p>
       <a class="ulink" href="#book" data-prog="wreck"><span data-i18n="cta.bookwreck">Book a wreck dive</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="2">
       <div class="frame"><div class="art art--reef">
+        <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M0 500V360c40-20 60-80 90-120 20 60 10 140 40 260z" fill="#0A3C6E" opacity=".85"/><use href="#i-sponge" x="200" y="330" width="150" height="118"/><g class="bob b2" color="#0B3D6B"><use href="#i-fish" x="210" y="140" width="26" height="13"/><use href="#i-fish" x="244" y="152" width="20" height="10"/><use href="#i-fish" x="226" y="168" width="22" height="11"/></g><use class="bub" href="#i-bubble" x="120" y="200" width="10" height="10"/></svg>
+        <img src="https://www.marinesport.hr/assets/diving/diving-slide2.jpg" alt="Wall dive with red corals in Kvarner bay" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="tag.boat">Boat dive</span></div>
+      <h3 data-i18n="s5.t">Kinkela and Šip</h3>
+      <p class="tcard__meta" data-i18n="s5.m">Boat · 5-50&nbsp;m · all levels</p>
+      <p data-i18n="s5.p">Walls covered in red corals, 40 to 45&nbsp;min out by boat.</p>
+      <a class="ulink" href="#book" data-prog="fun"><span data-i18n="cta.bookfun">Book a fun dive</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article>
+    <article class="tcard rv" data-delay="3">
+      <div class="frame"><div class="art art--reef">
         <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M0 500V390c60-30 120-20 180-40s120-10 220-30v180z" fill="#0A3C6E" opacity=".8"/><use href="#i-sponge" x="30" y="300" width="160" height="126"/><use href="#i-sponge" x="260" y="350" width="100" height="78"/><g class="bob"><use href="#i-nudi" x="140" y="220" width="200" height="100"/></g><use class="bub k3" href="#i-bubble" x="80" y="180" width="9" height="9"/></svg>
-        <img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="tag.shore">Shore dive</span></div>
-      <h3 data-i18n="s3.t">Shore reef</h3>
-      <p class="tcard__meta" data-i18n="s3.m">Shore dive · all levels</p>
-      <p data-i18n="s3.p">Colourful nudibranchs and yellow sponges a few fin kicks from the beach. Good for try dives and relaxed fun dives.</p>
+        <img src="https://www.marinesport.hr/assets/accommodations/mdraga.jpg" alt="Shore diving at Mošćenička Draga" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="tag.shore">Shore dive</span></div>
+      <h3 data-i18n="s3.t">Sipar, Biser and Rubin</h3>
+      <p class="tcard__meta" data-i18n="s3.m">Shore · 2-32&nbsp;m · all levels</p>
+      <p data-i18n="s3.p">Beach, wall, labyrinth and reef dives, from 200&nbsp;m to a 15&nbsp;min walk from the center. Colourful nudibranchs and yellow sponges, good for try dives and relaxed fun dives.</p>
       <a class="ulink" href="#book" data-prog="fun"><span data-i18n="cta.bookfun">Book a fun dive</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
     <article class="tcard tcard--more rv" data-delay="3">
       <div class="frame">
         <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="opacity:.35"><use href="#i-gauge" x="220" y="320" width="220" height="220"/><use class="bub" href="#i-bubble" x="60" y="400" width="14" height="14"/><use class="bub k2" href="#i-bubble" x="90" y="440" width="9" height="9"/></svg>
-        <div class="big"><b>+13</b><span data-i18n="s4.t">more sites</span></div>
+        <div class="big"><b>16+</b><span data-i18n="s4.t">dive sites</span></div>
       </div>
-      <h3 data-i18n="s4.h">And 13 more sites</h3>
-      <p class="tcard__meta" data-i18n="s4.m">Reefs, walls and wrecks</p>
-      <p data-i18n="s4.p">Ask the team which site fits the day, the wind and your level. They know the bay.</p>
+      <h3 data-i18n="s4.h">And more by boat</h3>
+      <p class="tcard__meta" data-i18n="s4.m">Kraj, Stupova, Lonjica, Green Lantern, Jablanac</p>
+      <p data-i18n="s4.p">Walls from 5 to 50&nbsp;m, 15 to 50&nbsp;min out by boat. The team picks the site to match the day, the wind and your level.</p>
       <a class="ulink" href="https://wa.me/385915157212" target="_blank" rel="noopener"><span data-i18n="cta.ask">Ask on WhatsApp</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </article>
   </div>
   <div class="wrap">
     <div class="peek__ui rv"><button class="rbtn" type="button" id="pPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button><span class="peek__bar"><i id="pBar"></i></span><button class="rbtn" type="button" id="pNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button></div>
+    <div class="stbl rv">
+      <h3 data-i18n="st.h">All sites at a glance</h3>
+      <ul>
+        <li><b>Sipar</b><em>5-30&nbsp;m</em><span data-i18n="st.beach">Shore · beach</span><em>200&nbsp;m</em></li>
+        <li><b>Biser</b><em>2-32&nbsp;m</em><span data-i18n="st.wl">Shore · wall, labyrinth</span><em data-i18n="st.w5">5 min walk</em></li>
+        <li><b>Rubin</b><em>2-32&nbsp;m</em><span data-i18n="st.rw">Shore · reef, wall</span><em data-i18n="st.w15">15 min walk</em></li>
+        <li><b>Kraj</b><em>7-42&nbsp;m</em><span data-i18n="st.wall">Boat · wall</span><em>15&nbsp;min</em></li>
+        <li><b>Kinkela</b><em>5-45&nbsp;m</em><span data-i18n="st.coral">Boat · wall, red corals</span><em>45&nbsp;min</em></li>
+        <li><b>Šip</b><em>5-50&nbsp;m</em><span data-i18n="st.coral">Boat · wall, red corals</span><em>40&nbsp;min</em></li>
+        <li><b>Stupova</b><em>5-40&nbsp;m</em><span data-i18n="st.wall">Boat · wall</span><em>50&nbsp;min</em></li>
+        <li><b>Lonjica</b><em>5-50&nbsp;m</em><span data-i18n="st.wall">Boat · wall</span><em>45&nbsp;min</em></li>
+        <li><b>Green Lantern</b><em>5-40&nbsp;m</em><span data-i18n="st.wall">Boat · wall</span><em>50&nbsp;min</em></li>
+        <li><b>Jablanac</b><em>5-40&nbsp;m</em><span data-i18n="st.wall">Boat · wall</span><em>50&nbsp;min</em></li>
+        <li><b>Lina</b><em>28-52&nbsp;m</em><span data-i18n="st.lina">Boat · wreck, wall, deep · advanced</span><em>1&nbsp;h 20&nbsp;min</em></li>
+        <li><b>Vis</b><em>37-60&nbsp;m</em><span data-i18n="st.vis">Boat · wreck, deep · technical</span><em>1&nbsp;h 15&nbsp;min</em></li>
+      </ul>
+      <p class="stbl__note" data-i18n="st.note">Low or no current and good visibility on every site. Boat times are from the center.</p>
+    </div>
   </div>
 </section>
 
@@ -937,13 +1013,13 @@ html select{height:56px;line-height:normal}
       <div class="day__img-wrap">
         <div class="frame day__img rv-img"><div class="art art--boat">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#i-bay" x="-60" y="60" width="520" height="286"/><g class="bob"><use href="#i-rib" x="70" y="320" width="270" height="116"/></g></svg>
-          <img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b">Aleja Slatina 2</span></div>
+          <img src="https://www.marinesport.hr/assets/home/home-slide2.jpg" alt="The Marine Sport dive boat heading out" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b">Aleja Slatina 2</span></div>
       </div>
       <ol class="tl" id="tl">
         <span class="tl__track"></span><span class="tl__fill" id="tlFill"></span>
-        <li class="step"><span class="step__dot">1</span><h3 data-i18n="d1.t">Meet at the center</h3><p data-i18n="d1.p">Aleja Slatina 2, right by the bay. Paperwork, certification card if you have one, and a chat about the plan for the day.</p></li>
+        <li class="step"><span class="step__dot">1</span><h3 data-i18n="d1.t">Meet at the center</h3><p data-i18n="d1.p">Aleja Slatina 2, on the seafront by Hotel Marina. Paperwork, the medical statement, your certification card if you have one, and a chat about the plan for the day.</p></li>
         <li class="step"><span class="step__dot">2</span><h3 data-i18n="d2.t">Gear up and briefing</h3><p data-i18n="d2.p">Your own equipment or rental from the center, checked together. The site, the depth and the signals are explained before anyone gets wet.</p></li>
-        <li class="step"><span class="step__dot">3</span><h3 data-i18n="d3.t">Boat out or walk in</h3><p data-i18n="d3.p">Goran takes the RIB out to the site, or the group walks in from the shore for a reef dive.</p></li>
+        <li class="step"><span class="step__dot">3</span><h3 data-i18n="d3.t">Boat out or walk in</h3><p data-i18n="d3.p">Goran takes the boat out to the site, with refreshments, first aid and oxygen on board. Or the group walks in from the shore, the gear goes over on a trolley.</p></li>
         <li class="step"><span class="step__dot">4</span><h3 data-i18n="d4.t">Dive, surface, log it</h3><p data-i18n="d4.p">Clear water, usually warm. Back at the center you fill in the logbook and plan the next one.</p></li>
       </ol>
     </div>
@@ -960,9 +1036,12 @@ html select{height:56px;line-height:normal}
         <dl>
           <div class="gtk__row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><dt data-i18n="k1.t">Opening hours</dt><dd data-i18n="k1.v">Open daily, 09:00 to 19:00</dd></div>
           <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M4 8h16v12H4zM8 8V5h8v3M4 13h16"/></svg><dt data-i18n="k2.t">What to bring</dt><dd data-i18n="k2.v">Swimwear, a towel, sun protection and your certification card if you have one</dd></div>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 14h4"/></svg><dt data-i18n="k3.t">Certification card</dt><dd data-i18n="k3.v">Needed for fun dives and wreck dives. Not needed for a try dive or a beginner course</dd></div>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M9 3h6v4H9zM10 7v2M14 7v2M8 9h8l1 12H7z"/></svg><dt data-i18n="k4.t">Equipment rental</dt><dd data-i18n="k4.v">Equipment rental is available at the center</dd></div>
-          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg><dt data-i18n="k5.t">Accommodation</dt><dd data-i18n="k5.v">Accommodation for divers is available, ask us when you book</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 14h4"/></svg><dt data-i18n="k3.t">Certification card</dt><dd data-i18n="k3.v">Show it at check-in for fun and wreck dives. Forgot it? We can check SSI and PADI online. Not needed for a try dive or a beginner course</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M9 3h6v4H9zM10 7v2M14 7v2M8 9h8l1 12H7z"/></svg><dt data-i18n="k4.t">Equipment rental</dt><dd data-i18n="k4.v">Complete equipment 30&nbsp;€ a day, 5&nbsp;mm Mares wetsuits in all sizes, DIN valves with INT adapter</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg><dt data-i18n="k5.t">Accommodation</dt><dd data-i18n="k5.v">We do not book rooms, but Hotel Marina and Hotel Mediteran are next door, and there are guesthouses and a campsite nearby</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v.01M18 15v.01"/></svg><dt data-i18n="k6.t">Payment</dt><dd data-i18n="k6.v">Cash only for now, at the center</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M4 5h11v8H9l-4 3v-3H4z"/><path d="M15 9h5v8h-1v3l-4-3h-4v-2"/></svg><dt data-i18n="k7.t">Languages</dt><dd data-i18n="k7.v">Croatian, English, German, Italian, Slovenian and Spanish</dd></div>
+          <div class="gtk__row"><svg viewBox="0 0 24 24"><path d="M5 21V8l7-5 7 5v13z"/><path d="M9 21v-6h6v6M12 9v2"/></svg><dt data-i18n="k8.t">At the center</dt><dd data-i18n="k8.v">Wet room with showers, two rinse tanks and lockable storage in the office</dd></div>
         </dl>
       </div>
       <div class="near rv" data-delay="1">
@@ -972,6 +1051,10 @@ html select{height:56px;line-height:normal}
           <li><svg viewBox="0 0 24 24"><path d="M3 20h18M5 20V9l4-3 4 3v11M13 20v-7l3-2 3 2v7"/></svg><span data-i18n="n2">Opatija riviera</span><small data-i18n="n2.s">riviera</small></li>
           <li><svg viewBox="0 0 24 24"><path d="M2 20l7-12 4 6 3-4 6 10z"/></svg><span data-i18n="n3">Učka mountain above the bay</span><small data-i18n="n3.s">mountain</small></li>
           <li><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="n4">Marine Sport, Aleja Slatina 2</span><small data-i18n="n4.s">dive center</small></li>
+          <li><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg><span data-i18n="n5">Hotel Marina, the dive center is on its seafront</span><small data-i18n="n5.s">hotel</small></li>
+          <li><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg><span data-i18n="n6">Hotel Mediteran, a few metres away</span><small data-i18n="n6.s">hotel</small></li>
+          <li><svg viewBox="0 0 24 24"><path d="M3 20L12 4l9 16z"/><path d="M12 20l-3-6h6z"/></svg><span data-i18n="n7">Autocamp Draga, about 150 m from the beach</span><small data-i18n="n7.s">camping</small></li>
+          <li><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg><span data-i18n="n8">Pension Buba, about 700 m from the centre</span><small data-i18n="n8.s">B&amp;B</small></li>
         </ul>
       </div>
     </div>
@@ -982,7 +1065,7 @@ html select{height:56px;line-height:normal}
 <section class="sec book" id="book">
   <div class="wm wm--book" id="wm2" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="sh rv"><p class="label"><span class="num">06</span><span data-i18n="book.label">Booking</span></p><h2 data-i18n="book.t">Book your dive</h2><p data-i18n="book.sub">Pick a program, a date and how many of you. We confirm on WhatsApp or by email. No payment online.</p></div>
+    <div class="sh rv"><p class="label"><span class="num">06</span><span data-i18n="book.label">Booking</span></p><h2 data-i18n="book.t">Book your dive</h2><p data-i18n="book.sub">Pick a program, a date and how many of you. We confirm on WhatsApp or by email. No online payment, you pay in cash at the center.</p></div>
     <div class="book__grid">
       <form class="form" id="form" novalidate>
         <fieldset class="field">
@@ -1017,7 +1100,7 @@ html select{height:56px;line-height:normal}
         <div class="book__btns rv" data-delay="1">
           <a class="pill pill--wa" id="waBtn" href="https://wa.me/385915157212" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 12 12 0 0 0 4.6 4c1.7.7 2.1.6 2.8.5a2.4 2.4 0 0 0 1.6-1.1 2 2 0 0 0 .1-1.1c0-.1-.2-.2-.4-.3z"/></svg><span data-i18n="btn.wa">Send on WhatsApp</span></a>
           <a class="pill pill--ghost" id="mailBtn" href="mailto:info@marinesport.hr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span data-i18n="btn.mail">Send by email</span></a>
-          <p class="fine" data-i18n="book.fine">No payment, no account. The team replies and confirms the time and the site.</p>
+          <p class="fine" data-i18n="book.fine">Please add your certification level, total number of dives and the date of your last dive. The team replies and confirms the time and the site.</p>
         </div>
       </aside>
     </div>
@@ -1029,7 +1112,7 @@ html select{height:56px;line-height:normal}
   <svg class="band__flag" viewBox="0 0 60 44" aria-hidden="true" data-parallax="0.06"><rect width="60" height="44" fill="#fff"/><polygon points="0,0 12,0 60,34 60,44 48,44 0,10" fill="#FF5A1F"/></svg>
   <div class="wrap">
     <div><p class="label" data-i18n="band.label">Dive flag up</p><h2 class="rv" data-i18n="band.t">Safety first, fun always</h2></div>
-    <div><p class="rv" data-delay="1" data-i18n="band.p">Good equipment, careful briefings and a team that is used to mixed groups of all ages and levels. If the sea is not right, we reschedule.</p><a class="pill pill--outline rv" data-delay="2" href="https://wa.me/385915157212" target="_blank" rel="noopener" data-i18n="band.cta">Ask a question</a></div>
+    <div><p class="rv" data-delay="1" data-i18n="band.p">Equipment serviced and renewed every year, oxygen and first aid on board, careful briefings and a team used to mixed groups of all ages and levels. If the sea is not right, we reschedule.</p><a class="pill pill--outline rv" data-delay="2" href="https://wa.me/385915157212" target="_blank" rel="noopener" data-i18n="band.cta">Ask a question</a></div>
   </div>
 </section>
 
@@ -1038,12 +1121,19 @@ html select{height:56px;line-height:normal}
   <div class="wrap faq__grid">
     <div class="sh rv"><p class="label"><span class="num">07</span>FAQ</p><h2 data-i18n="faq.t">Questions before you dive</h2><p data-i18n="faq.sub">Anything else, write to us on WhatsApp.</p></div>
     <div class="faq__list rv" data-delay="1">
-      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q1">What is the minimum age?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a1">Ask us. It depends on the program and the federation, and we will tell you straight away.</p></div></div></div>
-      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q2">Do I need a medical check?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a2">Ask us. We will tell you exactly what is needed for your dive or course before you come.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q1">What is the minimum age?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a1">10 years. Children can also come along on the boat if there is space, with an adult keeping an eye on them.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q2">Do I need a medical check?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a2">Everyone fills in a medical statement before a course or a try dive. If you answer YES to any question, a dive doctor has to examine you and sign it, dated within the last 6 months.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q3">What if the weather turns?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a3">We reschedule. If the sea or the wind is not right for a safe dive, we find another day or time with you.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q4">I have never dived. Where do I start?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a4">With a try dive. An instructor stays with you the whole time, and if you like it, a course is the next step.</p></div></div></div>
-      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">Can I rent equipment?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a5">Yes, equipment rental is available at the center. Tell us your sizes when you book.</p></div></div></div>
-      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q6">Do you have accommodation?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a6">Yes, accommodation for divers is available. Ask us when you book and we will sort out the details.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">Can I rent equipment?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a5">Yes. Complete equipment is 30&nbsp;€ a day, single items from 8&nbsp;€, with 5&nbsp;mm Mares wetsuits in all sizes. Tell us your sizes when you book.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q6">Can you book my accommodation?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a6">We cannot book rooms, but the center sits on the seafront of Hotel Marina, a few metres from Hotel Mediteran. Pension Buba and Autocamp Draga are close by too.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q7">How can I pay?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a7">In cash at the center. Card payment is not available for now.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q8">Do you have Nitrox?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a8">Yes. Let us know one day before your dive. The Nitrox fill is 6&nbsp;€ on top of the dive price.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q9">How long does the Open Water course take?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a9">At least 2 to 3 full days. Less if you finish the theory before you arrive with SSI Digital eLearning. Holders of PADI Open Water can continue with SSI Advanced.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q10">Can non-divers come on the boat?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a10">Yes, if there is space, to snorkel or swim, for 25&nbsp;€. The boat can also be booked privately for diving, snorkelling or a day out. Call or email us.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q11">I forgot my certification card. Can I still dive?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a11">Usually yes. We can check SSI and PADI certifications online. Without any proof we cannot take you diving.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q12">I have no buddy, or I have not dived for a while.</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a12">We will pair you with a suitable buddy. If your last dive was more than 2 years ago, we recommend a short dive check or a Scuba Skills Update.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q13">Do you offer group discounts?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a13">Yes, for groups of 10 or more people. Write to us with your dates.</p></div></div></div>
     </div>
   </div>
 </section>
@@ -1069,11 +1159,13 @@ html select{height:56px;line-height:normal}
         <a class="pill pill--ghost" href="tel:+385915157212">+385 91 515 7212</a>
         <a class="pill pill--ghost" href="mailto:info@marinesport.hr">info@marinesport.hr</a>
         <a class="pill pill--ghost" href="https://maps.google.com/?q=Marine+Sport+Dive+Center,+Aleja+Slatina+2,+51417+Mo%C5%A1%C4%87eni%C4%8Dka+Draga" target="_blank" rel="noopener" data-i18n="c.dir">Directions</a>
+        <a class="pill pill--ghost" href="https://www.facebook.com/MarineSportDiveCenter" target="_blank" rel="noopener">Facebook</a>
+        <a class="pill pill--ghost" href="https://www.instagram.com/marinesportdc/" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
     <div class="frame contact__img rv-img"><div class="art art--boat">
       <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#i-bay" x="-80" y="80" width="560" height="308"/></svg>
-      <img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
+      <img src="https://www.marinesport.hr/assets/about/infront-dc.jpg" alt="Marine Sport Dive Center building at Aleja Slatina 2" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
       <span class="pin"><span class="pin__ring"><svg viewBox="0 0 60 44" aria-hidden="true"><use href="#i-flag"/></svg></span></span>
       <span class="tag-b">Mošćenička Draga</span>
     </div>
@@ -1090,8 +1182,8 @@ html select{height:56px;line-height:normal}
         <p style="margin-top:16px;max-width:36ch" data-i18n="foot.p">Boat and shore dives, wreck dives and SSI, PADI and CMAS courses in Kvarner bay, from the harbour of Mošćenička Draga.</p>
       </div>
       <div><h4 data-i18n="foot.visit">Visit</h4><p>Aleja Slatina 2<br>51417&nbsp;Mošćenička Draga<br>Croatia</p></div>
-      <div><h4 data-i18n="foot.talk">Talk to us</h4><p><a href="tel:+385915157212">+385 91 515 7212</a><br><a href="mailto:info@marinesport.hr">info@marinesport.hr</a><br><span data-i18n="foot.hours">Daily 09:00 to 19:00</span></p></div>
-      <div><h4 data-i18n="foot.dive">Dive</h4><p><a href="#programs" data-i18n="tab.try">Try dive</a><br><a href="#programs" data-i18n="tab.fun">Fun dives</a><br><a href="#programs" data-i18n="f.course">Course</a><br><a href="#sites" data-i18n="tab.wreck">Wreck dives</a></p></div>
+      <div><h4 data-i18n="foot.talk">Talk to us</h4><p><a href="tel:+385915157212">+385 91 515 7212</a><br><a href="mailto:info@marinesport.hr">info@marinesport.hr</a><br><span data-i18n="foot.hours">Daily 09:00 to 19:00</span><br><a href="https://www.facebook.com/MarineSportDiveCenter" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/marinesportdc/" target="_blank" rel="noopener">Instagram</a> · <a href="https://twitter.com/Marine_Sport" target="_blank" rel="noopener">X</a></p></div>
+      <div><h4 data-i18n="foot.dive">Dive</h4><p><a href="#programs" data-i18n="tab.try">Try dive</a><br><a href="#programs" data-i18n="tab.fun">Fun dives</a><br><a href="#prices" data-i18n="nav.prices">Prices</a><br><a href="#programs" data-i18n="f.course">Course</a><br><a href="#sites" data-i18n="tab.wreck">Wreck dives</a></p></div>
     </div>
     <div class="foot__bot"><span>© <span id="yr">2026</span> Marine Sport Dive Center</span><span data-i18n="foot.concept">Website concept by Marija · proposal mockup</span></div>
   </div>
@@ -1119,61 +1211,134 @@ en:{
   "hero.cta":"Book your dive","hero.hint":"Move to look around",
   "finder.b":"Discover scuba dive","finder.s":"Pick a date • 2 divers",
   "gal.t":"Below the surface","gal.sub":"Boat dives, shore dives and wrecks around Mošćenička Draga.",
-  "gal.c1":"Boat dive, Kvarner bay","gal.c2":"The RIB, Mošćenička Draga harbour","gal.c3":"Wreck dive","gal.c4":"Shore reef, nudibranchs and sponges","gal.c5":"Courses: SSI, PADI, CMAS",
+  "gal.c1":"Boat dive, Kvarner bay","gal.c2":"The dive boat, Mošćenička Draga","gal.c3":"Wreck dive","gal.c4":"Shore reef, nudibranchs and sponges","gal.c5":"Courses: SSI, PADI, CMAS",
   "intro.label":"The team and the bay","intro.t":"A small team, a big bay",
-  "intro.lead":"Robert and the crew run Marine Sport from the harbour of Mošćenička Draga, on the Opatija riviera.",
-  "intro.p1":"Boat dives with Goran at the helm, shore dives straight from the beach, and more than 16 dive sites across Kvarner bay. Igor, David, Dario and Robi guide mixed groups of all ages and levels, with good equipment and a calm, safety-first way of doing things.",
-  "intro.p2":"Great visibility and usually warm water. Colourful nudibranchs and yellow sponges on the shore dives, and wreck dives including Lina and Vis for certified divers.",
-  "intro.owner":"· owner, instructor","intro.boat":"· boat",
+  "intro.lead":"Roby and the crew have run Marine Sport since 2000, right on the seafront by Hotel Marina in Mošćenička Draga, on the Opatija riviera.",
+  "intro.p1":"Boat dives with Goran at the helm, shore dives straight from the beach, and more than 16 dive sites across Kvarner bay. Roby, Edo and Bojana teach and guide mixed groups of all ages and levels in several languages, with a calm, safety-first way of doing things.",
+  "intro.p2":"Great visibility and usually warm water. Colourful nudibranchs and yellow sponges on the shore dives, red coral walls by boat, and the wrecks Lina and Vis for advanced and technical divers.",
+  "intro.owner":"· owner, instructor","intro.boat":"· captain, divemaster",
   "stat.sites":"dive sites","stat.fed":"federations: SSI, PADI, CMAS","stat.rating":"Google rating","badge":"Google rating · 140 reviews",
-  "prog.label":"Dive programs","prog.t":"Pick your dive","prog.sub":"From a first breath underwater to wreck dives. Prices shown are examples.",
+  "prog.label":"Dive programs","prog.t":"Pick your dive","prog.sub":"From a first breath underwater to deep wrecks. Prices in euro, per person.",
   "tab.try":"Try dive","tab.fun":"Fun dives","tab.course":"Courses SSI PADI CMAS","tab.wreck":"Wreck dives","from":"from","cta.book":"Book this",
   "tag.first":"First time","tag.cert":"Certified divers","tag.wreck":"Wreck","tag.shore":"Shore dive",
   "try.t":"Discover scuba, your first dive","try.m":"per person · no experience needed",
   "try.p":"Never dived before? A short briefing, a calm shallow dive with an instructor right beside you, and the bay from a completely new angle.",
   "try.b1":"No certification needed","try.b2":"Instructor at your side the whole dive","try.b3":"Equipment from the center",
-  "fun.t":"Fun dives for certified divers","fun.m":"per dive · boat or shore",
-  "fun.p":"Boat dives and shore dives on more than 16 sites in Kvarner bay. Mixed groups of all levels are welcome, and the team picks the site to match the day.",
-  "fun.b1":"Boat dive with Goran or shore dive from the beach","fun.b2":"Bring your certification card","fun.b3":"Equipment rental available",
-  "course.t":"Courses: SSI, PADI and CMAS","course.m":"per course · beginner to advanced",
-  "course.p":"From your first certification to advanced levels, with the federation you prefer. Theory, shallow water, then open water dives in the bay.",
-  "course.b1":"SSI, PADI and CMAS","course.b2":"From first-time to advanced","course.b3":"All ages and levels welcome",
-  "wreck.t":"Wreck dives","wreck.m":"per dive · certified divers",
-  "wreck.p":"Wreck dives including Lina and Vis, by boat, for certified divers with the right level. Ask the team which wreck suits your experience.",
-  "wreck.b1":"Wrecks including Lina and Vis","wreck.b2":"Boat dive with the crew","wreck.b3":"Certification card required",
-  "prog.note":"Prices marked XX € are examples and will be replaced with the real price list.",
-  "sites.label":"Dive sites","sites.t":"More than 16 sites in Kvarner bay","sites.sub":"Wrecks, reefs and walls, by boat or straight from the shore.",
-  "s1.t":"Wreck Lina","s1.m":"Boat dive · certified divers","s1.p":"One of the wrecks we dive from the boat. Ask the team about the depth and the level you need.",
-  "s2.t":"Wreck Vis","s2.m":"Boat dive · certified divers","s2.p":"The second wreck on the list. A boat trip out with the crew and a dive for those with the right experience.",
-  "s3.t":"Shore reef","s3.m":"Shore dive · all levels","s3.p":"Colourful nudibranchs and yellow sponges a few fin kicks from the beach. Good for try dives and relaxed fun dives.",
-  "s4.t":"more sites","s4.h":"And 13 more sites","s4.m":"Reefs, walls and wrecks","s4.p":"Ask the team which site fits the day, the wind and your level. They know the bay.",
+  "fun.t":"Fun dives for certified divers","fun.m":"per shore dive · boat dive 40 €",
+  "fun.p":"Shore dives from 20 €, boat dives 40 € and night dives from the shore 30 €, on more than 16 sites in Kvarner bay. Mixed groups of all levels are welcome, and the team picks the site to match the day.",
+  "fun.b1":"Two boat dives a day, shore dives as often as you like","fun.b2":"Bring your certification card","fun.b3":"Air and weights free, Nitrox +6 € per fill",
+  "course.t":"Courses: SSI, PADI and CMAS","course.m":"per person · diving course",
+  "course.p":"SSI Open Water takes at least 2 to 3 full days, less if you do the theory first with SSI Digital eLearning. The price covers online academics, full equipment and the instructor. Nitrox and trimix training too.",
+  "course.b1":"Specialty course 180 €","course.b2":"Scuba Skills Update 80 €","course.b3":"Divemaster internship at the center",
+  "wreck.t":"Wreck dives","wreck.m":"per dive · Lina 50 €, Vis 70 €",
+  "wreck.p":"Lina lies at 28 to 52 m with excellent visibility, for advanced divers. Vis lies at 37 to 60 m, for technical divers. Both are boat dives, about 1 h 15 min to 1 h 20 min out.",
+  "wreck.b1":"Lina: advanced divers, 28 to 52 m","wreck.b2":"Vis: technical divers, 37 to 60 m","wreck.b3":"Certification card required",
+  "prog.note":"Prices in euro, valid from 1 April to 31 December 2026. Air fills and weights are free. Payment in cash at the center.",
+  "sites.label":"Dive sites","sites.t":"More than 16 sites in Kvarner bay","sites.sub":"Walls, red corals, reefs and two deep wrecks, by boat or straight from the shore.",
+  "s1.t":"Wreck Lina","s1.m":"Boat · 28-52 m · advanced divers","s1.p":"Excellent visibility and no current. A deep wreck and wall dive, about 1 h 20 min out by boat.",
+  "s2.t":"Wreck Vis","s2.m":"Boat · 37-60 m · technical divers","s2.p":"A deep wreck for technical divers, about 1 h 15 min out by boat. No current, good visibility.",
+  "s3.t":"Sipar, Biser and Rubin","s3.m":"Shore · 2-32 m · all levels","s3.p":"Beach, wall, labyrinth and reef dives, from 200 m to a 15 min walk from the center. Colourful nudibranchs and yellow sponges, good for try dives and relaxed fun dives.",
+  "s4.t":"dive sites","s4.h":"And more by boat","s4.m":"Kraj, Stupova, Lonjica, Green Lantern, Jablanac","s4.p":"Walls from 5 to 50 m, 15 to 50 min out by boat. The team picks the site to match the day, the wind and your level.",
   "cta.bookwreck":"Book a wreck dive","cta.bookfun":"Book a fun dive","cta.ask":"Ask on WhatsApp",
   "day.label":"Your dive day","day.t":"How a dive day goes",
-  "d1.t":"Meet at the center","d1.p":"Aleja Slatina 2, right by the bay. Paperwork, certification card if you have one, and a chat about the plan for the day.",
+  "d1.t":"Meet at the center","d1.p":"Aleja Slatina 2, on the seafront by Hotel Marina. Paperwork, the medical statement, your certification card if you have one, and a chat about the plan for the day.",
   "d2.t":"Gear up and briefing","d2.p":"Your own equipment or rental from the center, checked together. The site, the depth and the signals are explained before anyone gets wet.",
-  "d3.t":"Boat out or walk in","d3.p":"Goran takes the RIB out to the site, or the group walks in from the shore for a reef dive.",
+  "d3.t":"Boat out or walk in","d3.p":"Goran takes the boat out to the site, with refreshments, first aid and oxygen on board. Or the group walks in from the shore, the gear goes over on a trolley.",
   "d4.t":"Dive, surface, log it","d4.p":"Clear water, usually warm. Back at the center you fill in the logbook and plan the next one.",
   "know.label":"Practical","know.t":"Good to know","know.sub":"The small things that make the day easy.",
   "k1.t":"Opening hours","k1.v":"Open daily, 09:00 to 19:00","k2.t":"What to bring","k2.v":"Swimwear, a towel, sun protection and your certification card if you have one",
-  "k3.t":"Certification card","k3.v":"Needed for fun dives and wreck dives. Not needed for a try dive or a beginner course","k4.t":"Equipment rental","k4.v":"Equipment rental is available at the center",
-  "k5.t":"Accommodation","k5.v":"Accommodation for divers is available, ask us when you book",
+  "k3.t":"Certification card","k3.v":"Show it at check-in for fun and wreck dives. Forgot it? We can check SSI and PADI online. Not needed for a try dive or a beginner course","k4.t":"Equipment rental","k4.v":"Complete equipment 30 € a day, 5 mm Mares wetsuits in all sizes, DIN valves with INT adapter",
+  "k5.t":"Accommodation","k5.v":"We do not book rooms, but Hotel Marina and Hotel Mediteran are next door, and there are guesthouses and a campsite nearby",
   "near.t":"What's nearby","n1":"Mošćenička Draga beach and harbour","n1.s":"beach","n2":"Opatija riviera","n2.s":"riviera","n3":"Učka mountain above the bay","n3.s":"mountain","n4":"Marine Sport, Aleja Slatina 2","n4.s":"dive center",
-  "book.label":"Booking","book.t":"Book your dive","book.sub":"Pick a program, a date and how many of you. We confirm on WhatsApp or by email. No payment online.",
+  "book.label":"Booking","book.t":"Book your dive","book.sub":"Pick a program, a date and how many of you. We confirm on WhatsApp or by email. No online payment, you pay in cash at the center.",
   "f.prog":"Program","f.try.s":"first time","f.fun.s":"certified","f.course":"Course","f.date":"Date","f.divers":"Divers","f.level":"Level","lvl.b":"Beginner","lvl.c":"Certified","lvl.p":"Pro","f.name":"Your name","f.name.ph":"Name and surname",
-  "sum.l":"Your request","sum.date":"Pick a date","btn.wa":"Send on WhatsApp","btn.mail":"Send by email","book.fine":"No payment, no account. The team replies and confirms the time and the site.","bar.btn":"Book",
+  "sum.l":"Your request","sum.date":"Pick a date","btn.wa":"Send on WhatsApp","btn.mail":"Send by email","book.fine":"Please add your certification level, total number of dives and the date of your last dive. The team replies and confirms the time and the site.","bar.btn":"Book",
   "diver":"diver","divers":"divers",
   "msg":"Hi Marine Sport! I would like to book: {prog}, {date}, {n} {divers}, level: {lvl}. Name: {name}","msg.subj":"Dive request: {prog}, {date}",
-  "band.label":"Dive flag up","band.t":"Safety first, fun always","band.p":"Good equipment, careful briefings and a team that is used to mixed groups of all ages and levels. If the sea is not right, we reschedule.","band.cta":"Ask a question",
+  "band.label":"Dive flag up","band.t":"Safety first, fun always","band.p":"Equipment serviced and renewed every year, oxygen and first aid on board, careful briefings and a team used to mixed groups of all ages and levels. If the sea is not right, we reschedule.","band.cta":"Ask a question",
   "faq.t":"Questions before you dive","faq.sub":"Anything else, write to us on WhatsApp.",
-  "q1":"What is the minimum age?","a1":"Ask us. It depends on the program and the federation, and we will tell you straight away.",
-  "q2":"Do I need a medical check?","a2":"Ask us. We will tell you exactly what is needed for your dive or course before you come.",
+  "q1":"What is the minimum age?","a1":"10 years. Children can also come along on the boat if there is space, with an adult keeping an eye on them.",
+  "q2":"Do I need a medical check?","a2":"Everyone fills in a medical statement before a course or a try dive. If you answer YES to any question, a dive doctor has to examine you and sign it, dated within the last 6 months.",
   "q3":"What if the weather turns?","a3":"We reschedule. If the sea or the wind is not right for a safe dive, we find another day or time with you.",
   "q4":"I have never dived. Where do I start?","a4":"With a try dive. An instructor stays with you the whole time, and if you like it, a course is the next step.",
-  "q5":"Can I rent equipment?","a5":"Yes, equipment rental is available at the center. Tell us your sizes when you book.",
-  "q6":"Do you have accommodation?","a6":"Yes, accommodation for divers is available. Ask us when you book and we will sort out the details.",
+  "q5":"Can I rent equipment?","a5":"Yes. Complete equipment is 30 € a day, single items from 8 €, with 5 mm Mares wetsuits in all sizes. Tell us your sizes when you book.",
+  "q6":"Can you book my accommodation?","a6":"We cannot book rooms, but the center sits on the seafront of Hotel Marina, a few metres from Hotel Mediteran. Pension Buba and Autocamp Draga are close by too.",
   "c.label":"Contact","c.t":"Find us by the bay","c.p":"Opatija riviera, Kvarner bay. Daily from 09:00 to 19:00.","c.dir":"Directions","today":"today",
   "w.mon":"Monday","w.tue":"Tuesday","w.wed":"Wednesday","w.thu":"Thursday","w.fri":"Friday","w.sat":"Saturday","w.sun":"Sunday",
-  "foot.p":"Boat and shore dives, wreck dives and SSI, PADI and CMAS courses in Kvarner bay, from the harbour of Mošćenička Draga.","foot.visit":"Visit","foot.talk":"Talk to us","foot.hours":"Daily 09:00 to 19:00","foot.dive":"Dive","foot.concept":"Website concept by Marija · proposal mockup"
+  "foot.p":"Boat and shore dives, wreck dives and SSI, PADI and CMAS courses in Kvarner bay, from the harbour of Mošćenička Draga.","foot.visit":"Visit","foot.talk":"Talk to us","foot.hours":"Daily 09:00 to 19:00","foot.dive":"Dive","foot.concept":"Website concept by Marija · proposal mockup",
+  "nav.prices":"Prices",
+  "intro.p3":"At the center: a wet room with showers, a compressor room, a small workshop for repairs and a shaded corner to log dives or study theory. Rental equipment is serviced regularly and renewed every year. Come as a guest, leave as a friend.",
+  "intro.instr":"· instructor",
+  "intro.design":"· service designer",
+  "stat.since":"in the bay since",
+  "pl.t":"Price list",
+  "pl.sub":"2026 season, in euro. Group discounts for 10 or more people.",
+  "pl.dive":"Diving",
+  "pl.rent":"Equipment rental, per day",
+  "pl.course":"Courses, per person",
+  "pl.shore":"Shore dive",
+  "pl.night":"Night dive from the shore",
+  "pl.boat":"Boat dive",
+  "pl.lina":"Wreck dive Lina",
+  "pl.vis":"Wreck dive Vis",
+  "pl.guide":"Individual guide",
+  "pl.nondiver":"Non-divers on board",
+  "pl.nitrox":"Nitrox fill, add-on",
+  "pl.full":"Complete equipment",
+  "pl.abc":"ABC equipment",
+  "pl.bcd":"BCD",
+  "pl.reg":"Regulator",
+  "pl.comp":"Dive computer",
+  "pl.suit":"Wetsuit",
+  "pl.torch":"Torch",
+  "pl.tank":"Tank, per dive",
+  "pl.try":"Try Scuba Diving",
+  "pl.update":"Scuba Skills Update",
+  "pl.oc":"Diving course",
+  "pl.spec":"Specialty course",
+  "tag.boat":"Boat dive",
+  "s5.t":"Kinkela and Šip",
+  "s5.m":"Boat · 5-50 m · all levels",
+  "s5.p":"Walls covered in red corals, 40 to 45 min out by boat.",
+  "st.h":"All sites at a glance",
+  "st.beach":"Shore · beach",
+  "st.wl":"Shore · wall, labyrinth",
+  "st.rw":"Shore · reef, wall",
+  "st.wall":"Boat · wall",
+  "st.coral":"Boat · wall, red corals",
+  "st.lina":"Boat · wreck, wall, deep · advanced",
+  "st.vis":"Boat · wreck, deep · technical",
+  "st.w5":"5 min walk",
+  "st.w15":"15 min walk",
+  "st.note":"Low or no current and good visibility on every site. Boat times are from the center.",
+  "k6.t":"Payment",
+  "k6.v":"Cash only for now, at the center",
+  "k7.t":"Languages",
+  "k7.v":"Croatian, English, German, Italian, Slovenian and Spanish",
+  "k8.t":"At the center",
+  "k8.v":"Wet room with showers, two rinse tanks and lockable storage in the office",
+  "n5":"Hotel Marina, the dive center is on its seafront",
+  "n5.s":"hotel",
+  "n6":"Hotel Mediteran, a few metres away",
+  "n6.s":"hotel",
+  "n7":"Autocamp Draga, about 150 m from the beach",
+  "n7.s":"camping",
+  "n8":"Pension Buba, about 700 m from the centre",
+  "n8.s":"B&B",
+  "q7":"How can I pay?",
+  "a7":"In cash at the center. Card payment is not available for now.",
+  "q8":"Do you have Nitrox?",
+  "a8":"Yes. Let us know one day before your dive. The Nitrox fill is 6 € on top of the dive price.",
+  "q9":"How long does the Open Water course take?",
+  "a9":"At least 2 to 3 full days. Less if you finish the theory before you arrive with SSI Digital eLearning. Holders of PADI Open Water can continue with SSI Advanced.",
+  "q10":"Can non-divers come on the boat?",
+  "a10":"Yes, if there is space, to snorkel or swim, for 25 €. The boat can also be booked privately for diving, snorkelling or a day out. Call or email us.",
+  "q11":"I forgot my certification card. Can I still dive?",
+  "a11":"Usually yes. We can check SSI and PADI certifications online. Without any proof we cannot take you diving.",
+  "q12":"I have no buddy, or I have not dived for a while.",
+  "a12":"We will pair you with a suitable buddy. If your last dive was more than 2 years ago, we recommend a short dive check or a Scuba Skills Update.",
+  "q13":"Do you offer group discounts?",
+  "a13":"Yes, for groups of 10 or more people. Write to us with your dates."
 },
 de:{
   "hdr.book":"Tauchgang buchen","menu":"Menü","close":"Schließen",
@@ -1183,61 +1348,134 @@ de:{
   "hero.cta":"Tauchgang buchen","hero.hint":"Bewegen zum Umsehen",
   "finder.b":"Schnuppertauchen entdecken","finder.s":"Datum wählen • 2 Taucher",
   "gal.t":"Unter der Oberfläche","gal.sub":"Bootstauchgänge, Ufertauchgänge und Wracks rund um Mošćenička Draga.",
-  "gal.c1":"Bootstauchgang, Kvarner Bucht","gal.c2":"Das Schlauchboot, Hafen Mošćenička Draga","gal.c3":"Wracktauchgang","gal.c4":"Riff am Ufer, Nacktschnecken und Schwämme","gal.c5":"Kurse: SSI, PADI, CMAS",
+  "gal.c1":"Bootstauchgang, Kvarner Bucht","gal.c2":"Das Tauchboot, Mošćenička Draga","gal.c3":"Wracktauchgang","gal.c4":"Riff am Ufer, Nacktschnecken und Schwämme","gal.c5":"Kurse: SSI, PADI, CMAS",
   "intro.label":"Das Team und die Bucht","intro.t":"Kleines Team, große Bucht",
-  "intro.lead":"Robert und die Crew führen Marine Sport vom Hafen von Mošćenička Draga aus, an der Riviera von Opatija.",
-  "intro.p1":"Bootstauchgänge mit Goran am Steuer, Ufertauchgänge direkt vom Strand und mehr als 16 Tauchplätze in der Kvarner Bucht. Igor, David, Dario und Robi führen gemischte Gruppen jeden Alters und Niveaus, mit guter Ausrüstung und einer ruhigen, sicherheitsbewussten Art.",
-  "intro.p2":"Tolle Sicht und meist warmes Wasser. Bunte Nacktschnecken und gelbe Schwämme bei den Ufertauchgängen, Wracktauchgänge inklusive Lina und Vis für zertifizierte Taucher.",
-  "intro.owner":"· Inhaber, Tauchlehrer","intro.boat":"· Boot",
+  "intro.lead":"Roby und sein Team führen Marine Sport seit 2000, direkt an der Uferpromenade beim Hotel Marina in Mošćenička Draga, an der Riviera von Opatija.",
+  "intro.p1":"Bootstauchgänge mit Goran am Steuer, Ufertauchgänge direkt vom Strand und mehr als 16 Tauchplätze in der Kvarner Bucht. Roby, Edo und Bojana unterrichten und führen gemischte Gruppen jeden Alters und Niveaus in mehreren Sprachen, ruhig und mit Sicherheit an erster Stelle.",
+  "intro.p2":"Tolle Sicht und meist warmes Wasser. Bunte Nacktschnecken und gelbe Schwämme bei den Ufertauchgängen, Steilwände mit roten Korallen vom Boot und die Wracks Lina und Vis für fortgeschrittene und technische Taucher.",
+  "intro.owner":"· Inhaber, Tauchlehrer","intro.boat":"· Kapitän, Divemaster",
   "stat.sites":"Tauchplätze","stat.fed":"Verbände: SSI, PADI, CMAS","stat.rating":"Google Bewertung","badge":"Google Bewertung · 140 Rezensionen",
-  "prog.label":"Tauchprogramme","prog.t":"Wähle deinen Tauchgang","prog.sub":"Vom ersten Atemzug unter Wasser bis zum Wrack. Preise sind Beispiele.",
+  "prog.label":"Tauchprogramme","prog.t":"Wähle deinen Tauchgang","prog.sub":"Vom ersten Atemzug unter Wasser bis zu tiefen Wracks. Preise in Euro, pro Person.",
   "tab.try":"Schnuppertauchen","tab.fun":"Fun Dives","tab.course":"Kurse SSI PADI CMAS","tab.wreck":"Wracktauchen","from":"ab","cta.book":"Jetzt buchen",
   "tag.first":"Zum ersten Mal","tag.cert":"Zertifizierte Taucher","tag.wreck":"Wrack","tag.shore":"Ufertauchgang",
   "try.t":"Schnuppertauchen, dein erster Tauchgang","try.m":"pro Person · keine Erfahrung nötig",
   "try.p":"Noch nie getaucht? Ein kurzes Briefing, ein ruhiger, flacher Tauchgang mit dem Tauchlehrer direkt neben dir, und die Bucht aus einem ganz neuen Blickwinkel.",
   "try.b1":"Kein Brevet nötig","try.b2":"Tauchlehrer die ganze Zeit an deiner Seite","try.b3":"Ausrüstung von der Basis",
-  "fun.t":"Fun Dives für zertifizierte Taucher","fun.m":"pro Tauchgang · Boot oder Ufer",
-  "fun.p":"Boots- und Ufertauchgänge an mehr als 16 Plätzen in der Kvarner Bucht. Gemischte Gruppen aller Niveaus sind willkommen, das Team wählt den Platz passend zum Tag.",
-  "fun.b1":"Bootstauchgang mit Goran oder Ufertauchgang vom Strand","fun.b2":"Brevet mitbringen","fun.b3":"Leihausrüstung verfügbar",
-  "course.t":"Kurse: SSI, PADI und CMAS","course.m":"pro Kurs · Anfänger bis Fortgeschrittene",
-  "course.p":"Vom ersten Brevet bis zu fortgeschrittenen Stufen, mit dem Verband deiner Wahl. Theorie, Flachwasser, dann Freiwassertauchgänge in der Bucht.",
-  "course.b1":"SSI, PADI und CMAS","course.b2":"Vom Einstieg bis Advanced","course.b3":"Alle Altersgruppen und Niveaus willkommen",
-  "wreck.t":"Wracktauchgänge","wreck.m":"pro Tauchgang · zertifizierte Taucher",
-  "wreck.p":"Wracktauchgänge inklusive Lina und Vis, vom Boot, für zertifizierte Taucher mit passender Stufe. Frag das Team, welches Wrack zu deiner Erfahrung passt.",
-  "wreck.b1":"Wracks inklusive Lina und Vis","wreck.b2":"Bootstauchgang mit der Crew","wreck.b3":"Brevet erforderlich",
-  "prog.note":"Preise mit XX € sind Beispiele und werden durch die echte Preisliste ersetzt.",
-  "sites.label":"Tauchplätze","sites.t":"Mehr als 16 Plätze in der Kvarner Bucht","sites.sub":"Wracks, Riffe und Wände, vom Boot oder direkt vom Ufer.",
-  "s1.t":"Wrack Lina","s1.m":"Bootstauchgang · zertifizierte Taucher","s1.p":"Eines der Wracks, die wir vom Boot aus betauchen. Frag das Team nach Tiefe und nötiger Stufe.",
-  "s2.t":"Wrack Vis","s2.m":"Bootstauchgang · zertifizierte Taucher","s2.p":"Das zweite Wrack auf der Liste. Eine Bootsfahrt mit der Crew und ein Tauchgang für alle mit passender Erfahrung.",
-  "s3.t":"Riff am Ufer","s3.m":"Ufertauchgang · alle Niveaus","s3.p":"Bunte Nacktschnecken und gelbe Schwämme ein paar Flossenschläge vom Strand. Gut für Schnuppertauchen und entspannte Fun Dives.",
-  "s4.t":"weitere Plätze","s4.h":"Und 13 weitere Plätze","s4.m":"Riffe, Wände und Wracks","s4.p":"Frag das Team, welcher Platz zu Tag, Wind und deinem Niveau passt. Sie kennen die Bucht.",
+  "fun.t":"Fun Dives für zertifizierte Taucher","fun.m":"pro Ufertauchgang · Bootstauchgang 40 €",
+  "fun.p":"Ufertauchgänge ab 20 €, Bootstauchgänge 40 € und Nachttauchgänge vom Ufer 30 €, an mehr als 16 Plätzen in der Kvarner Bucht. Gemischte Gruppen aller Niveaus sind willkommen, das Team wählt den Platz passend zum Tag.",
+  "fun.b1":"Zwei Bootstauchgänge am Tag, Ufertauchgänge so oft du willst","fun.b2":"Brevet mitbringen","fun.b3":"Luft und Blei gratis, Nitrox +6 € pro Füllung",
+  "course.t":"Kurse: SSI, PADI und CMAS","course.m":"pro Person · Tauchkurs",
+  "course.p":"SSI Open Water dauert mindestens 2 bis 3 volle Tage, weniger, wenn du die Theorie vorher mit SSI Digital eLearning machst. Im Preis sind Online-Theorie, komplette Ausrüstung und Tauchlehrer enthalten. Auch Nitrox- und Trimix-Ausbildung.",
+  "course.b1":"Spezialkurs 180 €","course.b2":"Scuba Skills Update 80 €","course.b3":"Divemaster-Praktikum an der Basis",
+  "wreck.t":"Wracktauchgänge","wreck.m":"pro Tauchgang · Lina 50 €, Vis 70 €",
+  "wreck.p":"Die Lina liegt auf 28 bis 52 m bei ausgezeichneter Sicht, für fortgeschrittene Taucher. Die Vis liegt auf 37 bis 60 m, für technische Taucher. Beides Bootstauchgänge, etwa 1 h 15 min bis 1 h 20 min Fahrt.",
+  "wreck.b1":"Lina: fortgeschrittene Taucher, 28 bis 52 m","wreck.b2":"Vis: technische Taucher, 37 bis 60 m","wreck.b3":"Brevet erforderlich",
+  "prog.note":"Preise in Euro, gültig vom 1. April bis 31. Dezember 2026. Luftfüllungen und Blei sind gratis. Bezahlung in bar an der Basis.",
+  "sites.label":"Tauchplätze","sites.t":"Mehr als 16 Plätze in der Kvarner Bucht","sites.sub":"Steilwände, rote Korallen, Riffe und zwei tiefe Wracks, vom Boot oder direkt vom Ufer.",
+  "s1.t":"Wrack Lina","s1.m":"Boot · 28-52 m · fortgeschrittene Taucher","s1.p":"Ausgezeichnete Sicht und keine Strömung. Ein tiefer Wrack- und Wandtauchgang, etwa 1 h 20 min mit dem Boot.",
+  "s2.t":"Wrack Vis","s2.m":"Boot · 37-60 m · technische Taucher","s2.p":"Ein tiefes Wrack für technische Taucher, etwa 1 h 15 min mit dem Boot. Keine Strömung, gute Sicht.",
+  "s3.t":"Sipar, Biser und Rubin","s3.m":"Ufer · 2-32 m · alle Niveaus","s3.p":"Strand-, Wand-, Labyrinth- und Rifftauchgänge, von 200 m bis 15 min zu Fuß von der Basis. Bunte Nacktschnecken und gelbe Schwämme, gut für Schnuppertauchen und entspannte Fun Dives.",
+  "s4.t":"Tauchplätze","s4.h":"Und mehr vom Boot","s4.m":"Kraj, Stupova, Lonjica, Green Lantern, Jablanac","s4.p":"Steilwände von 5 bis 50 m, 15 bis 50 min mit dem Boot. Das Team wählt den Platz passend zu Tag, Wind und deinem Niveau.",
   "cta.bookwreck":"Wracktauchgang buchen","cta.bookfun":"Fun Dive buchen","cta.ask":"Per WhatsApp fragen",
   "day.label":"Dein Tauchtag","day.t":"So läuft ein Tauchtag",
-  "d1.t":"Treffen an der Basis","d1.p":"Aleja Slatina 2, direkt an der Bucht. Papierkram, Brevet falls vorhanden, und ein Gespräch über den Plan für den Tag.",
+  "d1.t":"Treffen an der Basis","d1.p":"Aleja Slatina 2, an der Uferpromenade beim Hotel Marina. Papierkram, die medizinische Erklärung, dein Brevet falls vorhanden, und ein Gespräch über den Plan für den Tag.",
   "d2.t":"Ausrüstung und Briefing","d2.p":"Eigene oder geliehene Ausrüstung, gemeinsam geprüft. Platz, Tiefe und Zeichen werden erklärt, bevor jemand nass wird.",
-  "d3.t":"Raus mit dem Boot oder vom Ufer","d3.p":"Goran fährt mit dem Schlauchboot zum Platz, oder die Gruppe geht vom Ufer aus ins Wasser für einen Rifftauchgang.",
+  "d3.t":"Raus mit dem Boot oder vom Ufer","d3.p":"Goran fährt mit dem Boot zum Platz, mit Erfrischungen, Erster Hilfe und Sauerstoff an Bord. Oder die Gruppe geht vom Ufer ins Wasser, die Ausrüstung kommt auf einem Wagen mit.",
   "d4.t":"Tauchen, auftauchen, loggen","d4.p":"Klares Wasser, meist warm. Zurück an der Basis wird das Logbuch gefüllt und der nächste Tauchgang geplant.",
   "know.label":"Praktisch","know.t":"Gut zu wissen","know.sub":"Die kleinen Dinge, die den Tag leicht machen.",
   "k1.t":"Öffnungszeiten","k1.v":"Täglich geöffnet, 09:00 bis 19:00","k2.t":"Was mitbringen","k2.v":"Badesachen, Handtuch, Sonnenschutz und dein Brevet, falls vorhanden",
-  "k3.t":"Brevet","k3.v":"Nötig für Fun Dives und Wracktauchgänge. Nicht nötig für Schnuppertauchen oder einen Anfängerkurs","k4.t":"Leihausrüstung","k4.v":"Leihausrüstung ist an der Basis verfügbar",
-  "k5.t":"Unterkunft","k5.v":"Unterkunft für Taucher ist verfügbar, frag bei der Buchung",
+  "k3.t":"Brevet","k3.v":"Beim Check-in für Fun Dives und Wracktauchgänge vorzeigen. Vergessen? Wir können SSI und PADI online prüfen. Nicht nötig für Schnuppertauchen oder einen Anfängerkurs","k4.t":"Leihausrüstung","k4.v":"Komplette Ausrüstung 30 € pro Tag, 5 mm Mares Anzüge in allen Größen, DIN-Ventile mit INT-Adapter",
+  "k5.t":"Unterkunft","k5.v":"Wir buchen keine Zimmer, aber Hotel Marina und Hotel Mediteran sind gleich nebenan, Pensionen und ein Campingplatz in der Nähe",
   "near.t":"In der Nähe","n1":"Strand und Hafen von Mošćenička Draga","n1.s":"Strand","n2":"Riviera von Opatija","n2.s":"Riviera","n3":"Učka Gebirge über der Bucht","n3.s":"Berg","n4":"Marine Sport, Aleja Slatina 2","n4.s":"Tauchbasis",
-  "book.label":"Buchung","book.t":"Buche deinen Tauchgang","book.sub":"Programm, Datum und Anzahl wählen. Wir bestätigen per WhatsApp oder E-Mail. Keine Online-Zahlung.",
+  "book.label":"Buchung","book.t":"Buche deinen Tauchgang","book.sub":"Programm, Datum und Anzahl wählen. Wir bestätigen per WhatsApp oder E-Mail. Keine Online-Zahlung, du zahlst bar an der Basis.",
   "f.prog":"Programm","f.try.s":"zum ersten Mal","f.fun.s":"zertifiziert","f.course":"Kurs","f.date":"Datum","f.divers":"Taucher","f.level":"Niveau","lvl.b":"Anfänger","lvl.c":"Zertifiziert","lvl.p":"Pro","f.name":"Dein Name","f.name.ph":"Vor- und Nachname",
-  "sum.l":"Deine Anfrage","sum.date":"Datum wählen","btn.wa":"Per WhatsApp senden","btn.mail":"Per E-Mail senden","book.fine":"Keine Zahlung, kein Konto. Das Team antwortet und bestätigt Zeit und Platz.","bar.btn":"Buchen",
+  "sum.l":"Deine Anfrage","sum.date":"Datum wählen","btn.wa":"Per WhatsApp senden","btn.mail":"Per E-Mail senden","book.fine":"Gib bitte deine Brevetstufe, die Anzahl deiner Tauchgänge und das Datum deines letzten Tauchgangs an. Das Team antwortet und bestätigt Zeit und Platz.","bar.btn":"Buchen",
   "diver":"Taucher","divers":"Taucher",
   "msg":"Hallo Marine Sport! Ich möchte buchen: {prog}, {date}, {n} {divers}, Niveau: {lvl}. Name: {name}","msg.subj":"Tauchanfrage: {prog}, {date}",
-  "band.label":"Tauchflagge gesetzt","band.t":"Sicherheit zuerst, Spaß immer","band.p":"Gute Ausrüstung, sorgfältige Briefings und ein Team, das gemischte Gruppen jeden Alters und Niveaus gewohnt ist. Passt das Meer nicht, verschieben wir.","band.cta":"Frage stellen",
+  "band.label":"Tauchflagge gesetzt","band.t":"Sicherheit zuerst, Spaß immer","band.p":"Ausrüstung, die jedes Jahr gewartet und erneuert wird, Sauerstoff und Erste Hilfe an Bord, sorgfältige Briefings und ein Team, das gemischte Gruppen jeden Alters und Niveaus gewohnt ist. Passt das Meer nicht, verschieben wir.","band.cta":"Frage stellen",
   "faq.t":"Fragen vor dem Tauchen","faq.sub":"Alles andere gern per WhatsApp.",
-  "q1":"Wie alt muss man mindestens sein?","a1":"Frag uns. Es hängt vom Programm und vom Verband ab, wir sagen es dir sofort.",
-  "q2":"Brauche ich ein ärztliches Attest?","a2":"Frag uns. Wir sagen dir genau, was für deinen Tauchgang oder Kurs nötig ist, bevor du kommst.",
+  "q1":"Wie alt muss man mindestens sein?","a1":"10 Jahre. Kinder dürfen auch mit aufs Boot, wenn Platz ist, mit einem Erwachsenen, der auf sie aufpasst.",
+  "q2":"Brauche ich ein ärztliches Attest?","a2":"Vor jedem Kurs und jedem Schnuppertauchgang füllst du eine medizinische Erklärung aus. Beantwortest du eine Frage mit JA, muss dich ein Tauchmediziner untersuchen und sie unterschreiben, nicht älter als 6 Monate.",
   "q3":"Was, wenn das Wetter umschlägt?","a3":"Wir verschieben. Wenn Meer oder Wind keinen sicheren Tauchgang erlauben, finden wir mit dir einen anderen Tag oder eine andere Zeit.",
   "q4":"Ich bin noch nie getaucht. Wo fange ich an?","a4":"Mit einem Schnuppertauchgang. Ein Tauchlehrer bleibt die ganze Zeit bei dir, und wenn es dir gefällt, ist ein Kurs der nächste Schritt.",
-  "q5":"Kann ich Ausrüstung leihen?","a5":"Ja, Leihausrüstung ist an der Basis verfügbar. Nenn uns deine Größen bei der Buchung.",
-  "q6":"Gibt es eine Unterkunft?","a6":"Ja, Unterkunft für Taucher ist verfügbar. Frag bei der Buchung und wir klären die Details.",
+  "q5":"Kann ich Ausrüstung leihen?","a5":"Ja. Die komplette Ausrüstung kostet 30 € pro Tag, einzelne Teile ab 8 €, mit 5 mm Mares Anzügen in allen Größen. Nenn uns deine Größen bei der Buchung.",
+  "q6":"Könnt ihr meine Unterkunft buchen?","a6":"Wir können keine Zimmer buchen, aber die Basis liegt an der Uferseite des Hotel Marina, ein paar Meter vom Hotel Mediteran. Pension Buba und Autocamp Draga sind auch ganz in der Nähe.",
   "c.label":"Kontakt","c.t":"Du findest uns an der Bucht","c.p":"Riviera von Opatija, Kvarner Bucht. Täglich von 09:00 bis 19:00.","c.dir":"Anfahrt","today":"heute",
   "w.mon":"Montag","w.tue":"Dienstag","w.wed":"Mittwoch","w.thu":"Donnerstag","w.fri":"Freitag","w.sat":"Samstag","w.sun":"Sonntag",
-  "foot.p":"Boots- und Ufertauchgänge, Wracktauchgänge und SSI-, PADI- und CMAS-Kurse in der Kvarner Bucht, vom Hafen von Mošćenička Draga.","foot.visit":"Besuchen","foot.talk":"Kontakt","foot.hours":"Täglich 09:00 bis 19:00","foot.dive":"Tauchen","foot.concept":"Website-Konzept von Marija · Entwurf"
+  "foot.p":"Boots- und Ufertauchgänge, Wracktauchgänge und SSI-, PADI- und CMAS-Kurse in der Kvarner Bucht, vom Hafen von Mošćenička Draga.","foot.visit":"Besuchen","foot.talk":"Kontakt","foot.hours":"Täglich 09:00 bis 19:00","foot.dive":"Tauchen","foot.concept":"Website-Konzept von Marija · Entwurf",
+  "nav.prices":"Preise",
+  "intro.p3":"An der Basis: Nassraum mit Duschen, Kompressorraum, eine kleine Werkstatt für Reparaturen und ein schattiger Platz zum Logbuchschreiben oder Theorielernen. Die Leihausrüstung wird regelmäßig gewartet und jedes Jahr erneuert. Komm als Gast, geh als Freund.",
+  "intro.instr":"· Tauchlehrer",
+  "intro.design":"· Service-Designerin",
+  "stat.since":"in der Bucht seit",
+  "pl.t":"Preisliste",
+  "pl.sub":"Saison 2026, in Euro. Gruppenrabatt ab 10 Personen.",
+  "pl.dive":"Tauchen",
+  "pl.rent":"Leihausrüstung, pro Tag",
+  "pl.course":"Kurse, pro Person",
+  "pl.shore":"Ufertauchgang",
+  "pl.night":"Nachttauchgang vom Ufer",
+  "pl.boat":"Bootstauchgang",
+  "pl.lina":"Wracktauchgang Lina",
+  "pl.vis":"Wracktauchgang Vis",
+  "pl.guide":"Persönlicher Guide",
+  "pl.nondiver":"Nichttaucher an Bord",
+  "pl.nitrox":"Nitrox-Füllung, Aufpreis",
+  "pl.full":"Komplette Ausrüstung",
+  "pl.abc":"ABC-Ausrüstung",
+  "pl.bcd":"Jacket (BCD)",
+  "pl.reg":"Atemregler",
+  "pl.comp":"Tauchcomputer",
+  "pl.suit":"Neoprenanzug",
+  "pl.torch":"Lampe",
+  "pl.tank":"Flasche, pro Tauchgang",
+  "pl.try":"Schnuppertauchen",
+  "pl.update":"Scuba Skills Update",
+  "pl.oc":"Tauchkurs",
+  "pl.spec":"Spezialkurs",
+  "tag.boat":"Bootstauchgang",
+  "s5.t":"Kinkela und Šip",
+  "s5.m":"Boot · 5-50 m · alle Niveaus",
+  "s5.p":"Steilwände voller roter Korallen, 40 bis 45 min mit dem Boot.",
+  "st.h":"Alle Plätze im Überblick",
+  "st.beach":"Ufer · Strand",
+  "st.wl":"Ufer · Wand, Labyrinth",
+  "st.rw":"Ufer · Riff, Wand",
+  "st.wall":"Boot · Wand",
+  "st.coral":"Boot · Wand, rote Korallen",
+  "st.lina":"Boot · Wrack, Wand, tief · Fortgeschrittene",
+  "st.vis":"Boot · Wrack, tief · technisch",
+  "st.w5":"5 min zu Fuß",
+  "st.w15":"15 min zu Fuß",
+  "st.note":"Wenig oder keine Strömung und gute Sicht an allen Plätzen. Bootszeiten ab der Basis.",
+  "k6.t":"Bezahlung",
+  "k6.v":"Vorerst nur bar, an der Basis",
+  "k7.t":"Sprachen",
+  "k7.v":"Kroatisch, Englisch, Deutsch, Italienisch, Slowenisch und Spanisch",
+  "k8.t":"An der Basis",
+  "k8.v":"Nassraum mit Duschen, zwei Spülbecken und abschließbare Ablage im Büro",
+  "n5":"Hotel Marina, die Basis liegt an seiner Uferseite",
+  "n5.s":"Hotel",
+  "n6":"Hotel Mediteran, ein paar Meter entfernt",
+  "n6.s":"Hotel",
+  "n7":"Autocamp Draga, etwa 150 m vom Strand",
+  "n7.s":"Camping",
+  "n8":"Pension Buba, etwa 700 m vom Ortskern",
+  "n8.s":"Pension",
+  "q7":"Wie kann ich bezahlen?",
+  "a7":"Bar an der Basis. Kartenzahlung ist vorerst nicht möglich.",
+  "q8":"Habt ihr Nitrox?",
+  "a8":"Ja. Sag uns einen Tag vor deinem Tauchgang Bescheid. Die Nitrox-Füllung kostet 6 € zusätzlich zum Tauchgang.",
+  "q9":"Wie lange dauert der Open Water Kurs?",
+  "a9":"Mindestens 2 bis 3 volle Tage. Weniger, wenn du die Theorie vor der Anreise mit SSI Digital eLearning abschließt. Mit PADI Open Water kannst du bei uns mit SSI Advanced weitermachen.",
+  "q10":"Können Nichttaucher mit aufs Boot?",
+  "a10":"Ja, wenn Platz ist, zum Schnorcheln oder Schwimmen, für 25 €. Das Boot kann auch privat gebucht werden, zum Tauchen, Schnorcheln oder für einen Ausflug. Ruf an oder schreib uns.",
+  "q11":"Ich habe mein Brevet vergessen. Kann ich trotzdem tauchen?",
+  "a11":"Meistens ja. Wir können SSI und PADI Brevets online prüfen. Ganz ohne Nachweis können wir dich nicht mitnehmen.",
+  "q12":"Ich habe keinen Buddy oder war lange nicht tauchen.",
+  "a12":"Wir finden einen passenden Buddy für dich. Liegt dein letzter Tauchgang mehr als 2 Jahre zurück, empfehlen wir einen kurzen Check-Tauchgang oder ein Scuba Skills Update.",
+  "q13":"Gibt es Gruppenrabatt?",
+  "a13":"Ja, für Gruppen ab 10 Personen. Schreib uns mit deinen Terminen."
 },
 hr:{
   "hdr.book":"Rezerviraj uron","menu":"Izbornik","close":"Zatvori",
@@ -1247,61 +1485,135 @@ hr:{
   "hero.cta":"Rezervirajte uron","hero.hint":"Pomaknite za pogled",
   "finder.b":"Probni uron","finder.s":"Odaberite datum • 2 ronioca",
   "gal.t":"Ispod površine","gal.sub":"Uroni s broda, s obale i olupine oko Mošćeničke Drage.",
-  "gal.c1":"Uron s broda, Kvarner","gal.c2":"Gumenjak, luka Mošćenička Draga","gal.c3":"Uron na olupinu","gal.c4":"Obalni greben, puževi golaći i spužve","gal.c5":"Tečajevi: SSI, PADI, CMAS",
+  "gal.c1":"Uron s broda, Kvarner","gal.c2":"Ronilački brod, Mošćenička Draga","gal.c3":"Uron na olupinu","gal.c4":"Obalni greben, puževi golaći i spužve","gal.c5":"Tečajevi: SSI, PADI, CMAS",
   "intro.label":"Ekipa i zaljev","intro.t":"Mala ekipa, veliki zaljev",
-  "intro.lead":"Robert i ekipa vode Marine Sport iz luke Mošćeničke Drage, na Opatijskoj rivijeri.",
-  "intro.p1":"Uroni s broda s Goranom za kormilom, uroni s obale ravno s plaže i više od 16 lokacija diljem Kvarnerskog zaljeva. Igor, David, Dario i Robi vode miješane grupe svih dobi i razina, s dobrom opremom i mirnim pristupom u kojem je sigurnost na prvom mjestu.",
-  "intro.p2":"Odlična vidljivost i uglavnom toplo more. Šareni puževi golaći i žute spužve na obalnim uronima, a olupine uključujući Linu i Vis za certificirane ronioce.",
-  "intro.owner":"· vlasnik, instruktor","intro.boat":"· brod",
+  "intro.lead":"Roby i ekipa vode Marine Sport od 2000. godine, na samoj obali uz Hotel Marina u Mošćeničkoj Dragi, na opatijskoj rivijeri.",
+  "intro.p1":"Uroni s broda s Goranom za kormilom, uroni s obale ravno s plaže i više od 16 lokacija diljem Kvarnerskog zaljeva. Roby, Edo i Bojana podučavaju i vode miješane grupe svih dobi i razina na više jezika, mirno i uvijek sa sigurnošću na prvom mjestu.",
+  "intro.p2":"Odlična vidljivost i uglavnom toplo more. Šareni puževi golaći i žute spužve na obalnim uronima, zidovi s crvenim koraljima s broda te olupine Lina i Vis za napredne i tehničke ronioce.",
+  "intro.owner":"· vlasnik, instruktor","intro.boat":"· kapetan, divemaster",
   "stat.sites":"lokacija","stat.fed":"federacije: SSI, PADI, CMAS","stat.rating":"Google ocjena","badge":"Google ocjena · 140 recenzija",
-  "prog.label":"Programi","prog.t":"Odaberite svoj uron","prog.sub":"Od prvog daha pod vodom do olupina. Cijene su primjeri.",
+  "prog.label":"Programi","prog.t":"Odaberite svoj uron","prog.sub":"Od prvog daha pod vodom do dubokih olupina. Cijene u eurima, po osobi.",
   "tab.try":"Probni uron","tab.fun":"Fun uroni","tab.course":"Tečajevi SSI PADI CMAS","tab.wreck":"Olupine","from":"od","cta.book":"Rezerviraj",
   "tag.first":"Prvi put","tag.cert":"Certificirani ronioci","tag.wreck":"Olupina","tag.shore":"Uron s obale",
   "try.t":"Probni uron, vaš prvi put","try.m":"po osobi · bez iskustva",
   "try.p":"Nikad niste ronili? Kratki brifing, miran plitki uron s instruktorom uz vas i zaljev iz potpuno novog kuta.",
   "try.b1":"Nije potreban certifikat","try.b2":"Instruktor uz vas cijeli uron","try.b3":"Oprema iz centra",
-  "fun.t":"Fun uroni za certificirane ronioce","fun.m":"po uronu · brod ili obala",
-  "fun.p":"Uroni s broda i s obale na više od 16 lokacija u Kvarnerskom zaljevu. Miješane grupe svih razina su dobrodošle, a ekipa bira lokaciju prema danu.",
-  "fun.b1":"Uron s broda s Goranom ili s obale s plaže","fun.b2":"Donesite certifikat","fun.b3":"Najam opreme dostupan",
-  "course.t":"Tečajevi: SSI, PADI i CMAS","course.m":"po tečaju · od početnika do naprednih",
-  "course.p":"Od prvog certifikata do naprednih razina, s federacijom po vašem izboru. Teorija, plitka voda, zatim uroni na otvorenom u zaljevu.",
-  "course.b1":"SSI, PADI i CMAS","course.b2":"Od početnika do naprednih","course.b3":"Sve dobi i razine dobrodošle",
-  "wreck.t":"Uroni na olupine","wreck.m":"po uronu · certificirani ronioci",
-  "wreck.p":"Uroni na olupine uključujući Linu i Vis, s broda, za certificirane ronioce odgovarajuće razine. Pitajte ekipu koja olupina odgovara vašem iskustvu.",
-  "wreck.b1":"Olupine uključujući Linu i Vis","wreck.b2":"Uron s broda s ekipom","wreck.b3":"Potreban certifikat",
-  "prog.note":"Cijene označene XX € su primjeri i bit će zamijenjene stvarnim cjenikom.",
-  "sites.label":"Lokacije","sites.t":"Više od 16 lokacija u Kvarneru","sites.sub":"Olupine, grebeni i zidovi, s broda ili ravno s obale.",
-  "s1.t":"Olupina Lina","s1.m":"Uron s broda · certificirani","s1.p":"Jedna od olupina na koje ronimo s broda. Pitajte ekipu za dubinu i potrebnu razinu.",
-  "s2.t":"Olupina Vis","s2.m":"Uron s broda · certificirani","s2.p":"Druga olupina na popisu. Izlet brodom s ekipom i uron za one s odgovarajućim iskustvom.",
-  "s3.t":"Obalni greben","s3.m":"Uron s obale · sve razine","s3.p":"Šareni puževi golaći i žute spužve nekoliko zaveslaja od plaže. Odlično za probne urone i opuštene fun urone.",
-  "s4.t":"lokacija još","s4.h":"I još 13 lokacija","s4.m":"Grebeni, zidovi i olupine","s4.p":"Pitajte ekipu koja lokacija odgovara danu, vjetru i vašoj razini. Oni poznaju zaljev.",
+  "fun.t":"Fun uroni za certificirane ronioce","fun.m":"po uronu s obale · uron s broda 40 €",
+  "fun.p":"Uroni s obale od 20 €, s broda 40 € i noćni uroni s obale 30 €, na više od 16 lokacija u Kvarnerskom zaljevu. Miješane grupe svih razina su dobrodošle, a ekipa bira lokaciju prema danu.",
+  "fun.b1":"Dva urona s broda dnevno, s obale koliko god želite","fun.b2":"Donesite certifikat","fun.b3":"Zrak i utezi besplatni, nitrox +6 € po punjenju",
+  "course.t":"Tečajevi: SSI, PADI i CMAS","course.m":"po osobi · ronilački tečaj",
+  "course.p":"SSI Open Water traje najmanje 2 do 3 puna dana, manje ako teoriju prije odradite uz SSI Digital eLearning. Cijena uključuje online teoriju, kompletnu opremu i instruktora. Tu je i obuka za nitrox i trimix.",
+  "course.b1":"Specijalistički tečaj 180 €","course.b2":"Scuba Skills Update 80 €","course.b3":"Divemaster staž u centru",
+  "wreck.t":"Uroni na olupine","wreck.m":"po uronu · Lina 50 €, Vis 70 €",
+  "wreck.p":"Lina leži na 28 do 52 m uz izvrsnu vidljivost, za napredne ronioce. Vis leži na 37 do 60 m, za tehničke ronioce. Oba su urona s broda, oko 1 h 15 min do 1 h 20 min vožnje.",
+  "wreck.b1":"Lina: napredni ronioci, 28 do 52 m","wreck.b2":"Vis: tehnički ronioci, 37 do 60 m","wreck.b3":"Potreban certifikat",
+  "prog.note":"Cijene u eurima, vrijede od 1. travnja do 31. prosinca 2026. Punjenje zraka i utezi su besplatni. Plaćanje gotovinom u centru.",
+  "sites.label":"Lokacije","sites.t":"Više od 16 lokacija u Kvarneru","sites.sub":"Zidovi, crveni koralji, grebeni i dvije duboke olupine, s broda ili ravno s obale.",
+  "s1.t":"Olupina Lina","s1.m":"Brod · 28-52 m · napredni ronioci","s1.p":"Izvrsna vidljivost i bez struje. Duboki uron na olupinu i zid, oko 1 h 20 min brodom.",
+  "s2.t":"Olupina Vis","s2.m":"Brod · 37-60 m · tehnički ronioci","s2.p":"Duboka olupina za tehničke ronioce, oko 1 h 15 min brodom. Bez struje, dobra vidljivost.",
+  "s3.t":"Sipar, Biser i Rubin","s3.m":"Obala · 2-32 m · sve razine","s3.p":"Uroni s plaže, uz zid, kroz labirint i na grebenu, od 200 m do 15 min hoda od centra. Šareni puževi golaći i žute spužve, odlično za probne urone i opuštene fun urone.",
+  "s4.t":"lokacija","s4.h":"I još lokacija s broda","s4.m":"Kraj, Stupova, Lonjica, Green Lantern, Jablanac","s4.p":"Zidovi od 5 do 50 m, 15 do 50 min brodom. Ekipa bira lokaciju prema danu, vjetru i vašoj razini.",
   "cta.bookwreck":"Rezerviraj olupinu","cta.bookfun":"Rezerviraj fun uron","cta.ask":"Pitajte na WhatsAppu",
   "day.label":"Vaš ronilački dan","day.t":"Kako izgleda dan",
-  "d1.t":"Sastanak u centru","d1.p":"Aleja Slatina 2, uz samu uvalu. Papiri, certifikat ako ga imate, i razgovor o planu za taj dan.",
+  "d1.t":"Sastanak u centru","d1.p":"Aleja Slatina 2, na obali uz Hotel Marina. Papiri, medicinska izjava, certifikat ako ga imate, i razgovor o planu za taj dan.",
   "d2.t":"Oprema i brifing","d2.p":"Vlastita ili iznajmljena oprema, zajedno provjerena. Lokacija, dubina i signali objašnjeni prije nego se itko smoči.",
-  "d3.t":"Brodom ili s obale","d3.p":"Goran vozi gumenjak do lokacije, ili grupa ulazi s obale za uron na grebenu.",
+  "d3.t":"Brodom ili s obale","d3.p":"Goran vozi brod do lokacije, s osvježenjem, prvom pomoći i kisikom na brodu. Ili grupa ulazi s obale, a oprema stiže na kolicima.",
   "d4.t":"Uron, izron, upis","d4.p":"Čisto more, uglavnom toplo. Natrag u centru ispunjavate logbook i planirate sljedeći.",
   "know.label":"Praktično","know.t":"Dobro je znati","know.sub":"Male stvari koje olakšavaju dan.",
   "k1.t":"Radno vrijeme","k1.v":"Otvoreno svaki dan, 09:00 do 19:00","k2.t":"Što donijeti","k2.v":"Kupaći, ručnik, zaštitu od sunca i certifikat ako ga imate",
-  "k3.t":"Certifikat","k3.v":"Potreban za fun urone i olupine. Nije potreban za probni uron ni početni tečaj","k4.t":"Najam opreme","k4.v":"Najam opreme dostupan je u centru",
-  "k5.t":"Smještaj","k5.v":"Smještaj za ronioce je dostupan, pitajte pri rezervaciji",
+  "k3.t":"Certifikat","k3.v":"Pokažite ga pri prijavi za fun urone i olupine. Zaboravili ste ga? SSI i PADI možemo provjeriti online. Nije potreban za probni uron ni početni tečaj","k4.t":"Najam opreme","k4.v":"Kompletna oprema 30 € dnevno, odijela Mares 5 mm u svim veličinama, DIN ventili uz INT adapter",
+  "k5.t":"Smještaj","k5.v":"Ne rezerviramo smještaj, ali Hotel Marina i Hotel Mediteran su odmah do nas, a u blizini su i pansioni i kamp",
   "near.t":"U blizini","n1":"Plaža i luka Mošćenička Draga","n1.s":"plaža","n2":"Opatijska rivijera","n2.s":"rivijera","n3":"Učka iznad uvale","n3.s":"planina","n4":"Marine Sport, Aleja Slatina 2","n4.s":"ronilački centar",
-  "book.label":"Rezervacija","book.t":"Rezervirajte uron","book.sub":"Odaberite program, datum i koliko vas je. Potvrđujemo na WhatsAppu ili e-mailom. Bez plaćanja online.",
+  "book.label":"Rezervacija","book.t":"Rezervirajte uron","book.sub":"Odaberite program, datum i koliko vas je. Potvrđujemo na WhatsAppu ili e-mailom. Bez plaćanja online, plaća se gotovinom u centru.",
   "f.prog":"Program","f.try.s":"prvi put","f.fun.s":"certificirani","f.course":"Tečaj","f.date":"Datum","f.divers":"Ronioci","f.level":"Razina","lvl.b":"Početnik","lvl.c":"Certificiran","lvl.p":"Pro","f.name":"Vaše ime","f.name.ph":"Ime i prezime",
-  "sum.l":"Vaš upit","sum.date":"Odaberite datum","btn.wa":"Pošalji na WhatsApp","btn.mail":"Pošalji e-mailom","book.fine":"Bez plaćanja, bez računa. Ekipa odgovara i potvrđuje vrijeme i lokaciju.","bar.btn":"Rezerviraj",
+  "sum.l":"Vaš upit","sum.date":"Odaberite datum","btn.wa":"Pošalji na WhatsApp","btn.mail":"Pošalji e-mailom","book.fine":"Molimo navedite razinu certifikata, ukupan broj urona i datum zadnjeg urona. Ekipa odgovara i potvrđuje vrijeme i lokaciju.","bar.btn":"Rezerviraj",
   "diver":"ronilac","divers":"ronioca",
   "msg":"Pozdrav Marine Sport! Želim rezervirati: {prog}, {date}, {n} {divers}, razina: {lvl}. Ime: {name}","msg.subj":"Upit za uron: {prog}, {date}",
-  "band.label":"Zastava podignuta","band.t":"Sigurnost prva, zabava uvijek","band.p":"Dobra oprema, pažljivi brifinzi i ekipa naviknuta na miješane grupe svih dobi i razina. Ako more nije kako treba, odgađamo.","band.cta":"Postavite pitanje",
+  "band.label":"Zastava podignuta","band.t":"Sigurnost prva, zabava uvijek","band.p":"Oprema koja se servisira i obnavlja svake godine, kisik i prva pomoć na brodu, pažljivi brifinzi i ekipa naviknuta na miješane grupe svih dobi i razina. Ako more nije kako treba, odgađamo.","band.cta":"Postavite pitanje",
   "faq.t":"Pitanja prije urona","faq.sub":"Za sve ostalo pišite nam na WhatsApp.",
-  "q1":"Koja je minimalna dob?","a1":"Pitajte nas. Ovisi o programu i federaciji, odmah ćemo vam reći.",
-  "q2":"Trebam li liječnički pregled?","a2":"Pitajte nas. Reći ćemo vam točno što je potrebno za vaš uron ili tečaj prije dolaska.",
+  "q1":"Koja je minimalna dob?","a1":"10 godina. Djeca mogu i na brod ako ima mjesta, uz odraslu osobu koja pazi na njih.",
+  "q2":"Trebam li liječnički pregled?","a2":"Prije svakog tečaja i probnog urona ispunjavate medicinsku izjavu. Ako na neko pitanje odgovorite DA, liječnik ronilačke medicine vas mora pregledati i potpisati izjavu, ne stariju od 6 mjeseci.",
   "q3":"Što ako se vrijeme promijeni?","a3":"Odgađamo. Ako more ili vjetar ne dopuštaju siguran uron, zajedno nalazimo drugi dan ili termin.",
   "q4":"Nikad nisam ronio. Gdje početi?","a4":"Probnim uronom. Instruktor je cijelo vrijeme uz vas, a ako vam se svidi, tečaj je sljedeći korak.",
-  "q5":"Mogu li iznajmiti opremu?","a5":"Da, najam opreme dostupan je u centru. Recite nam veličine pri rezervaciji.",
-  "q6":"Imate li smještaj?","a6":"Da, smještaj za ronioce je dostupan. Pitajte pri rezervaciji i dogovorit ćemo detalje.",
+  "q5":"Mogu li iznajmiti opremu?","a5":"Da. Kompletna oprema je 30 € dnevno, pojedini dijelovi od 8 €, uz odijela Mares 5 mm u svim veličinama. Recite nam veličine pri rezervaciji.",
+  "q6":"Možete li mi rezervirati smještaj?","a6":"Ne možemo rezervirati smještaj, ali centar je na obali Hotela Marina, nekoliko metara od Hotela Mediteran. U blizini su i Pansion Buba i Autocamp Draga.",
   "c.label":"Kontakt","c.t":"Nađite nas uz uvalu","c.p":"Opatijska rivijera, Kvarnerski zaljev. Svaki dan od 09:00 do 19:00.","c.dir":"Upute","today":"danas",
   "w.mon":"Ponedjeljak","w.tue":"Utorak","w.wed":"Srijeda","w.thu":"Četvrtak","w.fri":"Petak","w.sat":"Subota","w.sun":"Nedjelja",
-  "foot.p":"Uroni s broda i s obale, olupine te SSI, PADI i CMAS tečajevi u Kvarnerskom zaljevu, iz luke Mošćeničke Drage.","foot.visit":"Posjetite","foot.talk":"Kontakt","foot.hours":"Svaki dan 09:00 do 19:00","foot.dive":"Ronjenje","foot.concept":"Koncept web stranice: Marija · prijedlog"
+  "foot.p":"Uroni s broda i s obale, olupine te SSI, PADI i CMAS tečajevi u Kvarnerskom zaljevu, iz luke Mošćeničke Drage.","foot.visit":"Posjetite","foot.talk":"Kontakt","foot.hours":"Svaki dan 09:00 do 19:00","foot.dive":"Ronjenje","foot.concept":"Koncept web stranice: Marija · prijedlog",
+  "nav.prices":"Cjenik",
+  "intro.p3":"U centru: mokri čvor s tuševima, kompresorska prostorija, mala radionica za popravke i hladovina za upisivanje urona ili učenje teorije. Oprema za najam redovito se servisira i svake godine obnavlja. Dođite kao gost, otiđite kao prijatelj.",
+  "intro.instr":"· instruktor",
+  "intro.design":"· dizajnerica usluge",
+  "stat.since":"u zaljevu od",
+  "pl.t":"Cjenik",
+  "pl.sub":"Sezona 2026, u eurima. Popust za grupe od 10 ili više osoba.",
+  "pl.dive":"Ronjenje",
+  "pl.rent":"Najam opreme, po danu",
+  "pl.course":"Tečajevi, po osobi",
+  "pl.shore":"Uron s obale",
+  "pl.night":"Noćni uron s obale",
+  "pl.boat":"Uron s broda",
+  "pl.lina":"Uron na olupinu Lina",
+  "pl.vis":"Uron na olupinu Vis",
+  "pl.guide":"Osobni vodič",
+  "pl.nondiver":"Neronioci na brodu",
+  "pl.nitrox":"Nitrox punjenje, doplata",
+  "pl.full":"Kompletna oprema",
+  "pl.abc":"ABC oprema",
+  "pl.bcd":"Prsluk (BCD)",
+  "pl.reg":"Regulator",
+  "pl.comp":"Ronilačko računalo",
+  "pl.suit":"Odijelo",
+  "pl.torch":"Lampa",
+  "pl.tank":"Boca, po uronu",
+  "pl.try":"Probni uron",
+  "pl.update":"Scuba Skills Update",
+  "pl.oc":"Ronilački tečaj",
+  "pl.spec":"Specijalistički tečaj",
+  "tag.boat":"Uron s broda",
+  "s5.t":"Kinkela i Šip",
+  "s5.m":"Brod · 5-50 m · sve razine",
+  "s5.p":"Zidovi prekriveni crvenim koraljima, 40 do 45 min brodom.",
+  "st.h":"Sve lokacije na jednom mjestu",
+  "st.beach":"Obala · plaža",
+  "st.wl":"Obala · zid, labirint",
+  "st.rw":"Obala · greben, zid",
+  "st.wall":"Brod · zid",
+  "st.coral":"Brod · zid, crveni koralji",
+  "st.lina":"Brod · olupina, zid, duboko · napredni",
+  "st.vis":"Brod · olupina, duboko · tehnički",
+  "st.w5":"5 min hoda",
+  "st.w15":"15 min hoda",
+  "st.note":"Slaba struja ili bez struje i dobra vidljivost na svim lokacijama. Vrijeme vožnje brodom računa se od centra.",
+  "k6.t":"Plaćanje",
+  "k6.v":"Zasad samo gotovinom, u centru",
+  "k7.t":"Jezici",
+  "k7.v":"Hrvatski, engleski, njemački, talijanski, slovenski i španjolski",
+  "k8.t":"U centru",
+  "k8.v":"Mokri čvor s tuševima, dvije kade za ispiranje i ormarić koji se zaključava u uredu",
+  "n5":"Hotel Marina, centar je na njegovoj obali",
+  "n5.s":"hotel",
+  "n6":"Hotel Mediteran, nekoliko metara dalje",
+  "n6.s":"hotel",
+  "n7":"Autocamp Draga, oko 150 m od plaže",
+  "n7.s":"kamp",
+  "n8":"Pansion Buba, oko 700 m od centra mjesta",
+  "n8.s":"pansion",
+  "q7":"Kako mogu platiti?",
+  "a7":"Gotovinom u centru. Plaćanje karticom zasad nije moguće.",
+  "q8":"Imate li nitrox?",
+  "a8":"Da. Javite nam dan prije urona. Nitrox punjenje je 6 € uz cijenu urona.",
+  "q9":"Koliko traje Open Water tečaj?",
+  "a9":"Najmanje 2 do 3 puna dana. Manje ako teoriju završite prije dolaska uz SSI Digital eLearning. S PADI Open Water certifikatom možete nastaviti na SSI Advanced.",
+  "q10":"Mogu li neronioci na brod?",
+  "a10":"Da, ako ima mjesta, za snorkeling ili kupanje, za 25 €. Brod se može i privatno unajmiti za ronjenje, snorkeling ili izlet. Nazovite nas ili pošaljite e-mail.",
+  "q11":"Zaboravio sam certifikat. Mogu li ipak roniti?",
+  "a11":"Uglavnom da. SSI i PADI certifikate možemo provjeriti online. Bez ikakvog dokaza ne možemo vas povesti na uron.",
+  "q12":"Nemam partnera za ronjenje ili dugo nisam ronio.",
+  "a12":"Naći ćemo vam odgovarajućeg partnera. Ako je zadnji uron bio prije više od 2 godine, preporučujemo kratki provjerni uron ili Scuba Skills Update.",
+  "q13":"Imate li popust za grupe?",
+  "a13":"Da, za grupe od 10 ili više osoba. Pišite nam s datumima.",
+  "divers5":"ronilaca"
 },
 it:{
   "hdr.book":"Prenota un'immersione","menu":"Menu","close":"Chiudi",
@@ -1311,69 +1623,145 @@ it:{
   "hero.cta":"Prenota la tua immersione","hero.hint":"Muovi per guardarti intorno",
   "finder.b":"Scopri la subacquea","finder.s":"Scegli una data • 2 sub",
   "gal.t":"Sotto la superficie","gal.sub":"Immersioni da barca, da riva e relitti intorno a Mošćenička Draga.",
-  "gal.c1":"Immersione da barca, Quarnero","gal.c2":"Il gommone, porto di Mošćenička Draga","gal.c3":"Immersione su relitto","gal.c4":"Scogliera da riva, nudibranchi e spugne","gal.c5":"Corsi: SSI, PADI, CMAS",
+  "gal.c1":"Immersione da barca, Quarnero","gal.c2":"La barca del centro, Mošćenička Draga","gal.c3":"Immersione su relitto","gal.c4":"Scogliera da riva, nudibranchi e spugne","gal.c5":"Corsi: SSI, PADI, CMAS",
   "intro.label":"Il team e il golfo","intro.t":"Un piccolo team, un grande golfo",
-  "intro.lead":"Robert e l'equipaggio gestiscono Marine Sport dal porto di Mošćenička Draga, sulla riviera di Opatija.",
-  "intro.p1":"Immersioni da barca con Goran al timone, immersioni da riva direttamente dalla spiaggia e più di 16 siti in tutto il golfo del Quarnero. Igor, David, Dario e Robi guidano gruppi misti di ogni età e livello, con buona attrezzatura e un approccio calmo in cui la sicurezza viene prima.",
-  "intro.p2":"Ottima visibilità e acqua di solito calda. Nudibranchi colorati e spugne gialle nelle immersioni da riva, e relitti tra cui Lina e Vis per i sub brevettati.",
-  "intro.owner":"· titolare, istruttore","intro.boat":"· barca",
+  "intro.lead":"Roby e il suo team gestiscono Marine Sport dal 2000, proprio sul lungomare accanto all'Hotel Marina a Mošćenička Draga, sulla riviera di Opatija.",
+  "intro.p1":"Immersioni da barca con Goran al timone, immersioni da riva direttamente dalla spiaggia e più di 16 siti in tutto il golfo del Quarnero. Roby, Edo e Bojana insegnano e guidano gruppi misti di ogni età e livello in più lingue, con calma e la sicurezza sempre al primo posto.",
+  "intro.p2":"Ottima visibilità e acqua di solito calda. Nudibranchi colorati e spugne gialle nelle immersioni da riva, pareti di corallo rosso in barca e i relitti Lina e Vis per sub avanzati e tecnici.",
+  "intro.owner":"· titolare, istruttore","intro.boat":"· capitano, divemaster",
   "stat.sites":"siti","stat.fed":"federazioni: SSI, PADI, CMAS","stat.rating":"valutazione Google","badge":"Valutazione Google · 140 recensioni",
-  "prog.label":"Programmi","prog.t":"Scegli la tua immersione","prog.sub":"Dal primo respiro sott'acqua ai relitti. I prezzi sono esempi.",
+  "prog.label":"Programmi","prog.t":"Scegli la tua immersione","prog.sub":"Dal primo respiro sott'acqua ai relitti profondi. Prezzi in euro, a persona.",
   "tab.try":"Battesimo del mare","tab.fun":"Fun dive","tab.course":"Corsi SSI PADI CMAS","tab.wreck":"Relitti","from":"da","cta.book":"Prenota",
   "tag.first":"Prima volta","tag.cert":"Sub brevettati","tag.wreck":"Relitto","tag.shore":"Da riva",
   "try.t":"Battesimo del mare, la tua prima immersione","try.m":"a persona · nessuna esperienza",
   "try.p":"Mai fatto un'immersione? Un breve briefing, un'immersione tranquilla e poco profonda con l'istruttore accanto a te, e il golfo da un punto di vista tutto nuovo.",
   "try.b1":"Nessun brevetto richiesto","try.b2":"Istruttore accanto a te per tutta l'immersione","try.b3":"Attrezzatura del centro",
-  "fun.t":"Fun dive per sub brevettati","fun.m":"a immersione · barca o riva",
-  "fun.p":"Immersioni da barca e da riva su più di 16 siti nel golfo del Quarnero. Gruppi misti di ogni livello sono benvenuti, il team sceglie il sito in base alla giornata.",
-  "fun.b1":"Da barca con Goran o da riva dalla spiaggia","fun.b2":"Porta il tuo brevetto","fun.b3":"Noleggio attrezzatura disponibile",
-  "course.t":"Corsi: SSI, PADI e CMAS","course.m":"a corso · dal principiante all'avanzato",
-  "course.p":"Dal primo brevetto ai livelli avanzati, con la federazione che preferisci. Teoria, acqua bassa, poi immersioni in acque libere nel golfo.",
-  "course.b1":"SSI, PADI e CMAS","course.b2":"Dal primo brevetto all'avanzato","course.b3":"Tutte le età e i livelli",
-  "wreck.t":"Immersioni su relitti","wreck.m":"a immersione · sub brevettati",
-  "wreck.p":"Immersioni su relitti tra cui Lina e Vis, da barca, per sub brevettati con il livello giusto. Chiedi al team quale relitto si adatta alla tua esperienza.",
-  "wreck.b1":"Relitti tra cui Lina e Vis","wreck.b2":"Da barca con l'equipaggio","wreck.b3":"Brevetto richiesto",
-  "prog.note":"I prezzi indicati con XX € sono esempi e verranno sostituiti dal listino reale.",
-  "sites.label":"Siti","sites.t":"Più di 16 siti nel Quarnero","sites.sub":"Relitti, scogliere e pareti, da barca o direttamente da riva.",
-  "s1.t":"Relitto Lina","s1.m":"Da barca · sub brevettati","s1.p":"Uno dei relitti su cui ci immergiamo dalla barca. Chiedi al team profondità e livello necessario.",
-  "s2.t":"Relitto Vis","s2.m":"Da barca · sub brevettati","s2.p":"Il secondo relitto della lista. Un'uscita in barca con l'equipaggio e un'immersione per chi ha l'esperienza giusta.",
-  "s3.t":"Scogliera da riva","s3.m":"Da riva · tutti i livelli","s3.p":"Nudibranchi colorati e spugne gialle a poche pinneggiate dalla spiaggia. Ideale per battesimi e fun dive rilassate.",
-  "s4.t":"altri siti","s4.h":"E altri 13 siti","s4.m":"Scogliere, pareti e relitti","s4.p":"Chiedi al team quale sito si adatta alla giornata, al vento e al tuo livello. Conoscono il golfo.",
+  "fun.t":"Fun dive per sub brevettati","fun.m":"per immersione da riva · da barca 40 €",
+  "fun.p":"Immersioni da riva da 20 €, da barca 40 € e notturne da riva 30 €, su più di 16 siti nel golfo del Quarnero. Gruppi misti di ogni livello sono benvenuti, il team sceglie il sito in base alla giornata.",
+  "fun.b1":"Due immersioni in barca al giorno, da riva quante ne vuoi","fun.b2":"Porta il tuo brevetto","fun.b3":"Aria e piombi gratis, nitrox +6 € a ricarica",
+  "course.t":"Corsi: SSI, PADI e CMAS","course.m":"a persona · corso sub",
+  "course.p":"Il SSI Open Water richiede almeno 2 o 3 giorni pieni, meno se fai prima la teoria con SSI Digital eLearning. Il prezzo comprende teoria online, attrezzatura completa e istruttore. Anche corsi nitrox e trimix.",
+  "course.b1":"Corso di specialità 180 €","course.b2":"Scuba Skills Update 80 €","course.b3":"Tirocinio Divemaster al centro",
+  "wreck.t":"Immersioni su relitti","wreck.m":"per immersione · Lina 50 €, Vis 70 €",
+  "wreck.p":"La Lina giace tra 28 e 52 m con visibilità eccellente, per sub avanzati. La Vis giace tra 37 e 60 m, per sub tecnici. Entrambe da barca, a circa 1 h 15 min o 1 h 20 min di navigazione.",
+  "wreck.b1":"Lina: sub avanzati, da 28 a 52 m","wreck.b2":"Vis: sub tecnici, da 37 a 60 m","wreck.b3":"Brevetto richiesto",
+  "prog.note":"Prezzi in euro, validi dal 1° aprile al 31 dicembre 2026. Ricariche d'aria e piombi sono gratis. Pagamento in contanti al centro.",
+  "sites.label":"Siti","sites.t":"Più di 16 siti nel Quarnero","sites.sub":"Pareti, coralli rossi, scogliere e due relitti profondi, da barca o direttamente da riva.",
+  "s1.t":"Relitto Lina","s1.m":"Barca · 28-52 m · sub avanzati","s1.p":"Visibilità eccellente e nessuna corrente. Un'immersione profonda su relitto e parete, a circa 1 h 20 min di barca.",
+  "s2.t":"Relitto Vis","s2.m":"Barca · 37-60 m · sub tecnici","s2.p":"Un relitto profondo per sub tecnici, a circa 1 h 15 min di barca. Nessuna corrente, buona visibilità.",
+  "s3.t":"Sipar, Biser e Rubin","s3.m":"Riva · 2-32 m · tutti i livelli","s3.p":"Immersioni dalla spiaggia, su parete, nel labirinto e sulla scogliera, da 200 m a 15 min a piedi dal centro. Nudibranchi colorati e spugne gialle, ideali per battesimi e fun dive rilassate.",
+  "s4.t":"siti","s4.h":"E altri siti in barca","s4.m":"Kraj, Stupova, Lonjica, Green Lantern, Jablanac","s4.p":"Pareti da 5 a 50 m, da 15 a 50 min di barca. Il team sceglie il sito in base alla giornata, al vento e al tuo livello.",
   "cta.bookwreck":"Prenota un relitto","cta.bookfun":"Prenota una fun dive","cta.ask":"Chiedi su WhatsApp",
   "day.label":"La tua giornata","day.t":"Come va una giornata di immersioni",
-  "d1.t":"Ritrovo al centro","d1.p":"Aleja Slatina 2, proprio sulla baia. Documenti, brevetto se lo hai, e una chiacchierata sul piano della giornata.",
+  "d1.t":"Ritrovo al centro","d1.p":"Aleja Slatina 2, sul lungomare accanto all'Hotel Marina. Documenti, la dichiarazione medica, il brevetto se lo hai, e una chiacchierata sul piano della giornata.",
   "d2.t":"Attrezzatura e briefing","d2.p":"Attrezzatura tua o a noleggio, controllata insieme. Sito, profondità e segnali spiegati prima che qualcuno si bagni.",
-  "d3.t":"In barca o da riva","d3.p":"Goran porta il gommone al sito, oppure il gruppo entra da riva per un'immersione sulla scogliera.",
+  "d3.t":"In barca o da riva","d3.p":"Goran porta la barca al sito, con bevande, kit di primo soccorso e ossigeno a bordo. Oppure il gruppo entra da riva, l'attrezzatura arriva su un carrello.",
   "d4.t":"Immersione, risalita, logbook","d4.p":"Acqua limpida, di solito calda. Al centro compili il logbook e pianifichi la prossima.",
   "know.label":"Pratico","know.t":"Da sapere","know.sub":"Le piccole cose che rendono facile la giornata.",
   "k1.t":"Orari","k1.v":"Aperto ogni giorno, 09:00 alle 19:00","k2.t":"Cosa portare","k2.v":"Costume, asciugamano, protezione solare e il brevetto se lo hai",
-  "k3.t":"Brevetto","k3.v":"Necessario per fun dive e relitti. Non necessario per il battesimo o un corso base","k4.t":"Noleggio attrezzatura","k4.v":"Il noleggio attrezzatura è disponibile al centro",
-  "k5.t":"Alloggio","k5.v":"Alloggio per sub disponibile, chiedi quando prenoti",
+  "k3.t":"Brevetto","k3.v":"Da mostrare al check-in per fun dive e relitti. Dimenticato? Possiamo verificare SSI e PADI online. Non necessario per il battesimo o un corso base","k4.t":"Noleggio attrezzatura","k4.v":"Attrezzatura completa 30 € al giorno, mute Mares da 5 mm in tutte le taglie, rubinetterie DIN con adattatore INT",
+  "k5.t":"Alloggio","k5.v":"Non prenotiamo alloggi, ma l'Hotel Marina e l'Hotel Mediteran sono qui accanto, e nei dintorni ci sono pensioni e un campeggio",
   "near.t":"Nei dintorni","n1":"Spiaggia e porto di Mošćenička Draga","n1.s":"spiaggia","n2":"Riviera di Opatija","n2.s":"riviera","n3":"Monte Učka sopra la baia","n3.s":"montagna","n4":"Marine Sport, Aleja Slatina 2","n4.s":"diving center",
-  "book.label":"Prenotazione","book.t":"Prenota la tua immersione","book.sub":"Scegli programma, data e quanti siete. Confermiamo su WhatsApp o via email. Nessun pagamento online.",
+  "book.label":"Prenotazione","book.t":"Prenota la tua immersione","book.sub":"Scegli programma, data e quanti siete. Confermiamo su WhatsApp o via email. Nessun pagamento online, si paga in contanti al centro.",
   "f.prog":"Programma","f.try.s":"prima volta","f.fun.s":"brevettati","f.course":"Corso","f.date":"Data","f.divers":"Sub","f.level":"Livello","lvl.b":"Principiante","lvl.c":"Brevettato","lvl.p":"Pro","f.name":"Il tuo nome","f.name.ph":"Nome e cognome",
-  "sum.l":"La tua richiesta","sum.date":"Scegli una data","btn.wa":"Invia su WhatsApp","btn.mail":"Invia via email","book.fine":"Nessun pagamento, nessun account. Il team risponde e conferma orario e sito.","bar.btn":"Prenota",
+  "sum.l":"La tua richiesta","sum.date":"Scegli una data","btn.wa":"Invia su WhatsApp","btn.mail":"Invia via email","book.fine":"Indica il tuo livello di brevetto, il numero totale di immersioni e la data dell'ultima. Il team risponde e conferma orario e sito.","bar.btn":"Prenota",
   "diver":"sub","divers":"sub",
   "msg":"Ciao Marine Sport! Vorrei prenotare: {prog}, {date}, {n} {divers}, livello: {lvl}. Nome: {name}","msg.subj":"Richiesta immersione: {prog}, {date}",
-  "band.label":"Bandiera alzata","band.t":"Prima la sicurezza, sempre il divertimento","band.p":"Buona attrezzatura, briefing accurati e un team abituato a gruppi misti di ogni età e livello. Se il mare non è adatto, rimandiamo.","band.cta":"Fai una domanda",
+  "band.label":"Bandiera alzata","band.t":"Prima la sicurezza, sempre il divertimento","band.p":"Attrezzatura revisionata e rinnovata ogni anno, ossigeno e primo soccorso a bordo, briefing accurati e un team abituato a gruppi misti di ogni età e livello. Se il mare non è adatto, rimandiamo.","band.cta":"Fai una domanda",
   "faq.t":"Domande prima di immergersi","faq.sub":"Per tutto il resto scrivici su WhatsApp.",
-  "q1":"Qual è l'età minima?","a1":"Chiedi a noi. Dipende dal programma e dalla federazione, te lo diciamo subito.",
-  "q2":"Serve un certificato medico?","a2":"Chiedi a noi. Ti diremo esattamente cosa serve per la tua immersione o il tuo corso prima di venire.",
+  "q1":"Qual è l'età minima?","a1":"10 anni. I bambini possono venire anche in barca se c'è posto, con un adulto che li sorvegli.",
+  "q2":"Serve un certificato medico?","a2":"Prima di ogni corso e di ogni battesimo compili una dichiarazione medica. Se rispondi SÌ a una domanda, un medico subacqueo deve visitarti e firmarla, con data non oltre gli ultimi 6 mesi.",
   "q3":"E se il tempo cambia?","a3":"Rimandiamo. Se mare o vento non permettono un'immersione sicura, troviamo insieme un altro giorno o orario.",
   "q4":"Non ho mai fatto immersioni. Da dove comincio?","a4":"Dal battesimo del mare. Un istruttore resta con te tutto il tempo, e se ti piace, il corso è il passo successivo.",
-  "q5":"Posso noleggiare l'attrezzatura?","a5":"Sì, il noleggio è disponibile al centro. Dicci le tue taglie quando prenoti.",
-  "q6":"Avete un alloggio?","a6":"Sì, l'alloggio per sub è disponibile. Chiedi quando prenoti e sistemiamo i dettagli.",
+  "q5":"Posso noleggiare l'attrezzatura?","a5":"Sì. L'attrezzatura completa costa 30 € al giorno, i singoli pezzi da 8 €, con mute Mares da 5 mm in tutte le taglie. Dicci le tue taglie quando prenoti.",
+  "q6":"Potete prenotarmi l'alloggio?","a6":"Non possiamo prenotare alloggi, ma il centro si trova sul lungomare dell'Hotel Marina, a pochi metri dall'Hotel Mediteran. Vicino ci sono anche Pension Buba e Autocamp Draga.",
   "c.label":"Contatti","c.t":"Ci trovi sulla baia","c.p":"Riviera di Opatija, golfo del Quarnero. Ogni giorno dalle 09:00 alle 19:00.","c.dir":"Indicazioni","today":"oggi",
   "w.mon":"Lunedì","w.tue":"Martedì","w.wed":"Mercoledì","w.thu":"Giovedì","w.fri":"Venerdì","w.sat":"Sabato","w.sun":"Domenica",
-  "foot.p":"Immersioni da barca e da riva, relitti e corsi SSI, PADI e CMAS nel golfo del Quarnero, dal porto di Mošćenička Draga.","foot.visit":"Visita","foot.talk":"Parla con noi","foot.hours":"Ogni giorno 09:00 alle 19:00","foot.dive":"Immersioni","foot.concept":"Concept del sito di Marija · proposta"
+  "foot.p":"Immersioni da barca e da riva, relitti e corsi SSI, PADI e CMAS nel golfo del Quarnero, dal porto di Mošćenička Draga.","foot.visit":"Visita","foot.talk":"Parla con noi","foot.hours":"Ogni giorno 09:00 alle 19:00","foot.dive":"Immersioni","foot.concept":"Concept del sito di Marija · proposta",
+  "nav.prices":"Prezzi",
+  "intro.p3":"Al centro: locale umido con docce, sala compressore, una piccola officina per le riparazioni e un angolo all'ombra per compilare il logbook o studiare la teoria. L'attrezzatura a noleggio è revisionata regolarmente e rinnovata ogni anno. Arriva come ospite, riparti come amico.",
+  "intro.instr":"· istruttore",
+  "intro.design":"· service designer",
+  "stat.since":"nel golfo dal",
+  "pl.t":"Listino prezzi",
+  "pl.sub":"Stagione 2026, in euro. Sconti per gruppi di 10 o più persone.",
+  "pl.dive":"Immersioni",
+  "pl.rent":"Noleggio attrezzatura, al giorno",
+  "pl.course":"Corsi, a persona",
+  "pl.shore":"Immersione da riva",
+  "pl.night":"Notturna da riva",
+  "pl.boat":"Immersione da barca",
+  "pl.lina":"Relitto Lina",
+  "pl.vis":"Relitto Vis",
+  "pl.guide":"Guida individuale",
+  "pl.nondiver":"Non sub a bordo",
+  "pl.nitrox":"Ricarica nitrox, supplemento",
+  "pl.full":"Attrezzatura completa",
+  "pl.abc":"Attrezzatura ABC",
+  "pl.bcd":"Jacket (GAV)",
+  "pl.reg":"Erogatore",
+  "pl.comp":"Computer subacqueo",
+  "pl.suit":"Muta",
+  "pl.torch":"Torcia",
+  "pl.tank":"Bombola, per immersione",
+  "pl.try":"Battesimo del mare",
+  "pl.update":"Scuba Skills Update",
+  "pl.oc":"Corso sub",
+  "pl.spec":"Corso di specialità",
+  "tag.boat":"Da barca",
+  "s5.t":"Kinkela e Šip",
+  "s5.m":"Barca · 5-50 m · tutti i livelli",
+  "s5.p":"Pareti ricoperte di corallo rosso, a 40 o 45 min di barca.",
+  "st.h":"Tutti i siti in breve",
+  "st.beach":"Riva · spiaggia",
+  "st.wl":"Riva · parete, labirinto",
+  "st.rw":"Riva · scogliera, parete",
+  "st.wall":"Barca · parete",
+  "st.coral":"Barca · parete, corallo rosso",
+  "st.lina":"Barca · relitto, parete, profonda · avanzati",
+  "st.vis":"Barca · relitto, profonda · tecnici",
+  "st.w5":"5 min a piedi",
+  "st.w15":"15 min a piedi",
+  "st.note":"Corrente debole o assente e buona visibilità su tutti i siti. Tempi in barca calcolati dal centro.",
+  "k6.t":"Pagamento",
+  "k6.v":"Per ora solo in contanti, al centro",
+  "k7.t":"Lingue",
+  "k7.v":"Croato, inglese, tedesco, italiano, sloveno e spagnolo",
+  "k8.t":"Al centro",
+  "k8.v":"Locale umido con docce, due vasche di risciacquo e armadietto con chiave in ufficio",
+  "n5":"Hotel Marina, il centro è sul suo lungomare",
+  "n5.s":"hotel",
+  "n6":"Hotel Mediteran, a pochi metri",
+  "n6.s":"hotel",
+  "n7":"Autocamp Draga, a circa 150 m dalla spiaggia",
+  "n7.s":"campeggio",
+  "n8":"Pension Buba, a circa 700 m dal centro del paese",
+  "n8.s":"B&B",
+  "q7":"Come posso pagare?",
+  "a7":"In contanti al centro. Per ora non si può pagare con carta.",
+  "q8":"Avete il nitrox?",
+  "a8":"Sì. Avvisaci il giorno prima dell'immersione. La ricarica nitrox costa 6 € in più rispetto all'immersione.",
+  "q9":"Quanto dura il corso Open Water?",
+  "a9":"Almeno 2 o 3 giorni pieni. Meno se completi la teoria prima di arrivare con SSI Digital eLearning. Con il brevetto PADI Open Water puoi proseguire con SSI Advanced.",
+  "q10":"I non sub possono salire in barca?",
+  "a10":"Sì, se c'è posto, per fare snorkeling o nuotare, a 25 €. La barca si può anche noleggiare privatamente per immersioni, snorkeling o una gita. Chiamaci o scrivici.",
+  "q11":"Ho dimenticato il brevetto. Posso immergermi lo stesso?",
+  "a11":"Di solito sì. Possiamo verificare i brevetti SSI e PADI online. Senza alcuna prova non possiamo portarti in immersione.",
+  "q12":"Non ho un compagno, oppure non mi immergo da tempo.",
+  "a12":"Ti troviamo un compagno adatto. Se l'ultima immersione risale a più di 2 anni fa, consigliamo una breve immersione di verifica o uno Scuba Skills Update.",
+  "q13":"Fate sconti per gruppi?",
+  "a13":"Sì, per gruppi di 10 o più persone. Scrivici con le tue date."
 }};
 var lang = "en";
 function t(k){ var d = T[lang]; return (d && d[k] != null) ? d[k] : (T.en[k] != null ? T.en[k] : ""); }
+/* plural of "diver": Croatian has 3 forms (1 ronilac, 2-4 ronioca, 5+ ronilaca) */
+function dv(n){ if (n % 10 === 1 && n % 100 !== 11) return t("diver"); if (lang === "hr" && !(n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14))) return t("divers5"); return t("divers"); }
 function applyLang(){
   document.documentElement.lang = lang;
   $$("[data-i18n]").forEach(function(el){ var v = t(el.getAttribute("data-i18n")); if (v) el.textContent = v; });
   $$("[data-i18n-ph]").forEach(function(el){ el.placeholder = t(el.getAttribute("data-i18n-ph")); });
   $$("[data-lang]").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+  var lc = document.getElementById("lpickCur"); if (lc) lc.textContent = lang.toUpperCase();
   $("#menuLbl").textContent = document.body.classList.contains("menu-open") ? t("close") : t("menu");
   $$("#hours li").forEach(function(li){ li.querySelector("span").setAttribute("data-today", t("today")); });
   summarize();
@@ -1394,16 +1782,16 @@ var fDate = $("#fDate"), fName = $("#fName"), qOut = $("#qOut");
 function progName(){ return t(state.prog === "course" ? "f.course" : "tab." + state.prog); }
 function lvlName(){ return t(state.lvl === "beginner" ? "lvl.b" : state.lvl === "certified" ? "lvl.c" : "lvl.p"); }
 function fmtDate(v){ if (!v) return ""; var p = v.split("-"); return p[2] + "." + p[1] + "." + p[0]; }
-function fill(s){ return s.replace("{prog}", progName()).replace("{date}", fmtDate(state.date) || t("sum.date")).replace("{n}", state.n).replace("{divers}", t(state.n === 1 ? "diver" : "divers")).replace("{lvl}", lvlName()).replace("{name}", state.name || "..."); }
+function fill(s){ return s.replace("{prog}", progName()).replace("{date}", fmtDate(state.date) || t("sum.date")).replace("{n}", state.n).replace("{divers}", dv(state.n)).replace("{lvl}", lvlName()).replace("{name}", state.name || "..."); }
 function summarize(){
-  var head = progName() + " · " + state.n + " " + t(state.n === 1 ? "diver" : "divers");
+  var head = progName() + " · " + state.n + " " + dv(state.n);
   $("#sumT").textContent = head; $("#barT").textContent = head;
   $("#sumD").textContent = (state.date ? fmtDate(state.date) : t("sum.date")) + " · " + lvlName();
   var msg = fill(t("msg"));
   var wa = "https://wa.me/385915157212?text=" + encodeURIComponent(msg);
   $("#waBtn").href = wa; $("#barBtn").href = wa;
   $("#mailBtn").href = "mailto:info@marinesport.hr?subject=" + encodeURIComponent(fill(t("msg.subj"))) + "&body=" + encodeURIComponent(msg);
-  $("#finder small").textContent = t("finder.s").split("•")[0].trim() + " • " + state.n + " " + t(state.n === 1 ? "diver" : "divers");
+  $("#finder small").textContent = t("finder.s").split("•")[0].trim() + " • " + state.n + " " + dv(state.n);
 }
 $$("input[name=prog]").forEach(function(r){ r.addEventListener("change", function(){ state.prog = r.value; if (r.value === "try") setLvl("beginner"); else if (state.lvl === "beginner" && r.value !== "course") setLvl("certified"); summarize(); }); });
 $$("input[name=lvl]").forEach(function(r){ r.addEventListener("change", function(){ state.lvl = r.value; summarize(); }); });
@@ -1674,6 +2062,15 @@ function initSea(){
   hero.classList.add("gl-on");
 }
 })();
+</script>
+<script>
+(function(){var w=document.getElementById("lpick"),b=document.getElementById("lpickBtn");if(!w||!b)return;
+function set(o){w.classList.toggle("open",o);b.setAttribute("aria-expanded",o?"true":"false");}
+b.addEventListener("click",function(e){e.stopPropagation();set(!w.classList.contains("open"));});
+w.querySelectorAll(".lpick-list button").forEach(function(x){x.addEventListener("click",function(){setTimeout(function(){set(false)},120);});});
+document.addEventListener("click",function(e){if(!w.contains(e.target))set(false);});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")set(false);});
+window.addEventListener("scroll",function(){if(w.classList.contains("open"))set(false);},{passive:true});})();
 </script>
 <!-- mdp: custom date picker (replaces the tiny native one) -->
 <style id="mdp-css">

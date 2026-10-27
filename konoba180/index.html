@@ -2,20 +2,18 @@
 <!--
   Konoba 180, Krk: website proposal mockup (Koncept: Marija)
 
-  IMAGE SLOTS (optional, put real photos in ./img/ using these exact names):
-    img/hero.jpg  gallery slide 1 + story image + "Miješano meso" card
-    img/2.jpg     gallery slide 2 + "Ćevapi" card
-    img/3.jpg     gallery slide 3 (terrace) + contact card
-    img/4.jpg     gallery slide 4 + "Pomfrit" card
-    img/5.jpg     gallery slide 5 (fish) + "Pljeskavica" card
-  No licensed photos are used. Every slot falls back to our own inline SVG
+  PHOTOS: gallery (8 slides), story, menu and nearby images are hotlinked from
+  the restaurant's own site (konoba180.com/wp-content/uploads/2025/06/...).
+  Signature cards still use optional local slots img/hero.jpg, img/2.jpg,
+  img/4.jpg, img/5.jpg. Every slot falls back to our own inline SVG
   illustrations (grill flames and embers, skewer, platter, olive branch, island
   of Krk silhouette, stone wall pattern, lepinja) over a warm gradient, so the
   page looks finished without photos.
   Hero: Three.js (cdnjs, r128) glowing embers, sparks, smoke and heat haze rising
   from a grill; sparks react to the pointer. Loaded lazily; falls back to the
   static SVG scene without WebGL, if three.js fails or with prefers-reduced-motion.
-  Prices "XX €" are placeholders to edit. Map is a stylized outline, not real map data.
+  Menu and prices are taken from konoba180.com/menu (prices as of 10.09.2026).
+  Map is a stylized outline, not real map data.
 -->
 <html lang="hr">
 <head>
@@ -25,14 +23,14 @@
 <title>Konoba 180, Krk</title>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Konoba 180, Krk">
-<meta property="og:description" content="Konoba 180, grill house u gradu Krku. Miješano meso, ćevapi, pljeskavica, velike porcije i terasa.">
+<meta property="og:description" content="Konoba 180°, roštilj na drveni ugljen u gradu Krku. Ćevapi, pljeskavica, mesne plate, riba, velike porcije i terasa. Svaki dan 12:00 do 24:00.">
 <meta property="og:url" content="https://tararova.com/konoba180/">
 <meta property="og:image" content="https://tararova.com/konoba180/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<meta name="description" content="Konoba 180, grill house u gradu Krku. Miješano meso, ćevapi, pljeskavica, velike porcije i terasa.">
+<meta name="description" content="Konoba 180°, roštilj na drveni ugljen u gradu Krku. Ćevapi, pljeskavica, mesne plate, riba, velike porcije i terasa. Svaki dan 12:00 do 24:00.">
 <meta name="theme-color" content="#1A1816">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -322,6 +320,7 @@ section{scroll-margin-top:calc(var(--header) + 20px)}
 .dish h3{grid-column:1;grid-row:1}
 .dish .pr{grid-column:2;grid-row:1/span 2;align-self:start;font-family:var(--serif);font-size:19px;white-space:nowrap}
 .dish .pr.free{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-top:6px}
+.dish:nth-child(n+7){animation-delay:.32s}
 .menu__note{margin-top:22px;font-size:14px;color:var(--muted)}
 .menu__pic{margin-top:40px;aspect-ratio:3/2}
 @media(min-width:900px){.menu__grid{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:start}.menu__pic{margin-top:0;aspect-ratio:4/5;position:sticky;top:140px}}
@@ -398,7 +397,7 @@ section{scroll-margin-top:calc(var(--header) + 20px)}
 .field{display:grid;gap:8px}
 .field>span,.field legend{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);padding:0}
 fieldset{border:0;margin:0;padding:0;min-width:0}
-.ctl{width:100%;min-height:56px;padding:0 18px;border:1px solid rgba(255,255,255,.22);border-radius:14px;background:rgba(255,255,255,.04);color:#fff;font-size:17px;-webkit-appearance:none;appearance:none;transition:border-color .3s,background .3s}
+.ctl{width:100%;min-height:56px;padding:0 18px;border:1px solid rgba(255,255,255,.22);border-radius:14px;background:rgba(255,255,255,.04);color:#fff;font-size:16px;-webkit-appearance:none;appearance:none;transition:border-color .3s,background .3s}
 .ctl:focus{outline:none;border-color:var(--ember-l);background:rgba(255,255,255,.07)}
 .ctl::placeholder{color:rgba(255,255,255,.4)}
 input[type=date].ctl{display:block;min-width:0;color-scheme:dark}
@@ -524,6 +523,28 @@ html select{height:56px;line-height:normal}
 .faq,.faq-list,.faq__list{border-top:0!important}
 .faq>:first-child,.faq-list>:first-child,.faq__list>:first-child{border-top:0!important}
 .faq>:first-child::before,.faq-list>:first-child::before,.faq__list>:first-child::before{display:none!important}
+/* language picker (header dropdown) */
+.lpick{position:relative}
+.lpick-btn{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:600 12px/1 var(--sans);letter-spacing:.12em;cursor:pointer;opacity:.92}
+.lpick-btn svg{width:18px;height:18px;flex:none}.lpick-btn .chev{width:14px;height:14px;transition:transform .3s}
+.lpick.open .lpick-btn .chev{transform:rotate(180deg)}
+.hdr .lpick-list{position:absolute;right:0;top:calc(100% + 10px);display:grid;grid-template-columns:1fr;min-width:200px;padding:8px;background:#fff;color:var(--ink);border-radius:18px;box-shadow:0 24px 60px -18px rgba(0,0,0,.35);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:80}
+.lpick.open .lpick-list{opacity:1;transform:none;pointer-events:auto}
+.hdr .lpick-list button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border:0;border-radius:10px;background:transparent;font:400 16px/1.2 var(--sans);letter-spacing:0;text-align:left;color:var(--ink);cursor:pointer}
+.hdr .lpick-list button b{font-weight:600;font-size:12px;letter-spacing:.12em;width:24px;opacity:.6}
+.hdr .lpick-list button:hover{background:var(--linen)}
+.hdr .lpick-list button[aria-pressed="true"]{background:var(--linen);font-weight:600}
+.hdr .lpick-list button[aria-pressed="true"] b{color:var(--ember);opacity:1}
+.menu-open .lpick{display:none}
+@media (max-width:420px){.hdr__r{gap:10px}.menu-btn>span:first-child{display:none}.lpick-btn{padding:0 10px}}
+@media (max-width:360px){.lpick-btn .chev{display:none}}
+/* contact extras */
+.c-mail{margin:14px 0 0}
+.c-soc{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;margin:26px 0 0;font-size:15px}
+.c-soc span{width:100%;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.c-soc a{text-decoration:underline;text-underline-offset:3px}
+.c-soc a:hover{color:var(--ember)}
+.gtk dd a{word-break:break-word}
 </style>
 </head>
 <body class="locked">
@@ -558,7 +579,8 @@ html select{height:56px;line-height:normal}
   <symbol id="i-card" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><rect x="3" y="7" width="26" height="18" rx="2.5"/><path d="M3 13h26M8 20h6"/></symbol>
   <symbol id="i-kids" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="16" cy="10" r="5"/><path d="M6 29c1-6 5-9 10-9s9 3 10 9M12 9c2-2 6-2 8 0"/></symbol>
   <symbol id="i-shot" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5h12l-2 23h-8zM11 14h10"/><path d="M12.5 19h7" opacity=".5"/></symbol>
-  <symbol id="i-fork" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v8a3 3 0 0 0 6 0V3M12 3v26M22 3c-2 2-3 6-3 10 0 3 1 4 3 4v12"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="24" height="18" rx="2.5"/><path d="m5 9 11 8 11-8"/></symbol>
+<symbol id="i-fork" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v8a3 3 0 0 0 6 0V3M12 3v26M22 3c-2 2-3 6-3 10 0 3 1 4 3 4v12"/></symbol>
   <symbol id="i-anchor" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="7" r="3"/><path d="M16 10v19M9 15h14M5 20a11 11 0 0 0 22 0l-3 2M5 20l3 2"/></symbol>
   <symbol id="i-castle" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 28V12h5V8h4v4h6V8h4v4h5v16zM13 28v-7h6v7"/></symbol>
   <symbol id="i-wave" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3 14c2.2 0 2.2-1.5 4.4-1.5S9.6 14 11.8 14s2.2-1.5 4.4-1.5 2.2 1.5 4.4 1.5 2.2-1.5 4.4-1.5S27.8 14 30 14M3 21c2.2 0 2.2-1.5 4.4-1.5S9.6 21 11.8 21s2.2-1.5 4.4-1.5 2.2 1.5 4.4 1.5 2.2-1.5 4.4-1.5S27.8 21 30 21"/><circle cx="24" cy="6" r="3"/></symbol>
@@ -658,11 +680,18 @@ html select{height:56px;line-height:normal}
       <span><b>Konoba 180</b><small>Krk · grill house</small></span>
     </a>
     <div class="hdr__r">
-      <div class="lang" role="group" aria-label="Jezik">
-        <button type="button" data-lang="hr" aria-pressed="true">HR</button><i></i><button type="button" data-lang="en" aria-pressed="false">EN</button><i></i><button type="button" data-lang="de" aria-pressed="false">DE</button><i></i><button type="button" data-lang="it" aria-pressed="false">IT</button>
+      <div class="lpick" id="lpick">
+        <button type="button" class="lpick-btn" id="lpickBtn" aria-haspopup="true" aria-expanded="false" aria-label="Jezik / Language"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span id="lpickCur">HR</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="lpick-list langs" role="group" aria-label="Jezik / Language">
+          <button type="button" data-lang="hr" aria-pressed="true"><b>HR</b><span>Hrvatski</span></button>
+          <button type="button" data-lang="en" aria-pressed="false"><b>EN</b><span>English</span></button>
+          <button type="button" data-lang="de" aria-pressed="false"><b>DE</b><span>Deutsch</span></button>
+          <button type="button" data-lang="it" aria-pressed="false"><b>IT</b><span>Italiano</span></button>
+          <button type="button" data-lang="hu" aria-pressed="false"><b>HU</b><span>Magyar</span></button>
+        </div>
       </div>
       <a href="#rezervacija" class="pill hdr__book" data-i18n="hdr.book">Rezerviraj</a>
-      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span data-i18n="menu">Izbornik</span><span class="burger"><i></i><i></i></span></button>
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Izbornik / Menu"><span data-i18n="menu">Izbornik</span><span class="burger"><i></i><i></i></span></button>
     </div>
   </div>
 </header>
@@ -678,9 +707,6 @@ html select{height:56px;line-height:normal}
     <a href="#kontakt" data-i18n="nav.contact">Kontakt</a>
   </nav>
   <div class="menu-foot">
-    <div class="lang" role="group" aria-label="Jezik">
-      <button type="button" data-lang="hr" aria-pressed="true">HR</button><i></i><button type="button" data-lang="en" aria-pressed="false">EN</button><i></i><button type="button" data-lang="de" aria-pressed="false">DE</button><i></i><button type="button" data-lang="it" aria-pressed="false">IT</button>
-    </div>
     <a href="#rezervacija" class="pill" data-i18n="hdr.book">Rezerviraj</a>
     <a class="menu-tel" href="tel:+385916463000">+385 91 646 3000 · WhatsApp</a>
   </div>
@@ -728,7 +754,7 @@ html select{height:56px;line-height:normal}
       <span class="mask"><span>Konoba 180</span></span>
       <span class="mask"><span class="sub" data-i18n="hero.sub">Roštilj s dušom otoka</span></span>
     </h1>
-    <p class="hero__txt fade-up d2" data-i18n="hero.txt">Miješano meso, ćevapi, pljeskavica i topla lepinja. Velike porcije, poštene cijene i šot domaće rakije na kraju.</p>
+    <p class="hero__txt fade-up d2" data-i18n="hero.txt">Mesne plate, ćevapi, pljeskavica i topla lepinja s roštilja na drveni ugljen. Velike porcije, poštene cijene i šot domaće rakije na kraju.</p>
     <a class="hero__addr fade-up d3" href="https://maps.google.com/?q=Konoba+180,+Ul.+Stjepana+Radi%C4%87a+1c,+51500+Krk" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg><span>Ul. Stjepana Radića 1c, 51500 Krk</span></a>
     <div class="hero__cta fade-up d4"><a href="#rezervacija" class="pill pill--grey" data-i18n="hero.cta">Rezerviraj stol</a></div>
     <p class="hero__hint fade-up d4"><i></i><span data-i18n="hero.hint">Pomakni prst, iskre reagiraju</span></p>
@@ -759,36 +785,51 @@ html select{height:56px;line-height:normal}
   <div class="gal" id="gal">
     <div class="gal__track" id="galTrack">
       <div class="gal__slide cur">
-        <div class="art art--hero"><img src="img/hero.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+        <div class="art art--hero"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8806-scaled.jpg" alt="Konoba 180, Krk: fotografija restorana (1)" onload="this.classList.add('ok')" onerror="this.style.display='none'">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><g opacity=".1" color="#F6A05A"><use href="#i-stonewall" x="-20" y="0" width="480" height="280"/></g><use href="#i-grill" x="20" y="250" width="360" height="180"/><use href="#i-flames" x="100" y="150" width="200" height="160"/><use href="#i-platter" x="90" y="60" width="220" height="165"/></svg></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c1">Miješano meso s roštilja</span></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c1">Roštilj na drveni ugljen</span></div>
       </div>
       <div class="gal__slide">
-        <div class="art art--cev"><img src="img/2.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+        <div class="art art--cev"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A9658-scaled.jpg" alt="Konoba 180, Krk: fotografija restorana (2)" loading="lazy" decoding="async" onload="this.classList.add('ok')" onerror="this.style.display='none'">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-lepinja" x="60" y="120" width="280" height="168"/><use href="#i-skewer" x="40" y="300" width="320" height="60"/><use href="#i-olive" x="300" y="20" width="90" height="180" color="#4A5A3E"/></svg></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c2">Ćevapi u lepinji s kajmakom</span></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c2">Iz naše kuhinje</span></div>
       </div>
       <div class="gal__slide">
-        <div class="art art--ter"><img src="img/3.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+        <div class="art art--ter"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8613-scaled.jpg" alt="Konoba 180, Krk: fotografija restorana (3)" loading="lazy" decoding="async" onload="this.classList.add('ok')" onerror="this.style.display='none'">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><g opacity=".3" color="#3F5A4B"><use href="#i-stonewall" x="0" y="220" width="480" height="280"/></g><use href="#i-olive" x="20" y="40" width="130" height="260" color="#2F4A3A"/><use href="#i-olive" x="270" y="80" width="110" height="220" color="#2F4A3A" transform="scale(-1 1) translate(-640 0)"/><use href="#i-krk" x="110" y="150" width="180" height="180" opacity=".18" color="#1F4A3A"/></svg></div>
-        <div class="cap"><svg><use href="#i-sun"/></svg><span data-i18n="gal.c3">Terasa</span></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c3">U Konobi 180</span></div>
       </div>
       <div class="gal__slide">
-        <div class="art art--fri"><img src="img/4.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+        <div class="art art--fri"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8344-scaled.jpg" alt="Konoba 180, Krk: fotografija restorana (4)" loading="lazy" decoding="async" onload="this.classList.add('ok')" onerror="this.style.display='none'">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><ellipse cx="200" cy="300" rx="150" ry="70" fill="url(#gPlate)" stroke="#CFC4B8"/><g fill="#F2C06A" stroke="#C9955A" stroke-width=".8"><rect x="120" y="200" width="12" height="90" rx="4" transform="rotate(-18 126 245)"/><rect x="150" y="190" width="12" height="100" rx="4" transform="rotate(-6 156 240)"/><rect x="185" y="186" width="12" height="104" rx="4"/><rect x="220" y="192" width="12" height="98" rx="4" transform="rotate(8 226 240)"/><rect x="250" y="200" width="12" height="90" rx="4" transform="rotate(18 256 245)"/></g><path d="M110 268c40-22 140-22 180 0" fill="none" stroke="#E8A24A" stroke-width="10" stroke-linecap="round" opacity=".85"/><g fill="#8B3A2A"><rect x="150" y="236" width="20" height="8" rx="2" transform="rotate(-20 160 240)"/><rect x="200" y="226" width="22" height="8" rx="2" transform="rotate(10 211 230)"/><rect x="240" y="240" width="20" height="8" rx="2" transform="rotate(-8 250 244)"/></g></svg></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c4">Pomfrit s cheddarom i slaninom</span></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c4">Velike porcije, poštene cijene</span></div>
       </div>
       <div class="gal__slide">
-        <div class="art art--fish"><img src="img/5.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+        <div class="art art--fish"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A9022-scaled.jpg" alt="Konoba 180, Krk: fotografija restorana (5)" loading="lazy" decoding="async" onload="this.classList.add('ok')" onerror="this.style.display='none'">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="#9FC2CC" stroke-width="1.2" opacity=".5"><path d="M0 120c40 0 40-14 80-14s40 14 80 14 40-14 80-14 40 14 80 14 40-14 80-14"/><path d="M0 150c40 0 40-14 80-14s40 14 80 14 40-14 80-14 40 14 80 14 40-14 80-14"/></g><ellipse cx="200" cy="320" rx="150" ry="66" fill="url(#gPlate)" stroke="#CFC4B8"/><path d="M90 316c40-40 150-50 190-20 20 14 30 30 16 44-40 20-150 20-206-24z" fill="#9CA7A3" stroke="#5F6B6B" stroke-width="1.2"/><path d="M280 292l40-24-8 34 8 30-40-20" fill="#8E9A97" stroke="#5F6B6B" stroke-width="1.2"/><circle cx="120" cy="312" r="4" fill="#2A2522"/><path d="M130 300c30-10 90-10 130 6" fill="none" stroke="#F6A05A" stroke-width="2" opacity=".6"/><use href="#i-olive" x="310" y="330" width="60" height="120" color="#9FC2CC"/></svg></div>
-        <div class="cap"><svg><use href="#i-wave"/></svg><span data-i18n="gal.c5">Riba s roštilja</span></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c5">Od farme do žara</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--plj"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8517-scaled.jpg" alt="Konoba 180, Krk: fotografija restorana (6)" loading="lazy" decoding="async" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+          <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-grill" x="20" y="260" width="360" height="180"/><use href="#i-flames" x="110" y="150" width="180" height="140" opacity=".7"/></svg></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c6">Svježe namirnice lokalnih dobavljača</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--hero"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8419-scaled.jpg" alt="Konoba 180, Krk: fotografija restorana (7)" loading="lazy" decoding="async" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+          <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><g opacity=".1" color="#F6A05A"><use href="#i-stonewall" x="-20" y="0" width="480" height="280"/></g><use href="#i-platter" x="60" y="160" width="280" height="210"/></svg></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c7">Za stolom u Krku</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ter"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8385-scaled.jpg" alt="Konoba 180, Krk: fotografija restorana (8)" loading="lazy" decoding="async" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+          <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-olive" x="20" y="40" width="130" height="260" color="#2F4A3A"/><use href="#i-krk" x="110" y="150" width="180" height="180" opacity=".18" color="#1F4A3A"/></svg></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c8">Konoba 180°, Krk</span></div>
       </div>
     </div>
     <a class="tag-b" href="https://maps.google.com/?q=Konoba+180,+Krk" target="_blank" rel="noopener"><span data-i18n="tag">Krk, Hrvatska</span><svg><use href="#i-r"/></svg></a>
     <button class="sqbtn l" id="gPrev" type="button" aria-label="Prethodna"><svg><use href="#i-l"/></svg></button>
     <button class="sqbtn r" id="gNext" type="button" aria-label="Sljedeća"><svg><use href="#i-r"/></svg></button>
     <div class="gal__prog"><i id="galProg"></i></div>
-    <div class="gal__count" id="galCount">1/5</div>
+    <div class="gal__count" id="galCount">1/8</div>
   </div>
 </section>
 
@@ -800,10 +841,10 @@ html select{height:56px;line-height:normal}
       <div>
         <div class="sh rv">
           <p class="label"><span class="num">01</span><span data-i18n="story.label">Priča</span></p>
-          <h2 data-i18n="story.title">Obiteljski roštilj u gradu Krku</h2>
+          <h2 data-i18n="story.title">Roštilj na drveni ugljen u gradu Krku</h2>
         </div>
-        <p class="lead rv" data-i18n="story.p1">Konoba 180 je obiteljski grill house u gradu Krku, na adresi Stjepana Radića 1c. Ovdje se meso peče na roštilju, lepinja je topla, a kajmak i ajvar stižu uz tanjur.</p>
-        <p class="rv" data-delay="1" data-i18n="story.p2">Porcije su velike, cijene poštene, a na kraju svakog obroka na stol stiže šot domaće rakije na račun kuće. Unutra je klima, vani terasa, a parking je odmah preko puta.</p>
+        <p class="lead rv" data-i18n="story.p1">Konoba 180° otvorena je 2025. godine, jer na otoku nije bilo mjesta s velikim porcijama, poštenim cijenama i hranom pečenom na drvenom ugljenu. Nalazimo se u gradu Krku, na adresi Stjepana Radića 1c.</p>
+        <p class="rv" data-delay="1" data-i18n="story.p2">Radimo s lokalnim dobavljačima i svježim namirnicama, od farme do žara. Sjedite u hladu među zelenilom ili unutra uz klimu, a na kraju obroka stiže šot domaće rakije na račun kuće. Parking je odmah preko puta.</p>
         <div class="badge rv" data-delay="2">
           <span class="badge__g">G</span>
           <div><b>4,6</b> <span class="stars" aria-label="4.6 od 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><small><span data-i18n="story.google">Google ocjena</span> · 811 <span data-i18n="story.rev">recenzija</span></small></div>
@@ -815,7 +856,7 @@ html select{height:56px;line-height:normal}
         <div class="sig rv" data-delay="3"><svg viewBox="0 0 32 32"><use href="#i-fire"/></svg><div><b>Konoba 180</b><small data-i18n="story.sign">Krk, otok Krk</small></div></div>
       </div>
       <div class="frame story__img rv-img">
-        <div class="art art--hero"><img src="img/hero.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+        <div class="art art--hero"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8419-scaled.jpg" alt="Konoba 180 u Krku, iz kuhinje s roštiljem na drveni ugljen" loading="lazy" decoding="async" onload="this.classList.add('ok')" onerror="this.style.display='none'">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><g opacity=".1" color="#F6A05A"><use href="#i-stonewall" x="-20" y="0" width="480" height="280"/></g><use href="#i-grill" x="20" y="260" width="360" height="180"/><use href="#i-flames" x="100" y="160" width="200" height="160"/><use href="#i-skewer" x="60" y="110" width="280" height="52"/></svg></div>
         <span class="tag-b" data-i18n="tag">Krk, Hrvatska</span>
       </div>
@@ -829,44 +870,98 @@ html select{height:56px;line-height:normal}
     <div class="sh rv">
       <p class="label"><span class="num">02</span><span data-i18n="menu.label">Jelovnik</span></p>
       <h2 data-i18n="menu.title">Što se jede u 180</h2>
-      <p data-i18n="menu.sub">Meso s roštilja je glavna stvar. Riba i morski plodovi su tu za one koji su ipak na moru.</p>
+      <p data-i18n="menu.sub">Meso s roštilja na drveni ugljen je glavna stvar. Uz njega riba i lignje, rižota, tjestenine, salate i dječji jelovnik.</p>
     </div>
     <div class="menu__grid">
       <div class="rv">
         <div class="tabs" role="tablist" aria-label="Jelovnik">
           <button class="tab" role="tab" id="tab-1" aria-selected="true" aria-controls="pane-1" data-i18n="tab.1">S roštilja</button>
-          <button class="tab" role="tab" id="tab-2" aria-selected="false" aria-controls="pane-2" data-i18n="tab.2">Prilozi</button>
-          <button class="tab" role="tab" id="tab-3" aria-selected="false" aria-controls="pane-3" data-i18n="tab.3">Riba</button>
-          <button class="tab" role="tab" id="tab-4" aria-selected="false" aria-controls="pane-4" data-i18n="tab.4">Slatko</button>
+          <button class="tab" role="tab" id="tab-2" aria-selected="false" aria-controls="pane-2" data-i18n="tab.2">Plate</button>
+          <button class="tab" role="tab" id="tab-3" aria-selected="false" aria-controls="pane-3" data-i18n="tab.3">Riba i lignje</button>
+          <button class="tab" role="tab" id="tab-4" aria-selected="false" aria-controls="pane-4" data-i18n="tab.4">Rižota i tjestenine</button>
+          <button class="tab" role="tab" id="tab-5" aria-selected="false" aria-controls="pane-5" data-i18n="tab.5">Predjela i juhe</button>
+          <button class="tab" role="tab" id="tab-6" aria-selected="false" aria-controls="pane-6" data-i18n="tab.6">Prilozi i salate</button>
+          <button class="tab" role="tab" id="tab-7" aria-selected="false" aria-controls="pane-7" data-i18n="tab.7">Dodaci</button>
+          <button class="tab" role="tab" id="tab-8" aria-selected="false" aria-controls="pane-8" data-i18n="tab.8">Djeca i deserti</button>
         </div>
         <div class="panes">
           <div class="pane on" id="pane-1" role="tabpanel" aria-labelledby="tab-1">
-            <div class="dish"><h3><span data-i18n="m.1.1">Miješano meso</span><span class="hl" data-i18n="m.hl">Hit</span></h3><p data-i18n="m.1.1d">Ćevapi, pljeskavica i ostalo meso s roštilja, uz lepinju, ajvar i kajmak. Velika porcija.</p><span class="pr"><span class="ph">XX</span>&nbsp;€</span></div>
-            <div class="dish"><h3 data-i18n="m.1.2">Ćevapi</h3><p data-i18n="m.1.2d">U toploj lepinji, s lukom. Kajmak po želji.</p><span class="pr"><span class="ph">XX</span>&nbsp;€</span></div>
-            <div class="dish"><h3 data-i18n="m.1.3">Pljeskavica</h3><p data-i18n="m.1.3d">S roštilja, u lepinji ili na tanjuru s prilogom.</p><span class="pr"><span class="ph">XX</span>&nbsp;€</span></div>
-            <div class="dish"><h3 data-i18n="m.1.4">Ćevapi u lepinji s kajmakom</h3><p data-i18n="m.1.4d">Za one koji jedu iz ruke.</p><span class="pr"><span class="ph">XX</span>&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.1.1">Gazdin ćevap</h3><p data-i18n="mm.1.1d">Deset ćevapčića punjenih sirom sa žara, steakhouse pomfrit, ajvar i luk.</p><span class="pr">18,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.1.2">Gazdina pljeskavica</h3><p data-i18n="mm.1.2d">300&nbsp;g mljevene junetine punjene s tri vrste paprike, sirom, slaninom i ljutim papričicama, steakhouse pomfrit, ajvar i luk.</p><span class="pr">18,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.1.3">Ćevapčići s lepinjom, ajvarom i lukom</h3><p data-i18n="mm.1.3d">300&nbsp;g blago začinjene mljevene junetine, deset komada, lepinja, ajvar i luk.</p><span class="pr">12,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.1.4">Pljeskavica</h3><p data-i18n="mm.1.4d">300&nbsp;g blago začinjene mljevene junetine sa žara.</p><span class="pr">14,00&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.1.5">Gurmanska pljeskavica</h3><p data-i18n="mm.1.5d">300&nbsp;g blago začinjene mljevene junetine sa sirom, slaninom i ljutom papričicom.</p><span class="pr">15,00&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.1.6">Đevrek</h3><p data-i18n="mm.1.6d">300&nbsp;g blago začinjene mljevene junetine sa sirom, slaninom, ljutom papričicom i kajmakom.</p><span class="pr">16,00&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.1.7">Punjena svinjska vješalica sa žara</h3><p data-i18n="mm.1.7d">Svinjski kare punjen sirom i slaninom, omotan svinjskom maramicom.</p><span class="pr">19,00&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.1.8">Sporo pečena svinjska rebra sa žara</h3><p data-i18n="mm.1.8d">Marinirana, sporo pečena rebra, završena na žaru, uz steakhouse pomfrit.</p><span class="pr">22,00&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.1.9">Juneći ramsteak s povrćem sa žara</h3><p data-i18n="mm.1.9d">300&nbsp;g odležanog Angus ramsteaka sa žara, povrće sa žara.</p><span class="pr">28,00&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.1.10">Marinirana pileća prsa sa žara</h3><p data-i18n="mm.1.10d">Marinirani pileći file sa žara.</p><span class="pr">13,00&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.1.11">Pohana piletina s pomfritom</h3><p data-i18n="mm.1.11d">200&nbsp;g pilećeg filea u panko mrvicama, steakhouse pomfrit.</p><span class="pr">14,50&nbsp;€</span></div>
           </div>
           <div class="pane" id="pane-2" role="tabpanel" aria-labelledby="tab-2">
-            <div class="dish"><h3><span data-i18n="m.2.1">Pomfrit s cheddarom i slaninom</span><span class="hl" data-i18n="m.hl">Hit</span></h3><p data-i18n="m.2.1d">Pomfrit preliven cheddarom, sa slaninom.</p><span class="pr"><span class="ph">XX</span>&nbsp;€</span></div>
-            <div class="dish"><h3 data-i18n="m.2.2">Lepinja</h3><p data-i18n="m.2.2d">Topla, s roštilja.</p><span class="pr"><span class="ph">XX</span>&nbsp;€</span></div>
-            <div class="dish"><h3 data-i18n="m.2.3">Kajmak</h3><p data-i18n="m.2.3d">Uz meso ili u lepinju.</p><span class="pr"><span class="ph">XX</span>&nbsp;€</span></div>
-            <div class="dish"><h3 data-i18n="m.2.4">Ajvar</h3><p data-i18n="m.2.4d">Uz svako jelo s roštilja.</p><span class="pr"><span class="ph">XX</span>&nbsp;€</span></div>
-            <div class="dish"><h3 data-i18n="m.2.5">Pomfrit</h3><p data-i18n="m.2.5d">Klasični.</p><span class="pr"><span class="ph">XX</span>&nbsp;€</span></div>
+            <div class="dish"><h3><span data-i18n="mm.2.1">Mesna plata za dvije osobe s prilozima</span><span class="hl" data-i18n="m.hl">Hit</span></h3><p data-i18n="mm.2.1d">4 ćevapčića, 1 punjena vješalica, 2 gurmanska pileća ražnjića, 2 gurmanska uštipka, mala pljeskavica sa sirom, pečeni krumpir, šampinjoni sa žara i 2 lepinje.</p><span class="pr">46,00&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.2.2">Gazdina plata za tri osobe s prilozima</h3><p data-i18n="mm.2.2d">6 gazdinih ćevapčića, 2 punjene vješalice, 300&nbsp;g gazdine pljeskavice, 500&nbsp;g rebara sa žara, kajmak, pečeni krumpir, krumpir s cheddarom i hrskavom slaninom, šampinjoni sa žara, gazdine lepinje, ajvar i luk.</p><span class="pr">88,00&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.2.3">Mesna plata za četiri osobe s prilozima</h3><p data-i18n="mm.2.3d">8 ćevapčića, 2 punjene vješalice, 4 gurmanska pileća ražnjića, 4 gurmanska uštipka, pljeskavica sa sirom, pečeni krumpir, šampinjoni sa žara i 4 lepinje.</p><span class="pr">86,00&nbsp;€</span></div>
           </div>
           <div class="pane" id="pane-3" role="tabpanel" aria-labelledby="tab-3">
-            <div class="dish"><h3 data-i18n="m.3.1">Riba s roštilja</h3><p data-i18n="m.3.1d">Ponuda ovisi o danu. Pitajte osoblje što je danas.</p><span class="pr"><span class="ph">XX</span>&nbsp;€</span></div>
-            <div class="dish"><h3 data-i18n="m.3.2">Morski plodovi</h3><p data-i18n="m.3.2d">Po dnevnoj ponudi.</p><span class="pr"><span class="ph">XX</span>&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.3.1">Tuna steak s blitvom i krumpirom</h3><p data-i18n="mm.3.1d">220&nbsp;g tuna steaka, blitva s krumpirom.</p><span class="pr">26,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.3.2">Orada s blitvom i krumpirom</h3><p data-i18n="mm.3.2d">Orada od 350&nbsp;g, blitva s krumpirom.</p><span class="pr">25,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.3.3">Brancin s blitvom i krumpirom</h3><p data-i18n="mm.3.3d">Brancin od 350&nbsp;g, blitva s krumpirom.</p><span class="pr">25,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.3.4">Pržene lignje s pomfritom</h3><p data-i18n="mm.3.4d">220&nbsp;g prženih lignji s pomfritom i tartar umakom.</p><span class="pr">17,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.3.5">Lignje sa žara s blitvom i krumpirom</h3><p data-i18n="mm.3.5d">230&nbsp;g lignji sa žara, blitva s krumpirom.</p><span class="pr">22,90&nbsp;€</span></div>
           </div>
           <div class="pane" id="pane-4" role="tabpanel" aria-labelledby="tab-4">
-            <div class="dish"><h3 data-i18n="m.4.1">Desert dana</h3><p data-i18n="m.4.1d">Pitajte osoblje što je danas slatko.</p><span class="pr"><span class="ph">XX</span>&nbsp;€</span></div>
-            <div class="dish"><h3 data-i18n="m.4.2">Kava</h3><p data-i18n="m.4.2d">Za kraj.</p><span class="pr"><span class="ph">XX</span>&nbsp;€</span></div>
-            <div class="dish"><h3 data-i18n="m.4.3">Šot domaće rakije</h3><p data-i18n="m.4.3d">Na račun kuće, na kraju obroka.</p><span class="pr free" data-i18n="m.free">Gratis</span></div>
+            <div class="dish"><h3 data-i18n="mm.4.1">Rižoto s piletinom i povrćem</h3><p data-i18n="mm.4.1d">Arborio riža, piletina, povrće, temeljac od povrća.</p><span class="pr">14,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.4.2">Rižoto sa škampima, pistacijom i bosiljkom</h3><p data-i18n="mm.4.2d">Arborio riža, cherry rajčice, očišćeni repovi škampa, češnjak, temeljac od povrća, krema od pistacije i bosiljka.</p><span class="pr">18,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.4.3">Zelene tagliatelle sa škampima</h3><p data-i18n="mm.4.3d">Zeleni rezanci, očišćeni repovi škampa, krema od Grana Padana, salsa.</p><span class="pr">18,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.4.4">Zelene tagliatelle s pancetom i tartufatom</h3><p data-i18n="mm.4.4d">Zeleni rezanci, panceta i tartufi.</p><span class="pr">16,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.4.5">Njoki s junećim gulašom</h3><p data-i18n="mm.4.5d">Domaći njoki, domaći juneći gulaš.</p><span class="pr">16,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.4.6">Njoki s četiri vrste sira</h3><p data-i18n="mm.4.6d">Domaći njoki, gouda, cheddar, Grana Padano, parmezan.</p><span class="pr">13,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.4.7">Svinjski paprikaš s njokima</h3><p data-i18n="mm.4.7d">Svinjski paprikaš s domaćim njokima.</p><span class="pr">13,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.4.8">Pileći paprikaš s njokima</h3><p data-i18n="mm.4.8d">Pileći paprikaš s domaćim njokima.</p><span class="pr">13,90&nbsp;€</span></div>
+          </div>
+          <div class="pane" id="pane-5" role="tabpanel" aria-labelledby="tab-5">
+            <div class="dish"><h3 data-i18n="mm.5.1">Hladna plata</h3><p data-i18n="mm.5.1d">100&nbsp;g dalmatinskog pršuta, 60&nbsp;g domaće kobasice, 90&nbsp;g odabranih tvrdih i polutvrdih sireva, paprike punjene sirom, masline.</p><span class="pr">24,00&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.5.2">Gurmanske mazalice</h3><p data-i18n="mm.5.2d">Mljevena junetina sa sirom, slaninom i ljutom papričicom, pečena na lepinji.</p><span class="pr">9,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.5.3">Cezar salata s piletinom</h3><p data-i18n="mm.5.3d">Pileći file, iceberg salata, cherry rajčice, Cezar dresing, krutoni, Grana Padano.</p><span class="pr">13,00&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.5.4">Juha od rajčice</h3><p data-i18n="mm.5.4d">Kremasta domaća juha od rajčice s češnjakom i bosiljkom.</p><span class="pr">4,20&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.5.5">Domaća kokošja juha</h3><span class="pr">4,20&nbsp;€</span></div>
+          </div>
+          <div class="pane" id="pane-6" role="tabpanel" aria-labelledby="tab-6">
+            <div class="dish"><h3 data-i18n="mm.6.1">Steakhouse pomfrit</h3><span class="pr">4,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.6.2">Krumpirići s tartufima i Grana Padanom</h3><span class="pr">8,50&nbsp;€</span></div>
+            <div class="dish"><h3><span data-i18n="mm.6.3">Krumpirići s cheddarom i hrskavom slaninom</span><span class="hl" data-i18n="m.hl">Hit</span></h3><span class="pr">8,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.6.4">Zapečeni grah</h3><span class="pr">8,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.6.5">Riža na maslacu</h3><span class="pr">4,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.6.6">Povrće sa žara</h3><span class="pr">6,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.6.7">Šampinjoni sa žara</h3><span class="pr">6,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.6.8">Blitva s krumpirom</h3><span class="pr">6,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.6.9">Kupus salata</h3><p data-i18n="mm.6.9d">Svježe naribani kupus.</p><span class="pr">4,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.6.10">Miješana salata</h3><p data-i18n="mm.6.10d">Iceberg salata, krastavac, kupus, cherry rajčice.</p><span class="pr">4,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.6.11">Šopska salata</h3><p data-i18n="mm.6.11d">Rajčica, crveni luk, svježa paprika, krastavac, feta sir.</p><span class="pr">6,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.6.12">Pečena paprika s češnjakom</h3><p data-i18n="mm.6.12d">Paprike sa žara, servirane hladne, s češnjakom.</p><span class="pr">7,50&nbsp;€</span></div>
+          </div>
+          <div class="pane" id="pane-7" role="tabpanel" aria-labelledby="tab-7">
+            <div class="dish"><h3 data-i18n="mm.7.1">Lepinja</h3><span class="pr">2,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.7.2">Gazdina lepinja</h3><span class="pr">3,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.7.3">Kajmak</h3><span class="pr">3,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.7.4">Ajvar</h3><span class="pr">2,00&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.7.5">Masline</h3><span class="pr">3,00&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.7.6">Umak (majoneza, kečap, tartar)</h3><span class="pr">1,60&nbsp;€</span></div>
+          </div>
+          <div class="pane" id="pane-8" role="tabpanel" aria-labelledby="tab-8">
+            <div class="dish"><h3 data-i18n="mm.8.1">Pileći medaljoni s pomfritom</h3><p data-i18n="mm.kid">Dječji jelovnik</p><span class="pr">9,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.8.2">Pohana piletina s pomfritom</h3><p data-i18n="mm.kid">Dječji jelovnik</p><span class="pr">9,90&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.8.3">Čokoladni soufflé sa sladoledom od vanilije</h3><span class="pr">6,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.8.4">Dnevni kolač</h3><span class="pr">6,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.8.5">Kuglica sladoleda</h3><span class="pr">2,50&nbsp;€</span></div>
+            <div class="dish"><h3 data-i18n="mm.8.6">Šot domaće rakije</h3><p data-i18n="mm.8.6d">Na račun kuće, na kraju obroka.</p><span class="pr free" data-i18n="m.free">Gratis</span></div>
           </div>
         </div>
-        <p class="menu__note" data-i18n="menu.note">Cijene "XX €" su primjer i unose se naknadno. Jelovnik se mijenja prema sezoni i ponudi.</p>
+        <p class="menu__note" data-i18n="menu.note">Cijene u eurima prema jelovniku Konobe 180 (cijene od 10. 9. 2026.). Jela možete naručiti i telefonom na +385 91 646 3000, uz dostavu ili preuzimanje.</p>
       </div>
       <div class="frame menu__pic rv-img">
-        <div class="art art--cev"><img src="img/2.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+        <div class="art art--cev"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8517-scaled.jpg" alt="Jelo s jelovnika Konobe 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')" onerror="this.style.display='none'">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-platter" x="40" y="140" width="320" height="240"/><use href="#i-lepinja" x="220" y="40" width="160" height="96"/><use href="#i-olive" x="10" y="20" width="90" height="180" color="#4A5A3E"/></svg></div>
         <span class="tag-b"><svg><use href="#i-fire"/></svg><span data-i18n="menu.tag">S roštilja</span></span>
       </div>
@@ -882,8 +977,8 @@ html select{height:56px;line-height:normal}
     <p class="label rv"><span data-i18n="why.label">Zašto 180</span></p>
     <h2 class="rv" data-delay="1" data-i18n="why.title">Tri razloga zbog kojih se gosti vraćaju</h2>
     <ul class="why__list">
-      <li class="rv"><span class="n">01</span><h3 data-i18n="why.1">Velike porcije</h3><p data-i18n="why.1d">Tanjur s kojeg se ne ustaje gladan. Miješano meso je za dijeljenje, ćevapi se broje na desetke.</p></li>
-      <li class="rv" data-delay="1"><span class="n">02</span><h3 data-i18n="why.2">Terasa i klima</h3><p data-i18n="why.2d">Ljeti na terasi, u vrućini unutra na klimi. Oboje s istim roštiljem.</p></li>
+      <li class="rv"><span class="n">01</span><h3 data-i18n="why.1">Velike porcije</h3><p data-i18n="why.1d">Tanjur s kojeg se ne ustaje gladan. Mesne plate su za dijeljenje, a ćevapi stižu po deset komada.</p></li>
+      <li class="rv" data-delay="1"><span class="n">02</span><h3 data-i18n="why.2">Terasa i klima</h3><p data-i18n="why.2d">Ljeti u hladu među zelenilom, u vrućini unutra na klimi. Oboje s istim roštiljem na drveni ugljen.</p></li>
       <li class="rv" data-delay="2"><span class="n">03</span><h3 data-i18n="why.3">Parking preko puta</h3><p data-i18n="why.3d">Parkirate odmah preko ulice i sjedate za stol. Bez traženja mjesta po starom gradu.</p></li>
     </ul>
     <a href="#rezervacija" class="pill pill--outline rv" data-i18n="why.cta">Rezerviraj stol</a>
@@ -901,34 +996,34 @@ html select{height:56px;line-height:normal}
   <div class="peek" id="peek">
     <article class="tcard rv">
       <div class="frame"><div class="art art--hero"><img src="img/hero.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-platter" x="30" y="140" width="340" height="255"/><use href="#i-flames" x="110" y="20" width="180" height="140" opacity=".8"/></svg></div><span class="tag-b" data-i18n="sig.1tag">Za dijeljenje</span></div>
-      <h3 data-i18n="sig.1">Miješano meso</h3>
-      <p class="tcard__meta" data-i18n="sig.1m">Roštilj · velika porcija</p>
-      <p data-i18n="sig.1d">Sve s roštilja na jednom tanjuru, s lepinjom, ajvarom i kajmakom.</p>
-      <ul><li data-i18n="sig.1b1">Ćevapi i pljeskavica</li><li data-i18n="sig.1b2">Lepinja, ajvar, kajmak</li><li data-i18n="sig.1b3">Idealno za dvoje ili više</li></ul>
+      <h3 data-i18n="sig.1">Mesna plata za dvoje</h3>
+      <p class="tcard__meta" data-i18n="sig.1m">Za dvoje · 46&nbsp;€</p>
+      <p data-i18n="sig.1d">Ćevapčići, punjena vješalica, pileći ražnjići, uštipci i mala pljeskavica sa sirom, s prilozima i lepinjama.</p>
+      <ul><li data-i18n="sig.1b1">Pečeni krumpir i šampinjoni sa žara</li><li data-i18n="sig.1b2">Gazdina plata za 3 osobe: 88&nbsp;€</li><li data-i18n="sig.1b3">Plata za 4 osobe: 86&nbsp;€</li></ul>
       <a href="#rezervacija" class="ulink"><span data-i18n="sig.cta">Rezerviraj stol</span><svg><use href="#i-r"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="1">
       <div class="frame"><div class="art art--cev"><img src="img/2.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-lepinja" x="50" y="150" width="300" height="180"/><g stroke="#2A1810" stroke-width="1"><rect x="110" y="210" width="60" height="22" rx="11" fill="url(#gMeat)"/><rect x="170" y="206" width="60" height="22" rx="11" fill="url(#gMeat)"/><rect x="230" y="212" width="60" height="22" rx="11" fill="url(#gMeat)"/></g><ellipse cx="150" cy="200" rx="22" ry="10" fill="#FFF"/></svg></div><span class="tag-b" data-i18n="sig.2tag">Klasik</span></div>
-      <h3 data-i18n="sig.2">Ćevapi s kajmakom</h3>
-      <p class="tcard__meta" data-i18n="sig.2m">Roštilj · lepinja</p>
-      <p data-i18n="sig.2d">Ćevapi u toploj lepinji, s lukom i kajmakom.</p>
-      <ul><li data-i18n="sig.2b1">Topla lepinja</li><li data-i18n="sig.2b2">Kajmak i luk</li><li data-i18n="sig.2b3">Ajvar uz tanjur</li></ul>
+      <h3 data-i18n="sig.2">Ćevapčići s lepinjom</h3>
+      <p class="tcard__meta" data-i18n="sig.2m">Roštilj · 12,90&nbsp;€</p>
+      <p data-i18n="sig.2d">Deset ćevapčića od 300&nbsp;g blago začinjene junetine, s lepinjom, ajvarom i lukom.</p>
+      <ul><li data-i18n="sig.2b1">10 komada, 300&nbsp;g</li><li data-i18n="sig.2b2">Lepinja, ajvar i luk</li><li data-i18n="sig.2b3">Kajmak kao dodatak</li></ul>
       <a href="#rezervacija" class="ulink"><span data-i18n="sig.cta">Rezerviraj stol</span><svg><use href="#i-r"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="2">
       <div class="frame"><div class="art art--plj"><img src="img/5.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-grill" x="20" y="260" width="360" height="180"/><ellipse cx="200" cy="300" rx="90" ry="40" fill="#6E3A24"/><ellipse cx="200" cy="294" rx="84" ry="34" fill="url(#gMeat)"/><path d="M130 282c40-10 100-10 140 0" fill="none" stroke="#F6A05A" stroke-width="2" opacity=".6"/><use href="#i-flames" x="110" y="150" width="180" height="140" opacity=".6"/></svg></div><span class="tag-b" data-i18n="sig.3tag">S roštilja</span></div>
-      <h3 data-i18n="sig.3">Pljeskavica</h3>
-      <p class="tcard__meta" data-i18n="sig.3m">Roštilj · tanjur ili lepinja</p>
-      <p data-i18n="sig.3d">Velika pljeskavica s roštilja, na tanjuru s prilogom ili u lepinji.</p>
-      <ul><li data-i18n="sig.3b1">Na tanjuru ili u lepinji</li><li data-i18n="sig.3b2">Kajmak po želji</li><li data-i18n="sig.3b3">Pomfrit uz tanjur</li></ul>
+      <h3 data-i18n="sig.3">Gazdina pljeskavica</h3>
+      <p class="tcard__meta" data-i18n="sig.3m">Roštilj · 18,90&nbsp;€</p>
+      <p data-i18n="sig.3d">300&nbsp;g junetine punjene paprikama, sirom, slaninom i ljutim papričicama, uz steakhouse pomfrit, ajvar i luk.</p>
+      <ul><li data-i18n="sig.3b1">Tri vrste paprike</li><li data-i18n="sig.3b2">Sir i slanina</li><li data-i18n="sig.3b3">Steakhouse pomfrit uz tanjur</li></ul>
       <a href="#rezervacija" class="ulink"><span data-i18n="sig.cta">Rezerviraj stol</span><svg><use href="#i-r"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="3">
       <div class="frame"><div class="art art--fri"><img src="img/4.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><ellipse cx="200" cy="300" rx="150" ry="70" fill="url(#gPlate)" stroke="#CFC4B8"/><g fill="#F2C06A" stroke="#C9955A" stroke-width=".8"><rect x="120" y="200" width="12" height="90" rx="4" transform="rotate(-18 126 245)"/><rect x="150" y="190" width="12" height="100" rx="4" transform="rotate(-6 156 240)"/><rect x="185" y="186" width="12" height="104" rx="4"/><rect x="220" y="192" width="12" height="98" rx="4" transform="rotate(8 226 240)"/><rect x="250" y="200" width="12" height="90" rx="4" transform="rotate(18 256 245)"/></g><path d="M110 268c40-22 140-22 180 0" fill="none" stroke="#E8A24A" stroke-width="10" stroke-linecap="round" opacity=".85"/><g fill="#8B3A2A"><rect x="150" y="236" width="20" height="8" rx="2" transform="rotate(-20 160 240)"/><rect x="200" y="226" width="22" height="8" rx="2" transform="rotate(10 211 230)"/><rect x="240" y="240" width="20" height="8" rx="2" transform="rotate(-8 250 244)"/></g></svg></div><span class="tag-b" data-i18n="sig.4tag">Prilog</span></div>
-      <h3 data-i18n="sig.4">Pomfrit s cheddarom i slaninom</h3>
-      <p class="tcard__meta" data-i18n="sig.4m">Prilog · za stol</p>
-      <p data-i18n="sig.4d">Pomfrit preliven cheddarom i posut slaninom. Prilog koji se naručuje za cijeli stol.</p>
-      <ul><li data-i18n="sig.4b1">Cheddar i slanina</li><li data-i18n="sig.4b2">Uz meso ili samostalno</li><li data-i18n="sig.4b3">Velika porcija</li></ul>
+      <h3 data-i18n="sig.4">Krumpirići s cheddarom i slaninom</h3>
+      <p class="tcard__meta" data-i18n="sig.4m">Prilog · 8,50&nbsp;€</p>
+      <p data-i18n="sig.4d">Krumpirići s cheddarom i hrskavom slaninom. Prilog koji se naručuje za cijeli stol.</p>
+      <ul><li data-i18n="sig.4b1">Cheddar i hrskava slanina</li><li data-i18n="sig.4b2">Uz meso ili samostalno</li><li data-i18n="sig.4b3">Postoji i verzija s tartufima</li></ul>
       <a href="#rezervacija" class="ulink"><span data-i18n="sig.cta">Rezerviraj stol</span><svg><use href="#i-r"/></svg></a>
     </article>
   </div>
@@ -952,13 +1047,16 @@ html select{height:56px;line-height:normal}
       </div>
       <div class="gtk rv" data-delay="1">
         <dl>
-          <div class="gtk__row"><svg><use href="#i-clock"/></svg><dt data-i18n="gtk.hours">Radno vrijeme</dt><dd><span data-i18n="gtk.hoursV1">Pon do pet 10:00 do 21:00</span><br><span data-i18n="gtk.hoursV2">Sub i ned 12:00 do 22:00</span></dd></div>
+          <div class="gtk__row"><svg><use href="#i-clock"/></svg><dt data-i18n="gtk.hours">Radno vrijeme</dt><dd data-i18n="gtk.hoursV1">Svaki dan 12:00 do 24:00</dd></div>
           <div class="gtk__row"><svg><use href="#i-pin"/></svg><dt data-i18n="gtk.addr">Adresa</dt><dd>Ul. Stjepana Radića 1c, 51500 Krk</dd></div>
+          <div class="gtk__row"><svg><use href="#i-fire"/></svg><dt data-i18n="gtk.grill">Roštilj</dt><dd data-i18n="gtk.grillV">Na drveni ugljen</dd></div>
+          <div class="gtk__row"><svg><use href="#i-fork"/></svg><dt data-i18n="gtk.deliv">Dostava i preuzimanje</dt><dd data-i18n="gtk.delivV">Naručite telefonom na +385 91 646 3000</dd></div>
           <div class="gtk__row"><svg><use href="#i-car"/></svg><dt data-i18n="gtk.park">Parking</dt><dd data-i18n="gtk.parkV">Odmah preko puta ulice</dd></div>
-          <div class="gtk__row"><svg><use href="#i-snow"/></svg><dt data-i18n="gtk.space">Prostor</dt><dd data-i18n="gtk.spaceV">Unutra s klimom, plus terasa</dd></div>
+          <div class="gtk__row"><svg><use href="#i-snow"/></svg><dt data-i18n="gtk.space">Prostor</dt><dd data-i18n="gtk.spaceV">Unutra s klimom i terasa u hladu među zelenilom</dd></div>
           <div class="gtk__row"><svg><use href="#i-shot"/></svg><dt data-i18n="gtk.shot">Za kraj</dt><dd data-i18n="gtk.shotV">Besplatan šot domaće rakije</dd></div>
           <div class="gtk__row"><svg><use href="#i-card"/></svg><dt data-i18n="gtk.pay">Plaćanje karticom</dt><dd data-i18n="gtk.payV">Pitajte osoblje</dd></div>
           <div class="gtk__row"><svg><use href="#i-phone"/></svg><dt data-i18n="gtk.tel">Telefon / WhatsApp</dt><dd><a href="tel:+385916463000">+385 91 646 3000</a></dd></div>
+          <div class="gtk__row"><svg><use href="#i-mail"/></svg><dt data-i18n="gtk.mail">E-mail</dt><dd><a href="mailto:konoba180@gmail.com">konoba180@gmail.com</a></dd></div>
         </dl>
       </div>
     </div>
@@ -984,7 +1082,7 @@ html select{height:56px;line-height:normal}
         <p class="near__note rv" data-i18n="near.note">Udaljenosti provjerite na karti, ovisno o tome gdje ste smješteni.</p>
       </div>
       <div class="frame near__img rv-img">
-        <div class="art art--ter"><img src="img/3.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+        <div class="art art--ter"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8385-scaled.jpg" alt="Konoba 180 u gradu Krku, prostor za goste" loading="lazy" decoding="async" onload="this.classList.add('ok')" onerror="this.style.display='none'">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><g opacity=".28" color="#3F5A4B"><use href="#i-stonewall" x="0" y="250" width="480" height="280"/></g><use href="#i-krk" x="90" y="80" width="220" height="220" opacity=".22" color="#1F4A3A"/><use href="#i-olive" x="280" y="40" width="110" height="220" color="#2F4A3A"/><g fill="none" stroke="#fff" stroke-width="1.2" opacity=".5"><path d="M0 420c40 0 40-14 80-14s40 14 80 14 40-14 80-14 40 14 80 14 40-14 80-14"/></g></svg></div>
         <span class="tag-b" data-i18n="near.tag">Otok Krk</span>
       </div>
@@ -1017,6 +1115,7 @@ html select{height:56px;line-height:normal}
             <label class="chip"><input type="radio" name="t" value="19:00"><span>19:00</span></label>
             <label class="chip"><input type="radio" name="t" value="20:00" checked><span>20:00</span></label>
             <label class="chip"><input type="radio" name="t" value="21:00"><span>21:00</span></label>
+            <label class="chip"><input type="radio" name="t" value="22:00"><span>22:00</span></label>
           </div>
         </fieldset>
         <div class="field"><span data-i18n="f.guests">Gosti</span>
@@ -1029,8 +1128,7 @@ html select{height:56px;line-height:normal}
       <div class="book__side rv" data-delay="1">
         <div class="soon"><span class="soon__dot"></span><div><b data-i18n="book.wa">WhatsApp</b><p data-i18n="book.waT">Poruka stiže na +385 91 646 3000. Možete i nazvati.</p></div></div>
         <ul class="book__hours">
-          <li><span data-i18n="h.mf">Pon do pet</span><span>10:00 do 21:00</span></li>
-          <li><span data-i18n="h.ss">Sub i ned</span><span>12:00 do 22:00</span></li>
+          <li><span data-i18n="h.all">Pon do ned</span><span data-i18n="h.allV">12:00 do 24:00</span></li>
         </ul>
         <a href="tel:+385916463000" class="pill pill--linen"><svg><use href="#i-phone"/></svg><span data-i18n="book.call">Nazovi</span></a>
       </div>
@@ -1049,8 +1147,11 @@ html select{height:56px;line-height:normal}
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.1q">Treba li rezervirati stol?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.1a">Ljeti preporučujemo rezervaciju, pogotovo navečer. Izvan sezone obično ima mjesta, ali poruka na WhatsApp nikad ne škodi.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.2q">Gdje se parkira?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.2a">Parking je odmah preko puta ulice.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.3q">Može li se platiti karticom?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.3a">Pitajte osoblje pri dolasku.</p></div></div></div>
-      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.4q">Ima li dječji jelovnik?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.4a">Pitajte nas, rado ćemo predložiti nešto za male goste.</p></div></div></div>
-      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.5q">Ima li terasa i klima?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.5a">Da. Unutarnji prostor je klimatiziran, a vani je terasa.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.4q">Ima li dječji jelovnik?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.4a">Da. Pileći medaljoni ili pohana piletina s pomfritom, 9,90&nbsp;€.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.5q">Ima li terasa i klima?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.5a">Da. Unutarnji prostor je klimatiziran, a vani se sjedi u hladu među zelenilom.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.6q">Dostavljate li hranu?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.6a">Da. Odaberite jela iz jelovnika i naručite telefonom na +385 91 646 3000, uz dostavu ili preuzimanje.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.7q">Kada radite?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.7a">Svaki dan od 12:00 do 24:00.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.8q">Zašto baš 180?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.8a">Konoba 180° nosi ime po idealnoj temperaturi roštilja. Kod nas se peče na drvenom ugljenu.</p></div></div></div>
     </div>
   </div>
 </section>
@@ -1066,15 +1167,16 @@ html select{height:56px;line-height:normal}
         </div>
         <p class="addr rv">Ul. Stjepana Radića 1c<br>51500 Krk, <span data-i18n="c.country">Hrvatska</span></p>
         <a class="ulink rv" href="https://maps.google.com/?q=Konoba+180,+Ul.+Stjepana+Radi%C4%87a+1c,+51500+Krk" target="_blank" rel="noopener"><span data-i18n="c.maps">Otvori u Google kartama</span><svg><use href="#i-r"/></svg></a>
+        <p class="c-mail rv"><a class="ulink" href="mailto:konoba180@gmail.com"><span>konoba180@gmail.com</span><svg><use href="#i-r"/></svg></a></p>
         <ul class="hours rv" id="hours">
-          <li data-days="1,2,3,4,5"><span data-i18n="h.mf">Pon do pet</span><span>10:00 do 21:00</span></li>
-          <li data-days="6,0"><span data-i18n="h.ss">Sub i ned</span><span>12:00 do 22:00</span></li>
+          <li data-days="0,1,2,3,4,5,6"><span data-i18n="h.all">Pon do ned</span><span data-i18n="h.allV">12:00 do 24:00</span></li>
         </ul>
         <div class="contact__btns rv">
           <a href="tel:+385916463000" class="pill"><svg><use href="#i-phone"/></svg><span data-i18n="c.call">Nazovi</span></a>
           <a href="https://wa.me/385916463000" target="_blank" rel="noopener" class="pill pill--ember"><svg><use href="#i-wa"/></svg>WhatsApp</a>
           <a href="https://maps.google.com/?q=Konoba+180,+Ul.+Stjepana+Radi%C4%87a+1c,+51500+Krk" target="_blank" rel="noopener" class="pill pill--ghost"><svg><use href="#i-pin"/></svg><span data-i18n="c.dir">Upute</span></a>
         </div>
+        <p class="c-soc rv"><span data-i18n="c.follow">Pratite nas</span><a href="https://www.instagram.com/konoba_stoosamdeset/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/share/16VWawMqUY/" target="_blank" rel="noopener">Facebook</a><a href="https://www.tripadvisor.com/Restaurant_Review-g1067956-d33132273-Reviews-Konoba_180-Krk_Krk_Island_Kvarner_Bay_Islands_Primorje_Gorski_Kotar_County.html" target="_blank" rel="noopener">TripAdvisor</a></p>
       </div>
       <div class="map rv-img" id="map">
         <svg class="sea" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -1101,11 +1203,11 @@ html select{height:56px;line-height:normal}
     <div class="foot__top">
       <div>
         <a href="#top" class="logo"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><path d="M50 78c-11 0-18-7-18-16 0-13 15-17 13-34 9 4 22 15 22 32 0 11-7 18-17 18zm0 0c-4 0-7-3-7-7 0-6 7-8 6-14 4 3 8 6 8 12s-3 9-7 9z" fill="none" stroke="#E8601C" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Konoba 180</b><small>Krk · grill house</small></span></a>
-        <p style="margin:18px 0 0;max-width:34ch" data-i18n="foot.txt">Obiteljski grill house u gradu Krku. Meso s roštilja, velike porcije, terasa i klima.</p>
+        <p style="margin:18px 0 0;max-width:34ch" data-i18n="foot.txt">Grill house s roštiljem na drveni ugljen u gradu Krku. Velike porcije, poštene cijene, terasa i klima.</p>
       </div>
       <div><h4 data-i18n="foot.addr">Adresa</h4><p>Ul. Stjepana Radića 1c<br>51500 Krk, <span data-i18n="c.country">Hrvatska</span></p></div>
-      <div><h4 data-i18n="foot.hours">Radno vrijeme</h4><p><span data-i18n="h.mf">Pon do pet</span> 10:00 do 21:00<br><span data-i18n="h.ss">Sub i ned</span> 12:00 do 22:00</p></div>
-      <div><h4 data-i18n="foot.contact">Kontakt</h4><ul><li><a href="tel:+385916463000">+385 91 646 3000</a></li><li><a href="https://wa.me/385916463000" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="#rezervacija" data-i18n="nav.book">Rezervacija</a></li></ul></div>
+      <div><h4 data-i18n="foot.hours">Radno vrijeme</h4><p><span data-i18n="h.all">Pon do ned</span><br><span data-i18n="h.allV">12:00 do 24:00</span></p></div>
+      <div><h4 data-i18n="foot.contact">Kontakt</h4><ul><li><a href="tel:+385916463000">+385 91 646 3000</a></li><li><a href="https://wa.me/385916463000" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:konoba180@gmail.com">konoba180@gmail.com</a></li><li><a href="https://www.instagram.com/konoba_stoosamdeset/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/share/16VWawMqUY/" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.tripadvisor.com/Restaurant_Review-g1067956-d33132273-Reviews-Konoba_180-Krk_Krk_Island_Kvarner_Bay_Islands_Primorje_Gorski_Kotar_County.html" target="_blank" rel="noopener">TripAdvisor</a></li><li><a href="#rezervacija" data-i18n="nav.book">Rezervacija</a></li></ul></div>
     </div>
     <div class="foot__bot"><span>&copy; <span id="yr">2026</span> Konoba 180, Krk</span><span data-i18n="foot.note">Prijedlog web stranice · Koncept: Marija</span></div>
   </div>
@@ -1131,94 +1233,236 @@ var guests = 2, timeV = "20:00";
 var HR = {}; /* captured from DOM */
 var T = {
 en:{
- "hdr.book":"Book a table","menu":"Menu","nav.home":"Home","nav.gal":"Gallery","nav.menu":"Menu","nav.why":"Why 180","nav.near":"Nearby","nav.book":"Reservation","nav.contact":"Contact",
- "hero.label":"Krk · grill · konoba","hero.sub":"Grill with the soul of the island","hero.txt":"Mixed grill, ćevapi, pljeskavica and warm lepinja bread. Big portions, fair prices and a free shot of local spirit at the end.","hero.cta":"Book a table","hero.hint":"Move your finger, the sparks react",
- "finder.b":"Table tonight","gal.title":"A look inside Konoba 180","gal.sub":"The grill, the terrace and plates you remember.",
- "gal.c1":"Mixed grill platter","gal.c2":"Ćevapi in lepinja with kajmak","gal.c3":"Terrace","gal.c4":"Fries with cheddar and bacon","gal.c5":"Grilled fish","tag":"Krk, Croatia",
- "story.label":"Story","story.title":"A family grill in the town of Krk","story.p1":"Konoba 180 is a family grill house in the town of Krk, at Stjepana Radića 1c. The meat is cooked over the grill, the lepinja is warm, and kajmak and ajvar come with the plate.","story.p2":"Portions are big, prices are fair, and every meal ends with a free shot of Croatian spirit. Air conditioning inside, a terrace outside, and parking right across the street.",
- "story.google":"Google rating","story.rev":"reviews","st.1":"Google reviews","st.2":"Average rating","story.sign":"Krk, island of Krk",
- "menu.label":"Menu","menu.title":"What you eat at 180","menu.sub":"Grilled meat is the main thing. Fish and seafood are there for those who are, after all, by the sea.",
- "tab.1":"From the grill","tab.2":"Sides","tab.3":"Fish","tab.4":"Sweet","m.hl":"Hit",
- "m.1.1":"Mixed grill platter","m.1.1d":"Ćevapi, pljeskavica and more from the grill, with lepinja, ajvar and kajmak. A big portion.","m.1.2":"Ćevapi","m.1.2d":"In warm lepinja, with onion. Kajmak if you like.","m.1.3":"Pljeskavica","m.1.3d":"Grilled, in lepinja or on a plate with a side.","m.1.4":"Ćevapi in lepinja with kajmak","m.1.4d":"For those who eat by hand.",
- "m.2.1":"Fries with cheddar and bacon","m.2.1d":"Fries covered in cheddar, with bacon.","m.2.2":"Lepinja","m.2.2d":"Warm, from the grill.","m.2.3":"Kajmak","m.2.3d":"With the meat or in the lepinja.","m.2.4":"Ajvar","m.2.4d":"With every dish from the grill.","m.2.5":"Fries","m.2.5d":"Classic.",
- "m.3.1":"Grilled fish","m.3.1d":"Depends on the day. Ask the staff what is in.","m.3.2":"Seafood","m.3.2d":"Daily offer.",
- "m.4.1":"Dessert of the day","m.4.1d":"Ask the staff what is sweet today.","m.4.2":"Coffee","m.4.2d":"To finish.","m.4.3":"Shot of local spirit","m.4.3d":"On the house, at the end of the meal.","m.free":"Free",
- "menu.note":"Prices \"XX €\" are examples and will be filled in later. The menu changes with the season and the offer.","menu.tag":"From the grill",
- "why.label":"Why 180","why.title":"Three reasons guests come back","why.1":"Big portions","why.1d":"A plate you do not leave hungry. The mixed grill is for sharing, the ćevapi come by the dozen.","why.2":"Terrace and AC","why.2d":"On the terrace in summer, inside with air conditioning in the heat. Same grill either way.","why.3":"Parking across the street","why.3d":"Park right across the road and sit down. No hunting for a spot in the old town.","why.cta":"Book a table",
- "sig.label":"House signatures","sig.title":"The dishes we are known for","sig.cta":"Book a table",
- "sig.1tag":"For sharing","sig.1":"Mixed grill platter","sig.1m":"Grill · big portion","sig.1d":"Everything from the grill on one plate, with lepinja, ajvar and kajmak.","sig.1b1":"Ćevapi and pljeskavica","sig.1b2":"Lepinja, ajvar, kajmak","sig.1b3":"Ideal for two or more",
- "sig.2tag":"Classic","sig.2":"Ćevapi with kajmak","sig.2m":"Grill · lepinja","sig.2d":"Ćevapi in warm lepinja, with onion and kajmak.","sig.2b1":"Warm lepinja","sig.2b2":"Kajmak and onion","sig.2b3":"Ajvar on the side",
- "sig.3tag":"From the grill","sig.3":"Pljeskavica","sig.3m":"Grill · plate or lepinja","sig.3d":"A big grilled pljeskavica, on a plate with a side or in lepinja.","sig.3b1":"On a plate or in lepinja","sig.3b2":"Kajmak if you like","sig.3b3":"Fries on the side",
- "sig.4tag":"Side","sig.4":"Fries with cheddar and bacon","sig.4m":"Side · for the table","sig.4d":"Fries covered in cheddar and topped with bacon. The side the whole table orders.","sig.4b1":"Cheddar and bacon","sig.4b2":"With meat or on its own","sig.4b3":"Big portion",
- "gtk.label":"Practical","gtk.title":"Good to know","gtk.sub":"Everything you want to know before you come, in one place.","gtk.hours":"Opening hours","gtk.hoursV1":"Mon to Fri 10:00 to 21:00","gtk.hoursV2":"Sat and Sun 12:00 to 22:00","gtk.addr":"Address","gtk.park":"Parking","gtk.parkV":"Right across the street","gtk.space":"Space","gtk.spaceV":"Inside with AC, plus a terrace","gtk.shot":"To finish","gtk.shotV":"Free shot of Croatian spirit","gtk.pay":"Card payment","gtk.payV":"Ask the staff","gtk.tel":"Phone / WhatsApp",
+ "hdr.book":"Book a table",
+ "menu":"Menu",
+ "nav.home":"Home","nav.gal":"Gallery","nav.menu":"Menu","nav.why":"Why 180","nav.near":"Nearby","nav.book":"Reservation","nav.contact":"Contact",
+ "hero.label":"Krk · grill · konoba","hero.sub":"Grill with the soul of the island","hero.txt":"Meat platters, ćevapi, pljeskavica and warm lepinja from the charcoal grill. Big portions, fair prices and a free shot of local spirit at the end.","hero.cta":"Book a table","hero.hint":"Move your finger, the sparks react",
+ "finder.b":"Table tonight",
+ "gal.title":"A look inside Konoba 180","gal.sub":"The grill, the terrace and plates you remember.","gal.c1":"Charcoal grill","gal.c2":"From our kitchen","gal.c3":"At Konoba 180","gal.c4":"Big portions, fair prices","gal.c5":"From farm to flame",
+ "tag":"Krk, Croatia",
+ "story.label":"Story","story.title":"A charcoal grill in the town of Krk","story.p1":"Konoba 180° opened in 2025, because the island was missing a place with big portions, fair prices and food cooked over wood charcoal. You will find us in the town of Krk, at Stjepana Radića 1c.","story.p2":"We work with local suppliers and fresh ingredients, from farm to flame. Sit in the shade among the greenery or inside with air conditioning, and every meal ends with a shot of local spirit on the house. Parking is right across the street.","story.google":"Google rating","story.rev":"reviews",
+ "st.1":"Google reviews","st.2":"Average rating",
+ "story.sign":"Krk, island of Krk",
+ "menu.label":"Menu","menu.title":"What you eat at 180","menu.sub":"Meat from the charcoal grill is the main thing. Alongside it: fish and squid, risotto, pasta, salads and a kids' menu.",
+ "m.hl":"Hit","m.free":"Free",
+ "menu.note":"Prices in euros, from the Konoba 180 menu (prices as of 10 September 2026). You can also order by phone on +385 91 646 3000, for delivery or pick-up.","menu.tag":"From the grill",
+ "why.label":"Why 180","why.title":"Three reasons guests come back","why.1":"Big portions","why.1d":"A plate you do not leave hungry. The meat platters are for sharing, and the ćevapi come ten to a portion.","why.2":"Terrace and AC","why.2d":"In summer in the shade among the greenery, inside with air conditioning when it is hot. The same charcoal grill either way.","why.3":"Parking across the street","why.3d":"Park right across the road and sit down. No hunting for a spot in the old town.","why.cta":"Book a table",
+ "sig.label":"House signatures","sig.title":"The dishes we are known for","sig.cta":"Book a table","sig.1tag":"For sharing","sig.1":"Meat platter for two","sig.1m":"For two · 46&nbsp;€","sig.1d":"Ćevapčići, a stuffed pork cutlet, chicken skewers, uštipci and a small cheese pljeskavica, with sides and flatbreads.","sig.1b1":"Roast potatoes and grilled mushrooms","sig.1b2":"The Boss's platter for 3: 88&nbsp;€","sig.1b3":"Platter for 4: 86&nbsp;€","sig.2tag":"Classic","sig.2":"Ćevapčići with flatbread","sig.2m":"Grill · 12,90&nbsp;€","sig.2d":"Ten ćevapčići, 300&nbsp;g of lightly spiced beef, with flatbread, ajvar and onion.","sig.2b1":"10 pieces, 300&nbsp;g","sig.2b2":"Flatbread, ajvar and onion","sig.2b3":"Kajmak as an extra","sig.3tag":"From the grill","sig.3":"The Boss's pljeskavica","sig.3m":"Grill · 18,90&nbsp;€","sig.3d":"300&nbsp;g of beef stuffed with peppers, cheese, bacon and chili, with steakhouse fries, ajvar and onion.","sig.3b1":"Three kinds of peppers","sig.3b2":"Cheese and bacon","sig.3b3":"Steakhouse fries on the side","sig.4tag":"Side","sig.4":"Fries with cheddar and crispy bacon","sig.4m":"Side · 8,50&nbsp;€","sig.4d":"Fries with cheddar and crispy bacon. The side the whole table orders.","sig.4b1":"Cheddar and crispy bacon","sig.4b2":"With meat or on its own","sig.4b3":"Also with truffle and Grana Padano",
+ "gtk.label":"Practical","gtk.title":"Good to know","gtk.sub":"Everything you want to know before you come, in one place.","gtk.hours":"Opening hours","gtk.hoursV1":"Every day 12:00 to 24:00","gtk.addr":"Address","gtk.park":"Parking","gtk.parkV":"Right across the street","gtk.space":"Space","gtk.spaceV":"Inside with AC, plus a shaded terrace among the greenery","gtk.shot":"To finish","gtk.shotV":"Free shot of Croatian spirit","gtk.pay":"Card payment","gtk.payV":"Ask the staff","gtk.tel":"Phone / WhatsApp",
  "near.label":"Krk","near.title":"What is nearby","near.sub":"The konoba is in the town of Krk, so everything the town offers is close.","near.1":"Krk old town","near.1d":"Stone streets, walls and the cathedral. A walk before or after dinner.","near.2":"Krk harbour","near.2d":"The waterfront with boats and a view of the sea. A spot for coffee after lunch.","near.3":"Beaches","near.3d":"Town and nearby beaches for a swim before the grill.","near.note":"Check distances on the map, depending on where you are staying.","near.tag":"Island of Krk",
  "book.label":"Reservation","book.title":"Book a table","book.sub":"Pick a date, time and number of guests. The request opens in WhatsApp, no payment and no sign-up.",
  "f.date":"Date","f.time":"Time","f.guests":"Guests","f.name":"Name","f.nameph":"Your name","f.send":"Send on WhatsApp","f.fine":"Opens WhatsApp with a prepared message. In summer we recommend booking.",
- "book.wa":"WhatsApp","book.waT":"The message goes to +385 91 646 3000. You can also call.","h.mf":"Mon to Fri","h.ss":"Sat and Sun","book.call":"Call",
- "faq.title":"Frequently asked","faq.1q":"Do I need to book a table?","faq.1a":"In summer we recommend booking, especially in the evening. Off season there is usually room, but a WhatsApp message never hurts.","faq.2q":"Where do I park?","faq.2a":"Parking is right across the street.","faq.3q":"Can I pay by card?","faq.3a":"Ask the staff when you arrive.","faq.4q":"Is there a kids menu?","faq.4a":"Ask us, we will gladly suggest something for the little guests.","faq.5q":"Is there a terrace and AC?","faq.5a":"Yes. The indoor space is air conditioned and there is a terrace outside.",
+ "book.wa":"WhatsApp","book.waT":"The message goes to +385 91 646 3000. You can also call.","book.call":"Call",
+ "faq.title":"Frequently asked","faq.1q":"Do I need to book a table?","faq.1a":"In summer we recommend booking, especially in the evening. Off season there is usually room, but a WhatsApp message never hurts.","faq.2q":"Where do I park?","faq.2a":"Parking is right across the street.","faq.3q":"Can I pay by card?","faq.3a":"Ask the staff when you arrive.","faq.4q":"Is there a kids menu?","faq.4a":"Yes. Chicken nuggets or breaded chicken with fries, 9,90&nbsp;€.","faq.5q":"Is there a terrace and AC?","faq.5a":"Yes. The indoor space is air conditioned, and outside you sit in the shade among the greenery.",
  "c.label":"Contact","c.title":"See you in Krk","c.country":"Croatia","c.maps":"Open in Google Maps","c.call":"Call","c.dir":"Directions","c.stylized":"stylized",
- "foot.txt":"A family grill house in the town of Krk. Grilled meat, big portions, terrace and AC.","foot.addr":"Address","foot.hours":"Opening hours","foot.contact":"Contact","foot.note":"Website proposal · Concept by Marija","fab":"Book","sbar.l":"Your request",
- "_today":"Today","_ctag":"Concept by Marija","_g":["guest","guests","guests"],"_wa":"Hello! I would like to book a table at Konoba 180.","_d":"Date","_t":"Time","_n":"Guests","_nm":"Name","_prev":"Previous","_next":"Next"
+ "foot.txt":"A charcoal grill house in the town of Krk. Big portions, fair prices, terrace and AC.","foot.addr":"Address","foot.hours":"Opening hours","foot.contact":"Contact","foot.note":"Website proposal · Concept by Marija",
+ "fab":"Book",
+ "sbar.l":"Your request",
+ "_today":"Today",
+ "_ctag":"Concept by Marija",
+ "_g":["guest", "guests", "guests"],
+ "_wa":"Hello! I would like to book a table at Konoba 180.",
+ "_d":"Date",
+ "_t":"Time",
+ "_n":"Guests",
+ "_nm":"Name",
+ "_prev":"Previous",
+ "_next":"Next",
+ "gal.c6":"Fresh produce from local suppliers","gal.c7":"At the table in Krk","gal.c8":"Konoba 180°, Krk",
+ "gtk.grill":"Grill","gtk.grillV":"Wood charcoal","gtk.deliv":"Delivery and pick-up","gtk.delivV":"Order by phone on +385 91 646 3000","gtk.mail":"Email",
+ "h.all":"Mon to Sun","h.allV":"12:00 to 24:00",
+ "faq.6q":"Do you deliver?","faq.6a":"Yes. Choose from the menu and order by phone on +385 91 646 3000, for delivery or pick-up.","faq.7q":"When are you open?","faq.7a":"Every day from 12:00 to 24:00.","faq.8q":"Why 180?","faq.8a":"Konoba 180° is named after the ideal grill temperature. Everything here is cooked over wood charcoal.",
+ "c.follow":"Follow us",
+ "tab.1":"From the grill",
+ "mm.1.1":"The Boss's ćevap","mm.1.1d":"Ten grilled ćevapčići stuffed with cheese, steakhouse fries, ajvar and onion.","mm.1.2":"The Boss's pljeskavica","mm.1.2d":"300&nbsp;g ground beef stuffed with three kinds of peppers, cheese, bacon and chili, steakhouse fries, ajvar and onion.","mm.1.3":"Ćevapčići with flatbread, ajvar and onion","mm.1.3d":"300&nbsp;g lightly spiced minced beef, ten pieces, flatbread, ajvar and onion.","mm.1.4":"Pljeskavica","mm.1.4d":"300&nbsp;g lightly spiced minced beef, grilled.","mm.1.5":"Gourmet pljeskavica","mm.1.5d":"300&nbsp;g lightly spiced minced beef with cheese, bacon and hot pepper.","mm.1.6":"Đevrek","mm.1.6d":"300&nbsp;g lightly spiced minced beef with cheese, bacon, hot pepper and kajmak.","mm.1.7":"Grilled stuffed pork cutlet","mm.1.7d":"Pork loin stuffed with cheese and bacon, wrapped in caul fat.","mm.1.8":"Slow-roasted pork ribs","mm.1.8d":"Marinated slow-roasted ribs, finished on the grill, with steakhouse fries.","mm.1.9":"Beef rump steak with grilled vegetables","mm.1.9d":"300&nbsp;g aged Angus rump steak from the grill, grilled vegetables.","mm.1.10":"Grilled marinated chicken breast","mm.1.10d":"Marinated chicken fillet, grilled.","mm.1.11":"Breaded chicken with fries","mm.1.11d":"200&nbsp;g chicken fillet in panko breadcrumbs, steakhouse fries.",
+ "tab.2":"Platters",
+ "mm.2.1":"Meat platter for two, with sides","mm.2.1d":"4 ćevapčići, 1 stuffed pork cutlet, 2 gourmet chicken skewers, 2 gourmet uštipci, a small cheese pljeskavica, roast potatoes, grilled mushrooms and 2 flatbreads.","mm.2.2":"The Boss's meat platter for three, with sides","mm.2.2d":"6 chef's ćevapčići, 2 stuffed pork cutlets, 300&nbsp;g chef's pljeskavica, 500&nbsp;g grilled pork ribs, kajmak, roast potatoes, potatoes with cheddar and crispy bacon, grilled mushrooms, chef's flatbreads, ajvar and onion.","mm.2.3":"Meat platter for four, with sides","mm.2.3d":"8 ćevapčići, 2 stuffed pork cutlets, 4 gourmet chicken skewers, 4 gourmet uštipci, a cheese pljeskavica, roast potatoes, grilled mushrooms and 4 flatbreads.",
+ "tab.3":"Fish and squid",
+ "mm.3.1":"Tuna steak with Swiss chard and potatoes","mm.3.1d":"220&nbsp;g tuna steak, Swiss chard and potatoes.","mm.3.2":"Sea bream with Swiss chard and potatoes","mm.3.2d":"350&nbsp;g sea bream, Swiss chard and potatoes.","mm.3.3":"Sea bass with Swiss chard and potatoes","mm.3.3d":"350&nbsp;g sea bass, Swiss chard and potatoes.","mm.3.4":"Fried calamari with fries","mm.3.4d":"220&nbsp;g fried calamari with fries and tartar sauce.","mm.3.5":"Grilled squid with Swiss chard and potatoes","mm.3.5d":"230&nbsp;g grilled squid, Swiss chard and potatoes.",
+ "tab.4":"Risotto and pasta",
+ "mm.4.1":"Risotto with chicken and vegetables","mm.4.1d":"Arborio rice, chicken, vegetables, vegetable stock.","mm.4.2":"Risotto with shrimp, pistachio and basil","mm.4.2d":"Arborio rice, cherry tomatoes, peeled shrimp tails, garlic, vegetable stock, pistachio and basil cream.","mm.4.3":"Green tagliatelle with shrimp","mm.4.3d":"Green noodles, peeled shrimp tails, Grana Padano cream, salsa.","mm.4.4":"Green tagliatelle with pancetta and truffle","mm.4.4d":"Green noodles, pancetta and truffle.","mm.4.5":"Gnocchi with beef goulash","mm.4.5d":"Homemade gnocchi, homemade beef goulash.","mm.4.6":"Four-cheese gnocchi","mm.4.6d":"Homemade gnocchi, gouda, cheddar, Grana Padano, parmesan.","mm.4.7":"Pork stew with gnocchi","mm.4.7d":"Pork stew with homemade gnocchi.","mm.4.8":"Chicken stew with gnocchi","mm.4.8d":"Chicken stew with homemade gnocchi.",
+ "tab.5":"Starters and soups",
+ "mm.5.1":"Cold platter","mm.5.1d":"100&nbsp;g Dalmatian prosciutto, 60&nbsp;g homemade sausage, 90&nbsp;g selected hard and semi-hard cheeses, cheese-stuffed peppers, olives.","mm.5.2":"Gourmet mazalice","mm.5.2d":"Minced beef with cheese, bacon and hot pepper, roasted on flatbread.","mm.5.3":"Chicken Caesar salad","mm.5.3d":"Chicken fillet, iceberg lettuce, cherry tomatoes, Caesar dressing, croutons, Grana Padano.","mm.5.4":"Tomato soup","mm.5.4d":"Creamy homemade tomato soup with garlic and basil.","mm.5.5":"Homemade chicken soup",
+ "tab.6":"Sides and salads",
+ "mm.6.1":"Steakhouse fries","mm.6.2":"Fries with truffle and Grana Padano","mm.6.3":"Fries with cheddar and crispy bacon","mm.6.4":"Baked beans","mm.6.5":"Buttered rice","mm.6.6":"Grilled vegetables","mm.6.7":"Grilled mushrooms","mm.6.8":"Swiss chard with potatoes","mm.6.9":"Cabbage salad","mm.6.9d":"Freshly shredded cabbage.","mm.6.10":"Mixed salad","mm.6.10d":"Iceberg lettuce, cucumber, cabbage, cherry tomatoes.","mm.6.11":"Shopska salad","mm.6.11d":"Tomato, red onion, fresh pepper, cucumber, feta cheese.","mm.6.12":"Roasted peppers with garlic","mm.6.12d":"Grilled peppers served cold with garlic.",
+ "tab.7":"Extras",
+ "mm.7.1":"Flatbread (lepinja)","mm.7.2":"The Boss's flatbread","mm.7.3":"Kajmak","mm.7.4":"Ajvar","mm.7.5":"Olives","mm.7.6":"Sauce (mayonnaise, ketchup, tartar)",
+ "tab.8":"Kids and desserts",
+ "mm.8.1":"Chicken nuggets with fries","mm.kid":"Kids' menu","mm.8.2":"Breaded chicken with fries","mm.8.3":"Chocolate soufflé with vanilla ice cream","mm.8.4":"Cake of the day","mm.8.5":"Scoop of ice cream","mm.8.6":"Shot of local spirit","mm.8.6d":"On the house, at the end of the meal."
 },
 de:{
- "hdr.book":"Tisch reservieren","menu":"Menü","nav.home":"Start","nav.gal":"Galerie","nav.menu":"Speisekarte","nav.why":"Warum 180","nav.near":"In der Nähe","nav.book":"Reservierung","nav.contact":"Kontakt",
- "hero.label":"Krk · Grill · Konoba","hero.sub":"Grill mit der Seele der Insel","hero.txt":"Gemischte Grillplatte, Ćevapi, Pljeskavica und warmes Lepinja Brot. Große Portionen, faire Preise und zum Schluss ein Schnaps aufs Haus.","hero.cta":"Tisch reservieren","hero.hint":"Finger bewegen, die Funken reagieren",
- "finder.b":"Tisch heute Abend","gal.title":"Ein Blick in die Konoba 180","gal.sub":"Der Grill, die Terrasse und Teller, die man nicht vergisst.",
- "gal.c1":"Gemischte Grillplatte","gal.c2":"Ćevapi im Lepinja mit Kajmak","gal.c3":"Terrasse","gal.c4":"Pommes mit Cheddar und Speck","gal.c5":"Fisch vom Grill","tag":"Krk, Kroatien",
- "story.label":"Geschichte","story.title":"Ein Familiengrill in der Stadt Krk","story.p1":"Die Konoba 180 ist ein familiäres Grillhaus in der Stadt Krk, Stjepana Radića 1c. Das Fleisch kommt vom Grill, das Lepinja ist warm, Kajmak und Ajvar kommen mit auf den Teller.","story.p2":"Die Portionen sind groß, die Preise fair, und am Ende jedes Essens gibt es einen Schnaps aufs Haus. Innen Klimaanlage, draußen Terrasse, Parkplatz direkt gegenüber.",
- "story.google":"Google Bewertung","story.rev":"Bewertungen","st.1":"Google Bewertungen","st.2":"Durchschnittsnote","story.sign":"Krk, Insel Krk",
- "menu.label":"Speisekarte","menu.title":"Was man im 180 isst","menu.sub":"Fleisch vom Grill ist die Hauptsache. Fisch und Meeresfrüchte gibt es für alle, die eben doch am Meer sind.",
- "tab.1":"Vom Grill","tab.2":"Beilagen","tab.3":"Fisch","tab.4":"Süßes","m.hl":"Hit",
- "m.1.1":"Gemischte Grillplatte","m.1.1d":"Ćevapi, Pljeskavica und mehr vom Grill, mit Lepinja, Ajvar und Kajmak. Große Portion.","m.1.2":"Ćevapi","m.1.2d":"Im warmen Lepinja, mit Zwiebeln. Kajmak nach Wunsch.","m.1.3":"Pljeskavica","m.1.3d":"Vom Grill, im Lepinja oder auf dem Teller mit Beilage.","m.1.4":"Ćevapi im Lepinja mit Kajmak","m.1.4d":"Für alle, die aus der Hand essen.",
- "m.2.1":"Pommes mit Cheddar und Speck","m.2.1d":"Pommes mit Cheddar überzogen, mit Speck.","m.2.2":"Lepinja","m.2.2d":"Warm, vom Grill.","m.2.3":"Kajmak","m.2.3d":"Zum Fleisch oder ins Lepinja.","m.2.4":"Ajvar","m.2.4d":"Zu jedem Gericht vom Grill.","m.2.5":"Pommes","m.2.5d":"Klassisch.",
- "m.3.1":"Fisch vom Grill","m.3.1d":"Je nach Tag. Fragen Sie das Personal, was es heute gibt.","m.3.2":"Meeresfrüchte","m.3.2d":"Nach Tagesangebot.",
- "m.4.1":"Dessert des Tages","m.4.1d":"Fragen Sie das Personal, was heute süß ist.","m.4.2":"Kaffee","m.4.2d":"Zum Abschluss.","m.4.3":"Schnaps aus der Region","m.4.3d":"Aufs Haus, am Ende des Essens.","m.free":"Gratis",
- "menu.note":"Preise \"XX €\" sind Beispiele und werden später eingetragen. Die Karte ändert sich mit Saison und Angebot.","menu.tag":"Vom Grill",
- "why.label":"Warum 180","why.title":"Drei Gründe, warum Gäste wiederkommen","why.1":"Große Portionen","why.1d":"Ein Teller, von dem man nicht hungrig aufsteht. Die Grillplatte ist zum Teilen, die Ćevapi kommen im Dutzend.","why.2":"Terrasse und Klima","why.2d":"Im Sommer auf der Terrasse, bei Hitze drinnen mit Klimaanlage. Beides mit demselben Grill.","why.3":"Parkplatz gegenüber","why.3d":"Direkt gegenüber parken und Platz nehmen. Keine Parkplatzsuche in der Altstadt.","why.cta":"Tisch reservieren",
- "sig.label":"Hausklassiker","sig.title":"Gerichte, für die man uns kennt","sig.cta":"Tisch reservieren",
- "sig.1tag":"Zum Teilen","sig.1":"Gemischte Grillplatte","sig.1m":"Grill · große Portion","sig.1d":"Alles vom Grill auf einem Teller, mit Lepinja, Ajvar und Kajmak.","sig.1b1":"Ćevapi und Pljeskavica","sig.1b2":"Lepinja, Ajvar, Kajmak","sig.1b3":"Ideal für zwei oder mehr",
- "sig.2tag":"Klassiker","sig.2":"Ćevapi mit Kajmak","sig.2m":"Grill · Lepinja","sig.2d":"Ćevapi im warmen Lepinja, mit Zwiebeln und Kajmak.","sig.2b1":"Warmes Lepinja","sig.2b2":"Kajmak und Zwiebeln","sig.2b3":"Ajvar dazu",
- "sig.3tag":"Vom Grill","sig.3":"Pljeskavica","sig.3m":"Grill · Teller oder Lepinja","sig.3d":"Große Pljeskavica vom Grill, auf dem Teller mit Beilage oder im Lepinja.","sig.3b1":"Auf dem Teller oder im Lepinja","sig.3b2":"Kajmak nach Wunsch","sig.3b3":"Pommes dazu",
- "sig.4tag":"Beilage","sig.4":"Pommes mit Cheddar und Speck","sig.4m":"Beilage · für den Tisch","sig.4d":"Pommes mit Cheddar überzogen und mit Speck bestreut. Die Beilage, die der ganze Tisch bestellt.","sig.4b1":"Cheddar und Speck","sig.4b2":"Zum Fleisch oder allein","sig.4b3":"Große Portion",
- "gtk.label":"Praktisch","gtk.title":"Gut zu wissen","gtk.sub":"Alles, was Sie vor dem Besuch wissen möchten, an einem Ort.","gtk.hours":"Öffnungszeiten","gtk.hoursV1":"Mo bis Fr 10:00 bis 21:00","gtk.hoursV2":"Sa und So 12:00 bis 22:00","gtk.addr":"Adresse","gtk.park":"Parken","gtk.parkV":"Direkt gegenüber","gtk.space":"Räume","gtk.spaceV":"Innen mit Klimaanlage, plus Terrasse","gtk.shot":"Zum Schluss","gtk.shotV":"Ein Schnaps aufs Haus","gtk.pay":"Kartenzahlung","gtk.payV":"Fragen Sie das Personal","gtk.tel":"Telefon / WhatsApp",
+ "hdr.book":"Tisch reservieren",
+ "menu":"Menü",
+ "nav.home":"Start","nav.gal":"Galerie","nav.menu":"Speisekarte","nav.why":"Warum 180","nav.near":"In der Nähe","nav.book":"Reservierung","nav.contact":"Kontakt",
+ "hero.label":"Krk · Grill · Konoba","hero.sub":"Grill mit der Seele der Insel","hero.txt":"Fleischplatten, Ćevapi, Pljeskavica und warmes Lepinja vom Holzkohlegrill. Große Portionen, faire Preise und zum Schluss ein Schnaps aufs Haus.","hero.cta":"Tisch reservieren","hero.hint":"Finger bewegen, die Funken reagieren",
+ "finder.b":"Tisch heute Abend",
+ "gal.title":"Ein Blick in die Konoba 180","gal.sub":"Der Grill, die Terrasse und Teller, die man nicht vergisst.","gal.c1":"Holzkohlegrill","gal.c2":"Aus unserer Küche","gal.c3":"In der Konoba 180","gal.c4":"Große Portionen, faire Preise","gal.c5":"Vom Hof auf den Grill",
+ "tag":"Krk, Kroatien",
+ "story.label":"Geschichte","story.title":"Holzkohlegrill in der Stadt Krk","story.p1":"Die Konoba 180° wurde 2025 eröffnet, weil der Insel ein Ort mit großen Portionen, fairen Preisen und Essen vom Holzkohlegrill fehlte. Sie finden uns in der Stadt Krk, Stjepana Radića 1c.","story.p2":"Wir arbeiten mit lokalen Lieferanten und frischen Zutaten, vom Hof auf den Grill. Sie sitzen im Schatten im Grünen oder drinnen mit Klimaanlage, und am Ende jedes Essens gibt es einen Schnaps aufs Haus. Parkplätze direkt gegenüber.","story.google":"Google Bewertung","story.rev":"Bewertungen",
+ "st.1":"Google Bewertungen","st.2":"Durchschnittsnote",
+ "story.sign":"Krk, Insel Krk",
+ "menu.label":"Speisekarte","menu.title":"Was man im 180 isst","menu.sub":"Fleisch vom Holzkohlegrill ist die Hauptsache. Dazu Fisch und Tintenfisch, Risotto, Pasta, Salate und ein Kindermenü.",
+ "m.hl":"Hit","m.free":"Gratis",
+ "menu.note":"Preise in Euro laut Speisekarte der Konoba 180 (Stand 10.09.2026). Sie können auch telefonisch unter +385 91 646 3000 bestellen, zur Lieferung oder Abholung.","menu.tag":"Vom Grill",
+ "why.label":"Warum 180","why.title":"Drei Gründe, warum Gäste wiederkommen","why.1":"Große Portionen","why.1d":"Ein Teller, von dem man nicht hungrig aufsteht. Die Fleischplatten sind zum Teilen, die Ćevapi kommen zu zehnt.","why.2":"Terrasse und Klima","why.2d":"Im Sommer im Schatten im Grünen, bei Hitze drinnen mit Klimaanlage. Beides mit demselben Holzkohlegrill.","why.3":"Parkplatz gegenüber","why.3d":"Direkt gegenüber parken und Platz nehmen. Keine Parkplatzsuche in der Altstadt.","why.cta":"Tisch reservieren",
+ "sig.label":"Hausklassiker","sig.title":"Gerichte, für die man uns kennt","sig.cta":"Tisch reservieren","sig.1tag":"Zum Teilen","sig.1":"Fleischplatte für zwei","sig.1m":"Für zwei · 46&nbsp;€","sig.1d":"Ćevapčići, gefülltes Schweinekotelett, Hähnchenspieße, Uštipci und eine kleine Pljeskavica mit Käse, mit Beilagen und Fladenbrot.","sig.1b1":"Bratkartoffeln und gegrillte Champignons","sig.1b2":"Platte des Chefs für 3: 88&nbsp;€","sig.1b3":"Platte für 4: 86&nbsp;€","sig.2tag":"Klassiker","sig.2":"Ćevapčići mit Fladenbrot","sig.2m":"Grill · 12,90&nbsp;€","sig.2d":"Zehn Ćevapčići aus 300&nbsp;g leicht gewürztem Rinderhack, mit Fladenbrot, Ajvar und Zwiebeln.","sig.2b1":"10 Stück, 300&nbsp;g","sig.2b2":"Fladenbrot, Ajvar und Zwiebeln","sig.2b3":"Kajmak als Extra","sig.3tag":"Vom Grill","sig.3":"Chefs Pljeskavica","sig.3m":"Grill · 18,90&nbsp;€","sig.3d":"300&nbsp;g Rinderhack, gefüllt mit Paprika, Käse, Speck und Chili, mit Steakhouse-Pommes, Ajvar und Zwiebeln.","sig.3b1":"Drei Paprikasorten","sig.3b2":"Käse und Speck","sig.3b3":"Steakhouse-Pommes dazu","sig.4tag":"Beilage","sig.4":"Pommes mit Cheddar und knusprigem Speck","sig.4m":"Beilage · 8,50&nbsp;€","sig.4d":"Pommes mit Cheddar und knusprigem Speck. Die Beilage, die der ganze Tisch bestellt.","sig.4b1":"Cheddar und knuspriger Speck","sig.4b2":"Zum Fleisch oder allein","sig.4b3":"Auch mit Trüffel und Grana Padano",
+ "gtk.label":"Praktisch","gtk.title":"Gut zu wissen","gtk.sub":"Alles, was Sie vor dem Besuch wissen möchten, an einem Ort.","gtk.hours":"Öffnungszeiten","gtk.hoursV1":"Täglich 12:00 bis 24:00","gtk.addr":"Adresse","gtk.park":"Parken","gtk.parkV":"Direkt gegenüber","gtk.space":"Räume","gtk.spaceV":"Innen mit Klimaanlage, dazu eine schattige Terrasse im Grünen","gtk.shot":"Zum Schluss","gtk.shotV":"Ein Schnaps aufs Haus","gtk.pay":"Kartenzahlung","gtk.payV":"Fragen Sie das Personal","gtk.tel":"Telefon / WhatsApp",
  "near.label":"Krk","near.title":"Was ist in der Nähe","near.sub":"Die Konoba liegt in der Stadt Krk, alles, was die Stadt bietet, ist nah.","near.1":"Altstadt von Krk","near.1d":"Steingassen, Stadtmauern und die Kathedrale. Ein Spaziergang vor oder nach dem Essen.","near.2":"Hafen von Krk","near.2d":"Die Uferpromenade mit Booten und Meerblick. Ein Platz für den Kaffee nach dem Mittagessen.","near.3":"Strände","near.3d":"Stadtstrände und Strände in der Nähe zum Baden vor dem Grill.","near.note":"Entfernungen bitte auf der Karte prüfen, je nachdem, wo Sie wohnen.","near.tag":"Insel Krk",
  "book.label":"Reservierung","book.title":"Tisch reservieren","book.sub":"Datum, Uhrzeit und Gästezahl wählen. Die Anfrage öffnet sich in WhatsApp, ohne Zahlung und ohne Anmeldung.",
  "f.date":"Datum","f.time":"Uhrzeit","f.guests":"Gäste","f.name":"Name","f.nameph":"Ihr Name","f.send":"Per WhatsApp senden","f.fine":"Öffnet WhatsApp mit einer vorbereiteten Nachricht. Im Sommer empfehlen wir eine Reservierung.",
- "book.wa":"WhatsApp","book.waT":"Die Nachricht geht an +385 91 646 3000. Sie können auch anrufen.","h.mf":"Mo bis Fr","h.ss":"Sa und So","book.call":"Anrufen",
- "faq.title":"Häufige Fragen","faq.1q":"Muss ich reservieren?","faq.1a":"Im Sommer empfehlen wir eine Reservierung, besonders abends. Außerhalb der Saison ist meist Platz, eine WhatsApp Nachricht schadet aber nie.","faq.2q":"Wo parke ich?","faq.2a":"Der Parkplatz ist direkt gegenüber.","faq.3q":"Kann ich mit Karte zahlen?","faq.3a":"Fragen Sie das Personal bei der Ankunft.","faq.4q":"Gibt es eine Kinderkarte?","faq.4a":"Fragen Sie uns, wir schlagen gern etwas für die kleinen Gäste vor.","faq.5q":"Gibt es Terrasse und Klimaanlage?","faq.5a":"Ja. Der Innenraum ist klimatisiert, draußen gibt es eine Terrasse.",
+ "book.wa":"WhatsApp","book.waT":"Die Nachricht geht an +385 91 646 3000. Sie können auch anrufen.","book.call":"Anrufen",
+ "faq.title":"Häufige Fragen","faq.1q":"Muss ich reservieren?","faq.1a":"Im Sommer empfehlen wir eine Reservierung, besonders abends. Außerhalb der Saison ist meist Platz, eine WhatsApp Nachricht schadet aber nie.","faq.2q":"Wo parke ich?","faq.2a":"Der Parkplatz ist direkt gegenüber.","faq.3q":"Kann ich mit Karte zahlen?","faq.3a":"Fragen Sie das Personal bei der Ankunft.","faq.4q":"Gibt es eine Kinderkarte?","faq.4a":"Ja. Hähnchen-Nuggets oder paniertes Hähnchen mit Pommes, 9,90&nbsp;€.","faq.5q":"Gibt es Terrasse und Klimaanlage?","faq.5a":"Ja. Der Innenraum ist klimatisiert, draußen sitzen Sie im Schatten im Grünen.",
  "c.label":"Kontakt","c.title":"Bis bald in Krk","c.country":"Kroatien","c.maps":"In Google Maps öffnen","c.call":"Anrufen","c.dir":"Route","c.stylized":"stilisiert",
- "foot.txt":"Familiäres Grillhaus in der Stadt Krk. Fleisch vom Grill, große Portionen, Terrasse und Klimaanlage.","foot.addr":"Adresse","foot.hours":"Öffnungszeiten","foot.contact":"Kontakt","foot.note":"Website Vorschlag · Konzept: Marija","fab":"Reservieren","sbar.l":"Ihre Anfrage",
- "_today":"Heute","_ctag":"Konzept: Marija","_g":["Gast","Gäste","Gäste"],"_wa":"Hallo! Ich möchte einen Tisch in der Konoba 180 reservieren.","_d":"Datum","_t":"Uhrzeit","_n":"Gäste","_nm":"Name","_prev":"Zurück","_next":"Weiter"
+ "foot.txt":"Grillhaus mit Holzkohlegrill in der Stadt Krk. Große Portionen, faire Preise, Terrasse und Klimaanlage.","foot.addr":"Adresse","foot.hours":"Öffnungszeiten","foot.contact":"Kontakt","foot.note":"Website Vorschlag · Konzept: Marija",
+ "fab":"Reservieren",
+ "sbar.l":"Ihre Anfrage",
+ "_today":"Heute",
+ "_ctag":"Konzept: Marija",
+ "_g":["Gast", "Gäste", "Gäste"],
+ "_wa":"Hallo! Ich möchte einen Tisch in der Konoba 180 reservieren.",
+ "_d":"Datum",
+ "_t":"Uhrzeit",
+ "_n":"Gäste",
+ "_nm":"Name",
+ "_prev":"Zurück",
+ "_next":"Weiter",
+ "gal.c6":"Frische Zutaten von lokalen Lieferanten","gal.c7":"Am Tisch in Krk","gal.c8":"Konoba 180°, Krk",
+ "gtk.grill":"Grill","gtk.grillV":"Holzkohle","gtk.deliv":"Lieferung und Abholung","gtk.delivV":"Telefonisch bestellen unter +385 91 646 3000","gtk.mail":"E-Mail",
+ "h.all":"Mo bis So","h.allV":"12:00 bis 24:00",
+ "faq.6q":"Liefern Sie auch?","faq.6a":"Ja. Wählen Sie aus der Speisekarte und bestellen Sie telefonisch unter +385 91 646 3000, zur Lieferung oder Abholung.","faq.7q":"Wann haben Sie geöffnet?","faq.7a":"Täglich von 12:00 bis 24:00 Uhr.","faq.8q":"Warum 180?","faq.8a":"Die Konoba 180° ist nach der idealen Grilltemperatur benannt. Bei uns wird über Holzkohle gegrillt.",
+ "c.follow":"Folgen Sie uns",
+ "tab.1":"Vom Grill",
+ "mm.1.1":"Chefs Ćevap","mm.1.1d":"Zehn gegrillte Ćevapčići mit Käsefüllung, Steakhouse-Pommes, Ajvar und Zwiebeln.","mm.1.2":"Chefs Pljeskavica","mm.1.2d":"300&nbsp;g Rinderhack, gefüllt mit drei Paprikasorten, Käse, Speck und Chili, Steakhouse-Pommes, Ajvar und Zwiebeln.","mm.1.3":"Ćevapčići mit Fladenbrot, Ajvar und Zwiebeln","mm.1.3d":"300&nbsp;g leicht gewürztes Rinderhack, zehn Stück, Fladenbrot, Ajvar und Zwiebeln.","mm.1.4":"Pljeskavica","mm.1.4d":"300&nbsp;g leicht gewürztes Rinderhack vom Grill.","mm.1.5":"Gourmet-Pljeskavica","mm.1.5d":"300&nbsp;g leicht gewürztes Rinderhack mit Käse, Speck und scharfer Paprika.","mm.1.6":"Đevrek","mm.1.6d":"300&nbsp;g leicht gewürztes Rinderhack mit Käse, Speck, scharfer Paprika und Kajmak.","mm.1.7":"Gefülltes Schweinekotelett vom Grill","mm.1.7d":"Schweinerücken mit Käse und Speck gefüllt, im Schweinenetz gegrillt.","mm.1.8":"Langsam gegrillte Schweinerippchen","mm.1.8d":"Marinierte, langsam gegarte Rippchen, auf dem Grill vollendet, mit Steakhouse-Pommes.","mm.1.9":"Rumpsteak vom Rind mit gegrilltem Gemüse","mm.1.9d":"300&nbsp;g gereiftes Angus-Rumpsteak vom Grill, gegrilltes Gemüse.","mm.1.10":"Mariniertes Hähnchenbrustfilet vom Grill","mm.1.10d":"Mariniertes Hähnchenfilet, gegrillt.","mm.1.11":"Paniertes Hähnchen mit Pommes","mm.1.11d":"200&nbsp;g Hähnchenfilet in Panko-Panade, Steakhouse-Pommes.",
+ "tab.2":"Platten",
+ "mm.2.1":"Fleischplatte für zwei Personen mit Beilagen","mm.2.1d":"4 Ćevapčići, 1 gefülltes Schweinekotelett, 2 Gourmet-Hähnchenspieße, 2 Gourmet-Uštipci, eine kleine Pljeskavica mit Käse, Bratkartoffeln, gegrillte Champignons und 2 Fladenbrote.","mm.2.2":"Fleischplatte des Chefs für drei Personen mit Beilagen","mm.2.2d":"6 Ćevapčići des Chefs, 2 gefüllte Schweinekoteletts, 300&nbsp;g Pljeskavica des Chefs, 500&nbsp;g gegrillte Schweinerippchen, Kajmak, Bratkartoffeln, Kartoffeln mit Cheddar und knusprigem Speck, gegrillte Champignons, Fladenbrote des Chefs, Ajvar und Zwiebeln.","mm.2.3":"Fleischplatte für vier Personen mit Beilagen","mm.2.3d":"8 Ćevapčići, 2 gefüllte Schweinekoteletts, 4 Gourmet-Hähnchenspieße, 4 Gourmet-Uštipci, Pljeskavica mit Käse, Bratkartoffeln, gegrillte Champignons und 4 Fladenbrote.",
+ "tab.3":"Fisch und Tintenfisch",
+ "mm.3.1":"Thunfischsteak mit Mangold und Kartoffeln","mm.3.1d":"220&nbsp;g Thunfischsteak, Mangold mit Kartoffeln.","mm.3.2":"Goldbrasse mit Mangold und Kartoffeln","mm.3.2d":"Goldbrasse, 350&nbsp;g, Mangold mit Kartoffeln.","mm.3.3":"Seebarsch mit Mangold und Kartoffeln","mm.3.3d":"Seebarsch, 350&nbsp;g, Mangold mit Kartoffeln.","mm.3.4":"Frittierte Calamari mit Pommes","mm.3.4d":"220&nbsp;g frittierte Calamari mit Pommes und Tartarsauce.","mm.3.5":"Gegrillter Tintenfisch mit Mangold und Kartoffeln","mm.3.5d":"230&nbsp;g gegrillter Tintenfisch, Mangold mit Kartoffeln.",
+ "tab.4":"Risotto und Pasta",
+ "mm.4.1":"Risotto mit Hähnchen und Gemüse","mm.4.1d":"Arborio-Reis, Hähnchen, Gemüse, Gemüsebrühe.","mm.4.2":"Risotto mit Garnelen, Pistazien und Basilikum","mm.4.2d":"Arborio-Reis, Kirschtomaten, geschälte Garnelenschwänze, Knoblauch, Gemüsebrühe, Pistazien-Basilikum-Creme.","mm.4.3":"Grüne Tagliatelle mit Garnelen","mm.4.3d":"Grüne Bandnudeln, geschälte Garnelenschwänze, Grana-Padano-Creme, Salsa.","mm.4.4":"Grüne Tagliatelle mit Pancetta und Trüffel","mm.4.4d":"Grüne Bandnudeln, Pancetta und Trüffel.","mm.4.5":"Gnocchi mit Rindergulasch","mm.4.5d":"Hausgemachte Gnocchi, hausgemachtes Rindergulasch.","mm.4.6":"Vier-Käse-Gnocchi","mm.4.6d":"Hausgemachte Gnocchi, Gouda, Cheddar, Grana Padano, Parmesan.","mm.4.7":"Schweineeintopf mit Gnocchi","mm.4.7d":"Schweineeintopf mit hausgemachten Gnocchi.","mm.4.8":"Hühnereintopf mit Gnocchi","mm.4.8d":"Hühnereintopf mit hausgemachten Gnocchi.",
+ "tab.5":"Vorspeisen und Suppen",
+ "mm.5.1":"Kalte Platte","mm.5.1d":"100&nbsp;g dalmatinischer Pršut, 60&nbsp;g hausgemachte Wurst, 90&nbsp;g ausgewählte Hart- und Schnittkäse, mit Käse gefüllte Paprika, Oliven.","mm.5.2":"Gourmet-Mazalice","mm.5.2d":"Rinderhack mit Käse, Speck und scharfer Paprika, auf Fladenbrot gebacken.","mm.5.3":"Caesar-Salat mit Hähnchen","mm.5.3d":"Hähnchenfilet, Eisbergsalat, Kirschtomaten, Caesar-Dressing, Croûtons, Grana Padano.","mm.5.4":"Tomatensuppe","mm.5.4d":"Cremige hausgemachte Tomatensuppe mit Knoblauch und Basilikum.","mm.5.5":"Hausgemachte Hühnersuppe",
+ "tab.6":"Beilagen und Salate",
+ "mm.6.1":"Steakhouse-Pommes","mm.6.2":"Pommes mit Trüffel und Grana Padano","mm.6.3":"Pommes mit Cheddar und knusprigem Speck","mm.6.4":"Überbackene Bohnen","mm.6.5":"Butterreis","mm.6.6":"Gegrilltes Gemüse","mm.6.7":"Gegrillte Champignons","mm.6.8":"Mangold mit Kartoffeln","mm.6.9":"Krautsalat","mm.6.9d":"Frisch geraspelter Weißkohl.","mm.6.10":"Gemischter Salat","mm.6.10d":"Eisbergsalat, Gurke, Kohl, Kirschtomaten.","mm.6.11":"Šopska-Salat","mm.6.11d":"Tomate, rote Zwiebel, frische Paprika, Gurke, Feta.","mm.6.12":"Gegrillte Paprika mit Knoblauch","mm.6.12d":"Gegrillte Paprika, kalt serviert, mit Knoblauch.",
+ "tab.7":"Extras",
+ "mm.7.1":"Fladenbrot","mm.7.2":"Fladenbrot des Chefs","mm.7.3":"Kajmak","mm.7.4":"Ajvar","mm.7.5":"Oliven","mm.7.6":"Sauce (Mayonnaise, Ketchup, Tartar)",
+ "tab.8":"Kinder und Desserts",
+ "mm.8.1":"Hähnchen-Nuggets mit Pommes","mm.kid":"Kindermenü","mm.8.2":"Paniertes Hähnchen mit Pommes","mm.8.3":"Schokoladensoufflé mit Vanilleeis","mm.8.4":"Kuchen des Tages","mm.8.5":"Kugel Eis","mm.8.6":"Schnaps aus der Region","mm.8.6d":"Aufs Haus, am Ende des Essens."
 },
 it:{
- "hdr.book":"Prenota un tavolo","menu":"Menu","nav.home":"Home","nav.gal":"Galleria","nav.menu":"Menu","nav.why":"Perché 180","nav.near":"Nei dintorni","nav.book":"Prenotazione","nav.contact":"Contatti",
- "hero.label":"Krk · griglia · konoba","hero.sub":"Griglia con l'anima dell'isola","hero.txt":"Grigliata mista, ćevapi, pljeskavica e lepinja calda. Porzioni abbondanti, prezzi onesti e un bicchierino di grappa locale offerto alla fine.","hero.cta":"Prenota un tavolo","hero.hint":"Muovi il dito, le scintille reagiscono",
- "finder.b":"Tavolo stasera","gal.title":"Uno sguardo alla Konoba 180","gal.sub":"La griglia, la terrazza e piatti che si ricordano.",
- "gal.c1":"Grigliata mista","gal.c2":"Ćevapi nella lepinja con kajmak","gal.c3":"Terrazza","gal.c4":"Patatine con cheddar e pancetta","gal.c5":"Pesce alla griglia","tag":"Krk, Croazia",
- "story.label":"Storia","story.title":"Una griglia di famiglia nella città di Krk","story.p1":"Konoba 180 è una grill house a conduzione familiare nella città di Krk, in via Stjepana Radića 1c. La carne si cuoce sulla griglia, la lepinja è calda e kajmak e ajvar arrivano con il piatto.","story.p2":"Le porzioni sono abbondanti, i prezzi onesti e ogni pasto finisce con un bicchierino di grappa locale offerto dalla casa. Dentro aria condizionata, fuori la terrazza, parcheggio proprio di fronte.",
- "story.google":"Valutazione Google","story.rev":"recensioni","st.1":"Recensioni Google","st.2":"Voto medio","story.sign":"Krk, isola di Krk",
- "menu.label":"Menu","menu.title":"Cosa si mangia al 180","menu.sub":"La carne alla griglia è la cosa principale. Pesce e frutti di mare ci sono per chi, in fondo, è al mare.",
- "tab.1":"Dalla griglia","tab.2":"Contorni","tab.3":"Pesce","tab.4":"Dolce","m.hl":"Hit",
- "m.1.1":"Grigliata mista","m.1.1d":"Ćevapi, pljeskavica e altra carne alla griglia, con lepinja, ajvar e kajmak. Porzione abbondante.","m.1.2":"Ćevapi","m.1.2d":"Nella lepinja calda, con cipolla. Kajmak a piacere.","m.1.3":"Pljeskavica","m.1.3d":"Alla griglia, nella lepinja o nel piatto con contorno.","m.1.4":"Ćevapi nella lepinja con kajmak","m.1.4d":"Per chi mangia con le mani.",
- "m.2.1":"Patatine con cheddar e pancetta","m.2.1d":"Patatine ricoperte di cheddar, con pancetta.","m.2.2":"Lepinja","m.2.2d":"Calda, dalla griglia.","m.2.3":"Kajmak","m.2.3d":"Con la carne o nella lepinja.","m.2.4":"Ajvar","m.2.4d":"Con ogni piatto alla griglia.","m.2.5":"Patatine","m.2.5d":"Classiche.",
- "m.3.1":"Pesce alla griglia","m.3.1d":"Dipende dal giorno. Chiedete al personale cosa c'è oggi.","m.3.2":"Frutti di mare","m.3.2d":"Secondo l'offerta del giorno.",
- "m.4.1":"Dolce del giorno","m.4.1d":"Chiedete al personale cosa c'è di dolce oggi.","m.4.2":"Caffè","m.4.2d":"Per finire.","m.4.3":"Bicchierino di grappa locale","m.4.3d":"Offerto dalla casa, a fine pasto.","m.free":"Gratis",
- "menu.note":"I prezzi \"XX €\" sono esempi e verranno inseriti in seguito. Il menu cambia con la stagione e l'offerta.","menu.tag":"Dalla griglia",
- "why.label":"Perché 180","why.title":"Tre motivi per cui gli ospiti tornano","why.1":"Porzioni abbondanti","why.1d":"Un piatto da cui non ci si alza affamati. La grigliata mista è da condividere, i ćevapi si contano a dozzine.","why.2":"Terrazza e aria condizionata","why.2d":"D'estate in terrazza, con il caldo dentro con l'aria condizionata. In entrambi i casi la stessa griglia.","why.3":"Parcheggio di fronte","why.3d":"Parcheggiate proprio di fronte e vi sedete. Niente ricerca di posto nel centro storico.","why.cta":"Prenota un tavolo",
- "sig.label":"Firme della casa","sig.title":"I piatti per cui ci conoscono","sig.cta":"Prenota un tavolo",
- "sig.1tag":"Da condividere","sig.1":"Grigliata mista","sig.1m":"Griglia · porzione grande","sig.1d":"Tutto dalla griglia in un piatto, con lepinja, ajvar e kajmak.","sig.1b1":"Ćevapi e pljeskavica","sig.1b2":"Lepinja, ajvar, kajmak","sig.1b3":"Ideale per due o più",
- "sig.2tag":"Classico","sig.2":"Ćevapi con kajmak","sig.2m":"Griglia · lepinja","sig.2d":"Ćevapi nella lepinja calda, con cipolla e kajmak.","sig.2b1":"Lepinja calda","sig.2b2":"Kajmak e cipolla","sig.2b3":"Ajvar a parte",
- "sig.3tag":"Dalla griglia","sig.3":"Pljeskavica","sig.3m":"Griglia · piatto o lepinja","sig.3d":"Grande pljeskavica alla griglia, nel piatto con contorno o nella lepinja.","sig.3b1":"Nel piatto o nella lepinja","sig.3b2":"Kajmak a piacere","sig.3b3":"Patatine a parte",
- "sig.4tag":"Contorno","sig.4":"Patatine con cheddar e pancetta","sig.4m":"Contorno · per il tavolo","sig.4d":"Patatine ricoperte di cheddar e cosparse di pancetta. Il contorno che ordina tutto il tavolo.","sig.4b1":"Cheddar e pancetta","sig.4b2":"Con la carne o da sole","sig.4b3":"Porzione abbondante",
- "gtk.label":"Pratico","gtk.title":"Buono a sapersi","gtk.sub":"Tutto quello che volete sapere prima di venire, in un unico posto.","gtk.hours":"Orari","gtk.hoursV1":"Lun a ven 10:00 alle 21:00","gtk.hoursV2":"Sab e dom 12:00 alle 22:00","gtk.addr":"Indirizzo","gtk.park":"Parcheggio","gtk.parkV":"Proprio di fronte","gtk.space":"Spazi","gtk.spaceV":"Interno con aria condizionata, più terrazza","gtk.shot":"Per finire","gtk.shotV":"Bicchierino di grappa locale offerto","gtk.pay":"Pagamento con carta","gtk.payV":"Chiedete al personale","gtk.tel":"Telefono / WhatsApp",
+ "hdr.book":"Prenota un tavolo",
+ "menu":"Menu",
+ "nav.home":"Home","nav.gal":"Galleria","nav.menu":"Menu","nav.why":"Perché 180","nav.near":"Nei dintorni","nav.book":"Prenotazione","nav.contact":"Contatti",
+ "hero.label":"Krk · griglia · konoba","hero.sub":"Griglia con l'anima dell'isola","hero.txt":"Taglieri di carne, ćevapi, pljeskavica e lepinja calda dalla griglia a carbone. Porzioni abbondanti, prezzi onesti e un bicchierino di grappa locale offerto alla fine.","hero.cta":"Prenota un tavolo","hero.hint":"Muovi il dito, le scintille reagiscono",
+ "finder.b":"Tavolo stasera",
+ "gal.title":"Uno sguardo alla Konoba 180","gal.sub":"La griglia, la terrazza e piatti che si ricordano.","gal.c1":"Griglia a carbone","gal.c2":"Dalla nostra cucina","gal.c3":"Alla Konoba 180","gal.c4":"Porzioni abbondanti, prezzi onesti","gal.c5":"Dalla fattoria alla brace",
+ "tag":"Krk, Croazia",
+ "story.label":"Storia","story.title":"Griglia a carbone nella città di Krk","story.p1":"Konoba 180° è nata nel 2025, perché sull'isola mancava un posto con porzioni abbondanti, prezzi onesti e cibo cotto sulla brace di carbone di legna. Ci trovate nella città di Krk, in via Stjepana Radića 1c.","story.p2":"Lavoriamo con fornitori locali e ingredienti freschi, dalla fattoria alla brace. Potete sedervi all'ombra tra il verde o dentro con l'aria condizionata, e ogni pasto finisce con un bicchierino di grappa locale offerto dalla casa. Il parcheggio è proprio di fronte.","story.google":"Valutazione Google","story.rev":"recensioni",
+ "st.1":"Recensioni Google","st.2":"Voto medio",
+ "story.sign":"Krk, isola di Krk",
+ "menu.label":"Menu","menu.title":"Cosa si mangia al 180","menu.sub":"La carne dalla griglia a carbone è la cosa principale. Accanto: pesce e calamari, risotti, pasta, insalate e un menu per bambini.",
+ "m.hl":"Hit","m.free":"Gratis",
+ "menu.note":"Prezzi in euro secondo il menu della Konoba 180 (prezzi dal 10/09/2026). Potete ordinare anche per telefono al +385 91 646 3000, con consegna o ritiro.","menu.tag":"Dalla griglia",
+ "why.label":"Perché 180","why.title":"Tre motivi per cui gli ospiti tornano","why.1":"Porzioni abbondanti","why.1d":"Un piatto da cui non ci si alza affamati. I taglieri di carne sono da condividere e i ćevapi arrivano dieci a porzione.","why.2":"Terrazza e aria condizionata","why.2d":"D'estate all'ombra tra il verde, con il caldo dentro con l'aria condizionata. In entrambi i casi la stessa griglia a carbone.","why.3":"Parcheggio di fronte","why.3d":"Parcheggiate proprio di fronte e vi sedete. Niente ricerca di posto nel centro storico.","why.cta":"Prenota un tavolo",
+ "sig.label":"Firme della casa","sig.title":"I piatti per cui ci conoscono","sig.cta":"Prenota un tavolo","sig.1tag":"Da condividere","sig.1":"Tagliere di carne per due","sig.1m":"Per due · 46&nbsp;€","sig.1d":"Ćevapčići, braciola ripiena, spiedini di pollo, uštipci e una piccola pljeskavica al formaggio, con contorni e pane pita.","sig.1b1":"Patate arrosto e funghi alla griglia","sig.1b2":"Tagliere del capo per 3: 88&nbsp;€","sig.1b3":"Tagliere per 4: 86&nbsp;€","sig.2tag":"Classico","sig.2":"Ćevapčići con pane pita","sig.2m":"Griglia · 12,90&nbsp;€","sig.2d":"Dieci ćevapčići, 300&nbsp;g di manzo leggermente speziato, con pane pita, ajvar e cipolla.","sig.2b1":"10 pezzi, 300&nbsp;g","sig.2b2":"Pane pita, ajvar e cipolla","sig.2b3":"Kajmak come extra","sig.3tag":"Dalla griglia","sig.3":"Pljeskavica del capo","sig.3m":"Griglia · 18,90&nbsp;€","sig.3d":"300&nbsp;g di manzo ripieno di peperoni, formaggio, pancetta e peperoncino, con patatine steakhouse, ajvar e cipolla.","sig.3b1":"Tre tipi di peperoni","sig.3b2":"Formaggio e pancetta","sig.3b3":"Patatine steakhouse a parte","sig.4tag":"Contorno","sig.4":"Patatine con cheddar e pancetta croccante","sig.4m":"Contorno · 8,50&nbsp;€","sig.4d":"Patatine con cheddar e pancetta croccante. Il contorno che ordina tutto il tavolo.","sig.4b1":"Cheddar e pancetta croccante","sig.4b2":"Con la carne o da sole","sig.4b3":"Anche al tartufo e Grana Padano",
+ "gtk.label":"Pratico","gtk.title":"Buono a sapersi","gtk.sub":"Tutto quello che volete sapere prima di venire, in un unico posto.","gtk.hours":"Orari","gtk.hoursV1":"Tutti i giorni dalle 12:00 alle 24:00","gtk.addr":"Indirizzo","gtk.park":"Parcheggio","gtk.parkV":"Proprio di fronte","gtk.space":"Spazi","gtk.spaceV":"Interno con aria condizionata e terrazza all'ombra tra il verde","gtk.shot":"Per finire","gtk.shotV":"Bicchierino di grappa locale offerto","gtk.pay":"Pagamento con carta","gtk.payV":"Chiedete al personale","gtk.tel":"Telefono / WhatsApp",
  "near.label":"Krk","near.title":"Cosa c'è nei dintorni","near.sub":"La konoba è nella città di Krk, quindi tutto ciò che offre la città è vicino.","near.1":"Centro storico di Krk","near.1d":"Vie di pietra, mura e la cattedrale. Una passeggiata prima o dopo cena.","near.2":"Porto di Krk","near.2d":"Il lungomare con le barche e la vista sul mare. Un posto per il caffè dopo pranzo.","near.3":"Spiagge","near.3d":"Spiagge cittadine e vicine per un bagno prima della griglia.","near.note":"Controllate le distanze sulla mappa, a seconda di dove alloggiate.","near.tag":"Isola di Krk",
  "book.label":"Prenotazione","book.title":"Prenotate un tavolo","book.sub":"Scegliete data, ora e numero di ospiti. La richiesta si apre in WhatsApp, senza pagamento e senza registrazione.",
  "f.date":"Data","f.time":"Ora","f.guests":"Ospiti","f.name":"Nome","f.nameph":"Il vostro nome","f.send":"Invia su WhatsApp","f.fine":"Apre WhatsApp con un messaggio già pronto. D'estate consigliamo di prenotare.",
- "book.wa":"WhatsApp","book.waT":"Il messaggio arriva al +385 91 646 3000. Potete anche chiamare.","h.mf":"Lun a ven","h.ss":"Sab e dom","book.call":"Chiama",
- "faq.title":"Domande frequenti","faq.1q":"Serve prenotare?","faq.1a":"D'estate consigliamo di prenotare, soprattutto la sera. Fuori stagione di solito c'è posto, ma un messaggio su WhatsApp non guasta mai.","faq.2q":"Dove si parcheggia?","faq.2a":"Il parcheggio è proprio di fronte.","faq.3q":"Si può pagare con carta?","faq.3a":"Chiedete al personale all'arrivo.","faq.4q":"C'è un menu per bambini?","faq.4a":"Chiedeteci, proporremo volentieri qualcosa per i piccoli ospiti.","faq.5q":"Ci sono terrazza e aria condizionata?","faq.5a":"Sì. L'interno è climatizzato e fuori c'è la terrazza.",
+ "book.wa":"WhatsApp","book.waT":"Il messaggio arriva al +385 91 646 3000. Potete anche chiamare.","book.call":"Chiama",
+ "faq.title":"Domande frequenti","faq.1q":"Serve prenotare?","faq.1a":"D'estate consigliamo di prenotare, soprattutto la sera. Fuori stagione di solito c'è posto, ma un messaggio su WhatsApp non guasta mai.","faq.2q":"Dove si parcheggia?","faq.2a":"Il parcheggio è proprio di fronte.","faq.3q":"Si può pagare con carta?","faq.3a":"Chiedete al personale all'arrivo.","faq.4q":"C'è un menu per bambini?","faq.4a":"Sì. Nuggets di pollo o pollo impanato con patatine, 9,90&nbsp;€.","faq.5q":"Ci sono terrazza e aria condizionata?","faq.5a":"Sì. L'interno è climatizzato e fuori ci si siede all'ombra tra il verde.",
  "c.label":"Contatti","c.title":"Ci vediamo a Krk","c.country":"Croazia","c.maps":"Apri in Google Maps","c.call":"Chiama","c.dir":"Indicazioni","c.stylized":"stilizzata",
- "foot.txt":"Grill house di famiglia nella città di Krk. Carne alla griglia, porzioni abbondanti, terrazza e aria condizionata.","foot.addr":"Indirizzo","foot.hours":"Orari","foot.contact":"Contatti","foot.note":"Proposta di sito web · Concept: Marija","fab":"Prenota","sbar.l":"La vostra richiesta",
- "_today":"Oggi","_ctag":"Concept: Marija","_g":["ospite","ospiti","ospiti"],"_wa":"Salve! Vorrei prenotare un tavolo alla Konoba 180.","_d":"Data","_t":"Ora","_n":"Ospiti","_nm":"Nome","_prev":"Precedente","_next":"Successiva"
+ "foot.txt":"Grill house con griglia a carbone nella città di Krk. Porzioni abbondanti, prezzi onesti, terrazza e aria condizionata.","foot.addr":"Indirizzo","foot.hours":"Orari","foot.contact":"Contatti","foot.note":"Proposta di sito web · Concept: Marija",
+ "fab":"Prenota",
+ "sbar.l":"La vostra richiesta",
+ "_today":"Oggi",
+ "_ctag":"Concept: Marija",
+ "_g":["ospite", "ospiti", "ospiti"],
+ "_wa":"Salve! Vorrei prenotare un tavolo alla Konoba 180.",
+ "_d":"Data",
+ "_t":"Ora",
+ "_n":"Ospiti",
+ "_nm":"Nome",
+ "_prev":"Precedente",
+ "_next":"Successiva",
+ "gal.c6":"Ingredienti freschi da fornitori locali","gal.c7":"A tavola a Krk","gal.c8":"Konoba 180°, Krk",
+ "gtk.grill":"Griglia","gtk.grillV":"A carbone di legna","gtk.deliv":"Consegna e ritiro","gtk.delivV":"Ordinate per telefono al +385 91 646 3000","gtk.mail":"E-mail",
+ "h.all":"Lun a dom","h.allV":"12:00 alle 24:00",
+ "faq.6q":"Fate consegne a domicilio?","faq.6a":"Sì. Scegliete dal menu e ordinate per telefono al +385 91 646 3000, con consegna o ritiro.","faq.7q":"Quando siete aperti?","faq.7a":"Tutti i giorni dalle 12:00 alle 24:00.","faq.8q":"Perché 180?","faq.8a":"Konoba 180° prende il nome dalla temperatura ideale della griglia. Da noi si cuoce sulla brace di carbone di legna.",
+ "c.follow":"Seguiteci",
+ "tab.1":"Dalla griglia",
+ "mm.1.1":"Ćevap del capo","mm.1.1d":"Dieci ćevapčići ripieni di formaggio alla griglia, patatine steakhouse, ajvar e cipolla.","mm.1.2":"Pljeskavica del capo","mm.1.2d":"300&nbsp;g di macinato di manzo ripieno di tre tipi di peperoni, formaggio, pancetta e peperoncino, patatine steakhouse, ajvar e cipolla.","mm.1.3":"Ćevapčići con pane pita, ajvar e cipolla","mm.1.3d":"300&nbsp;g di macinato di manzo leggermente speziato, dieci pezzi, pane pita, ajvar e cipolla.","mm.1.4":"Pljeskavica","mm.1.4d":"300&nbsp;g di macinato di manzo leggermente speziato, alla griglia.","mm.1.5":"Pljeskavica gourmet","mm.1.5d":"300&nbsp;g di macinato di manzo leggermente speziato con formaggio, pancetta e peperoncino piccante.","mm.1.6":"Đevrek","mm.1.6d":"300&nbsp;g di macinato di manzo leggermente speziato con formaggio, pancetta, peperoncino piccante e kajmak.","mm.1.7":"Braciola di maiale ripiena alla griglia","mm.1.7d":"Lombo di maiale ripieno di formaggio e pancetta, avvolto nella rete di maiale.","mm.1.8":"Costine di maiale a cottura lenta","mm.1.8d":"Costine marinate cotte lentamente e finite alla griglia, con patatine steakhouse.","mm.1.9":"Controfiletto di manzo con verdure alla griglia","mm.1.9d":"300&nbsp;g di controfiletto Angus frollato alla griglia, verdure grigliate.","mm.1.10":"Petto di pollo marinato alla griglia","mm.1.10d":"Filetto di pollo marinato, alla griglia.","mm.1.11":"Pollo impanato con patatine","mm.1.11d":"200&nbsp;g di filetto di pollo in panatura panko, patatine steakhouse.",
+ "tab.2":"Taglieri",
+ "mm.2.1":"Tagliere di carne per due persone con contorni","mm.2.1d":"4 ćevapčići, 1 braciola ripiena, 2 spiedini di pollo gourmet, 2 uštipci gourmet, una piccola pljeskavica al formaggio, patate arrosto, funghi alla griglia e 2 pane pita.","mm.2.2":"Tagliere del capo per tre persone con contorni","mm.2.2d":"6 ćevapčići del capo, 2 braciole ripiene, 300&nbsp;g di pljeskavica del capo, 500&nbsp;g di costine alla griglia, kajmak, patate arrosto, patate con cheddar e pancetta croccante, funghi alla griglia, focacce del capo, ajvar e cipolla.","mm.2.3":"Tagliere di carne per quattro persone con contorni","mm.2.3d":"8 ćevapčići, 2 braciole ripiene, 4 spiedini di pollo gourmet, 4 uštipci gourmet, pljeskavica al formaggio, patate arrosto, funghi alla griglia e 4 pane pita.",
+ "tab.3":"Pesce e calamari",
+ "mm.3.1":"Bistecca di tonno con bietola e patate","mm.3.1d":"220&nbsp;g di bistecca di tonno, bietola e patate.","mm.3.2":"Orata con bietola e patate","mm.3.2d":"Orata da 350&nbsp;g, bietola e patate.","mm.3.3":"Branzino con bietola e patate","mm.3.3d":"Branzino da 350&nbsp;g, bietola e patate.","mm.3.4":"Calamari fritti con patatine","mm.3.4d":"220&nbsp;g di calamari fritti con patatine e salsa tartara.","mm.3.5":"Calamari alla griglia con bietola e patate","mm.3.5d":"230&nbsp;g di calamari alla griglia, bietola e patate.",
+ "tab.4":"Risotti e pasta",
+ "mm.4.1":"Risotto con pollo e verdure","mm.4.1d":"Riso Arborio, pollo, verdure, brodo vegetale.","mm.4.2":"Risotto con gamberi, pistacchio e basilico","mm.4.2d":"Riso Arborio, pomodorini, code di gambero sgusciate, aglio, brodo vegetale, crema di pistacchio e basilico.","mm.4.3":"Tagliatelle verdi con gamberi","mm.4.3d":"Tagliatelle verdi, code di gambero sgusciate, crema di Grana Padano, salsa.","mm.4.4":"Tagliatelle verdi con pancetta e tartufata","mm.4.4d":"Tagliatelle verdi, pancetta e tartufo.","mm.4.5":"Gnocchi con gulasch di manzo","mm.4.5d":"Gnocchi fatti in casa, gulasch di manzo fatto in casa.","mm.4.6":"Gnocchi ai quattro formaggi","mm.4.6d":"Gnocchi fatti in casa, gouda, cheddar, Grana Padano, parmigiano.","mm.4.7":"Paprikash di maiale con gnocchi","mm.4.7d":"Spezzatino di maiale con gnocchi fatti in casa.","mm.4.8":"Paprikash di pollo con gnocchi","mm.4.8d":"Spezzatino di pollo con gnocchi fatti in casa.",
+ "tab.5":"Antipasti e zuppe",
+ "mm.5.1":"Piatto freddo","mm.5.1d":"100&nbsp;g di prosciutto dalmata, 60&nbsp;g di salsiccia fatta in casa, 90&nbsp;g di formaggi duri e semiduri selezionati, peperoni ripieni di formaggio, olive.","mm.5.2":"Mazalice gourmet","mm.5.2d":"Macinato di manzo con formaggio, pancetta e peperoncino piccante, cotto sul pane pita.","mm.5.3":"Insalata Caesar con pollo","mm.5.3d":"Filetto di pollo, lattuga iceberg, pomodorini, salsa Caesar, crostini, Grana Padano.","mm.5.4":"Zuppa di pomodoro","mm.5.4d":"Crema di pomodoro fatta in casa con aglio e basilico.","mm.5.5":"Zuppa di gallina fatta in casa",
+ "tab.6":"Contorni e insalate",
+ "mm.6.1":"Patatine steakhouse","mm.6.2":"Patatine al tartufo e Grana Padano","mm.6.3":"Patatine con cheddar e pancetta croccante","mm.6.4":"Fagioli al forno","mm.6.5":"Riso al burro","mm.6.6":"Verdure grigliate","mm.6.7":"Funghi alla griglia","mm.6.8":"Bietola con patate","mm.6.9":"Insalata di cavolo","mm.6.9d":"Cavolo fresco tagliato fine.","mm.6.10":"Insalata mista","mm.6.10d":"Lattuga iceberg, cetriolo, cavolo, pomodorini.","mm.6.11":"Insalata šopska","mm.6.11d":"Pomodoro, cipolla rossa, peperone fresco, cetriolo, feta.","mm.6.12":"Peperoni grigliati con aglio","mm.6.12d":"Peperoni alla griglia serviti freddi con aglio.",
+ "tab.7":"Extra",
+ "mm.7.1":"Focaccia (lepinja)","mm.7.2":"Focaccia del capo","mm.7.3":"Kajmak","mm.7.4":"Ajvar","mm.7.5":"Olive","mm.7.6":"Salsa (maionese, ketchup, tartara)",
+ "tab.8":"Bambini e dolci",
+ "mm.8.1":"Nuggets di pollo con patatine","mm.kid":"Menu bambini","mm.8.2":"Pollo impanato con patatine","mm.8.3":"Soufflé al cioccolato con gelato alla vaniglia","mm.8.4":"Dolce del giorno","mm.8.5":"Pallina di gelato","mm.8.6":"Bicchierino di grappa locale","mm.8.6d":"Offerto dalla casa, a fine pasto."
+},
+hu:{
+ "hdr.book":"Asztalfoglalás",
+ "menu":"Menü",
+ "nav.home":"Kezdőlap","nav.gal":"Galéria","nav.menu":"Étlap","nav.why":"Miért 180","nav.near":"A közelben","nav.book":"Foglalás","nav.contact":"Kapcsolat",
+ "hero.label":"Krk · grill · konoba","hero.sub":"Grill a sziget lelkével","hero.txt":"Hústálak, ćevapi, pljeskavica és meleg lepénykenyér faszenes grillről. Bőséges adagok, korrekt árak, a végén pedig egy pohár házi pálinka a ház ajándékaként.","hero.cta":"Asztalfoglalás","hero.hint":"Mozgassa az ujját, a szikrák reagálnak",
+ "finder.b":"Asztal ma estére",
+ "gal.title":"Bepillantás a Konoba 180-ba","gal.sub":"A grill, a terasz és a tányérok, amelyekre emlékezni fog.","gal.c1":"Faszenes grill","gal.c2":"A konyhánkból","gal.c3":"A Konoba 180-ban","gal.c4":"Bőséges adagok, korrekt árak","gal.c5":"A farmtól a parázsig",
+ "tag":"Krk, Horvátország",
+ "story.label":"Történetünk","story.title":"Faszenes grill Krk városában","story.p1":"A Konoba 180° 2025-ben nyílt meg, mert a szigeten hiányzott egy hely bőséges adagokkal, korrekt árakkal és faszénen sült ételekkel. Krk városában, a Stjepana Radića 1c alatt talál minket.","story.p2":"Helyi beszállítókkal és friss alapanyagokkal dolgozunk, a farmtól a parázsig. Üljön le árnyékban, a zöld növények között, vagy bent, a légkondicionált teremben. Minden étkezés végén egy pohár házi pálinkát kínálunk a ház ajándékaként, a parkoló pedig közvetlenül szemben van.","story.google":"Google értékelés","story.rev":"vélemény",
+ "st.1":"Google vélemény","st.2":"Átlagos értékelés",
+ "story.sign":"Krk, Krk szigete",
+ "menu.label":"Étlap","menu.title":"Mit eszünk a 180-ban","menu.sub":"A faszenes grillen sült hús a főszereplő. Mellette hal és tintahal, rizottó, tészta, saláták és gyermekétlap.",
+ "m.hl":"Kedvenc","m.free":"Ingyenes",
+ "menu.note":"Árak euróban a Konoba 180 étlapja szerint (2026. 09. 10-i árak). Telefonon is rendelhet a +385 91 646 3000 számon, házhozszállítással vagy elvitelre.","menu.tag":"A grillről",
+ "why.label":"Miért 180","why.title":"Három ok, amiért a vendégek visszatérnek","why.1":"Bőséges adagok","why.1d":"Egy tányér, amelytől senki nem kel fel éhesen. A hústálak megosztásra valók, a ćevapi tízesével érkezik.","why.2":"Terasz és légkondi","why.2d":"Nyáron árnyékban, a zöldben, kánikulában bent, légkondi mellett. Mindkét helyen ugyanaz a faszenes grill.","why.3":"Parkoló szemben","why.3d":"Közvetlenül az út túloldalán parkol, és már ül is az asztalnál. Nem kell helyet keresni az óvárosban.","why.cta":"Asztalfoglalás",
+ "sig.label":"A ház specialitásai","sig.title":"Ételek, amelyekről ismernek minket","sig.cta":"Asztalfoglalás","sig.1tag":"Megosztásra","sig.1":"Hústál két főre","sig.1m":"Két főre · 46&nbsp;€","sig.1d":"Ćevapčići, töltött sertésszelet, csirkenyárs, uštipci és kis sajtos pljeskavica, köretekkel és lepénykenyérrel.","sig.1b1":"Sült burgonya és grillezett gomba","sig.1b2":"Gazda hústál 3 főre: 88&nbsp;€","sig.1b3":"Hústál 4 főre: 86&nbsp;€","sig.2tag":"Klasszikus","sig.2":"Ćevapčići lepénykenyérrel","sig.2m":"Grill · 12,90&nbsp;€","sig.2d":"Tíz ćevapčići 300&nbsp;g enyhén fűszerezett marhahúsból, lepénykenyérrel, ajvárral és hagymával.","sig.2b1":"10 darab, 300&nbsp;g","sig.2b2":"Lepénykenyér, ajvár és hagyma","sig.2b3":"Kajmak külön rendelhető","sig.3tag":"A grillről","sig.3":"Gazda-Pljeskavica","sig.3m":"Grill · 18,90&nbsp;€","sig.3d":"300&nbsp;g marhahús paprikával, sajttal, szalonnával és csilivel töltve, steakhouse hasábburgonyával, ajvárral és hagymával.","sig.3b1":"Háromféle paprika","sig.3b2":"Sajt és szalonna","sig.3b3":"Steakhouse hasábburgonyával","sig.4tag":"Köret","sig.4":"Hasábburgonya cheddarral és szalonnával","sig.4m":"Köret · 8,50&nbsp;€","sig.4d":"Hasábburgonya cheddarral és ropogós szalonnával. A köret, amit az egész asztal rendel.","sig.4b1":"Cheddar és ropogós szalonna","sig.4b2":"Hús mellé vagy önmagában","sig.4b3":"Szarvasgombás változatban is",
+ "gtk.label":"Hasznos","gtk.title":"Jó tudni","gtk.sub":"Minden, amit érkezés előtt tudni szeretne, egy helyen.","gtk.hours":"Nyitvatartás","gtk.hoursV1":"Minden nap 12:00 és 24:00 között","gtk.addr":"Cím","gtk.park":"Parkolás","gtk.parkV":"Közvetlenül az út túloldalán","gtk.space":"Helyiségek","gtk.spaceV":"Bent légkondi, kint árnyékos terasz a zöldben","gtk.shot":"A végén","gtk.shotV":"Egy pohár házi pálinka ajándékba","gtk.pay":"Kártyás fizetés","gtk.payV":"Kérdezze a személyzetet","gtk.tel":"Telefon / WhatsApp",
+ "near.label":"Krk","near.title":"Mi van a közelben","near.sub":"A konoba Krk városában van, így minden, amit a város kínál, karnyújtásnyira van.","near.1":"Krk óvárosa","near.1d":"Kőutcák, városfalak és a katedrális. Séta vacsora előtt vagy után.","near.2":"Krk kikötője","near.2d":"Rakpart csónakokkal és tengeri kilátással. Jó hely egy kávéra ebéd után.","near.3":"Strandok","near.3d":"Városi és közeli strandok egy fürdéshez a grill előtt.","near.note":"A távolságokat nézze meg a térképen, attól függően, hol szállt meg.","near.tag":"Krk szigete",
+ "book.label":"Foglalás","book.title":"Foglaljon asztalt","book.sub":"Válassza ki a dátumot, az időpontot és a vendégek számát. A kérés WhatsAppban nyílik meg, fizetés és regisztráció nélkül.",
+ "f.date":"Dátum","f.time":"Időpont","f.guests":"Vendégek","f.name":"Név","f.nameph":"Az Ön neve","f.send":"Küldés WhatsAppon","f.fine":"Megnyitja a WhatsAppot egy előre megírt üzenettel. Nyáron ajánlott az asztalfoglalás.",
+ "book.wa":"WhatsApp","book.waT":"Az üzenet a +385 91 646 3000 számra érkezik. Telefonon is hívhat minket.","book.call":"Hívás",
+ "faq.title":"Gyakori kérdések","faq.1q":"Kell asztalt foglalni?","faq.1a":"Nyáron ajánlott a foglalás, főleg este. Szezonon kívül általában van hely, de egy WhatsApp üzenet sosem árt.","faq.2q":"Hol lehet parkolni?","faq.2a":"A parkoló közvetlenül az út túloldalán van.","faq.3q":"Lehet kártyával fizetni?","faq.3a":"Érkezéskor kérdezze meg a személyzetet.","faq.4q":"Van gyermekétlap?","faq.4a":"Igen. Csirkefalatok vagy rántott csirke hasábburgonyával, 9,90&nbsp;€.","faq.5q":"Van terasz és légkondi?","faq.5a":"Igen. A belső tér légkondicionált, kint pedig árnyékban, a zöldben ülhet.",
+ "c.label":"Kapcsolat","c.title":"Találkozunk Krkben","c.country":"Horvátország","c.maps":"Megnyitás a Google Térképen","c.call":"Hívás","c.dir":"Útvonal","c.stylized":"stilizált",
+ "foot.txt":"Faszenes grillétterem Krk városában. Bőséges adagok, korrekt árak, terasz és légkondi.","foot.addr":"Cím","foot.hours":"Nyitvatartás","foot.contact":"Kapcsolat","foot.note":"Weboldal javaslat · Koncepció: Marija",
+ "fab":"Foglalás",
+ "sbar.l":"Az Ön kérése",
+ "_today":"Ma",
+ "_ctag":"Koncepció: Marija",
+ "_g":["vendég", "vendég", "vendég"],
+ "_wa":"Jó napot! Szeretnék asztalt foglalni a Konoba 180-ban.",
+ "_d":"Dátum",
+ "_t":"Időpont",
+ "_n":"Vendégek",
+ "_nm":"Név",
+ "_prev":"Előző",
+ "_next":"Következő",
+ "gal.c6":"Friss alapanyagok helyi beszállítóktól","gal.c7":"Asztalnál Krkben","gal.c8":"Konoba 180°, Krk",
+ "gtk.grill":"Grill","gtk.grillV":"Faszén","gtk.deliv":"Házhozszállítás és elvitel","gtk.delivV":"Rendeljen telefonon: +385 91 646 3000","gtk.mail":"E-mail",
+ "h.all":"Hétfőtől vasárnapig","h.allV":"12:00 és 24:00 között",
+ "faq.6q":"Van házhozszállítás?","faq.6a":"Igen. Válasszon az étlapról, és rendeljen telefonon a +385 91 646 3000 számon, házhozszállítással vagy elvitelre.","faq.7q":"Mikor tartanak nyitva?","faq.7a":"Minden nap 12:00 és 24:00 között.","faq.8q":"Miért 180?","faq.8a":"A Konoba 180° nevét az ideális grillhőmérsékletről kapta. Nálunk minden faszénen sül.",
+ "c.follow":"Kövessen minket",
+ "tab.1":"A grillről",
+ "mm.1.1":"Gazda-Ćevap","mm.1.1d":"Tíz grillezett, sajttal töltött ćevapčići, steakhouse hasábburgonya, ajvár és hagyma.","mm.1.2":"Gazda-Pljeskavica","mm.1.2d":"300&nbsp;g darált marhahús háromféle paprikával, sajttal, szalonnával és csilivel töltve, steakhouse hasábburgonya, ajvár és hagyma.","mm.1.3":"Ćevapčići lepénykenyérrel, ajvárral és hagymával","mm.1.3d":"300&nbsp;g enyhén fűszerezett darált marhahús, tíz darab, lepénykenyér, ajvár és hagyma.","mm.1.4":"Pljeskavica","mm.1.4d":"300&nbsp;g enyhén fűszerezett darált marhahús grillen.","mm.1.5":"Ínyenc pljeskavica","mm.1.5d":"300&nbsp;g enyhén fűszerezett darált marhahús sajttal, szalonnával és erős paprikával.","mm.1.6":"Đevrek","mm.1.6d":"300&nbsp;g enyhén fűszerezett darált marhahús sajttal, szalonnával, erős paprikával és kajmakkal.","mm.1.7":"Töltött sertésszelet grillen","mm.1.7d":"Sajttal és szalonnával töltött sertéskaraj, cseplesszel körbetekerve.","mm.1.8":"Lassan sült sertésoldalas grillen","mm.1.8d":"Pácolt, lassan sült oldalas grillen befejezve, steakhouse hasábburgonyával.","mm.1.9":"Marha hátszínszelet grillezett zöldségekkel","mm.1.9d":"300&nbsp;g érlelt Angus hátszín grillen, grillezett zöldségekkel.","mm.1.10":"Grillezett pácolt csirkemell","mm.1.10d":"Pácolt csirkefilé grillen.","mm.1.11":"Rántott csirke hasábburgonyával","mm.1.11d":"200&nbsp;g csirkefilé panko morzsában, steakhouse hasábburgonya.",
+ "tab.2":"Tálak",
+ "mm.2.1":"Hústál két főre köretekkel","mm.2.1d":"4 ćevapčići, 1 töltött sertésszelet, 2 ínyenc csirkenyárs, 2 ínyenc uštipci, kis sajtos pljeskavica, sült burgonya, grillezett gomba és 2 lepénykenyér.","mm.2.2":"Gazda hústál három főre köretekkel","mm.2.2d":"6 gazda-ćevapčići, 2 töltött sertésszelet, 300&nbsp;g gazda-pljeskavica, 500&nbsp;g grillezett sertésoldalas, kajmak, sült burgonya, burgonya cheddarral és ropogós szalonnával, grillezett gomba, gazda-lepénykenyér, ajvár és hagyma.","mm.2.3":"Hústál négy főre köretekkel","mm.2.3d":"8 ćevapčići, 2 töltött sertésszelet, 4 ínyenc csirkenyárs, 4 ínyenc uštipci, sajtos pljeskavica, sült burgonya, grillezett gomba és 4 lepénykenyér.",
+ "tab.3":"Hal és tintahal",
+ "mm.3.1":"Tonhal steak mángolddal és burgonyával","mm.3.1d":"220&nbsp;g tonhal steak, mángold burgonyával.","mm.3.2":"Aranydurbincs mángolddal és burgonyával","mm.3.2d":"350&nbsp;g aranydurbincs, mángold burgonyával.","mm.3.3":"Tengeri sügér mángolddal és burgonyával","mm.3.3d":"350&nbsp;g tengeri sügér, mángold burgonyával.","mm.3.4":"Rántott tintahal hasábburgonyával","mm.3.4d":"220&nbsp;g rántott tintahal hasábburgonyával és tartármártással.","mm.3.5":"Grillezett tintahal mángolddal és burgonyával","mm.3.5d":"230&nbsp;g grillezett tintahal, mángold burgonyával.",
+ "tab.4":"Rizottó és tészta",
+ "mm.4.1":"Rizottó csirkével és zöldségekkel","mm.4.1d":"Arborio rizs, csirke, zöldségek, zöldségalaplé.","mm.4.2":"Rizottó garnélával, pisztáciával és bazsalikommal","mm.4.2d":"Arborio rizs, koktélparadicsom, pucolt garnélafarok, fokhagyma, zöldségalaplé, pisztáciás-bazsalikomos krém.","mm.4.3":"Zöld tagliatelle garnélával","mm.4.3d":"Zöld metélt, pucolt garnélafarok, Grana Padano krém, salsa.","mm.4.4":"Zöld tagliatelle pancettával és szarvasgombakrémmel","mm.4.4d":"Zöld metélt, pancetta és szarvasgomba.","mm.4.5":"Gnocchi marhapörkölttel","mm.4.5d":"Házi gnocchi, házi marhapörkölt.","mm.4.6":"Négysajtos gnocchi","mm.4.6d":"Házi gnocchi, gouda, cheddar, Grana Padano, parmezán.","mm.4.7":"Sertéspaprikás gnocchival","mm.4.7d":"Sertéspaprikás házi gnocchival.","mm.4.8":"Csirkepaprikás gnocchival","mm.4.8d":"Csirkepaprikás házi gnocchival.",
+ "tab.5":"Előételek és levesek",
+ "mm.5.1":"Hidegtál","mm.5.1d":"100&nbsp;g dalmát pršut, 60&nbsp;g házi kolbász, 90&nbsp;g válogatott kemény és félkemény sajt, sajttal töltött paprika, olívabogyó.","mm.5.2":"Ínyenc mazalice","mm.5.2d":"Darált marhahús sajttal, szalonnával és erős paprikával, lepénykenyéren sütve.","mm.5.3":"Csirkés Cézár saláta","mm.5.3d":"Csirkefilé, jégsaláta, koktélparadicsom, Cézár öntet, kruton, Grana Padano.","mm.5.4":"Paradicsomleves","mm.5.4d":"Krémes házi paradicsomleves fokhagymával és bazsalikommal.","mm.5.5":"Házi tyúkhúsleves",
+ "tab.6":"Köretek és saláták",
+ "mm.6.1":"Steakhouse hasábburgonya","mm.6.2":"Szarvasgombás, Grana Padanós hasábburgonya","mm.6.3":"Hasábburgonya cheddarral és ropogós szalonnával","mm.6.4":"Sült bab","mm.6.5":"Vajas rizs","mm.6.6":"Grillezett zöldség","mm.6.7":"Grillezett gomba","mm.6.8":"Mángold burgonyával","mm.6.9":"Káposztasaláta","mm.6.9d":"Frissen reszelt káposzta.","mm.6.10":"Vegyes saláta","mm.6.10d":"Jégsaláta, uborka, káposzta, koktélparadicsom.","mm.6.11":"Sopszka saláta","mm.6.11d":"Paradicsom, lilahagyma, friss paprika, uborka, feta sajt.","mm.6.12":"Sült paprika fokhagymával","mm.6.12d":"Grillezett paprika hidegen tálalva, fokhagymával.",
+ "tab.7":"Extrák",
+ "mm.7.1":"Lepénykenyér","mm.7.2":"Gazda-lepénykenyér","mm.7.3":"Kajmak","mm.7.4":"Ajvár","mm.7.5":"Olívabogyó","mm.7.6":"Szósz (majonéz, ketchup, tartár)",
+ "tab.8":"Gyerek és desszert",
+ "mm.8.1":"Csirkefalatok hasábburgonyával","mm.kid":"Gyermekétlap","mm.8.2":"Rántott csirke hasábburgonyával","mm.8.3":"Csokoládészuflé vaníliafagylalttal","mm.8.4":"Napi sütemény","mm.8.5":"Egy gombóc fagylalt","mm.8.6":"Egy pohár házi pálinka","mm.8.6d":"A ház ajándéka, az étkezés végén."
 }};
 T.hr = HR;
 HR._today = "Danas"; HR._ctag = "Koncept: Marija"; HR._g = ["gost","gosta","gostiju"];
@@ -1240,6 +1484,7 @@ function setLang(l){
   $$("[data-i18n]").forEach(function(el){ var k = el.getAttribute("data-i18n"); var v = t(k); if (v != null) el.innerHTML = v; });
   $$("[data-i18n-ph]").forEach(function(el){ el.setAttribute("placeholder", t(el.getAttribute("data-i18n-ph"))); });
   $$("[data-lang]").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === l ? "true" : "false"); });
+  var lc = document.getElementById("lpickCur"); if (lc) lc.textContent = l.toUpperCase();
   $("#ctag").textContent = t("_ctag");
   $("#gPrev").setAttribute("aria-label", t("_prev")); $("#gNext").setAttribute("aria-label", t("_next"));
   $("#pPrev").setAttribute("aria-label", t("_prev")); $("#pNext").setAttribute("aria-label", t("_next"));
@@ -1422,6 +1667,7 @@ var fDate = $("#fDate"), fName = $("#fName"), gOut = $("#gOut"), sbar = $("#sbar
 function fmtDate(v){
   if (!v) return "";
   var p = v.split("-"); if (p.length !== 3) return v;
+  if (LANG === "hu") return p[0] + ". " + p[1] + ". " + p[2] + ".";
   return LANG === "it" ? p[2] + "/" + p[1] + "/" + p[0] : p[2] + "." + p[1] + "." + p[0];
 }
 function isToday(v){ var d = new Date(); return v === d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
@@ -1661,9 +1907,9 @@ function initEmbers(){
 </style>
 <script id="mdp-js">
 (function(){
-  var TXT={hr:["Odaberite datum","Danas","Zatvoreno"],en:["Choose a date","Today","Closed"],de:["Datum wählen","Heute","Geschlossen"],it:["Scegli la data","Oggi","Chiuso"],sl:["Izberite datum","Danes","Zaprto"]};
+  var TXT={hr:["Odaberite datum","Danas","Zatvoreno"],en:["Choose a date","Today","Closed"],de:["Datum wählen","Heute","Geschlossen"],it:["Scegli la data","Oggi","Chiuso"],hu:["Válasszon dátumot","Ma","Zárva"],sl:["Izberite datum","Danes","Zaprto"]};
   function lang(){var l=(document.documentElement.lang||"en").slice(0,2).toLowerCase();return TXT[l]?l:"en";}
-  function loc(){return {hr:"hr-HR",en:"en-GB",de:"de-DE",it:"it-IT",sl:"sl-SI"}[lang()];}
+  function loc(){return {hr:"hr-HR",en:"en-GB",de:"de-DE",it:"it-IT",hu:"hu-HU",sl:"sl-SI"}[lang()];}
   function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
   function parse(s){if(!s)return null;var p=s.split("-");return p.length===3?new Date(+p[0],+p[1]-1,+p[2]):null;}
   function today(){var t=new Date();return new Date(t.getFullYear(),t.getMonth(),t.getDate());}
@@ -1769,6 +2015,15 @@ function initEmbers(){
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();
+</script>
+<script>
+(function(){var w=document.getElementById("lpick"),b=document.getElementById("lpickBtn");if(!w||!b)return;
+function set(o){w.classList.toggle("open",o);b.setAttribute("aria-expanded",o?"true":"false");}
+b.addEventListener("click",function(e){e.stopPropagation();set(!w.classList.contains("open"));});
+w.querySelectorAll(".lpick-list button").forEach(function(x){x.addEventListener("click",function(){setTimeout(function(){set(false)},120);});});
+document.addEventListener("click",function(e){if(!w.contains(e.target))set(false);});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")set(false);});
+window.addEventListener("scroll",function(){if(w.classList.contains("open"))set(false);},{passive:true});})();
 </script>
 </body>
 </html>
