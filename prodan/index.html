@@ -152,7 +152,7 @@ section{scroll-margin-top:calc(var(--header) + 16px)}
 .logo svg{width:32px;height:32px;flex:none}
 .logo b{display:block;font-family:var(--serif);font-weight:400;font-size:20px}
 .logo small{display:block;font-size:9px;letter-spacing:.24em;text-transform:uppercase;opacity:.8;margin-top:4px}
-.hdr__nav{display:none;gap:24px;font-size:14px}.sp__all{margin-top:14px}.ex__all{margin:14px 0 0}
+.hdr__nav{display:none;gap:20px;font-size:14px}.sp__all{margin-top:14px}.ex__all{margin:14px 0 0}
 .hdr__nav a{position:relative;padding:6px 0}
 .hdr__nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .5s var(--out)}
 .hdr__nav a:hover::after{transform:none}
@@ -586,7 +586,7 @@ html select{height:56px;line-height:normal}
 .prod--wide[aria-pressed="true"] .pk-box svg{opacity:1}
 .prod--wide[aria-pressed="true"]{border-style:solid!important;border-color:#26412F!important}
 @media (prefers-reduced-motion:reduce){.gs .it,.gs .ct{transition:opacity .2s}}
-</style>
+.hdr__nav a{white-space:nowrap}.hdr__book{white-space:nowrap}@media(min-width:1200px) and (max-width:1359px){.hdr__nav{gap:16px!important;font-size:13.5px}.logo--pt svg{height:30px!important}}</style>
 </head>
 <body class="locked">
 
@@ -638,9 +638,11 @@ html select{height:56px;line-height:normal}
     <a href="#top" class="logo logo--pt" aria-label="Prodan Tartufi"><svg viewBox="0 0 1220 310" aria-hidden="true" fill="currentColor"><use href="#pt-full"/></svg></a>
     <nav class="hdr__nav" aria-label="Main">
       <a href="o-nama/" data-i18n="pg.about">About us</a>
+      <a href="tartuf/" data-i18n="pg.truffle">The truffle</a>
       <a href="lov-na-tartuf/" data-i18n="pg.hunt">Truffle hunting</a>
       <a href="proizvodi/" data-i18n="pg.prod">Products</a>
       <a href="gastro/" data-i18n="pg.gastro">Recipes</a>
+      <a href="distribucija/" data-i18n="pg.dist">Distribution</a>
       <a href="galerija/" data-i18n="pg.gal">Gallery</a>
       <a href="kontakt/" data-i18n="pg.contact">Contact</a>
     </nav>
@@ -655,7 +657,7 @@ html select{height:56px;line-height:normal}
           <button type="button" data-lang="ru" aria-pressed="false"><b>RU</b><span>Русский</span></button>
         </div>
       </div>
-      <a href="#book" class="pill hdr__book" data-i18n="nav.book">Book direct</a>
+      <a href="#book" class="pill hdr__book" data-i18n="nav.book">Book now</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span id="menuLbl">Menu</span><span class="burger"><i></i><i></i></span></button>
     </div>
   </div>
@@ -1272,7 +1274,7 @@ html select{height:56px;line-height:normal}
     "ex.m2":"Für Familien und Gruppen · Preis auf Anfrage",
     "ex.b.gear":"Stiefel und Regenjacken für den Wald stellen wir",
     "ex.m1":"2,5 Stunden · Beginn 9:00 · Preis auf Anfrage",
-    "nav.story":"Unsere Geschichte","nav.exp":"Erlebnisse","nav.day":"Ihr Tag","nav.shop":"Shop","nav.contact":"Kontakt","nav.good":"Gut zu wissen","nav.faq":"Fragen","nav.book":"Direkt buchen",
+    "nav.story":"Unsere Geschichte","nav.exp":"Erlebnisse","nav.day":"Ihr Tag","nav.shop":"Shop","nav.contact":"Kontakt","nav.good":"Gut zu wissen","nav.faq":"Fragen","nav.book":"Buchen",
     "hero.eyebrow":"Buzet, die Stadt der Trüffel","hero.t1":"Trüffelsuche","hero.t2":"mit Familie Prodan","hero.t3":"in den Eichenwäldern Istriens",
     "hero.txt":"Folgen Sie Sky und den Hunden in den Wald und genießen Sie danach frische Trüffel, gekocht von Višnja.","hero.cta":"Ihren Trüffeltag buchen",
     "finder.t":"Trüffelsuche + Drei-Gänge-Menü","finder.sub":"Datum wählen • 2 Gäste",
@@ -1373,7 +1375,7 @@ html select{height:56px;line-height:normal}
     "ex.m2":"Per famiglie e gruppi · prezzo su richiesta",
     "ex.b.gear":"Stivali e impermeabili per il bosco li forniamo noi",
     "ex.m1":"2,5 ore · inizio alle 9:00 · prezzo su richiesta",
-    "nav.story":"La nostra storia","nav.exp":"Esperienze","nav.day":"La vostra giornata","nav.shop":"Negozio","nav.contact":"Contatti","nav.good":"Da sapere","nav.faq":"Domande","nav.book":"Prenota diretto",
+    "nav.story":"La nostra storia","nav.exp":"Esperienze","nav.day":"La vostra giornata","nav.shop":"Negozio","nav.contact":"Contatti","nav.good":"Da sapere","nav.faq":"Domande","nav.book":"Prenota",
     "hero.eyebrow":"Buzet, la città del tartufo","hero.t1":"Caccia al tartufo","hero.t2":"con la famiglia Prodan","hero.t3":"nei boschi di querce dell'Istria",
     "hero.txt":"Seguite Sky e i cani nel bosco, poi sedetevi a tavola con tartufi freschi cucinati da Višnja.","hero.cta":"Prenota la tua giornata al tartufo",
     "finder.t":"Caccia al tartufo + pranzo di tre portate","finder.sub":"Scegli una data • 2 ospiti",
@@ -1474,7 +1476,7 @@ html select{height:56px;line-height:normal}
     "ex.m2":"Za obitelji i grupe · cijena na upit",
     "ex.b.gear":"Čizme i kabanice za šumu dobivate kod nas",
     "ex.m1":"2,5 sata · početak u 9:00 · cijena na upit",
-    "nav.story":"Naša priča","nav.exp":"Doživljaji","nav.day":"Vaš dan","nav.shop":"Trgovina","nav.contact":"Kontakt","nav.good":"Dobro je znati","nav.faq":"Pitanja","nav.book":"Rezerviraj izravno",
+    "nav.story":"Naša priča","nav.exp":"Doživljaji","nav.day":"Vaš dan","nav.shop":"Trgovina","nav.contact":"Kontakt","nav.good":"Dobro je znati","nav.faq":"Pitanja","nav.book":"Rezerviraj",
     "hero.eyebrow":"Buzet, grad tartufa","hero.t1":"Lov na tartufe","hero.t2":"s obitelji Prodan","hero.t3":"u hrastovim šumama Istre",
     "hero.txt":"Pratite Sky i pse u šumu, a zatim sjednite za stol uz svježe tartufe koje kuha Višnja.","hero.cta":"Rezervirajte svoj dan s tartufima",
     "finder.t":"Lov na tartufe + ručak od tri slijeda","finder.sub":"Odaberite datum • 2 gosta",
