@@ -191,7 +191,7 @@ section{scroll-margin-top:calc(var(--header) + 16px)}
 .menu-foot{margin-top:auto;padding-top:26px;display:grid;gap:16px}
 .menu .lang button{font-size:14px;padding:10px 10px 10px 0;margin-right:8px;color:var(--forest)}
 .menu-tel{color:var(--muted);font-size:15px}
-@media(min-width:1200px){.menu{display:none}}
+@media(min-width:900px){.menu{inset:auto;top:calc(var(--header) + 10px);right:var(--gutter);left:auto;bottom:auto;width:520px;max-height:calc(100vh - var(--header) - 30px);padding:18px 22px 20px;border-radius:22px;border:1px solid var(--line);box-shadow:0 30px 60px -30px rgba(0,0,0,.45);transform:translateY(-8px);transition:opacity .3s var(--ease),transform .4s var(--out),visibility 0s .3s}.menu-open .menu{transform:none;transition:opacity .3s var(--ease),transform .4s var(--out)}.menu nav{display:grid;grid-template-columns:1fr 1fr;column-gap:22px}.menu nav a{font-size:20px;padding:11px 0}.menu-foot{margin-top:6px;padding-top:16px;grid-template-columns:auto 1fr;align-items:center}.menu-foot .pill{min-height:46px;padding:0 22px}.menu-tel{font-size:14px;text-align:right}.menu-open{overflow:auto!important}}@media(min-width:1200px){.menu{display:none}}
 
 /* HERO */
 .hero{position:relative;height:100vh;height:100svh;min-height:640px;overflow:hidden;color:#fff;background:#2A3626}
@@ -2560,5 +2560,6 @@ function dodge(){if(window.innerWidth>700){bar.style.bottom="";return}bar.style.
 scanC();window.addEventListener("load",function(){scanC();dodge()});setInterval(dodge,250);window.addEventListener("scroll",dodge,{passive:true});
 var mo=new MutationObserver(function(){bar.classList.toggle("off",document.documentElement.classList.contains("menu-open")||document.body.classList.contains("menu-open")||document.body.classList.contains("nav-open"))});mo.observe(document.body,{attributes:true,attributeFilter:["class"]});mo.observe(document.documentElement,{attributes:true,attributeFilter:["class"]});
 })();</script>
+<script>document.addEventListener("click",function(e){if(!document.body.classList.contains("menu-open")||window.innerWidth<900)return;if(e.target.closest("#menu")||e.target.closest("#menuBtn"))return;document.getElementById("menuBtn").click()});</script>
 </body>
 </html>
