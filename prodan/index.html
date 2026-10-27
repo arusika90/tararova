@@ -315,8 +315,8 @@ section{scroll-margin-top:calc(var(--header) + 16px)}
 /* EXPERIENCES tabs */
 .tabs{position:relative;display:flex;gap:26px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);margin:0 calc(var(--gutter) * -1) 34px;padding:0 var(--gutter)}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:none;background:none;border:0;padding:14px 0 16px;font-size:16px;color:var(--muted);cursor:pointer;white-space:nowrap;transition:color .35s}
-.tab[aria-selected="true"]{color:var(--ink);font-weight:500}
+.tab{flex:none;display:inline-flex;align-items:center;gap:9px;background:none;border:0;padding:14px 0 16px;font-size:16px;color:var(--muted);cursor:pointer;white-space:nowrap;transition:color .35s}
+.tab[aria-selected="true"]{color:var(--ink);font-weight:500}.tab__ic{width:22px;height:22px;flex:none;color:var(--gold-d)}.tab[aria-selected="true"] .tab__ic{color:var(--forest)}
 .tabs__ink{position:absolute;bottom:-1px;left:0;height:2px;background:var(--forest);transition:transform .6s var(--out),width .6s var(--out);width:0}
 .panel{display:none}
 .panel.on{display:grid;gap:30px;animation:panelIn .8s var(--out)}
@@ -478,6 +478,7 @@ input[type=date].ctl{color-scheme:dark}
 @media(min-width:900px){.faq__grid{display:grid;grid-template-columns:1fr 1.4fr;gap:100px}.faq__grid .sh{display:block}.faq__grid .sh h2{margin-top:14px}}
 
 /* CONTACT */
+.pps{display:grid;gap:10px;margin:10px 0 26px}.pp{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:center;padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--cream)}.pp__a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--forest);color:var(--gold-l);font:400 22px var(--serif)}.pp__t{display:flex;flex-direction:column;gap:3px;min-width:0}.pp__t b{font:500 18px var(--sans)}.pp__r{font-size:13px;color:var(--muted)}.pp__l{display:flex;gap:4px;flex-wrap:wrap}.pp__l i{font:600 10px var(--sans);letter-spacing:.08em;padding:3px 6px;border-radius:6px;background:#fff;border:1px solid var(--line);font-style:normal}.pp__n{font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums;text-decoration:none}.pp__bs{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}.pp__b{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;border:1px solid var(--forest);font:600 13px var(--sans);text-decoration:none;color:var(--forest)}.pp__b:first-child{background:var(--forest);color:#fff}.pp__b svg{width:16px;height:16px}@media(min-width:700px){.pp{grid-template-columns:auto 1fr auto}.pp__bs{grid-column:auto}}.obrt{margin-top:26px;padding-top:18px;border-top:1px solid var(--line)}.obrt p{margin:6px 0 12px;font-size:15px;color:var(--muted)}
 .contact__grid{display:grid;gap:36px}
 #contact{padding-bottom:64px}
 .addr{font-family:var(--serif);font-size:28px;line-height:1.25;margin-bottom:14px}
@@ -808,10 +809,10 @@ html select{height:56px;line-height:normal}
       <p data-i18n="ex.lead">Every visit starts with a welcome and an explanation of truffles. Then you choose how the day continues.</p>
     </div>
     <div class="tabs rv" role="tablist" id="tabs">
-      <button class="tab" role="tab" id="tab-1" aria-controls="p-1" aria-selected="true" data-i18n="ex.t1">Truffle hunt + three-course meal</button>
-      <button class="tab" role="tab" id="tab-2" aria-controls="p-2" aria-selected="false" tabindex="-1" data-i18n="ex.t2">Private truffle hunt</button>
-      <button class="tab" role="tab" id="tab-3" aria-controls="p-3" aria-selected="false" tabindex="-1" data-i18n="ex.t3">Gnocchi or fuži class</button>
-      <button class="tab" role="tab" id="tab-4" aria-controls="p-4" aria-selected="false" tabindex="-1" data-i18n="ex.t4">Family truffle shop</button>
+      <button class="tab" role="tab" id="tab-1" aria-controls="p-1" aria-selected="true"><svg class="tab__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h18a9 6 0 0 1-18 0z"/><circle cx="12" cy="10" r="2.6"/><path d="M5 9V4M5 6h-1.5M5 6h1.5M19 4v10"/></svg><span data-i18n="ex.t1">Truffle hunt + three-course meal</span></button>
+      <button class="tab" role="tab" id="tab-2" aria-controls="p-2" aria-selected="false" tabindex="-1"><svg class="tab__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.4"/><path d="M3.5 19c0-3 2.5-5.5 5.5-5.5s5.5 2.5 5.5 5.5M14 19c.3-2.6 1.6-4 3.5-4s3 1.4 3 4"/></svg><span data-i18n="ex.t2">Private truffle hunt</span></button>
+      <button class="tab" role="tab" id="tab-3" aria-controls="p-3" aria-selected="false" tabindex="-1"><svg class="tab__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="9.5" width="12" height="5" rx="2.5"/><path d="M2.5 12H6M18 12h3.5"/><path d="M8 18c1.5 1 6.5 1 8 0" opacity=".7"/></svg><span data-i18n="ex.t3">Gnocchi or fuži class</span></button>
+      <button class="tab" role="tab" id="tab-4" aria-controls="p-4" aria-selected="false" tabindex="-1"><svg class="tab__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/><circle cx="12" cy="14" r="2"/></svg><span data-i18n="ex.t4">Family truffle shop</span></button>
       <span class="tabs__ink" id="tabsInk" aria-hidden="true"></span>
     </div>
     <div class="panels rv" data-delay="1">
@@ -1164,16 +1165,13 @@ html select{height:56px;line-height:normal}
         <a class="ulink rv" href="https://maps.google.com/?q=Prodan+Tartufi,+Pra%C5%A1%C4%8Dari+43,+52420+Buzet" target="_blank" rel="noopener"><span data-i18n="ct.map">Open in maps</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <ul class="hours rv" data-delay="1">
           <li><span data-i18n="ct.daily">Monday to Sunday</span><span data-i18n="ct.hrs">08:00 to 22:00</span></li>
-          <li><span><span data-i18n="ct.phone">Phone and WhatsApp</span><small class="who">Višnja · HR, EN, IT, FR</small></span><a href="tel:+385915512796">+385&nbsp;91&nbsp;551&nbsp;2796</a></li>
-          <li><span>Igor<small class="who">HR, EN, IT</small></span><a href="tel:+385993073618">+385&nbsp;99&nbsp;307&nbsp;3618</a></li>
-          <li><span>Mirko<small class="who">HR, EN, IT</small></span><a href="tel:+385915853555">+385&nbsp;91&nbsp;585&nbsp;3555</a></li>
           <li><span data-i18n="ct.email">E-mail</span><a href="mailto:info@prodantartufi.hr">info@prodantartufi.hr</a></li>
-        </ul>
+        </ul><p class="flab rv" data-i18n="ct.people">Talk to the family</p><div class="pps rv" data-delay="1"><div class="pp"><span class="pp__a">V</span><div class="pp__t"><b>Višnja</b><span class="pp__r" data-i18n="ct.v">Guests and truffle days</span><span class="pp__l"><i>HR</i><i>EN</i><i>IT</i><i>FR</i></span><a class="pp__n" href="tel:+385915512796">+385&nbsp;91&nbsp;551&nbsp;2796</a></div><div class="pp__bs"><a class="pp__b" href="https://wa.me/385915512796" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>WhatsApp</a><a class="pp__b" href="tel:+385915512796"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3.5h3.2l1.8 4.6-2.4 1.5a11.5 11.5 0 0 0 6.8 6.8l1.5-2.4 4.6 1.8v3.2a2 2 0 0 1-2 2A17.5 17.5 0 0 1 3 5.5a2 2 0 0 1 2-2z"/></svg><span data-i18n="ct.call2">Call</span></a></div></div><div class="pp"><span class="pp__a">I</span><div class="pp__t"><b>Igor</b><span class="pp__l"><i>HR</i><i>EN</i><i>IT</i></span><a class="pp__n" href="tel:+385993073618">+385&nbsp;99&nbsp;307&nbsp;3618</a></div><div class="pp__bs"><a class="pp__b" href="tel:+385993073618"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3.5h3.2l1.8 4.6-2.4 1.5a11.5 11.5 0 0 0 6.8 6.8l1.5-2.4 4.6 1.8v3.2a2 2 0 0 1-2 2A17.5 17.5 0 0 1 3 5.5a2 2 0 0 1 2-2z"/></svg><span data-i18n="ct.call2">Call</span></a></div></div><div class="pp"><span class="pp__a">M</span><div class="pp__t"><b>Mirko</b><span class="pp__l"><i>HR</i><i>EN</i><i>IT</i></span><a class="pp__n" href="tel:+385915853555">+385&nbsp;91&nbsp;585&nbsp;3555</a></div><div class="pp__bs"><a class="pp__b" href="tel:+385915853555"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3.5h3.2l1.8 4.6-2.4 1.5a11.5 11.5 0 0 0 6.8 6.8l1.5-2.4 4.6 1.8v3.2a2 2 0 0 1-2 2A17.5 17.5 0 0 1 3 5.5a2 2 0 0 1 2-2z"/></svg><span data-i18n="ct.call2">Call</span></a></div></div></div>
         <div class="contact__btns rv" data-delay="2">
           <a class="pill" href="https://wa.me/385915512796" target="_blank" rel="noopener">WhatsApp</a>
           <a class="pill pill--ghost" href="tel:+385915512796" data-i18n="ct.call">Call us</a>
         </div>
-        <p class="socials rv" data-delay="2"><a href="https://www.facebook.com/prodantartufi/" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/prodantartufi/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tripadvisor.com/Attraction_Review-g608704-d10370409-Reviews-Prodan_Tartufi-Buzet_Istria.html" target="_blank" rel="noopener">TripAdvisor</a><a href="https://www.youtube.com/channel/UC6ImNNqgVSIUhi80vicF6Fg" target="_blank" rel="noopener">YouTube</a><a href="https://www.pinterest.com/prodantartufi/" target="_blank" rel="noopener">Pinterest</a></p>
+        <p class="socials rv" data-delay="2"><a href="https://www.facebook.com/prodantartufi/" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/prodantartufi/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tripadvisor.com/Attraction_Review-g608704-d10370409-Reviews-Prodan_Tartufi-Buzet_Istria.html" target="_blank" rel="noopener">TripAdvisor</a><a href="https://www.youtube.com/channel/UC6ImNNqgVSIUhi80vicF6Fg" target="_blank" rel="noopener">YouTube</a><a href="https://www.pinterest.com/prodantartufi/" target="_blank" rel="noopener">Pinterest</a></p><div class="obrt rv"><span class="flab" data-i18n="ct.obrt">Company</span><p>PRODAN TARTUFI, obrt za sakupljanje gljiva i trgovinu<br>Vl. Vanda Prodan · Sv. Ivan, Praščari 43, 52420 Buzet, Istra, Hrvatska</p><a class="ulink" href="kontakt/"><span data-i18n="ct.all">All contacts and message form</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </div>
       <div class="frame contact__img rv-img">
         <div class="art art--buzet" data-par="0.1"><img src="https://prodantartufi.hr/wp-content/uploads/2016/01/buzet-grad-tartufa.jpg" alt="Buzet in inland Istria, near Prodan Tartufi" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
@@ -1228,6 +1226,11 @@ html select{height:56px;line-height:normal}
 
   /* ---------- i18n: EN is read from the page, DE / IT / HR / RU from these dictionaries ---------- */
   var DE = {
+    "ct.people":"Sprechen Sie mit der Familie",
+    "ct.v":"Gäste und Trüffeltage",
+    "ct.call2":"Anrufen",
+    "ct.obrt":"Firma",
+    "ct.all":"Alle Kontakte und Nachrichtenformular",
     "mo.k":"Mehr von Prodan",
     "mo.t":"Alles über unsere Familie an einem Ort",
     "mo.1t":"Über uns",
@@ -1313,6 +1316,11 @@ html select{height:56px;line-height:normal}
     "st.p3":"Sogar Gordon Ramsay war mit uns auf Trüffelsuche. Er brachte Glück: Wir fanden zwei Trüffel und kochten gemeinsam.","q7":"Können Sie frische Trüffel verschicken?","a7":"Ja. In der Saison der weißen und schwarzen Trüffel versenden wir frische Trüffel per Expresskurier, innerhalb von 24 Stunden in alle europäischen Länder und innerhalb von 48 bis 72 Stunden in den Rest der Welt. Auch unsere Trüffelprodukte schicken wir per Kurier nach ganz Europa und weltweit.","q8":"Arbeiten Sie mit Restaurants, Läden und Händlern?","a8":"Ja. Wir beliefern Restaurants in der Saison mit frischen Trüffeln und unterstützen Läden und Händler mit Werbematerial. Schreiben Sie an info@prodantartufi.hr, dann senden wir Ihnen unser Sortiment und die Konditionen.","sp.rangeT":"Unser ganzes Sortiment","sp.r1":"Tartufata","sp.r2":"Trüffelaufstriche und getrocknete Pilze","sp.r3":"Ganze und gehobelte schwarze Trüffel","sp.r4":"Olivenöle mit Trüffel","sp.r5":"Süße Spezialitäten und Gewürze mit Trüffel","sp.r6":"Käse und Salami mit Trüffel","sp.r7":"Trüffelzubehör","sp.r8":"Frische weiße und schwarze Trüffel in der Saison","sp.rangeN":"100% kroatisch, aus Erzeugnissen der sauberen, unberührten Natur Istriens.","fo.obrt":"Pilzsammlung und Handel","fo.owner":"Inhaberin","ct.email":"E-Mail","js.guestsMany":"Gäste"
   };
   var IT = {
+    "ct.people":"Parlate con la famiglia",
+    "ct.v":"Ospiti e giornate al tartufo",
+    "ct.call2":"Chiama",
+    "ct.obrt":"Azienda",
+    "ct.all":"Tutti i contatti e modulo",
     "mo.k":"Altro da Prodan",
     "mo.t":"Tutto sulla nostra famiglia, in un posto",
     "mo.1t":"Chi siamo",
@@ -1398,6 +1406,11 @@ html select{height:56px;line-height:normal}
     "st.p3":"Anche Gordon Ramsay è venuto a caccia di tartufi con noi. Ci ha portato fortuna: abbiamo trovato due tartufi e cucinato insieme.","q7":"Potete spedire tartufi freschi?","a7":"Sì. Nella stagione del tartufo bianco e nero spediamo tartufi freschi con corriere espresso, entro 24 ore in tutti i paesi europei ed entro 48 o 72 ore nel resto del mondo. Anche i nostri prodotti al tartufo viaggiano con corriere in tutta Europa e nel mondo.","q8":"Lavorate con ristoranti, negozi e distributori?","a8":"Sì. In stagione forniamo tartufi freschi ai ristoranti e sosteniamo negozi e distributori con materiale promozionale. Scriveteci a info@prodantartufi.hr e vi invieremo la nostra gamma e le condizioni.","sp.rangeT":"Tutta la nostra gamma","sp.r1":"Tartufata","sp.r2":"Creme spalmabili al tartufo e funghi secchi","sp.r3":"Tartufi neri interi e a fette","sp.r4":"Oli d'oliva al tartufo","sp.r5":"Dolci e condimenti al tartufo","sp.r6":"Formaggi e salumi al tartufo","sp.r7":"Accessori per il tartufo","sp.r8":"Tartufi bianchi e neri freschi in stagione","sp.rangeN":"100% croati, fatti con prodotti della natura pulita e incontaminata dell'Istria.","fo.obrt":"raccolta funghi e commercio","fo.owner":"Titolare","ct.email":"E-mail","js.guestsMany":"ospiti"
   };
   var HR = {
+    "ct.people":"Razgovarajte s obitelji",
+    "ct.v":"Gosti i dani s tartufima",
+    "ct.call2":"Nazovi",
+    "ct.obrt":"Naziv i sjedište",
+    "ct.all":"Svi kontakti i obrazac za poruku",
     "mo.k":"Više o nama",
     "mo.t":"Sve o našoj obitelji, na jednom mjestu",
     "mo.1t":"O nama",
@@ -1483,6 +1496,11 @@ html select{height:56px;line-height:normal}
     "st.p3":"Čak je i Gordon Ramsay bio s nama u lovu na tartufe. Donio nam je sreću: našli smo dva tartufa i zajedno skuhali ručak.","q7":"Možete li poslati svježe tartufe?","a7":"Da. U sezoni bijelih i crnih tartufa svježe tartufe šaljemo brzom kurirskom službom, unutar 24 sata u sve europske zemlje i unutar 48 do 72 sata u ostatak svijeta. Naši proizvodi od tartufa također putuju kurirom po cijeloj Europi i svijetu.","q8":"Surađujete li s restoranima, trgovinama i distributerima?","a8":"Da. U sezoni opskrbljujemo restorane svježim tartufima, a trgovinama i distributerima pomažemo promotivnim materijalima. Pišite na info@prodantartufi.hr i poslat ćemo vam ponudu i uvjete.","sp.rangeT":"Cijela naša ponuda","sp.r1":"Tartufata","sp.r2":"Namazi s tartufima i suhe gljive","sp.r3":"Crni tartufi cijeli i sjeckani","sp.r4":"Maslinova ulja s tartufima","sp.r5":"Slatke delicije i začini s tartufima","sp.r6":"Sirevi i salame s tartufima","sp.r7":"Pribor za tartufe","sp.r8":"Svježi bijeli i crni tartufi u sezoni","sp.rangeN":"100% hrvatsko, od plodova uzgojenih u čistoj i netaknutoj istarskoj prirodi.","fo.obrt":"obrt za sakupljanje gljiva i trgovinu","fo.owner":"Vlasnica","ct.email":"E-mail"
   };
   var RU = {
+    "ct.people":"Свяжитесь с семьёй",
+    "ct.v":"Гости и дни с трюфелями",
+    "ct.call2":"Позвонить",
+    "ct.obrt":"Реквизиты",
+    "ct.all":"Все контакты и форма для сообщения",
     "mo.k":"Ещё о Prodan",
     "mo.t":"Всё о нашей семье в одном месте",
     "mo.1t":"О нас",
@@ -1927,7 +1945,7 @@ html select{height:56px;line-height:normal}
     var blackGeo = truffleGeo("black", mobile ? 3 : 4), whiteGeo = truffleGeo("white", mobile ? 3 : 4);
     var TGLSL = [
       "varying vec3 vOP;",
-      "vec3 th3(vec3 p){ p = vec3(dot(p,vec3(127.1,311.7,74.7)), dot(p,vec3(269.5,183.3,246.1)), dot(p,vec3(113.5,271.9,124.6))); return fract(sin(p)*43758.5453); }",
+      "vec3 th3(vec3 p){ p = fract(p*vec3(.1031,.1030,.0973)); p += dot(p, p.yxz+33.33); return fract((p.xxy+p.yxx)*p.zyx); }",
       "float tvn(vec3 p){ vec3 i=floor(p), f=fract(p); f=f*f*(3.-2.*f);",
       "  return mix(mix(mix(th3(i).x,th3(i+vec3(1,0,0)).x,f.x),mix(th3(i+vec3(0,1,0)).x,th3(i+vec3(1,1,0)).x,f.x),f.y),mix(mix(th3(i+vec3(0,0,1)).x,th3(i+vec3(1,0,1)).x,f.x),mix(th3(i+vec3(0,1,1)).x,th3(i+vec3(1,1,1)).x,f.x),f.y),f.z); }",
       "vec2 tcell(vec3 p){ vec3 i=floor(p), f=fract(p); float d1=8., d2=8.;",
@@ -1951,10 +1969,10 @@ html select{height:56px;line-height:normal}
         sh.fragmentShader = sh.fragmentShader.replace("#include <common>", "#include <common>\n" + TGLSL)
           .replace("#include <color_fragment>", [
             "#include <color_fragment>",
-            "float tHt = tH(vOP);",
+            "float tHt = clamp(tH(vOP), 0., 1.);",
             "#ifdef BLACK",
             " vec3 tc = mix(vec3(.035,.022,.018), vec3(.19,.15,.125), tHt);",
-            " float tdirt = smoothstep(.58,.78, tvn(vOP*4.5+3.)) * (1.-tHt);",
+            " float tdirt = clamp(smoothstep(.58,.78, tvn(vOP*4.5+3.)) * (1.-tHt), 0., 1.);",
             " tc = mix(tc, vec3(.36,.27,.18), tdirt*.7);",
             "#else",
             " float tm = tvn(vOP*2.6);",
@@ -1963,10 +1981,10 @@ html select{height:56px;line-height:normal}
             " float tdirt = smoothstep(.6,.82, tvn(vOP*5.+7.));",
             " tc = mix(tc, vec3(.42,.33,.22), tdirt*.55);",
             "#endif",
-            "diffuseColor.rgb = tc;"
+            "diffuseColor.rgb = clamp(tc, 0., 1.);"
           ].join("\n"))
           .replace("#include <roughnessmap_fragment>", "#include <roughnessmap_fragment>\n#ifdef BLACK\n roughnessFactor = mix(.82,.5,tHt);\n#else\n roughnessFactor = mix(.85,.68,tHt);\n#endif")
-          .replace("#include <normal_fragment_maps>", "#include <normal_fragment_maps>\n#ifdef BLACK\n normal = tPN(-vViewPosition, normal, vec2(dFdx(tHt), dFdy(tHt)) * .0075);\n#else\n normal = tPN(-vViewPosition, normal, vec2(dFdx(tHt), dFdy(tHt)) * .0028);\n#endif");
+          .replace("#include <normal_fragment_maps>", "#include <normal_fragment_maps>\n#ifdef BLACK\n normal = tPN(-vViewPosition, normal, clamp(vec2(dFdx(tHt), dFdy(tHt)), -.35, .35) * .0075);\n#else\n normal = tPN(-vViewPosition, normal, clamp(vec2(dFdx(tHt), dFdy(tHt)), -.35, .35) * .0028);\n#endif");
       };
       return m;
     }
