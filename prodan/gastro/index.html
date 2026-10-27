@@ -17,9 +17,6 @@ a{color:inherit}.wrap{max-width:1180px;margin:0 auto;padding:0 var(--g)}
 .nav{display:none;gap:26px;font-size:14px}.nav a{text-decoration:none;opacity:.8}.nav a.on{opacity:1;border-bottom:1px solid}
 @media(min-width:1000px){.nav{display:flex}}
 .back{font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--ink);border-radius:999px;padding:9px 16px;white-space:nowrap}
-.hero{position:relative;min-height:62vh;display:flex;align-items:flex-end;color:#fff;background:#2B1F16 url(https://prodantartufi.hr/wp-content/uploads/2016/01/gastro-kutak-prodan-tartufi.jpg) center/cover no-repeat}
-.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(12,16,12,.85),rgba(12,16,12,.15) 70%)}
-.hero .wrap{position:relative;padding-bottom:48px;width:100%}
 .k{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-l);margin:0 0 12px}
 h1{font:300 clamp(44px,9vw,92px)/1 var(--serif);margin:0}
 .intro{padding:56px 0 20px}.intro p{font:300 clamp(20px,2.4vw,26px)/1.5 var(--serif);max-width:44ch;margin:0}
@@ -59,6 +56,29 @@ h3{font:600 12px var(--sans);letter-spacing:.18em;text-transform:uppercase;color
 .rm__c{padding:26px 26px 34px}.rm__c h2{font:300 clamp(28px,4vw,40px)/1.15 var(--serif);margin:0 0 22px}
 .rm__g{display:grid;gap:24px}@media(min-width:760px){.rm__g{grid-template-columns:.8fr 1.2fr;gap:44px}}
 .k.k{color:var(--gold)}
+.hero{position:relative;min-height:calc(100svh - 64px - 44px);display:flex;flex-direction:column;justify-content:flex-end;color:#fff;background:#120E0B;overflow:hidden;isolation:isolate}
+.hero__img{position:absolute;inset:0;z-index:-2;background:url(https://prodantartufi.hr/wp-content/uploads/2016/01/gastro-kutak-prodan-tartufi.jpg) 60% 50%/cover no-repeat;animation:kb 26s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.04)}to{transform:scale(1.16) translate(-2%,-1%)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(14,12,9,.96) 0%,rgba(14,12,9,.7) 38%,rgba(14,12,9,.1) 75%),linear-gradient(to right,rgba(14,12,9,.55),rgba(14,12,9,0) 60%)}
+.hero__in{position:relative;width:100%;padding-top:110px;padding-bottom:34px;display:grid;gap:28px;align-items:end}
+@media(min-width:960px){.hero__in{grid-template-columns:1.25fr .75fr;gap:60px;padding-bottom:56px}}
+.hero h1{font:300 clamp(56px,11vw,124px)/.92 var(--serif);margin:0;letter-spacing:-.02em}.hero h1 i{font-style:italic;color:var(--gold-l)}
+.hero__lead{font:300 clamp(18px,2vw,22px)/1.5 var(--serif);max-width:34ch;margin:20px 0 0;color:rgba(255,255,255,.88)}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0;padding:0;list-style:none}
+.stats li{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1px solid rgba(255,255,255,.28);border-radius:999px;font-size:14px;background:rgba(255,255,255,.06);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.stats .ic{width:17px;height:17px;color:var(--gold-l)}.stats b{font-weight:600}
+.hero__cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.hbtn{display:inline-flex;align-items:center;gap:10px;min-height:50px;padding:0 22px;border-radius:999px;font:600 13px var(--sans);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:1px solid #fff}
+.hbtn--w{background:#fff;color:var(--forest)}.hbtn--o{background:transparent;color:#fff}
+.feat{display:flex;gap:16px;align-items:center;text-align:left;width:100%;padding:14px;border-radius:22px;border:1px solid rgba(255,255,255,.22);background:rgba(20,16,12,.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;cursor:pointer;font:inherit;transition:transform .35s,border-color .35s}
+.feat:hover{transform:translateY(-3px);border-color:var(--gold-l)}
+.feat__art{flex:none;width:112px;height:96px;border-radius:14px;background:#EFE3CF;display:grid;place-items:center}.feat__art svg{width:100px;height:76px}
+.feat small{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-l);margin-bottom:6px}
+.feat b{display:block;font:400 22px/1.2 var(--serif)}.feat span.m{display:block;font-size:13px;color:rgba(255,255,255,.7);margin-top:6px}
+.ticker{position:relative;border-top:1px solid rgba(255,255,255,.14);overflow:hidden;white-space:nowrap;padding:14px 0;font:300 italic 17px var(--serif);color:rgba(255,255,255,.75)}
+.ticker__t{display:inline-block;animation:tick 40s linear infinite}.ticker__t span{margin:0 18px}.ticker__t i{font-style:normal;color:var(--gold);margin:0 4px}
+@keyframes tick{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.hero__img,.ticker__t{animation:none}}
 </style></head>
 <body>
 <header class="hdr"><div class="wrap">
@@ -67,7 +87,19 @@ h3{font:600 12px var(--sans);letter-spacing:.18em;text-transform:uppercase;color
   <a class="back" href="../">← Naslovna</a>
 </div></header>
 <div class="note">Primjer unutarnje stranice: vaš Gastro kutak, isti recepti, novi izgled.</div>
-<section class="hero"><div class="wrap"><p class="k">Recepti s našim proizvodima</p><h1>Gastro kutak</h1></div></section>
+<section class="hero"><div class="hero__img" aria-hidden="true"></div>
+  <div class="wrap hero__in">
+    <div>
+      <p class="k">Recepti s našim proizvodima</p>
+      <h1>Gastro <i>kutak</i></h1>
+      <p class="hero__lead">Istarsko zlato na vašem stolu. Jela za dvoje, od brze salate do večere za posebnu priliku.</p>
+      <ul class="stats"><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5.5C6 4.5 9 4.5 12 6c3-1.5 6-1.5 8-.5V19c-2-1-5-1-8 .5-3-1.5-6-1.5-8-.5z"/><path d="M12 6v13.5"/></svg><b>6</b> recepata</li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>od <b>10</b> do <b>60</b> min</li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.4"/><path d="M3.5 19c0-3 2.5-5.5 5.5-5.5s5.5 2.5 5.5 5.5M14 19c.3-2.6 1.6-4 3.5-4s3 1.4 3 4"/></svg>za <b>2</b> osobe</li></ul>
+      <div class="hero__cta"><a class="hbtn hbtn--w" href="#grid">Recepti ↓</a><a class="hbtn hbtn--o" href="../#shop">Trgovina</a></div>
+    </div>
+    <button class="feat" data-i="5" type="button"><span class="feat__art"><svg viewBox="0 0 200 150" aria-hidden="true"><ellipse cx="100" cy="94" rx="74" ry="30" fill="#F7F1E6" stroke="#D9CBB2"/><path d="M54 84c14-10 30 8 44-2s28 6 40-2" stroke="#EBCB7A" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M54 92c14-10 30 8 44-2s28 6 40-2" stroke="#EBCB7A" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M54 100c14-10 30 8 44-2s28 6 40-2" stroke="#EBCB7A" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="80" cy="88" r="4" fill="#2B211B"/><circle cx="118" cy="96" r="4" fill="#2B211B"/><circle cx="100" cy="84" r="3" fill="#2B211B"/></svg></span><span><small>Najbrži recept</small><b>Tagliatelle s tartufatom</b><span class="m">15 min · 2 osobe · Tartufata</span></span></button>
+  </div>
+  <div class="ticker" aria-hidden="true"><div class="ticker__t"><span>Tartufata</span><i>✦</i><span>Bijela tartufata</span><i>✦</i><span>Tartufi i vrganji</span><i>✦</i><span>Maslinovo ulje s bijelim tartufom</span><i>✦</i><span>Maslinovo ulje s crnim tartufom</span><i>✦</i><span>Sir s crnim tartufima</span><i>✦</i><span>Džem s tartufom</span><i>✦</i><span>Tartufata</span><i>✦</i><span>Bijela tartufata</span><i>✦</i><span>Tartufi i vrganji</span><i>✦</i><span>Maslinovo ulje s bijelim tartufom</span><i>✦</i><span>Maslinovo ulje s crnim tartufom</span><i>✦</i><span>Sir s crnim tartufima</span><i>✦</i><span>Džem s tartufom</span><i>✦</i></div></div>
+</section>
 <section class="intro"><div class="wrap">
   <p>Gurmanska kuhinja današnjice nezamisliva je bez ove podzemne gljive koja se smatra vrhuncem svjetske gastronomije te je izniman sastojak za sljubljivanje s različitim jelima, od domaće istarske tjestenine i mesa boškarina pa sve do najkvalitetnije jadranske ribe.</p>
   <div class="chips" id="chips"><button class="on" data-f="all"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v8M5 3v4a2 2 0 0 0 4 0V3M7 11v10M16 3c-2 1.5-3 4-3 7h3v11"/></svg>Svi recepti</button><button class="" data-f="pasta"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h18a9 9 0 0 1-18 0zM6 11c1-3 2-5 3-7M10 11c.5-3 1.5-5 3-7M14 11c0-2.5 1-4.5 3-6"/></svg>Tjestenina</button><button class="" data-f="meso"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c0-5 4-8 9-8 4 0 7 2.5 7 6 0 4-4 8-10 8-4 0-6-2.5-6-6z"/><circle cx="14" cy="10" r="2"/><path d="M7 15c2 1 5 1 7 0"/></svg>Meso</button><button class="" data-f="salata"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18a9 9 0 0 1-18 0zM8 12c-1-3 0-6 3-7 0 3-1 5-3 7zM12 12c0-3 2-5 5-5-1 3-2 4-5 5zM16 12c1-1 2-1.5 3.5-1.5"/></svg>Salata</button><button class="" data-f="desert"><svg class="ic " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10h12l-1.5 10h-9zM6 10c0-3 2.5-5 6-5s6 2 6 5M12 5V3"/><path d="M9 14h6"/></svg>Desert</button></div>
@@ -96,7 +128,7 @@ h3{font:600 12px var(--sans);letter-spacing:.18em;text-transform:uppercase;color
 <section class="shop"><div class="wrap"><h2>Sve sastojke s tartufima<br>imamo u obiteljskoj trgovini.</h2><p>Tartufata, ulja s tartufima, sirevi i džem s tartufom. Složite poklon kutiju i naručite je na WhatsApp.</p><a class="pill" href="../#shop">Obiteljska trgovina →</a></div></section>
 <script>
 (function(){var dlg=document.getElementById("rm"),body=document.getElementById("rmBody");
-document.querySelectorAll(".rcard").forEach(function(c){c.addEventListener("click",function(){body.innerHTML="";body.appendChild(document.getElementById("t"+c.dataset.i).content.cloneNode(true));if(dlg.showModal)dlg.showModal();else dlg.setAttribute("open","");dlg.scrollTop=0;})});
+document.querySelectorAll(".rcard,.feat").forEach(function(c){c.addEventListener("click",function(){body.innerHTML="";body.appendChild(document.getElementById("t"+c.dataset.i).content.cloneNode(true));if(dlg.showModal)dlg.showModal();else dlg.setAttribute("open","");dlg.scrollTop=0;})});
 dlg.querySelector(".rm__x").addEventListener("click",function(){dlg.close()});
 dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close()});
 document.querySelectorAll("#chips button").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("#chips button").forEach(function(x){x.classList.toggle("on",x===b)});var f=b.dataset.f;document.querySelectorAll(".rcard").forEach(function(r){r.style.display=(f==="all"||r.dataset.cat===f)?"":"none"})})});
