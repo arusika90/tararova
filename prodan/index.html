@@ -1012,7 +1012,7 @@ html select{height:56px;line-height:normal}
 
 <!-- 05 Good to know -->
 <section class="sec has-deco bg-cream" id="good">
-  <svg class="deco deco-dog" viewBox="0 0 200 140" style="width:170px;right:-10px;top:40px;color:#5A3E2B;opacity:0.28" data-par="0.15" aria-hidden="true"><use href="#i-dog" width="200" height="140"/></svg>
+  <svg class="deco deco-dog" viewBox="0 0 200 140" style="width:170px;right:-10px;top:40px;color:#5A3E2B;opacity:0.28" data-par="0.15" aria-hidden="true"><g transform="translate(200 0) scale(-1 1)"><use href="#i-dog" width="200" height="140"/></g></svg>
   <div class="wrap">
     <div class="sh rv">
       <p class="label"><span class="num">05</span><span data-i18n="gk.label">Good to know</span></p>
@@ -1837,7 +1837,7 @@ html select{height:56px;line-height:normal}
     function truffleGeo(type, detail){
       var geo = new THREE.IcosahedronGeometry(1, detail), pos = geo.attributes.position, n = pos.count, colors = new Float32Array(n * 3);
       var ph = [rnd(0,6),rnd(0,6),rnd(0,6),rnd(0,6),rnd(0,6),rnd(0,6)], cells = [];
-      if(type === "black"){ var N = mobile ? 300 : 420; for(var i=0;i<N;i++){ var yy = 1 - (i + .5) / N * 2, rr = Math.sqrt(1 - yy*yy), th = i * 2.39996 + rnd(-.2,.2); cells.push(new THREE.Vector3(Math.cos(th)*rr, yy, Math.sin(th)*rr).normalize()); } }
+      if(false){ var N = 0; for(var i=0;i<N;i++){ var yy = 1 - (i + .5) / N * 2, rr = Math.sqrt(1 - yy*yy), th = i * 2.39996 + rnd(-.2,.2); cells.push(new THREE.Vector3(Math.cos(th)*rr, yy, Math.sin(th)*rr).normalize()); } }
       var v = new THREE.Vector3(), cA = new THREE.Color(), cB = new THREE.Color(), cC = new THREE.Color();
       if(type === "black"){ cA.set(0x070505); cB.set(0x171210); cC.set(0x3B3029); } else { cA.set(0x7A6448); cB.set(0xB59E7C); cC.set(0xD6C4A2); }
       for(var k=0;k<n;k++){
@@ -1847,8 +1847,7 @@ html select{height:56px;line-height:normal}
         if(type === "black"){
           var d1 = 9, d2 = 9;
           for(var j=0;j<cells.length;j++){ var dd = 1 - v.dot(cells[j]); if(dd < d1){ d2 = d1; d1 = dd; } else if(dd < d2) d2 = dd; }
-          var wart = 1 - d1 / ((d1 + d2) * .5 + 1e-6);
-          d += wart * .16; tone = Math.pow(wart, 1.6);
+          d += lump * .2;
         } else {
           tone = Math.min(1, Math.max(0, .55 + lump * 3 + .25*Math.sin(9*v.x + ph[5])*Math.sin(8*v.z)));
         }
@@ -1858,16 +1857,60 @@ html select{height:56px;line-height:normal}
       }
       geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
       geo.computeVertexNormals();
-      if(type !== "black"){
+      if(true){
         var nrm = geo.attributes.normal, acc = {}, key = function(i){ return Math.round(pos.getX(i)*1e3) + "," + Math.round(pos.getY(i)*1e3) + "," + Math.round(pos.getZ(i)*1e3); };
         for(var a1=0;a1<n;a1++){ var kk = key(a1), o = acc[kk] || (acc[kk] = [0,0,0]); o[0] += nrm.getX(a1); o[1] += nrm.getY(a1); o[2] += nrm.getZ(a1); }
         for(var a2=0;a2<n;a2++){ var q = acc[key(a2)], l = Math.hypot(q[0], q[1], q[2]) || 1; nrm.setXYZ(a2, q[0]/l, q[1]/l, q[2]/l); }
       }
       return geo;
     }
-    var blackGeo = truffleGeo("black", mobile ? 4 : 5), whiteGeo = truffleGeo("white", 3);
-    var blackMat = new THREE.MeshStandardMaterial({vertexColors:true, roughness:.55, metalness:.05, flatShading:true});
-    var whiteMat = new THREE.MeshStandardMaterial({vertexColors:true, roughness:.78, metalness:0});
+    var blackGeo = truffleGeo("black", mobile ? 3 : 4), whiteGeo = truffleGeo("white", mobile ? 3 : 4);
+    var TGLSL = [
+      "varying vec3 vOP;",
+      "vec3 th3(vec3 p){ p = vec3(dot(p,vec3(127.1,311.7,74.7)), dot(p,vec3(269.5,183.3,246.1)), dot(p,vec3(113.5,271.9,124.6))); return fract(sin(p)*43758.5453); }",
+      "float tvn(vec3 p){ vec3 i=floor(p), f=fract(p); f=f*f*(3.-2.*f);",
+      "  return mix(mix(mix(th3(i).x,th3(i+vec3(1,0,0)).x,f.x),mix(th3(i+vec3(0,1,0)).x,th3(i+vec3(1,1,0)).x,f.x),f.y),mix(mix(th3(i+vec3(0,0,1)).x,th3(i+vec3(1,0,1)).x,f.x),mix(th3(i+vec3(0,1,1)).x,th3(i+vec3(1,1,1)).x,f.x),f.y),f.z); }",
+      "vec2 tcell(vec3 p){ vec3 i=floor(p), f=fract(p); float d1=8., d2=8.;",
+      "  for(int x=-1;x<=1;x++) for(int y=-1;y<=1;y++) for(int z=-1;z<=1;z++){ vec3 o=vec3(float(x),float(y),float(z)); vec3 r=o+th3(i+o)*.9-f; float d=dot(r,r); if(d<d1){ d2=d1; d1=d; } else if(d<d2){ d2=d; } }",
+      "  return vec2(sqrt(d1), sqrt(d2)); }",
+      "float tH(vec3 p){",
+      "#ifdef BLACK",
+      "  vec2 c = tcell(p*7.5); float w = clamp((c.y-c.x)*1.7, 0., 1.); w = pow(w, .8); return w*.82 + tvn(p*46.)*.18;",
+      "#else",
+      "  return tvn(p*7.)*.45 + tvn(p*19.)*.3 + tvn(p*55.)*.25;",
+      "#endif",
+      "}",
+      "vec3 tPN(vec3 sp, vec3 sn, vec2 dH){ vec3 sx=dFdx(sp), sy=dFdy(sp); vec3 r1=cross(sy,sn), r2=cross(sn,sx); float det=dot(sx,r1); vec3 g=sign(det)*(dH.x*r1+dH.y*r2); return normalize(abs(det)*sn-g); }"
+    ].join("\n");
+    function truffleMat(black){
+      var m = new THREE.MeshStandardMaterial({color:0xffffff, roughness:.7, metalness:0});
+      m.defines = black ? {BLACK:""} : {};
+      m.extensions = {derivatives:true};
+      m.onBeforeCompile = function(sh){
+        sh.vertexShader = "varying vec3 vOP;\n" + sh.vertexShader.replace("#include <begin_vertex>", "#include <begin_vertex>\n vOP = position;");
+        sh.fragmentShader = sh.fragmentShader.replace("#include <common>", "#include <common>\n" + TGLSL)
+          .replace("#include <color_fragment>", [
+            "#include <color_fragment>",
+            "float tHt = tH(vOP);",
+            "#ifdef BLACK",
+            " vec3 tc = mix(vec3(.035,.022,.018), vec3(.19,.15,.125), tHt);",
+            " float tdirt = smoothstep(.58,.78, tvn(vOP*4.5+3.)) * (1.-tHt);",
+            " tc = mix(tc, vec3(.36,.27,.18), tdirt*.7);",
+            "#else",
+            " float tm = tvn(vOP*2.6);",
+            " vec3 tc = mix(vec3(.58,.49,.34), vec3(.85,.77,.6), smoothstep(.25,.85,tm));",
+            " tc *= .82 + .2*tHt;",
+            " float tdirt = smoothstep(.6,.82, tvn(vOP*5.+7.));",
+            " tc = mix(tc, vec3(.42,.33,.22), tdirt*.55);",
+            "#endif",
+            "diffuseColor.rgb = tc;"
+          ].join("\n"))
+          .replace("#include <roughnessmap_fragment>", "#include <roughnessmap_fragment>\n#ifdef BLACK\n roughnessFactor = mix(.82,.5,tHt);\n#else\n roughnessFactor = mix(.85,.68,tHt);\n#endif")
+          .replace("#include <normal_fragment_maps>", "#include <normal_fragment_maps>\n#ifdef BLACK\n normal = tPN(-vViewPosition, normal, vec2(dFdx(tHt), dFdy(tHt)) * .0075);\n#else\n normal = tPN(-vViewPosition, normal, vec2(dFdx(tHt), dFdy(tHt)) * .0028);\n#endif");
+      };
+      return m;
+    }
+    var blackMat = truffleMat(true), whiteMat = truffleMat(false);
     var truffles = [], glows = [];
     var pocketMat = new THREE.MeshBasicMaterial({color:0x120C08, transparent:true, opacity:.75, depthWrite:false});
     function addTruffle(type, x, y, z, r, inSoil){
