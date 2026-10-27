@@ -2063,6 +2063,7 @@ html select{height:56px;line-height:normal}
       return e;
     }
 
+    if(/dbg/.test(location.search)) window.__dbg = {scene:scene, fogs:fogs, dust:dust, spores:spores, glows:glows, shafts:shafts, lights:[spot, deepLight, deepFill, sun, fill], truffles:truffles, renderer:renderer};
     /* pointer parallax */
     var ptr = {x:0, y:0}, ptrS = {x:0, y:0};
     window.addEventListener("pointermove", function(e){
