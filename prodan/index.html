@@ -152,7 +152,7 @@ section{scroll-margin-top:calc(var(--header) + 16px)}
 .logo svg{width:32px;height:32px;flex:none}
 .logo b{display:block;font-family:var(--serif);font-weight:400;font-size:20px}
 .logo small{display:block;font-size:9px;letter-spacing:.24em;text-transform:uppercase;opacity:.8;margin-top:4px}
-.hdr__nav{display:none;gap:28px;font-size:14px}
+.hdr__nav{display:none;gap:24px;font-size:14px}.sp__all{margin-top:14px}.ex__all{margin:14px 0 0}
 .hdr__nav a{position:relative;padding:6px 0}
 .hdr__nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .5s var(--out)}
 .hdr__nav a:hover::after{transform:none}
@@ -182,7 +182,7 @@ section{scroll-margin-top:calc(var(--header) + 16px)}
 .burger i:first-child{top:0}.burger i:last-child{top:10px}
 .menu-open .burger i:first-child{top:5px;transform:rotate(45deg)}
 .menu-open .burger i:last-child{top:5px;transform:rotate(-45deg)}
-@media(min-width:900px){.hdr__nav,.hdr .lang{display:flex}.hdr__book{display:inline-flex}.menu-btn{display:none}}
+@media(min-width:900px){.hdr .lang{display:flex}.hdr__book{display:inline-flex}}@media(min-width:1200px){.hdr__nav{display:flex}.menu-btn{display:none}}
 .menu{position:fixed;inset:0;z-index:55;background:var(--cream);color:var(--ink);padding:calc(var(--header) + 24px) var(--gutter) calc(28px + env(safe-area-inset-bottom));display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility 0s .45s;overflow-y:auto}
 .menu-open .menu{opacity:1;visibility:visible;transition:opacity .45s var(--ease)}
 .menu nav a{display:block;padding:10px 0;font:400 32px/1.15 var(--serif);border-bottom:1px solid var(--line);opacity:0;transform:translateY(18px);transition:opacity .5s,transform .7s var(--out)}
@@ -637,11 +637,12 @@ html select{height:56px;line-height:normal}
   <div class="wrap">
     <a href="#top" class="logo logo--pt" aria-label="Prodan Tartufi"><svg viewBox="0 0 1220 310" aria-hidden="true" fill="currentColor"><use href="#pt-full"/></svg></a>
     <nav class="hdr__nav" aria-label="Main">
-      <a href="#story" data-i18n="nav.story">Our story</a>
-      <a href="#experiences" data-i18n="nav.exp">Experiences</a>
-      <a href="#day" data-i18n="nav.day">Your day</a>
-      <a href="#shop" data-i18n="nav.shop">Shop</a>
-      <a href="#contact" data-i18n="nav.contact">Contact</a>
+      <a href="o-nama/" data-i18n="pg.about">About us</a>
+      <a href="lov-na-tartuf/" data-i18n="pg.hunt">Truffle hunting</a>
+      <a href="proizvodi/" data-i18n="pg.prod">Products</a>
+      <a href="gastro/" data-i18n="pg.gastro">Recipes</a>
+      <a href="galerija/" data-i18n="pg.gal">Gallery</a>
+      <a href="kontakt/" data-i18n="pg.contact">Contact</a>
     </nav>
     <div class="hdr__r">
       <div class="lpick" id="lpick">
@@ -662,13 +663,15 @@ html select{height:56px;line-height:normal}
 
 <div class="menu" id="menu" aria-hidden="true">
   <nav aria-label="Menu">
-    <a href="#story" data-i18n="nav.story">Our story</a>
-    <a href="#experiences" data-i18n="nav.exp">Experiences</a>
-    <a href="#day" data-i18n="nav.day">Your day</a>
-    <a href="#shop" data-i18n="nav.shop">Shop</a>
-    <a href="#good" data-i18n="nav.good">Good to know</a>
-    <a href="#faq" data-i18n="nav.faq">Questions</a>
-    <a href="#contact" data-i18n="nav.contact">Contact</a>
+    <a href="o-nama/" data-i18n="pg.about">About us</a>
+    <a href="tartuf/" data-i18n="pg.truffle">The truffle</a>
+    <a href="lov-na-tartuf/" data-i18n="pg.hunt">Truffle hunting</a>
+    <a href="proizvodi/" data-i18n="pg.prod">Products</a>
+    <a href="gastro/" data-i18n="pg.gastro">Recipes</a>
+    <a href="distribucija/" data-i18n="pg.dist">Distribution</a>
+    <a href="galerija/" data-i18n="pg.gal">Gallery</a>
+    <a href="kontakt/" data-i18n="pg.contact">Contact</a>
+    <a href="#book" data-i18n="pg.book">Book a truffle day</a>
   </nav>
   <div class="menu-foot">
     <a class="pill pill--block" href="#book" data-i18n="nav.book">Book direct</a>
@@ -859,6 +862,7 @@ html select{height:56px;line-height:normal}
       </div>
     </div>
     <p class="ex__note" data-i18n="ex.note">Prices on request. Write to us with the date and number of guests and we reply with the price.</p>
+    <p class="ex__all"><a class="ulink" href="lov-na-tartuf/"><span data-i18n="ex.all">Everything about the hunt</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
   </div>
 </section>
 
@@ -993,6 +997,7 @@ html select{height:56px;line-height:normal}
           </div>
           <a class="pill pill--block" id="shopBtn" href="https://wa.me/385915512796" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg><span data-i18n="sp.cta">Order on WhatsApp</span></a>
           <p class="fine" data-i18n="sp.fine">You can also visit the shop, open daily 08:00 to 22:00.</p>
+          <a class="ulink sp__all" href="proizvodi/"><span data-i18n="sp.all">See all 18 products and order several at once</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </div>
     </div>
@@ -1227,6 +1232,17 @@ html select{height:56px;line-height:normal}
 
   /* ---------- i18n: EN is read from the page, DE / IT / HR / RU from these dictionaries ---------- */
   var DE = {
+    "pg.about":"Über uns",
+    "pg.truffle":"Der Trüffel",
+    "pg.hunt":"Trüffelsuche",
+    "pg.prod":"Produkte",
+    "pg.gastro":"Rezepte",
+    "pg.dist":"Vertrieb",
+    "pg.gal":"Galerie",
+    "pg.contact":"Kontakt",
+    "pg.book":"Trüffeltag buchen",
+    "sp.all":"Alle 18 Produkte ansehen und mehrere auf einmal bestellen",
+    "ex.all":"Alles über die Trüffelsuche",
     "ct.people":"Sprechen Sie mit der Familie",
     "ct.v":"Gäste und Trüffeltage",
     "ct.call2":"Anrufen",
@@ -1317,6 +1333,17 @@ html select{height:56px;line-height:normal}
     "st.p3":"Sogar Gordon Ramsay war mit uns auf Trüffelsuche. Er brachte Glück: Wir fanden zwei Trüffel und kochten gemeinsam.","q7":"Können Sie frische Trüffel verschicken?","a7":"Ja. In der Saison der weißen und schwarzen Trüffel versenden wir frische Trüffel per Expresskurier, innerhalb von 24 Stunden in alle europäischen Länder und innerhalb von 48 bis 72 Stunden in den Rest der Welt. Auch unsere Trüffelprodukte schicken wir per Kurier nach ganz Europa und weltweit.","q8":"Arbeiten Sie mit Restaurants, Läden und Händlern?","a8":"Ja. Wir beliefern Restaurants in der Saison mit frischen Trüffeln und unterstützen Läden und Händler mit Werbematerial. Schreiben Sie an info@prodantartufi.hr, dann senden wir Ihnen unser Sortiment und die Konditionen.","sp.rangeT":"Unser ganzes Sortiment","sp.r1":"Tartufata","sp.r2":"Trüffelaufstriche und getrocknete Pilze","sp.r3":"Ganze und gehobelte schwarze Trüffel","sp.r4":"Olivenöle mit Trüffel","sp.r5":"Süße Spezialitäten und Gewürze mit Trüffel","sp.r6":"Käse und Salami mit Trüffel","sp.r7":"Trüffelzubehör","sp.r8":"Frische weiße und schwarze Trüffel in der Saison","sp.rangeN":"100% kroatisch, aus Erzeugnissen der sauberen, unberührten Natur Istriens.","fo.obrt":"Pilzsammlung und Handel","fo.owner":"Inhaberin","ct.email":"E-Mail","js.guestsMany":"Gäste"
   };
   var IT = {
+    "pg.about":"Chi siamo",
+    "pg.truffle":"Il tartufo",
+    "pg.hunt":"Caccia al tartufo",
+    "pg.prod":"Prodotti",
+    "pg.gastro":"Ricette",
+    "pg.dist":"Distribuzione",
+    "pg.gal":"Galleria",
+    "pg.contact":"Contatti",
+    "pg.book":"Prenota",
+    "sp.all":"Vedi tutti i 18 prodotti e ordinane più insieme",
+    "ex.all":"Tutto sulla caccia al tartufo",
     "ct.people":"Parlate con la famiglia",
     "ct.v":"Ospiti e giornate al tartufo",
     "ct.call2":"Chiama",
@@ -1407,6 +1434,17 @@ html select{height:56px;line-height:normal}
     "st.p3":"Anche Gordon Ramsay è venuto a caccia di tartufi con noi. Ci ha portato fortuna: abbiamo trovato due tartufi e cucinato insieme.","q7":"Potete spedire tartufi freschi?","a7":"Sì. Nella stagione del tartufo bianco e nero spediamo tartufi freschi con corriere espresso, entro 24 ore in tutti i paesi europei ed entro 48 o 72 ore nel resto del mondo. Anche i nostri prodotti al tartufo viaggiano con corriere in tutta Europa e nel mondo.","q8":"Lavorate con ristoranti, negozi e distributori?","a8":"Sì. In stagione forniamo tartufi freschi ai ristoranti e sosteniamo negozi e distributori con materiale promozionale. Scriveteci a info@prodantartufi.hr e vi invieremo la nostra gamma e le condizioni.","sp.rangeT":"Tutta la nostra gamma","sp.r1":"Tartufata","sp.r2":"Creme spalmabili al tartufo e funghi secchi","sp.r3":"Tartufi neri interi e a fette","sp.r4":"Oli d'oliva al tartufo","sp.r5":"Dolci e condimenti al tartufo","sp.r6":"Formaggi e salumi al tartufo","sp.r7":"Accessori per il tartufo","sp.r8":"Tartufi bianchi e neri freschi in stagione","sp.rangeN":"100% croati, fatti con prodotti della natura pulita e incontaminata dell'Istria.","fo.obrt":"raccolta funghi e commercio","fo.owner":"Titolare","ct.email":"E-mail","js.guestsMany":"ospiti"
   };
   var HR = {
+    "pg.about":"O nama",
+    "pg.truffle":"Tartuf",
+    "pg.hunt":"Lov na tartuf",
+    "pg.prod":"Proizvodi",
+    "pg.gastro":"Gastro kutak",
+    "pg.dist":"Distribucija",
+    "pg.gal":"Galerija",
+    "pg.contact":"Kontakt",
+    "pg.book":"Rezervacija",
+    "sp.all":"Pogledajte svih 18 proizvoda i naručite više odjednom",
+    "ex.all":"Sve o lovu na tartuf",
     "ct.people":"Razgovarajte s obitelji",
     "ct.v":"Gosti i dani s tartufima",
     "ct.call2":"Nazovi",
@@ -1497,6 +1535,17 @@ html select{height:56px;line-height:normal}
     "st.p3":"Čak je i Gordon Ramsay bio s nama u lovu na tartufe. Donio nam je sreću: našli smo dva tartufa i zajedno skuhali ručak.","q7":"Možete li poslati svježe tartufe?","a7":"Da. U sezoni bijelih i crnih tartufa svježe tartufe šaljemo brzom kurirskom službom, unutar 24 sata u sve europske zemlje i unutar 48 do 72 sata u ostatak svijeta. Naši proizvodi od tartufa također putuju kurirom po cijeloj Europi i svijetu.","q8":"Surađujete li s restoranima, trgovinama i distributerima?","a8":"Da. U sezoni opskrbljujemo restorane svježim tartufima, a trgovinama i distributerima pomažemo promotivnim materijalima. Pišite na info@prodantartufi.hr i poslat ćemo vam ponudu i uvjete.","sp.rangeT":"Cijela naša ponuda","sp.r1":"Tartufata","sp.r2":"Namazi s tartufima i suhe gljive","sp.r3":"Crni tartufi cijeli i sjeckani","sp.r4":"Maslinova ulja s tartufima","sp.r5":"Slatke delicije i začini s tartufima","sp.r6":"Sirevi i salame s tartufima","sp.r7":"Pribor za tartufe","sp.r8":"Svježi bijeli i crni tartufi u sezoni","sp.rangeN":"100% hrvatsko, od plodova uzgojenih u čistoj i netaknutoj istarskoj prirodi.","fo.obrt":"obrt za sakupljanje gljiva i trgovinu","fo.owner":"Vlasnica","ct.email":"E-mail"
   };
   var RU = {
+    "pg.about":"О нас",
+    "pg.truffle":"Трюфель",
+    "pg.hunt":"Охота на трюфели",
+    "pg.prod":"Продукция",
+    "pg.gastro":"Рецепты",
+    "pg.dist":"Дистрибуция",
+    "pg.gal":"Галерея",
+    "pg.contact":"Контакты",
+    "pg.book":"Бронирование",
+    "sp.all":"Все 18 продуктов, можно заказать сразу несколько",
+    "ex.all":"Всё об охоте на трюфели",
     "ct.people":"Свяжитесь с семьёй",
     "ct.v":"Гости и дни с трюфелями",
     "ct.call2":"Позвонить",
