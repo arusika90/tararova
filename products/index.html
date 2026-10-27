@@ -734,6 +734,15 @@ svg.doodle .dh{stroke-dasharray:45;stroke-dashoffset:45}
 .wk-h1{font-size:var(--h1);line-height:1.02;letter-spacing:-.04em;font-weight:800;margin:12px 0 18px}
 .wk-lead{font-size:18px;line-height:1.55;color:#4b4351;max-width:640px;margin:0 0 18px}
 .wk-back{font-weight:700;color:var(--accent-text,#4b6b00)}
+
+/* small screens: header CTA becomes a floating WhatsApp pill */
+.mfab{display:none}
+@media(max-width:900px){
+ .hcta{display:none!important}
+ .mfab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:90;display:inline-flex;align-items:center;gap:9px;height:52px;padding:0 20px 0 16px;border-radius:999px;background:var(--ink);color:#fff;font-size:14px;font-weight:700;box-shadow:0 14px 34px -12px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.16);transform:translateY(150%);opacity:0;pointer-events:none;transition:transform .6s var(--ease),opacity .4s ease}
+ .mfab svg{width:20px;height:20px;color:#25D366}
+ .mfab.show{transform:none;opacity:1;pointer-events:auto}
+}
 </style>
 
 </head>
@@ -762,6 +771,8 @@ svg.doodle .dh{stroke-dasharray:45;stroke-dashoffset:45}
 </div></div></section>
 
 </main>
+<a class="mfab" id="mfab" href="https://wa.me/385916124340?text=Hi%20Maria" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3Z"/></svg><span data-i18n="fab.write">Write to me</span></a>
+
 <section class="contact" id="contact"><div class="wrap contact-card reveal"><div><div class="eyebrow" data-i18n="contact.eyebrow">Contact</div><h2 data-i18n="contact.h2">Ready to talk?<br><span>I actually reply.</span></h2><div class="cbtns"><a class="mail mag" href="mailto:mariatararova@gmail.com?subject=Hi%20Maria">mariatararova@gmail.com ↗</a><a class="wa mag" href="https://wa.me/385916124340?text=Hi%20Maria" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3Z"/></svg><span data-i18n="contact.wa">Message on WhatsApp ↗</span></a></div><div class="brief"><p data-i18n="contact.brief">Or download the brief and fill it in when it suits you:</p><a href="brief/tararova-brief.pdf" download>PDF</a><a href="brief/tararova-brief.docx" download>Word</a></div></div>
 <div class="howto"><h3 data-i18n="contact.h3">To get a useful answer fast, tell me:</h3><ol><li data-i18n="contact.li1"><b>Who you are.</b> Your business or project, with a link if you have one.</li><li data-i18n="contact.li2"><b>What you need.</b> A website, online booking, an app idea, or just a second opinion.</li><li data-i18n="contact.li3"><b>When.</b> A rough deadline, even if it is “whenever”.</li></ol><p class="small" data-i18n="contact.small">Budget is welcome but not required. I usually reply within two working days.</p></div></div></section>
 <footer><div class="wrap foot"><div class="foot-mark" aria-hidden="true"><span class="mono2"><b>TA</b><b>RA</b><b>RO</b><b class="a">VA</b></span></div><h2 data-i18n="foot.h2">More ideas than reasonable amounts of free time.</h2><div class="footrow"><address class="legal"><strong>STUDIO MARIIA TARAROVA</strong>, obrt za usluge, vl. Mariia Tararova<br>Primorska 8, 51000 Rijeka, Croatia<br>OIB 17233930874 · MBO 99056658 · <span data-i18n="legal.reg">Registered in the Croatian Crafts Register (Obrtni registar)</span><br><span data-i18n="legal.vat">Not in the VAT system (obrt nije u sustavu PDV-a)</span> · <a href="mailto:mariatararova@gmail.com">mariatararova@gmail.com</a> · © 2026</address><div class="footlinks"><a href="/products/" data-i18n="nav.products">Products</a><a href="work/" data-i18n="nav.work">Work</a><a href="/#websites" data-i18n="nav.websites">Websites</a><a href="/#about" data-i18n="nav.about">About</a><a href="mailto:mariatararova@gmail.com?subject=Hi%20Maria">mariatararova@gmail.com</a></div></div></div></footer>
@@ -800,6 +811,7 @@ if(location.hash==="#site-menu")history.replaceState(null,"",location.pathname+l
 /* ================= i18n: EN is read from the page, others below ================= */
 var I18N={
 ru:{
+"fab.write":"Написать",
 "pr.lead":"Приложения, которые я сама проектирую, делаю и выпускаю.","pr.back":"← На tararova.com",
 "w4.h3":"iOS-приложение","w4.p":"Своё приложение в App Store: бронирования, программа лояльности, меню или инструмент для команды. Дизайн и разработка целиком.","w5.h3":"Внутренние системы","w5.p":"Админки, дашборды и бэк-офис для команды. Бронирования, заказы, сотрудники и отчёты в одном месте, а не в пяти таблицах.",
 "wt.h2":"Банки, реклама, медицина.","wt.p":"До своих приложений я много лет проектировала продукты для банка ВТБ, рекламной платформы LightAd, GameAnalyze и других.","wt.btn":"Смотреть работы ↗",
@@ -873,6 +885,7 @@ ru:{
 "faq.a4":"Небольшие правки текста и фото в первый месяц включены. Дальше по договорённости."
 },
 hr:{
+"fab.write":"Pišite mi",
 "pr.lead":"Aplikacije koje sama dizajniram, izrađujem i objavljujem.","pr.back":"← Natrag na tararova.com",
 "w4.h3":"iOS aplikacija","w4.p":"Vaša aplikacija u App Storeu: rezervacije, program vjernosti, jelovnik ili alat za vaš tim. Dizajn i izrada od početka do kraja.","w5.h3":"Interni sustavi","w5.p":"Admin paneli, nadzorne ploče i back office za vaš tim. Rezervacije, narudžbe, osoblje i izvještaji na jednom mjestu umjesto u pet tablica.",
 "wt.h2":"Banke, oglašavanje, zdravstvo.","wt.p":"Prije vlastitih aplikacija godinama sam dizajnirala proizvode za VTB banku, LightAd platformu za oglašavanje, GameAnalyze i druge.","wt.btn":"Pogledaj radove ↗",
@@ -946,6 +959,7 @@ hr:{
 "faq.a4":"Manje izmjene teksta i fotografija u prvom mjesecu su uključene. Nakon toga po dogovoru."
 },
 de:{
+"fab.write":"Schreiben",
 "pr.lead":"Apps, die ich selbst gestalte, baue und veröffentliche.","pr.back":"← Zurück zu tararova.com",
 "w4.h3":"iOS-App","w4.p":"Ihre eigene App im App Store: Buchungen, Treueprogramm, Speisekarte oder ein Tool für Ihr Team. Gestaltet und gebaut aus einer Hand.","w5.h3":"Interne Systeme","w5.p":"Admin-Bereiche, Dashboards und Backoffice für Ihr Team. Buchungen, Bestellungen, Personal und Berichte an einem Ort statt in fünf Tabellen.",
 "wt.h2":"Banken, Ad-Tech, Gesundheit.","wt.p":"Vor meinen eigenen Apps habe ich jahrelang Produkte für die VTB Bank, die Werbeplattform LightAd, GameAnalyze und andere gestaltet.","wt.btn":"Arbeiten ansehen ↗",
@@ -1299,4 +1313,5 @@ function initHero(){
 <script>
 document.querySelectorAll(".case").forEach(function(c){var m=c.querySelector(".case-main img");c.querySelectorAll(".wthumb").forEach(function(b){b.addEventListener("click",function(){m.src=b.dataset.src;c.querySelectorAll(".wthumb").forEach(function(x){x.classList.toggle("on",x===b)})})})});
 </script>
+<script>(function(){var f=document.getElementById("mfab");if(!f)return;var c=document.getElementById("contact");function u(){var y=scrollY,show=y>innerHeight*.6;if(c){var r=c.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)show=false}f.classList.toggle("show",show)}addEventListener("scroll",u,{passive:true});addEventListener("resize",u);u()})();</script>
 </body></html>
