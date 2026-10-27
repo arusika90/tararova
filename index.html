@@ -1,29 +1,1242 @@
-<!DOCTYPE html>
-<html lang="hr"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Studio Mariia Tararova · Rijeka</title>
-<meta name="description" content="Studio Mariia Tararova, dizajn i web stranice za lokalne tvrtke. Rijeka.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<!doctype html>
+<html lang="en" data-accent="lime">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Maria Tararova · Independent Product Maker</title>
+<meta name="description" content="I used to design products. Now I build them.">
+<meta name="robots" content="index,follow">
+<meta name="author" content="Maria Tararova">
+<meta name="theme-color" content="#0B0B0D">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Maria Tararova · Independent Product Maker">
+<meta property="og:description" content="I used to design products. Now I build them. Product designer since 2007, building my own apps from Rijeka, Croatia.">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Maria Tararova · Independent Product Maker">
+<meta name="twitter:description" content="I used to design products. Now I build them.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0B0D'/%3E%3Cg font-family='Inter,Arial,sans-serif' font-weight='900' font-size='23' text-anchor='middle' letter-spacing='-1'%3E%3Ctext x='18' y='29' fill='%23fff'%3ETA%3C/text%3E%3Ctext x='46' y='29' fill='%23fff'%3ERA%3C/text%3E%3Ctext x='18' y='53' fill='%23fff'%3ERO%3C/text%3E%3Ctext x='46' y='53' fill='%23C6F432'%3EVA%3C/text%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}body{margin:0;background:#F1EAE6;color:#1B1B1B;font:17px/1.6 Figtree,system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column}
-main{flex:1;display:flex;flex-direction:column;justify-content:center;padding:64px 24px;max-width:760px;margin:0 auto;width:100%}
-.lbl{font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;margin:0 0 20px}
-h1{font-family:Fraunces,Georgia,serif;font-weight:400;font-size:clamp(40px,8vw,64px);line-height:1.1;margin:0 0 20px}
-p.lead{font-size:19px;max-width:34em;margin:0}
-footer{border-top:1px solid rgba(0,0,0,.12);padding:28px 24px 36px;font-size:14px;line-height:1.7;color:#555}
-footer .in{max-width:760px;margin:0 auto}footer b{color:#1B1B1B;font-weight:600}
-</style></head>
+:root{--violet:var(--accent);--violet2:var(--accent-2);--deep:#19052f;--ink:#17131d;--paper:#f7f4ef;--white:#fff;--lav:#ede4ff;--yellow:#ffe471;--max:1320px;--r:30px;--ease:cubic-bezier(.2,.7,.2,1);--serif:"Instrument Serif",Georgia,serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+--dark:#0B0B0D;--accent:#FF5A1F;--accent-rgb:255,90,31;--accent-2:#ff7a45;--accent-ink:#fff;--accent-text:#c73d0b;--violet:var(--accent);--violet2:var(--accent-2);
+--h1:clamp(40px,4.4vw,68px);--h2:clamp(32px,3.2vw,52px);--sec:120px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:200;opacity:.06;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+::selection{background:var(--accent);color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:8px}
+.wrap{width:min(calc(100% - 72px),var(--max));margin:auto}
+section[id]{scroll-margin-top:72px}
+.skip{position:absolute;left:-999px;top:8px;z-index:300;background:#fff;padding:10px 14px;border-radius:10px}.skip:focus{left:12px}
+h1,h2,h3{font-weight:800;margin:0}
+.h2,.section-head h2,.manifest-card h2,.ai-card h2,.about h2,.contact h2{font-size:var(--h2);line-height:1.05;letter-spacing:-.03em;font-weight:800}
+
+/* Header base (v2 overrides at end) */
+header{position:fixed;top:18px;left:50%;transform:translateX(-50%);width:min(calc(100% - 48px),var(--max));z-index:120;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 20px;border-radius:999px;background:rgba(247,244,239,.78);border:1px solid rgba(29,7,57,.08)}
+.brand{font-weight:900;color:var(--violet);letter-spacing:-.03em;white-space:nowrap}
+.nav{display:flex;gap:4px}.nav a{padding:10px 15px;border-radius:999px;font-size:14px;font-weight:750}
+.hright{display:flex;gap:8px;align-items:center}
+.round{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--violet);color:#fff;font-size:13px;flex:none}
+.burger{display:none;width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid rgba(23,19,29,.12);place-items:center;cursor:pointer;padding:0;color:var(--ink)}
+.burger i{display:block;width:16px;height:2px;background:currentColor;border-radius:2px;position:relative;transition:transform .3s var(--ease),background .2s}
+.burger i:before,.burger i:after{content:"";position:absolute;left:0;width:16px;height:2px;background:currentColor;border-radius:2px;transition:transform .3s var(--ease)}
+.burger i:before{top:-5px}.burger i:after{top:5px}
+.menu-open .burger i{background:transparent}.menu-open .burger i:before{transform:translateY(5px) rotate(45deg)}.menu-open .burger i:after{transform:translateY(-5px) rotate(-45deg)}
+.menu{position:fixed;inset:0;z-index:110;background:radial-gradient(90% 60% at 85% 0%,rgba(var(--accent-rgb),.28) 0,transparent 60%),var(--dark);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:100px 28px 40px;visibility:hidden;opacity:0;transition:opacity .35s ease,visibility 0s .35s}
+.menu:target,.menu.open{visibility:visible;opacity:1;transition:opacity .35s ease}
+.menu a.ml{font-size:clamp(36px,10vw,56px);font-weight:800;letter-spacing:-.035em;line-height:1.15;display:flex;align-items:baseline;gap:14px;transform:translateY(16px);opacity:0;transition:transform .5s var(--ease),opacity .5s ease}
+.menu a.ml small{width:24px;flex:none;font-size:12px;letter-spacing:.1em;color:var(--accent);font-weight:800}
+.menu:target a.ml,.menu.open a.ml{transform:none;opacity:1}
+.menu a.ml:nth-child(2){transition-delay:.05s}.menu a.ml:nth-child(3){transition-delay:.1s}.menu a.ml:nth-child(4){transition-delay:.15s}.menu a.ml:nth-child(5){transition-delay:.2s}
+.menu .mmail{margin-top:32px;font-weight:700;color:#cfcfd6;font-size:16px}
+.menu .mclose{position:absolute;top:18px;right:18px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.1);font-size:20px}
+.js .menu .mclose{display:none}
+
+.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--accent-text);display:flex;align-items:center;gap:9px}
+.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 4px rgba(var(--accent-rgb),.14)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;border-radius:999px;background:#fff;border:1px solid rgba(23,19,29,.14);font-weight:700;font-size:15.5px;line-height:1.2;transition:background .25s ease,box-shadow .3s ease,border-color .25s;will-change:transform}
+.btn:hover{border-color:rgba(23,19,29,.3)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:transparent;box-shadow:0 12px 30px rgba(var(--accent-rgb),.26),inset 0 1px 0 rgba(255,255,255,.2)}
+.btn.primary:hover{background:var(--violet2);box-shadow:0 16px 40px rgba(var(--accent-rgb),.36)}
+
+/* Hero (dark) */
+.hero{background:var(--dark);color:#fff;min-height:min(100svh,940px);padding:116px 0 72px;display:grid;align-items:center;position:relative;overflow:hidden;overflow:clip}
+.hero-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:40px;align-items:center;position:relative}
+.hero .eyebrow{color:var(--accent)}
+.hero .eyebrow:before{box-shadow:0 0 0 4px rgba(var(--accent-rgb),.18)}
+.hero h1{font-size:var(--h1);line-height:1.02;letter-spacing:-.035em;margin:18px 0 20px;max-width:620px;font-weight:800;color:#fff}
+.hero h1 .line{display:block}
+.hero h1 .line+.line{color:var(--accent)}
+.hero p.lead{font-size:clamp(17px,1.3vw,19px);line-height:1.6;max-width:540px;color:#a3a3ad;margin:0}
+.hero .btn{background:transparent;color:#fff;border-color:rgba(255,255,255,.22)}
+.hero .btn:hover{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.04)}
+.hero .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:transparent;box-shadow:0 14px 34px rgba(var(--accent-rgb),.28)}
+.hero .btn.primary:hover{background:var(--accent-2)}
+.actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.meta{margin-top:38px;display:flex;gap:22px;flex-wrap:wrap;font-size:11px;letter-spacing:.12em;font-weight:700;text-transform:uppercase;color:#7c7c86}
+.meta span{display:flex;align-items:center;gap:8px}.meta span:before{content:"";width:18px;height:1px;background:currentColor;opacity:.6}
+.hero-visual{position:relative;height:min(76vh,700px);min-height:520px}
+.hero-visual:before{content:"";position:absolute;left:50%;top:48%;width:min(90%,620px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(var(--accent-rgb),.16),rgba(255,255,255,.04) 45%,transparent 70%);pointer-events:none}
+.hero-visual:after{content:"";position:absolute;left:50%;bottom:7%;width:44%;height:22px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.65),transparent);filter:blur(6px);pointer-events:none}
+.hero-stage{position:absolute;inset:0 0 44px;z-index:1}
+.hero-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 1s ease}
+.hero-fallback{position:absolute;left:50%;top:50%;height:88%;width:auto;max-width:90%;transform:translate(-50%,-50%) rotate(-4deg);filter:drop-shadow(0 30px 40px rgba(0,0,0,.55));transition:opacity .7s ease}
+.hero-stage.gl-on canvas{opacity:1}.hero-stage.gl-on .hero-fallback{opacity:0}
+.hero-cap{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;gap:9px;z-index:2}
+.hc-name{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#d5d5dc}
+.hc-dots{display:flex;gap:6px}.hc-dots i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.22);transition:width .4s var(--ease),background .4s ease}
+.hc-dots i.on{width:20px;background:var(--accent)}
+.scrollcue{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);width:22px;height:36px;border:1.5px solid rgba(255,255,255,.22);border-radius:12px}
+.scrollcue:after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;border-radius:2px;background:var(--accent);transform:translateX(-50%);animation:cue 1.8s ease infinite}
+@keyframes cue{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+
+/* Decor layers */
+.has-decor{position:relative;overflow-x:clip}
+.has-decor>.wrap{position:relative;z-index:1}
+.decor{position:absolute;inset:0;pointer-events:none;z-index:0}
+.d{position:absolute;will-change:transform}
+.d-orb{width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(var(--accent-rgb),.22),transparent 66%)}
+.d-orb.y{background:radial-gradient(circle,rgba(var(--accent-rgb),.12),transparent 66%);width:260px;height:260px}
+.d-ring{width:84px;height:84px;border-radius:50%;border:1.5px solid rgba(var(--accent-rgb),.28)}
+.d-ring.sm{width:36px;height:36px}
+.d-dots{width:190px;height:130px;background-image:radial-gradient(rgba(var(--accent-rgb),.32) 1.3px,transparent 1.5px);background-size:16px 16px;-webkit-mask-image:radial-gradient(closest-side,#000 40%,transparent);mask-image:radial-gradient(closest-side,#000 40%,transparent)}
+.d-plus{width:18px;height:18px}.d-plus:before,.d-plus:after{content:"";position:absolute;left:8px;top:0;width:2px;height:18px;background:rgba(var(--accent-rgb),.35);border-radius:2px}.d-plus:after{transform:rotate(90deg)}
+
+/* Manifesto */
+.manifesto{padding:20px 0 var(--sec)}
+.manifest-card{background:#fff;border-radius:var(--r);padding:64px;display:grid;grid-template-columns:1.4fr .6fr;gap:56px;align-items:center;box-shadow:0 24px 80px rgba(40,22,60,.06);position:relative;overflow:hidden}
+.manifest-card:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(var(--accent-rgb),.05) 1px,transparent 1px),linear-gradient(90deg,rgba(var(--accent-rgb),.05) 1px,transparent 1px);background-size:40px 40px;-webkit-mask-image:radial-gradient(60% 80% at 100% 100%,#000,transparent);mask-image:radial-gradient(60% 80% at 100% 100%,#000,transparent);pointer-events:none}
+.manifest-card h2{position:relative;font-size:clamp(30px,3vw,48px);line-height:1.1}
+.strike{position:relative;color:#716877}
+.strike:after{content:"";position:absolute;left:-1%;right:-1%;top:55%;height:4px;background:var(--violet);transform:rotate(-2deg) scaleX(var(--sx,1));transform-origin:left;transition:transform 1s var(--ease) .5s;border-radius:4px}
+.js .manifest-card:not(.in) .strike{--sx:0}
+.productword{color:var(--accent-text);position:relative;font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
+.productword:after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:3px;background:var(--violet);transform:rotate(-1deg);border-radius:3px}
+.sidecopy{font-size:17px;line-height:1.6;color:#5e5565;max-width:340px;position:relative}
+.doodle{font-size:44px;color:var(--violet);margin-top:14px;transform:rotate(14deg);display:inline-block;animation:bob 3.2s ease-in-out infinite}
+@keyframes bob{50%{transform:rotate(14deg) translate(-4px,6px)}}
+
+/* Sections */
+.section{padding:0 0 var(--sec)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px;gap:24px}
+.section-head h2{margin-top:12px}
+
+/* Projects: 3 per row, a row of 2 spans wider (ready for 5) */
+.products{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.project{grid-column:span 2;border-radius:28px;overflow:hidden;position:relative;min-height:690px;padding:30px;display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s ease;isolation:isolate}
+.project:nth-child(3n+1):nth-last-child(2),.project:nth-child(3n+1):nth-last-child(2)~.project{grid-column:span 3}
+.project:nth-child(3n+1):last-child{grid-column:1/-1}
+.project:hover{transform:translateY(-5px);box-shadow:0 36px 70px rgba(40,22,60,.13)}
+.project .name{display:flex;gap:10px;align-items:center;font-weight:800;position:relative;z-index:3;font-size:16px}
+.icon{width:34px;height:34px;border-radius:10px;background:#5b12f6;color:#fff;display:grid;place-items:center;font-weight:900;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.project h3{font-size:clamp(24px,2vw,28px);line-height:1.08;letter-spacing:-.025em;max-width:330px;margin:22px 0 10px;position:relative;z-index:3}
+.project p{font-size:16px;line-height:1.5;max-width:320px;margin:0;position:relative;z-index:3}
+.project .go{margin-top:auto;position:relative;z-index:5;font-weight:700;font-size:15px;background:rgba(255,255,255,.92);color:var(--ink);padding:11px 16px;border-radius:999px;align-self:flex-start;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 10px 30px rgba(20,8,40,.12);transition:transform .3s var(--ease)}
+.project .go:hover{transform:translateY(-2px)}
+.roam{background:linear-gradient(160deg,#efe5ff,#ccb5ff)}
+.circle{background:linear-gradient(160deg,#fff3b0,#ffd955)}
+.appray{background:linear-gradient(160deg,#28103d,#0d0614);color:#fff}.appray p{color:#d6cedd}
+.appray:before{content:"";position:absolute;width:420px;height:420px;right:-160px;bottom:-120px;border-radius:50%;background:radial-gradient(circle,rgba(113,28,255,.5),transparent 65%);z-index:-1}
+
+.mock{position:absolute;left:0;right:0;bottom:0;height:54%;perspective:1100px;pointer-events:none;z-index:2;will-change:transform}
+.tilt{position:absolute;left:58%;top:4%;width:240px;transform-style:preserve-3d;transform:translateX(-50%) scale(var(--sc,1)) rotateX(var(--rx,10deg)) rotateY(var(--ry,-16deg)) rotateZ(var(--rz,5deg));transition:transform .6s var(--ease);transform-origin:50% 30%}
+.phone{position:relative;width:240px;height:500px;border-radius:42px;background:#0e0b14;padding:8px;box-shadow:0 2px 0 1px rgba(255,255,255,.08) inset,0 40px 70px rgba(30,6,70,.32),0 10px 20px rgba(30,6,70,.18)}
+.phone:before{content:"";position:absolute;right:-3px;top:110px;width:3px;height:52px;border-radius:0 3px 3px 0;background:#2a2333}
+.screen{position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden;background:#fbfaff;color:#17131d;font-size:11px;line-height:1.25}
+.screen:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.35) 0,rgba(255,255,255,0) 35%);pointer-events:none;border-radius:inherit}
+.island{position:absolute;left:50%;top:9px;width:70px;height:20px;border-radius:12px;background:#0e0b14;transform:translateX(-50%);z-index:4}
+.sbar{display:flex;justify-content:space-between;padding:12px 20px 0 24px;font-weight:700;font-size:10px;height:34px}
+.sbar i{display:inline-block;width:14px;height:7px;border-radius:2px;border:1px solid currentColor;margin-left:3px;position:relative;top:1px}
+
+/* RoamDrop phone */
+.rd .screen{background:linear-gradient(180deg,#f6f1ff,#fff 40%)}
+.rd-head{padding:4px 16px 8px;display:flex;justify-content:space-between;align-items:flex-end}
+.rd-head b{font-size:20px;letter-spacing:-.04em;display:block;font-weight:850}
+.rd-head small{color:#7a7186;font-weight:600}
+.rd-av{width:28px;height:28px;border-radius:50%;background:#6d42f5;color:#fff;display:grid;place-items:center;font-weight:800;font-size:10px}
+.rd-lbl{display:flex;justify-content:space-between;padding:0 16px;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#6d42f5;margin:4px 0 6px}
+.rd-lbl span{color:#9a92a6;letter-spacing:0;text-transform:none;font-weight:600}
+.board{display:flex;gap:6px;padding:0 16px;overflow:hidden}
+.idea{flex:none;width:74px;height:46px;border-radius:12px;background:#fff;border:1px dashed rgba(109,66,245,.35);padding:6px 7px;font-weight:700;font-size:9px;display:flex;flex-direction:column;justify-content:space-between}
+.idea i{width:14px;height:14px;border-radius:5px;display:block;background:var(--c,#ffd1e8)}
+.days{display:flex;gap:5px;padding:10px 16px 8px}
+.day{flex:1;text-align:center;border-radius:10px;padding:5px 0;background:#f0eafc;font-size:8px;font-weight:700;color:#7a7186}
+.day b{display:block;font-size:12px;color:#17131d}
+.day.on{background:#6d42f5;color:#e5dcff}.day.on b{color:#fff}
+.stops{list-style:none;margin:0;padding:0 12px;position:relative}
+.stop{display:flex;align-items:center;gap:8px;background:#fff;border-radius:13px;height:44px;padding:0 10px 0 8px;margin-bottom:6px;box-shadow:0 4px 12px rgba(60,20,140,.07)}
+.num{width:20px;height:20px;border-radius:50%;background:#efe9ff;color:#6d42f5;font-weight:850;display:grid;place-items:center;font-size:10px;flex:none;transition:transform .3s var(--ease)}
+.num.flip{animation:flip .45s var(--ease)}
+@keyframes flip{40%{transform:scale(.4)}100%{transform:none}}
+.stop div{flex:1;min-width:0}.stop b{display:block;font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stop small{color:#8a8296;font-size:9px}
+.stop em{font-style:normal;font-size:12px}
+.chipz{display:flex;gap:3px;margin-top:2px}.chipz span{background:#f0eafc;color:#5a36d6;border-radius:5px;padding:1px 4px;font-size:8px;font-weight:700}
+.slot{height:0;margin-bottom:0;opacity:0;overflow:hidden;transition:height .5s var(--ease),margin .5s var(--ease),opacity .35s ease .15s;background:linear-gradient(90deg,#fff,#f6f1ff)}
+.rd.s-land .slot{height:44px;margin-bottom:6px;opacity:1}
+.ticket{position:absolute;left:20px;width:200px;height:46px;top:var(--ty,210px);display:flex;border-radius:10px;background:#fff;box-shadow:0 16px 30px rgba(60,20,140,.25);transform:translate(200px,-210px) rotate(28deg) scale(1.08);opacity:0;z-index:6;transition:transform .95s cubic-bezier(.25,.9,.25,1),opacity .25s ease}
+.ticket .tk-main{flex:1;padding:6px 8px;border-right:1.5px dashed #d8cdf5;position:relative}
+.ticket .tk-main:before,.ticket .tk-main:after{content:"";position:absolute;right:-6px;width:10px;height:10px;border-radius:50%;background:#e6dbff}
+.ticket .tk-main:before{top:-5px}.ticket .tk-main:after{bottom:-5px}
+.ticket b{font-size:10px;display:block;letter-spacing:-.01em}.ticket small{font-size:8px;color:#7a7186;display:block;margin-top:2px}
+.ticket .tk-tag{font-size:7px;font-weight:800;letter-spacing:.1em;color:#6d42f5}
+.ticket .bars{width:38px;margin:7px 7px;background:repeating-linear-gradient(90deg,#17131d 0 1.5px,transparent 1.5px 3px,#17131d 3px 4px,transparent 4px 6.5px,#17131d 6.5px 7px,transparent 7px 8.5px)}
+.rd.s-fly .ticket{transform:none;opacity:1}
+.rd.s-land .ticket{opacity:0;transform:scale(.97);transition:opacity .35s ease .15s,transform .35s ease}
+.rd.no-anim *{transition:none!important}
+.rd-fab{position:absolute;right:14px;bottom:30px;width:40px;height:40px;border-radius:14px;background:#6d42f5;color:#fff;display:grid;place-items:center;font-size:20px;box-shadow:0 10px 20px rgba(109,66,245,.4)}
+
+/* CircleOK phone */
+.co .screen{background:#fffdf5}
+.co-head{padding:6px 18px 0;display:flex;justify-content:space-between;align-items:center}
+.co-head b{font-size:18px;letter-spacing:-.04em;font-weight:850}
+.co-logo{width:26px;height:26px;border-radius:9px;background:#ffbd00;display:grid;place-items:center}
+.co-logo i{width:12px;height:12px;border:2.5px solid #fff;border-radius:50%}
+.co-card{margin:12px 14px 0;border-radius:24px;background:#fff;padding:20px 14px 16px;text-align:center;box-shadow:0 10px 30px rgba(120,90,0,.08);position:relative}
+.co-mom{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#a08a3a}
+.co-ring{position:relative;width:86px;height:86px;margin:12px auto 10px}
+.co-ring:before,.co-ring:after{content:"";position:absolute;inset:0;border-radius:50%;background:#2fbf71;opacity:.18;animation:pulse 2.8s ease-out infinite}
+.co-ring:after{animation-delay:1.4s}
+@keyframes pulse{0%{transform:scale(.85);opacity:.3}100%{transform:scale(1.45);opacity:0}}
+.co-ring svg{position:relative;width:86px;height:86px;display:block;z-index:1}
+.co-ring .disc{fill:#2fbf71;transition:fill .5s ease}
+.co-ring .ck{fill:none;stroke:#fff;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:0}
+.co-ring.draw .ck{animation:draw .8s var(--ease) both .15s}
+@keyframes draw{from{stroke-dashoffset:60}to{stroke-dashoffset:0}}
+.co-ring .dots{opacity:0;transition:opacity .3s}
+.co-ring .dots circle{fill:#fff;animation:dot 1.2s ease-in-out infinite}
+.co-ring .dots circle:nth-child(2){animation-delay:.15s}.co-ring .dots circle:nth-child(3){animation-delay:.3s}
+@keyframes dot{50%{transform:translateY(-3px)}}
+.co-state{position:relative;height:24px}
+.co-state b{position:absolute;inset:0;font-size:19px;letter-spacing:-.04em;font-weight:850;transition:opacity .4s ease,transform .4s var(--ease)}
+.co-state b.g2{opacity:0;transform:translateY(8px);font-size:15px;line-height:24px}
+.co-time{color:#8b8170;font-weight:600;margin-top:4px;font-size:10px}
+.co.gentle .disc{fill:#ffbd00}.co.gentle .co-ring:before,.co.gentle .co-ring:after{background:#ffbd00}
+.co.gentle .ck{opacity:0}.co.gentle .dots{opacity:1}
+.co.gentle .co-state b.g1{opacity:0;transform:translateY(-8px)}.co.gentle .co-state b.g2{opacity:1;transform:none}
+.co-sec{display:flex;justify-content:space-between;padding:16px 18px 8px;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#a08a3a}
+.co-sec span{color:#6b6458;text-transform:none;letter-spacing:0;font-weight:600}
+.cg{display:flex;align-items:center;gap:9px;margin:0 14px 7px;background:#fff;border-radius:15px;padding:8px 10px;box-shadow:0 4px 14px rgba(120,90,0,.06)}
+.cg .av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-weight:850;font-size:11px;color:#fff;flex:none}
+.cg b{display:block;font-size:10.5px}.cg small{color:#8b8170;font-size:9px}
+.cg .ok{margin-left:auto;width:8px;height:8px;border-radius:50%;background:#2fbf71;box-shadow:0 0 0 3px rgba(47,191,113,.18)}
+
+/* Appray phone */
+.ap .screen{background:linear-gradient(180deg,#1b0e2c,#0e0717);color:#fff}
+.ap .phone{background:#050308}
+.ap-head{padding:6px 16px 0}
+.ap-head small{color:#9d8fb4;font-weight:700;font-size:9px;letter-spacing:.06em}
+.ap-head b{display:block;font-size:19px;letter-spacing:-.04em;font-weight:850;margin-top:2px}
+.ap-tag{display:inline-block;margin-top:6px;font-size:9px;font-weight:800;color:#c7b2ff;background:rgba(113,28,255,.22);border:1px solid rgba(160,120,255,.3);padding:3px 7px;border-radius:7px}
+.court{list-style:none;margin:10px 0 0;padding:0 12px}
+.court li{display:flex;align-items:center;justify-content:space-between;height:37px;padding:0 10px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);margin-bottom:6px;font-weight:700;font-size:10.5px}
+.vd{font-size:8.5px;font-weight:900;letter-spacing:.08em;padding:5px 8px;border-radius:7px;opacity:0;transform:scale(2.2) rotate(-14deg);transition:transform .35s cubic-bezier(.3,1.6,.5,1),opacity .2s ease;color:#0e0717}
+.vd.on{opacity:1;transform:rotate(-4deg)}
+.vd.build{background:#3ddc84}.vd.later{background:#ffb648}.vd.kill{background:#ff5a6a;color:#fff}.vd.prove{background:#8c5cff;color:#fff}
+.court li.hit{animation:hit .4s ease}
+@keyframes hit{40%{background:rgba(255,255,255,.14)}}
+.report{margin:10px 12px 0;border-radius:14px;padding:10px;background:rgba(113,28,255,.18);border:1px solid rgba(160,120,255,.25);display:grid;grid-template-columns:repeat(4,1fr);text-align:center;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s var(--ease)}
+.report.on{opacity:1;transform:none}
+.report small{display:block;font-size:8px;color:#b8a9cf;font-weight:700}
+.report b{font-size:16px;font-weight:850}
+.report .rb{color:#3ddc84}.report .rl{color:#ffb648}.report .rk{color:#ff5a6a}.report .rp{color:#a98bff}
+.report-line{grid-column:1/-1;font-size:8.5px;color:#cbbfe0;margin-top:6px;font-weight:600}
+
+/* AI */
+.ai{padding:0 0 var(--sec)}
+.ai-card{min-height:320px;border-radius:32px;padding:52px 60px;background:radial-gradient(60% 90% at 50% 50%,rgba(var(--accent-rgb),.22),transparent 70%),#121215;color:white;display:grid;grid-template-columns:1fr .7fr 1fr;align-items:center;overflow:hidden;position:relative;isolation:isolate;gap:20px}
+.ai-card:before{content:"";position:absolute;inset:0;background:radial-gradient(40% 70% at 50% 50%,rgba(255,255,255,.14),transparent 70%);z-index:-1}
+.ai-card h2{will-change:transform}
+.ai-card .r{text-align:right}
+.ai-card em{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2vw,32px);letter-spacing:0;display:block;margin-top:12px;color:var(--accent)}
+.orb{width:240px;height:240px;margin:auto;position:relative}
+.orb:before{content:"";position:absolute;inset:12%;border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(var(--accent-rgb),.35),rgba(255,255,255,.04) 60%,transparent 72%);filter:blur(6px)}
+.orb canvas{position:relative;width:100%;height:100%;display:block}
+
+/* Timeline */
+.timeline{padding:0 0 var(--sec)}
+.timeline-grid{display:grid;grid-template-columns:170px 1fr;gap:24px;align-items:start}
+.timeline-title{font-size:18px;font-weight:900;line-height:1.15;letter-spacing:0}
+.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:24px;position:relative;--prog:1}
+.js .steps{--prog:0}
+.steps:before,.steps:after{content:"";position:absolute;left:0;right:0;top:28px;height:1px;background:rgba(23,19,29,.12)}
+.steps:after{background:linear-gradient(90deg,rgba(var(--accent-rgb),.35),var(--accent));height:2px;top:27.5px;transform:scaleX(var(--prog));transform-origin:left}
+.step{position:relative}
+.step .sym{height:56px;font-size:34px;display:flex;align-items:center}
+.step .sym span{background:var(--paper);padding-right:10px;line-height:1;position:relative;z-index:1;transition:color .4s ease}
+.step small{display:block;color:#756d7d;line-height:1.4;font-size:14px}
+.step b{display:block;font-size:12px;margin:8px 0 4px;letter-spacing:.04em}
+.js .steps .step{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s var(--ease);transition-delay:calc(var(--i)*.12s + .1s)}
+.js .steps.in .step{opacity:1;transform:none}
+.js .steps .step:not(.lit) .sym span{color:#b9b1c2}
+.step.now .sym span{background:transparent;color:var(--accent)!important;text-shadow:0 0 18px rgba(var(--accent-rgb),.7),0 0 40px rgba(var(--accent-rgb),.45);animation:glow 2.6s ease-in-out infinite}
+.step.now b{color:var(--accent-text)}
+.step.now:before{content:"";position:absolute;left:-14px;top:-14px;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle,rgba(var(--accent-rgb),.22),transparent 70%);animation:glow 2.6s ease-in-out infinite}
+@keyframes glow{50%{opacity:.55}}
+
+/* Websites */
+.websites{padding:0 0 var(--sec)}
+.web-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start}
+.web-intro p{font-size:18px;line-height:1.55;color:#433b49;margin:0 0 16px;max-width:500px}
+.web-intro .btn{margin-top:12px}
+.web-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.web-card{background:#fff;border-radius:24px;padding:24px;min-height:340px;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(40,22,60,.06);transition:transform .5s var(--ease),box-shadow .5s ease}
+.web-card:hover{transform:translateY(-5px);box-shadow:0 32px 80px rgba(40,22,60,.11)}
+.web-card>span{font-size:12px;font-weight:800;color:var(--accent-text);letter-spacing:.1em}
+.web-card h3{font-size:clamp(21px,1.6vw,24px);line-height:1.12;letter-spacing:-.02em;margin:auto 0 10px}
+.web-card p{margin:0;line-height:1.5;color:#5e5565;font-size:15.5px}
+.wm{position:relative;height:132px;margin:14px 0 20px;border-radius:16px;background:#f5f1fc;overflow:hidden}
+.js .wm:not(.play) *,.js .wm:not(.play) *:before,.js .wm:not(.play) *:after{animation-play-state:paused!important}
+.wb{position:absolute;inset:14px 14px -10px;background:#fff;border-radius:10px;box-shadow:0 10px 24px rgba(60,20,140,.1);overflow:hidden}
+.wb-bar{height:18px;display:flex;align-items:center;gap:4px;padding:0 8px;background:#f2eef9}
+.wb-bar i{width:5px;height:5px;border-radius:50%;background:#d4c9ea}
+.wb-bar span{margin-left:8px;height:7px;flex:1;max-width:90px;border-radius:4px;background:#fff}
+.wb-body{padding:9px 10px;position:relative}
+.wb .p{opacity:0;animation:wbIn 7s var(--ease) infinite;animation-delay:var(--d)}
+@keyframes wbIn{0%{opacity:0;transform:translateY(8px) scale(.96)}8%,82%{opacity:1;transform:none}92%,100%{opacity:0;transform:translateY(-4px)}}
+.wb-nav{display:flex;gap:5px;align-items:center;margin-bottom:10px}
+.wb-nav b{width:22px;height:6px;border-radius:3px;background:var(--violet);margin-right:auto}
+.wb-nav s{width:14px;height:4px;border-radius:2px;background:#ddd5ea}
+.wb-hero{display:flex;gap:8px}
+.wb-copy{flex:1}
+.wb-copy em{display:block;height:9px;border-radius:3px;background:#17131d;margin-bottom:5px}
+.wb-copy em+em{width:70%}
+.wb-copy u{display:block;width:40px;height:12px;border-radius:6px;background:var(--violet);margin-top:9px}
+.wb-img{width:46%;height:52px;border-radius:7px;background:linear-gradient(135deg,#ffd27a,#ff8fb1 55%,#8a5cff)}
+.wb-cur{position:absolute;width:10px;height:10px;left:60%;top:70%;animation:wbCur 7s ease-in-out infinite}
+.wb-cur:before{content:"";position:absolute;inset:0;background:#17131d;clip-path:polygon(0 0,0 100%,30% 72%,52% 100%,64% 92%,44% 64%,85% 64%)}
+@keyframes wbCur{0%{transform:translate(40px,30px)}30%{transform:translate(-30px,-20px)}55%{transform:translate(-62px,8px)}80%,100%{transform:translate(40px,30px)}}
+.cal{position:absolute;left:14px;top:12px;right:14px;background:#fff;border-radius:12px;padding:8px 9px;box-shadow:0 10px 24px rgba(60,20,140,.1)}
+.cal-h{display:flex;justify-content:space-between;font-size:9px;font-weight:800;margin-bottom:5px;line-height:1.3}.cal-h span{color:#9a92a6;font-weight:600}
+.cal-g{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-g i{height:15px;border-radius:5px;background:#f3eff9;font-style:normal;font-size:7px;display:grid;place-items:center;color:#8a8296;font-weight:700}
+.cal-g i.x{background:transparent;color:#cdc6d8;text-decoration:line-through}
+.cal-g i.pk{animation:pick 6s ease infinite;position:relative}
+.cal-g i.pk:after{content:"";position:absolute;inset:-4px;border-radius:7px;border:2px solid var(--violet);opacity:0;animation:tap 6s ease infinite}
+@keyframes pick{0%,32%{background:#f3eff9;color:#8a8296;transform:none}38%{transform:scale(.8)}44%,88%{background:var(--violet);color:#fff;transform:none}96%,100%{background:#f3eff9;color:#8a8296}}
+@keyframes tap{0%,30%{opacity:0;transform:scale(1.8)}36%{opacity:.8;transform:scale(1)}46%,100%{opacity:0;transform:scale(1.6)}}
+.toast{position:absolute;left:50%;bottom:10px;transform:translate(-50%,30px);background:#17131d;color:#fff;font-size:10px;font-weight:800;padding:7px 12px;border-radius:999px;white-space:nowrap;box-shadow:0 10px 20px rgba(20,8,40,.25);animation:toast 6s var(--ease) infinite;opacity:0;line-height:1.3}
+.toast b{color:#3ddc84}
+@keyframes toast{0%,46%{opacity:0;transform:translate(-50%,30px)}54%,86%{opacity:1;transform:translate(-50%,0)}94%,100%{opacity:0;transform:translate(-50%,10px)}}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;left:46%;top:24%;width:26px;height:34px;transform-origin:50% 100%;animation:pin 6s cubic-bezier(.3,1.5,.5,1) infinite}
+.pin svg{width:26px;height:34px;display:block;position:static}
+@keyframes pin{0%,6%{transform:translateY(-70px);opacity:0}16%{opacity:1}22%{transform:none}26%{transform:scaleY(.86)}30%,90%{transform:none;opacity:1}98%,100%{opacity:0}}
+.pin-ring{position:absolute;left:calc(46% + 13px);top:calc(24% + 34px);width:40px;height:14px;margin:-7px 0 0 -20px;border-radius:50%;border:2px solid var(--violet);opacity:0;animation:ring 6s ease-out infinite}
+@keyframes ring{0%,22%{opacity:0;transform:scale(.3)}26%{opacity:.7}50%,100%{opacity:0;transform:scale(1.6)}}
+.rate{position:absolute;right:10px;bottom:10px;background:#fff;border-radius:12px;padding:7px 10px;box-shadow:0 10px 24px rgba(60,20,140,.14);display:flex;align-items:center;gap:6px;animation:rate 6s var(--ease) infinite;opacity:0;line-height:1}
+.rate b{font-size:14px;letter-spacing:-.03em}
+.stars{display:flex;gap:1px}.stars i{font-style:normal;font-size:10px;color:#e5def0;animation:star 6s ease infinite;animation-delay:calc(var(--s)*.12s)}
+@keyframes rate{0%,30%{opacity:0;transform:translateY(12px) scale(.95)}38%,90%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes star{0%,40%{color:#e5def0}46%,92%{color:#ffbd00}100%{color:#e5def0}}
+
+/* About */
+.about{padding:0 0 var(--sec)}
+.about-card{background:#fff;border-radius:32px;padding:56px;display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center;box-shadow:0 24px 80px rgba(40,22,60,.05)}
+.portrait{min-height:480px;border-radius:24px;position:relative;overflow:hidden;background:#141417;isolation:isolate}
+.portrait svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.portrait .blob{transform-box:fill-box;transform-origin:center;animation:drift 18s ease-in-out infinite alternate}
+.portrait .blob.b2{animation-duration:22s;animation-direction:alternate-reverse}
+.portrait .blob.b3{animation-duration:15s}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.15)}100%{transform:translate(-30px,25px) scale(.92)}}
+.portrait .pen{stroke-dasharray:900;stroke-dashoffset:900;transition:stroke-dashoffset 2.6s var(--ease) .3s}
+.about-card.in .portrait .pen,html:not(.js) .portrait .pen{stroke-dashoffset:0}
+.portrait .mono{transition:transform .6s var(--ease)}
+.about h2{margin:12px 0 24px}
+.about p{font-size:17px;line-height:1.65;color:#4b4351;max-width:700px;margin:0 0 16px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.chip{background:rgba(var(--accent-rgb),.13);padding:9px 13px;border-radius:999px;font-size:13px;font-weight:700;transition:background .25s,color .25s}
+.chip:hover{background:var(--accent);color:var(--accent-ink)}
+.prev{margin-top:36px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7484;font-weight:800}
+.logos{display:flex;gap:22px;flex-wrap:wrap;font-size:15px;font-weight:900;color:#35204f;margin-top:12px;letter-spacing:0}
+
+/* Contact */
+.contact{padding:0 0 var(--sec)}
+.contact-card{background:#121215;color:#fff;border-radius:32px;padding:56px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;overflow:hidden;isolation:isolate}
+.contact-card:before{content:"";position:absolute;width:640px;height:640px;left:-200px;bottom:-380px;border-radius:50%;background:radial-gradient(circle,rgba(var(--accent-rgb),.55),transparent 65%);z-index:-1}
+.contact h2{margin:12px 0 28px}
+.contact h2 span{color:var(--accent);font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
+.contact .eyebrow{color:var(--accent)}
+.mail{display:inline-block;font-size:clamp(17px,1.5vw,22px);font-weight:750;padding:15px 22px;border-radius:999px;background:var(--accent);color:var(--accent-ink);word-break:break-all;box-shadow:0 16px 36px rgba(var(--accent-rgb),.4);transition:background .25s}
+.mail:hover{background:var(--violet2)}
+.howto h3{font-size:20px;letter-spacing:-.015em;margin:0 0 16px}
+.howto ol{margin:0;padding-left:22px;display:grid;gap:12px}
+.howto li{font-size:16.5px;line-height:1.55;color:#d9d1e3}.howto li b{color:#fff}
+.howto .small{margin-top:22px;font-size:14px;color:#a89fb3}
+
+/* Footer */
+footer{background:var(--dark);color:white;border-radius:32px 32px 0 0;position:relative;overflow:hidden;isolation:isolate}
+footer:before{content:"";position:absolute;width:900px;height:900px;right:-300px;top:-500px;border-radius:50%;background:radial-gradient(circle,rgba(var(--accent-rgb),.2),transparent 62%);z-index:-1}
+.foot{padding:80px 0 32px}
+.foot h2{font-size:clamp(32px,3.6vw,56px);line-height:1.05;letter-spacing:-.03em;max-width:820px;margin:0;will-change:transform}
+.footrow{display:flex;justify-content:space-between;gap:30px;align-items:flex-end;margin-top:64px}
+.footlinks{display:flex;gap:22px;font-weight:700;flex-wrap:wrap;font-size:15px}
+.footlinks a{opacity:.92;transition:opacity .2s}.footlinks a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.legal{font-size:12.5px;line-height:1.6;color:rgba(255,255,255,.78);font-style:normal;max-width:620px}
+.legal strong{color:#fff;font-weight:800;letter-spacing:.02em}
+.legal a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,255,255,.4)}
+
+/* Reveal */
+.reveal{opacity:1;transform:none}
+.js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s var(--ease)}
+.js .reveal.in{opacity:1;transform:none}
+.js .hero .reveal{opacity:1;transform:none}
+.js .hero h1 .line{opacity:0;transform:translateY(30%);animation:rise .9s var(--ease) forwards;animation-delay:calc(var(--i)*.12s + .1s)}
+.js .hero .rv{opacity:0;animation:fadeup .9s var(--ease) forwards;animation-delay:var(--d)}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* Cursor */
+.cdot{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:1.5px solid var(--violet);pointer-events:none;z-index:250;opacity:0;transition:width .3s var(--ease),height .3s var(--ease),margin .3s var(--ease),opacity .3s,background .3s}
+.cdot.on{opacity:.5}
+.cdot.big{width:60px;height:60px;margin:-30px 0 0 -30px;background:rgba(var(--accent-rgb),.08);opacity:.8}
+
+@media (prefers-reduced-motion:reduce){
+*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+.reveal,.js .reveal{opacity:1;transform:none}
+.js .hero h1 .line,.js .hero .rv{opacity:1;transform:none}
+.js .steps .step{opacity:1;transform:none}.js .steps{--prog:1}.js .steps .step .sym span{color:inherit}
+.wb .p,.rate,.stars i{opacity:1}.stars i{color:#ffbd00}.toast{opacity:1;transform:translate(-50%,0)}.cal-g i.pk{background:var(--violet);color:#fff}
+.portrait .pen{stroke-dashoffset:0}
+.cdot{display:none}
+}
+@media (max-width:1050px){
+:root{--sec:100px}
+.wrap{width:min(calc(100% - 40px),var(--max))}
+.hero-grid,.manifest-card,.about-card{grid-template-columns:1fr}
+.hero{min-height:0}
+.hero-visual{height:600px;min-height:0;max-width:620px;width:100%;margin:0 auto}
+.products{display:flex;flex-direction:column;max-width:620px;margin:0 auto}
+.project,.project:nth-child(n){grid-column:auto}
+.ai-card{grid-template-columns:1fr;gap:26px}.ai-card .r{text-align:left}
+.timeline-grid{grid-template-columns:1fr}
+.steps{grid-template-columns:repeat(3,1fr);row-gap:32px}
+.steps:before,.steps:after{display:none}
+.web-grid,.contact-card{grid-template-columns:1fr}
+}
+@media (max-width:860px){.web-cards{grid-template-columns:1fr}.web-card{min-height:0}.web-card h3{margin-top:4px}}
+@media (max-width:720px){
+:root{--sec:80px;--h1:clamp(36px,10.4vw,42px);--h2:clamp(29px,8.4vw,34px)}
+body{font-size:16px}
+.wrap{width:calc(100% - 32px)}
+.hero{padding:96px 0 36px}
+.hero-visual{height:470px;margin-top:8px}
+.hero-stage{inset:0 0 40px}
+.hero h1{margin:14px 0 16px}
+.hero p.lead{font-size:17px}
+.actions{margin-top:24px;gap:10px}.btn{padding:13px 17px;font-size:15px}
+.meta{margin-top:26px;gap:12px}
+.hero-grid{gap:20px}
+.scrollcue{display:none}
+.manifest-card{padding:30px 24px;gap:24px;border-radius:24px}.manifest-card h2{font-size:clamp(26px,7.6vw,32px)}
+.section-head{align-items:flex-start;flex-direction:column;gap:14px;margin-bottom:26px}
+.project{min-height:640px;padding:24px;border-radius:24px}
+.project h3{font-size:24px}
+.project p{font-size:15.5px}
+.tilt{--sc:.9;left:56%}
+.ai-card{padding:32px 24px;border-radius:24px}
+.orb{width:210px;height:210px}
+.steps{grid-template-columns:1fr;row-gap:0;padding-left:26px}
+.steps:before,.steps:after{display:block;left:7px;right:auto;top:6px;bottom:6px;width:1px;height:auto}
+.steps:after{width:2px;left:6.5px;transform:scaleY(var(--prog));transform-origin:top;background:linear-gradient(180deg,rgba(var(--accent-rgb),.35),var(--accent))}
+.step{display:grid;grid-template-columns:48px 1fr;column-gap:10px;padding:10px 0}
+.step .sym{height:auto;font-size:24px;grid-row:span 3}
+.step .sym span{background:transparent;padding:0}
+.step b{margin:2px 0}
+.step:after{content:"";position:absolute;left:-23px;top:22px;width:9px;height:9px;border-radius:50%;background:var(--paper);border:2px solid rgba(var(--accent-rgb),.3);transition:border-color .3s}
+.step.lit:after{border-color:var(--violet)}
+.step.now:before{left:-10px;top:-8px}
+.web-intro p{font-size:16.5px}
+.about-card{padding:24px;gap:30px;border-radius:24px}
+.portrait{min-height:360px}
+.about p{font-size:16px}
+.logos{font-size:14px;gap:14px}
+.contact-card{padding:30px 24px;gap:30px;border-radius:24px}
+.howto li{font-size:15.5px}
+.foot{padding:60px 0 28px}
+.footrow{align-items:flex-start;flex-direction:column-reverse;margin-top:44px;gap:24px}
+.legal{font-size:12px}
+.d-orb{width:240px;height:240px}
+}
+
+/* Tweexy card */
+.tweexy{background:linear-gradient(160deg,#e3f8f8,#9fdfe3)}
+.project.wide{grid-column:1/-1;min-height:440px}
+.project.wide h3,.project.wide p{max-width:420px}
+.wide .mock{left:40%;top:0;height:100%}
+.wide .tilt{top:12%;left:50%}
+.tw .screen{background:linear-gradient(180deg,#effbfb,#fff 45%)}
+.tw-head{padding:4px 16px 8px}.tw-head b{display:block;font-size:18px;letter-spacing:-.03em;font-weight:850;color:#0a7d85}.tw-head small{color:#6f8a8c;font-weight:600}
+.tw-game{position:relative;margin:0 12px;height:150px;border-radius:18px;overflow:hidden;background:radial-gradient(120% 90% at 30% 10%,#7fe0e6,#0da5af 60%,#087e86)}
+.tw-game i{position:absolute;left:var(--x);bottom:-40px;width:var(--sz);height:var(--sz);border-radius:50%;background:radial-gradient(circle at 32% 30%,#fff 0 12%,rgba(255,255,255,.35) 13%,rgba(255,255,255,.12) 60%);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.7);animation:bub var(--du,5s) linear infinite;animation-delay:var(--dl,0s)}
+@keyframes bub{0%{transform:translateY(0)}100%{transform:translateY(-210px) translateX(10px)}}
+.tw-game i.pop{bottom:auto;top:40%;animation:popb 3.2s ease infinite}
+@keyframes popb{0%,55%{transform:scale(1);opacity:1}62%{transform:scale(1.35);opacity:.6;box-shadow:inset 0 0 0 1.5px #fff,0 0 0 6px rgba(255,255,255,.4)}66%,100%{transform:scale(1.6);opacity:0}}
+.tw-lbl{display:flex;justify-content:space-between;padding:12px 16px 4px;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0a7d85}.tw-lbl span{color:#8aa3a5;text-transform:none;letter-spacing:0;font-weight:600}
+.tw-chart{display:block;width:calc(100% - 24px);margin:0 12px;height:auto}
+.tw-line{stroke-dasharray:240;stroke-dashoffset:0;animation:twl 5s var(--ease) infinite}
+@keyframes twl{0%{stroke-dashoffset:240}45%,90%{stroke-dashoffset:0}100%{stroke-dashoffset:0;opacity:0}}
+.tw-dot{animation:twd 5s ease infinite}@keyframes twd{0%,40%{opacity:0}48%,92%{opacity:1}100%{opacity:0}}
+.tw-chips{display:flex;flex-wrap:wrap;gap:4px;padding:8px 12px}.tw-chips span{background:#e2f6f7;color:#0a7d85;border-radius:6px;padding:3px 6px;font-size:8.5px;font-weight:700}
+.js .project:not(.inview) .tw *{animation-play-state:paused}
+@media (max-width:1050px){.project.wide{min-height:660px}.wide .mock{left:0;top:auto;bottom:0;height:58%}.wide .tilt{top:4%;left:58%}}
+@media (max-width:720px){.project.wide{min-height:640px}.wide .tilt{left:56%}}
+
+/* ===== header v2: full-width, quiet ===== */
+header{top:0!important;left:0!important;transform:none!important;width:100%!important;border-radius:0!important;border:0!important;border-bottom:1px solid transparent!important;background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important;padding:0 max(36px,calc((100% - var(--max))/2))!important;height:76px;display:grid!important;grid-template-columns:1fr auto 1fr;align-items:center;transition:background .35s ease,border-color .35s ease,height .35s ease!important}
+header.scrolled{background:rgba(247,244,239,.86)!important;-webkit-backdrop-filter:blur(16px) saturate(1.3)!important;backdrop-filter:blur(16px) saturate(1.3)!important;border-bottom-color:rgba(23,19,29,.08)!important;height:64px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink)!important;font-weight:800;letter-spacing:-.02em;font-size:16px}
+.brand .mk{width:30px;height:30px;border-radius:9px;background:var(--violet);color:#fff;display:grid;place-items:center;font-weight:900;font-size:15px;letter-spacing:0;transition:transform .4s var(--ease)}
+.brand:hover .mk{transform:rotate(-8deg) scale(1.06)}
+.nav{justify-self:center;gap:30px!important}
+.nav a{padding:6px 0!important;border-radius:0!important;background:none!important;font-size:14.5px!important;font-weight:650!important;color:#4a4252;position:relative}
+.nav a:after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--violet);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav a:hover{color:var(--ink)}.nav a:hover:after,.nav a.on:after{transform:scaleX(1)}
+.hright{justify-self:end}
+.round{display:none!important}
+.hcta{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;font-size:14px;transition:background .25s ease}
+.hcta span{transition:transform .3s var(--ease)}.hcta:hover{background:var(--violet)}.hcta:hover span{transform:translateX(3px)}
+.burger{width:auto!important;height:40px!important;border-radius:999px!important;padding:0 14px 0 16px!important;gap:10px;align-items:center;background:transparent!important;border:1px solid rgba(23,19,29,.16)!important}
+.burger .bl{font-size:13px;font-weight:750;letter-spacing:.02em}
+.menu-open header{background:transparent!important;border-bottom-color:transparent!important}
+.menu-open .brand,.menu-open .burger{color:#fff!important}.menu-open .burger{border-color:rgba(255,255,255,.3)!important}
+@media (max-width:720px){header{height:62px;padding:0 16px!important;grid-template-columns:1fr auto}header.scrolled{height:58px}.nav,.hcta{display:none!important}.burger{display:inline-flex!important}}
+
+
+/* websites: packages, steps, faq */
+.web-more{margin-top:24px}
+.wsub{font-size:clamp(22px,1.9vw,28px);font-weight:800;letter-spacing:-.02em;margin:56px 0 18px}
+.pkgs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:stretch}
+.pkg{background:#fff;border-radius:24px;padding:28px;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(40,22,60,.06)}
+.pkg.dark{background:#121215;color:#fff}
+.pkg-tag{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-text)}
+.pkg.dark .pkg-tag{color:var(--accent)}
+.price{font-size:clamp(38px,3.4vw,50px);font-weight:800;letter-spacing:-.035em;line-height:1;margin:16px 0 10px}
+.price small{font-size:15px;font-weight:600;letter-spacing:0;color:#7a7186;margin-right:2px}
+.pkg.dark .price small{color:#9a9aa4}
+.pkg-for{margin:0 0 18px;color:#5e5565;font-size:15.5px}
+.pkg.dark .pkg-for{color:#a3a3ad}
+.pkg ul{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:10px}
+.pkg li{position:relative;padding-left:26px;font-size:15.5px;line-height:1.4}
+.pkg li:before{content:"";position:absolute;left:0;top:3px;width:16px;height:16px;border-radius:50%;background:rgba(var(--accent-rgb),.16)}
+.pkg li:after{content:"";position:absolute;left:5px;top:6.5px;width:5px;height:8px;border:solid var(--accent-text);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.pkg.dark li:after{border-color:var(--accent)}
+.pkg .btn{margin-top:auto;align-self:flex-start}
+.pkg:not(.dark) .btn.primary{box-shadow:none}
+.newto{border-radius:24px;padding:28px;background:rgba(var(--accent-rgb),.09);border:1px solid rgba(var(--accent-rgb),.28)}
+.newto h3{font-size:clamp(22px,1.8vw,26px);line-height:1.12;letter-spacing:-.02em;margin:0 0 14px}
+.newto p{margin:0;color:#4b4351;font-size:15.5px;line-height:1.6}
+.pkg-note{grid-column:1/-1;margin:2px 4px 0;font-size:13.5px;color:#7a7186}
+.wsteps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:none}
+.wsteps li{position:relative;background:#fff;border-radius:20px;padding:22px 24px;box-shadow:0 18px 60px rgba(40,22,60,.05)}
+.wsteps li b{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--accent-text)}
+.wsteps h4{font-size:19px;letter-spacing:-.015em;margin:10px 0 6px}
+.wsteps p{margin:0;color:#5e5565;font-size:15.5px}
+.wsteps li:not(:last-child):after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:13px;font-weight:800;z-index:1}
+.faq{display:grid;grid-template-columns:.7fr 1.3fr;gap:24px;align-items:start;margin-top:56px}
+.faq .wsub{margin:0}
+.faq details{background:#fff;border-radius:16px;padding:0 22px;margin-bottom:10px;box-shadow:0 12px 40px rgba(40,22,60,.04)}
+.faq summary{list-style:none;cursor:pointer;padding:18px 0;font-weight:700;font-size:16.5px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(var(--accent-rgb),.13);color:var(--accent-text);font-size:18px;font-weight:700;transition:transform .3s var(--ease)}
+.faq details[open] summary:after{transform:rotate(45deg)}
+.faq details p{margin:0 0 18px;color:#5e5565;font-size:15.5px}
+@media (max-width:1050px){.pkgs{grid-template-columns:1fr 1fr}.newto{grid-column:1/-1}.faq{grid-template-columns:1fr}}
+@media (max-width:720px){.pkgs,.wsteps{grid-template-columns:1fr}.wsteps li:not(:last-child):after{right:auto;left:50%;top:auto;bottom:-13px;transform:translateX(-50%) rotate(90deg)}.wsteps{gap:20px}.wsub{margin:44px 0 14px}.faq{margin-top:44px;gap:14px}.pkg,.newto{padding:24px}}
+/* ===== round 3: accent options, dark-hero header, wordmark, languages ===== */
+html[data-accent="blue"]{--accent:#3D6BFF;--accent-rgb:61,107,255;--accent-2:#5d84ff;--accent-ink:#fff;--accent-text:#2a55e6}
+html[data-accent="lime"]{--accent:#C6F432;--accent-rgb:198,244,50;--accent-2:#d5ff5a;--accent-ink:#0B0B0D;--accent-text:#4d6a00}
+h1,h2,h3{overflow-wrap:break-word;hyphens:manual}
+.hcta:hover{color:var(--accent-ink)!important}
+.nav a:after{background:var(--accent)!important}
+/* wordmark */
+.brand{gap:0!important}
+.wmk{display:inline-flex;align-items:flex-start;font-weight:850;font-size:19px;letter-spacing:-.005em;line-height:1;text-transform:uppercase}
+.wmk .sy{display:inline-block;overflow:hidden;height:1.06em;padding:0 .005em}
+.wmk .sy b{display:block;font-weight:inherit;line-height:1.06;text-shadow:0 1.2em 0 currentColor}
+.wmk .sy.a{color:var(--accent-text)}
+.mono2{display:none;grid-template-columns:auto auto;column-gap:.1em;row-gap:.02em;font-weight:900;font-size:11.5px;line-height:1;letter-spacing:-.03em;padding:6px 7px;border-radius:9px;background:var(--dark);color:#fff;text-transform:uppercase}
+.mono2 b{font-weight:inherit;text-align:center}.mono2 .a{color:var(--accent)}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+.brand:hover .wmk .sy b,.brand:focus-visible .wmk .sy b{animation:reel .3s cubic-bezier(.55,0,.25,1) both}
+.brand:hover .wmk .sy:nth-child(2) b,.brand:focus-visible .wmk .sy:nth-child(2) b{animation-delay:.09s}
+.brand:hover .wmk .sy:nth-child(3) b,.brand:focus-visible .wmk .sy:nth-child(3) b{animation-delay:.18s}
+.brand:hover .wmk .sy:nth-child(4) b,.brand:focus-visible .wmk .sy:nth-child(4) b{animation-delay:.27s}
+}
+@keyframes reel{0%{transform:translateY(0)}100%{transform:translateY(-1.2em)}}
+/* language switcher */
+.lang{display:inline-flex;align-items:center;gap:0;margin-right:14px}
+.lang button{position:relative;appearance:none;background:none;border:0;padding:6px 5px;font:700 11.5px/1 Inter,system-ui,sans-serif;letter-spacing:.06em;color:#8a8590;cursor:pointer;border-radius:6px;transition:color .2s}
+.lang button+button{margin-left:8px}.lang button+button:before{content:"·";position:absolute;left:-6px;color:#c4c0c8;font-weight:400}
+.lang button:hover,.lang button[aria-pressed="true"]{color:var(--ink)}
+.lang button[aria-pressed="true"]{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:5px}
+.menu .lang{margin:34px 0 0 -7px}.menu .lang button{font-size:14px;padding:8px 7px;color:#9a9aa4}.menu .lang button:hover,.menu .lang button[aria-pressed="true"]{color:#fff}
+.menu .lang button+button:before{color:#55555e}
+/* header over the dark hero */
+header.on-dark .brand,header.on-dark .wmk{color:#fff!important}
+header.on-dark .wmk .sy.a{color:var(--accent)}
+header.on-dark .nav a{color:rgba(255,255,255,.7)!important}
+header.on-dark .nav a:hover,header.on-dark .nav a.on{color:#fff!important}
+header.on-dark .hcta{background:#fff;color:var(--dark)}
+header.on-dark .hcta:hover{background:var(--accent);color:var(--accent-ink)!important}
+header.on-dark .burger{color:#fff!important;border-color:rgba(255,255,255,.28)!important}
+header.on-dark .lang button{color:rgba(255,255,255,.5)}
+header.on-dark .lang button:hover,header.on-dark .lang button[aria-pressed="true"]{color:#fff}
+header.on-dark .lang button+button:before{color:rgba(255,255,255,.25)}
+header.on-dark.dark-bar{background:rgba(11,11,13,.72)!important;-webkit-backdrop-filter:blur(16px) saturate(1.2)!important;backdrop-filter:blur(16px) saturate(1.2)!important;border-bottom-color:rgba(255,255,255,.08)!important;height:64px}
+.menu-open .wmk .sy.a{color:var(--accent)}
+/* footer mark */
+.foot-mark{margin-bottom:26px}.foot-mark .mono2{display:inline-grid;font-size:15px;padding:9px 10px;border-radius:11px;background:#1b1b1f;border:1px solid rgba(255,255,255,.1)}
+@media (max-width:720px){.lang{margin-right:8px}.lang button{padding:6px 3px;font-size:11px}.lang button+button{margin-left:6px}.lang button+button:before{left:-5px}}
+@media (max-width:370px){header .hright .lang{display:none}}
+@media (max-width:360px){.brand .wmk{display:none}.brand .mono2{display:inline-grid}}
+.portrait.has-photo .pphoto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 28%;display:block}.portrait.has-photo .pshade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,13,.72) 0%,rgba(11,11,13,.15) 32%,rgba(11,11,13,0) 60%,rgba(11,11,13,.35) 100%);pointer-events:none}.portrait.has-photo svg{z-index:1}.portrait.has-photo svg>*:not(.plabels):not(defs){display:none}
+</style>
+
+</head>
 <body>
-<main>
-<p class="lbl">Rijeka, Hrvatska</p>
-<h1>Studio Mariia Tararova</h1>
-<p class="lead">Dizajn, web stranice i aplikacije. Radimo za lokalne tvrtke, konobe, salone i apartmane na Kvarneru i u Istri.</p>
+<a class="skip" href="#products" data-i18n="skip">Skip to content</a>
+<header id="hdr"><a class="brand" href="#top" aria-label="Tararova, home" data-i18n-aria="aria.home"><span class="wmk" aria-hidden="true"><span class="sy"><b>TA</b></span><span class="sy"><b>RA</b></span><span class="sy"><b>RO</b></span><span class="sy a"><b>VA</b></span></span><span class="mono2" aria-hidden="true"><b>TA</b><b>RA</b><b>RO</b><b class="a">VA</b></span></a><nav class="nav" aria-label="Main" data-i18n-aria="aria.main"><a href="#products" data-i18n="nav.products">Products</a><a href="#websites" data-i18n="nav.websites">Websites</a><a href="#about" data-i18n="nav.about">About</a></nav><div class="hright"><div class="lang" role="group" aria-label="Language" data-i18n-aria="aria.lang"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="ru" aria-pressed="false">RU</button><button type="button" data-lang="hr" aria-pressed="false">HR</button><button type="button" data-lang="de" aria-pressed="false">DE</button></div><a class="hcta mag" href="#contact" data-i18n="nav.write">Write to me <span aria-hidden="true">→</span></a><a class="burger" href="#site-menu" role="button" aria-label="Open menu" aria-controls="site-menu" aria-expanded="false"><span class="bl" data-i18n="nav.menu">Menu</span><i></i></a></div></header>
+<div class="menu" id="site-menu" aria-label="Menu" data-i18n-aria="aria.menu"><a class="mclose" href="#top" aria-label="Close menu" data-i18n-aria="aria.close">✕</a><a class="ml" href="#products"><small>01</small><span data-i18n="nav.products">Products</span></a><a class="ml" href="#websites"><small>02</small><span data-i18n="nav.websites">Websites</span></a><a class="ml" href="#about"><small>03</small><span data-i18n="nav.about">About</span></a><a class="ml" href="#contact"><small>04</small><span data-i18n="nav.contact">Contact</span></a><a class="mmail" href="mailto:mariatararova@gmail.com?subject=Hi%20Maria">mariatararova@gmail.com ↗</a><div class="lang" role="group" aria-label="Language" data-i18n-aria="aria.lang"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="ru" aria-pressed="false">RU</button><button type="button" data-lang="hr" aria-pressed="false">HR</button><button type="button" data-lang="de" aria-pressed="false">DE</button></div></div>
+<main id="top">
+<section class="hero" id="hero"><div class="wrap hero-grid"><div class="hero-copy reveal"><div class="eyebrow rv" style="--d:.05s" data-i18n="hero.eyebrow">Independent product maker</div><h1><span class="line" style="--i:0" data-i18n="hero.h1a">I used to design products.</span><span class="line" style="--i:1" data-i18n="hero.h1b">Now I build them.</span></h1><p class="lead rv" style="--d:.4s" data-i18n="hero.lead">I’ve been designing since I was 17. For most of my career, I could take an idea from a messy problem to a clear product design. AI removed the last barrier: now I can build and ship the product too.</p><div class="actions rv" style="--d:.55s"><a class="btn primary mag" href="#products" data-i18n="hero.cta1">Explore what I’m building ↗</a><a class="btn" href="#websites" data-i18n="hero.cta2">Need a website? ↗</a></div><div class="meta rv" style="--d:.7s"><span data-i18n="hero.meta1">Designing since 2007</span><span data-i18n="hero.meta2">Building from Rijeka, Croatia</span></div></div><div class="hero-visual"><div class="hero-stage" id="heroStage" role="img" aria-label="A phone showing screens from my apps" data-i18n-aria="aria.hero"><svg class="hero-fallback" viewBox="0 0 250 520" aria-hidden="true"><defs><linearGradient id="fbf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a5a62"/><stop offset=".5" stop-color="#2a2a2f"/><stop offset="1" stop-color="#4a4a52"/></linearGradient><linearGradient id="fbs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f1ff"/><stop offset=".4" stop-color="#fff"/></linearGradient></defs><rect x="2" y="2" width="246" height="516" rx="46" fill="url(#fbf)"/><rect x="7" y="7" width="236" height="506" rx="41" fill="#050506"/><rect x="13" y="13" width="224" height="494" rx="35" fill="url(#fbs)"/><rect x="90" y="22" width="70" height="20" rx="10" fill="#050506"/><g font-family="Inter,system-ui,sans-serif"><text x="29" y="84" font-weight="800" font-size="20" fill="#17131d">Japan</text><text x="29" y="98" font-size="9.5" font-weight="600" fill="#7a7186">May 6 to 17 · 12 days</text><circle cx="207" cy="82" r="14" fill="#6d42f5"/><text x="207" y="86" font-size="10" font-weight="800" fill="#fff" text-anchor="middle">MT</text><text x="29" y="128" font-size="9" font-weight="800" fill="#6d42f5">DAY 2 · KYOTO</text><g><rect x="25" y="138" width="200" height="44" rx="13" fill="#fff" stroke="#efe9fb"/><circle cx="43" cy="160" r="10" fill="#efe9ff"/><text x="43" y="163.5" font-size="10" font-weight="800" fill="#6d42f5" text-anchor="middle">1</text><text x="61" y="157" font-size="10.5" font-weight="700" fill="#17131d">Flight HND to ITM</text><text x="61" y="170" font-size="9" fill="#8a8296">09:40 · Gate 34</text></g><g><rect x="25" y="188" width="200" height="44" rx="13" fill="#fff" stroke="#efe9fb"/><circle cx="43" cy="210" r="10" fill="#efe9ff"/><text x="43" y="213.5" font-size="10" font-weight="800" fill="#6d42f5" text-anchor="middle">2</text><text x="61" y="207" font-size="10.5" font-weight="700" fill="#17131d">Hotel check-in</text><text x="61" y="220" font-size="9" fill="#8a8296">15:00 · Gion</text></g><g><rect x="25" y="238" width="200" height="44" rx="13" fill="#fff" stroke="#efe9fb"/><circle cx="43" cy="260" r="10" fill="#efe9ff"/><text x="43" y="263.5" font-size="10" font-weight="800" fill="#6d42f5" text-anchor="middle">3</text><text x="61" y="257" font-size="10.5" font-weight="700" fill="#17131d">Tea house tour</text><text x="61" y="270" font-size="9" fill="#8a8296">17:30 · 2 people</text></g><g><rect x="25" y="288" width="200" height="44" rx="13" fill="#fff" stroke="#efe9fb"/><circle cx="43" cy="310" r="10" fill="#efe9ff"/><text x="43" y="313.5" font-size="10" font-weight="800" fill="#6d42f5" text-anchor="middle">4</text><text x="61" y="307" font-size="10.5" font-weight="700" fill="#17131d">Dinner in Pontocho</text><text x="61" y="320" font-size="9" fill="#8a8296">20:00 · Booked</text></g></g><rect x="183" y="430" width="40" height="40" rx="14" fill="#6d42f5"/><path d="M203 442v16M195 450h16" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><rect x="90" y="494" width="70" height="4" rx="2" fill="#17131d" opacity=".3"/></svg><canvas id="heroGL" aria-hidden="true"></canvas></div><div class="hero-cap" aria-hidden="true"><span class="hc-name" id="hcName">RoamDrop</span><span class="hc-dots"><i class="on"></i><i></i><i></i><i></i></span></div></div></div><a class="scrollcue" href="#products" aria-label="Scroll down" data-i18n-aria="aria.scroll"></a></section>
+
+<section class="manifesto has-decor"><div class="decor" aria-hidden="true"><span class="d d-orb" data-speed=".3" style="left:-140px;top:60px"></span><span class="d d-ring" data-speed="-.16" style="right:7%;top:-24px"></span><span class="d d-dots" data-speed=".18" style="right:-20px;bottom:30px"></span><span class="d d-plus" data-speed="-.28" style="left:9%;bottom:40px"></span></div><div class="wrap manifest-card reveal"><h2 data-i18n="man.h2">For years, I could take an idea all the way to a <span class="strike">product design.</span><br><br>Now I can take it all the way to a <span class="productword">product.</span></h2><div class="sidecopy"><span data-i18n="man.side">The handoff used to be built into the job. Research, product thinking, UX, UI, testing. Then someone else had to make it real. That handoff is no longer mandatory.</span><div class="doodle">↙</div></div></div></section>
+<section class="section has-decor" id="products"><div class="decor" aria-hidden="true"><span class="d d-orb" data-speed=".32" style="right:-120px;top:40px"></span><span class="d d-ring sm" data-speed="-.2" style="left:3%;top:120px"></span><span class="d d-dots" data-speed=".16" style="left:-30px;top:46%"></span><span class="d d-orb y" data-speed=".22" style="right:10%;bottom:-40px"></span><span class="d d-ring" data-speed="-.12" style="right:2%;top:52%"></span></div><div class="wrap"><div class="section-head reveal"><div class="px" data-speed=".07" data-max="40"><div class="eyebrow" data-i18n="prod.eyebrow">Currently building</div><h2 data-i18n="prod.h2">Things I thought<br>should exist.</h2></div></div><div class="products">
+
+<article class="project roam reveal" data-tilt><div class="name"><span class="icon" style="background:#6d42f5">R</span>RoamDrop</div><h3 data-i18n="rd.h3">Trips are messy. Planning them shouldn’t be.</h3><p data-i18n="rd.p">Bookings, screenshots, tickets, places and half-finished plans usually live everywhere. RoamDrop is a travel inbox: throw the mess in, and turn it into a trip you can actually use.</p>
+<div class="mock" aria-hidden="true" data-speed="-.07" data-max="36"><div class="tilt rd"><div class="phone rd" id="rdPhone"><div class="screen"><div class="island"></div><div class="sbar"><span>9:41</span><span><i></i></span></div>
+<div class="rd-head"><div><b>Japan</b><small>May 6 to 17 · 12 days</small></div><span class="rd-av">MT</span></div>
+<div class="rd-lbl">Unplanned <span>3 ideas</span></div>
+<div class="board"><div class="idea"><i style="--c:#ffd1e8"></i>teamLab Planets</div><div class="idea"><i style="--c:#ffe8a8"></i>Ramen alley</div><div class="idea"><i style="--c:#c9f2dc"></i>Nara deer park</div></div>
+<div class="days"><div class="day">Tue<b>6</b></div><div class="day on">Wed<b>7</b></div><div class="day">Thu<b>8</b></div><div class="day">Fri<b>9</b></div><div class="day">Sat<b>10</b></div></div>
+<div class="rd-lbl">Day 2 · Kyoto <span>4 stops</span></div>
+<ol class="stops"><li class="stop slot"><span class="num">1</span><div><b>Flight HND to ITM</b><div class="chipz"><span>09:40</span><span>Gate 34</span><span>No. K7XQ2</span></div></div><em>✈</em></li><li class="stop"><span class="num">1</span><div><b>Hotel check-in</b><small>15:00 · Gion</small></div><em>🛏</em></li><li class="stop"><span class="num">2</span><div><b>Tea house tour</b><small>17:30 · 2 people</small></div><em>🍵</em></li><li class="stop"><span class="num">3</span><div><b>Dinner in Pontocho</b><small>20:00 · Booked</small></div><em>🍜</em></li></ol>
+<div class="rd-fab">+</div></div>
+<div class="ticket"><div class="tk-main"><span class="tk-tag">BOARDING PASS</span><b>HND ✈ ITM · NH 21</b><small>May 7 · 09:40 · Gate 34</small></div><div class="bars"></div></div>
+</div></div></div>
+<a class="go" href="https://roamdrop.app/" target="_blank" rel="noopener" data-i18n="rd.go">Explore RoamDrop ↗</a></article>
+
+<article class="project circle reveal" data-tilt><div class="name"><span class="icon" style="background:#ffbd00">○</span>CircleOK</div><h3 data-i18n="co.h3">Know they’re okay. Without watching them.</h3><p data-i18n="co.p">CircleOK gives families a small signal that everyday life still looks normal, without turning care into constant tracking.</p>
+<div class="mock" aria-hidden="true" data-speed="-.07" data-max="36"><div class="tilt" style="--rz:-4deg;--ry:14deg;left:56%"><div class="phone co" id="coPhone"><div class="screen"><div class="island"></div><div class="sbar"><span>9:41</span><span><i></i></span></div>
+<div class="co-head"><b>Mom</b><span class="co-logo"><i></i></span></div>
+<div class="co-card"><div class="co-mom">Today’s signal</div><div class="co-ring draw"><svg viewBox="0 0 86 86"><circle class="disc" cx="43" cy="43" r="36"/><path class="ck" d="M28 44l10 10 20-21"/><g class="dots"><circle cx="31" cy="44" r="4"/><circle cx="43" cy="44" r="4"/><circle cx="55" cy="44" r="4"/></g></svg></div><div class="co-state"><b class="g1">All good</b><b class="g2">Gentle check sent</b></div><div class="co-time">Today, 08:30</div></div>
+<div class="co-sec">My circles <span>2 caregivers</span></div>
+<div class="cg"><span class="av" style="background:#7c4dff">A</span><div><b>Ana</b><small>Daughter · notified</small></div><span class="ok"></span></div>
+<div class="cg"><span class="av" style="background:#ff8a5b">D</span><div><b>Dino</b><small>Son · notified</small></div><span class="ok"></span></div>
+</div></div></div></div>
+<a class="go" href="https://circleok.app/" target="_blank" rel="noopener" data-i18n="co.go">Explore CircleOK ↗</a></article>
+
+<article class="project appray reveal" data-tilt><div class="name"><span class="icon">A</span>Appray</div><h3 data-i18n="ap.h3">Stop praying.<br>Start proving.</h3><p data-i18n="ap.p">Appray helps founders, indie makers and product designers pressure-test an app idea before spending weeks building it.</p>
+<div class="mock" aria-hidden="true" data-speed="-.07" data-max="36"><div class="tilt" style="top:0"><div class="phone ap" id="apPhone"><div class="screen"><div class="island"></div><div class="sbar"><span>9:41</span><span><i></i></span></div>
+<div class="ap-head"><small>‹ JTBD · IDEA TEST</small><b>Feature Court</b><span class="ap-tag">Build. Kill. Prove.</span></div>
+<ul class="court"><li>AI Suggestions<span class="vd build">BUILD</span></li><li>Social Feed<span class="vd later">LATER</span></li><li>Gamification<span class="vd kill">KILL</span></li><li>Export PDF<span class="vd prove">PROVE</span></li></ul>
+<div class="report"><div><small>Build</small><b class="rb">6</b></div><div><small>Later</small><b class="rl">2</b></div><div><small>Kill</small><b class="rk">3</b></div><div><small>Prove</small><b class="rp">1</b></div><div class="report-line">Build 6 · Later 2 · Kill 3 · Prove 1</div></div>
+</div></div></div></div>
+<a class="go" href="https://appray.app/" target="_blank" rel="noopener" data-i18n="ap.go">Explore Appray ↗</a></article>
+
+<article class="project tweexy wide reveal" data-tilt><div class="name"><span class="icon" style="background:#0da5af">T</span>Tweexy · GameAnalyze</div><h3 data-i18n="tw.h3">Focus, read through play.</h3><p data-i18n="tw.p">A play-based wellbeing app for parents of kids 4 to 12. Kids play a few minutes of Tweexy Bubbles, and parents see how focus changes over time, compared with their child’s own typical range.</p>
+<div class="mock" aria-hidden="true" data-speed="-.07" data-max="36"><div class="tilt" style="--rz:4deg;--ry:-18deg"><div class="phone tw" id="twPhone"><div class="screen"><div class="island"></div><div class="sbar"><span>9:41</span><span><i></i></span></div>
+<div class="tw-head"><b>Tweexy Bubbles</b><small>Today’s play · 4 min</small></div>
+<div class="tw-game"><i style="--x:14%;--sz:30px;--dl:0s;--du:5s"></i><i style="--x:52%;--sz:22px;--dl:1.2s;--du:4.2s"></i><i style="--x:74%;--sz:34px;--dl:2.1s;--du:5.6s"></i><i style="--x:34%;--sz:18px;--dl:3s;--du:4.6s"></i><i class="pop" style="--x:60%;--sz:26px"></i></div>
+<div class="tw-lbl">Focus over time <span>vs. typical range</span></div>
+<svg class="tw-chart" viewBox="0 0 200 74"><path d="M0 22C30 18 50 26 80 20S140 16 200 22V50C160 54 130 48 90 52S30 54 0 50Z" fill="#0da5af" fill-opacity=".14"/><path class="tw-line" d="M2 40C20 36 32 30 50 33S78 42 96 35S128 24 146 30S178 38 198 31" fill="none" stroke="#0da5af" stroke-width="3" stroke-linecap="round"/><circle class="tw-dot" cx="198" cy="31" r="4.5" fill="#0da5af" stroke="#fff" stroke-width="2"/></svg>
+<div class="tw-chips"><span>Reaction speed</span><span>Attention span</span><span>Motor patterns</span></div>
+</div></div></div></div>
+<a class="go" href="https://tweexy.gamenalyze.com/" target="_blank" rel="noopener" data-i18n="tw.go">Explore Tweexy ↗</a></article>
+</div></div></section>
+
+<section class="ai"><div class="wrap ai-card reveal"><h2 data-i18n="ai.h2a">AI writes most<br>of my code.</h2><div class="orb" id="orb"><canvas aria-hidden="true"></canvas></div><h2 class="r" data-i18n="ai.h2b">It still doesn’t know<br>what should exist.<em>That’s still my job.</em></h2></div></section>
+
+<section class="timeline"><div class="wrap timeline-grid reveal"><div class="timeline-title" data-i18n="tl.title">FROM FLASH<br>TO SHIPPING</div><div class="steps" id="steps"><div class="step" style="--i:0"><div class="sym"><span>➤</span></div><small>2007</small><b data-i18n="tl.b1">FLASH</b><small data-i18n="tl.s1">Animated banners & interactions</small></div><div class="step" style="--i:1"><div class="sym"><span>✒</span></div><small>2010</small><b data-i18n="tl.b2">GRAPHIC</b><small data-i18n="tl.s2">Visual systems, print & composition</small></div><div class="step" style="--i:2"><div class="sym"><span>⬡</span></div><small>2013</small><b data-i18n="tl.b3">SPACE</b><small data-i18n="tl.s3">Exhibitions & events</small></div><div class="step" style="--i:3"><div class="sym"><span>▯</span></div><small>2016</small><b data-i18n="tl.b4">UI / UX</b><small data-i18n="tl.s4">Mobile apps & digital products</small></div><div class="step" style="--i:4"><div class="sym"><span>⌘</span></div><small>2020</small><b data-i18n="tl.b5">SYSTEMS</b><small data-i18n="tl.s5">Complex products & platforms</small></div><div class="step now" style="--i:5"><div class="sym"><span>⬢</span></div><small>2026+</small><b data-i18n="tl.b6">PRODUCTS</b><small data-i18n="tl.s6">Building my own things</small></div></div></div></section>
+
+<section class="websites" id="websites"><div class="wrap"><div class="section-head reveal"><div class="px" data-speed=".07" data-max="40"><div class="eyebrow" data-i18n="web.eyebrow">For local business</div><h2 data-i18n="web.h2">Your place deserves<br>a better website.</h2></div></div>
+<div class="web-grid"><div class="web-intro reveal"><p data-i18n="web.p1">I also make websites for businesses in Rijeka and Opatija. Salons, konobas, apartments, small hotels. Places that are lovely in real life and look tired online.</p><p data-i18n="web.p2">You get a site that feels premium, works great on a phone and lets people book without calling you three times.</p><a class="btn primary mag" href="#contact" data-i18n="web.btn">Tell me about your place ↗</a></div>
+<div class="web-cards">
+<article class="web-card reveal"><span>01</span><div class="wm" aria-hidden="true"><div class="wb"><div class="wb-bar"><i></i><i></i><i></i><span></span></div><div class="wb-body"><div class="wb-nav p" style="--d:.1s"><b></b><s></s><s></s><s></s></div><div class="wb-hero"><div class="wb-copy"><em class="p" style="--d:.5s"></em><em class="p" style="--d:.8s"></em><u class="p" style="--d:1.2s"></u></div><div class="wb-img p" style="--d:1.6s"></div></div></div><div class="wb-cur"></div></div></div><h3 data-i18n="w1.h3">Website or landing page</h3><p data-i18n="w1.p">Design, copy and build. Fast, mobile first, looks like you spent more than you did.</p></article>
+<article class="web-card reveal"><span>02</span><div class="wm" aria-hidden="true"><div class="cal"><div class="cal-h" data-i18n="cal.h">June <span>Pick a date</span></div><div class="cal-g"><i class="x">1</i><i class="x">2</i><i>3</i><i>4</i><i class="x">5</i><i>6</i><i>7</i><i>8</i><i>9</i><i class="x">10</i><i>11</i><i class="pk">12</i><i>13</i><i>14</i><i>15</i><i>16</i><i class="x">17</i><i>18</i><i>19</i><i>20</i><i>21</i></div></div><div class="toast" data-i18n="cal.toast"><b>Booked ✓</b> Thu 12, 19:00</div></div><h3 data-i18n="w2.h3">Online booking</h3><p data-i18n="w2.p">Tables, treatments or rooms. Guests book themselves, you get a notification.</p></article>
+<article class="web-card reveal"><span>03</span><div class="wm map" aria-hidden="true"><svg viewBox="0 0 300 138" preserveAspectRatio="xMidYMid slice"><rect width="300" height="138" fill="#eef0f7"/><path d="M0 104C60 92 90 120 150 112S240 88 300 96V138H0Z" fill="#cfe3ff"/><g fill="none" stroke="#fff" stroke-linecap="round"><path d="M-10 40L310 70" stroke-width="9"/><path d="M90 -10L130 150" stroke-width="7"/><path d="M200 -10L180 150" stroke-width="5"/><path d="M-10 80C80 60 200 30 310 20" stroke-width="4"/></g><g fill="#dcd3f2"><rect x="20" y="8" width="44" height="22" rx="4"/><rect x="146" y="10" width="36" height="30" rx="4"/><rect x="214" y="30" width="60" height="22" rx="4"/><rect x="26" y="52" width="50" height="18" rx="4"/></g><circle cx="244" cy="80" r="12" fill="#cdeccf"/></svg><span class="pin-ring"></span><span class="pin"><svg viewBox="0 0 26 34"><path d="M13 33C13 33 25 20 25 12.5A12 12 0 0 0 1 12.5C1 20 13 33 13 33Z" style="fill:var(--accent)"/><circle cx="13" cy="12.5" r="4.6" fill="#fff"/></svg></span><div class="rate"><b>4.9</b><span class="stars"><i style="--s:0">★</i><i style="--s:1">★</i><i style="--s:2">★</i><i style="--s:3">★</i><i style="--s:4">★</i></span></div></div><h3 data-i18n="w3.h3">Google and maps</h3><p data-i18n="w3.p">Your hours, photos and reviews in order, so people actually find you.</p></article>
+</div></div><div class="web-more"><h3 class="wsub reveal" data-i18n="pk.label">Packages</h3><div class="pkgs"><article class="pkg reveal"><span class="pkg-tag" data-i18n="pk1.tag">New website</span><div class="price"><small data-i18n="pk.from">from</small> 250 €</div><p class="pkg-for" data-i18n="pk1.for">For places with no site yet.</p><ul><li data-i18n="pk1.l1">One-page premium site</li><li data-i18n="pk1.l2">Mobile first</li><li data-i18n="pk1.l3">Up to 4 languages</li><li data-i18n="pk1.l4">Booking or enquiry to WhatsApp or email</li><li data-i18n="pk1.l5">Google Maps and opening hours</li></ul><a class="btn primary mag" href="#contact" data-i18n="web.btn">Tell me about your place ↗</a></article><article class="pkg dark reveal"><span class="pkg-tag" data-i18n="pk2.tag">Redesign</span><div class="price"><small data-i18n="pk.from">from</small> 490 €</div><p class="pkg-for" data-i18n="pk2.for">For places whose site is outdated.</p><ul><li data-i18n="pk2.l1">New design on your existing domain</li><li data-i18n="pk2.l2">Your content moved over</li><li data-i18n="pk2.l3">Booking or enquiry</li><li data-i18n="pk2.l4">Languages</li></ul><a class="btn primary mag" href="#contact" data-i18n="web.btn">Tell me about your place ↗</a></article><aside class="newto reveal"><h3 data-i18n="nt.h3">New to Rijeka. Not new to design.</h3><p data-i18n="nt.p">I moved to Rijeka recently and I’m building my local portfolio here. I’ve been designing for 19 years, for banks, transport systems and my own apps, so these are introductory prices for my first clients in Kvarner, not beginner prices. They’ll go up once my local portfolio is full.</p></aside><p class="pkg-note" data-i18n="pk.note">Domain and hosting costs are yours and stay in your name.</p></div><h3 class="wsub reveal" data-i18n="st.label">How it works</h3><ol class="wsteps reveal"><li><b>01</b><h4 data-i18n="st1.h">Free concept</h4><p data-i18n="st1.p">I make a first version of your homepage before you pay anything.</p></li><li><b>02</b><h4 data-i18n="st2.h">Revisions</h4><p data-i18n="st2.p">You tell me what to change.</p></li><li><b>03</b><h4 data-i18n="st3.h">Live in 7 days</h4><p data-i18n="st3.p">After the go-ahead and your texts and photos.</p></li></ol><div class="faq reveal"><h3 class="wsub" data-i18n="faq.label">FAQ</h3><div class="faq-list"><details><summary><span data-i18n="faq.q1">Who owns the domain?</span></summary><p data-i18n="faq.a1">You do. It stays in your name.</p></details><details><summary><span data-i18n="faq.q2">What about hosting?</span></summary><p data-i18n="faq.a2">I set it up on your account. For simple sites it can be free or a few euros a month.</p></details><details><summary><span data-i18n="faq.q3">How do I pay?</span></summary><p data-i18n="faq.a3">50% to start, 50% at launch. The invoice comes from my registered Croatian business.</p></details><details><summary><span data-i18n="faq.q4">What about changes later?</span></summary><p data-i18n="faq.a4">Small text and photo changes in the first month are included. After that, by agreement.</p></details></div></div></div></div></section>
+
+
+
+<section class="about has-decor" id="about"><div class="decor" aria-hidden="true"><span class="d d-orb" data-speed=".28" style="left:-120px;bottom:-60px"></span><span class="d d-ring" data-speed="-.18" style="right:5%;top:-30px"></span><span class="d d-dots" data-speed=".14" style="right:-10px;bottom:20px"></span><span class="d d-plus" data-speed="-.3" style="left:46%;top:-14px"></span></div><div class="wrap about-card reveal"><div class="portrait has-photo" id="portrait"><img class="pphoto" src="maria-portrait.jpg" alt="Maria Tararova" width="800" height="1080" loading="lazy" decoding="async"><div class="pshade" aria-hidden="true"></div>
+<svg aria-hidden="true" viewBox="0 0 400 540" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="pbg" x1="0" y1="0" x2=".6" y2="1"><stop offset="0" stop-color="#2c2c33"/><stop offset=".5" stop-color="#141417"/><stop offset="1" stop-color="#0b0b0d"/></linearGradient>
+<filter id="pblur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="38"/></filter>
+<filter id="pgrain"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0"/></filter>
+<pattern id="pdots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#fff" fill-opacity=".22"/></pattern>
+</defs>
+<rect width="400" height="540" fill="url(#pbg)"/>
+<g filter="url(#pblur)"><circle class="blob" cx="90" cy="110" r="110" style="fill:var(--accent)" fill-opacity=".55"/><circle class="blob b2" cx="320" cy="300" r="130" style="fill:var(--accent)" fill-opacity=".38"/><circle class="blob b3" cx="120" cy="420" r="90" fill="#fff" fill-opacity=".14"/><circle class="blob b2" cx="300" cy="90" r="70" fill="#fff" fill-opacity=".16"/></g>
+<rect width="400" height="540" fill="url(#pdots)"/>
+<g fill="none" stroke="#fff" stroke-opacity=".28"><ellipse cx="200" cy="270" rx="170" ry="60" transform="rotate(-24 200 270)"/><ellipse cx="200" cy="270" rx="150" ry="40" transform="rotate(32 200 270)"/></g>
+<g class="mono">
+<text x="44" y="360" font-family="Inter,system-ui,sans-serif" font-weight="900" font-size="230" letter-spacing="-16" fill="#fff" fill-opacity=".96">M</text>
+<text x="224" y="372" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="230" style="fill:var(--accent)">T</text>
+</g>
+<path class="pen" transform="translate(0 -36)" d="M44 470C110 420 150 500 210 450S320 330 360 360" fill="none" stroke="#fff" stroke-width="1.6"/>
+<g transform="translate(0 -36)" stroke="#fff" stroke-width="1.2" style="fill:var(--accent)"><line x1="210" y1="450" x2="168" y2="482" stroke-opacity=".7"/><line x1="210" y1="450" x2="252" y2="418" stroke-opacity=".7"/><rect x="205" y="445" width="10" height="10"/><circle cx="168" cy="482" r="3.5" fill="#fff"/><circle cx="252" cy="418" r="3.5" fill="#fff"/><rect x="39" y="465" width="10" height="10"/><rect x="355" y="355" width="10" height="10"/></g>
+<g class="plabels" font-family="Inter,system-ui,sans-serif" font-weight="800" font-size="11" letter-spacing="1.6" fill="#fff"><text x="32" y="92">MARIA TARAROVA</text><text x="32" y="110" fill-opacity=".7" font-weight="600" letter-spacing="1" data-i18n="portrait.sub">Product designer since 2007</text><text x="368" y="92" text-anchor="end" fill-opacity=".7" font-weight="600" letter-spacing="1">45.33° N, 14.44° E</text></g>
+<rect width="400" height="540" filter="url(#pgrain)" opacity=".16" style="mix-blend-mode:overlay"/>
+</svg></div><div><div class="eyebrow" data-i18n="about.eyebrow">About</div><h2 data-i18n="about.h2">Hi, I’m Maria.<br>I started with Flash.<br>Things escalated.</h2><p data-i18n="about.p1">I started designing at 17. First animated Flash banners, then graphic design, exhibitions and events, and eventually digital products. I have a formal art education and graduated with honors.</p><p data-i18n="about.p2">I already knew how to interview people, find problems, structure a product, define scope, design the experience and test whether it made sense. AI changed the last boundary: now I can keep going after Figma and ship the software too.</p><p data-i18n="about.p3">So now I build my own.</p><div class="chips"><span class="chip" data-i18n="chip1">Product thinking</span><span class="chip" data-i18n="chip2">UX / UI</span><span class="chip" data-i18n="chip3">Vibe coding</span><span class="chip" data-i18n="chip4">Independent maker</span></div><div class="prev" data-i18n="about.prev">Previously</div><div class="logos"><span>VTB</span><span>TATNEFT</span><span data-i18n="logo.mt">MOSCOW TRANSPORT</span><span>VOENTORG</span></div></div></div></section>
 </main>
-<footer><div class="in">
-<b>Studio Mariia Tararova</b>, obrt za usluge, vl. Mariia Tararova<br>
-Primorska 8, 51000 Rijeka, Hrvatska<br>
-OIB: 17233930874 · MBO: 99056658<br>
-Upisan u Obrtni registar 30.06.2025.
-</div></footer>
+<section class="contact" id="contact"><div class="wrap contact-card reveal"><div><div class="eyebrow" data-i18n="contact.eyebrow">Contact</div><h2 data-i18n="contact.h2">Ready to talk?<br><span>I actually reply.</span></h2><a class="mail mag" href="mailto:mariatararova@gmail.com?subject=Hi%20Maria">mariatararova@gmail.com ↗</a></div>
+<div class="howto"><h3 data-i18n="contact.h3">To get a useful answer fast, tell me:</h3><ol><li data-i18n="contact.li1"><b>Who you are.</b> Your business or project, with a link if you have one.</li><li data-i18n="contact.li2"><b>What you need.</b> A website, online booking, an app idea, or just a second opinion.</li><li data-i18n="contact.li3"><b>When.</b> A rough deadline, even if it is “whenever”.</li></ol><p class="small" data-i18n="contact.small">Budget is welcome but not required. I usually reply within two working days.</p></div></div></section>
+<footer><div class="wrap foot"><div class="foot-mark" aria-hidden="true"><span class="mono2"><b>TA</b><b>RA</b><b>RO</b><b class="a">VA</b></span></div><h2 data-i18n="foot.h2">More ideas than reasonable amounts of free time.</h2><div class="footrow"><address class="legal"><strong>STUDIO MARIIA TARAROVA</strong>, obrt za usluge, vl. Mariia Tararova<br>Primorska 8, 51000 Rijeka, Croatia<br>OIB 17233930874 · MBO 99056658 · <span data-i18n="legal.reg">Registered in the Croatian Crafts Register (Obrtni registar)</span><br><span data-i18n="legal.vat">Not in the VAT system (obrt nije u sustavu PDV-a)</span> · <a href="mailto:mariatararova@gmail.com">mariatararova@gmail.com</a> · © 2026</address><div class="footlinks"><a href="#products" data-i18n="nav.products">Products</a><a href="#websites" data-i18n="nav.websites">Websites</a><a href="#about" data-i18n="nav.about">About</a><a href="mailto:mariatararova@gmail.com?subject=Hi%20Maria">mariatararova@gmail.com</a></div></div></div></footer>
+<div class="cdot" id="cdot" aria-hidden="true"></div>
+<script>
+(function(){
+"use strict";
+var D=document,W=window,root=D.documentElement;
+var RM=W.matchMedia&&W.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var FINE=W.matchMedia&&W.matchMedia("(hover:hover) and (pointer:fine)").matches;
+var hasIO="IntersectionObserver" in W;
+if(hasIO) root.classList.add("js");
+function $(s,c){return (c||D).querySelector(s)}
+function $$(s,c){return Array.prototype.slice.call((c||D).querySelectorAll(s))}
+function clamp(v,a,b){return v<a?a:v>b?b:v}
+function inView(el,cb,opt){if(!hasIO){cb(true);return}var io=new IntersectionObserver(function(es){es.forEach(function(e){cb(e.isIntersecting,e)})},opt||{threshold:0});io.observe(el);return io}
+
+/* Reveal */
+if(hasIO){
+  var rio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");rio.unobserve(e.target)}})},{threshold:.08,rootMargin:"0px 0px -6% 0px"});
+  $$(".reveal").forEach(function(el){rio.observe(el)});
+  var st0=$("#steps");if(st0){var sio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){st0.classList.add("in");sio.disconnect()}})},{threshold:.2});sio.observe(st0)}
+  setTimeout(function(){$$(".reveal").forEach(function(el){var r=el.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)el.classList.add("in")})},1200);
+}
+
+/* Header + menu */
+var hdr=$("#hdr"),menu=$("#site-menu"),burger=$(".burger");
+var heroEl=$("#hero");
+function onHdr(){var hb=heroEl?heroEl.getBoundingClientRect().bottom:0,over=hb>hdr.offsetHeight;hdr.classList.toggle("on-dark",over);hdr.classList.toggle("dark-bar",over&&scrollY>30);hdr.classList.toggle("scrolled",!over)}
+addEventListener("scroll",onHdr,{passive:true});addEventListener("resize",onHdr);onHdr();
+function setMenu(open){menu.classList.toggle("open",open);D.body.classList.toggle("menu-open",open);burger.setAttribute("aria-expanded",open?"true":"false");burger.setAttribute("aria-label",tr(open?"aria.close":"aria.open"));D.body.style.overflow=open?"hidden":"";if(!open&&location.hash==="#site-menu")history.replaceState(null,"",location.pathname+location.search)}
+burger.addEventListener("click",function(e){e.preventDefault();setMenu(!menu.classList.contains("open"))});
+$$("a",menu).forEach(function(a){a.addEventListener("click",function(){setMenu(false)})});
+addEventListener("keydown",function(e){if(e.key==="Escape"&&menu.classList.contains("open"))setMenu(false)});
+if(location.hash==="#site-menu")history.replaceState(null,"",location.pathname+location.search);
+/* ================= i18n: EN is read from the page, others below ================= */
+var I18N={
+ru:{
+"meta.title":"Мария Тарарова · Независимый создатель продуктов","meta.desc":"Раньше я проектировала продукты. Теперь я их делаю.",
+"nav.products":"Продукты","nav.websites":"Сайты","nav.about":"Обо мне","nav.contact":"Контакты","nav.write":"Написать мне <span aria-hidden=\"true\">→</span>","nav.menu":"Меню","skip":"Перейти к содержимому",
+"aria.home":"Тарарова, на главную","aria.main":"Основная навигация","aria.open":"Открыть меню","aria.close":"Закрыть меню","aria.scroll":"Прокрутить вниз","aria.lang":"Язык","aria.menu":"Меню","aria.hero":"Телефон с экранами моих приложений",
+"hero.eyebrow":"Независимый создатель продуктов","hero.h1a":"Раньше я проектировала продукты.","hero.h1b":"Теперь я их делаю.",
+"hero.lead":"Я занимаюсь дизайном с 17 лет. Почти всю карьеру я умела провести идею от запутанной проблемы до понятного дизайна продукта. ИИ убрал последний барьер: теперь я могу ещё и собрать продукт, и выпустить его.",
+"hero.cta1":"Посмотреть, что я делаю ↗","hero.cta2":"Нужен сайт? ↗","hero.meta1":"В дизайне с 2007 года","hero.meta2":"Работаю из Риеки, Хорватия",
+"man.h2":"Много лет я могла довести идею до <span class=\"strike\">дизайна продукта.</span><br><br>Теперь я довожу её до <span class=\"productword\">продукта.</span>",
+"man.side":"Раньше передача в разработку была частью работы. Исследования, продуктовое мышление, UX, UI, тесты. А потом кто-то другой воплощал это в жизнь. Теперь эта передача больше не обязательна.",
+"prod.eyebrow":"Сейчас в работе","prod.h2":"Вещи, которые, по-моему,<br>должны существовать.",
+"rd.h3":"Поездки хаотичны. Планирование не обязано быть таким.","rd.p":"Брони, скриншоты, билеты, места и недописанные планы обычно разбросаны повсюду. RoamDrop работает как «Входящие» для путешествий: скидываете туда всё подряд и получаете поездку, которой правда удобно пользоваться.","rd.go":"Открыть RoamDrop ↗",
+"co.h3":"Знать, что у них всё хорошо. Без слежки.","co.p":"CircleOK даёт семье маленький сигнал, что повседневная жизнь идёт как обычно, и не превращает заботу в постоянный контроль.","co.go":"Открыть CircleOK ↗",
+"ap.h3":"Хватит молиться.<br>Пора доказывать.","ap.p":"Appray помогает фаундерам, инди-разработчикам и продуктовым дизайнерам проверить идею приложения на прочность, прежде чем неделями её строить.","ap.go":"Открыть Appray ↗",
+"tw.h3":"Внимание, понятое через игру.","tw.p":"Игровое приложение о благополучии для родителей детей от 4 до 12 лет. Дети несколько минут играют в Tweexy Bubbles, а родители видят, как со временем меняется концентрация по сравнению с обычным диапазоном самого ребёнка.","tw.go":"Открыть Tweexy ↗",
+"ai.h2a":"ИИ пишет большую часть<br>моего кода.","ai.h2b":"Но он всё ещё не знает,<br>что должно существовать.<em>Это по-прежнему моя работа.</em>",
+"tl.title":"ОТ FLASH<br>ДО РЕЛИЗА","tl.b1":"FLASH","tl.b2":"ГРАФИКА","tl.b3":"ПРОСТРАНСТВО","tl.b4":"UI / UX","tl.b5":"СИСТЕМЫ","tl.b6":"ПРОДУКТЫ",
+"tl.s1":"Анимированные баннеры и интерактив","tl.s2":"Визуальные системы, печать и композиция","tl.s3":"Выставки и мероприятия","tl.s4":"Мобильные приложения и цифровые продукты","tl.s5":"Сложные продукты и платформы","tl.s6":"Делаю свои собственные вещи",
+"web.eyebrow":"Для местного бизнеса","web.h2":"Ваше место заслуживает<br>сайта получше.",
+"web.p1":"Ещё я делаю сайты для бизнеса в Риеке и Опатии. Салоны, конобы, апартаменты, небольшие отели. Места, которые прекрасны вживую, но выглядят уставшими в интернете.",
+"web.p2":"Вы получаете сайт, который выглядит дорого, отлично работает на телефоне и позволяет гостям бронировать без трёх звонков вам.","web.btn":"Расскажите о своём месте ↗",
+"w1.h3":"Сайт или лендинг","w1.p":"Дизайн, тексты и разработка. Быстро, в первую очередь под телефон, и выглядит так, будто вы потратили больше, чем на самом деле.",
+"w2.h3":"Онлайн-бронирование","w2.p":"Столики, процедуры или номера. Гости бронируют сами, а вам приходит уведомление.",
+"w3.h3":"Google и карты","w3.p":"Часы работы, фото и отзывы в порядке, чтобы вас действительно находили.",
+"cal.h":"Июнь <span>Выберите дату</span>","cal.toast":"<b>Забронировано ✓</b> Чт 12, 19:00",
+"about.eyebrow":"Обо мне","about.h2":"Привет, я Мария.<br>Начинала с Flash.<br>Дальше всё закрутилось.",
+"about.p1":"Я начала заниматься дизайном в 17. Сначала анимированные баннеры на Flash, потом графический дизайн, выставки и мероприятия, и в итоге цифровые продукты. У меня профильное художественное образование и диплом с отличием.",
+"about.p2":"Я уже умела интервьюировать людей, находить проблемы, выстраивать продукт, определять рамки, проектировать опыт и проверять, есть ли во всём этом смысл. ИИ убрал последнюю границу: теперь после Figma я иду дальше и сама выпускаю софт.",
+"about.p3":"Так что теперь я делаю свои продукты.","chip1":"Продуктовое мышление","chip2":"UX / UI","chip3":"Вайб-кодинг","chip4":"Независимый мейкер","about.prev":"Раньше","logo.mt":"ТРАНСПОРТ МОСКВЫ","portrait.sub":"Продуктовый дизайнер с 2007 года",
+"contact.eyebrow":"Контакты","contact.h2":"Поговорим?<br><span>Я правда отвечаю.</span>","contact.h3":"Чтобы быстро получить полезный ответ, расскажите:",
+"contact.li1":"<b>Кто вы.</b> Ваш бизнес или проект, со ссылкой, если она есть.","contact.li2":"<b>Что нужно.</b> Сайт, онлайн-бронирование, идея приложения или просто второе мнение.","contact.li3":"<b>Когда.</b> Примерный срок, даже если это «когда-нибудь».",
+"contact.small":"Бюджет приветствуется, но не обязателен. Обычно я отвечаю в течение двух рабочих дней.",
+"foot.h2":"Идей больше, чем разумного количества свободного времени.","legal.reg":"Зарегистрирован в Реестре ремёсел Хорватии (Obrtni registar)","legal.vat":"Не является плательщиком НДС (obrt nije u sustavu PDV-a)",
+"pk.label":"Пакеты",
+"pk.from":"от",
+"pk1.tag":"Новый сайт",
+"pk1.for":"Для мест, у которых ещё нет сайта.",
+"pk1.l1":"Премиальный одностраничный сайт",
+"pk1.l2":"В первую очередь под телефон",
+"pk1.l3":"До 4 языков",
+"pk1.l4":"Бронирование или заявка в WhatsApp или на почту",
+"pk1.l5":"Google Карты и часы работы",
+"pk2.tag":"Редизайн",
+"pk2.for":"Для мест, чей сайт устарел.",
+"pk2.l1":"Новый дизайн на вашем текущем домене",
+"pk2.l2":"Перенос вашего контента",
+"pk2.l3":"Бронирование или заявка",
+"pk2.l4":"Языковые версии",
+"pk.note":"Расходы на домен и хостинг ваши, и всё остаётся на ваше имя.",
+"nt.h3":"Новая в Риеке. Не новая в дизайне.",
+"nt.p":"Я недавно переехала в Риеку и собираю здесь местное портфолио. Я 19 лет в дизайне: банки, транспортные системы, собственные приложения. Так что это стартовые цены для первых клиентов в Кварнере, а не цены новичка. Они вырастут, когда местное портфолио заполнится.",
+"st.label":"Как это работает",
+"st1.h":"Бесплатный концепт",
+"st1.p":"Я делаю первую версию вашей главной страницы ещё до того, как вы что-то заплатите.",
+"st2.h":"Правки",
+"st2.p":"Вы говорите, что поменять.",
+"st3.h":"Запуск через 7 дней",
+"st3.p":"После вашего «да» и получения текстов и фото.",
+"faq.label":"Частые вопросы",
+"faq.q1":"Кому принадлежит домен?",
+"faq.a1":"Вам. Он остаётся на ваше имя.",
+"faq.q2":"А хостинг?",
+"faq.a2":"Я настраиваю его на вашем аккаунте. Для простых сайтов он может быть бесплатным или стоить несколько евро в месяц.",
+"faq.q3":"Как оплачивать?",
+"faq.a3":"50% на старте, 50% при запуске. Счёт выставляет мой зарегистрированный бизнес в Хорватии.",
+"faq.q4":"А если потом нужны изменения?",
+"faq.a4":"Небольшие правки текста и фото в первый месяц включены. Дальше по договорённости."
+},
+hr:{
+"meta.title":"Maria Tararova · Neovisna autorica proizvoda","meta.desc":"Nekad sam dizajnirala proizvode. Sada ih gradim.",
+"nav.products":"Proizvodi","nav.websites":"Web stranice","nav.about":"O meni","nav.contact":"Kontakt","nav.write":"Pišite mi <span aria-hidden=\"true\">→</span>","nav.menu":"Izbornik","skip":"Preskoči na sadržaj",
+"aria.home":"Tararova, početna","aria.main":"Glavna navigacija","aria.open":"Otvori izbornik","aria.close":"Zatvori izbornik","aria.scroll":"Pomakni se dolje","aria.lang":"Jezik","aria.menu":"Izbornik","aria.hero":"Telefon sa zaslonima mojih aplikacija",
+"hero.eyebrow":"Neovisna autorica proizvoda","hero.h1a":"Nekad sam dizajnirala proizvode.","hero.h1b":"Sada ih gradim.",
+"hero.lead":"Dizajnom se bavim od svoje 17. godine. Većinu karijere znala sam ideju dovesti od zamršenog problema do jasnog dizajna proizvoda. Umjetna inteligencija uklonila je posljednju prepreku: sada proizvod mogu i izgraditi i objaviti.",
+"hero.cta1":"Pogledajte što gradim ↗","hero.cta2":"Trebate web stranicu? ↗","hero.meta1":"Dizajniram od 2007.","hero.meta2":"Gradim iz Rijeke, Hrvatska",
+"man.h2":"Godinama sam ideju mogla dovesti sve do <span class=\"strike\">dizajna proizvoda.</span><br><br>Sada je mogu dovesti sve do <span class=\"productword\">proizvoda.</span>",
+"man.side":"Predaja posla bila je ugrađena u sam posao. Istraživanje, produktno razmišljanje, UX, UI, testiranje. Onda je netko drugi to morao ostvariti. Ta predaja više nije obavezna.",
+"prod.eyebrow":"Trenutačno gradim","prod.h2":"Stvari za koje mislim<br>da bi trebale postojati.",
+"rd.h3":"Putovanja su kaotična. Planiranje ne mora biti.","rd.p":"Rezervacije, snimke zaslona, karte, mjesta i napola gotovi planovi obično su razbacani posvuda. RoamDrop je putni sandučić: ubacite sav nered i pretvorite ga u putovanje koje se stvarno može koristiti.","rd.go":"Istražite RoamDrop ↗",
+"co.h3":"Znati da su dobro. Bez nadziranja.","co.p":"CircleOK obiteljima daje mali signal da svakodnevica i dalje izgleda normalno, a da briga ne postane stalno praćenje.","co.go":"Istražite CircleOK ↗",
+"ap.h3":"Dosta molitve.<br>Vrijeme je za dokaze.","ap.p":"Appray pomaže osnivačima, nezavisnim developerima i produktnim dizajnerima da provjere ideju za aplikaciju prije nego što tjednima grade.","ap.go":"Istražite Appray ↗",
+"tw.h3":"Fokus, očitan kroz igru.","tw.p":"Aplikacija za dobrobit utemeljena na igri, za roditelje djece od 4 do 12 godina. Djeca nekoliko minuta igraju Tweexy Bubbles, a roditelji vide kako se fokus mijenja tijekom vremena u odnosu na djetetov uobičajeni raspon.","tw.go":"Istražite Tweexy ↗",
+"ai.h2a":"Umjetna inteligencija piše<br>većinu mog koda.","ai.h2b":"Ali i dalje ne zna<br>što bi trebalo postojati.<em>To je i dalje moj posao.</em>",
+"tl.title":"OD FLASHA<br>DO OBJAVE","tl.b1":"FLASH","tl.b2":"GRAFIKA","tl.b3":"PROSTOR","tl.b4":"UI / UX","tl.b5":"SUSTAVI","tl.b6":"PROIZVODI",
+"tl.s1":"Animirani banneri i interakcije","tl.s2":"Vizualni sustavi, tisak i kompozicija","tl.s3":"Izložbe i događanja","tl.s4":"Mobilne aplikacije i digitalni proizvodi","tl.s5":"Složeni proizvodi i platforme","tl.s6":"Gradim vlastite stvari",
+"web.eyebrow":"Za lokalne tvrtke","web.h2":"Vaše mjesto zaslužuje<br>bolju web stranicu.",
+"web.p1":"Radim i web stranice za tvrtke u Rijeci i Opatiji. Saloni, konobe, apartmani, mali hoteli. Mjesta koja su prekrasna uživo, a na internetu izgledaju umorno.",
+"web.p2":"Dobivate stranicu koja djeluje vrhunski, odlično radi na mobitelu i gostima omogućuje rezervaciju bez da vas zovu tri puta.","web.btn":"Recite mi nešto o svom mjestu ↗",
+"w1.h3":"Web ili landing stranica","w1.p":"Dizajn, tekstovi i izrada. Brzo, prvo za mobitel, a izgleda kao da ste potrošili više nego što jeste.",
+"w2.h3":"Online rezervacije","w2.p":"Stolovi, tretmani ili sobe. Gosti rezerviraju sami, a vi dobijete obavijest.",
+"w3.h3":"Google i karte","w3.p":"Radno vrijeme, fotografije i recenzije u redu, da vas ljudi stvarno pronađu.",
+"cal.h":"Lipanj <span>Odaberite datum</span>","cal.toast":"<b>Rezervirano ✓</b> čet 12, 19:00",
+"about.eyebrow":"O meni","about.h2":"Bok, ja sam Maria.<br>Počela sam s Flashom.<br>Onda se zahuktalo.",
+"about.p1":"Dizajnom sam se počela baviti sa 17 godina. Prvo animirani Flash banneri, zatim grafički dizajn, izložbe i događanja, a na kraju digitalni proizvodi. Imam formalno umjetničko obrazovanje i diplomirala sam s odlikom.",
+"about.p2":"Već sam znala intervjuirati ljude, pronalaziti probleme, strukturirati proizvod, definirati opseg, dizajnirati iskustvo i provjeriti ima li sve to smisla. Umjetna inteligencija pomaknula je posljednju granicu: sada mogu nastaviti i nakon Figme i sama isporučiti softver.",
+"about.p3":"Zato sada gradim vlastite.","chip1":"Produktno razmišljanje","chip2":"UX / UI","chip3":"Vibe coding","chip4":"Neovisna autorica","about.prev":"Prije","logo.mt":"MOSCOW TRANSPORT","portrait.sub":"Produktna dizajnerica od 2007.",
+"contact.eyebrow":"Kontakt","contact.h2":"Spremni za razgovor?<br><span>Stvarno odgovaram.</span>","contact.h3":"Za brz i koristan odgovor, recite mi:",
+"contact.li1":"<b>Tko ste.</b> Vaša tvrtka ili projekt, s poveznicom ako je imate.","contact.li2":"<b>Što trebate.</b> Web stranicu, online rezervacije, ideju za aplikaciju ili samo drugo mišljenje.","contact.li3":"<b>Kada.</b> Okvirni rok, makar to bilo „kad god“.",
+"contact.small":"Budžet je dobrodošao, ali nije obavezan. Obično odgovaram unutar dva radna dana.",
+"foot.h2":"Više ideja nego razumne količine slobodnog vremena.","legal.reg":"Upisan u Obrtni registar","legal.vat":"Obrt nije u sustavu PDV-a",
+"pk.label":"Paketi",
+"pk.from":"od",
+"pk1.tag":"Nova web stranica",
+"pk1.for":"Za mjesta koja još nemaju web stranicu.",
+"pk1.l1":"Premium stranica na jednoj stranici",
+"pk1.l2":"Prvo za mobitel",
+"pk1.l3":"Do 4 jezika",
+"pk1.l4":"Rezervacija ili upit na WhatsApp ili e-mail",
+"pk1.l5":"Google karte i radno vrijeme",
+"pk2.tag":"Redizajn",
+"pk2.for":"Za mjesta čija je stranica zastarjela.",
+"pk2.l1":"Novi dizajn na vašoj postojećoj domeni",
+"pk2.l2":"Prijenos vašeg sadržaja",
+"pk2.l3":"Rezervacija ili upit",
+"pk2.l4":"Jezične verzije",
+"pk.note":"Troškovi domene i hostinga su vaši i sve ostaje na vaše ime.",
+"nt.h3":"U Rijeci odnedavno. U dizajnu odavno.",
+"nt.p":"Nedavno sam se preselila u Rijeku i ovdje gradim lokalni portfolio. Dizajnom se bavim 19 godina, za banke, prometne sustave i vlastite aplikacije, pa su ovo uvodne cijene za moje prve klijente na Kvarneru, a ne cijene početnice. Porast će kad se lokalni portfolio popuni.",
+"st.label":"Kako to ide",
+"st1.h":"Besplatni koncept",
+"st1.p":"Izradim prvu verziju vaše početne stranice prije nego što išta platite.",
+"st2.h":"Izmjene",
+"st2.p":"Vi mi kažete što promijeniti.",
+"st3.h":"Online za 7 dana",
+"st3.p":"Nakon vašeg odobrenja i vaših tekstova i fotografija.",
+"faq.label":"Česta pitanja",
+"faq.q1":"Čija je domena?",
+"faq.a1":"Vaša. Ostaje na vaše ime.",
+"faq.q2":"A hosting?",
+"faq.a2":"Postavim ga na vaš račun. Za jednostavne stranice može biti besplatan ili koštati nekoliko eura mjesečno.",
+"faq.q3":"Kako se plaća?",
+"faq.a3":"50% na početku, 50% pri objavi. Račun izdaje moj registrirani obrt u Hrvatskoj.",
+"faq.q4":"A kasnije izmjene?",
+"faq.a4":"Manje izmjene teksta i fotografija u prvom mjesecu su uključene. Nakon toga po dogovoru."
+},
+de:{
+"meta.title":"Maria Tararova · Unabhängige Produktentwicklerin","meta.desc":"Früher habe ich Produkte gestaltet. Heute baue ich sie.",
+"nav.products":"Produkte","nav.websites":"Websites","nav.about":"Über mich","nav.contact":"Kontakt","nav.write":"Schreiben Sie mir <span aria-hidden=\"true\">→</span>","nav.menu":"Menü","skip":"Zum Inhalt springen",
+"aria.home":"Tararova, Startseite","aria.main":"Hauptnavigation","aria.open":"Menü öffnen","aria.close":"Menü schließen","aria.scroll":"Nach unten scrollen","aria.lang":"Sprache","aria.menu":"Menü","aria.hero":"Smartphone mit Screens meiner Apps",
+"hero.eyebrow":"Unabhängige Produktentwicklerin","hero.h1a":"Früher habe ich Produkte gestaltet.","hero.h1b":"Heute baue ich sie.",
+"hero.lead":"Ich gestalte, seit ich 17 bin. Die meiste Zeit meiner Karriere konnte ich eine Idee von einem verworrenen Problem bis zu einem klaren Produktdesign bringen. KI hat die letzte Hürde beseitigt: Jetzt kann ich das Produkt auch selbst bauen und veröffentlichen.",
+"hero.cta1":"Sehen, woran ich arbeite ↗","hero.cta2":"Brauchen Sie eine Website? ↗","hero.meta1":"Design seit 2007","hero.meta2":"Aus Rijeka, Kroatien",
+"man.h2":"Jahrelang brachte ich eine Idee bis zum <span class=\"strike\">Produktdesign.</span><br><br>Jetzt bringe ich sie bis zum <span class=\"productword\">Produkt.</span>",
+"man.side":"Die Übergabe gehörte früher fest zum Job. Research, Produktdenken, UX, UI, Tests. Dann musste jemand anderes es umsetzen. Diese Übergabe ist heute nicht mehr zwingend.",
+"prod.eyebrow":"Gerade in Arbeit","prod.h2":"Dinge, die es meiner<br>Meinung nach geben sollte.",
+"rd.h3":"Reisen sind chaotisch. Die Planung muss es nicht sein.","rd.p":"Buchungen, Screenshots, Tickets, Orte und halbfertige Pläne liegen meist überall verstreut. RoamDrop ist ein Posteingang für Reisen: Werfen Sie das Chaos hinein und machen Sie daraus eine Reise, die Sie wirklich nutzen können.","rd.go":"RoamDrop entdecken ↗",
+"co.h3":"Wissen, dass es ihnen gut geht. Ohne sie zu überwachen.","co.p":"CircleOK gibt Familien ein kleines Signal, dass der Alltag normal aussieht, ohne Fürsorge in ständige Kontrolle zu verwandeln.","co.go":"CircleOK entdecken ↗",
+"ap.h3":"Nicht mehr beten.<br>Anfangen zu beweisen.","ap.p":"Appray hilft Gründern, Indie-Makern und Produktdesignern, eine App-Idee auf Herz und Nieren zu prüfen, bevor sie Wochen in die Entwicklung stecken.","ap.go":"Appray entdecken ↗",
+"tw.h3":"Fokus, spielerisch verstanden.","tw.p":"Eine spielbasierte Wellbeing-App für Eltern von Kindern zwischen 4 und 12. Kinder spielen ein paar Minuten Tweexy Bubbles, und Eltern sehen, wie sich der Fokus mit der Zeit verändert, verglichen mit dem typischen Bereich ihres Kindes.","tw.go":"Tweexy entdecken ↗",
+"ai.h2a":"KI schreibt den Großteil<br>meines Codes.","ai.h2b":"Sie weiß aber immer noch nicht,<br>was es geben sollte.<em>Das bleibt mein Job.</em>",
+"tl.title":"VON FLASH<br>BIS ZUM RELEASE","tl.b1":"FLASH","tl.b2":"GRAFIK","tl.b3":"RAUM","tl.b4":"UI / UX","tl.b5":"SYSTEME","tl.b6":"PRODUKTE",
+"tl.s1":"Animierte Banner und Interaktionen","tl.s2":"Visuelle Systeme, Print und Komposition","tl.s3":"Ausstellungen und Events","tl.s4":"Mobile Apps und digitale Produkte","tl.s5":"Komplexe Produkte und Plattformen","tl.s6":"Ich baue meine eigenen Dinge",
+"web.eyebrow":"Für lokale Betriebe","web.h2":"Ihr Ort verdient<br>eine bessere Website.",
+"web.p1":"Ich gestalte auch Websites für Betriebe in Rijeka und Opatija. Salons, Konobas, Ferienwohnungen, kleine Hotels. Orte, die in Wirklichkeit wunderschön sind und online müde wirken.",
+"web.p2":"Sie bekommen eine Website, die hochwertig wirkt, auf dem Smartphone hervorragend funktioniert und Gäste buchen lässt, ohne dass sie Sie dreimal anrufen müssen.","web.btn":"Erzählen Sie mir von Ihrem Ort ↗",
+"w1.h3":"Website oder Landingpage","w1.p":"Design, Text und Umsetzung. Schnell, mobile first und so, als hätten Sie mehr ausgegeben, als Sie es getan haben.",
+"w2.h3":"Online-Buchung","w2.p":"Tische, Behandlungen oder Zimmer. Gäste buchen selbst, Sie bekommen eine Benachrichtigung.",
+"w3.h3":"Google und Karten","w3.p":"Öffnungszeiten, Fotos und Bewertungen in Ordnung, damit man Sie wirklich findet.",
+"cal.h":"Juni <span>Datum wählen</span>","cal.toast":"<b>Gebucht ✓</b> Do 12, 19:00",
+"about.eyebrow":"Über mich","about.h2":"Hallo, ich bin Maria.<br>Angefangen habe ich mit Flash.<br>Dann wurde es mehr.",
+"about.p1":"Mit 17 habe ich mit Design angefangen. Erst animierte Flash-Banner, dann Grafikdesign, Ausstellungen und Events und schließlich digitale Produkte. Ich habe eine künstlerische Ausbildung und mit Auszeichnung abgeschlossen.",
+"about.p2":"Ich wusste bereits, wie man Menschen interviewt, Probleme findet, ein Produkt strukturiert, den Umfang festlegt, die Experience gestaltet und prüft, ob das Ganze Sinn ergibt. KI hat die letzte Grenze verschoben: Jetzt mache ich nach Figma weiter und liefere die Software selbst aus.",
+"about.p3":"Also baue ich jetzt meine eigenen.","chip1":"Produktdenken","chip2":"UX / UI","chip3":"Vibe Coding","chip4":"Unabhängige Makerin","about.prev":"Bisher","logo.mt":"MOSCOW TRANSPORT","portrait.sub":"Produktdesignerin seit 2007",
+"contact.eyebrow":"Kontakt","contact.h2":"Lust auf ein Gespräch?<br><span>Ich antworte wirklich.</span>","contact.h3":"Für eine schnelle, hilfreiche Antwort sagen Sie mir:",
+"contact.li1":"<b>Wer Sie sind.</b> Ihr Betrieb oder Projekt, gern mit Link.","contact.li2":"<b>Was Sie brauchen.</b> Eine Website, Online-Buchung, eine App-Idee oder einfach eine zweite Meinung.","contact.li3":"<b>Wann.</b> Eine grobe Deadline, auch wenn sie „irgendwann“ lautet.",
+"contact.small":"Ein Budget ist willkommen, aber keine Voraussetzung. Ich antworte in der Regel innerhalb von zwei Werktagen.",
+"foot.h2":"Mehr Ideen als vernünftig viel Freizeit.","legal.reg":"Eingetragen im kroatischen Handwerksregister (Obrtni registar)","legal.vat":"Nicht umsatzsteuerpflichtig (obrt nije u sustavu PDV-a)",
+"pk.label":"Pakete",
+"pk.from":"ab",
+"pk1.tag":"Neue Website",
+"pk1.for":"Für Orte, die noch keine Website haben.",
+"pk1.l1":"Hochwertige One-Page-Website",
+"pk1.l2":"Mobile first",
+"pk1.l3":"Bis zu 4 Sprachen",
+"pk1.l4":"Buchung oder Anfrage per WhatsApp oder E-Mail",
+"pk1.l5":"Google Maps und Öffnungszeiten",
+"pk2.tag":"Redesign",
+"pk2.for":"Für Orte mit veralteter Website.",
+"pk2.l1":"Neues Design auf Ihrer bestehenden Domain",
+"pk2.l2":"Übernahme Ihrer Inhalte",
+"pk2.l3":"Buchung oder Anfrage",
+"pk2.l4":"Sprachversionen",
+"pk.note":"Domain- und Hostingkosten tragen Sie, und beides bleibt auf Ihren Namen.",
+"nt.h3":"Neu in Rijeka. Nicht neu im Design.",
+"nt.p":"Ich bin vor Kurzem nach Rijeka gezogen und baue hier mein lokales Portfolio auf. Ich gestalte seit 19 Jahren, für Banken, Verkehrssysteme und meine eigenen Apps. Das sind also Einführungspreise für meine ersten Kunden im Kvarner, keine Anfängerpreise. Sie steigen, sobald mein lokales Portfolio voll ist.",
+"st.label":"So läuft es ab",
+"st1.h":"Kostenloses Konzept",
+"st1.p":"Ich gestalte eine erste Version Ihrer Startseite, bevor Sie etwas bezahlen.",
+"st2.h":"Überarbeitung",
+"st2.p":"Sie sagen mir, was ich ändern soll.",
+"st3.h":"In 7 Tagen online",
+"st3.p":"Nach Ihrer Freigabe und sobald Ihre Texte und Fotos da sind.",
+"faq.label":"Häufige Fragen",
+"faq.q1":"Wem gehört die Domain?",
+"faq.a1":"Ihnen. Sie bleibt auf Ihren Namen eingetragen.",
+"faq.q2":"Und das Hosting?",
+"faq.a2":"Ich richte es auf Ihrem Konto ein. Für einfache Websites kann es kostenlos sein oder ein paar Euro im Monat kosten.",
+"faq.q3":"Wie bezahle ich?",
+"faq.a3":"50 % zum Start, 50 % beim Launch. Die Rechnung kommt von meinem eingetragenen Unternehmen in Kroatien.",
+"faq.q4":"Und spätere Änderungen?",
+"faq.a4":"Kleine Text- und Fotoänderungen im ersten Monat sind inklusive. Danach nach Absprache."
+}};
+var EN_ARIA={"aria.open":"Open menu","aria.close":"Close menu"};
+var LANGS=["en","ru","hr","de"],curLang="en";
+var i18nNodes=$$("[data-i18n]"),i18nAria=$$("[data-i18n-aria]");
+i18nNodes.forEach(function(n){n._en=n.innerHTML});
+i18nAria.forEach(function(n){n._en=n.getAttribute("aria-label")});
+var enTitle=D.title,metaDesc=$('meta[name="description"]'),enDesc=metaDesc?metaDesc.getAttribute("content"):"";
+function tr(k){var d=I18N[curLang];return (d&&d[k]!=null)?d[k]:(EN_ARIA[k]||"")}
+function setLang(l,save){
+  if(LANGS.indexOf(l)<0)l="en";curLang=l;root.lang=l;
+  var d=I18N[l];
+  i18nNodes.forEach(function(n){var v=(l==="en"||!d)?n._en:d[n.getAttribute("data-i18n")];if(v!=null&&n.innerHTML!==v)n.innerHTML=v});
+  i18nAria.forEach(function(n){var v=(l==="en"||!d)?n._en:d[n.getAttribute("data-i18n-aria")];if(v)n.setAttribute("aria-label",v)});
+  D.title=(l==="en"||!d)?enTitle:d["meta.title"];if(metaDesc)metaDesc.setAttribute("content",(l==="en"||!d)?enDesc:d["meta.desc"]);
+  $$(".lang button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===l?"true":"false")});
+  if(burger)burger.setAttribute("aria-label",tr(menu.classList.contains("open")?"aria.close":"aria.open"));
+  if(save){try{localStorage.setItem("mt-lang",l)}catch(e){}}
+  dirty=true;
+}
+(function(){
+  var l=null;try{l=localStorage.getItem("mt-lang")}catch(e){}
+  if(!l){var nl=((navigator.languages&&navigator.languages[0])||navigator.language||"en").toLowerCase().slice(0,2);l=nl==="ru"?"ru":(nl==="hr"||nl==="bs"||nl==="sr")?"hr":nl==="de"?"de":"en"}
+  setLang(l,false);
+  $$(".lang button").forEach(function(b){b.addEventListener("click",function(){setLang(b.getAttribute("data-lang"),true);onHdr();kick()})});
+})();
+
+/* active nav link */
+if(hasIO){var navLinks=$$(".nav a");$$("section[id]").forEach(function(sec){inView(sec,function(v){if(v)navLinks.forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+sec.id)})},{rootMargin:"-45% 0px -50% 0px"})})}
+
+/* Magnetic buttons + cursor ring */
+if(FINE&&!RM){
+  $$(".mag").forEach(function(b){
+    b.addEventListener("pointermove",function(e){var r=b.getBoundingClientRect();var x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;b.style.transform="translate("+x*.2+"px,"+y*.28+"px)"});
+    b.addEventListener("pointerleave",function(){b.style.transition="transform .5s cubic-bezier(.2,.7,.2,1)";b.style.transform="";setTimeout(function(){b.style.transition=""},500)});
+  });
+  var cd=$("#cdot"),cx=-100,cy=-100,tx=-100,ty=-100,crun=false;
+  addEventListener("pointermove",function(e){tx=e.clientX;ty=e.clientY;cd.classList.add("on");if(!crun){crun=true;requestAnimationFrame(cl)}},{passive:true});
+  D.addEventListener("pointerleave",function(){cd.classList.remove("on")});
+  D.addEventListener("pointerover",function(e){cd.classList.toggle("big",!!(e.target.closest&&e.target.closest("a,button,.chip")))});
+  function cl(){cx+=(tx-cx)*.2;cy+=(ty-cy)*.2;cd.style.transform="translate("+cx+"px,"+cy+"px)";if(Math.abs(tx-cx)+Math.abs(ty-cy)>.3)requestAnimationFrame(cl);else crun=false}
+}
+
+/* Project card pointer tilt */
+if(FINE&&!RM){
+  $$("[data-tilt]").forEach(function(card){
+    var t=$(".tilt",card);var bry=parseFloat(getComputedStyle(t).getPropertyValue("--ry"))||-16;
+    card.addEventListener("pointermove",function(e){var r=card.getBoundingClientRect();var px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;t.style.setProperty("--rx",(10-py*14).toFixed(2)+"deg");t.style.setProperty("--ry",(bry+px*22).toFixed(2)+"deg")});
+    card.addEventListener("pointerleave",function(){t.style.setProperty("--rx","10deg");t.style.setProperty("--ry",bry+"deg")});
+  });
+}
+
+/* Visibility-gated timer loops for the app mockups */
+function loop(el,steps,finalState){
+  if(RM){finalState();return}
+  var vis=false,i=0,timer=null;
+  function next(){timer=null;if(!vis)return;var s=steps[i];i=(i+1)%steps.length;s[0]();timer=setTimeout(next,s[1])}
+  inView(el,function(v){vis=v;if(v&&!timer)next()},{threshold:.15});
+}
+(function(){
+  var ph=$("#rdPhone");if(!ph)return;
+  var tilt=ph.parentNode,ticket=$(".ticket",tilt),slot=$(".slot",ph),nums=$$(".stop:not(.slot) .num",ph);
+  function place(){var y=0,el=slot;while(el&&el!==tilt){y+=el.offsetTop;el=el.offsetParent}ticket.style.setProperty("--ty",(y-1)+"px")}
+  function renum(after){nums.forEach(function(n,k){n.textContent=after?k+2:k+1;if(after){n.classList.remove("flip");void n.offsetWidth;n.classList.add("flip")}})}
+  place();addEventListener("resize",place);
+  loop(ph,[
+    [function(){tilt.classList.add("no-anim");ph.classList.add("no-anim");tilt.classList.remove("s-fly","s-land");ph.classList.remove("s-land");renum(false);void ticket.offsetWidth;tilt.classList.remove("no-anim");ph.classList.remove("no-anim")},700],
+    [function(){place();tilt.classList.add("s-fly")},1050],
+    [function(){ph.classList.add("s-land");tilt.classList.add("s-land");setTimeout(function(){renum(true)},250)},3600],
+    [function(){ph.classList.remove("s-land")},700]
+  ],function(){ph.classList.add("s-land");tilt.classList.add("s-land");renum(true)});
+})();
+(function(){
+  var ph=$("#coPhone");if(!ph)return;var ring=$(".co-ring",ph);
+  function redraw(){ring.classList.remove("draw");void ring.offsetWidth;ring.classList.add("draw")}
+  loop(ph,[[function(){ph.classList.remove("gentle");redraw()},5200],[function(){ph.classList.add("gentle")},2600]],function(){});
+})();
+(function(){
+  var ph=$("#apPhone");if(!ph)return;var vds=$$(".vd",ph),rows=$$(".court li",ph),rep=$(".report",ph);
+  var steps=[[function(){vds.forEach(function(v){v.classList.remove("on")});rep.classList.remove("on")},700]];
+  vds.forEach(function(v,k){steps.push([function(){v.classList.add("on");rows[k].classList.remove("hit");void rows[k].offsetWidth;rows[k].classList.add("hit")},650])});
+  steps.push([function(){rep.classList.add("on")},3400]);
+  loop(ph,steps,function(){vds.forEach(function(v){v.classList.add("on")});rep.classList.add("on")});
+})();
+$$(".wm").forEach(function(m){inView(m,function(v){m.classList.toggle("play",v)})});
+$$(".project").forEach(function(p){inView(p,function(v){p.classList.toggle("inview",v)})});
+
+/* Portrait monogram follows pointer */
+(function(){
+  var p=$("#portrait");if(!p||!FINE||RM)return;var m=$(".mono",p);
+  p.addEventListener("pointermove",function(e){var r=p.getBoundingClientRect();var x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;m.style.transform="translate("+x*14+"px,"+y*14+"px)"});
+  p.addEventListener("pointerleave",function(){m.style.transform=""});
+})();
+
+/* ================= One rAF loop: parallax + canvases ================= */
+var vh=innerHeight,vw=innerWidth,dirty=true,running=false,lastT=0,lastY=scrollY,scrollVel=0;
+var tmx=0,tmy=0,mx=0,my=0;
+var tasks=[];
+function kick(){if(!running&&!D.hidden){running=true;lastT=0;requestAnimationFrame(tick)}}
+addEventListener("scroll",function(){dirty=true;kick()},{passive:true});
+addEventListener("resize",function(){vh=innerHeight;vw=innerWidth;dirty=true;kick()});
+addEventListener("pointermove",function(e){tmx=(e.clientX/vw-.5)*2;tmy=(e.clientY/vh-.5)*2;kick()},{passive:true});
+D.addEventListener("visibilitychange",function(){if(!D.hidden){dirty=true;kick()}});
+
+/* Generic speed parallax: [data-speed] moves relative to its parent; >0 lags (feels further), <0 leads */
+var pItems=[];
+if(!RM)$$("[data-speed]").forEach(function(el){var it={el:el,k:parseFloat(el.getAttribute("data-speed"))||0,max:parseFloat(el.getAttribute("data-max")||"120"),a:el.parentElement,v:true};pItems.push(it);inView(it.a,function(v){it.v=v;if(v){dirty=true;kick()}},{rootMargin:"25% 0px 25% 0px"})});
+function runParallax(){
+  for(var i=0;i<pItems.length;i++){var it=pItems[i];if(!it.v)continue;var r=it.a.getBoundingClientRect();var d=(r.top+r.height/2)-vh/2;var y=clamp(-d*it.k,-it.max,it.max);it.el.style.transform="translate3d(0,"+y.toFixed(1)+"px,0)"}
+}
+
+/* Hero progress for the 3D phone */
+var heroP=0;
+function runScene(){var h=heroEl?heroEl.offsetHeight:vh;heroP=clamp(scrollY/(h*.9),0,1)}
+/* AI section: headings slide in with scroll progress */
+var aiCard=$(".ai-card"),aiL=aiCard&&$("h2:not(.r)",aiCard),aiR=aiCard&&$("h2.r",aiCard),aiVis=false,aiP=1;
+if(aiCard)inView(aiCard,function(v){aiVis=v;if(v){dirty=true;kick()}},{rootMargin:"10% 0px"});
+function runAI(){
+  if(!aiCard||RM||!aiVis)return;var r=aiCard.getBoundingClientRect();aiP=clamp((vh-r.top)/(vh*.75),0,1);
+  var e=1-Math.pow(1-aiP,3),off=(1-e)*(vw<720?40:110);
+  aiL.style.transform="translate3d("+(-off).toFixed(1)+"px,0,0)";aiR.style.transform="translate3d("+(vw<1050?-off:off).toFixed(1)+"px,0,0)";
+  aiL.style.opacity=aiR.style.opacity=(.15+.85*e).toFixed(3);
+}
+
+/* Timeline: scroll-linked progress */
+var steps=$("#steps"),stepEls=steps?$$(".step",steps):[],tlVis=false;
+if(steps&&!RM)inView(steps,function(v){tlVis=v;if(v){dirty=true;kick()}},{rootMargin:"20% 0px"});
+function runTimeline(){
+  if(!steps||RM||!tlVis)return;var r=steps.getBoundingClientRect();
+  var p=clamp((vh*.85-r.top)/(r.height+vh*.35),0,1);
+  steps.style.setProperty("--prog",p.toFixed(3));
+  stepEls.forEach(function(s,i){s.classList.toggle("lit",p>=(i+.35)/stepEls.length)});
+}
+if(RM)stepEls.forEach(function(s){s.classList.add("lit")});
+
+/* Footer: big line rises in */
+var fH=$(".foot h2"),fVis=false;
+if(fH&&!RM)inView(fH.closest("footer"),function(v){fVis=v;if(v){dirty=true;kick()}});
+function runFooter(){
+  if(!fH||RM||!fVis)return;var r=fH.closest("footer").getBoundingClientRect();var p=clamp((vh-r.top)/(vh*.6),0,1);var e=1-Math.pow(1-p,3);
+  fH.style.transform="translate3d(0,"+((1-e)*70).toFixed(1)+"px,0)";fH.style.opacity=(.2+.8*e).toFixed(3);
+}
+
+function tick(now){
+  var dt=lastT?Math.min((now-lastT)/1000,.05):.016;lastT=now;
+  var busy=false;
+  var nmx=mx+(tmx-mx)*.07,nmy=my+(tmy-my)*.07;
+  if(Math.abs(tmx-nmx)+Math.abs(tmy-nmy)>.0015)busy=true;
+  var mv=nmx!==mx||nmy!==my;mx=nmx;my=nmy;
+  var y=scrollY;scrollVel=scrollVel*.9+(y-lastY)*.1;lastY=y;if(Math.abs(scrollVel)>.05)busy=true;
+  if(dirty){runParallax();runAI();runTimeline();runFooter();dirty=false}
+  if(dirty||mv||busy)runScene();
+  for(var i=0;i<tasks.length;i++){var t=tasks[i];if(t.on()){t.run(dt,now);busy=true}}
+  if(busy&&!D.hidden)requestAnimationFrame(tick);else running=false;
+}
+if(!RM){dirty=true;kick()}
+
+/* AI orb: canvas particle sphere, driven by the shared loop */
+(function(){
+  var wrap=$("#orb");if(!wrap)return;var c=$("canvas",wrap),ctx=c.getContext&&c.getContext("2d");if(!ctx)return;
+  var N=560,P=[],ga=Math.PI*(3-Math.sqrt(5));
+  for(var i=0;i<N;i++){var yy=1-(i/(N-1))*2,rr=Math.sqrt(1-yy*yy),th=ga*i;P.push([Math.cos(th)*rr,yy,Math.sin(th)*rr,Math.random()])}
+  var acc="255,90,31",S=0,dpr=1,ry=0,rx=-.35,hov=0,thov=0,px=-9,py=-9,vis=false,t=0,lmx=0,lmy=0;
+  function size(){dpr=Math.min(W.devicePixelRatio||1,2);S=wrap.clientWidth;c.width=S*dpr;c.height=S*dpr}
+  size();addEventListener("resize",function(){size();if(RM)draw(0)});
+  var card=wrap.closest(".ai-card")||wrap;
+  card.addEventListener("pointermove",function(e){var r=wrap.getBoundingClientRect();px=(e.clientX-r.left)/r.width;py=(e.clientY-r.top)/r.height;lmx=clamp((px-.5)*2,-1,1);lmy=clamp((py-.5)*2,-1,1);thov=1});
+  card.addEventListener("pointerleave",function(){thov=0;lmx=0;lmy=0});
+  var smx=0,smy=0;
+  function draw(dt){
+    t+=1;smx+=(lmx-smx)*.06;smy+=(lmy-smy)*.06;hov+=(thov-hov)*.06;
+    var enter=1-aiP;ry+=.0042+smx*.012+enter*.05+Math.abs(scrollVel)*.0025;rx+=((-.35+smy*.5)-rx)*.06;
+    var cr=Math.cos(ry),sr=Math.sin(ry),cx=Math.cos(rx),sx=Math.sin(rx),R=S*.36,C=S/2,pxs=px*S,pys=py*S;
+    if(t%30===1)acc=(getComputedStyle(root).getPropertyValue("--accent-rgb")||"255,90,31").trim();
+    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,S,S);
+    for(var pass=0;pass<2;pass++){
+      for(var i=0;i<N;i++){var p=P[i];
+        var x=p[0]*cr-p[2]*sr,z=p[0]*sr+p[2]*cr,y=p[1]*cx-z*sx;z=p[1]*sx+z*cx;
+        if((pass===0)!==(z<0))continue;
+        var br=1+Math.sin(t*.02+p[3]*6.28)*.015,f=2.6/(2.6-z),X=C+x*R*f*br,Y=C+y*R*f*br;
+        if(hov>.01){var dx=X-pxs,dy=Y-pys,d=Math.sqrt(dx*dx+dy*dy),k=Math.max(0,1-d/(S*.28))*hov;if(k>0){X+=dx/(d||1)*k*18;Y+=dy/(d||1)*k*18}}
+        var depth=(z+1)/2,a=.18+depth*.82,s=(.6+depth*1.5)*(S/260);
+        ctx.fillStyle=z>0?(p[3]>.9?"rgba("+acc+",":"rgba(255,255,255,")+a.toFixed(3)+")":"rgba("+acc+","+(a*.75).toFixed(3)+")";
+        ctx.beginPath();ctx.arc(X,Y,s,0,6.2832);ctx.fill();
+      }
+    }
+  }
+  draw(0);
+  if(!RM){inView(wrap,function(v){vis=v;if(v)kick()});tasks.push({on:function(){return vis},run:draw})}
+})();
+
+/* Hero 3D phone: Three.js, loaded lazily. Shows real product screens and cross-fades between them. */
+var stage=$("#heroStage"),canvas=$("#heroGL"),hcName=$("#hcName"),hcDots=$$(".hc-dots i");
+function webglOK(){try{var c=D.createElement("canvas");return !!(W.WebGLRenderingContext&&(c.getContext("webgl")||c.getContext("experimental-webgl")))}catch(e){return false}}
+function loadThree(){return new Promise(function(res,rej){if(W.THREE)return res();var s=D.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";s.async=true;s.crossOrigin="anonymous";s.onload=function(){W.THREE?res():rej()};s.onerror=rej;D.head.appendChild(s)})}
+function boot(){if(RM||!stage||!webglOK())return;loadThree().then(function(){try{initHero()}catch(e){if(W.console)console.warn("hero fallback",e)}}).catch(function(){})}
+if(D.readyState==="complete")setTimeout(boot,60);else addEventListener("load",function(){(W.requestIdleCallback||function(f){setTimeout(f,120)})(boot,{timeout:1200})});
+
+/* ---- Product screens drawn in canvas, in the same CSS pixel units as the card mockups (224 x 484) ---- */
+var SCR_W=224,SCR_H=484,SK=2,FF="Inter, system-ui, -apple-system, Segoe UI, sans-serif";
+function rr2(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function txt(c,s,x,y,font,col,align){c.font=font+" "+FF;c.fillStyle=col;c.textAlign=align||"left";c.fillText(s,x,y)}
+function chrome(c,dark){var col=dark?"#fff":"#17131d";txt(c,"9:41",24,24,"700 10px",col);c.fillStyle="#0e0b14";rr2(c,77,9,70,20,10);c.fill();c.strokeStyle=col;c.lineWidth=1;rr2(c,190,16,14,7,2);c.stroke();c.fillStyle=col;c.fillRect(192,18,8,3);c.globalAlpha=.3;rr2(c,77,472,70,4,2);c.fill();c.globalAlpha=1}
+function shadowCard(c,x,y,w,h,r,fill,sh){c.save();c.shadowColor=sh||"rgba(60,20,140,.08)";c.shadowBlur=12;c.shadowOffsetY=4;rr2(c,x,y,w,h,r);c.fillStyle=fill||"#fff";c.fill();c.restore()}
+var SCREENS=[
+ {name:"RoamDrop",draw:function(c){
+   var g=c.createLinearGradient(0,0,0,SCR_H*.4);g.addColorStop(0,"#f6f1ff");g.addColorStop(1,"#fff");c.fillStyle=g;c.fillRect(0,0,SCR_W,SCR_H);chrome(c);
+   txt(c,"Japan",16,60,"800 20px","#17131d");txt(c,"May 6 to 17 · 12 days",16,74,"600 9.5px","#7a7186");
+   c.fillStyle="#6d42f5";c.beginPath();c.arc(194,58,14,0,7);c.fill();txt(c,"MT",194,62,"800 10px","#fff","center");
+   txt(c,"UNPLANNED",16,96,"800 9px","#6d42f5");txt(c,"3 ideas",208,96,"600 9px","#9a92a6","right");
+   [["teamLab","#ffd1e8"],["Ramen alley","#ffe8a8"],["Nara park","#c9f2dc"]].forEach(function(it,i){var x=16+i*80;c.fillStyle="#fff";rr2(c,x,104,74,46,12);c.fill();c.setLineDash([3,2]);c.strokeStyle="rgba(109,66,245,.35)";c.stroke();c.setLineDash([]);c.fillStyle=it[1];rr2(c,x+7,110,14,14,5);c.fill();txt(c,it[0],x+7,142,"700 9px","#17131d")});
+   [["Tue","6"],["Wed","7"],["Thu","8"],["Fri","9"],["Sat","10"]].forEach(function(d,i){var w=(SCR_W-32-20)/5,x=16+i*(w+5),on=i===1;c.fillStyle=on?"#6d42f5":"#f0eafc";rr2(c,x,160,w,32,10);c.fill();txt(c,d[0],x+w/2,172,"700 8px",on?"#e5dcff":"#7a7186","center");txt(c,d[1],x+w/2,186,"800 12px",on?"#fff":"#17131d","center")});
+   txt(c,"DAY 2 · KYOTO",16,212,"800 9px","#6d42f5");txt(c,"4 stops",208,212,"600 9px","#9a92a6","right");
+   [["Flight HND to ITM","09:40 · Gate 34 · K7XQ2","#e9e2ff"],["Hotel check-in","15:00 · Gion","#ffe8f2"],["Tea house tour","17:30 · 2 people","#e4f6ea"],["Dinner in Pontocho","20:00 · Booked","#fff1d6"]].forEach(function(s,i){var y=220+i*50;shadowCard(c,12,y,200,44,13);c.fillStyle="#efe9ff";c.beginPath();c.arc(30,y+22,10,0,7);c.fill();txt(c,String(i+1),30,y+25.5,"800 10px","#6d42f5","center");txt(c,s[0],48,y+19,"700 10.5px","#17131d");txt(c,s[1],48,y+32,"500 9px","#8a8296");c.fillStyle=s[2];rr2(c,186,y+13,18,18,6);c.fill()});
+   c.fillStyle="#6d42f5";rr2(c,170,414,40,40,14);c.fill();txt(c,"+",190,441,"400 22px","#fff","center");
+ }},
+ {name:"CircleOK",draw:function(c){
+   c.fillStyle="#fffdf5";c.fillRect(0,0,SCR_W,SCR_H);chrome(c);
+   txt(c,"Mom",18,62,"800 18px","#17131d");c.fillStyle="#ffbd00";rr2(c,180,44,26,26,9);c.fill();c.strokeStyle="#fff";c.lineWidth=2.5;c.beginPath();c.arc(193,57,6,0,7);c.stroke();
+   shadowCard(c,14,78,196,186,24,"#fff","rgba(120,90,0,.10)");
+   txt(c,"TODAY’S SIGNAL",112,104,"800 9px","#a08a3a","center");
+   c.fillStyle="rgba(47,191,113,.10)";c.beginPath();c.arc(112,160,54,0,7);c.fill();c.fillStyle="rgba(47,191,113,.18)";c.beginPath();c.arc(112,160,45,0,7);c.fill();
+   c.fillStyle="#2fbf71";c.beginPath();c.arc(112,160,36,0,7);c.fill();c.strokeStyle="#fff";c.lineWidth=7;c.lineCap="round";c.lineJoin="round";c.beginPath();c.moveTo(97,161);c.lineTo(107,171);c.lineTo(127,150);c.stroke();
+   txt(c,"All good",112,232,"800 19px","#17131d","center");txt(c,"Today, 08:30",112,250,"600 10px","#8b8170","center");
+   txt(c,"MY CIRCLES",18,290,"800 9px","#a08a3a");txt(c,"2 caregivers",206,290,"600 9px","#6b6458","right");
+   [["A","Ana","Daughter · notified","#7c4dff"],["D","Dino","Son · notified","#ff8a5b"]].forEach(function(p,i){var y=298+i*46;shadowCard(c,14,y,196,40,15,"#fff","rgba(120,90,0,.06)");c.fillStyle=p[3];c.beginPath();c.arc(38,y+20,14,0,7);c.fill();txt(c,p[0],38,y+24,"800 11px","#fff","center");txt(c,p[1],60,y+17,"700 10.5px","#17131d");txt(c,p[2],60,y+30,"500 9px","#8b8170");c.fillStyle="#2fbf71";c.beginPath();c.arc(196,y+20,4,0,7);c.fill()});
+   txt(c,"THIS WEEK",18,412,"800 9px","#a08a3a");
+   ["M","T","W","T","F","S","S"].forEach(function(d,i){var x=30+i*27.5;c.fillStyle=i<5?"#2fbf71":"#f1ead2";c.beginPath();c.arc(x,430,8,0,7);c.fill();txt(c,d,x,452,"700 8px","#8b8170","center")});
+ }},
+ {name:"Appray",draw:function(c){
+   var g=c.createLinearGradient(0,0,0,SCR_H);g.addColorStop(0,"#1b0e2c");g.addColorStop(1,"#0e0717");c.fillStyle=g;c.fillRect(0,0,SCR_W,SCR_H);chrome(c,true);
+   txt(c,"‹ JTBD · IDEA TEST",16,54,"700 9px","#9d8fb4");txt(c,"Feature Court",16,76,"800 19px","#fff");
+   c.fillStyle="rgba(113,28,255,.22)";rr2(c,16,84,92,18,7);c.fill();c.strokeStyle="rgba(160,120,255,.3)";c.lineWidth=1;c.stroke();txt(c,"Build. Kill. Prove.",23,96,"800 9px","#c7b2ff");
+   [["AI Suggestions","BUILD","#3ddc84","#0e0717"],["Social Feed","LATER","#ffb648","#0e0717"],["Gamification","KILL","#ff5a6a","#fff"],["Export PDF","PROVE","#8c5cff","#fff"]].forEach(function(f,i){var y=114+i*44;c.fillStyle="rgba(255,255,255,.06)";rr2(c,12,y,200,38,12);c.fill();txt(c,f[0],22,y+23,"700 10.5px","#fff");c.font="900 8.5px "+FF;var w=c.measureText(f[1]).width+16;c.save();c.translate(202-w/2,y+19);c.rotate(-.07);c.fillStyle=f[2];rr2(c,-w/2,-9,w,18,6);c.fill();txt(c,f[1],0,3,"900 8.5px",f[3],"center");c.restore()});
+   c.fillStyle="rgba(113,28,255,.18)";rr2(c,12,298,200,70,14);c.fill();c.strokeStyle="rgba(160,120,255,.25)";c.stroke();
+   [["Build","6","#3ddc84"],["Later","2","#ffb648"],["Kill","3","#ff5a6a"],["Prove","1","#a98bff"]].forEach(function(r,i){var x=37+i*50;txt(c,r[0],x,316,"700 8px","#b8a9cf","center");txt(c,r[1],x,336,"800 16px",r[2],"center")});
+   txt(c,"Build 6 · Later 2 · Kill 3 · Prove 1",112,358,"600 8.5px","#cbbfe0","center");
+ }},
+ {name:"Tweexy",draw:function(c){
+   var g=c.createLinearGradient(0,0,0,SCR_H*.45);g.addColorStop(0,"#effbfb");g.addColorStop(1,"#fff");c.fillStyle=g;c.fillRect(0,0,SCR_W,SCR_H);chrome(c);
+   txt(c,"Tweexy Bubbles",16,58,"800 18px","#0a7d85");txt(c,"Today’s play · 4 min",16,72,"600 9.5px","#6f8a8c");
+   c.save();rr2(c,12,82,200,150,18);c.clip();var rg=c.createRadialGradient(72,92,10,72,92,220);rg.addColorStop(0,"#7fe0e6");rg.addColorStop(.6,"#0da5af");rg.addColorStop(1,"#087e86");c.fillStyle=rg;c.fillRect(12,82,200,150);
+   [[50,190,15],[120,120,11],[170,170,17],[86,140,9],[150,215,13]].forEach(function(b){var bg=c.createRadialGradient(b[0]-b[2]*.35,b[1]-b[2]*.4,0,b[0],b[1],b[2]);bg.addColorStop(0,"rgba(255,255,255,.95)");bg.addColorStop(.2,"rgba(255,255,255,.35)");bg.addColorStop(1,"rgba(255,255,255,.12)");c.fillStyle=bg;c.beginPath();c.arc(b[0],b[1],b[2],0,7);c.fill();c.strokeStyle="rgba(255,255,255,.7)";c.lineWidth=1.5;c.stroke()});c.restore();
+   txt(c,"FOCUS OVER TIME",16,256,"800 9px","#0a7d85");txt(c,"vs. typical range",208,256,"600 9px","#8aa3a5","right");
+   c.save();c.translate(12,264);if(W.Path2D){c.fillStyle="rgba(13,165,175,.14)";c.fill(new Path2D("M0 22C30 18 50 26 80 20S140 16 200 22V50C160 54 130 48 90 52S30 54 0 50Z"));c.strokeStyle="#0da5af";c.lineWidth=3;c.lineCap="round";c.stroke(new Path2D("M2 40C20 36 32 30 50 33S78 42 96 35S128 24 146 30S178 38 198 31"))}c.fillStyle="#0da5af";c.beginPath();c.arc(198,31,4.5,0,7);c.fill();c.strokeStyle="#fff";c.lineWidth=2;c.stroke();c.restore();
+   var x=12;["Reaction speed","Attention span","Motor patterns"].forEach(function(s,i){c.font="700 8.5px "+FF;var w=c.measureText(s).width+12;if(x+w>212){x=12}var y=i<2?348:368;if(i===2)x=12;c.fillStyle="#e2f6f7";rr2(c,x,y,w,16,5);c.fill();txt(c,s,x+6,y+11,"700 8.5px","#0a7d85");x+=w+4});
+   txt(c,"Late-night block on · No accounts",112,410,"600 8.5px","#8aa3a5","center");
+ }}
+];
+function drawScreen(i,cv){var c=cv.getContext("2d");c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,cv.width,cv.height);c.setTransform(SK,0,0,SK,0,0);c.save();rr2(c,0,0,SCR_W,SCR_H,34);c.clip();SCREENS[i].draw(c);c.restore()}
+
+function initHero(){
+  var T=W.THREE;
+  var renderer=new T.WebGLRenderer({canvas:canvas,antialias:true,alpha:true,powerPreference:"high-performance"});
+  renderer.setPixelRatio(Math.min(W.devicePixelRatio||1,2));renderer.setClearColor(0x000000,0);
+  renderer.outputEncoding=T.sRGBEncoding;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.0;
+  var scene3=new T.Scene(),camera=new T.PerspectiveCamera(26,1,.1,100);camera.position.set(0,0,10);
+  // soft studio environment: large softboxes on a dark room
+  var pm=new T.PMREMGenerator(renderer),env=new T.Scene();env.background=new T.Color(0x0b0b0d);
+  function box(w,h,x,y,z,c){var m=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color:c,side:T.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);env.add(m)}
+  box(8,2.4,0,5.5,1,0xffffff);box(2.2,8,-6,0,2,0xdedee6);box(2.2,8,6,.5,-1,0xf2f2f6);box(10,2,0,-5,4,0x3a3a44);box(3,3,2.5,2.5,6,0xffffff);
+  scene3.environment=pm.fromScene(env,.04).texture;pm.dispose();
+  scene3.add(new T.AmbientLight(0xffffff,.25));
+  var key=new T.DirectionalLight(0xffffff,.9);key.position.set(-3,4,6);scene3.add(key);
+  var rim=new T.DirectionalLight(0xdfe6ff,.8);rim.position.set(5,2,-4);scene3.add(rim);
+  var phoneG=new T.Group();scene3.add(phoneG);
+  function rr(w,h,r){var s=new T.Shape(),x=-w/2,y=-h/2;s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);return s}
+  var SW3=1.5,SH3=SW3*SCR_H/SCR_W,PW=SW3+.1,PH=SH3+.1,PR=.26,BV=.045,DEP=.16,FZ=DEP/2+BV;
+  var bodyGeo=new T.ExtrudeGeometry(rr(PW,PH,PR),{depth:DEP,bevelEnabled:true,bevelThickness:BV,bevelSize:BV,bevelSegments:6,curveSegments:24});bodyGeo.center();
+  var frameMat=new T.MeshPhysicalMaterial({color:0x26262b,metalness:.9,roughness:.3,clearcoat:.6,clearcoatRoughness:.15,envMapIntensity:.75});
+  phoneG.add(new T.Mesh(bodyGeo,frameMat));
+  [[.62,.38,1],[1.08,.22,-1],[.72,.22,-1]].forEach(function(b){var m=new T.Mesh(new T.BoxGeometry(.04,b[1],.08),frameMat);m.position.set(b[2]*(PW/2+BV+.008),b[0],0);phoneG.add(m)});
+  var glassGeo=new T.ShapeGeometry(rr(PW-.01,PH-.01,PR-.005),24);
+  var glassBlack=new T.Mesh(glassGeo,new T.MeshPhysicalMaterial({color:0x050506,metalness:0,roughness:.08,clearcoat:1,clearcoatRoughness:.04,envMapIntensity:.9}));glassBlack.position.z=FZ+.001;phoneG.add(glassBlack);
+  // screen textures
+  var texs=SCREENS.map(function(s,i){var cv=D.createElement("canvas");cv.width=SCR_W*SK;cv.height=SCR_H*SK;drawScreen(i,cv);var t=new T.CanvasTexture(cv);t.encoding=T.sRGBEncoding;t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());t.minFilter=T.LinearFilter;t.generateMipmaps=false;t._cv=cv;return t});
+  if(D.fonts&&D.fonts.ready)D.fonts.ready.then(function(){texs.forEach(function(t,i){drawScreen(i,t._cv);t.needsUpdate=true});kick()});
+  var scrGeo=new T.PlaneGeometry(SW3,SH3);
+  var mA=new T.MeshBasicMaterial({map:texs[0],transparent:true,toneMapped:false}),mB=new T.MeshBasicMaterial({map:texs[1],transparent:true,opacity:0,toneMapped:false,depthWrite:false});
+  var sA=new T.Mesh(scrGeo,mA),sB=new T.Mesh(scrGeo,mB);sA.position.z=FZ+.003;sB.position.z=FZ+.004;phoneG.add(sA);phoneG.add(sB);
+  var glare=new T.Mesh(glassGeo,new T.MeshPhysicalMaterial({color:0xffffff,transparent:true,opacity:.05,roughness:.03,clearcoat:1,envMapIntensity:2,depthWrite:false}));glare.position.z=FZ+.007;phoneG.add(glare);
+  // back camera bump (seen only at steep angles)
+  var bump=new T.Mesh(new T.ExtrudeGeometry(rr(.62,.62,.16),{depth:.03,bevelEnabled:true,bevelThickness:.01,bevelSize:.01,bevelSegments:2}),frameMat);bump.position.set(-PW/2+.42,PH/2-.42,-FZ-.035);phoneG.add(bump);
+
+  var cur=0,nxt=1,swapT=0,fading=false,fadeT=0,HOLD=4.2,FADE=.9,clock=0,vis=true,shown=false;
+  function setCap(i){if(hcName)hcName.textContent=SCREENS[i].name;hcDots.forEach(function(d,k){d.classList.toggle("on",k===i)})}
+  setCap(0);
+  function resize(){var w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);var a=w/h;camera.aspect=a;var th=Math.tan(T.MathUtils.degToRad(camera.fov/2));var hh=PH/2+.22,hw=PW/2+.35;camera.position.z=Math.max(hh/th,hw/(th*a));camera.updateProjectionMatrix()}
+  resize();if(W.ResizeObserver)new ResizeObserver(function(){resize();kick()}).observe(stage);else addEventListener("resize",resize);
+  inView(stage,function(v){vis=v;if(v)kick()});
+  function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
+  function run(dt){
+    clock+=dt;
+    var intro=ease(clamp(clock/1.4,0,1));
+    // screen cycle
+    swapT+=dt;
+    if(!fading&&swapT>HOLD){fading=true;fadeT=0;mB.map=texs[nxt];mB.needsUpdate=true;setCap(nxt)}
+    if(fading){fadeT+=dt;var f=ease(clamp(fadeT/FADE,0,1));mB.opacity=f;if(fadeT>=FADE){mA.map=texs[nxt];mA.needsUpdate=true;mB.opacity=0;cur=nxt;nxt=(nxt+1)%texs.length;fading=false;swapT=0}}
+    var swing=fading?Math.sin(clamp(fadeT/FADE,0,1)*Math.PI)*.06:0;
+    phoneG.position.y=(1-intro)*-.6+Math.sin(clock*.9)*.06+heroP*.9;
+    phoneG.position.x=heroP*.15;
+    phoneG.rotation.y=-.22+(1-intro)*-.5+mx*.32+heroP*.55+swing+Math.sin(clock*.45)*.04;
+    phoneG.rotation.x=.05+my*.14+heroP*.18;
+    phoneG.rotation.z=.04+Math.sin(clock*.6)*.012-heroP*.05;
+    renderer.render(scene3,camera);
+    if(!shown){shown=true;stage.classList.add("gl-on")}
+  }
+  tasks.push({on:function(){return vis&&!D.hidden},run:run});
+  kick();
+  W.__hero={ok:true,seek:function(x){clock=x;kick()},show:function(i){mA.map=texs[i];mA.needsUpdate=true;setCap(i);swapT=0;kick()}};
+}
+
+})();
+</script>
 </body></html>
