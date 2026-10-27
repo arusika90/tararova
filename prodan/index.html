@@ -18,8 +18,8 @@
 -->
 <html lang="en">
 <head>
+<meta name="robots" content="noindex,nofollow">
 <meta charset="utf-8">
-<meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Prodan Tartufi Buzet</title>
 <meta property="og:type" content="website">
@@ -534,6 +534,31 @@ html select{height:56px;line-height:normal}
 .faq,.faq-list,.faq__list{border-top:0!important}
 .faq>:first-child,.faq-list>:first-child,.faq__list>:first-child{border-top:0!important}
 .faq>:first-child::before,.faq-list>:first-child::before,.faq__list>:first-child::before{display:none!important}
+
+/* gift scene states */
+.gs .dz,.gs .ct,.gs .empty-hint{transition:transform .7s cubic-bezier(.34,1.4,.5,1),opacity .45s ease}
+.gs .it{opacity:0;transition:opacity .4s ease}
+.gs .it .dz{transform:translateY(-50px)}
+.gs.s-oil:not(.s-tr) .it-oil.solo,.gs.s-tr:not(.s-oil) .it-tr.solo,.gs.s-oil.s-tr .it.duo{opacity:1}
+.gs.s-oil:not(.s-tr) .it-oil.solo .dz,.gs.s-tr:not(.s-oil) .it-tr.solo .dz,.gs.s-oil.s-tr .it.duo .dz{transform:none}
+.gs .ct{opacity:0;transform:translateY(24px)}
+.gs.s-gift .ct-box,.gs:not(.s-gift) .ct-bag{opacity:1;transform:none}
+.gs .empty-hint{opacity:0}
+.gs:not(.s-oil):not(.s-tr) .empty-hint{opacity:1}
+.gs .sprig{transition:opacity .4s}
+.gs:not(.s-gift) .sprig{opacity:0}
+/* multi-select check marks */
+.prod{position:relative}
+.prod:not(.prod--wide)::after{content:"";position:absolute;top:12px;right:12px;width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;opacity:.35;transition:opacity .25s,background .25s}
+.prod:not(.prod--wide)[aria-pressed="true"]::after{opacity:1;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%2326412F' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;border-color:#fff}
+/* packaging as a checkbox row */
+.prod--wide{background:transparent!important;color:inherit!important;border:1px dashed rgba(38,65,47,.35)!important;justify-content:flex-start}
+.prod--wide .pk-box{flex:none;width:24px;height:24px;border-radius:6px;border:1.5px solid #26412F;display:grid;place-items:center;transition:background .25s;margin-right:4px}
+.prod--wide .pk-box svg{width:16px;height:16px;opacity:0;transition:opacity .2s}
+.prod--wide[aria-pressed="true"] .pk-box{background:#26412F}
+.prod--wide[aria-pressed="true"] .pk-box svg{opacity:1}
+.prod--wide[aria-pressed="true"]{border-style:solid!important;border-color:#26412F!important}
+@media (prefers-reduced-motion:reduce){.gs .it,.gs .ct{transition:opacity .2s}}
 </style>
 </head>
 <body class="locked">
@@ -863,23 +888,66 @@ html select{height:56px;line-height:normal}
       <div class="shop__grid">
         <div class="box-wrap">
           <div class="gbox" id="gbox">
-            <svg viewBox="0 0 400 330" aria-hidden="true">
+            <svg viewBox="0 0 400 330" aria-hidden="true" id="gscene" class="gs s-oil s-gift">
+              <defs>
+                <linearGradient id="gKraft" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D2AE7A"/><stop offset="1" stop-color="#B48A55"/></linearGradient>
+                <linearGradient id="gJar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3A2A1E"/><stop offset=".5" stop-color="#5A4230"/><stop offset="1" stop-color="#2E2118"/></linearGradient>
+              </defs>
               <ellipse cx="200" cy="312" rx="160" ry="12" fill="#2B1F16" opacity=".12"/>
-              <use href="#i-oil" x="92" y="26" width="64" height="182"/>
-              <use href="#i-tb" x="150" y="100" width="64" height="55"/>
-              <use href="#i-tw" x="196" y="92" width="72" height="62"/>
-              <use href="#i-leaf" x="300" y="66" width="34" height="62" transform="rotate(28 317 97)" color="#5E7448"/>
-              <use href="#i-acorn" x="264" y="116" width="22" height="30" color="#7A5A36"/>
-              <path d="M60 150H340V290C340 298 334 304 326 304H74C66 304 60 298 60 290Z" fill="url(#gBox)"/>
-              <rect x="278" y="150" width="24" height="154" fill="url(#gGold)"/>
-              <g class="lid">
-                <rect x="54" y="140" width="292" height="22" rx="4" fill="#26412F"/>
-                <rect x="278" y="140" width="24" height="22" fill="url(#gGold)"/>
-                <path d="M290 140C270 114 240 118 248 133C255 144 278 142 290 140ZM290 140C310 114 340 118 332 133C325 144 302 142 290 140Z" fill="none" stroke="url(#gGold)" stroke-width="5" stroke-linejoin="round"/>
-                <circle cx="290" cy="141" r="6" fill="#E2C48A"/>
+              <!-- items -->
+              <g class="it it-oil solo" transform="translate(168 26)"><g class="dz"><use href="#i-oil" width="64" height="182"/></g></g><g class="it it-oil duo" transform="translate(84 26)"><g class="dz"><use href="#i-oil" width="64" height="182"/></g></g>
+              <g class="it it-tr solo" transform="translate(112 92)"><g class="dz">
+                <g class="jar">
+                  <rect x="4" y="0" width="52" height="12" rx="3" fill="#C49A4A"/>
+                  <rect x="0" y="10" width="60" height="70" rx="10" fill="url(#gJar)"/>
+                  <rect x="0" y="10" width="60" height="70" rx="10" fill="none" stroke="#fff" stroke-opacity=".25"/>
+                  <rect x="8" y="30" width="44" height="30" rx="3" fill="#F4EDE1"/>
+                  <text x="30" y="44" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="9" fill="#26412F">Tartufata</text>
+                  <text x="30" y="54" text-anchor="middle" font-family="Figtree, sans-serif" font-size="5.5" letter-spacing="1.2" fill="#7A5A36">PRODAN</text>
+                  <path d="M8 16V74" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".22"/>
+                </g>
+                <use href="#i-tb" x="58" y="34" width="64" height="55"/>
+                <use href="#i-tw" x="104" y="26" width="72" height="62"/>
+              </g></g>
+              <g class="it it-tr duo" transform="translate(150 92)"><g class="dz">
+                <g class="jar">
+                  <rect x="4" y="0" width="52" height="12" rx="3" fill="#C49A4A"/>
+                  <rect x="0" y="10" width="60" height="70" rx="10" fill="url(#gJar)"/>
+                  <rect x="0" y="10" width="60" height="70" rx="10" fill="none" stroke="#fff" stroke-opacity=".25"/>
+                  <rect x="8" y="30" width="44" height="30" rx="3" fill="#F4EDE1"/>
+                  <text x="30" y="44" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="9" fill="#26412F">Tartufata</text>
+                  <text x="30" y="54" text-anchor="middle" font-family="Figtree, sans-serif" font-size="5.5" letter-spacing="1.2" fill="#7A5A36">PRODAN</text>
+                  <path d="M8 16V74" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".22"/>
+                </g>
+                <use href="#i-tb" x="58" y="34" width="64" height="55"/>
+                <use href="#i-tw" x="104" y="26" width="72" height="62"/>
+              </g></g>
+              <g class="sprig"><use href="#i-leaf" x="300" y="66" width="34" height="62" transform="rotate(28 317 97)" color="#5E7448"/></g>
+              <!-- gift box -->
+              <g class="ct ct-box">
+                <path d="M60 150H340V290C340 298 334 304 326 304H74C66 304 60 298 60 290Z" fill="url(#gBox)"/>
+                <rect x="278" y="150" width="24" height="154" fill="url(#gGold)"/>
+                <g class="lid">
+                  <rect x="54" y="140" width="292" height="22" rx="4" fill="#26412F"/>
+                  <rect x="278" y="140" width="24" height="22" fill="url(#gGold)"/>
+                  <path d="M290 140C270 114 240 118 248 133C255 144 278 142 290 140ZM290 140C310 114 340 118 332 133C325 144 302 142 290 140Z" fill="none" stroke="url(#gGold)" stroke-width="5" stroke-linejoin="round"/>
+                  <circle cx="290" cy="141" r="6" fill="#E2C48A"/>
+                </g>
+                <text x="168" y="240" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="30" fill="#E2C48A">Prodan</text>
+                <text x="168" y="264" text-anchor="middle" font-family="Figtree, sans-serif" font-size="10" letter-spacing="4" fill="#E2C48A" opacity=".8">TARTUFI · BUZET</text>
               </g>
-              <text x="168" y="240" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="30" fill="#E2C48A">Prodan</text>
-              <text x="168" y="264" text-anchor="middle" font-family="Figtree, sans-serif" font-size="10" letter-spacing="4" fill="#E2C48A" opacity=".8">TARTUFI · BUZET</text>
+              <!-- kraft bag -->
+              <g class="ct ct-bag">
+                <path d="M78 156L322 156L332 296C332 301 328 304 323 304H77C72 304 68 301 68 296Z" fill="url(#gKraft)"/>
+                <path d="M78 156L88 168L98 156L108 168L118 156L128 168L138 156L148 168L158 156L168 168L178 156L188 168L198 156L208 168L218 156L228 168L238 156L248 168L258 156L268 168L278 156L288 168L298 156L308 168L318 156L322 156" fill="none" stroke="#9C7444" stroke-width="1.4" opacity=".7"/>
+                <path d="M74 214H328" stroke="#9C7444" stroke-width="1" opacity=".35"/>
+                <path d="M120 156C118 120 150 112 160 150M240 156C242 120 210 112 200 150" fill="none" stroke="#7A5A36" stroke-width="3" stroke-linecap="round"/>
+                <g transform="translate(250 196) rotate(-8)"><circle r="26" fill="#F4EDE1" stroke="#7A5A36" stroke-width="1"/><text y="3" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="12" fill="#26412F">Prodan</text><text y="13" text-anchor="middle" font-family="Figtree, sans-serif" font-size="5" letter-spacing="1.5" fill="#7A5A36">BUZET</text></g>
+                <path d="M226 186C214 178 200 182 188 176" fill="none" stroke="#7A5A36" stroke-width="1.2"/>
+                <text x="148" y="262" text-anchor="middle" font-family="Figtree, sans-serif" font-size="10" letter-spacing="4" fill="#5A3E2B" opacity=".75">TARTUFI · BUZET</text>
+              </g>
+              <!-- empty hint -->
+              <g class="empty-hint"><text x="200" y="120" text-anchor="middle" font-family="Figtree, sans-serif" font-size="13" letter-spacing="2" fill="#7A6A58" data-i18n-svg="sp.empty">PICK WHAT GOES INSIDE</text></g>
             </svg>
             <span class="gbox__glare" aria-hidden="true"></span>
           </div>
@@ -891,7 +959,7 @@ html select{height:56px;line-height:normal}
           <div class="prods" id="prods">
             <button type="button" class="prod" data-k="sp.i1" aria-pressed="true"><svg viewBox="0 0 60 170" aria-hidden="true"><use href="#i-oil" width="60" height="170"/></svg><span data-i18n="sp.i1">White truffle olive oil</span></button>
             <button type="button" class="prod" data-k="sp.i2" aria-pressed="false"><svg viewBox="0 0 100 86" aria-hidden="true"><use href="#i-tb" width="100" height="86"/></svg><span data-i18n="sp.i2">Truffle products</span></button>
-            <button type="button" class="prod prod--wide" data-k="sp.i3" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="1"/><path d="M2 6h20v3H2zM12 6v15M12 6C10 2 6 2.5 6 4.5S10 6 12 6zm0 0c2-4 6-3.5 6-1.5S14 6 12 6z"/></svg><span data-i18n="sp.i3">Packed as a gift box</span></button>
+            <button type="button" class="prod prod--wide" data-k="sp.i3" aria-pressed="true" role="checkbox" aria-checked="true"><span class="pk-box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="1"/><path d="M2 6h20v3H2zM12 6v15M12 6C10 2 6 2.5 6 4.5S10 6 12 6zm0 0c2-4 6-3.5 6-1.5S14 6 12 6z"/></svg><span data-i18n="sp.i3">Packed as a gift box</span></button>
           </div>
           <a class="pill pill--block" id="shopBtn" href="https://wa.me/385915512796" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg><span data-i18n="sp.cta">Order on WhatsApp</span></a>
           <p class="fine" data-i18n="sp.fine">You can also visit the shop, open daily 08:00 to 22:00.</p>
@@ -1143,7 +1211,7 @@ html select{height:56px;line-height:normal}
     "band.label":"Saison","band.t":"Weiße Trüffelsaison im Herbst","band.p":"Sie planen einen Besuch? Fragen Sie uns, was der Wald zu Ihrer Reisezeit bietet.","band.cta":"Besuch planen",
     "sp.label":"Familienladen","sp.title":"Nehmen Sie den Wald mit nach Hause","sp.lead":"Trüffelprodukte aus unserem Laden, darunter Olivenöl mit weißem Trüffel. Stellen Sie eine Geschenkbox zusammen und bestellen Sie per WhatsApp.",
     "sp.h":"Trüffel Geschenkbox","sp.p":"Tippen Sie an, was Sie möchten. Ihre Bestellung öffnet sich in WhatsApp und die Familie antwortet mit Verfügbarkeit und Preis.",
-    "sp.choose":"Was hätten Sie gern?","sp.i1":"Olivenöl mit weißem Trüffel","sp.i2":"Trüffelprodukte","sp.i3":"Als Geschenkbox verpackt","sp.cta":"Per WhatsApp bestellen","sp.fine":"Sie können den Laden auch besuchen, täglich 08:00 bis 22:00.",
+    "sp.choose":"Was hätten Sie gern?","sp.i1":"Olivenöl mit weißem Trüffel","sp.i2":"Trüffelprodukte","sp.i3":"Als Geschenkbox verpackt","sp.cta":"Per WhatsApp bestellen","sp.empty":"WÄHLEN SIE DEN INHALT","sp.fine":"Sie können den Laden auch besuchen, täglich 08:00 bis 22:00.",
     "gk.label":"Gut zu wissen","gk.title":"Bevor Sie kommen","gk.h":"Öffnungszeiten","gk.hV":"Täglich, 08:00 bis 22:00","gk.s":"Kleidung","gk.sV":"Bequeme Schuhe für den Wald","gk.d":"Die Hunde","gk.dV":"Die Hunde machen die Arbeit, Sie folgen und schauen zu","gk.k":"Kinder","gk.kV":"Kinder sind willkommen","gk.v":"Vegetarisch","gk.vV":"Fragen Sie uns, wir sprechen über das Menü","gk.p":"Telefon und WhatsApp",
     "nb.label":"In der Nähe","nb.title":"Bleiben Sie für die Bergstädtchen","nb.lead":"Machen Sie einen Ausflug daraus. Das istrische Hinterland ist wie gemacht für langsame Fahrten zwischen Hügelstädten.",
     "nb.k1":"Stadt der Trüffel","nb.k2":"Hügelstadt","nb.k3":"Inneres Istrien",
@@ -1203,7 +1271,7 @@ html select{height:56px;line-height:normal}
     "band.label":"Stagione","band.t":"La stagione del tartufo bianco è in autunno","band.p":"State pianificando una visita? Chiedeteci cosa offre il bosco nel periodo in cui volete venire.","band.cta":"Pianifica la visita",
     "sp.label":"Negozio di famiglia","sp.title":"Portate il bosco a casa","sp.lead":"Prodotti al tartufo dal nostro negozio, tra cui l'olio d'oliva al tartufo bianco. Componete una confezione regalo e ordinatela su WhatsApp.",
     "sp.h":"Confezione regalo al tartufo","sp.p":"Toccate ciò che desiderate. L'ordine si apre su WhatsApp e la famiglia risponde con disponibilità e prezzo.",
-    "sp.choose":"Cosa desiderate?","sp.i1":"Olio d'oliva al tartufo bianco","sp.i2":"Prodotti al tartufo","sp.i3":"In confezione regalo","sp.cta":"Ordina su WhatsApp","sp.fine":"Potete anche visitare il negozio, aperto ogni giorno dalle 08:00 alle 22:00.",
+    "sp.choose":"Cosa desiderate?","sp.i1":"Olio d'oliva al tartufo bianco","sp.i2":"Prodotti al tartufo","sp.i3":"In confezione regalo","sp.cta":"Ordina su WhatsApp","sp.empty":"SCEGLIETE IL CONTENUTO","sp.fine":"Potete anche visitare il negozio, aperto ogni giorno dalle 08:00 alle 22:00.",
     "gk.label":"Da sapere","gk.title":"Prima di venire","gk.h":"Orari","gk.hV":"Ogni giorno, dalle 08:00 alle 22:00","gk.s":"Cosa indossare","gk.sV":"Scarpe comode per il bosco","gk.d":"I cani","gk.dV":"I cani fanno il lavoro, voi seguite e guardate","gk.k":"Bambini","gk.kV":"I bambini sono benvenuti","gk.v":"Vegetariani","gk.vV":"Chiedeteci, parliamo insieme del menù","gk.p":"Telefono e WhatsApp",
     "nb.label":"Nei dintorni","nb.title":"Fermatevi per i borghi","nb.lead":"Fatene una gita. L'Istria interna è fatta per guidare piano tra i borghi in collina.",
     "nb.k1":"Città del tartufo","nb.k2":"Borgo in collina","nb.k3":"Istria interna",
@@ -1263,7 +1331,7 @@ html select{height:56px;line-height:normal}
     "band.label":"Sezona","band.t":"Sezona bijelih tartufa je u jesen","band.p":"Planirate posjet? Pitajte nas što šuma nudi u vrijeme kad želite doći.","band.cta":"Planirajte posjet",
     "sp.label":"Obiteljska trgovina","sp.title":"Ponesite šumu kući","sp.lead":"Proizvodi od tartufa iz naše trgovine, među njima i maslinovo ulje s bijelim tartufom. Složite poklon kutiju i naručite je na WhatsApp.",
     "sp.h":"Poklon kutija s tartufima","sp.p":"Dodirnite što želite. Narudžba se otvara u WhatsAppu, a obitelj vam javlja što je dostupno i cijenu.",
-    "sp.choose":"Što biste željeli?","sp.i1":"Maslinovo ulje s bijelim tartufom","sp.i2":"Proizvodi od tartufa","sp.i3":"Zapakirano kao poklon kutija","sp.cta":"Naruči na WhatsApp","sp.fine":"Trgovinu možete i posjetiti, otvoreno svaki dan od 08:00 do 22:00.",
+    "sp.choose":"Što biste željeli?","sp.i1":"Maslinovo ulje s bijelim tartufom","sp.i2":"Proizvodi od tartufa","sp.i3":"Zapakirano kao poklon kutija","sp.cta":"Naruči na WhatsApp","sp.empty":"ODABERITE ŠTO IDE UNUTRA","sp.fine":"Trgovinu možete i posjetiti, otvoreno svaki dan od 08:00 do 22:00.",
     "gk.label":"Dobro je znati","gk.title":"Prije dolaska","gk.h":"Radno vrijeme","gk.hV":"Svaki dan, 08:00 do 22:00","gk.s":"Što obući","gk.sV":"Udobne cipele za šumu","gk.d":"Psi","gk.dV":"Psi rade posao, vi pratite i gledate","gk.k":"Djeca","gk.kV":"Djeca su dobrodošla","gk.v":"Vegetarijanci","gk.vV":"Pitajte nas, dogovorit ćemo meni","gk.p":"Telefon i WhatsApp",
     "nb.label":"U blizini","nb.title":"Ostanite zbog gradića na brdima","nb.lead":"Napravite izlet. Unutrašnjost Istre stvorena je za laganu vožnju između gradića na brežuljcima.",
     "nb.k1":"Grad tartufa","nb.k2":"Gradić na brdu","nb.k3":"Unutrašnjost Istre",
@@ -1304,6 +1372,7 @@ html select{height:56px;line-height:normal}
   function t(k){ var v = DICT[lang][k]; return v != null ? v : (EN[k] || ""); }
 
   function applyLang(l){
+    setTimeout(function(){ if(typeof updateScene==="function") updateScene(); },0);
     lang = l; document.documentElement.lang = l;
     $$("[data-i18n]").forEach(function(el){ el.innerHTML = t(el.getAttribute("data-i18n")); });
     $$("[data-i18n-ph]").forEach(function(el){ el.placeholder = t(el.getAttribute("data-i18n-ph")); });
@@ -1750,8 +1819,15 @@ html select{height:56px;line-height:normal}
     $("#shopBtn").href = WA + encodeURIComponent(msg);
   }
   $$("#prods .prod").forEach(function(b){
-    b.addEventListener("click", function(){ b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); updateShop(); });
+    b.addEventListener("click", function(){ b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); if(b.getAttribute("role")==="checkbox") b.setAttribute("aria-checked", b.getAttribute("aria-pressed")); updateShop(); updateScene(); });
   });
+  function updateScene(){
+    var g = $("#gscene"); if(!g) return;
+    var on = function(k){ var b = $('#prods .prod[data-k="' + k + '"]'); return b && b.getAttribute("aria-pressed") === "true"; };
+    g.classList.toggle("s-oil", on("sp.i1")); g.classList.toggle("s-tr", on("sp.i2")); g.classList.toggle("s-gift", on("sp.i3"));
+    var h = g.querySelector("[data-i18n-svg]"); if(h) h.textContent = t("sp.empty") || "PICK WHAT GOES INSIDE";
+  }
+  updateScene();
 
   /* ---------- Booking form ---------- */
   var guests = 2, gOut = $("#gOut"), fDate = $("#fDate");
@@ -1935,5 +2011,9 @@ html select{height:56px;line-height:normal}
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();
 </script>
+
+<!-- concept-strip -->
+<style>.cstrip{position:relative;z-index:5;display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 16px calc(14px + env(safe-area-inset-bottom));background:#0b0b0b;color:rgba(255,255,255,.72);font:500 13px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;text-align:center}.cstrip a{color:#fff;text-decoration:underline;text-underline-offset:3px}.cstrip b{color:#fff;font-weight:600}</style>
+<div class="cstrip">Website concept by <b>Maria Tararova</b>. A proposal, not the official website · <a href="../">About me ↗</a></div>
 </body>
 </html>
