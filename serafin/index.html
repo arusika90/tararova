@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<!--
+  Konoba Serafin, Rovinj: website proposal mockup (Koncept: Marija)
+
+  IMAGE SLOTS (optional, put real photos in ./img/ using these exact names):
+    img/hero.jpg  gallery slide 1 + story section
+    img/2.jpg     gallery slide 2 + truffle pasta card
+    img/3.jpg     gallery slide 3 + calamari cacio e pepe card
+    img/4.jpg     gallery slide 4 + lemon pie card
+    img/5.jpg     gallery slide 5 + cold cuts card + contact
+  No licensed photos are used. Every slot falls back to our own inline SVG
+  illustrations (truffle, olive branch, Rovinj skyline, plate of pasta, lemon,
+  wine glass, family table) over a soft gradient.
+  Hero: Three.js (cdnjs, r128) drifting golden particles with soft depth of
+  field, a floating low-poly truffle and olive leaves, pointer parallax.
+  Falls back to a static SVG scene without WebGL or with prefers-reduced-motion.
+  Prices "XX €" are placeholders to edit. Menu items are illustrative.
+-->
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Konoba Serafin, Rovinj</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Konoba Serafin, Rovinj">
+<meta property="og:description" content="Konoba Serafin, obiteljska konoba u Rovinju. Dio tradicija, dio mašta, svježi sastojci, bez pretenzija.">
+<meta property="og:url" content="https://tararova.com/serafin/">
+<meta property="og:image" content="https://tararova.com/serafin/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="description" content="Konoba Serafin, obiteljska konoba u Rovinju. Dio tradicija, dio mašta, svježi sastojci, bez pretenzija.">
+<meta name="theme-color" content="#2E3722">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Figtree:wght@400;500;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F3EBDF; --white:#FFFFFF; --ink:#1B1B1B; --muted:#6B645A; --black:#0B0B0B;
+  --terra:#B65A3A; --terra-l:#D08A6B; --terra-d:#8F4328; --olive:#5F6B3E; --olive-l:#8A9A5B; --olive-d:#2E3722; --char:#2B2B2B;
+  --gold:#D9A95C; --line:#E4DBCD; --grey:#DADADA; --r:38px;
+  --serif:"Fraunces",Georgia,serif; --sans:"Figtree",system-ui,-apple-system,sans-serif; --script:"Mrs Saint Delafield",cursive;
+  --gutter:20px; --header:60px; --ease:cubic-bezier(.22,.61,.36,1); --out:cubic-bezier(.16,1,.3,1);
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.13 0 0 0 0 0.11 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
+body.locked,body.menu-open{overflow:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+::selection{background:var(--terra);color:#fff}
+.wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 var(--gutter)}
+.label{font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px;margin:0}
+.label .num{color:var(--terra)}
+h1,h2,h3{margin:0;font-weight:400}
+h1,h2{font-family:var(--serif);letter-spacing:-.01em;font-variation-settings:"opsz" 72}
+h2{font-size:clamp(34px,8.6vw,54px);line-height:1.15}
+h2 em,h1 em{font-style:italic;font-weight:300}
+p{margin:0 0 1em}
+.ph{border-bottom:1px dashed var(--terra);font-style:normal;white-space:nowrap}
+section{scroll-margin-top:calc(var(--header) + 10px)}
+.sec{padding:80px 0}
+.bg-cream{background:var(--cream)}
+.bg-white{background:var(--white)}
+.sh{position:relative;padding-bottom:26px;margin-bottom:40px}
+.sh::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line);transform:scaleX(0);transform-origin:left;transition:transform 1.4s var(--out) .2s}
+.sh.in::after{transform:none}
+.sh h2{margin-top:14px}
+.sh p{margin:16px 0 0;max-width:46ch;color:var(--muted)}
+@media(min-width:900px){:root{--gutter:48px;--header:72px}.sec{padding:130px 0}.sh{display:grid;grid-template-columns:1fr 1fr;gap:40px 80px;align-items:end}.sh .label{grid-column:1/-1}.sh h2{margin:0}.sh p{margin:0}}
+
+/* buttons */
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;isolation:isolate;transition:color .45s var(--ease),border-color .45s var(--ease)}
+.pill::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--terra);transform:translateY(101%);transition:transform .55s var(--out)}
+.pill:hover::before,.pill:focus-visible::before{transform:none}
+.pill svg{width:18px;height:18px;flex:none}
+.pill--cream{background:var(--cream);border-color:var(--cream);color:var(--ink)}
+.pill--cream::before{background:#fff}
+.pill--outline{background:transparent;border-color:currentColor;color:#fff}
+.pill--outline::before{background:#fff}
+.pill--outline:hover{color:var(--olive-d)}
+.pill--grey{background:#E8E8E8;border-color:#E8E8E8;color:var(--ink);width:100%}
+.pill--grey::before{background:#fff}
+.pill--ghost{background:transparent;color:var(--ink)}
+.pill--ghost:hover{color:#fff;border-color:var(--terra)}
+.pill--block{width:100%}
+.ulink{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:16px;padding-bottom:3px;background:linear-gradient(currentColor,currentColor) left bottom/100% 1px no-repeat;transition:background-size .5s var(--ease)}
+.ulink:hover{background-size:35% 1px}
+.ulink svg{width:15px;height:15px;transition:transform .4s var(--ease)}
+.ulink:hover svg{transform:translateX(4px)}
+
+/* image fallbacks */
+.art{position:relative;overflow:hidden;background:#D8C8B8;isolation:isolate}
+.art::before{content:"";position:absolute;inset:-20%;z-index:0;filter:blur(36px);animation:drift 26s ease-in-out infinite alternate}
+.art::after{content:"";position:absolute;inset:0;z-index:3;background-image:var(--grain);opacity:.2;mix-blend-mode:multiply;pointer-events:none}
+.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;opacity:0;transition:opacity 1.2s var(--ease)}
+.art img.ok{opacity:1}
+@keyframes drift{0%{transform:translate3d(0,0,0) rotate(0)}100%{transform:translate3d(4%,-3%,0) rotate(8deg)}}
+.art--hero{background:linear-gradient(160deg,#E9D7BF 0%,#C9A17E 55%,#7A5A45 100%)}
+.art--hero::before{background:radial-gradient(38% 30% at 30% 35%,rgba(250,236,214,.9),transparent 70%),radial-gradient(30% 26% at 72% 62%,rgba(182,90,58,.45),transparent 70%),radial-gradient(26% 22% at 55% 18%,rgba(138,154,91,.5),transparent 70%)}
+.art--pasta{background:linear-gradient(200deg,#F1E2C8 0%,#D9B887 50%,#8E6A4E 100%)}
+.art--pasta::before{background:radial-gradient(34% 28% at 62% 30%,rgba(255,244,222,.95),transparent 70%),radial-gradient(28% 24% at 28% 70%,rgba(217,169,92,.7),transparent 70%)}
+.art--cala{background:linear-gradient(170deg,#DCE0CF 0%,#A9B392 50%,#4F5A3C 100%)}
+.art--cala::before{background:radial-gradient(36% 30% at 40% 30%,rgba(245,243,230,.9),transparent 70%),radial-gradient(30% 26% at 70% 70%,rgba(182,90,58,.35),transparent 70%)}
+.art--lemon{background:linear-gradient(140deg,#F8EBC8 0%,#E6C76A 50%,#9E7E3A 100%)}
+.art--lemon::before{background:radial-gradient(30% 26% at 70% 28%,rgba(255,250,230,.95),transparent 70%),radial-gradient(34% 28% at 30% 66%,rgba(138,154,91,.5),transparent 70%)}
+.art--table{background:linear-gradient(190deg,#5E4538 0%,#3B2B22 55%,#241B16 100%)}
+.art--table::before{background:radial-gradient(30% 26% at 30% 30%,rgba(217,169,92,.5),transparent 70%),radial-gradient(26% 22% at 72% 64%,rgba(182,90,58,.4),transparent 70%)}
+.art--map{background:linear-gradient(160deg,#EEE7D9 0%,#DCD2BE 100%)}
+.art--map::before{background:radial-gradient(40% 30% at 30% 40%,rgba(255,255,255,.8),transparent 70%)}
+
+/* photo frame, tag, caption */
+.frame{position:relative;border-radius:var(--r);overflow:hidden;transform:translateZ(0)}
+.frame>.art{position:absolute;inset:-10% 0}
+.tag-b{position:absolute;top:28px;right:0;z-index:6;background:#111;color:#fff;font-size:15px;line-height:1.2;padding:9px 14px 9px 16px;border-radius:8px 0 0 8px;display:inline-flex;align-items:center;gap:6px}
+.tag-b svg{width:14px;height:14px}
+.cap{position:absolute;left:0;right:0;bottom:0;z-index:6;padding:56px 24px 22px;background:linear-gradient(to top,rgba(0,0,0,.58),rgba(0,0,0,0));color:#fff;font-size:15px;display:flex;align-items:center;gap:8px}
+.cap svg{width:16px;height:16px;flex:none}
+
+/* PRELOADER */
+.pre{position:fixed;inset:0;z-index:200;background:var(--cream);display:grid;place-items:center;transition:transform 1s var(--out) .1s;animation:preSafety 0s 5s forwards}
+.pre__in{display:flex;flex-direction:column;align-items:center;gap:20px;transition:opacity .5s var(--ease),transform .8s var(--ease)}
+.pre svg{width:92px;height:92px;overflow:visible}
+.pre .ring{fill:none;stroke:var(--terra);stroke-width:.6;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.3s var(--ease) forwards}
+.pre .s{fill:none;stroke:var(--olive);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.1s var(--ease) .25s forwards}
+.pre__name{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);opacity:0;animation:fadeIn .8s var(--ease) .7s forwards;padding-left:.32em}
+.pre.done{transform:translateY(-100%)}
+.pre.done .pre__in{opacity:0;transform:translateY(-30px)}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes preSafety{to{visibility:hidden;opacity:0}}
+
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:60;height:var(--header);color:#fff;transition:background .5s var(--ease),color .5s var(--ease),box-shadow .5s}
+.hdr.scrolled,.menu-open .hdr{background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);color:var(--ink);box-shadow:0 1px 0 rgba(0,0,0,.05),0 6px 20px rgba(0,0,0,.05)}
+.hdr .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.logo{display:flex;align-items:center;gap:10px;line-height:1}
+.logo svg{width:30px;height:30px;flex:none}
+.logo b{display:block;font-family:var(--serif);font-weight:400;font-size:19px}
+.logo small{display:block;font-size:9px;letter-spacing:.24em;text-transform:uppercase;opacity:.8;margin-top:4px}
+.hdr__r{display:flex;align-items:center;gap:16px}
+.lang{display:flex;align-items:center;font-size:12px;font-weight:500;letter-spacing:.12em}
+.lang button{background:none;border:0;padding:8px 6px;cursor:pointer;opacity:.55;transition:opacity .3s}
+.lang button[aria-pressed="true"]{opacity:1;text-decoration:underline;text-underline-offset:5px}
+.lang i{width:1px;height:12px;background:currentColor;opacity:.35}
+.hdr .lang,.hdr__book{display:none}
+.hdr__book{min-height:40px;padding:0 20px;font-size:12px;background:transparent;border-color:currentColor;color:inherit}
+.hdr__book::before{background:var(--ink)}
+.hdr__book:hover{color:#fff;border-color:var(--ink)}
+@media(min-width:900px){.hdr .lang,.hdr__book{display:inline-flex}}
+.menu-btn{display:flex;align-items:center;gap:10px;background:none;border:0;padding:10px 0;font:600 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;color:inherit}
+.burger{position:relative;width:22px;height:12px}
+.burger i{position:absolute;left:0;right:0;height:1.5px;background:currentColor;transition:transform .45s var(--out),top .45s var(--out)}
+.burger i:first-child{top:0}.burger i:last-child{top:10px}
+.menu-open .burger i:first-child{top:5px;transform:rotate(45deg)}
+.menu-open .burger i:last-child{top:5px;transform:rotate(-45deg)}
+.menu{position:fixed;inset:0;z-index:55;background:var(--cream);color:var(--ink);padding:calc(var(--header) + 28px) var(--gutter) calc(32px + env(safe-area-inset-bottom));display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility 0s .45s;overflow-y:auto}
+.menu-open .menu{opacity:1;visibility:visible;transition:opacity .45s var(--ease)}
+.menu nav a{display:block;padding:10px 0;font:400 34px/1.15 var(--serif);border-bottom:1px solid var(--line);opacity:0;transform:translateY(18px);transition:opacity .5s,transform .7s var(--out)}
+.menu-open .menu nav a{opacity:1;transform:none}
+.menu nav a:nth-child(2){transition-delay:.04s}.menu nav a:nth-child(3){transition-delay:.08s}.menu nav a:nth-child(4){transition-delay:.12s}.menu nav a:nth-child(5){transition-delay:.16s}.menu nav a:nth-child(6){transition-delay:.2s}.menu nav a:nth-child(7){transition-delay:.24s}
+.menu-foot{margin-top:auto;padding-top:28px;display:grid;gap:18px}
+.menu .lang{font-size:14px}
+.menu .pill{width:100%}
+.menu-tel{color:var(--muted);font-size:15px}
+
+/* HERO */
+.hero{position:relative;height:100vh;height:100svh;min-height:640px;overflow:hidden;color:#fff;background:#1B2215;touch-action:pan-y}
+.hero__media{position:absolute;inset:-8% 0;z-index:1;will-change:transform;background:radial-gradient(70% 55% at 78% 22%,rgba(217,169,92,.42),transparent 70%),radial-gradient(60% 50% at 20% 85%,rgba(95,107,62,.5),transparent 70%),#1B2215}
+.hero__scene{position:absolute;inset:0;width:100%;height:100%}
+.hero__scene g{will-change:transform}
+.hero__scene .dust circle{animation:twinkle 6s ease-in-out infinite alternate}
+.hero__scene .dust circle:nth-child(odd){animation-duration:8s;animation-delay:-3s}
+@keyframes twinkle{from{opacity:.25}to{opacity:.9}}
+.hero__scene .bob{animation:bob 9s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+.hero__scene .bob.b2{animation-duration:12s;animation-delay:-4s}
+@keyframes bob{from{transform:translate(0,0) rotate(-4deg)}to{transform:translate(8px,-10px) rotate(6deg)}}
+#gl{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;opacity:0;transition:opacity 1.6s var(--ease)}
+.gl-on #gl{opacity:1}
+.gl-on .hero__scene{opacity:0;transition:opacity 1s}
+.hero__veil{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to top,rgba(14,17,10,.85) 0%,rgba(14,17,10,.4) 45%,rgba(14,17,10,0) 70%),linear-gradient(to right,rgba(14,17,10,.5) 0%,rgba(14,17,10,0) 75%),linear-gradient(to bottom,rgba(14,17,10,.35),rgba(14,17,10,0) 22%)}
+.hero__c{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:66px}
+.hero .label{color:rgba(255,255,255,.85);margin-bottom:16px}
+.hero h1{font-size:clamp(44px,11.4vw,92px);line-height:1.05}
+.hero h1 .sub{font-size:.5em;font-style:italic;font-weight:300;color:var(--gold);margin-top:.15em}
+.mask{display:block;overflow:hidden;padding-bottom:.05em}
+.mask>span{display:block;transform:translateY(112%);transition:transform 1.4s var(--out)}
+.ready .mask>span{transform:none}
+.ready .mask:nth-child(2)>span{transition-delay:.15s}
+.hero__txt{font-size:17px;margin:16px 0 14px;max-width:36ch;color:rgba(255,255,255,.92)}
+.hero__addr{display:inline-flex;align-items:center;gap:8px;font-size:15px;color:#fff;padding-bottom:2px;border-bottom:1px solid rgba(255,255,255,.45);transition:border-color .4s}
+.hero__addr:hover{border-color:#fff}
+.hero__addr svg{width:16px;height:16px;flex:none}
+.hero__cta{margin-top:22px;max-width:440px}
+.fade-up{opacity:0;transform:translateY(18px);transition:opacity 1.1s var(--ease),transform 1.2s var(--out)}
+.ready .fade-up{opacity:1;transform:none}
+.ready .d1{transition-delay:.4s}.ready .d2{transition-delay:.55s}.ready .d3{transition-delay:.7s}.ready .d4{transition-delay:.85s}
+
+/* ILLUSTRATIONS */
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+.ill{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.has-deco{position:relative;overflow:hidden;overflow:clip}
+.has-deco>.wrap{position:relative;z-index:1}
+.deco{position:absolute;z-index:0;height:auto;pointer-events:none;will-change:transform}
+.deco use{transform-box:fill-box;transform-origin:50% 100%;animation:sway 11s ease-in-out infinite alternate}
+.deco.d2 use{animation-duration:14s;animation-delay:-5s}
+@keyframes sway{from{transform:rotate(-3deg)}to{transform:rotate(3.5deg)}}
+
+/* FINDER pill */
+.finder{position:relative;z-index:7;margin-top:-34px;padding:0 var(--gutter) 22px;background:linear-gradient(transparent 34px,#fff 34px)}
+.finder a{display:flex;align-items:center;gap:14px;max-width:560px;margin:0 auto;min-height:66px;padding:10px 10px 10px 22px;background:#fff;border:1px solid #CFCFCF;border-radius:999px;box-shadow:0 10px 34px -12px rgba(0,0,0,.18);transition:box-shadow .4s var(--ease),transform .4s var(--ease)}
+.finder a:hover{box-shadow:0 14px 40px -12px rgba(0,0,0,.26);transform:translateY(-1px)}
+.finder__ic{width:22px;height:22px;flex:none;color:var(--ink)}
+.finder__t{flex:1;min-width:0;line-height:1.3}
+.finder__t b{display:block;font-weight:600;font-size:16px}
+.finder__t small{display:block;font-size:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.finder__go{width:46px;height:46px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;flex:none}
+.finder__go svg{width:18px;height:18px}
+
+/* REVEALS */
+.rv{opacity:0;transform:translate3d(0,30px,0);transition:opacity 1.1s var(--ease),transform 1.2s var(--out)}
+.rv.in{opacity:1;transform:none}
+.rv-img{clip-path:inset(10% 4% 0 4% round var(--r));transition:clip-path 1.6s var(--out)}
+.rv-img.in{clip-path:inset(0 0 0 0 round var(--r))}
+.rv-img .art{scale:1.15;transition:scale 2.2s var(--out)}
+.rv-img.in .art{scale:1}
+[data-delay="1"]{transition-delay:.12s!important}[data-delay="2"]{transition-delay:.24s!important}[data-delay="3"]{transition-delay:.36s!important}
+
+/* GALLERY near-black */
+.gal-sec{background:var(--black);color:#fff;text-align:center;padding:80px 0 0}
+.gal-sec h2{color:#fff}
+.gal-sec .sub{color:rgba(255,255,255,.72);max-width:40ch;margin:14px auto 40px}
+.gal{position:relative;border-radius:40px 40px 0 0;overflow:hidden;aspect-ratio:4/5;max-height:80vh;width:100%;touch-action:pan-y}
+.gal__track{display:flex;height:100%;transition:transform 1s var(--out)}
+.gal__slide{position:relative;flex:0 0 100%;height:100%;overflow:hidden}
+.gal__slide .art{position:absolute;inset:0;transform:scale(1.08);transition:transform 1.6s var(--out)}
+.gal__slide.cur .art{transform:scale(1)}
+.gal .tag-b{top:0;border-radius:0 0 0 8px;padding:12px 16px;text-align:left}
+.sqbtn{position:absolute;top:50%;z-index:6;width:48px;height:56px;margin-top:-28px;background:#111;color:#fff;border:0;display:grid;place-items:center;cursor:pointer;transition:background .3s}
+.sqbtn:hover{background:#333}
+.sqbtn svg{width:18px;height:18px}
+.sqbtn.l{left:0}.sqbtn.r{right:0}
+.gal__count{position:absolute;right:0;bottom:0;z-index:6;background:#111;color:#fff;font-size:15px;letter-spacing:.08em;padding:10px 16px;font-variant-numeric:tabular-nums}
+.gal__prog{position:absolute;left:0;right:0;bottom:0;z-index:5;height:2px;background:rgba(255,255,255,.2)}
+.gal__prog i{display:block;height:100%;background:#fff;transform:scaleX(0);transform-origin:left}
+.gal__prog i.run{animation:prog 6s linear forwards}
+@keyframes prog{to{transform:scaleX(1)}}
+.gal .cap{text-align:left;padding-right:80px}
+@media(min-width:900px){.gal{aspect-ratio:16/8}}
+
+/* STORY */
+.story{position:relative;overflow:hidden}
+.wm{position:absolute;inset:-10% -20%;display:flex;flex-wrap:wrap;gap:10px 60px;align-content:flex-start;transform:rotate(-12deg);font-family:var(--script);font-size:64px;line-height:1.3;color:var(--terra-d);opacity:.06;pointer-events:none;user-select:none;will-change:transform}
+.story .wrap{position:relative}
+.story__grid{display:grid;gap:44px}
+.story .lead{font-family:var(--serif);font-size:22px;line-height:1.4;margin-bottom:20px}
+.story__img{aspect-ratio:4/5;margin-bottom:34px}
+.roles{display:grid;gap:10px;margin:26px 0 0}
+.role{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:16px;background:#fff}
+.role__ic{width:46px;height:46px;border-radius:50%;background:var(--cream);display:grid;place-items:center;flex:none;color:var(--terra-d)}
+.role__ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.role b{display:block;font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.1}
+.role small{display:block;font-size:14px;color:var(--muted);margin-top:3px}
+.gtk{background:#fff;border-radius:20px;padding:26px 22px 22px}
+.gtk h3{font-family:var(--serif);font-size:24px;margin-bottom:6px}
+.gtk dl{margin:0}
+.gtk__row{display:grid;grid-template-columns:26px 1fr;gap:2px 16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.gtk__row:last-child{border-bottom:0}
+.gtk__row svg{width:24px;height:24px;stroke:var(--ink);fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;grid-row:span 2;margin-top:2px}
+.gtk dt{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.gtk dd{margin:0;font-size:16px;line-height:1.5}
+.gtk dd a{text-decoration:underline;text-underline-offset:3px}
+.badge{display:flex;align-items:center;gap:14px;margin-top:10px;padding:16px 18px;border-radius:14px;background:var(--cream)}
+.badge__g{width:36px;height:36px;border-radius:50%;background:#fff;display:grid;place-items:center;font-weight:600;color:var(--ink)}
+.badge b{font-family:var(--serif);font-weight:400;font-size:28px;line-height:1;font-variant-numeric:tabular-nums}
+.stars{display:flex;gap:2px;color:var(--terra)}
+.stars svg{width:13px;height:13px;fill:currentColor}
+.badge small{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+@media(min-width:900px){.story__grid{grid-template-columns:1fr 1fr;gap:100px;align-items:start}.story__img{aspect-ratio:3/4}.gtk{padding:34px 34px 28px}}
+
+/* MENU tabs */
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;position:relative;border-bottom:1px solid var(--line);margin-bottom:28px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;background:none;border:0;padding:14px 14px 16px;font-size:15px;color:var(--muted);cursor:pointer;position:relative;transition:color .3s;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink);font-weight:500}
+.tab-ink{position:absolute;bottom:-1px;left:0;height:2px;width:60px;background:var(--terra);transition:transform .5s var(--out),width .5s var(--out)}
+.panels{position:relative}
+.panel{display:none}
+.panel.on{display:block;animation:panelIn .6s var(--out)}
+@keyframes panelIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.dish{display:grid;grid-template-columns:1fr auto;gap:4px 20px;padding:18px 0;border-bottom:1px solid var(--line)}
+.dish:last-child{border-bottom:0}
+.dish h3{font-family:var(--serif);font-size:21px;line-height:1.25}
+.dish p{grid-column:1;margin:0;font-size:15px;color:var(--muted)}
+.dish .pr{font-family:var(--serif);font-size:20px;white-space:nowrap;grid-row:span 2;align-self:start}
+.menu__note{margin-top:22px;font-size:14px;color:var(--muted)}
+.wine{display:flex;align-items:center;gap:14px;margin-top:26px;padding:16px 18px;border-radius:16px;background:var(--cream)}
+.wine svg{width:30px;height:30px;flex:none;color:var(--olive)}
+.wine span{font-size:16px}
+@media(min-width:900px){.menu__grid{display:grid;grid-template-columns:1fr 1.3fr;gap:100px;align-items:start}.menu__grid .sh{display:block}.menu__grid .sh h2{margin-top:14px}.menu__grid .sh p{margin-top:16px}}
+
+/* DEEP OLIVE: family table */
+.deep{position:relative;overflow:hidden;background:var(--olive-d);color:#fff;padding:84px 0}
+.deep .label{color:rgba(255,255,255,.7)}
+.deep .label .num{color:var(--gold)}
+.deep .sh::after{background:rgba(255,255,255,.16)}
+.deep .sh p{color:rgba(255,255,255,.72)}
+.deep__orb{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.12);will-change:transform}
+.deep__orb.a{width:340px;height:340px;right:-120px;top:-120px}
+.deep__orb.b{width:220px;height:220px;left:-80px;bottom:-90px;background:rgba(255,255,255,.04)}
+.deep .wrap{position:relative}
+.pts{display:grid;gap:26px;list-style:none;padding:0;margin:0}
+.pt{display:grid;grid-template-columns:52px 1fr;gap:18px;align-items:start}
+.pt__ic{width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:grid;place-items:center;color:var(--gold)}
+.pt__ic svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.pt h3{font-size:22px;font-weight:500;line-height:1.3;margin-bottom:6px}
+.pt p{margin:0;color:rgba(255,255,255,.78)}
+.deep .pill{margin-top:38px}
+@media(min-width:900px){.deep{padding:130px 0}.pts{grid-template-columns:repeat(3,1fr);gap:50px}.pt{grid-template-columns:1fr;gap:20px}}
+
+/* SIGNATURE peek carousel */
+.peek{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px max(var(--gutter),calc((100vw - 1200px)/2 + var(--gutter))) 8px;scroll-padding:0 max(var(--gutter),calc((100vw - 1200px)/2 + var(--gutter)))}
+.peek::-webkit-scrollbar{display:none}
+.peek::after{content:"";flex:0 0 1px}
+.tcard{flex:0 0 82vw;max-width:400px;scroll-snap-align:start}
+.tcard .frame{aspect-ratio:4/5;margin-bottom:22px}
+.tcard .frame>.art{inset:0}
+.tcard h3{font-size:22px;font-weight:500;line-height:1.3}
+.tcard__meta{font-size:15px;color:var(--muted);margin:4px 0 12px}
+.tcard p{color:#3b3532;margin-bottom:14px}
+.tcard ul{list-style:none;padding:0;margin:0 0 20px}
+.tcard li{position:relative;padding:5px 0 5px 22px;font-size:16px}
+.tcard li::before{content:"";position:absolute;left:2px;top:15px;width:7px;height:7px;border-radius:50%;background:var(--terra)}
+.peek__ui{display:flex;align-items:center;gap:18px;margin-top:30px}
+.peek__bar{flex:1;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+.peek__bar i{display:block;height:100%;width:25%;background:var(--ink);border-radius:2px;transition:transform .3s linear}
+.rbtn{width:46px;height:46px;border-radius:50%;border:1px solid var(--ink);background:transparent;display:grid;place-items:center;cursor:pointer;transition:background .3s,color .3s}
+.rbtn:hover{background:var(--ink);color:#fff}
+.rbtn svg{width:16px;height:16px}
+@media(min-width:900px){.tcard{flex-basis:360px}}
+
+/* NEARBY */
+.near{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+.near li{display:grid;grid-template-columns:32px 1fr auto;gap:16px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
+.near svg{width:28px;height:28px;fill:none;stroke:var(--ink);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.near b{display:block;font-weight:500;font-size:17px}
+.near small{display:block;font-size:14px;color:var(--muted)}
+.near .dist{font-size:14px;color:var(--muted);white-space:nowrap}
+.near__grid{display:grid;gap:40px}
+@media(min-width:900px){.near__grid{grid-template-columns:1fr 1fr;gap:100px;align-items:start}.near__grid .sh{display:block}.near__grid .sh h2{margin-top:14px}}
+
+/* BOOKING */
+.book{background:var(--char);color:#fff}
+.book .label{color:var(--gold)}
+.book .label .num{color:var(--gold)}
+.book .sh::after{background:rgba(255,255,255,.16)}
+.book .sh p{color:rgba(255,255,255,.75)}
+.book__grid{display:grid;gap:44px}
+.form{display:grid;gap:24px}
+.field{display:grid;gap:8px}
+.field>span,.field legend{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);padding:0}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.ctl{width:100%;min-height:54px;padding:0 18px;border:1px solid rgba(255,255,255,.22);border-radius:4px;background:rgba(255,255,255,.04);color:#fff;font-size:17px;-webkit-appearance:none;appearance:none;transition:border-color .3s,background .3s}
+.ctl:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.07)}
+.ctl::placeholder{color:rgba(255,255,255,.4)}
+input[type=date].ctl{display:block;min-width:0;color-scheme:dark}
+input[type=date].ctl::-webkit-date-and-time-value{text-align:left}
+.ctl.err{border-color:#E08A7C}
+.chips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.chip{position:relative;width:100%}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip>span{display:flex;align-items:center;justify-content:center;min-height:48px;border:1px solid rgba(255,255,255,.28);border-radius:4px;font-size:15px;cursor:pointer;line-height:1.25;text-align:center;transition:background .35s,color .35s,border-color .35s;font-variant-numeric:tabular-nums}
+.chip input:checked+span{background:var(--cream);border-color:var(--cream);color:var(--ink)}
+.chip input:focus-visible+span{outline:2px solid var(--gold);outline-offset:2px}
+.qty{display:inline-grid;grid-template-columns:52px 1fr 52px;width:100%;max-width:240px;height:54px;border:1px solid rgba(255,255,255,.28);border-radius:4px;overflow:hidden;background:rgba(255,255,255,.04)}
+.qty button{border:0;background:rgba(255,255,255,.08);font-size:22px;cursor:pointer;color:#fff;transition:background .3s}
+.qty button:hover{background:rgba(255,255,255,.16)}
+.qty output{display:grid;place-items:center;font-size:17px;border-left:1px solid rgba(255,255,255,.28);border-right:1px solid rgba(255,255,255,.28)}
+.hint{display:none;margin:0;font-size:14px;color:#E8B4A8}
+.hint.on{display:block}
+.fine{font-size:14px;color:rgba(255,255,255,.6);margin:0}
+.book__aside{display:grid;gap:18px;align-content:start}
+.soon{display:flex;gap:14px;align-items:flex-start;padding:20px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(217,169,92,.35)}
+.soon__dot{position:relative;width:10px;height:10px;margin-top:8px;flex:none;border-radius:50%;background:var(--gold)}
+.soon__dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--gold);animation:pulse 2.2s var(--ease) infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(3.2);opacity:0}}
+.soon b{display:block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--gold);margin-bottom:4px}
+.soon p{margin:0;font-size:16px;color:rgba(255,255,255,.82)}
+@media(min-width:900px){.book__grid{grid-template-columns:1.1fr 1fr;gap:100px}}
+
+/* sticky booking bar */
+.sbar{position:fixed;left:0;right:0;bottom:0;z-index:80;background:#fff;color:var(--ink);border-radius:20px 20px 0 0;box-shadow:0 -10px 34px -10px rgba(0,0,0,.16);padding:14px var(--gutter) calc(14px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:14px;transform:translateY(110%);transition:transform .6s var(--out)}
+.bar-on .sbar{transform:none}
+.sbar small{display:block;font-size:13px;color:var(--muted);line-height:1.2}
+.sbar b{display:block;font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.2;font-variant-numeric:tabular-nums}
+.sbar .pill{padding:0 20px;font-size:12px;flex:none}
+@media(min-width:900px){.sbar{display:none}}
+
+/* FAQ */
+.faq__list{border-top:1px solid #D9CFC8}
+.qa{border-bottom:1px solid #D9CFC8}
+.qa button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0;background:none;border:0;text-align:left;cursor:pointer;font-family:var(--serif);font-size:21px;line-height:1.3}
+.qa .pm{position:relative;width:34px;height:34px;flex:none;border-radius:50%;border:1px solid var(--ink);transition:background .4s,transform .6s var(--out)}
+.qa .pm::before,.qa .pm::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.2px;background:var(--ink);transform:translate(-50%,-50%);transition:transform .5s var(--out),background .4s}
+.qa .pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+.qa.open .pm{background:var(--ink);transform:rotate(180deg)}
+.qa.open .pm::before,.qa.open .pm::after{background:#fff}
+.qa.open .pm::after{transform:translate(-50%,-50%) rotate(0)}
+.qa__a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--out)}
+.qa.open .qa__a{grid-template-rows:1fr}
+.qa__a>div{overflow:hidden}
+.qa__a p{margin:0;padding:0 0 24px;color:#3b3532;max-width:60ch;opacity:0;transform:translateY(-6px);transition:opacity .5s,transform .6s var(--out)}
+.qa.open .qa__a p{opacity:1;transform:none;transition-delay:.1s}
+@media(min-width:900px){.faq__grid{display:grid;grid-template-columns:1fr 1.4fr;gap:100px}.faq__grid .sh{display:block}.faq__grid .sh h2{margin-top:14px}.faq__grid .sh p{margin-top:16px}}
+
+/* CONTACT */
+.contact__grid{display:grid;gap:36px}
+#kontakt{padding-bottom:64px}
+.addr{font-family:var(--serif);font-size:28px;line-height:1.25;margin-bottom:14px}
+.hours{list-style:none;padding:0;margin:30px 0;border-top:1px solid var(--line)}
+.hours li{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:16px}
+.hours li span:last-child{font-variant-numeric:tabular-nums;color:var(--muted)}
+.hours li.today{font-weight:500}
+.hours li.today span:first-child::after{content:attr(data-today);margin-left:10px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 8px;border-radius:4px;vertical-align:2px}
+.contact__btns{display:grid;gap:10px}
+.mapf{aspect-ratio:1/1;background:#E9E2D3}
+.mapf .map{position:absolute;inset:0;width:100%;height:100%}
+.mapf .map text{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;fill:#6B645A}
+.mapf .note{position:absolute;left:18px;bottom:18px;z-index:6;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.8);padding:5px 10px;border-radius:999px}
+.pin{position:absolute;left:62%;top:46%;z-index:5;transform:translate(-50%,-50%)}
+.pin__ring{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.75);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:grid;place-items:center;position:relative;color:var(--terra-d)}
+.pin__ring::before,.pin__ring::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid var(--terra);animation:ripple 3.6s var(--ease) infinite;opacity:0}
+.pin__ring::after{animation-delay:1.8s}
+@keyframes ripple{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.4);opacity:0}}
+.pin__ring svg{width:26px;height:26px}
+@media(min-width:700px){.contact__btns{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.contact__grid{grid-template-columns:1fr 1fr;gap:100px;align-items:center}#kontakt{padding-bottom:130px}}
+
+/* FOOTER */
+.foot{background:var(--olive-d);color:rgba(255,255,255,.75);padding:70px 0 130px;font-size:15px}
+.foot__top{display:grid;gap:34px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.14)}
+.foot .logo{color:#fff}
+.foot .logo svg{width:42px;height:42px}
+.foot .logo b{font-size:24px}
+.foot h4{margin:0 0 10px;font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.foot a:hover{color:#fff}
+.foot__bot{padding-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:13px;color:rgba(255,255,255,.5)}
+@media(min-width:900px){.foot__top{grid-template-columns:1.5fr 1fr 1fr 1fr}}
+
+/* FLOATING */
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:70;display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 22px 0 18px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 14px 34px -14px rgba(0,0,0,.45);transform:translateY(140%);opacity:0;transition:transform .7s var(--out),opacity .5s var(--ease),background .3s}
+.fab.show{transform:none;opacity:1}
+.bar-on .fab{transform:translateY(140%);opacity:0;pointer-events:none}
+.fab:hover{background:var(--terra)}
+.fab svg{width:18px;height:18px}
+.ctag{position:fixed;left:var(--gutter);top:calc(var(--header) + 8px);z-index:55;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.85);background:rgba(0,0,0,.22);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);padding:4px 8px;border-radius:999px;pointer-events:none;transition:opacity .5s var(--ease)}
+.ctag.off{opacity:0}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
+  .rv,.fade-up{opacity:1!important;transform:none!important}
+  .rv-img{clip-path:none!important}
+  .mask>span{transform:none!important}
+  .rv-img .art{scale:1!important}
+  .deco use,.hero__scene .dust circle,.hero__scene .bob{animation:none!important}
+  #gl{display:none}
+}
+
+/* ===== mobile fixes v2 ===== */
+html input,html select,html textarea{font-size:16px;min-width:0;max-width:100%;box-sizing:border-box}
+html input[type="date"],html input[type="time"]{-webkit-appearance:none;appearance:none;display:block;width:100%;height:56px;min-height:56px;line-height:56px;padding:0 14px;text-align:left;overflow:hidden;white-space:nowrap}
+html input[type="date"]::-webkit-date-and-time-value,html input[type="time"]::-webkit-date-and-time-value{text-align:left;margin:0;line-height:56px;min-height:0}
+html input[type="date"]::-webkit-datetime-edit,html input[type="time"]::-webkit-datetime-edit{padding:0;line-height:56px}
+html input[type="date"]::-webkit-calendar-picker-indicator{margin:0 0 0 auto}
+html select{height:56px;line-height:normal}
+.menu-open .fab,.menu-open .ctag,.menu-open .sbar{opacity:0!important;pointer-events:none!important;transform:translateY(140%)!important}
+.chips{display:grid!important}
+
+/* faq: no double line under the heading */
+.faq,.faq-list,.faq__list{border-top:0!important}
+.faq>:first-child,.faq-list>:first-child,.faq__list>:first-child{border-top:0!important}
+.faq>:first-child::before,.faq-list>:first-child::before,.faq__list>:first-child::before{display:none!important}
+</style>
+</head>
+<body class="locked">
+
+<!-- Illustration library: our own drawings, used as parallax layers and photo fallbacks -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gPlate" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFDF8"/><stop offset="1" stop-color="#E6DCCB"/></linearGradient>
+    <linearGradient id="gLemon" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7E27A"/><stop offset="1" stop-color="#D9B13A"/></linearGradient>
+    <linearGradient id="gWine" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3E7A8"/><stop offset="1" stop-color="#D9C25C"/></linearGradient>
+    <linearGradient id="gCloth" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6EEE2"/><stop offset="1" stop-color="#E2D3BE"/></linearGradient>
+  </defs>
+  <symbol id="i-truffle" viewBox="0 0 120 110">
+    <polygon points="60,6 88,16 106,44 100,78 74,102 42,100 16,76 12,44 32,16" fill="#3A2A22"/>
+    <polygon points="60,6 88,16 70,40 44,36" fill="#54403A"/><polygon points="88,16 106,44 80,52 70,40" fill="#46342D"/>
+    <polygon points="32,16 44,36 28,56 12,44" fill="#4A3730"/><polygon points="44,36 70,40 80,52 60,70 40,62 28,56" fill="#5C4840"/>
+    <polygon points="80,52 106,44 100,78 74,102 60,70" fill="#2F221C"/><polygon points="28,56 40,62 60,70 42,100 16,76" fill="#3B2B24"/>
+    <g fill="#8B7467" opacity=".55"><circle cx="62" cy="52" r="2.4"/><circle cx="50" cy="66" r="1.8"/><circle cx="82" cy="70" r="2"/><circle cx="36" cy="48" r="1.6"/><circle cx="70" cy="86" r="1.6"/></g>
+  </symbol>
+  <symbol id="i-lf" viewBox="0 0 48 16"><path d="M1 8C10 1 30 0 47 8C30 16 10 15 1 8z" fill="currentColor" fill-opacity=".28" stroke="currentColor" stroke-width=".8"/><path d="M2 8H44" stroke="currentColor" stroke-width=".5" opacity=".7"/></symbol>
+  <symbol id="i-olive" viewBox="0 0 140 280"><path d="M70 278C66 220 78 150 64 70C60 46 66 22 74 4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+    <use href="#i-lf" width="52" height="17" transform="translate(68 240) rotate(-28)"/><use href="#i-lf" width="52" height="17" transform="translate(68 222) rotate(200)"/>
+    <use href="#i-lf" width="50" height="16" transform="translate(70 190) rotate(-36)"/><use href="#i-lf" width="50" height="16" transform="translate(70 172) rotate(206)"/>
+    <use href="#i-lf" width="48" height="16" transform="translate(68 138) rotate(-40)"/><use href="#i-lf" width="48" height="16" transform="translate(66 118) rotate(212)"/>
+    <use href="#i-lf" width="44" height="15" transform="translate(64 84) rotate(-46)"/><use href="#i-lf" width="44" height="15" transform="translate(63 64) rotate(216)"/>
+    <use href="#i-lf" width="40" height="14" transform="translate(70 30) rotate(-60)"/>
+    <ellipse cx="88" cy="160" rx="6" ry="8" fill="#3E4A2A" fill-opacity=".8" stroke="currentColor" stroke-width=".7"/><ellipse cx="52" cy="100" rx="5" ry="7" fill="#3E4A2A" fill-opacity=".7" stroke="currentColor" stroke-width=".7"/></symbol>
+  <symbol id="i-skyline" viewBox="0 0 400 140">
+    <path d="M0 120L0 104 18 104 18 96 40 96 40 104 58 104 58 90 76 90 76 98 96 98 96 86 112 86 112 94 130 94 130 80 150 80 150 88 166 88 166 72 184 72 184 80 200 80 200 66 212 66 212 46 216 46 216 20 220 12 224 20 224 46 228 46 228 66 240 66 240 76 256 76 256 84 274 84 274 92 292 92 292 86 310 86 310 96 330 96 330 102 350 102 350 98 372 98 372 106 400 106 400 120z" fill="currentColor"/>
+    <path d="M0 122H400" stroke="currentColor" stroke-width=".8" opacity=".6"/>
+    <path d="M10 130c20 0 20-4 40-4s20 4 40 4 20-4 40-4 20 4 40 4 20-4 40-4 20 4 40 4 20-4 40-4 20 4 40 4 20-4 40-4" fill="none" stroke="currentColor" stroke-width=".8" opacity=".45"/>
+  </symbol>
+  <symbol id="i-plate" viewBox="0 0 260 200"><ellipse cx="130" cy="186" rx="100" ry="8" fill="#2A211C" opacity=".1"/>
+    <ellipse cx="130" cy="110" rx="118" ry="72" fill="url(#gPlate)" stroke="currentColor" stroke-width=".9"/>
+    <ellipse cx="130" cy="110" rx="92" ry="54" fill="none" stroke="currentColor" stroke-width=".6" opacity=".6"/></symbol>
+  <symbol id="i-pasta" viewBox="0 0 260 200"><use href="#i-plate" width="260" height="200"/>
+    <g fill="none" stroke="#D9A95C" stroke-width="3.2" stroke-linecap="round">
+      <path d="M80 118c20-30 50-24 70-6s40 8 52-14"/><path d="M70 104c30-24 60-10 80 10s40 6 56-16"/><path d="M90 130c16-22 46-28 70-14s36 2 44-12"/><path d="M76 96c24 18 54 20 88 4s34-2 36 14"/>
+      <path d="M100 86c20 14 36 34 64 36"/><path d="M160 80c-18 16-44 30-70 32"/></g>
+    <g fill="#3A2A22" opacity=".9"><path d="M120 96l12-6 10 8-12 7z"/><path d="M150 112l14-4 6 9-13 5z"/><path d="M105 118l10-3 5 7-10 4z"/></g>
+    <g fill="#8A9A5B"><ellipse cx="172" cy="94" rx="7" ry="3" transform="rotate(-30 172 94)"/><ellipse cx="96" cy="100" rx="6" ry="2.6" transform="rotate(20 96 100)"/></g></symbol>
+  <symbol id="i-calamari" viewBox="0 0 260 200"><use href="#i-plate" width="260" height="200"/>
+    <g fill="none" stroke="#E8D9B6" stroke-width="5" stroke-linecap="round"><path d="M86 112c18-26 48-20 66-4s36 8 50-12"/><path d="M80 98c28-20 54-8 74 10s34 4 52-14"/><path d="M96 126c14-18 40-24 64-12s30 0 38-10"/></g>
+    <g fill="#F3EBDF" stroke="#C9B48E" stroke-width="1.4"><ellipse cx="112" cy="98" rx="13" ry="7"/><ellipse cx="150" cy="120" rx="14" ry="7.5"/><ellipse cx="166" cy="92" rx="11" ry="6"/><ellipse cx="128" cy="124" rx="10" ry="5.5"/></g>
+    <g fill="#2B2B2B" opacity=".75"><circle cx="100" cy="92" r="1.3"/><circle cx="138" cy="86" r="1.3"/><circle cx="160" cy="110" r="1.3"/><circle cx="118" cy="114" r="1.3"/><circle cx="178" cy="118" r="1.3"/><circle cx="144" cy="132" r="1.3"/></g>
+    <path d="M90 84c10 4 20 8 30 8" stroke="#F3EBDF" stroke-width="2" opacity=".8" fill="none"/></symbol>
+  <symbol id="i-lemon" viewBox="0 0 200 160"><ellipse cx="100" cy="146" rx="70" ry="7" fill="#2A211C" opacity=".1"/>
+    <path d="M26 86C26 56 56 36 100 36C144 36 174 56 174 86C174 116 144 136 100 136C56 136 26 116 26 86z" fill="url(#gLemon)" stroke="currentColor" stroke-width=".9"/>
+    <path d="M20 86c-6-6-4-14 2-16M180 86c6-6 4-14-2-16" fill="none" stroke="#C9A32E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M60 60c20-10 60-10 80 0" fill="none" stroke="#FFF6C8" stroke-width="3" opacity=".8" stroke-linecap="round"/>
+    <g color="#5F6B3E"><use href="#i-lf" width="70" height="24" transform="translate(96 40) rotate(-32)"/></g>
+    <path d="M100 42c10-10 20-16 30-18" fill="none" stroke="#5F6B3E" stroke-width="1.2"/></symbol>
+  <symbol id="i-wine" viewBox="0 0 100 200"><path d="M22 10h56c0 50-10 86-28 86S22 60 22 10z" fill="none" stroke="currentColor" stroke-width="1.2"/>
+    <path d="M26 44c4 32 12 52 24 52s20-20 24-52z" fill="url(#gWine)" opacity=".9"/>
+    <path d="M50 96v74M24 182c10-8 42-8 52 0" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M30 20c2 20 6 36 10 46" fill="none" stroke="#fff" stroke-width="1.6" opacity=".7" stroke-linecap="round"/></symbol>
+  <symbol id="i-table" viewBox="0 0 400 260"><ellipse cx="200" cy="246" rx="170" ry="10" fill="#000" opacity=".12"/>
+    <path d="M30 120c0-36 76-56 170-56s170 20 170 56v18c0 36-76 56-170 56S30 174 30 138z" fill="url(#gCloth)" stroke="currentColor" stroke-width=".9"/>
+    <g fill="none" stroke="currentColor" stroke-width=".6" opacity=".55"><path d="M60 100c40 18 240 18 280 0"/><path d="M60 140c40 18 240 18 280 0"/><path d="M120 70v120M200 64v126M280 70v120"/></g>
+    <g color="#8B6A50"><use href="#i-plate" x="60" y="86" width="110" height="84"/><use href="#i-plate" x="230" y="86" width="110" height="84"/><use href="#i-pasta" x="138" y="70" width="124" height="96"/></g>
+    <g color="#5F6B3E"><use href="#i-wine" x="100" y="22" width="30" height="60"/><use href="#i-wine" x="268" y="22" width="30" height="60"/><use href="#i-wine" x="196" y="14" width="30" height="60"/></g>
+    <g><rect x="312" y="30" width="18" height="60" rx="6" fill="#5F6B3E"/><rect x="318" y="12" width="6" height="24" rx="3" fill="#5F6B3E"/><rect x="314" y="54" width="14" height="18" fill="#F3EBDF"/></g>
+    <g color="#D9A95C"><use href="#i-lemon" x="58" y="150" width="36" height="29"/><use href="#i-lemon" x="300" y="150" width="36" height="29"/></g>
+    <g color="#3A2A22"><use href="#i-truffle" x="174" y="176" width="26" height="24"/><use href="#i-truffle" x="204" y="178" width="20" height="18"/></g>
+    <path d="M40 230c0-24 20-40 46-40M360 230c0-24-20-40-46-40" fill="none" stroke="currentColor" stroke-width="1" opacity=".5"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 20 20"><path d="M10 0C10.6 6 14 9.4 20 10C14 10.6 10.6 14 10 20C9.4 14 6 10.6 0 10C6 9.4 9.4 6 10 0z" fill="currentColor"/></symbol>
+</svg>
+
+<div class="pre" id="pre" aria-hidden="true">
+  <div class="pre__in">
+    <svg viewBox="0 0 100 100">
+      <circle class="ring" cx="50" cy="50" r="46" pathLength="1" transform="rotate(-90 50 50)"/>
+      <path class="s" pathLength="1" d="M64 31C60 25 54 22 47 22C38 22 32 28 32 35C32 43 39 46.5 50 50.5C61 54.5 68 58 68 67C68 75 61 79.5 52 79.5C44 79.5 37 76 34 69.5"/>
+    </svg>
+    <div class="pre__name">Konoba Serafin</div>
+  </div>
+</div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Konoba Serafin">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><path d="M64 31C60 25 54 22 47 22C38 22 32 28 32 35C32 43 39 46.5 50 50.5C61 54.5 68 58 68 67C68 75 61 79.5 52 79.5C44 79.5 37 76 34 69.5" fill="none" stroke="#D9A95C" stroke-width="3.4" stroke-linecap="round"/></svg>
+      <span><b>Serafin</b><small>Konoba · Rovinj</small></span>
+    </a>
+    <div class="hdr__r">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="hr" aria-pressed="true">HR</button><i></i><button type="button" data-lang="en" aria-pressed="false">EN</button><i></i><button type="button" data-lang="it" aria-pressed="false">IT</button><i></i><button type="button" data-lang="de" aria-pressed="false">DE</button>
+      </div>
+      <a href="#rezervacija" class="pill hdr__book" data-i18n="nav.book">Rezerviraj stol</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span data-i18n="menu">Izbornik</span><span class="burger"><i></i><i></i></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <nav aria-label="Izbornik">
+    <a href="#obitelj" data-i18n="nav.story">Obitelj</a>
+    <a href="#jelovnik" data-i18n="nav.menu">Jelovnik</a>
+    <a href="#jela" data-i18n="nav.dishes">Potpisi kuće</a>
+    <a href="#blizina" data-i18n="nav.near">U blizini</a>
+    <a href="#rezervacija" data-i18n="nav.booking">Rezervacija</a>
+    <a href="#faq" data-i18n="nav.faq">Pitanja</a>
+    <a href="#kontakt" data-i18n="nav.contact">Kontakt</a>
+  </nav>
+  <div class="menu-foot">
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="hr" aria-pressed="true">HR</button><i></i><button type="button" data-lang="en" aria-pressed="false">EN</button><i></i><button type="button" data-lang="it" aria-pressed="false">IT</button><i></i><button type="button" data-lang="de" aria-pressed="false">DE</button>
+    </div>
+    <a href="#rezervacija" class="pill" data-i18n="nav.book">Rezerviraj stol</a>
+    <a class="menu-tel" href="tel:+385912240496">+385&nbsp;91&nbsp;224&nbsp;0496 · WhatsApp</a>
+  </div>
+</div>
+
+<main id="top">
+
+<section class="hero" id="hero" aria-label="Konoba Serafin">
+  <div class="hero__media" id="heroMedia" aria-hidden="true">
+    <!-- Static SVG scene: fallback when WebGL is off or reduced motion is set -->
+    <svg class="hero__scene" viewBox="0 0 400 760" preserveAspectRatio="xMidYMid slice">
+      <g class="dust" fill="#E8C07A">
+        <circle cx="40" cy="120" r="1.6"/><circle cx="120" cy="80" r="1.1"/><circle cx="210" cy="140" r="2"/><circle cx="300" cy="60" r="1.3"/><circle cx="360" cy="180" r="1.8"/><circle cx="80" cy="260" r="1.2"/><circle cx="250" cy="240" r="1.5"/><circle cx="330" cy="300" r="1"/><circle cx="150" cy="330" r="2.2"/><circle cx="30" cy="400" r="1.4"/><circle cx="380" cy="420" r="1.6"/><circle cx="200" cy="420" r="1"/><circle cx="110" cy="480" r="1.7"/><circle cx="290" cy="500" r="1.3"/><circle cx="60" cy="560" r="1.1"/><circle cx="340" cy="600" r="2"/><circle cx="180" cy="590" r="1.4"/>
+      </g>
+      <g data-hp="0.12" color="#6F7D4A" opacity=".8"><use href="#i-olive" x="-30" y="-20" width="150" height="300" transform="rotate(-32 45 130)"/></g>
+      <g data-hp="0.2" color="#3A2A22"><g class="bob"><use href="#i-truffle" x="230" y="170" width="130" height="120"/></g></g>
+      <g data-hp="0.28" color="#8A9A5B"><g class="bob b2"><use href="#i-lf" x="110" y="300" width="70" height="24" transform="rotate(-30 145 312)"/></g><g class="bob"><use href="#i-lf" x="300" y="330" width="60" height="20" transform="rotate(25 330 340)"/></g></g>
+      <g data-hp="0.08" color="#0F140B" opacity=".9"><use href="#i-skyline" x="-40" y="420" width="480" height="168"/></g>
+    </svg>
+    <canvas id="gl" aria-hidden="true"></canvas>
+  </div>
+  <div class="hero__veil"></div>
+  <div class="hero__c">
+    <div class="wrap">
+      <p class="label fade-up" data-i18n="hero.eyebrow">Obiteljska konoba · Rovinj, Istra</p>
+      <h1><span class="mask"><span>Konoba Serafin</span></span><span class="mask"><span class="sub" data-i18n="hero.sub">Kao na obiteljskom slavlju</span></span></h1>
+      <p class="hero__txt fade-up d1" data-i18n="hero.txt">Dio tradicija, dio mašta. Svježi sastojci, bez pretenzija i osjećaj da ste pozvani za obiteljski stol.</p>
+      <a class="hero__addr fade-up d2" href="https://maps.google.com/?q=Konoba+Serafin,+Ul.+Domenica+Medelina+12,+52210+Rovinj" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        <span>Ul. Domenica Medelina 12, 52210&nbsp;Rovinj</span>
+      </a>
+      <div class="hero__cta fade-up d3"><a class="pill pill--grey" href="#rezervacija" data-i18n="hero.cta">Rezervirajte stol</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="finder">
+  <a href="#rezervacija">
+    <svg class="finder__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+    <span class="finder__t"><b data-i18n="finder.t">Stol u Serafinu</b><small><span data-i18n="finder.today">Danas</span> • <span id="finderG">2 gosta</span></small></span>
+    <span class="finder__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+</div>
+
+<!-- Photo carousel (near black) -->
+<section class="gal-sec" id="galerija" aria-roledescription="carousel" aria-label="Galerija">
+  <div class="wrap">
+    <h2 class="rv" data-i18n="gal.t">Dobrodošli u Serafin</h2>
+    <p class="sub rv" data-delay="1" data-i18n="gal.sub">Konoba na kratkoj šetnji od rovinjskog starog grada.</p>
+    <div class="gal rv" data-delay="1" id="gal">
+      <div class="gal__track" id="galTrack">
+        <div class="gal__slide cur"><div class="art art--hero"><img src="img/hero.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c1">Konoba Serafin, Rovinj</span></span></div>
+        <div class="gal__slide"><div class="art art--pasta"><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c2">Tjestenina s tartufima</span></span></div>
+        <div class="gal__slide"><div class="art art--cala"><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c3">Kalamari cacio e pepe</span></span></div>
+        <div class="gal__slide"><div class="art art--lemon"><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c4">Mamina pita od limuna</span></span></div>
+        <div class="gal__slide"><div class="art art--table"><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c5">Obiteljski stol</span></span></div>
+      </div>
+      <a class="tag-b" href="https://maps.google.com/?q=Konoba+Serafin,+Ul.+Domenica+Medelina+12,+52210+Rovinj" target="_blank" rel="noopener"><span data-i18n="tag.place">Rovinj, Istra</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5l7 7-7 7"/></svg></a>
+      <button class="sqbtn l" type="button" id="galPrev" aria-label="Prethodna"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="sqbtn r" type="button" id="galNext" aria-label="Sljedeća"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button>
+      <span class="gal__prog"><i id="galProg"></i></span>
+      <span class="gal__count" id="galCount" aria-live="polite">1/5</span>
+    </div>
+  </div>
+</section>
+
+<!-- 01 Story -->
+<section class="sec story bg-cream" id="obitelj">
+  <div class="wm" id="wm" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">01</span><span data-i18n="story.label">Obitelj</span></p>
+      <h2 data-i18n="story.title">Jedna obitelj, jedan stol</h2>
+    </div>
+    <div class="story__grid">
+      <div>
+        <div class="frame story__img rv-img">
+          <div class="art art--table" data-par="0.1"><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
+          <span class="tag-b" data-i18n="tag.place">Rovinj, Istra</span>
+          <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Ul. Domenica Medelina 12</span>
+        </div>
+        <p class="lead rv" data-i18n="story.lead">Sin je u kuhinji, otac dočekuje goste, a mama peče kolače. Kod nas se ne glumi, kod nas se kuha.</p>
+        <p class="rv" data-delay="1" data-i18n="story.p1">Serafin je dijelom tradicionalan, dijelom kreativan. Svježi sastojci, bez pretenzija i poneko jelo koje vas iznenadi.</p>
+        <p class="rv" data-delay="2" data-i18n="story.p2">Gosti nam kažu da se osjećaju kao da su pozvani na obiteljsko slavlje. To nam je najveći kompliment.</p>
+        <div class="roles rv" data-delay="2">
+          <div class="role"><span class="role__ic"><svg viewBox="0 0 24 24"><path d="M7 10a3.5 3.5 0 0 1 1-6.9A4 4 0 0 1 16 4a3.5 3.5 0 0 1 1 6.9V19H7z"/><path d="M7 15h10"/></svg></span><div><b data-i18n="role.chef">Sin</b><small data-i18n="role.chefV">Chef, vodi kuhinju</small></div></div>
+          <div class="role"><span class="role__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.5"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/><path d="M9 14l3 3 3-3"/></svg></span><div><b data-i18n="role.dad">Otac</b><small data-i18n="role.dadV">Dočekuje goste i vodi salu</small></div></div>
+          <div class="role"><span class="role__ic"><svg viewBox="0 0 24 24"><path d="M4 12h16l-1.5 8h-13z"/><path d="M6 12c0-4 2.5-6 6-6s6 2 6 6"/><path d="M12 6V3"/></svg></span><div><b data-i18n="role.mom">Mama</b><small data-i18n="role.momV">Kolači i pite</small></div></div>
+        </div>
+      </div>
+      <aside class="gtk rv" data-delay="1" aria-labelledby="gtk-h">
+        <h3 id="gtk-h" data-i18n="gtk.title">Dobro je znati</h3>
+        <dl>
+          <div class="gtk__row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>
+            <dt data-i18n="gtk.hours">Radno vrijeme</dt>
+            <dd data-i18n="gtk.hoursV">Srijeda do ponedjeljka 12:00 do 22:00<br>Utorak zatvoreno</dd>
+          </div>
+          <div class="gtk__row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5h3.2l1.8 4.6-2.4 1.5a11.5 11.5 0 0 0 6.8 6.8l1.5-2.4 4.6 1.8v3.2a2 2 0 0 1-2 2A17.5 17.5 0 0 1 3 5.5a2 2 0 0 1 2-2z"/></svg>
+            <dt data-i18n="gtk.phone">Telefon / WhatsApp</dt>
+            <dd><a href="tel:+385912240496">+385&nbsp;91&nbsp;224&nbsp;0496</a></dd>
+          </div>
+          <div class="gtk__row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+            <dt data-i18n="gtk.where">Gdje smo</dt>
+            <dd data-i18n="gtk.whereV">Ul. Domenica Medelina 12, Rovinj. Kratka šetnja iz starog grada.</dd>
+          </div>
+          <div class="gtk__row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h8c0 6-1.5 10-4 10S8 9 8 3z"/><path d="M12 13v7M8.5 21h7"/></svg>
+            <dt data-i18n="gtk.wine">Uz jelo</dt>
+            <dd data-i18n="gtk.wineV">Lokalno svježe bijelo vino</dd>
+          </div>
+        </dl>
+        <div class="badge">
+          <span class="badge__g" aria-hidden="true">G</span>
+          <div>
+            <div style="display:flex;align-items:center;gap:10px"><b id="cntRate" data-to="4.8">0,0</b><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg></span></div>
+            <small><span data-i18n="gtk.reviews">Ocjena na Googleu,</span> <span id="cntRev" data-to="570">0</span> <span data-i18n="gtk.reviews2">recenzija</span></small>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- 02 Menu -->
+<section class="sec has-deco bg-white" id="jelovnik">
+  <svg class="deco" viewBox="0 0 140 280" style="width:150px;right:-44px;top:30px;color:#8A9A5B;opacity:0.5" data-par="0.25" aria-hidden="true"><use href="#i-olive" width="140" height="280"/></svg>
+  <svg class="deco d2" viewBox="0 0 120 110" style="width:70px;left:-10px;bottom:140px;color:#3A2A22;opacity:0.5" data-par="0.4" aria-hidden="true"><use href="#i-truffle" width="120" height="110"/></svg>
+  <div class="wrap menu__grid">
+    <div class="sh rv">
+      <p class="label"><span class="num">02</span><span data-i18n="menu.label">Jelovnik</span></p>
+      <h2 data-i18n="menu.title">Što se danas kuha</h2>
+      <p data-i18n="menu.lead">Izbor iz ponude. Jelovnik se mijenja prema sezoni i ulovu.</p>
+    </div>
+    <div class="rv" data-delay="1">
+      <div class="tabs" role="tablist" id="tabs">
+        <button class="tab" role="tab" aria-selected="true" data-tab="p1" data-i18n="tab.1">Predjela</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="p2" data-i18n="tab.2">Tjestenine</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="p3" data-i18n="tab.3">Riba i meso</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="p4" data-i18n="tab.4">Kolači</button>
+        <span class="tab-ink" id="tabInk" aria-hidden="true"></span>
+      </div>
+      <div class="panels">
+        <div class="panel on" id="p1" role="tabpanel">
+          <div class="dish"><h3 data-i18n="m.a1">Istarski narezak</h3><span class="pr"><i class="ph">XX&nbsp;€</i></span><p data-i18n="m.a1d">Domaći narezak po istarski, za početak</p></div>
+          <div class="dish"><h3 data-i18n="m.a2">Tuna</h3><span class="pr"><i class="ph">XX&nbsp;€</i></span><p data-i18n="m.a2d">Svježa, prema ponudi dana</p></div>
+          <div class="dish"><h3 data-i18n="m.a3">Predjelo dana</h3><span class="pr"><i class="ph">XX&nbsp;€</i></span><p data-i18n="m.a3d">Pitajte oca što danas preporučuje</p></div>
+        </div>
+        <div class="panel" id="p2" role="tabpanel">
+          <div class="dish"><h3 data-i18n="m.b1">Tjestenina s tartufima</h3><span class="pr"><i class="ph">XX&nbsp;€</i></span><p data-i18n="m.b1d">Naš klasik. Svježa tjestenina i tartuf</p></div>
+          <div class="dish"><h3 data-i18n="m.b2">Kalamari cacio e pepe</h3><span class="pr"><i class="ph">XX&nbsp;€</i></span><p data-i18n="m.b2d">Tradicija i mašta na jednom tanjuru</p></div>
+          <div class="dish"><h3 data-i18n="m.b3">Tjestenina dana</h3><span class="pr"><i class="ph">XX&nbsp;€</i></span><p data-i18n="m.b3d">Prema sezoni</p></div>
+        </div>
+        <div class="panel" id="p3" role="tabpanel">
+          <div class="dish"><h3 data-i18n="m.c1">Tuna</h3><span class="pr"><i class="ph">XX&nbsp;€</i></span><p data-i18n="m.c1d">Prema ulovu dana</p></div>
+          <div class="dish"><h3 data-i18n="m.c2">Jastog</h3><span class="pr"><i class="ph">XX&nbsp;€</i></span><p data-i18n="m.c2d">Na upit, prema ulovu</p></div>
+          <div class="dish"><h3 data-i18n="m.c3">Meso dana</h3><span class="pr"><i class="ph">XX&nbsp;€</i></span><p data-i18n="m.c3d">Pitajte nas za današnju ponudu</p></div>
+        </div>
+        <div class="panel" id="p4" role="tabpanel">
+          <div class="dish"><h3 data-i18n="m.d1">Mamina pita od limuna</h3><span class="pr"><i class="ph">XX&nbsp;€</i></span><p data-i18n="m.d1d">Mamin recept, naš omiljeni završetak</p></div>
+          <div class="dish"><h3 data-i18n="m.d2">Kolač dana</h3><span class="pr"><i class="ph">XX&nbsp;€</i></span><p data-i18n="m.d2d">Što je mama danas ispekla</p></div>
+        </div>
+      </div>
+      <div class="wine"><svg viewBox="0 0 100 200" aria-hidden="true"><use href="#i-wine" width="100" height="200"/></svg><span data-i18n="menu.wine">Uz jelo: lokalno svježe bijelo vino.</span></div>
+      <p class="menu__note" data-i18n="menu.note">Cijene označene s XX su primjeri za uređivanje. Jelovnik je ilustrativan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Deep olive: family table -->
+<section class="deep" id="stol">
+  <svg class="deco d2" viewBox="0 0 140 280" style="width:160px;right:6%;top:-50px;color:#ffffff;opacity:0.14" data-par="0.2" aria-hidden="true"><use href="#i-olive" width="140" height="280"/></svg>
+  <span class="deep__orb a" data-par="0.18"></span><span class="deep__orb b" data-par="-0.12"></span>
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">03</span><span data-i18n="ft.label">Obiteljski stol</span></p>
+      <h2 data-i18n="ft.title">Zašto se gosti vraćaju</h2>
+    </div>
+    <ul class="pts">
+      <li class="pt rv"><span class="pt__ic"><svg viewBox="0 0 24 24"><circle cx="8" cy="7" r="2.6"/><circle cx="16" cy="7" r="2.6"/><path d="M3 20c0-3.5 2.2-6 5-6s5 2.5 5 6M11 20c0-3.5 2.2-6 5-6s5 2.5 5 6"/></svg></span><div><h3 data-i18n="ft.1t">Obitelj u svakoj smjeni</h3><p data-i18n="ft.1p">Sin kuha, otac dočekuje, mama peče kolače. Svaki tanjur prolazi kroz obiteljske ruke.</p></div></li>
+      <li class="pt rv" data-delay="1"><span class="pt__ic"><svg viewBox="0 0 24 24"><path d="M4 19c6-2 10-6 12-14"/><path d="M4 19c2-6 6-10 14-12"/><path d="M4 19l4-1"/></svg></span><div><h3 data-i18n="ft.2t">Tradicija i mašta</h3><p data-i18n="ft.2p">Pola jelovnika već poznajete, pola ćete tek upoznati. Svježi sastojci, bez pretenzija.</p></div></li>
+      <li class="pt rv" data-delay="2"><span class="pt__ic"><svg viewBox="0 0 24 24"><path d="M3 12h18M5 12v8h14v-8"/><path d="M8 12V9a4 4 0 0 1 8 0v3"/><path d="M12 5V3"/></svg></span><div><h3 data-i18n="ft.3t">Kao na slavlju</h3><p data-i18n="ft.3p">Opuštena atmosfera i osjećaj da ste pozvani na obiteljsko slavlje, a ne samo na ručak.</p></div></li>
+    </ul>
+    <a class="pill pill--outline rv" href="#rezervacija" data-i18n="hero.cta">Rezervirajte stol</a>
+  </div>
+</section>
+
+<!-- 04 Signature dishes -->
+<section class="sec has-deco bg-cream" id="jela">
+  <svg class="deco" viewBox="0 0 200 160" style="width:120px;left:-30px;top:30px;color:#9E7E3A;opacity:0.5" data-par="0.3" aria-hidden="true"><use href="#i-lemon" width="200" height="160"/></svg>
+  <svg class="deco d2" viewBox="0 0 100 200" style="width:60px;right:6%;bottom:40px;color:#5F6B3E;opacity:0.45" data-par="-0.12" aria-hidden="true"><use href="#i-wine" width="100" height="200"/></svg>
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">04</span><span data-i18n="sig.label">Jela</span></p>
+      <h2 data-i18n="sig.title">Potpisi kuće</h2>
+      <p data-i18n="sig.lead">Jela zbog kojih se vraća. Povucite za više.</p>
+    </div>
+  </div>
+  <div class="peek" id="peek">
+    <article class="tcard rv">
+      <div class="frame"><div class="art art--pasta"><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="s1.k">Klasik</span></div>
+      <h3 data-i18n="m.b1">Tjestenina s tartufima</h3>
+      <p class="tcard__meta"><i class="ph">XX&nbsp;€</i></p>
+      <p data-i18n="s1.p">Svježa tjestenina i tartuf. Jelo po kojem nas pamte.</p>
+      <ul><li data-i18n="s.fresh">Svježi sastojci</li><li data-i18n="s1.l2">Tradicionalna strana Serafina</li></ul>
+      <a class="ulink" href="#rezervacija"><span data-i18n="sig.cta">Rezerviraj stol</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article>
+    <article class="tcard rv" data-delay="1">
+      <div class="frame"><div class="art art--cala"><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="s2.k">Kreativno</span></div>
+      <h3 data-i18n="m.b2">Kalamari cacio e pepe</h3>
+      <p class="tcard__meta"><i class="ph">XX&nbsp;€</i></p>
+      <p data-i18n="s2.p">Kreativna strana kuće: kalamari u stilu cacio e pepe.</p>
+      <ul><li data-i18n="s.fresh">Svježi sastojci</li><li data-i18n="s2.l2">Ideja iz sinove kuhinje</li></ul>
+      <a class="ulink" href="#rezervacija"><span data-i18n="sig.cta">Rezerviraj stol</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article>
+    <article class="tcard rv" data-delay="2">
+      <div class="frame"><div class="art art--lemon"><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="s3.k">Slatko</span></div>
+      <h3 data-i18n="m.d1">Mamina pita od limuna</h3>
+      <p class="tcard__meta"><i class="ph">XX&nbsp;€</i></p>
+      <p data-i18n="s3.p">Mamin recept. Svježe, kiselkasto i baš kako treba.</p>
+      <ul><li data-i18n="s3.l1">Mama peče</li><li data-i18n="s3.l2">Pravi završetak obroka</li></ul>
+      <a class="ulink" href="#rezervacija"><span data-i18n="sig.cta">Rezerviraj stol</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article>
+    <article class="tcard rv" data-delay="3">
+      <div class="frame"><div class="art art--table"><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="s4.k">Za početak</span></div>
+      <h3 data-i18n="m.a1">Istarski narezak</h3>
+      <p class="tcard__meta"><i class="ph">XX&nbsp;€</i></p>
+      <p data-i18n="s4.p">Za početak, dok čekate glavno jelo. Uz čašu lokalnog bijelog.</p>
+      <ul><li data-i18n="s4.l1">Istarski narezak</li><li data-i18n="gtk.wineV">Lokalno svježe bijelo vino</li></ul>
+      <a class="ulink" href="#rezervacija"><span data-i18n="sig.cta">Rezerviraj stol</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article>
+  </div>
+  <div class="wrap">
+    <div class="peek__ui">
+      <button class="rbtn" type="button" id="pkPrev" aria-label="Prethodna"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="peek__bar"><i id="pkBar"></i></div>
+      <button class="rbtn" type="button" id="pkNext" aria-label="Sljedeća"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- 05 Nearby -->
+<section class="sec has-deco bg-white" id="blizina">
+  <svg class="deco" viewBox="0 0 400 140" style="width:min(120vw,900px);right:-10%;bottom:-10px;color:#2B2B2B;opacity:0.08" data-par="0.1" aria-hidden="true"><use href="#i-skyline" width="400" height="140"/></svg>
+  <div class="wrap near__grid">
+    <div class="sh rv">
+      <p class="label"><span class="num">05</span><span data-i18n="near.label">Lokacija</span></p>
+      <h2 data-i18n="near.title">Što je u blizini</h2>
+      <p data-i18n="near.lead">Kratka šetnja izvan starog grada, dovoljno blizu da dođete pješice.</p>
+    </div>
+    <ul class="near rv" data-delay="1">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M5 20v-7l3-2v9M8 20v-9l4-3 4 3v9M16 20v-9l3 2v7"/><path d="M12 8V3l1.5 1.5"/></svg><div><b data-i18n="near.1">Rovinjska starogradska jezgra</b><small data-i18n="near.1s">Crkva sv. Eufemije i uličice uz more</small></div><span class="dist" data-i18n="near.1v">Kratka šetnja</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="13" rx="2"/><path d="M4 10h16M8 17v2M16 17v2M8 13.5h.01M16 13.5h.01"/></svg><div><b data-i18n="near.2">Autobusni kolodvor Rovinj</b><small data-i18n="near.2s">Pješice do konobe</small></div><span class="dist" data-i18n="near.2v">Oko 10&nbsp;min</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 06 Booking -->
+<section class="sec book" id="rezervacija">
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">06</span><span data-i18n="bk.label">Rezervacija</span></p>
+      <h2 data-i18n="bk.title">Rezervirajte stol</h2>
+      <p data-i18n="bk.lead">Odaberite datum, vrijeme i broj gostiju. Poruka se otvara u WhatsAppu, a mi vam potvrđujemo.</p>
+    </div>
+    <div class="book__grid">
+      <form class="form rv" id="form" novalidate>
+        <label class="field">
+          <span data-i18n="f.date">Datum</span>
+          <input class="ctl" type="date" id="fDate" data-closed="2">
+          <p class="hint" id="tueHint" data-i18n="f.tue">Utorkom smo zatvoreni. Odaberite drugi dan.</p>
+        </label>
+        <fieldset class="field">
+          <legend data-i18n="f.time">Vrijeme</legend>
+          <div class="chips" id="times">
+            <label class="chip"><input type="radio" name="time" value="12:00"><span>12:00</span></label>
+            <label class="chip"><input type="radio" name="time" value="13:00"><span>13:00</span></label>
+            <label class="chip"><input type="radio" name="time" value="14:00"><span>14:00</span></label>
+            <label class="chip"><input type="radio" name="time" value="15:00"><span>15:00</span></label>
+            <label class="chip"><input type="radio" name="time" value="16:00"><span>16:00</span></label>
+            <label class="chip"><input type="radio" name="time" value="17:00"><span>17:00</span></label>
+            <label class="chip"><input type="radio" name="time" value="18:00"><span>18:00</span></label>
+            <label class="chip"><input type="radio" name="time" value="19:00"><span>19:00</span></label>
+            <label class="chip"><input type="radio" name="time" value="20:00" checked><span>20:00</span></label>
+            <label class="chip"><input type="radio" name="time" value="21:00"><span>21:00</span></label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <span data-i18n="f.guests">Gosti</span>
+          <div class="qty"><button type="button" id="qMinus" aria-label="Manje">&minus;</button><output id="qOut">2</output><button type="button" id="qPlus" aria-label="Više">+</button></div>
+        </div>
+        <label class="field">
+          <span data-i18n="f.name">Vaše ime</span>
+          <input class="ctl" type="text" id="fName" autocomplete="given-name" data-i18n-ph="f.nameph" placeholder="Ime">
+        </label>
+        <button class="pill pill--cream pill--block" type="submit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>
+          <span data-i18n="f.submit">Pošalji upit na WhatsApp</span>
+        </button>
+        <p class="fine" data-i18n="f.fine">Bez plaćanja i bez prijave. Samo poruka.</p>
+      </form>
+      <div class="book__aside rv" data-delay="1">
+        <div class="soon">
+          <span class="soon__dot" aria-hidden="true"></span>
+          <div><b data-i18n="bk.seasonT">U sezoni</b><p data-i18n="bk.season">U sezoni preporučujemo rezervaciju, pogotovo za večeru. Za veće grupe nazovite nas.</p></div>
+        </div>
+        <div class="soon">
+          <span class="soon__dot" aria-hidden="true"></span>
+          <div><b data-i18n="bk.tueT">Utorak</b><p data-i18n="bk.tue">Utorkom smo zatvoreni. Ostale dane kuhamo od 12:00 do 22:00.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec has-deco bg-cream" id="faq">
+  <svg class="deco" viewBox="0 0 140 280" style="width:120px;left:-30px;bottom:20px;color:#8A9A5B;opacity:0.45" data-par="0.22" aria-hidden="true"><use href="#i-olive" width="140" height="280"/></svg>
+  <svg class="deco d2" viewBox="0 0 120 110" style="width:40px;right:10%;top:90px;color:#3A2A22;opacity:0.4" data-par="0.45" aria-hidden="true"><use href="#i-truffle" width="120" height="110"/></svg>
+  <div class="wrap faq__grid">
+    <div class="sh rv">
+      <p class="label" data-i18n="faq.label">Pitanja</p>
+      <h2 data-i18n="faq.title">Prije dolaska</h2>
+    </div>
+    <div class="faq__list rv" data-delay="1">
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q1">Kada ste zatvoreni?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a1">Utorkom. Ostale dane radimo od 12:00 do 22:00.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q2">Treba li rezervirati?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a2">U sezoni preporučujemo rezervaciju, pogotovo za večeru. Javite nam se porukom ili pozivom.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q3">Imate li vegetarijanska jela?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a3">Pitajte nas. Rado ćemo vam predložiti nešto s jelovnika.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q4">Može li se platiti karticom?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a4">Pitajte osoblje pri dolasku.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 Contact -->
+<section class="sec has-deco bg-white" id="kontakt">
+  <svg class="deco d2" viewBox="0 0 200 160" style="width:90px;right:-14px;top:24px;color:#9E7E3A;opacity:0.4" data-par="0.08" aria-hidden="true"><use href="#i-lemon" width="200" height="160"/></svg>
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">07</span><span data-i18n="ct.label">Kontakt</span></p>
+      <h2 data-i18n="ct.title">Vidimo se za stolom</h2>
+    </div>
+    <div class="contact__grid">
+      <div>
+        <p class="addr rv">Ul. Domenica Medelina 12<br>52210&nbsp;Rovinj, Istra</p>
+        <a class="ulink rv" href="https://maps.google.com/?q=Konoba+Serafin,+Ul.+Domenica+Medelina+12,+52210+Rovinj" target="_blank" rel="noopener"><span data-i18n="ct.map">Otvori u kartama</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <ul class="hours rv" data-delay="1" id="hours">
+          <li data-days="3,4,5,6,0,1"><span data-i18n="h.open">Srijeda do ponedjeljka</span><span>12:00 do 22:00</span></li>
+          <li data-days="2"><span data-i18n="h.tue">Utorak</span><span data-i18n="h.closed">Zatvoreno</span></li>
+        </ul>
+        <div class="contact__btns rv" data-delay="2">
+          <a class="pill" href="https://wa.me/385912240496" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="pill pill--ghost" href="tel:+385912240496">+385&nbsp;91&nbsp;224&nbsp;0496</a>
+        </div>
+      </div>
+      <div class="frame mapf rv-img">
+        <!-- Stylized map of the Rovinj peninsula, not to scale -->
+        <svg class="map" viewBox="0 0 400 400" aria-hidden="true">
+          <rect width="400" height="400" fill="#DCE4E2"/>
+          <g fill="none" stroke="#C8D4D1" stroke-width="1"><path d="M0 60c60 10 120-10 180 0M0 110c80 14 160-10 240 2M0 330c60-8 120 8 180 0M0 370c80 10 160-8 240 0"/></g>
+          <path d="M400 0v400H230c-14-30-8-60 6-90 10-22 2-44-22-56-30-14-56-30-72-56-8-14-30-20-54-14-22 6-40 26-56 44C22 240 8 236 0 232V0z" fill="#EEE7D9"/>
+          <path d="M34 232c16-18 34-38 56-44 24-6 46 0 54 14 16 26 42 42 72 56 24 12 32 34 22 56-14 30-20 60-6 90H400V0H0v232c8 4 22 8 34 0z" fill="none" stroke="#C9BFA8" stroke-width="1.2"/>
+          <path d="M88 196c-20-10-32-30-28-50 4-18 20-30 40-30 22 0 36 14 40 32 6 24-10 44-30 50-8 2-16 2-22-2z" fill="#E4D9C4" stroke="#C9BFA8" stroke-width="1.2"/>
+          <g fill="#D4C7AE"><rect x="78" y="156" width="10" height="10"/><rect x="92" y="150" width="8" height="12"/><rect x="104" y="158" width="10" height="9"/><rect x="84" y="172" width="9" height="9"/><rect x="100" y="172" width="12" height="8"/><rect x="118" y="166" width="8" height="12"/><rect x="72" y="184" width="10" height="8"/><rect x="112" y="184" width="10" height="8"/></g>
+          <path d="M96 128l4-30 4 30" fill="#B65A3A"/><rect x="97" y="128" width="6" height="14" fill="#8F4328"/>
+          <text x="60" y="222" fill="#6B645A">Stari grad</text>
+          <g fill="none" stroke="#C9BFA8" stroke-width="1.4" stroke-dasharray="4 5"><path d="M130 180c40 10 80 20 100 50M230 170c30-30 70-40 110-30M250 260c40-10 80 0 120 20M180 230c20 50 20 100 10 150"/></g>
+          <path d="M300 300h30v24h-30z" fill="#D4C7AE"/><text x="266" y="344" fill="#6B645A" data-i18n="ct.bus">Kolodvor</text>
+          <g stroke="#6F7D4A" stroke-width="1" fill="#8A9A5B" opacity=".6"><circle cx="340" cy="110" r="6"/><circle cx="360" cy="150" r="5"/><circle cx="300" cy="90" r="4"/><circle cx="370" cy="240" r="5"/></g>
+          <text x="20" y="40" fill="#6B645A" opacity=".8">Jadransko more</text>
+        </svg>
+        <span class="tag-b" data-i18n="tag.place">Rovinj, Istra</span>
+        <div class="pin"><div class="pin__ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div></div>
+        <span class="note" data-i18n="ct.maplbl">Stilizirani prikaz, nije u mjerilu</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div>
+        <a href="#top" class="logo">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#D9A95C" stroke-width="1"/><path d="M64 31C60 25 54 22 47 22C38 22 32 28 32 35C32 43 39 46.5 50 50.5C61 54.5 68 58 68 67C68 75 61 79.5 52 79.5C44 79.5 37 76 34 69.5" fill="none" stroke="#D9A95C" stroke-width="2.4" stroke-linecap="round"/></svg>
+          <span><b>Serafin</b><small>Konoba · Rovinj</small></span>
+        </a>
+      </div>
+      <div><h4 data-i18n="fo.addr">Adresa</h4>Ul. Domenica Medelina 12<br>52210&nbsp;Rovinj, Istra, Croatia</div>
+      <div><h4 data-i18n="fo.contact">Kontakt</h4><a href="tel:+385912240496">+385&nbsp;91&nbsp;224&nbsp;0496</a><br><a href="https://wa.me/385912240496" target="_blank" rel="noopener">WhatsApp</a></div>
+      <div><h4 data-i18n="fo.hours">Radno vrijeme</h4><span data-i18n="fo.hoursV">Sri do pon 12:00 do 22:00<br>Uto zatvoreno</span></div>
+    </div>
+    <div class="foot__bot">
+      <span>© 2026 Konoba Serafin</span>
+      <span data-i18n="fo.note">Koncept web stranice, prijedlog</span>
+    </div>
+  </div>
+</footer>
+
+<a class="fab" id="fab" href="#rezervacija">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+  <span data-i18n="nav.book">Rezerviraj stol</span>
+</a>
+
+<div class="sbar" id="sbar" aria-hidden="true">
+  <div><small data-i18n="bar.lbl">Vaša rezervacija</small><b id="barVal">2 gosta · 20:00</b></div>
+  <button class="pill" type="button" id="barBtn" tabindex="-1"><span data-i18n="bar.cta">Pošalji</span></button>
+</div>
+
+<div class="ctag">Koncept: Marija</div>
+
+<script>
+(function(){
+  "use strict";
+  var NB = " ";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function(s,c){return (c||document).querySelector(s)};
+  var $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  var WA = "https://wa.me/385912240496?text=";
+
+  /* ---------- i18n: HR is read from the page, EN / IT / DE from dictionaries ---------- */
+  var EN = {
+    "nav.book":"Book a table","menu":"Menu","nav.story":"The family","nav.menu":"Menu","nav.dishes":"House signatures","nav.near":"Nearby","nav.booking":"Reservation","nav.faq":"FAQ","nav.contact":"Contact",
+    "hero.eyebrow":"Family-run konoba · Rovinj, Istria","hero.sub":"Like a family celebration","hero.txt":"Part tradition, part imagination. Fresh ingredients, no pretension, and the feeling of being invited to the family table.","hero.cta":"Book your table",
+    "finder.t":"A table at Serafin","finder.today":"Today","tag.place":"Rovinj, Istria",
+    "gal.t":"Welcome to Serafin","gal.sub":"A konoba a short walk from Rovinj's old town.","gal.c1":"Konoba Serafin, Rovinj","gal.c2":"Truffle pasta","gal.c3":"Calamari cacio e pepe","gal.c4":"Mum's lemon pie","gal.c5":"The family table",
+    "story.label":"The family","story.title":"One family, one table","story.lead":"The son is in the kitchen, the father welcomes the guests and the mother bakes the pastries. Nobody is acting here, we are cooking.",
+    "story.p1":"Serafin is part traditional, part creative. Fresh ingredients, no pretension, and the odd dish that surprises you.","story.p2":"Guests tell us it feels like being invited to a family celebration. That is the best compliment we know.",
+    "role.chef":"The son","role.chefV":"Chef, runs the kitchen","role.dad":"The father","role.dadV":"Welcomes guests, runs the front","role.mom":"The mother","role.momV":"Pastries and pies",
+    "gtk.title":"Good to know","gtk.hours":"Opening hours","gtk.hoursV":"Wednesday to Monday 12:00 to 22:00<br>Tuesday closed","gtk.phone":"Phone / WhatsApp","gtk.where":"Where we are","gtk.whereV":"Ul. Domenica Medelina 12, Rovinj. A short walk out of the old town.","gtk.wine":"With your meal","gtk.wineV":"Fresh local white wine","gtk.reviews":"Google rating,","gtk.reviews2":"reviews",
+    "menu.label":"Menu","menu.title":"What's cooking today","menu.lead":"A selection from the menu. It changes with the season and the catch.","tab.1":"Starters","tab.2":"Pasta","tab.3":"Fish and meat","tab.4":"Desserts",
+    "m.a1":"Istrian cold cuts","m.a1d":"Istrian-style cold cuts, to start","m.a2":"Tuna","m.a2d":"Fresh, as available today","m.a3":"Starter of the day","m.a3d":"Ask the father what he recommends",
+    "m.b1":"Truffle pasta","m.b1d":"Our classic. Fresh pasta and truffle","m.b2":"Calamari cacio e pepe","m.b2d":"Tradition and imagination on one plate","m.b3":"Pasta of the day","m.b3d":"By the season",
+    "m.c1":"Tuna","m.c1d":"By the day's catch","m.c2":"Lobster","m.c2d":"On request, by the catch","m.c3":"Meat of the day","m.c3d":"Ask us about today's offer",
+    "m.d1":"Mum's lemon pie","m.d1d":"Mum's recipe, our favourite ending","m.d2":"Cake of the day","m.d2d":"Whatever mum baked today",
+    "menu.wine":"With your meal: fresh local white wine.","menu.note":"Prices marked XX are placeholders to edit. The menu is illustrative.",
+    "ft.label":"The family table","ft.title":"Why guests come back","ft.1t":"Family in every shift","ft.1p":"The son cooks, the father welcomes you, the mother bakes. Every plate passes through family hands.",
+    "ft.2t":"Tradition and imagination","ft.2p":"Half the menu you already know, half you are about to meet. Fresh ingredients, no pretension.","ft.3t":"Like a celebration","ft.3p":"A relaxed room and the feeling of being invited to a family celebration, not just lunch.",
+    "sig.label":"Dishes","sig.title":"House signatures","sig.lead":"The dishes people come back for. Swipe for more.","sig.cta":"Book a table","s.fresh":"Fresh ingredients",
+    "s1.k":"Classic","s1.p":"Fresh pasta and truffle. The dish we are remembered for.","s1.l2":"Serafin's traditional side",
+    "s2.k":"Creative","s2.p":"The creative side of the house: calamari, cacio e pepe style.","s2.l2":"An idea from the son's kitchen",
+    "s3.k":"Sweet","s3.p":"Mum's recipe. Fresh, tangy and just right.","s3.l1":"Baked by mum","s3.l2":"The proper end to a meal",
+    "s4.k":"To start","s4.p":"To begin with, while you wait for the main. With a glass of local white.","s4.l1":"Istrian cold cuts",
+    "near.label":"Location","near.title":"What's nearby","near.lead":"A short walk out of the old town, close enough to come on foot.","near.1":"Rovinj old town","near.1s":"St. Euphemia and the lanes by the sea","near.1v":"Short walk","near.2":"Rovinj bus station","near.2s":"On foot to the konoba","near.2v":"About 10"+NB+"min",
+    "bk.label":"Reservation","bk.title":"Book your table","bk.lead":"Pick a date, a time and the number of guests. The message opens in WhatsApp and we confirm.",
+    "f.date":"Date","f.time":"Time","f.guests":"Guests","f.name":"Your name","f.nameph":"Name","f.submit":"Send request on WhatsApp","f.tue":"We are closed on Tuesdays. Please pick another day.","f.fine":"No payment, no login. Just a message.",
+    "bk.seasonT":"In season","bk.season":"In season we recommend booking, especially for dinner. For larger groups, give us a call.","bk.tueT":"Tuesday","bk.tue":"We are closed on Tuesdays. Every other day we cook from 12:00 to 22:00.",
+    "faq.label":"Questions","faq.title":"Before you come",
+    "q1":"When are you closed?","a1":"On Tuesdays. Every other day we are open from 12:00 to 22:00.",
+    "q2":"Do I need to book?","a2":"In season we recommend booking, especially for dinner. Send us a message or call.",
+    "q3":"Do you have vegetarian dishes?","a3":"Ask us. We will gladly suggest something from the menu.",
+    "q4":"Can I pay by card?","a4":"Please ask the staff when you arrive.",
+    "ct.label":"Contact","ct.title":"See you at the table","ct.map":"Open in maps","ct.maplbl":"Stylized view, not to scale","ct.bus":"Bus station","h.open":"Wednesday to Monday","h.tue":"Tuesday","h.closed":"Closed",
+    "fo.addr":"Address","fo.contact":"Contact","fo.hours":"Opening hours","fo.hoursV":"Wed to Mon 12:00 to 22:00<br>Tue closed","fo.note":"Website concept, proposal",
+    "bar.lbl":"Your reservation","bar.cta":"Send",
+    "js.today":"Today","js.prev":"Previous","js.next":"Next","g1":"guest","g2":"guests","g5":"guests",
+    "wa.hello":"Hello! We would like to book a table at Konoba Serafin.","wa.date":"Date","wa.time":"Time","wa.guests":"Guests","wa.name":"Name","wa.flex":"flexible","wa.thanks":"Thank you!"
+  };
+  var IT = {
+    "nav.book":"Prenota un tavolo","menu":"Menu","nav.story":"La famiglia","nav.menu":"Menù","nav.dishes":"Piatti della casa","nav.near":"Nei dintorni","nav.booking":"Prenotazione","nav.faq":"Domande","nav.contact":"Contatti",
+    "hero.eyebrow":"Konoba a gestione familiare · Rovigno, Istria","hero.sub":"Come a una festa di famiglia","hero.txt":"Un po' tradizione, un po' fantasia. Ingredienti freschi, nessuna pretesa e la sensazione di essere invitati alla tavola di famiglia.","hero.cta":"Prenota il tuo tavolo",
+    "finder.t":"Un tavolo da Serafin","finder.today":"Oggi","tag.place":"Rovigno, Istria",
+    "gal.t":"Benvenuti da Serafin","gal.sub":"Una konoba a due passi dal centro storico di Rovigno.","gal.c1":"Konoba Serafin, Rovigno","gal.c2":"Pasta al tartufo","gal.c3":"Calamari cacio e pepe","gal.c4":"La torta al limone della mamma","gal.c5":"La tavola di famiglia",
+    "story.label":"La famiglia","story.title":"Una famiglia, una tavola","story.lead":"Il figlio è in cucina, il padre accoglie gli ospiti e la mamma prepara i dolci. Qui nessuno recita, qui si cucina.",
+    "story.p1":"Serafin è in parte tradizionale, in parte creativo. Ingredienti freschi, nessuna pretesa e qualche piatto che vi sorprende.","story.p2":"Gli ospiti ci dicono di sentirsi invitati a una festa di famiglia. È il complimento più bello.",
+    "role.chef":"Il figlio","role.chefV":"Chef, guida la cucina","role.dad":"Il padre","role.dadV":"Accoglie gli ospiti in sala","role.mom":"La mamma","role.momV":"Dolci e torte",
+    "gtk.title":"Buono a sapersi","gtk.hours":"Orari","gtk.hoursV":"Da mercoledì a lunedì 12:00 alle 22:00<br>Martedì chiuso","gtk.phone":"Telefono / WhatsApp","gtk.where":"Dove siamo","gtk.whereV":"Ul. Domenica Medelina 12, Rovigno. Una breve passeggiata dal centro storico.","gtk.wine":"Da bere","gtk.wineV":"Vino bianco fresco del territorio","gtk.reviews":"Valutazione Google,","gtk.reviews2":"recensioni",
+    "menu.label":"Menù","menu.title":"Cosa si cucina oggi","menu.lead":"Una selezione dal menù. Cambia con la stagione e il pescato.","tab.1":"Antipasti","tab.2":"Primi","tab.3":"Pesce e carne","tab.4":"Dolci",
+    "m.a1":"Affettati istriani","m.a1d":"Affettati alla maniera istriana, per iniziare","m.a2":"Tonno","m.a2d":"Fresco, secondo disponibilità","m.a3":"Antipasto del giorno","m.a3d":"Chiedete al padre cosa consiglia",
+    "m.b1":"Pasta al tartufo","m.b1d":"Il nostro classico. Pasta fresca e tartufo","m.b2":"Calamari cacio e pepe","m.b2d":"Tradizione e fantasia in un piatto","m.b3":"Pasta del giorno","m.b3d":"Secondo stagione",
+    "m.c1":"Tonno","m.c1d":"Secondo il pescato del giorno","m.c2":"Astice","m.c2d":"Su richiesta, secondo il pescato","m.c3":"Carne del giorno","m.c3d":"Chiedeteci l'offerta di oggi",
+    "m.d1":"La torta al limone della mamma","m.d1d":"La ricetta della mamma, il nostro finale preferito","m.d2":"Dolce del giorno","m.d2d":"Quello che la mamma ha preparato oggi",
+    "menu.wine":"Da bere: vino bianco fresco del territorio.","menu.note":"I prezzi indicati con XX sono esempi da modificare. Il menù è illustrativo.",
+    "ft.label":"La tavola di famiglia","ft.title":"Perché gli ospiti tornano","ft.1t":"Famiglia in ogni turno","ft.1p":"Il figlio cucina, il padre vi accoglie, la mamma prepara i dolci. Ogni piatto passa per le mani della famiglia.",
+    "ft.2t":"Tradizione e fantasia","ft.2p":"Metà del menù lo conoscete già, l'altra metà la scoprirete. Ingredienti freschi, nessuna pretesa.","ft.3t":"Come a una festa","ft.3p":"Atmosfera rilassata e la sensazione di essere invitati a una festa di famiglia, non solo a pranzo.",
+    "sig.label":"Piatti","sig.title":"Piatti della casa","sig.lead":"I piatti per cui si torna. Scorrete per vedere altro.","sig.cta":"Prenota un tavolo","s.fresh":"Ingredienti freschi",
+    "s1.k":"Classico","s1.p":"Pasta fresca e tartufo. Il piatto per cui ci ricordano.","s1.l2":"Il lato tradizionale di Serafin",
+    "s2.k":"Creativo","s2.p":"Il lato creativo della casa: calamari in stile cacio e pepe.","s2.l2":"Un'idea dalla cucina del figlio",
+    "s3.k":"Dolce","s3.p":"La ricetta della mamma. Fresca, acidula e come deve essere.","s3.l1":"La prepara la mamma","s3.l2":"Il vero finale del pasto",
+    "s4.k":"Per iniziare","s4.p":"Per cominciare, mentre aspettate il piatto principale. Con un bicchiere di bianco locale.","s4.l1":"Affettati istriani",
+    "near.label":"Posizione","near.title":"Cosa c'è nei dintorni","near.lead":"Una breve passeggiata fuori dal centro storico, abbastanza vicino per venire a piedi.","near.1":"Centro storico di Rovigno","near.1s":"Sant'Eufemia e le viuzze sul mare","near.1v":"Breve passeggiata","near.2":"Stazione degli autobus di Rovigno","near.2s":"A piedi fino alla konoba","near.2v":"Circa 10"+NB+"min",
+    "bk.label":"Prenotazione","bk.title":"Prenotate il vostro tavolo","bk.lead":"Scegliete data, ora e numero di ospiti. Il messaggio si apre in WhatsApp e noi confermiamo.",
+    "f.date":"Data","f.time":"Ora","f.guests":"Ospiti","f.name":"Il vostro nome","f.nameph":"Nome","f.submit":"Invia richiesta su WhatsApp","f.tue":"Il martedì siamo chiusi. Scegliete un altro giorno.","f.fine":"Nessun pagamento, nessun accesso. Solo un messaggio.",
+    "bk.seasonT":"In stagione","bk.season":"In stagione consigliamo di prenotare, soprattutto per cena. Per gruppi numerosi chiamateci.","bk.tueT":"Martedì","bk.tue":"Il martedì siamo chiusi. Gli altri giorni cuciniamo dalle 12:00 alle 22:00.",
+    "faq.label":"Domande","faq.title":"Prima di venire",
+    "q1":"Quando siete chiusi?","a1":"Il martedì. Gli altri giorni siamo aperti dalle 12:00 alle 22:00.",
+    "q2":"Bisogna prenotare?","a2":"In stagione consigliamo di prenotare, soprattutto per cena. Scriveteci o chiamateci.",
+    "q3":"Avete piatti vegetariani?","a3":"Chiedeteci. Vi proporremo volentieri qualcosa dal menù.",
+    "q4":"Si può pagare con carta?","a4":"Chiedete al personale all'arrivo.",
+    "ct.label":"Contatti","ct.title":"Ci vediamo a tavola","ct.map":"Apri nelle mappe","ct.maplbl":"Vista stilizzata, non in scala","ct.bus":"Autobus","h.open":"Da mercoledì a lunedì","h.tue":"Martedì","h.closed":"Chiuso",
+    "fo.addr":"Indirizzo","fo.contact":"Contatti","fo.hours":"Orari","fo.hoursV":"Mer a lun 12:00 alle 22:00<br>Mar chiuso","fo.note":"Concept del sito, proposta",
+    "bar.lbl":"La vostra prenotazione","bar.cta":"Invia",
+    "js.today":"Oggi","js.prev":"Precedente","js.next":"Successivo","g1":"ospite","g2":"ospiti","g5":"ospiti",
+    "wa.hello":"Buongiorno! Vorremmo prenotare un tavolo alla Konoba Serafin.","wa.date":"Data","wa.time":"Ora","wa.guests":"Ospiti","wa.name":"Nome","wa.flex":"da concordare","wa.thanks":"Grazie!"
+  };
+  var DE = {
+    "nav.book":"Tisch reservieren","menu":"Menü","nav.story":"Die Familie","nav.menu":"Speisekarte","nav.dishes":"Hausgerichte","nav.near":"In der Nähe","nav.booking":"Reservierung","nav.faq":"Fragen","nav.contact":"Kontakt",
+    "hero.eyebrow":"Familiengeführte Konoba · Rovinj, Istrien","hero.sub":"Wie bei einem Familienfest","hero.txt":"Teils Tradition, teils Fantasie. Frische Zutaten, keine Allüren und das Gefühl, an den Familientisch eingeladen zu sein.","hero.cta":"Tisch reservieren",
+    "finder.t":"Ein Tisch bei Serafin","finder.today":"Heute","tag.place":"Rovinj, Istrien",
+    "gal.t":"Willkommen bei Serafin","gal.sub":"Eine Konoba, nur einen kurzen Spaziergang von der Altstadt entfernt.","gal.c1":"Konoba Serafin, Rovinj","gal.c2":"Trüffelpasta","gal.c3":"Calamari cacio e pepe","gal.c4":"Mamas Zitronenkuchen","gal.c5":"Der Familientisch",
+    "story.label":"Die Familie","story.title":"Eine Familie, ein Tisch","story.lead":"Der Sohn steht in der Küche, der Vater empfängt die Gäste und die Mutter backt. Hier wird nichts gespielt, hier wird gekocht.",
+    "story.p1":"Serafin ist teils traditionell, teils kreativ. Frische Zutaten, keine Allüren und hier und da ein Gericht, das überrascht.","story.p2":"Gäste sagen uns, es fühle sich an wie eine Einladung zu einem Familienfest. Ein schöneres Kompliment gibt es nicht.",
+    "role.chef":"Der Sohn","role.chefV":"Chefkoch, leitet die Küche","role.dad":"Der Vater","role.dadV":"Empfängt die Gäste, führt den Service","role.mom":"Die Mutter","role.momV":"Kuchen und Gebäck",
+    "gtk.title":"Gut zu wissen","gtk.hours":"Öffnungszeiten","gtk.hoursV":"Mittwoch bis Montag 12:00 bis 22:00<br>Dienstag geschlossen","gtk.phone":"Telefon / WhatsApp","gtk.where":"Wo wir sind","gtk.whereV":"Ul. Domenica Medelina 12, Rovinj. Ein kurzer Spaziergang aus der Altstadt.","gtk.wine":"Zum Essen","gtk.wineV":"Frischer Weißwein aus der Region","gtk.reviews":"Google-Bewertung,","gtk.reviews2":"Rezensionen",
+    "menu.label":"Speisekarte","menu.title":"Was heute gekocht wird","menu.lead":"Eine Auswahl aus der Karte. Sie wechselt mit Saison und Fang.","tab.1":"Vorspeisen","tab.2":"Pasta","tab.3":"Fisch und Fleisch","tab.4":"Desserts",
+    "m.a1":"Istrische Aufschnittplatte","m.a1d":"Aufschnitt nach istrischer Art, zum Anfang","m.a2":"Thunfisch","m.a2d":"Frisch, je nach Tagesangebot","m.a3":"Vorspeise des Tages","m.a3d":"Fragen Sie den Vater, was er empfiehlt",
+    "m.b1":"Trüffelpasta","m.b1d":"Unser Klassiker. Frische Pasta und Trüffel","m.b2":"Calamari cacio e pepe","m.b2d":"Tradition und Fantasie auf einem Teller","m.b3":"Pasta des Tages","m.b3d":"Je nach Saison",
+    "m.c1":"Thunfisch","m.c1d":"Je nach Tagesfang","m.c2":"Hummer","m.c2d":"Auf Anfrage, je nach Fang","m.c3":"Fleisch des Tages","m.c3d":"Fragen Sie uns nach dem Angebot",
+    "m.d1":"Mamas Zitronenkuchen","m.d1d":"Mamas Rezept, unser liebster Abschluss","m.d2":"Kuchen des Tages","m.d2d":"Was Mama heute gebacken hat",
+    "menu.wine":"Zum Essen: frischer Weißwein aus der Region.","menu.note":"Mit XX markierte Preise sind Beispiele zum Bearbeiten. Die Karte ist illustrativ.",
+    "ft.label":"Der Familientisch","ft.title":"Warum Gäste wiederkommen","ft.1t":"Familie in jeder Schicht","ft.1p":"Der Sohn kocht, der Vater empfängt Sie, die Mutter backt. Jeder Teller geht durch Familienhände.",
+    "ft.2t":"Tradition und Fantasie","ft.2p":"Die halbe Karte kennen Sie schon, die andere Hälfte lernen Sie kennen. Frische Zutaten, keine Allüren.","ft.3t":"Wie bei einem Fest","ft.3p":"Entspannte Atmosphäre und das Gefühl, zu einem Familienfest eingeladen zu sein, nicht nur zum Mittagessen.",
+    "sig.label":"Gerichte","sig.title":"Hausgerichte","sig.lead":"Die Gerichte, für die man wiederkommt. Wischen für mehr.","sig.cta":"Tisch reservieren","s.fresh":"Frische Zutaten",
+    "s1.k":"Klassiker","s1.p":"Frische Pasta und Trüffel. Das Gericht, für das man uns kennt.","s1.l2":"Die traditionelle Seite von Serafin",
+    "s2.k":"Kreativ","s2.p":"Die kreative Seite des Hauses: Calamari im Stil von cacio e pepe.","s2.l2":"Eine Idee aus der Küche des Sohnes",
+    "s3.k":"Süß","s3.p":"Mamas Rezept. Frisch, säuerlich und genau richtig.","s3.l1":"Von Mama gebacken","s3.l2":"Der richtige Abschluss",
+    "s4.k":"Zum Anfang","s4.p":"Zum Einstieg, während Sie auf den Hauptgang warten. Mit einem Glas Weißwein aus der Region.","s4.l1":"Istrische Aufschnittplatte",
+    "near.label":"Lage","near.title":"Was in der Nähe ist","near.lead":"Ein kurzer Spaziergang aus der Altstadt, nah genug, um zu Fuß zu kommen.","near.1":"Altstadt von Rovinj","near.1s":"Die Euphemia-Kirche und die Gassen am Meer","near.1v":"Kurzer Spaziergang","near.2":"Busbahnhof Rovinj","near.2s":"Zu Fuß zur Konoba","near.2v":"Etwa 10"+NB+"Min",
+    "bk.label":"Reservierung","bk.title":"Reservieren Sie Ihren Tisch","bk.lead":"Wählen Sie Datum, Uhrzeit und Gästezahl. Die Nachricht öffnet sich in WhatsApp, wir bestätigen.",
+    "f.date":"Datum","f.time":"Uhrzeit","f.guests":"Gäste","f.name":"Ihr Name","f.nameph":"Name","f.submit":"Anfrage per WhatsApp senden","f.tue":"Dienstags sind wir geschlossen. Bitte wählen Sie einen anderen Tag.","f.fine":"Keine Zahlung, kein Login. Nur eine Nachricht.",
+    "bk.seasonT":"In der Saison","bk.season":"In der Saison empfehlen wir eine Reservierung, besonders zum Abendessen. Für größere Gruppen rufen Sie uns an.","bk.tueT":"Dienstag","bk.tue":"Dienstags sind wir geschlossen. An allen anderen Tagen kochen wir von 12:00 bis 22:00.",
+    "faq.label":"Fragen","faq.title":"Vor dem Besuch",
+    "q1":"Wann ist geschlossen?","a1":"Dienstags. An allen anderen Tagen sind wir von 12:00 bis 22:00 geöffnet.",
+    "q2":"Muss ich reservieren?","a2":"In der Saison empfehlen wir eine Reservierung, besonders zum Abendessen. Schreiben Sie uns oder rufen Sie an.",
+    "q3":"Gibt es vegetarische Gerichte?","a3":"Fragen Sie uns. Wir schlagen Ihnen gern etwas von der Karte vor.",
+    "q4":"Kann ich mit Karte zahlen?","a4":"Bitte fragen Sie das Personal bei der Ankunft.",
+    "ct.label":"Kontakt","ct.title":"Bis bald am Tisch","ct.map":"In Karten öffnen","ct.maplbl":"Stilisierte Ansicht, nicht maßstabsgetreu","ct.bus":"Busbahnhof","h.open":"Mittwoch bis Montag","h.tue":"Dienstag","h.closed":"Geschlossen",
+    "fo.addr":"Adresse","fo.contact":"Kontakt","fo.hours":"Öffnungszeiten","fo.hoursV":"Mi bis Mo 12:00 bis 22:00<br>Di geschlossen","fo.note":"Website-Konzept, Vorschlag",
+    "bar.lbl":"Ihre Reservierung","bar.cta":"Senden",
+    "js.today":"Heute","js.prev":"Zurück","js.next":"Weiter","g1":"Gast","g2":"Gäste","g5":"Gäste",
+    "wa.hello":"Hallo! Wir möchten gern einen Tisch in der Konoba Serafin reservieren.","wa.date":"Datum","wa.time":"Uhrzeit","wa.guests":"Gäste","wa.name":"Name","wa.flex":"nach Absprache","wa.thanks":"Danke!"
+  };
+  var HRJS = {
+    "js.today":"Danas","js.prev":"Prethodna","js.next":"Sljedeća","g1":"gost","g2":"gosta","g5":"gostiju",
+    "wa.hello":"Pozdrav! Željeli bismo rezervirati stol u Konobi Serafin.","wa.date":"Datum","wa.time":"Vrijeme","wa.guests":"Gosti","wa.name":"Ime","wa.flex":"po dogovoru","wa.thanks":"Hvala!"
+  };
+  var HR = {};
+  $$("[data-i18n]").forEach(function(el){ var k = el.getAttribute("data-i18n"); if(!(k in HR)) HR[k] = el.innerHTML; });
+  $$("[data-i18n-ph]").forEach(function(el){ HR[el.getAttribute("data-i18n-ph")] = el.placeholder; });
+  for(var k in HRJS) HR[k] = HRJS[k];
+  var DICT = {hr:HR, en:EN, it:IT, de:DE}, lang = "hr";
+  try{ var sv = localStorage.getItem("serafin-lang"); if(sv && DICT[sv]) lang = sv; }catch(e){}
+  function t(k){ var v = DICT[lang][k]; return v != null ? v : (HR[k] || ""); }
+  function guests(n){
+    var w;
+    if(lang === "hr"){ var m = n % 10, h = n % 100; w = (n === 1) ? t("g1") : (m >= 2 && m <= 4 && !(h >= 12 && h <= 14)) ? t("g2") : t("g5"); }
+    else w = n === 1 ? t("g1") : t("g2");
+    return n + " " + w;
+  }
+
+  function applyLang(l){
+    lang = l; document.documentElement.lang = l;
+    $$("[data-i18n]").forEach(function(el){ el.innerHTML = t(el.getAttribute("data-i18n")); });
+    $$("[data-i18n-ph]").forEach(function(el){ el.placeholder = t(el.getAttribute("data-i18n-ph")); });
+    $$(".lang button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+    $$("#pkPrev,#galPrev").forEach(function(b){ b.setAttribute("aria-label", t("js.prev")); });
+    $$("#pkNext,#galNext").forEach(function(b){ b.setAttribute("aria-label", t("js.next")); });
+    markToday(); updateBar(); tabInk();
+    try{ localStorage.setItem("serafin-lang", l); }catch(e){}
+  }
+  $$(".lang button").forEach(function(b){ b.addEventListener("click", function(){ applyLang(b.dataset.lang); }); });
+
+  function markToday(){
+    var d = String(new Date().getDay());
+    $$("#hours li").forEach(function(li){
+      li.classList.toggle("today", li.dataset.days.split(",").indexOf(d) > -1);
+      li.setAttribute("data-today", t("js.today")); var s0=li.querySelector("span"); if(s0) s0.setAttribute("data-today", t("js.today"));
+    });
+  }
+
+  /* ---------- Watermark ---------- */
+  (function(){ var wm = $("#wm"), html = ""; for(var i=0;i<36;i++) html += "<span>Serafin</span>"; wm.innerHTML = html; })();
+
+  /* ---------- Preloader ---------- */
+  var pre = $("#pre");
+  function start(){ document.body.classList.remove("locked"); document.body.classList.add("ready"); galAuto(); }
+  if(reduce){ pre.style.display = "none"; start(); }
+  else setTimeout(function(){ pre.classList.add("done"); setTimeout(start, 350); setTimeout(function(){ pre.style.display = "none"; }, 1300); }, 1500);
+
+  /* ---------- Burger menu ---------- */
+  var menuBtn = $("#menuBtn"), menuEl = $("#menu");
+  function setMenu(open){
+    document.body.classList.toggle("menu-open", open);
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    menuEl.setAttribute("aria-hidden", open ? "false" : "true");
+  }
+  menuBtn.addEventListener("click", function(){ setMenu(!document.body.classList.contains("menu-open")); });
+  $$("#menu a").forEach(function(a){ a.addEventListener("click", function(){ setMenu(false); }); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") setMenu(false); });
+
+  /* ---------- Header, FAB, sticky bar ---------- */
+  var hdr = $("#hdr"), fab = $("#fab"), hero = $("#hero"), ctag = $(".ctag"), bookSec = $("#rezervacija");
+  var bookVis = false, isMobile = window.matchMedia("(max-width:899px)");
+  new IntersectionObserver(function(es){ bookVis = es[0].isIntersecting; ui(); }, {threshold:.12}).observe(bookSec);
+  function ui(){
+    var y = window.scrollY;
+    var barOn = bookVis && isMobile.matches;
+    hdr.classList.toggle("scrolled", y > 40);
+    document.body.classList.toggle("bar-on", barOn);
+    $("#sbar").setAttribute("aria-hidden", barOn ? "false" : "true");
+    $("#barBtn").tabIndex = barOn ? 0 : -1;
+    fab.classList.toggle("show", y > hero.offsetHeight * .85 && !barOn);
+    ctag.classList.toggle("off", y > hero.offsetHeight * .5);
+  }
+
+  /* ---------- Swipe helper ---------- */
+  function swipe(el, fn){
+    var sx = 0, sy = 0;
+    el.addEventListener("touchstart", function(e){ sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, {passive:true});
+    el.addEventListener("touchend", function(e){
+      var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) fn(dx < 0 ? 1 : -1);
+    }, {passive:true});
+  }
+
+  /* ---------- Illustrated photo fallbacks (our own SVG drawings) ---------- */
+  var ILL = {
+    hero:  '<g color="#3B2B22" opacity=".9"><use href="#i-skyline" x="-20" y="300" width="440" height="154"/></g><g color="#6F7D4A"><use href="#i-olive" x="-30" y="-20" width="150" height="300" transform="rotate(-28 45 130)" opacity=".9"/></g><g color="#8B6A50"><use href="#i-pasta" x="110" y="150" width="260" height="200"/></g><g color="#5F6B3E"><use href="#i-wine" x="320" y="60" width="60" height="120"/></g>',
+    pasta: '<g color="#8B6A50"><use href="#i-pasta" x="20" y="120" width="360" height="280"/></g><g color="#3A2A22"><use href="#i-truffle" x="270" y="60" width="90" height="82" opacity=".95"/></g><g color="#6F7D4A"><use href="#i-lf" x="40" y="60" width="80" height="26" transform="rotate(-20 80 73)"/></g>',
+    cala:  '<g color="#6B6458"><use href="#i-calamari" x="20" y="130" width="360" height="280"/></g><g color="#D9A95C"><use href="#i-lemon" x="40" y="40" width="110" height="88"/></g><g color="#fff" opacity=".5"><use href="#i-spark" x="300" y="80" width="14" height="14"/><use href="#i-spark" x="330" y="120" width="9" height="9"/></g>',
+    lemon: '<g color="#9E7E3A"><use href="#i-lemon" x="40" y="130" width="320" height="256"/></g><g color="#5F6B3E"><use href="#i-lf" x="60" y="60" width="90" height="30" transform="rotate(-24 105 75)"/><use href="#i-lf" x="270" y="70" width="80" height="26" transform="rotate(30 310 83)"/></g><g color="#fff" opacity=".6"><use href="#i-spark" x="300" y="380" width="14" height="14"/></g>',
+    table: '<g color="#D9A95C"><use href="#i-table" x="-40" y="120" width="480" height="312"/></g><g color="#D9A95C" opacity=".5"><use href="#i-spark" x="70" y="70" width="16" height="16"/><use href="#i-spark" x="320" y="50" width="22" height="22"/><use href="#i-spark" x="340" y="110" width="10" height="10"/></g><g color="#8A9A5B"><use href="#i-olive" x="280" y="-20" width="140" height="280" transform="rotate(34 350 120)" opacity=".7"/></g>'
+  };
+  $$(".art").forEach(function(a){
+    var m = a.className.match(/art--(\w+)/), key = m && m[1];
+    if(!ILL[key]) return;
+    a.insertAdjacentHTML("afterbegin", '<svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + ILL[key] + '</svg>');
+  });
+
+  /* ---------- Hero: Three.js golden dust, truffle and olive leaves ---------- */
+  var heroOn = true, gl = null;
+  new IntersectionObserver(function(es){ heroOn = es[0].isIntersecting; if(gl) gl.toggle(); }).observe(hero);
+  function canGL(){
+    try{ var c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl"))); }catch(e){ return false; }
+  }
+  if(!reduce && canGL()){
+    var s3 = document.createElement("script");
+    s3.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+    s3.async = true;
+    s3.onload = function(){ try{ gl = initScene(); }catch(err){ gl = null; document.body.classList.remove("gl-on"); } };
+    s3.onerror = function(){ gl = null; };
+    document.head.appendChild(s3);
+  }
+
+  function initScene(){
+    var THREE = window.THREE; if(!THREE) return null;
+    var canvas = $("#gl"), mobile = window.matchMedia("(max-width:899px)").matches || window.matchMedia("(pointer:coarse)").matches;
+    var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:!mobile, alpha:true, powerPreference:"high-performance"});
+    var pix = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2);
+    renderer.setPixelRatio(pix);
+    renderer.setClearColor(0x000000, 0);
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(42, 1, .1, 60);
+    camera.position.set(0, 0, 12);
+
+    /* warm kitchen light */
+    scene.add(new THREE.AmbientLight(0x6B7050, .9));
+    var key = new THREE.PointLight(0xFFC585, 1.8, 40); key.position.set(5, 6, 8); scene.add(key);
+    var fill = new THREE.DirectionalLight(0xB8C49A, .45); fill.position.set(-4, -2, 5); scene.add(fill);
+
+    /* particles: flour / pollen */
+    var N = mobile ? 420 : 900, pos = new Float32Array(N*3), sz = new Float32Array(N), seed = new Float32Array(N);
+    for(var i=0;i<N;i++){
+      pos[i*3] = (Math.random()-.5)*18; pos[i*3+1] = (Math.random()-.5)*12; pos[i*3+2] = (Math.random()-.5)*14;
+      sz[i] = 1.2 + Math.random()*2.6; seed[i] = Math.random();
+    }
+    var pg = new THREE.BufferGeometry();
+    pg.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    pg.setAttribute("aSize", new THREE.BufferAttribute(sz, 1));
+    pg.setAttribute("aSeed", new THREE.BufferAttribute(seed, 1));
+    var pm = new THREE.ShaderMaterial({
+      transparent:true, depthWrite:false, blending:THREE.AdditiveBlending,
+      uniforms:{ uTime:{value:0}, uPix:{value:pix}, uCol:{value:new THREE.Color(0xF0C27A)} },
+      vertexShader:[
+        "attribute float aSize; attribute float aSeed;",
+        "uniform float uTime; uniform float uPix;",
+        "varying float vBlur; varying float vA;",
+        "void main(){",
+        "  vec3 p = position;",
+        "  p.x += sin(uTime*.12 + aSeed*6.2832)*.7 + uTime*.05*(aSeed-.5);",
+        "  p.y += cos(uTime*.09 + aSeed*4.1)*.45 + sin(uTime*.05 + aSeed*9.)*.3 - uTime*.03*(.3+aSeed*.4);",
+        "  p.z += sin(uTime*.07 + aSeed*2.3)*.5;",
+        "  p.x = mod(p.x + 9., 18.) - 9.; p.y = mod(p.y + 6., 12.) - 6.;",
+        "  vec4 mv = modelViewMatrix * vec4(p, 1.);",
+        "  float d = -mv.z;",
+        "  vBlur = clamp(abs(d - 11.5) / 5.5, 0., 1.);",
+        "  float tw = .55 + .45*sin(uTime*.9 + aSeed*31.);",
+        "  vA = tw * (1. - vBlur*.55);",
+        "  gl_PointSize = aSize * (1. + vBlur*3.) * uPix * (26. / d);",
+        "  gl_Position = projectionMatrix * mv;",
+        "}"].join("\n"),
+      fragmentShader:[
+        "precision mediump float; uniform vec3 uCol; varying float vBlur; varying float vA;",
+        "void main(){",
+        "  vec2 c = gl_PointCoord - .5; float r = length(c)*2.;",
+        "  float edge = mix(.25, .95, vBlur);",
+        "  float a = 1. - smoothstep(1. - edge, 1., r);",
+        "  a *= vA * mix(.85, .18, vBlur);",
+        "  gl_FragColor = vec4(uCol, a);",
+        "}"].join("\n")
+    });
+    scene.add(new THREE.Points(pg, pm));
+
+    /* low-poly truffle */
+    var group = new THREE.Group(); scene.add(group);
+    var tg = new THREE.IcosahedronGeometry(1, 1), pa = tg.attributes.position;
+    for(var v=0; v<pa.count; v++){ var k2 = .82 + Math.random()*.36; pa.setXYZ(v, pa.getX(v)*k2, pa.getY(v)*k2*(.9+Math.random()*.2), pa.getZ(v)*k2); }
+    tg.computeVertexNormals();
+    var truffle = new THREE.Mesh(tg, new THREE.MeshStandardMaterial({color:0x3B2B22, roughness:.95, metalness:.05, flatShading:true}));
+    group.add(truffle);
+
+    /* olive leaves */
+    var ls = new THREE.Shape(); ls.moveTo(0,0); ls.quadraticCurveTo(.55,.34,1.15,0); ls.quadraticCurveTo(.55,-.34,0,0);
+    var lgeo = new THREE.ShapeGeometry(ls, 6);
+    var lmat = new THREE.MeshStandardMaterial({color:0x7A8A52, roughness:.8, side:THREE.DoubleSide, flatShading:true});
+    var lmat2 = new THREE.MeshStandardMaterial({color:0x9AA86A, roughness:.8, side:THREE.DoubleSide, flatShading:true});
+    var leaves = [], nL = mobile ? 5 : 7;
+    for(var l=0; l<nL; l++){
+      var m = new THREE.Mesh(lgeo, l % 2 ? lmat2 : lmat);
+      var o = {mesh:m, r:1.9 + Math.random()*1.4, ph:(l/nL)*6.283, sp:.12 + Math.random()*.1, ty:(Math.random()-.5)*1.4, rx:Math.random()*6.283, ry:Math.random()*6.283, vr:.3 + Math.random()*.5};
+      m.scale.setScalar(.7 + Math.random()*.5);
+      leaves.push(o); group.add(m);
+    }
+
+    /* layout: truffle sits upper right above the headline */
+    function size(){
+      var w = hero.clientWidth, h = hero.clientHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h; camera.fov = w < h ? 56 : 42; camera.updateProjectionMatrix();
+      var portrait = w < h;
+      group.position.set(portrait ? 1.5 : 4.2, portrait ? 2.6 : 1.2, 2);
+      group.scale.setScalar(portrait ? .78 : 1.1);
+    }
+    size(); window.addEventListener("resize", size);
+
+    /* pointer parallax */
+    var tx = 0, ty = 0, cx = 0, cy = 0;
+    hero.addEventListener("pointermove", function(e){
+      if(e.pointerType === "touch") return;
+      tx = (e.clientX / window.innerWidth - .5) * 2; ty = (e.clientY / window.innerHeight - .5) * 2;
+    });
+    hero.addEventListener("pointerleave", function(){ tx = 0; ty = 0; });
+
+    var running = false, last = 0, clock = 0;
+    function loop(ts){
+      if(!running) return;
+      requestAnimationFrame(loop);
+      var dt = Math.min(.05, (ts - (last || ts)) / 1000); last = ts; clock += dt;
+      pm.uniforms.uTime.value = clock;
+      cx += (tx - cx) * .04; cy += (ty - cy) * .04;
+      camera.position.x = cx * .9; camera.position.y = -cy * .6 + Math.sin(clock*.2)*.1;
+      camera.lookAt(0, 0, 0);
+      truffle.rotation.y = clock * .25; truffle.rotation.x = Math.sin(clock*.3) * .3 + cx * .3;
+      truffle.position.y = Math.sin(clock * .6) * .18;
+      group.rotation.y = cx * .25; group.rotation.x = cy * .15;
+      for(var i=0;i<leaves.length;i++){
+        var o = leaves[i], a = o.ph + clock * o.sp;
+        o.mesh.position.set(Math.cos(a) * o.r, o.ty + Math.sin(clock * .5 + i) * .25, Math.sin(a) * o.r * .6);
+        o.mesh.rotation.set(o.rx + clock * o.vr * .5, o.ry + clock * o.vr, a);
+      }
+      renderer.render(scene, camera);
+    }
+    function toggle(){
+      var want = heroOn && !document.hidden;
+      if(want && !running){ running = true; last = 0; requestAnimationFrame(loop); }
+      else if(!want) running = false;
+    }
+    document.addEventListener("visibilitychange", toggle);
+    renderer.render(scene, camera);
+    document.body.classList.add("gl-on");
+    toggle();
+    return {toggle:toggle};
+  }
+
+  /* ---------- Reveals + counters ---------- */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, {threshold:0, rootMargin:"0px 0px -4% 0px"});
+  $$(".rv,.rv-img").forEach(function(el){ if(reduce) el.classList.add("in"); else io.observe(el); });
+  function count(el, dec){
+    var to = parseFloat(el.dataset.to), t0 = null;
+    function fmt(v){ var s = v.toFixed(dec); return lang === "hr" || lang === "it" || lang === "de" ? s.replace(".", ",") : s; }
+    if(reduce){ el.textContent = fmt(to); return; }
+    function step(ts){ if(!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 1600); p = 1 - Math.pow(1 - p, 3); el.textContent = fmt(to * p); if(p < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  var cio = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ count($("#cntRate"), 1); count($("#cntRev"), 0); cio.disconnect(); } }); }, {threshold:.3});
+  cio.observe($(".badge"));
+
+  /* ---------- rAF: parallax ---------- */
+  var parEls = $$("[data-par]"), hpEls = $$("[data-hp]"), heroMedia = $("#heroMedia"), wm = $("#wm"), ticking = false;
+  function update(){
+    ticking = false;
+    var vh = window.innerHeight, y = window.scrollY;
+    ui();
+    if(!reduce){
+      if(y < vh * 1.2){
+        heroMedia.style.transform = "translate3d(0," + (y * .25).toFixed(1) + "px,0)";
+        for(var hp=0; hp<hpEls.length; hp++) hpEls[hp].style.transform = "translate(0," + (-y * parseFloat(hpEls[hp].dataset.hp)).toFixed(1) + "px)";
+      }
+      for(var i=0;i<parEls.length;i++){
+        var el = parEls[i], r = el.parentNode.getBoundingClientRect();
+        if(r.bottom < -100 || r.top > vh + 100) continue;
+        el.style.transform = "translate3d(0," + (-(r.top + r.height/2 - vh/2) * parseFloat(el.dataset.par)).toFixed(1) + "px,0)";
+      }
+      var wr = wm.parentNode.getBoundingClientRect();
+      if(wr.bottom > 0 && wr.top < vh) wm.style.transform = "rotate(-12deg) translate3d(" + (wr.top * .06).toFixed(1) + "px," + (wr.top * .12).toFixed(1) + "px,0)";
+    }
+  }
+  function req(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener("scroll", req, {passive:true});
+  window.addEventListener("resize", req);
+
+  /* ---------- Menu tabs ---------- */
+  var tabs = $$("#tabs .tab"), ink = $("#tabInk");
+  function tabInk(){
+    var on = $('#tabs .tab[aria-selected="true"]'); if(!on) return;
+    ink.style.width = on.offsetWidth + "px"; ink.style.transform = "translateX(" + on.offsetLeft + "px)";
+  }
+  tabs.forEach(function(b){
+    b.addEventListener("click", function(){
+      tabs.forEach(function(x){ x.setAttribute("aria-selected", x === b ? "true" : "false"); });
+      $$(".panel").forEach(function(p){ p.classList.toggle("on", p.id === b.dataset.tab); });
+      tabInk(); b.scrollIntoView({block:"nearest", inline:"center", behavior: reduce ? "auto" : "smooth"});
+      setTimeout(req, 650);
+    });
+  });
+  window.addEventListener("resize", tabInk);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(tabInk);
+
+  /* ---------- Signature peek carousel ---------- */
+  var peek = $("#peek"), pkBar = $("#pkBar"), cards = $$(".tcard", peek);
+  function pkStep(){ return cards[1].offsetLeft - cards[0].offsetLeft; }
+  function pkUpdate(){
+    var max = peek.scrollWidth - peek.clientWidth, ratio = peek.clientWidth / peek.scrollWidth;
+    pkBar.style.width = (ratio * 100).toFixed(1) + "%";
+    pkBar.style.transform = "translateX(" + (max > 0 ? (peek.scrollLeft / max) * ((1 / ratio) - 1) * 100 : 0).toFixed(1) + "%)";
+  }
+  peek.addEventListener("scroll", pkUpdate, {passive:true});
+  window.addEventListener("resize", pkUpdate);
+  $("#pkNext").addEventListener("click", function(){ peek.scrollBy({left:pkStep(), behavior: reduce ? "auto" : "smooth"}); });
+  $("#pkPrev").addEventListener("click", function(){ peek.scrollBy({left:-pkStep(), behavior: reduce ? "auto" : "smooth"}); });
+
+  /* ---------- Gallery carousel (autoplay, swipe, counter) ---------- */
+  var gal = $("#gal"), galTrack = $("#galTrack"), galSlides = $$(".gal__slide"), gIdx = 0, gTimer = null, galVis = false, galProg = $("#galProg");
+  function galGo(n){
+    gIdx = (n + galSlides.length) % galSlides.length;
+    galTrack.style.transform = "translate3d(" + (-gIdx * 100) + "%,0,0)";
+    galSlides.forEach(function(s,i){ s.classList.toggle("cur", i === gIdx); });
+    $("#galCount").textContent = (gIdx + 1) + "/" + galSlides.length;
+    galAuto();
+  }
+  function galAuto(){
+    clearTimeout(gTimer); galProg.classList.remove("run"); void galProg.offsetWidth;
+    if(reduce || !galVis || document.hidden) return;
+    galProg.classList.add("run");
+    gTimer = setTimeout(function(){ galGo(gIdx + 1); }, 6000);
+  }
+  new IntersectionObserver(function(es){ galVis = es[0].isIntersecting; galAuto(); }, {threshold:.35}).observe(gal);
+  document.addEventListener("visibilitychange", galAuto);
+  $("#galNext").addEventListener("click", function(){ galGo(gIdx + 1); });
+  $("#galPrev").addEventListener("click", function(){ galGo(gIdx - 1); });
+  swipe(gal, function(d){ galGo(gIdx + d); });
+
+  /* ---------- Reservation form + sticky bar ---------- */
+  var fDate = $("#fDate"), fName = $("#fName"), qty = 2, tueHint = $("#tueHint");
+  (function(){ var d = new Date(); fDate.min = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0"+d.getDate()).slice(-2); })();
+  function curTime(){ var c = $("input[name=time]:checked"); return c ? c.value : "20:00"; }
+  function isTue(){ if(!fDate.value) return false; var p = fDate.value.split("-"); return new Date(+p[0], +p[1]-1, +p[2]).getDay() === 2; }
+  function updateBar(){
+    $("#qOut").textContent = qty;
+    $("#barVal").textContent = guests(qty) + " · " + curTime();
+    $("#finderG").textContent = guests(qty);
+  }
+  $("#qMinus").addEventListener("click", function(){ if(qty > 1){ qty--; updateBar(); } });
+  $("#qPlus").addEventListener("click", function(){ if(qty < 20){ qty++; updateBar(); } });
+  $$("input[name=time]").forEach(function(r){ r.addEventListener("change", updateBar); });
+  fDate.addEventListener("change", function(){ var tue = isTue(); tueHint.classList.toggle("on", tue); fDate.classList.toggle("err", tue); });
+  function send(){
+    if(isTue()){ tueHint.classList.add("on"); fDate.classList.add("err"); fDate.focus(); bookSec.scrollIntoView({behavior: reduce ? "auto" : "smooth"}); return; }
+    var date = t("wa.flex");
+    if(fDate.value){ var p = fDate.value.split("-"); date = p[2] + "." + p[1] + "." + p[0] + "."; }
+    var name = fName.value.trim();
+    var msg = t("wa.hello") + "\n" + t("wa.date") + ": " + date + "\n" + t("wa.time") + ": " + curTime() + "\n" + t("wa.guests") + ": " + qty + (name ? "\n" + t("wa.name") + ": " + name : "") + "\n" + t("wa.thanks");
+    window.open(WA + encodeURIComponent(msg), "_blank", "noopener");
+  }
+  $("#form").addEventListener("submit", function(e){ e.preventDefault(); send(); });
+  $("#barBtn").addEventListener("click", send);
+
+  /* ---------- FAQ ---------- */
+  $$(".qa button").forEach(function(b){
+    b.addEventListener("click", function(){
+      var qa = b.parentNode, open = !qa.classList.contains("open");
+      $$(".qa.open").forEach(function(x){ if(x !== qa){ x.classList.remove("open"); x.querySelector("button").setAttribute("aria-expanded","false"); } });
+      qa.classList.toggle("open", open); b.setAttribute("aria-expanded", open ? "true" : "false");
+      setTimeout(req, 650);
+    });
+  });
+
+  applyLang(lang);
+  pkUpdate();
+  update();
+})();
+</script>
+<!-- mdp: custom date picker (replaces the tiny native one) -->
+<style id="mdp-css">
+.mdp-wrap{position:relative;display:block;width:100%}
+.mdp-wrap>input[type="date"]{color:transparent!important;-webkit-text-fill-color:transparent!important;cursor:pointer;caret-color:transparent}
+.mdp-wrap>input[type="date"]::-webkit-calendar-picker-indicator{opacity:0;display:none}
+.mdp-wrap>input[type="date"]::-webkit-datetime-edit{opacity:0}
+.mdp-label{position:absolute;left:0;top:0;bottom:0;right:44px;display:flex;align-items:center;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mdp-label.ph{opacity:.55}
+.mdp-ico{position:absolute;right:14px;top:50%;width:20px;height:20px;transform:translateY(-50%);pointer-events:none;opacity:.7}
+.mdp-pop{position:absolute;left:0;top:calc(100% + 8px);z-index:200;width:min(360px,calc(100vw - 32px));background:#fff;color:#1B1B1B;border:1px solid rgba(0,0,0,.08);border-radius:20px;box-shadow:0 24px 60px -18px rgba(0,0,0,.28);padding:18px 16px 14px;font-family:inherit;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .22s,transform .22s}
+.mdp-pop.up{top:auto;bottom:calc(100% + 8px)}
+.mdp-pop.right{left:auto;right:0}
+.mdp-pop.on{opacity:1;transform:none;pointer-events:auto}
+.mdp-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 12px}
+.mdp-title{font-size:17px;font-weight:600;letter-spacing:.01em;text-transform:capitalize}
+.mdp-nav{width:40px;height:40px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:#fff;color:inherit;display:grid;place-items:center;cursor:pointer;font-size:18px;line-height:1;transition:background .2s}
+.mdp-nav:hover:not(:disabled){background:rgba(0,0,0,.05)}
+.mdp-nav:disabled{opacity:.3;cursor:default}
+.mdp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.mdp-dow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-align:center;opacity:.5;padding:4px 0 6px}
+.mdp-day{height:44px;border:0;border-radius:12px;background:transparent;color:inherit;font:inherit;font-size:16px;cursor:pointer;transition:background .15s,color .15s;font-variant-numeric:tabular-nums}
+.mdp-day:hover:not(:disabled):not(.sel){background:rgba(0,0,0,.06)}
+.mdp-day.today{box-shadow:inset 0 0 0 1px rgba(0,0,0,.35)}
+.mdp-day.inrange{background:rgba(0,0,0,.06);border-radius:0}
+.mdp-day.sel{background:var(--mdp-accent,#1B1B1B);color:#fff;font-weight:600}
+.mdp-day:disabled{opacity:.22;cursor:default;text-decoration:line-through}
+.mdp-day.sel:disabled{opacity:1;text-decoration:none}
+.mdp-day.out{visibility:hidden}
+.mdp-foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding:0 4px;font-size:13px;opacity:.65}
+.mdp-foot button{border:0;background:none;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 0}
+</style>
+<script id="mdp-js">
+(function(){
+  var TXT={hr:["Odaberite datum","Danas","Zatvoreno"],en:["Choose a date","Today","Closed"],de:["Datum wählen","Heute","Geschlossen"],it:["Scegli la data","Oggi","Chiuso"],sl:["Izberite datum","Danes","Zaprto"]};
+  function lang(){var l=(document.documentElement.lang||"en").slice(0,2).toLowerCase();return TXT[l]?l:"en";}
+  function loc(){return {hr:"hr-HR",en:"en-GB",de:"de-DE",it:"it-IT",sl:"sl-SI"}[lang()];}
+  function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+  function parse(s){if(!s)return null;var p=s.split("-");return p.length===3?new Date(+p[0],+p[1]-1,+p[2]):null;}
+  function today(){var t=new Date();return new Date(t.getFullYear(),t.getMonth(),t.getDate());}
+  function accentFor(el){
+    var f=el.closest("form")||el.closest("section")||document.body;
+    var b=f.querySelector('button[type="submit"],.pill,.btn,button');
+    var c=b?getComputedStyle(b).backgroundColor:"";
+    if(!c||c==="rgba(0, 0, 0, 0)"||c==="transparent"||/255, 255, 255/.test(c))c="#1B1B1B";
+    return c;
+  }
+  var pickers=[];
+  function closeAll(except){pickers.forEach(function(p){if(p!==except)p.close();});}
+  function Picker(input){
+    var self=this;this.input=input;var baseColor=getComputedStyle(input).color;
+    var wrap=document.createElement("span");wrap.className="mdp-wrap";
+    input.parentNode.insertBefore(wrap,input);wrap.appendChild(input);
+    input.readOnly=true;input.setAttribute("inputmode","none");input.setAttribute("autocomplete","off");
+    var label=document.createElement("span");label.className="mdp-label";wrap.appendChild(label);
+    var ico=document.createElementNS("http://www.w3.org/2000/svg","svg");ico.setAttribute("viewBox","0 0 24 24");ico.setAttribute("class","mdp-ico");ico.innerHTML='<rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 9.5h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>';wrap.appendChild(ico);
+    var pop=document.createElement("div");pop.className="mdp-pop";pop.setAttribute("role","dialog");wrap.appendChild(pop);
+    this.wrap=wrap;this.label=label;this.ico=ico;this.pop=pop;
+    var sel=parse(input.value);this.view=sel?new Date(sel.getFullYear(),sel.getMonth(),1):new Date(today().getFullYear(),today().getMonth(),1);
+    function sync(){
+      var cs=getComputedStyle(input);
+      label.style.paddingLeft=cs.paddingLeft;label.style.fontSize=cs.fontSize;label.style.fontFamily=cs.fontFamily;label.style.fontWeight=cs.fontWeight;label.style.letterSpacing=cs.letterSpacing;
+      label.style.color=baseColor;ico.style.color=baseColor;
+      var d=parse(input.value);
+      if(d){label.classList.remove("ph");label.textContent=new Intl.DateTimeFormat(loc(),(wrap.offsetWidth<260?{weekday:"short",day:"numeric",month:"short"}:{weekday:"short",day:"numeric",month:"long",year:"numeric"})).format(d);}
+      else{label.classList.add("ph");label.textContent=TXT[lang()][0];}
+    }
+    this.sync=sync;
+    input.addEventListener("change",sync);input.addEventListener("input",sync);
+    function open(e){if(e){e.preventDefault();}if(self.isOpen){self.close();return;}self.show();}
+    input.addEventListener("mousedown",function(e){e.preventDefault();open();});
+    input.addEventListener("touchend",function(e){e.preventDefault();open();});
+    input.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "||e.key==="ArrowDown"){e.preventDefault();open();}if(e.key==="Escape")self.close();});
+    input.addEventListener("click",function(e){e.preventDefault();});
+    pop.addEventListener("mousedown",function(e){e.preventDefault();});
+    new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+    pickers.push(this);sync();
+    var _desc=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");
+    Object.defineProperty(input,"value",{configurable:true,get:function(){return _desc.get.call(this);},set:function(v){_desc.set.call(this,v);sync();}});
+  }
+  Picker.prototype.show=function(){
+    closeAll(this);this.render();var pop=this.pop,wrap=this.wrap;pop.style.left="";pop.classList.remove("right");
+    var r=wrap.getBoundingClientRect();pop.classList.toggle("up",window.innerHeight-r.bottom<420&&r.top>420);
+    pop.classList.add("on");this.isOpen=true;
+    var pr=pop.getBoundingClientRect(),vw=document.documentElement.clientWidth;
+    if(pr.right>vw-12){pop.style.left=(pr.left-r.left-(pr.right-(vw-12)))+"px";}
+    pr=pop.getBoundingClientRect();if(pr.left<12){pop.style.left=(12-r.left)+"px";}
+  };
+  Picker.prototype.close=function(){this.pop.classList.remove("on");this.isOpen=false;};
+  Picker.prototype.bounds=function(){
+    var mn=parse(this.input.min)||today(),mx=parse(this.input.max);
+    if(!mx){mx=today();mx.setFullYear(mx.getFullYear()+1);}
+    var closed=(this.input.dataset.closed||"").split(",").filter(Boolean).map(Number);
+    var pair=this.pair,start=null,end=null;
+    if(pair&&pair.role==="end"){start=parse(pair.other.value);if(start&&start>=mn){mn=new Date(start);mn.setDate(mn.getDate()+1);}}
+    if(pair){var a=pair.role==="start"?this.input:pair.other,b=pair.role==="start"?pair.other:this.input;start=parse(a.value);end=parse(b.value);}
+    return {mn:mn,mx:mx,closed:closed,start:start,end:end};
+  };
+  Picker.prototype.render=function(){
+    var self=this,b=this.bounds(),L=lang(),v=this.view,pop=this.pop;
+    pop.style.setProperty("--mdp-accent",accentFor(this.input));
+    var title=new Intl.DateTimeFormat(loc(),{month:"long",year:"numeric"}).format(v);
+    var prevOk=new Date(v.getFullYear(),v.getMonth(),0)>=new Date(b.mn.getFullYear(),b.mn.getMonth(),1);
+    var nextOk=new Date(v.getFullYear(),v.getMonth()+1,1)<=b.mx;
+    var h='<div class="mdp-head"><button type="button" class="mdp-nav" data-n="-1" aria-label="prev"'+(prevOk?"":" disabled")+'>&#8249;</button><div class="mdp-title">'+title+'</div><button type="button" class="mdp-nav" data-n="1" aria-label="next"'+(nextOk?"":" disabled")+'>&#8250;</button></div><div class="mdp-grid">';
+    var base=new Date(2024,0,1);/* Monday */
+    for(var i=0;i<7;i++){var dd=new Date(base);dd.setDate(1+i);h+='<div class="mdp-dow">'+new Intl.DateTimeFormat(loc(),{weekday:"short"}).format(dd).replace(".","").slice(0,3)+'</div>';}
+    var first=(new Date(v.getFullYear(),v.getMonth(),1).getDay()+6)%7,days=new Date(v.getFullYear(),v.getMonth()+1,0).getDate();
+    var sel=parse(this.input.value),t=today();
+    for(i=0;i<first;i++)h+='<button type="button" class="mdp-day out" disabled tabindex="-1"></button>';
+    for(var d=1;d<=days;d++){
+      var dt=new Date(v.getFullYear(),v.getMonth(),d),dis=dt<b.mn||dt>b.mx||b.closed.indexOf(dt.getDay())>-1;
+      var c="mdp-day";if(+dt===+t)c+=" today";if(sel&&+dt===+sel)c+=" sel";
+      if(b.start&&b.end&&dt>b.start&&dt<b.end)c+=" inrange";if((b.start&&+dt===+b.start)||(b.end&&+dt===+b.end))c+=" sel";
+      h+='<button type="button" class="'+c+'" data-d="'+iso(dt)+'"'+(dis?' disabled title="'+(b.closed.indexOf(dt.getDay())>-1?TXT[L][2]:"")+'"':"")+'>'+d+'</button>';
+    }
+    h+='</div><div class="mdp-foot"><span>'+(b.closed.length?TXT[L][2]+": "+b.closed.map(function(n){var x=new Date(base);x.setDate(1+((n+6)%7));return new Intl.DateTimeFormat(loc(),{weekday:"short"}).format(x);}).join(", "):"")+'</span>'+((t>=b.mn&&b.closed.indexOf(t.getDay())<0)?'<button type="button" data-today>'+TXT[L][1]+'</button>':"")+'</div>';
+    pop.innerHTML=h;
+    pop.querySelectorAll(".mdp-nav").forEach(function(n){n.onclick=function(){self.view=new Date(v.getFullYear(),v.getMonth()+(+n.dataset.n),1);self.render();};});
+    pop.querySelectorAll(".mdp-day[data-d]:not(:disabled)").forEach(function(n){n.onclick=function(){self.pick(n.dataset.d);};});
+    var tb=pop.querySelector("[data-today]");if(tb)tb.onclick=function(){self.pick(iso(t));};
+  };
+  Picker.prototype.pick=function(val){
+    var inp=this.input;inp.value=val;
+    inp.dispatchEvent(new Event("input",{bubbles:true}));inp.dispatchEvent(new Event("change",{bubbles:true}));
+    this.close();
+    if(this.pair&&this.pair.role==="start"){var o=this.pair.other,s=parse(val),e=parse(o.value);
+      if(!e||e<=s){var n=new Date(s);n.setDate(n.getDate()+7);o.value=iso(n);o.dispatchEvent(new Event("input",{bubbles:true}));o.dispatchEvent(new Event("change",{bubbles:true}));}
+      var op=pickers.filter(function(p){return p.input===o;})[0];if(op){op.view=new Date(s.getFullYear(),s.getMonth(),1);setTimeout(function(){op.input.dispatchEvent(new Event("mdp-open"));},250);}}
+  };
+  function init(){
+    var ins=[].slice.call(document.querySelectorAll('input[type="date"]'));
+    ins.forEach(function(i){if(!i.closest(".mdp-wrap"))new Picker(i);});
+    var forms={};pickers.forEach(function(p){var f=p.input.form||p.input.closest("section");var k=f?(f.id||[].indexOf.call(document.querySelectorAll("form,section"),f)):"x";(forms[k]=forms[k]||[]).push(p);});
+    Object.keys(forms).forEach(function(k){var g=forms[k];if(g.length===2){g[0].pair={role:"start",other:g[1].input};g[1].pair={role:"end",other:g[0].input};
+      g[1].input.addEventListener("mdp-open",function(){if(!g[1].isOpen)g[1].show();});}});
+    document.addEventListener("mousedown",function(e){if(!e.target.closest(".mdp-wrap"))closeAll();});
+    document.addEventListener("touchstart",function(e){if(!e.target.closest(".mdp-wrap"))closeAll();},{passive:true});
+    document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAll();});
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})();
+</script>
+</body>
+</html>

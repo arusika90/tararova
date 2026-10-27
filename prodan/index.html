@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<!--
+  Prodan Tartufi, Buzet: website proposal mockup (Concept by Marija)
+
+  IMAGE SLOTS (optional, put real photos in ./img/ using these exact names):
+    img/hero.jpg   gallery slide 1 (the oak woods) + "Your day" image
+    img/2.jpg      gallery slide 2 (the dogs on the hunt) + "Hunt + breakfast" tab
+    img/3.jpg      gallery slide 3 (fresh truffles) + "Tasting only" tab
+    img/4.jpg      gallery slide 4 (Višnja's kitchen) + "Hunt + tasting menu" and "Gnocchi class" tabs
+    img/5.jpg      gallery slide 5 (the family shop)
+  No licensed photos are used. Every slot falls back to our own inline SVG
+  illustrations (oak forest, black and white truffles, hunting dog, basket,
+  gnocchi, olive oil bottle, Buzet hilltop) so the page looks finished without photos.
+  Hero: Three.js (cdnjs, r128) misty low-poly oak forest at dawn with fog, light
+  shafts, drifting leaves and dust, scroll camera walk and pointer parallax.
+  Falls back to a static layered SVG forest without WebGL or with reduced motion.
+  Prices "from XX €" are placeholders to edit.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prodan Tartufi Buzet</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Prodan Tartufi Buzet">
+<meta property="og:description" content="Prodan Tartufi: truffle hunting with a family of truffle hunters in Buzet, Istria. Hunt with the dogs, then eat a truffle breakfast or tasting menu cooked by Višnja.">
+<meta property="og:url" content="https://tararova.com/prodan/">
+<meta property="og:image" content="https://tararova.com/prodan/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="description" content="Prodan Tartufi: truffle hunting with a family of truffle hunters in Buzet, Istria. Hunt with the dogs, then eat a truffle breakfast or tasting menu cooked by Višnja.">
+<meta name="theme-color" content="#16281D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Figtree:wght@400;500;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F4EDE1; --linen:#EFE7DA; --white:#FFFFFF; --ink:#1B1B1B; --muted:#6A6258;
+  --forest:#1F3A2C; --forest-d:#16281D; --moss:#4E6A4A; --brown:#5A3E2B; --brown-d:#2B1F16; --black:#0B0B0B;
+  --gold:#C49A4A; --gold-l:#E2C48A; --gold-d:#9A7634;
+  --line:#E2D9CC; --grey:#DADADA; --r:38px;
+  --serif:"Fraunces",Georgia,serif; --sans:"Figtree",system-ui,-apple-system,sans-serif; --script:"Mrs Saint Delafield",cursive;
+  --gutter:20px; --header:60px; --ease:cubic-bezier(.22,.61,.36,1); --out:cubic-bezier(.16,1,.3,1);
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.13 0 0 0 0 0.1 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
+body.locked,body.menu-open{overflow:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+::selection{background:var(--gold);color:#fff}
+.wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 var(--gutter)}
+.label{font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px;margin:0}
+.label .num{color:var(--gold-d)}
+h1,h2,h3{margin:0;font-weight:400}
+h1,h2{font-family:var(--serif);letter-spacing:-.01em;font-variation-settings:"opsz" 72}
+h2{font-size:clamp(34px,9vw,54px);line-height:1.15}
+h2 em,h1 em{font-style:italic;font-weight:300}
+p{margin:0 0 1em}
+.ph{border-bottom:1px dashed var(--gold);font-style:normal;white-space:nowrap}
+section{scroll-margin-top:calc(var(--header) + 16px)}
+.sec{padding:80px 0}
+.bg-cream{background:var(--cream)}
+.bg-linen{background:var(--linen)}
+.bg-white{background:var(--white)}
+.sh{position:relative;padding-bottom:26px;margin-bottom:40px}
+.sh::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line);transform:scaleX(0);transform-origin:left;transition:transform 1.4s var(--out) .2s}
+.sh.in::after{transform:none}
+.sh h2{margin-top:14px}
+.sh p{margin:16px 0 0;max-width:46ch;color:var(--muted)}
+@media(min-width:900px){:root{--gutter:48px;--header:72px}.sec{padding:130px 0}.sh{display:grid;grid-template-columns:1fr 1fr;gap:40px 80px;align-items:end}.sh .label{grid-column:1/-1}.sh h2{margin:0}.sh p{margin:0}}
+
+/* buttons */
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:999px;border:1px solid var(--forest);background:var(--forest);color:#fff;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;isolation:isolate;text-align:center;transition:color .45s var(--ease),border-color .45s var(--ease)}
+.pill::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--brown);transform:translateY(101%);transition:transform .55s var(--out)}
+.pill:hover::before,.pill:focus-visible::before{transform:none}
+.pill svg{width:18px;height:18px;flex:none}
+.pill--cream{background:var(--cream);border-color:var(--cream);color:var(--ink)}
+.pill--cream::before{background:#fff}
+.pill--outline{background:transparent;border-color:currentColor;color:#fff}
+.pill--outline::before{background:#fff}
+.pill--outline:hover{color:var(--forest)}
+.pill--grey{background:#E8E8E8;border-color:#E8E8E8;color:var(--ink);width:100%}
+.pill--grey::before{background:#fff}
+.pill--ghost{background:transparent;color:var(--forest)}
+.pill--ghost:hover{color:#fff;border-color:var(--brown)}
+.pill--block{width:100%}
+.ulink{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:16px;padding-bottom:3px;background:linear-gradient(currentColor,currentColor) left bottom/100% 1px no-repeat;transition:background-size .5s var(--ease);cursor:pointer}
+.ulink:hover{background-size:35% 1px}
+.ulink svg{width:15px;height:15px;transition:transform .4s var(--ease)}
+.ulink:hover svg{transform:translateX(4px)}
+
+/* illustrated image slots */
+.art{position:relative;overflow:hidden;background:#8C8466;isolation:isolate}
+.art::before{content:"";position:absolute;inset:-20%;z-index:0;filter:blur(36px);animation:drift 26s ease-in-out infinite alternate}
+.art::after{content:"";position:absolute;inset:0;z-index:3;background-image:var(--grain);opacity:.22;mix-blend-mode:multiply;pointer-events:none}
+.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;opacity:0;transition:opacity 1.2s var(--ease)}
+.art img.ok{opacity:1}
+.ill{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+@keyframes drift{0%{transform:translate3d(0,0,0) rotate(0)}100%{transform:translate3d(4%,-3%,0) rotate(8deg)}}
+.art--woods{background:linear-gradient(180deg,#7E8A6E 0%,#CDBF98 42%,#6C7556 70%,#2A3626 100%)}
+.art--woods::before{background:radial-gradient(30% 22% at 66% 38%,rgba(255,226,160,.9),transparent 70%),radial-gradient(40% 20% at 30% 62%,rgba(236,226,200,.6),transparent 70%)}
+.art--dogs{background:linear-gradient(170deg,#A9A07A 0%,#7D7A58 50%,#3B3F2C 100%)}
+.art--dogs::before{background:radial-gradient(34% 26% at 72% 26%,rgba(255,230,170,.75),transparent 70%),radial-gradient(40% 22% at 30% 76%,rgba(120,90,60,.5),transparent 70%)}
+.art--truffles{background:linear-gradient(160deg,#E9DFCB 0%,#CBB693 55%,#8E7352 100%)}
+.art--truffles::before{background:radial-gradient(34% 28% at 34% 30%,rgba(255,250,236,.9),transparent 70%),radial-gradient(30% 24% at 72% 70%,rgba(196,154,74,.55),transparent 70%)}
+.art--kitchen{background:linear-gradient(190deg,#EFE4CF 0%,#D6BF96 50%,#9C7A52 100%)}
+.art--kitchen::before{background:radial-gradient(34% 26% at 64% 28%,rgba(255,246,226,.95),transparent 70%),radial-gradient(28% 22% at 26% 72%,rgba(196,154,74,.6),transparent 70%)}
+.art--gnocchi{background:linear-gradient(160deg,#F3EAD6 0%,#E0CBA2 55%,#B18E5E 100%)}
+.art--gnocchi::before{background:radial-gradient(36% 28% at 40% 34%,rgba(255,250,238,.95),transparent 70%),radial-gradient(26% 22% at 76% 74%,rgba(90,62,43,.35),transparent 70%)}
+.art--shop{background:linear-gradient(200deg,#3E4A36 0%,#2A3326 55%,#1A2119 100%)}
+.art--shop::before{background:radial-gradient(30% 24% at 32% 30%,rgba(226,196,138,.5),transparent 70%),radial-gradient(26% 22% at 72% 66%,rgba(244,237,225,.25),transparent 70%)}
+.art--buzet{background:linear-gradient(180deg,#B9B59A 0%,#E4D6B2 45%,#8E9472 75%,#4E5A40 100%)}
+.art--buzet::before{background:radial-gradient(30% 22% at 70% 30%,rgba(255,232,180,.9),transparent 70%)}
+.art--motovun{background:linear-gradient(180deg,#C8C2A6 0%,#E9DDBE 40%,#7E8C68 72%,#3E4A34 100%)}
+.art--motovun::before{background:radial-gradient(28% 20% at 30% 30%,rgba(255,236,190,.85),transparent 70%)}
+.art--hills{background:linear-gradient(180deg,#A6AC92 0%,#DDD3B4 45%,#6E7C5A 75%,#34402C 100%)}
+.art--hills::before{background:radial-gradient(30% 22% at 50% 28%,rgba(255,230,176,.8),transparent 70%)}
+
+/* frame, tag, caption */
+.frame{position:relative;border-radius:var(--r);overflow:hidden;transform:translateZ(0)}
+.frame>.art{position:absolute;inset:-10% 0}
+.tag-b{position:absolute;top:28px;right:0;z-index:6;background:#111;color:#fff;font-size:15px;line-height:1.2;padding:9px 14px 9px 16px;border-radius:8px 0 0 8px;display:inline-flex;align-items:center;gap:6px}
+.tag-b svg{width:14px;height:14px}
+.cap{position:absolute;left:0;right:0;bottom:0;z-index:6;padding:56px 24px 22px;background:linear-gradient(to top,rgba(0,0,0,.58),rgba(0,0,0,0));color:#fff;font-size:15px;display:flex;align-items:center;gap:8px}
+.cap svg{width:16px;height:16px;flex:none}
+
+/* PRELOADER */
+.pre{position:fixed;inset:0;z-index:200;background:var(--forest-d);display:grid;place-items:center;transition:transform 1s var(--out) .1s;animation:preSafety 0s 5s forwards}
+.pre__in{display:flex;flex-direction:column;align-items:center;gap:20px;transition:opacity .5s var(--ease),transform .8s var(--ease)}
+.pre svg{width:96px;height:96px;overflow:visible}
+.pre .ring{fill:none;stroke:var(--gold);stroke-width:.6;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.3s var(--ease) forwards}
+.pre .s{fill:none;stroke:var(--gold-l);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.1s var(--ease) .25s forwards}
+.pre__name{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:rgba(244,237,225,.75);opacity:0;animation:fadeIn .8s var(--ease) .7s forwards;padding-left:.32em}
+.pre.done{transform:translateY(-100%)}
+.pre.done .pre__in{opacity:0;transform:translateY(-30px)}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes preSafety{to{visibility:hidden;opacity:0}}
+
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:60;height:var(--header);color:#fff;transition:background .5s var(--ease),color .5s var(--ease),box-shadow .5s var(--ease)}
+.hdr.scrolled,.menu-open .hdr{background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);color:var(--ink);box-shadow:0 1px 0 rgba(0,0,0,.05),0 6px 20px rgba(0,0,0,.04)}
+.hdr .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.logo{display:flex;align-items:center;gap:10px;line-height:1}
+.logo svg{width:32px;height:32px;flex:none}
+.logo b{display:block;font-family:var(--serif);font-weight:400;font-size:20px}
+.logo small{display:block;font-size:9px;letter-spacing:.24em;text-transform:uppercase;opacity:.8;margin-top:4px}
+.hdr__nav{display:none;gap:28px;font-size:14px}
+.hdr__nav a{position:relative;padding:6px 0}
+.hdr__nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .5s var(--out)}
+.hdr__nav a:hover::after{transform:none}
+.hdr__r{display:flex;align-items:center;gap:14px}
+.lang{display:flex;align-items:center;font-size:12px;font-weight:500;letter-spacing:.12em}
+.lang button{background:none;border:0;padding:8px 6px;cursor:pointer;opacity:.55;transition:opacity .3s}
+.lang button[aria-pressed="true"]{opacity:1;text-decoration:underline;text-underline-offset:5px}
+.hdr .lang{display:none}
+.hdr__book{display:none;min-height:40px;padding:0 20px;font-size:12px;background:transparent;border-color:currentColor;color:inherit}
+.hdr__book::before{background:var(--forest)}
+.hdr__book:hover{color:#fff;border-color:var(--forest)}
+.menu-btn{display:flex;align-items:center;gap:10px;background:none;border:0;padding:10px 0;font:600 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
+.burger{position:relative;width:22px;height:12px}
+.burger i{position:absolute;left:0;right:0;height:1.5px;background:currentColor;transition:transform .45s var(--out),top .45s var(--out)}
+.burger i:first-child{top:0}.burger i:last-child{top:10px}
+.menu-open .burger i:first-child{top:5px;transform:rotate(45deg)}
+.menu-open .burger i:last-child{top:5px;transform:rotate(-45deg)}
+@media(min-width:900px){.hdr__nav,.hdr .lang{display:flex}.hdr__book{display:inline-flex}.menu-btn{display:none}}
+.menu{position:fixed;inset:0;z-index:55;background:var(--cream);color:var(--ink);padding:calc(var(--header) + 24px) var(--gutter) calc(28px + env(safe-area-inset-bottom));display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility 0s .45s;overflow-y:auto}
+.menu-open .menu{opacity:1;visibility:visible;transition:opacity .45s var(--ease)}
+.menu nav a{display:block;padding:10px 0;font:400 32px/1.15 var(--serif);border-bottom:1px solid var(--line);opacity:0;transform:translateY(18px);transition:opacity .5s,transform .7s var(--out)}
+.menu-open .menu nav a{opacity:1;transform:none}
+.menu nav a:nth-child(2){transition-delay:.04s}.menu nav a:nth-child(3){transition-delay:.08s}.menu nav a:nth-child(4){transition-delay:.12s}.menu nav a:nth-child(5){transition-delay:.16s}.menu nav a:nth-child(6){transition-delay:.2s}.menu nav a:nth-child(7){transition-delay:.24s}
+.menu-foot{margin-top:auto;padding-top:26px;display:grid;gap:16px}
+.menu .lang button{font-size:14px;padding:10px 10px 10px 0;margin-right:8px;color:var(--forest)}
+.menu-tel{color:var(--muted);font-size:15px}
+@media(min-width:900px){.menu{display:none}}
+
+/* HERO */
+.hero{position:relative;height:100vh;height:100svh;min-height:640px;overflow:hidden;color:#fff;background:#2A3626}
+.hero__media{position:absolute;inset:-6% 0;z-index:1;will-change:transform}
+.hero__scene{position:absolute;inset:0;width:100%;height:100%}
+.hero__scene g{will-change:transform}
+.hero__scene .shaft{animation:shaft 9s ease-in-out infinite alternate}
+.hero__scene .shaft.s2{animation-duration:12s;animation-delay:-4s}
+@keyframes shaft{from{opacity:.25}to{opacity:.8}}
+.hero__scene .fogband{animation:fogx 30s ease-in-out infinite alternate}
+.hero__scene .fogband.f2{animation-duration:40s;animation-direction:alternate-reverse}
+@keyframes fogx{from{transform:translateX(-30px)}to{transform:translateX(30px)}}
+.hero__scene .lf{animation:leafFall 14s linear infinite;transform-box:fill-box;transform-origin:center}
+.hero__scene .lf.l2{animation-duration:18s;animation-delay:-6s}.hero__scene .lf.l3{animation-duration:22s;animation-delay:-12s}
+@keyframes leafFall{0%{transform:translate(0,-80px) rotate(0)}100%{transform:translate(60px,860px) rotate(540deg)}}
+#forest{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;opacity:0;transition:opacity 1.8s var(--ease)}
+.gl-on #forest{opacity:1}
+.hero__veil{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to top,rgba(12,18,12,.86) 0%,rgba(12,18,12,.4) 42%,rgba(12,18,12,0) 68%),linear-gradient(to right,rgba(12,18,12,.5) 0%,rgba(12,18,12,0) 75%),linear-gradient(to bottom,rgba(12,18,12,.4),rgba(12,18,12,0) 22%)}
+.hero__c{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:70px;pointer-events:none}
+.hero__c a{pointer-events:auto}
+.hero .label{color:rgba(255,255,255,.88);margin-bottom:16px}
+.hero h1{font-size:clamp(44px,11.6vw,92px);line-height:1.05}
+.hero h1 .sub{font-size:.5em;font-style:italic;font-weight:300;color:var(--gold-l);margin-top:.15em}
+.mask{display:block;overflow:hidden;padding-bottom:.06em}
+.mask>span{display:block;transform:translateY(112%);transition:transform 1.4s var(--out)}
+.ready .mask>span{transform:none}
+.ready .mask:nth-child(2)>span{transition-delay:.15s}
+.ready .mask:nth-child(3)>span{transition-delay:.3s}
+.hero__txt{font-size:17px;margin:16px 0 14px;max-width:34ch;color:rgba(255,255,255,.92)}
+.hero__addr{display:inline-flex;align-items:center;gap:8px;font-size:15px;color:#fff;padding-bottom:2px;border-bottom:1px solid rgba(255,255,255,.45);transition:border-color .4s}
+.hero__addr:hover{border-color:#fff}
+.hero__addr svg{width:16px;height:16px;flex:none}
+.hero__cta{margin-top:22px;max-width:440px}
+.hero__scroll{display:none;position:absolute;right:var(--gutter);bottom:84px;z-index:5;width:1px;height:56px;background:rgba(255,255,255,.3);overflow:hidden}
+.hero__scroll::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:#fff;animation:scrollLine 2.4s var(--ease) infinite}
+@keyframes scrollLine{to{top:110%}}
+@media(min-width:900px){.hero__scroll{display:block}}
+.fade-up{opacity:0;transform:translateY(18px);transition:opacity 1.1s var(--ease),transform 1.2s var(--out)}
+.ready .fade-up{opacity:1;transform:none}
+.ready .d1{transition-delay:.45s}.ready .d2{transition-delay:.6s}.ready .d3{transition-delay:.75s}
+
+/* deco parallax layers */
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+.has-deco{position:relative;overflow:hidden;overflow:clip}
+.has-deco>.wrap{position:relative;z-index:1}
+.deco{position:absolute;z-index:0;height:auto;pointer-events:none;will-change:transform}
+.deco use{transform-box:fill-box;transform-origin:50% 100%;animation:sway 11s ease-in-out infinite alternate}
+.deco.d2 use{animation-duration:14s;animation-delay:-5s}
+@keyframes sway{from{transform:rotate(-3deg)}to{transform:rotate(3.5deg)}}
+
+/* FINDER pill */
+.finder{position:relative;z-index:7;margin-top:-34px;padding:0 var(--gutter) 22px;background:linear-gradient(transparent 34px,#fff 34px)}
+.finder a{display:flex;align-items:center;gap:14px;max-width:560px;margin:0 auto;min-height:66px;padding:10px 10px 10px 22px;background:#fff;border:1px solid #CFCFCF;border-radius:999px;box-shadow:0 10px 34px -12px rgba(0,0,0,.18);transition:box-shadow .4s var(--ease),transform .4s var(--ease)}
+.finder a:hover{box-shadow:0 14px 40px -12px rgba(0,0,0,.26);transform:translateY(-1px)}
+.finder__ic{width:22px;height:22px;flex:none;color:var(--ink)}
+.finder__t{flex:1;min-width:0;line-height:1.3}
+.finder__t b{display:block;font-weight:600;font-size:16px}
+.finder__t small{display:block;font-size:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.finder__go{width:46px;height:46px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;flex:none}
+.finder__go svg{width:18px;height:18px}
+
+/* REVEALS */
+.rv{opacity:0;transform:translate3d(0,30px,0);transition:opacity 1.1s var(--ease),transform 1.2s var(--out)}
+.rv.in{opacity:1;transform:none}
+.rv-img{clip-path:inset(10% 4% 0 4% round var(--r));transition:clip-path 1.6s var(--out)}
+.rv-img.in{clip-path:inset(0 0 0 0 round var(--r))}
+.rv-img .art{scale:1.15;transition:scale 2.2s var(--out)}
+.rv-img.in .art{scale:1}
+[data-delay="1"]{transition-delay:.12s!important}[data-delay="2"]{transition-delay:.24s!important}[data-delay="3"]{transition-delay:.36s!important}
+
+/* GALLERY near-black */
+.gal-sec{background:var(--black);color:#fff;text-align:center;padding:80px 0 0}
+.gal-sec h2{color:#fff}
+.gal-sec .sub{color:rgba(255,255,255,.72);max-width:40ch;margin:14px auto 40px}
+.gal{position:relative;border-radius:40px 40px 0 0;overflow:hidden;aspect-ratio:4/5;max-height:80vh;width:100%;touch-action:pan-y}
+.gal__track{display:flex;height:100%;transition:transform 1s var(--out)}
+.gal__slide{position:relative;flex:0 0 100%;height:100%;overflow:hidden}
+.gal__slide .art{position:absolute;inset:0;transform:scale(1.08);transition:transform 1.6s var(--out)}
+.gal__slide.cur .art{transform:scale(1)}
+.gal .tag-b{top:0;border-radius:0 0 0 8px;padding:12px 16px;text-align:left}
+.sqbtn{position:absolute;top:50%;z-index:6;width:48px;height:56px;margin-top:-28px;background:#111;color:#fff;border:0;display:grid;place-items:center;cursor:pointer;transition:background .3s}
+.sqbtn:hover{background:#333}
+.sqbtn svg{width:18px;height:18px}
+.sqbtn.l{left:0}.sqbtn.r{right:0}
+.gal__count{position:absolute;right:0;bottom:0;z-index:6;background:#111;color:#fff;font-size:15px;letter-spacing:.08em;padding:10px 16px;font-variant-numeric:tabular-nums}
+.gal__prog{position:absolute;left:0;right:0;bottom:0;z-index:5;height:2px;background:rgba(255,255,255,.2)}
+.gal__prog i{display:block;height:100%;background:#fff;transform:scaleX(0);transform-origin:left}
+.gal__prog i.run{animation:prog 6s linear forwards}
+@keyframes prog{to{transform:scaleX(1)}}
+.gal .cap{text-align:left;padding-right:80px}
+@media(min-width:900px){.gal{aspect-ratio:16/8}}
+
+/* STORY */
+.story{position:relative;overflow:hidden}
+.wm{position:absolute;inset:-10% -20%;display:flex;flex-wrap:wrap;gap:10px 60px;align-content:flex-start;transform:rotate(-12deg);font-family:var(--script);font-size:64px;line-height:1.3;color:var(--brown-d);opacity:.06;pointer-events:none;user-select:none;will-change:transform}
+.story .wrap{position:relative}
+.story__grid{display:grid;gap:48px}
+.story .lead{font-family:var(--serif);font-size:23px;line-height:1.4;margin-bottom:20px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:32px}
+.stat{background:#fff;border-radius:18px;padding:18px 12px 16px;text-align:left}
+.stat b{display:block;font-family:var(--serif);font-weight:400;font-size:32px;line-height:1;font-variant-numeric:tabular-nums}
+.stat small{display:block;font-size:12px;line-height:1.35;color:var(--muted);margin-top:8px}
+.stars{display:flex;gap:2px;color:var(--gold-d);margin-top:6px}
+.stars svg{width:11px;height:11px;fill:currentColor}
+.direct{position:relative;background:var(--forest);color:#fff;border-radius:24px;padding:28px 24px 26px;overflow:hidden}
+.direct .label{color:var(--gold-l)}
+.direct h3{font-family:var(--serif);font-size:28px;line-height:1.2;margin:12px 0 10px}
+.direct p{color:rgba(255,255,255,.82);margin:0 0 20px}
+.direct ul{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:10px}
+.direct li{display:flex;gap:12px;align-items:flex-start;font-size:16px;color:rgba(255,255,255,.9)}
+.direct li svg{width:20px;height:20px;flex:none;margin-top:3px;stroke:var(--gold-l);fill:none;stroke-width:1.6}
+.direct .deco{right:-30px;bottom:-20px;width:150px;opacity:.14;color:#fff}
+.direct>*:not(.deco){position:relative;z-index:1}
+.sig{display:flex;align-items:center;gap:14px;margin-top:26px}
+.sig svg{width:48px;height:48px}
+.sig b{display:block;font-family:var(--script);font-weight:400;font-size:44px;line-height:.9}
+.sig small{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+@media(min-width:900px){.story__grid{grid-template-columns:1.2fr 1fr;gap:100px;align-items:start}.direct{padding:40px 36px}}
+
+/* EXPERIENCES tabs */
+.tabs{position:relative;display:flex;gap:26px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);margin:0 calc(var(--gutter) * -1) 34px;padding:0 var(--gutter)}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;background:none;border:0;padding:14px 0 16px;font-size:16px;color:var(--muted);cursor:pointer;white-space:nowrap;transition:color .35s}
+.tab[aria-selected="true"]{color:var(--ink);font-weight:500}
+.tabs__ink{position:absolute;bottom:-1px;left:0;height:2px;background:var(--forest);transition:transform .6s var(--out),width .6s var(--out);width:0}
+.panel{display:none}
+.panel.on{display:grid;gap:30px;animation:panelIn .8s var(--out)}
+@keyframes panelIn{from{opacity:0;transform:translate3d(24px,0,0)}to{opacity:1;transform:none}}
+.panel .frame{aspect-ratio:4/3}
+.panel .frame>.art{inset:0}
+.panel h3{font-family:var(--serif);font-size:32px;line-height:1.15}
+.panel__meta{display:flex;align-items:baseline;gap:8px;margin:10px 0 16px;font-size:15px;color:var(--muted)}
+.panel__meta b{font-family:var(--serif);font-weight:400;font-size:26px;color:var(--ink)}
+.panel p{color:#3a342e}
+.dots{list-style:none;padding:0;margin:0 0 24px}
+.dots li{position:relative;padding:6px 0 6px 22px;font-size:16px}
+.dots li::before{content:"";position:absolute;left:2px;top:16px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.ex__note{margin-top:30px;font-size:14px;color:var(--muted)}
+@media(min-width:900px){.panel.on{grid-template-columns:1.1fr 1fr;gap:80px;align-items:center}.tabs{margin:0 0 50px;padding:0;gap:44px}}
+
+/* YOUR DAY timeline */
+.day__body{display:grid;gap:36px}
+.day__img{aspect-ratio:3/2}
+.tl{position:relative;padding:0 0 0 56px;margin:0;list-style:none;max-width:620px}
+.tl__track,.tl__fill{position:absolute;left:19px;top:8px;bottom:8px;width:1px}
+.tl__track{background:var(--line)}
+.tl__fill{background:var(--gold-d);transform-origin:top;transform:scaleY(0)}
+.step{position:relative;padding-bottom:42px;opacity:.3;transform:translateX(12px);transition:opacity .9s var(--ease),transform 1s var(--out)}
+.step:last-child{padding-bottom:0}
+.step.on{opacity:1;transform:none}
+.step__dot{position:absolute;left:-56px;top:-4px;width:39px;height:39px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--muted);transition:background .8s,color .8s,border-color .8s}
+.step__dot svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.step.on .step__dot{background:var(--forest);border-color:var(--forest);color:#fff}
+.step small{display:block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);margin-bottom:4px}
+.step h3{font-family:var(--sans);font-size:22px;font-weight:500;line-height:1.3;margin-bottom:6px}
+.step p{margin:0;color:var(--muted)}
+@media(min-width:900px){.day__body{grid-template-columns:1fr 1fr;gap:100px}.day__img-wrap{position:sticky;top:150px;align-self:start}.day__img{aspect-ratio:4/5}}
+
+/* FOREST band */
+.band{position:relative;overflow:hidden;background:var(--forest);color:#fff;padding:84px 0}
+.band__orb{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.14);will-change:transform}
+.band__orb.a{width:340px;height:340px;right:-120px;top:-120px}
+.band__orb.b{width:220px;height:220px;left:-80px;bottom:-90px;background:rgba(255,255,255,.04)}
+.band .wrap{position:relative;z-index:1}
+.band .label{color:var(--gold-l)}
+.band h2{margin:14px 0 14px;max-width:16ch}
+.band p{color:rgba(255,255,255,.8);max-width:40ch;margin:0 0 26px}
+@media(min-width:900px){.band .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:40px}.band p{margin-bottom:0}}
+
+/* SHOP */
+.shop__panel{position:relative;background:var(--cream);border-radius:24px;padding:26px 20px 30px;overflow:hidden}
+.shop__grid{display:grid;gap:34px}
+.motes{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.motes i{position:absolute;bottom:-10px;border-radius:50%;background:var(--gold);opacity:0;animation:rise linear infinite}
+@keyframes rise{0%{transform:translate3d(0,0,0);opacity:0}15%{opacity:.5}85%{opacity:.3}100%{transform:translate3d(-30px,-900px,0);opacity:0}}
+.box-wrap{position:relative;z-index:1;perspective:1200px;display:grid;place-items:center;padding:6px 0}
+.gbox{position:relative;width:min(100%,400px);transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out;animation:float 7s ease-in-out infinite}
+.gbox svg{display:block;width:100%;height:auto;overflow:visible}
+.gbox__glare{position:absolute;inset:6% 4%;border-radius:20px;background:radial-gradient(circle at var(--mx,50%) var(--my,30%),rgba(255,255,255,.28),transparent 50%);pointer-events:none;mix-blend-mode:soft-light}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -8px}}
+.gbox .lid{animation:lid 6s var(--ease) infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes lid{0%,70%,100%{transform:translateY(0)}80%{transform:translateY(-8px) rotate(-2deg)}90%{transform:translateY(0)}}
+.flow{position:relative;z-index:1}
+.flow h3{font-family:var(--serif);font-size:32px;line-height:1.15}
+.flow>p{margin:10px 0 22px;color:#3a342e}
+.flab{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin:0 0 10px}
+.prods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:22px}
+.prod{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-height:96px;padding:14px;background:#fff;border:1px solid var(--grey);border-radius:4px;font-size:15px;line-height:1.3;text-align:left;cursor:pointer;transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease)}
+.prod svg{width:30px;height:30px}
+.prod:hover{border-color:#9a9a9a}
+.prod[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:#fff}
+.prod--wide{grid-column:1/-1;flex-direction:row;align-items:center;min-height:64px}
+.flow .fine{font-size:14px;color:var(--muted);margin:12px 0 0;text-align:center}
+@media(min-width:900px){.shop__panel{padding:56px}.shop__grid{grid-template-columns:1fr 1fr;gap:70px;align-items:center}}
+
+/* GOOD TO KNOW */
+.gtk{background:#fff;border-radius:22px;padding:8px 22px}
+.gtk dl{margin:0}
+.gtk__row{display:grid;grid-template-columns:28px 1fr;gap:2px 16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.gtk__row:last-child{border-bottom:0}
+.gtk__row svg{width:26px;height:26px;stroke:var(--forest);fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;grid-row:span 2;margin-top:2px}
+.gtk dt{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.gtk dd{margin:0;font-size:17px;line-height:1.45}
+.gtk dd a{text-decoration:underline;text-underline-offset:3px}
+@media(min-width:900px){.gtk dl{display:grid;grid-template-columns:1fr 1fr;column-gap:60px}.gtk{padding:20px 40px}.gtk__row:nth-last-child(2){border-bottom:0}}
+
+/* NEARBY peek carousel */
+.peek{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px max(var(--gutter),calc((100vw - 1200px)/2 + var(--gutter))) 8px;scroll-padding:0 max(var(--gutter),calc((100vw - 1200px)/2 + var(--gutter)))}
+.peek::-webkit-scrollbar{display:none}
+.peek::after{content:"";flex:0 0 1px}
+.ncard{flex:0 0 82vw;max-width:400px;scroll-snap-align:start}
+.ncard .frame{aspect-ratio:4/5;margin-bottom:22px}
+.ncard .frame>.art{inset:0}
+.ncard h3{font-size:22px;font-weight:500;line-height:1.3;margin-bottom:6px}
+.ncard p{color:#3a342e;margin-bottom:14px}
+.ncard ul{list-style:none;padding:0;margin:0 0 18px}
+.ncard li{position:relative;padding:4px 0 4px 22px;font-size:16px}
+.ncard li::before{content:"";position:absolute;left:2px;top:14px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.peek__ui{display:flex;align-items:center;gap:18px;margin-top:30px}
+.peek__bar{flex:1;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+.peek__bar i{display:block;height:100%;width:33%;background:var(--forest);border-radius:2px;transition:transform .3s linear}
+.rbtn{width:46px;height:46px;border-radius:50%;border:1px solid var(--forest);background:transparent;display:grid;place-items:center;cursor:pointer;transition:background .3s,color .3s;color:var(--forest)}
+.rbtn:hover{background:var(--forest);color:#fff}
+.rbtn svg{width:16px;height:16px}
+@media(min-width:900px){.ncard{flex-basis:360px}}
+
+/* BOOKING (deep forest) */
+.book{background:var(--forest-d);color:#fff;position:relative;overflow:hidden}
+.book .label,.book .label .num{color:var(--gold-l)}
+.book .sh::after{background:rgba(255,255,255,.16)}
+.book .sh p{color:rgba(255,255,255,.75)}
+.book__grid{display:grid;gap:40px}
+.form{display:grid;gap:26px}
+.field{display:grid;gap:10px}
+.field>span,.field legend{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);padding:0;margin-bottom:10px}
+.field>span{margin-bottom:0}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.ctl{width:100%;min-height:56px;padding:0 16px;border:1px solid rgba(255,255,255,.24);border-radius:4px;background:rgba(255,255,255,.05);color:#fff;font-size:16px;-webkit-appearance:none;appearance:none;transition:border-color .3s,background .3s}
+.ctl:focus{outline:none;border-color:var(--gold-l);background:rgba(255,255,255,.08)}
+.ctl::placeholder{color:rgba(255,255,255,.42)}
+input[type=date].ctl{color-scheme:dark}
+.chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.chips--4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.chip{display:block;width:100%;min-width:0}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip>span{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60px;padding:8px 6px;border:1px solid #DADADA;border-color:rgba(255,255,255,.3);border-radius:4px;font-size:15px;cursor:pointer;line-height:1.25;text-align:center;transition:background .35s,color .35s,border-color .35s}
+.chips--4 .chip>span{min-height:50px;font-weight:500;letter-spacing:.06em}
+.chip>span small{font-size:12px;opacity:.7;margin-top:2px}
+.chip input:checked+span{background:var(--cream);border-color:var(--cream);color:var(--ink)}
+.chip input:focus-visible+span{outline:2px solid var(--gold-l);outline-offset:2px}
+.stepper{display:inline-grid;justify-self:start;width:max-content;grid-template-columns:56px 72px 56px;height:56px;border:1px solid rgba(255,255,255,.3);border-radius:4px;overflow:hidden}
+.stepper button{border:0;background:rgba(255,255,255,.08);color:#fff;font-size:22px;cursor:pointer;transition:background .3s}
+.stepper button:hover{background:rgba(255,255,255,.16)}
+.stepper button:disabled{opacity:.35;cursor:default}
+.stepper output{display:grid;place-items:center;font-size:18px;border-left:1px solid rgba(255,255,255,.3);border-right:1px solid rgba(255,255,255,.3);font-variant-numeric:tabular-nums}
+.stepper output.bump{animation:bump .45s var(--out)}
+@keyframes bump{0%{opacity:.3;transform:translateY(6px)}100%{opacity:1;transform:none}}
+.book__aside{display:grid;gap:14px;align-content:start}
+.note{display:flex;gap:14px;align-items:flex-start;padding:20px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(226,196,138,.35)}
+.note svg{width:22px;height:22px;flex:none;stroke:var(--gold-l);fill:none;stroke-width:1.4;margin-top:2px}
+.note b{display:block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--gold-l);margin-bottom:4px}
+.note p{margin:0;font-size:16px;color:rgba(255,255,255,.82)}
+.book .deco{color:#fff;opacity:.06}
+@media(min-width:900px){.book__grid{grid-template-columns:1.15fr 1fr;gap:100px}}
+
+/* FAQ */
+.faq__list{border-top:1px solid #D9CFC2}
+.qa{border-bottom:1px solid #D9CFC2}
+.qa button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0;background:none;border:0;text-align:left;cursor:pointer;font-family:var(--serif);font-size:21px;line-height:1.3}
+.qa .pm{position:relative;width:34px;height:34px;flex:none;border-radius:50%;border:1px solid var(--ink);transition:background .4s,transform .6s var(--out)}
+.qa .pm::before,.qa .pm::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.2px;background:var(--ink);transform:translate(-50%,-50%);transition:transform .5s var(--out),background .4s}
+.qa .pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+.qa.open .pm{background:var(--forest);border-color:var(--forest);transform:rotate(180deg)}
+.qa.open .pm::before,.qa.open .pm::after{background:#fff}
+.qa.open .pm::after{transform:translate(-50%,-50%) rotate(0)}
+.qa__a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--out)}
+.qa.open .qa__a{grid-template-rows:1fr}
+.qa__a>div{overflow:hidden}
+.qa__a p{margin:0;padding:0 0 24px;color:#3a342e;max-width:60ch;opacity:0;transform:translateY(-6px);transition:opacity .5s,transform .6s var(--out)}
+.qa.open .qa__a p{opacity:1;transform:none;transition-delay:.1s}
+@media(min-width:900px){.faq__grid{display:grid;grid-template-columns:1fr 1.4fr;gap:100px}.faq__grid .sh{display:block}.faq__grid .sh h2{margin-top:14px}}
+
+/* CONTACT */
+.contact__grid{display:grid;gap:36px}
+#contact{padding-bottom:64px}
+.addr{font-family:var(--serif);font-size:28px;line-height:1.25;margin-bottom:14px}
+.hours{list-style:none;padding:0;margin:30px 0;border-top:1px solid var(--line)}
+.hours li{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:16px}
+.hours li span:last-child{font-variant-numeric:tabular-nums;color:var(--muted)}
+.contact__btns{display:grid;gap:10px}
+.contact__img{aspect-ratio:3/2}
+.pin{position:absolute;left:50%;top:38%;z-index:5;transform:translate(-50%,-50%)}
+.pin__ring{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:grid;place-items:center;position:relative;color:var(--forest)}
+.pin__ring::before,.pin__ring::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid #fff;animation:ripple 3.6s var(--ease) infinite;opacity:0}
+.pin__ring::after{animation-delay:1.8s}
+@keyframes ripple{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.4);opacity:0}}
+.pin__ring svg{width:26px;height:26px}
+@media(min-width:700px){.contact__btns{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.contact__grid{grid-template-columns:1fr 1fr;gap:100px;align-items:center}.contact__img{aspect-ratio:4/5}#contact{padding-bottom:130px}}
+
+/* FOOTER */
+.foot{background:var(--brown-d);color:rgba(255,255,255,.75);padding:70px 0 120px;font-size:15px;position:relative;overflow:hidden}
+.foot__top{display:grid;gap:30px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.14);position:relative;z-index:1}
+.foot .logo{color:#fff}
+.foot .logo svg{width:42px;height:42px}
+.foot .logo b{font-size:24px}
+.foot h4{margin:0 0 10px;font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-l)}
+.foot a:hover{color:#fff}
+.foot__bot{padding-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:13px;color:rgba(255,255,255,.5);position:relative;z-index:1}
+.foot__hill{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;color:#fff;opacity:.05;pointer-events:none}
+@media(min-width:900px){.foot__top{grid-template-columns:1.5fr 1fr 1fr 1fr}}
+
+/* FLOATING */
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:70;display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 22px 0 18px;border-radius:999px;background:var(--forest);color:#fff;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 14px 34px -14px rgba(0,0,0,.45);transform:translateY(140%);opacity:0;transition:transform .7s var(--out),opacity .5s var(--ease),background .3s}
+.fab.show{transform:none;opacity:1}
+.bar-on .fab{transform:translateY(140%);opacity:0;pointer-events:none}
+.fab:hover{background:var(--brown)}
+.fab svg{width:18px;height:18px}
+.ctag{position:fixed;left:var(--gutter);top:calc(var(--header) + 8px);z-index:55;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.9);background:rgba(0,0,0,.25);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);padding:5px 9px;border-radius:999px;pointer-events:none;transition:opacity .5s var(--ease)}
+.ctag.off{opacity:0}
+.sbar{position:fixed;left:0;right:0;bottom:0;z-index:80;background:#fff;color:var(--ink);border-radius:20px 20px 0 0;box-shadow:0 -10px 34px -10px rgba(0,0,0,.18);padding:14px var(--gutter) calc(14px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:14px;transform:translateY(110%);transition:transform .6s var(--out)}
+.bar-on .sbar{transform:none}
+.sbar small{display:block;font-size:13px;color:var(--muted);line-height:1.2}
+.sbar b{display:block;font-family:var(--serif);font-weight:400;font-size:20px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbar>div{min-width:0}
+.sbar .pill{padding:0 20px;font-size:12px;flex:none}
+@media(min-width:900px){.sbar{display:none}}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
+  .rv,.step,.fade-up{opacity:1!important;transform:none!important}
+  .rv-img{clip-path:none!important}
+  .mask>span{transform:none!important}
+  .tl__fill{transform:none!important}
+  .rv-img .art{scale:1!important}
+  .deco use,.hero__scene .shaft,.hero__scene .fogband,.hero__scene .lf,.gbox .lid{animation:none!important}
+  #forest,.motes{display:none}
+  .gbox{animation:none}
+}
+
+/* ===== mobile fixes v2 ===== */
+html input,html select,html textarea{font-size:16px;min-width:0;max-width:100%;box-sizing:border-box}
+html input[type="date"],html input[type="time"]{-webkit-appearance:none;appearance:none;display:block;width:100%;height:56px;min-height:56px;line-height:56px;padding:0 14px;text-align:left;overflow:hidden;white-space:nowrap}
+html input[type="date"]::-webkit-date-and-time-value,html input[type="time"]::-webkit-date-and-time-value{text-align:left;margin:0;line-height:56px;min-height:0}
+html input[type="date"]::-webkit-datetime-edit,html input[type="time"]::-webkit-datetime-edit{padding:0;line-height:56px}
+html input[type="date"]::-webkit-calendar-picker-indicator{margin:0 0 0 auto;filter:invert(1);opacity:.7}
+html select{height:56px;line-height:normal}
+.menu-open .fab,.menu-open .ctag,.menu-open .sbar{opacity:0!important;pointer-events:none!important}
+.menu-open .sbar{transform:translateY(110%)!important}
+
+/* faq: no double line under the heading */
+.faq,.faq-list,.faq__list{border-top:0!important}
+.faq>:first-child,.faq-list>:first-child,.faq__list>:first-child{border-top:0!important}
+.faq>:first-child::before,.faq-list>:first-child::before,.faq__list>:first-child::before{display:none!important}
+</style>
+</head>
+<body class="locked">
+
+<!-- Illustration library: our own drawings, used as parallax layers and image fallbacks -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="pWart" width="7" height="6" patternUnits="userSpaceOnUse"><path d="M3.5 .6L6.2 2.2V4.6L3.5 5.8L.8 4.6V2.2Z" fill="#3E3027" stroke="#1B140F" stroke-width=".5"/></pattern>
+    <radialGradient id="gTB" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#4A392D"/><stop offset="1" stop-color="#1E1712"/></radialGradient>
+    <radialGradient id="gTW" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#F7EEDD"/><stop offset=".6" stop-color="#E2D0AE"/><stop offset="1" stop-color="#B99C70"/></radialGradient>
+    <linearGradient id="gOil" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8E8A3A"/><stop offset=".45" stop-color="#C9B65A"/><stop offset=".6" stop-color="#E3D488"/><stop offset="1" stop-color="#7C7530"/></linearGradient>
+    <linearGradient id="gBasket" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B48A58"/><stop offset="1" stop-color="#7E5A34"/></linearGradient>
+    <linearGradient id="gBox" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#26412F"/><stop offset="1" stop-color="#16281D"/></linearGradient>
+    <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9A7634"/><stop offset=".5" stop-color="#E2C48A"/><stop offset="1" stop-color="#9A7634"/></linearGradient>
+  </defs>
+  <symbol id="i-oak" viewBox="0 0 200 240">
+    <path d="M90 240C94 214 92 188 89 168C78 162 64 158 56 148C68 151 80 153 91 157C93 147 91 137 87 129C95 135 99 145 100 155C108 147 120 141 134 139C122 147 110 155 106 167C104 190 104 214 111 240Z" fill="currentColor"/>
+    <g fill="currentColor"><circle cx="100" cy="92" r="52"/><circle cx="58" cy="112" r="38"/><circle cx="144" cy="108" r="40"/><circle cx="74" cy="64" r="34"/><circle cx="128" cy="62" r="36"/><circle cx="100" cy="38" r="30"/><circle cx="38" cy="136" r="24"/><circle cx="164" cy="138" r="24"/></g>
+    <g fill="#fff" opacity=".07"><circle cx="118" cy="48" r="18"/><circle cx="152" cy="96" r="16"/><circle cx="82" cy="70" r="14"/></g>
+  </symbol>
+  <symbol id="i-leaf" viewBox="0 0 40 72"><path d="M20 70V60C14 58 8 56 10 50C4 48 2 42 8 40C2 36 4 30 10 30C4 26 6 18 12 20C10 12 16 6 20 3C24 6 30 12 28 20C34 18 36 26 30 30C36 30 38 36 32 40C38 42 36 48 30 50C32 56 26 58 20 60" fill="currentColor" fill-opacity=".85" stroke="currentColor" stroke-width=".8" stroke-linejoin="round"/><path d="M20 66V8M20 30L12 24M20 30L28 24M20 44L10 38M20 44L30 38" fill="none" stroke="#fff" stroke-width=".7" opacity=".45"/></symbol>
+  <symbol id="i-acorn" viewBox="0 0 30 40"><ellipse cx="15" cy="25" rx="9" ry="12" fill="currentColor" fill-opacity=".7"/><path d="M4 16C4 9 26 9 26 16C26 19 4 19 4 16Z" fill="currentColor"/><path d="M15 10V4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-tb" viewBox="0 0 100 86"><path d="M50 6C70 3 90 15 94 36C98 57 86 78 62 82C40 86 13 78 8 56C3 34 24 9 50 6Z" fill="url(#gTB)"/><path d="M50 6C70 3 90 15 94 36C98 57 86 78 62 82C40 86 13 78 8 56C3 34 24 9 50 6Z" fill="url(#pWart)" opacity=".85"/><path d="M28 24C36 16 50 14 60 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".18"/></symbol>
+  <symbol id="i-tw" viewBox="0 0 100 86"><path d="M46 8C62 4 84 12 90 28C96 42 92 50 87 58C81 72 62 82 44 79C26 77 9 67 8 48C7 30 28 12 46 8Z" fill="url(#gTW)" stroke="#9C8058" stroke-width=".8"/><g fill="none" stroke="#A78A60" stroke-width=".8" opacity=".55" stroke-linecap="round"><path d="M22 40C30 34 40 38 46 32"/><path d="M50 56C58 50 70 54 76 46"/><path d="M30 62C36 58 42 62 48 60"/><path d="M58 24C64 22 70 26 74 24"/></g><g fill="#A78A60" opacity=".4"><circle cx="36" cy="28" r="1.4"/><circle cx="66" cy="38" r="1.2"/><circle cx="40" cy="50" r="1"/><circle cx="72" cy="62" r="1.3"/></g></symbol>
+  <symbol id="i-dog" viewBox="0 0 200 140"><path d="M42 58C30 50 22 40 26 28C28 22 34 24 32 30C30 38 36 48 46 52C70 48 110 46 130 50C146 54 158 64 168 76C176 84 186 92 190 100C192 104 188 108 184 106C176 104 168 100 162 96C158 94 154 96 152 100L148 128L140 130L138 104C136 100 132 98 128 98L132 128L124 130L120 98C100 96 80 96 66 94L62 128L54 130L52 96C50 94 48 92 46 90L40 126L32 128L36 88C34 80 36 66 42 58Z" fill="currentColor"/><path d="M160 72C155 80 157 92 164 95C169 89 169 80 165 73Z" fill="#000" opacity=".25"/><circle cx="174" cy="84" r="1.6" fill="#fff" opacity=".5"/></symbol>
+  <symbol id="i-basket" viewBox="0 0 180 140"><path d="M38 70C38 22 142 22 142 70" fill="none" stroke="#7E5A34" stroke-width="7" stroke-linecap="round"/><path d="M38 70C38 22 142 22 142 70" fill="none" stroke="#B48A58" stroke-width="2" stroke-dasharray="6 5" stroke-linecap="round"/><use href="#i-tb" x="48" y="44" width="40" height="34"/><use href="#i-tw" x="80" y="40" width="44" height="38"/><use href="#i-tb" x="112" y="48" width="30" height="26"/><use href="#i-leaf" x="126" y="30" width="16" height="30" transform="rotate(30 134 45)" color="#5E7448"/><path d="M18 66H162L147 128C145 134 139 137 132 137H48C41 137 35 134 33 128Z" fill="url(#gBasket)"/><g fill="none" stroke="#6B4A2A" stroke-width="1.4" opacity=".7"><path d="M22 82H158M26 96H154M29 110H151M32 124H148"/><path d="M50 68L56 136M76 68L78 136M102 68L102 136M128 68L124 136M152 68L142 134"/></g><rect x="14" y="60" width="152" height="12" rx="6" fill="#8A6640"/></symbol>
+  <symbol id="i-gnocchi" viewBox="0 0 180 110"><g stroke="#B08850" stroke-width=".8">
+    <g transform="translate(40 40) rotate(-12)"><ellipse rx="17" ry="11" fill="#F3E2B8"/><path d="M-11 -7V7M-5.5 -10V10M0 -11V11M5.5 -10V10M11 -7V7" stroke="#C9A86A" stroke-width="1.3" fill="none"/></g>
+    <g transform="translate(78 32) rotate(14)"><ellipse rx="17" ry="11" fill="#F6E8C4"/><path d="M-11 -7V7M-5.5 -10V10M0 -11V11M5.5 -10V10M11 -7V7" stroke="#C9A86A" stroke-width="1.3" fill="none"/></g>
+    <g transform="translate(60 66) rotate(4)"><ellipse rx="17" ry="11" fill="#F0DDB0"/><path d="M-11 -7V7M-5.5 -10V10M0 -11V11M5.5 -10V10M11 -7V7" stroke="#C9A86A" stroke-width="1.3" fill="none"/></g>
+    <g transform="translate(98 70) rotate(-20)"><ellipse rx="17" ry="11" fill="#F3E2B8"/><path d="M-11 -7V7M-5.5 -10V10M0 -11V11M5.5 -10V10M11 -7V7" stroke="#C9A86A" stroke-width="1.3" fill="none"/></g>
+    <g transform="translate(24 76) rotate(28)"><ellipse rx="17" ry="11" fill="#F6E8C4"/><path d="M-11 -7V7M-5.5 -10V10M0 -11V11M5.5 -10V10M11 -7V7" stroke="#C9A86A" stroke-width="1.3" fill="none"/></g></g>
+    <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M128 20L170 92"/><path d="M120 10L132 32M128 6L138 28M136 3L144 24"/><path d="M118 30C124 38 136 36 140 26"/></g></symbol>
+  <symbol id="i-oil" viewBox="0 0 60 170"><rect x="22" y="2" width="16" height="10" rx="2" fill="#6B4A2E"/><path d="M24 12H36V28C36 34 50 42 50 62V156C50 162 46 166 40 166H20C14 166 10 162 10 156V62C10 42 24 34 24 28Z" fill="url(#gOil)" stroke="#5C5520" stroke-width=".8"/><rect x="14" y="84" width="32" height="50" rx="2" fill="#F4EDE1"/><use href="#i-tw" x="21" y="92" width="18" height="16"/><path d="M19 114H41M22 120H38M24 126H36" stroke="#5A3E2B" stroke-width="1.2" opacity=".6"/><path d="M16 64V150" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".35"/></symbol>
+  <symbol id="i-buzet" viewBox="0 0 400 150"><path d="M0 150C60 140 100 112 150 98C180 90 232 88 262 98C302 110 342 136 400 150Z" fill="currentColor"/><g fill="currentColor"><rect x="160" y="78" width="18" height="24"/><path d="M158 80L169 70L180 80Z"/><rect x="180" y="72" width="22" height="30"/><path d="M178 74L191 62L204 74Z"/><rect x="204" y="80" width="14" height="22"/><rect x="212" y="26" width="13" height="60"/><path d="M210 28L218.5 10L227 28Z"/><rect x="228" y="70" width="24" height="32"/><path d="M226 72L240 60L254 72Z"/><rect x="254" y="80" width="16" height="22"/><path d="M252 82L262 72L272 82Z"/><rect x="140" y="88" width="20" height="16"/><rect x="270" y="88" width="16" height="14"/></g><g fill="#fff" opacity=".25"><rect x="216" y="40" width="4" height="7"/><rect x="186" y="82" width="3" height="5"/><rect x="236" y="80" width="3" height="5"/></g></symbol>
+  <symbol id="i-hill" viewBox="0 0 400 120"><path d="M0 120C50 108 90 84 140 74C176 66 214 70 240 82C280 98 330 112 400 120Z" fill="currentColor"/></symbol>
+  <symbol id="i-plate" viewBox="0 0 220 120"><ellipse cx="110" cy="70" rx="104" ry="42" fill="#FBF7EF" stroke="#C9B48E" stroke-width="1"/><ellipse cx="110" cy="66" rx="74" ry="28" fill="#F4ECDC" stroke="#E1D3B6" stroke-width="1"/><g fill="#E9D3A2" stroke="#B08850" stroke-width=".7"><ellipse cx="96" cy="62" rx="22" ry="9"/><ellipse cx="124" cy="68" rx="22" ry="9"/><ellipse cx="108" cy="58" rx="18" ry="7"/></g><g fill="#3B2C22" opacity=".85"><circle cx="100" cy="58" r="3.4"/><circle cx="118" cy="62" r="2.8"/><circle cx="110" cy="70" r="3"/><circle cx="128" cy="58" r="2.4"/><circle cx="92" cy="68" r="2.2"/></g><g fill="#F5EEDD" stroke="#9C8058" stroke-width=".5"><ellipse cx="114" cy="52" rx="7" ry="3"/><ellipse cx="96" cy="72" rx="6" ry="2.6"/></g></symbol>
+</svg>
+
+<div class="pre" id="pre" aria-hidden="true">
+  <div class="pre__in">
+    <svg viewBox="0 0 100 100">
+      <circle class="ring" cx="50" cy="50" r="46" pathLength="1" transform="rotate(-90 50 50)"/>
+      <path class="s" pathLength="1" d="M50 24C62 22 74 30 76 44C78 58 70 72 54 75C40 78 26 70 24 56C22 40 34 26 50 24ZM36 40L44 36L50 42L58 36L66 42M34 54L42 50L50 56L58 50L68 56M40 66L48 62L56 66"/>
+    </svg>
+    <div class="pre__name">Prodan Tartufi</div>
+  </div>
+</div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Prodan Tartufi">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.8" opacity=".5"/><path d="M50 24C62 22 74 30 76 44C78 58 70 72 54 75C40 78 26 70 24 56C22 40 34 26 50 24Z" fill="#C49A4A"/><path d="M36 42L44 38L50 44L58 38L66 44M34 56L42 52L50 58L58 52L68 58" fill="none" stroke="#2B1F16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/></svg>
+      <span><b>Prodan</b><small>Tartufi · Buzet</small></span>
+    </a>
+    <nav class="hdr__nav" aria-label="Main">
+      <a href="#story" data-i18n="nav.story">Our story</a>
+      <a href="#experiences" data-i18n="nav.exp">Experiences</a>
+      <a href="#day" data-i18n="nav.day">Your day</a>
+      <a href="#shop" data-i18n="nav.shop">Shop</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="hdr__r">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="de" aria-pressed="false">DE</button><button type="button" data-lang="it" aria-pressed="false">IT</button><button type="button" data-lang="hr" aria-pressed="false">HR</button>
+      </div>
+      <a href="#book" class="pill hdr__book" data-i18n="nav.book">Book direct</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span id="menuLbl">Menu</span><span class="burger"><i></i><i></i></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <nav aria-label="Menu">
+    <a href="#story" data-i18n="nav.story">Our story</a>
+    <a href="#experiences" data-i18n="nav.exp">Experiences</a>
+    <a href="#day" data-i18n="nav.day">Your day</a>
+    <a href="#shop" data-i18n="nav.shop">Shop</a>
+    <a href="#good" data-i18n="nav.good">Good to know</a>
+    <a href="#faq" data-i18n="nav.faq">Questions</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
+  </nav>
+  <div class="menu-foot">
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="de" aria-pressed="false">DE</button><button type="button" data-lang="it" aria-pressed="false">IT</button><button type="button" data-lang="hr" aria-pressed="false">HR</button>
+    </div>
+    <a class="pill pill--block" href="#book" data-i18n="nav.book">Book direct</a>
+    <a class="menu-tel" href="tel:+385915512796">+385&nbsp;91&nbsp;551&nbsp;2796 · WhatsApp</a>
+  </div>
+</div>
+
+<main id="top">
+
+<section class="hero" id="hero" aria-label="Prodan Tartufi">
+  <!-- Static layered SVG forest: fallback when WebGL is off or reduced motion is set -->
+  <div class="hero__media" id="heroMedia" aria-hidden="true">
+    <svg class="hero__scene" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="hsSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6E7A64"/><stop offset=".38" stop-color="#CFC2A0"/><stop offset=".55" stop-color="#A9A584"/><stop offset="1" stop-color="#26321F"/></linearGradient>
+        <radialGradient id="hsSun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFE6AE" stop-opacity=".95"/><stop offset="1" stop-color="#FFE6AE" stop-opacity="0"/></radialGradient>
+        <linearGradient id="hsFog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E6DDC6" stop-opacity="0"/><stop offset=".5" stop-color="#E6DDC6" stop-opacity=".7"/><stop offset="1" stop-color="#E6DDC6" stop-opacity="0"/></linearGradient>
+        <linearGradient id="hsShaft" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE9B8" stop-opacity=".55"/><stop offset="1" stop-color="#FFE9B8" stop-opacity="0"/></linearGradient>
+      </defs>
+      <rect width="400" height="800" fill="url(#hsSky)"/>
+      <circle cx="270" cy="300" r="150" fill="url(#hsSun)"/>
+      <g data-hp="0.05" color="#B3AE90"><use href="#i-buzet" x="40" y="250" width="360" height="135"/></g>
+      <rect class="fogband" x="-60" y="330" width="520" height="90" fill="url(#hsFog)"/>
+      <g data-hp="0.12" color="#8C9474" opacity=".9">
+        <use href="#i-oak" x="-30" y="300" width="150" height="180"/><use href="#i-oak" x="90" y="320" width="120" height="150"/><use href="#i-oak" x="200" y="310" width="140" height="170"/><use href="#i-oak" x="310" y="300" width="150" height="180"/>
+      </g>
+      <rect class="fogband f2" x="-60" y="430" width="520" height="110" fill="url(#hsFog)"/>
+      <g data-hp="0.2" color="#56634A">
+        <use href="#i-oak" x="-80" y="330" width="230" height="280"/><use href="#i-oak" x="260" y="340" width="230" height="280"/><use href="#i-oak" x="130" y="400" width="140" height="170"/>
+      </g>
+      <polygon class="shaft" points="250,240 290,240 210,800 120,800" fill="url(#hsShaft)"/>
+      <polygon class="shaft s2" points="300,250 322,250 300,800 230,800" fill="url(#hsShaft)"/>
+      <g data-hp="0.32" color="#1F2A1B">
+        <use href="#i-oak" x="-180" y="250" width="360" height="440"/><use href="#i-oak" x="250" y="230" width="360" height="440"/>
+        <rect x="0" y="640" width="400" height="160" fill="#1F2A1B"/>
+      </g>
+      <g color="#B98A44"><use class="lf" href="#i-leaf" x="120" y="0" width="14" height="25"/><use class="lf l2" href="#i-leaf" x="260" y="0" width="12" height="22"/><use class="lf l3" href="#i-leaf" x="60" y="0" width="10" height="18"/></g>
+    </svg>
+  </div>
+  <canvas id="forest" aria-hidden="true"></canvas>
+  <div class="hero__veil"></div>
+  <div class="hero__c">
+    <div class="wrap">
+      <p class="label fade-up" data-i18n="hero.eyebrow">Buzet, the city of truffles</p>
+      <h1><span class="mask"><span data-i18n="hero.t1">Truffle hunting</span></span><span class="mask"><span data-i18n="hero.t2">with the Prodan family</span></span><span class="mask"><span class="sub" data-i18n="hero.t3">in the oak woods of Istria</span></span></h1>
+      <p class="hero__txt fade-up d1" data-i18n="hero.txt">Follow Sky and the dogs into the woods, then sit down to fresh truffles cooked by Višnja.</p>
+      <a class="hero__addr fade-up d2" href="https://maps.google.com/?q=Prodan+Tartufi,+Pra%C5%A1%C4%8Dari+43,+52420+Buzet" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        <span>Praščari 43, Sv. Ivan, Buzet</span>
+      </a>
+      <div class="hero__cta fade-up d3"><a class="pill pill--grey" href="#book" data-i18n="hero.cta">Book your truffle day</a></div>
+    </div>
+  </div>
+  <span class="hero__scroll" aria-hidden="true"></span>
+</section>
+
+<div class="finder">
+  <a href="#book">
+    <svg class="finder__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+    <span class="finder__t"><b data-i18n="finder.t">Truffle hunt + lunch</b><small data-i18n="finder.sub">Pick a date • 2 guests</small></span>
+    <span class="finder__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+</div>
+
+<!-- Near-black carousel -->
+<section class="gal-sec" id="gallery" aria-roledescription="carousel" aria-label="Gallery">
+  <div class="wrap">
+    <h2 class="rv" data-i18n="gal.t">A morning in the truffle woods</h2>
+    <p class="sub rv" data-delay="1" data-i18n="gal.sub">Oak woods, clever dogs and a family kitchen near Buzet.</p>
+    <div class="gal rv" data-delay="1" id="gal">
+      <div class="gal__track" id="galTrack">
+        <div class="gal__slide cur"><div class="art art--woods"><img src="img/hero.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c1">The oak woods</span></span></div>
+        <div class="gal__slide"><div class="art art--dogs"><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c2">Sky and the dogs at work</span></span></div>
+        <div class="gal__slide"><div class="art art--truffles"><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c3">Black and white truffles</span></span></div>
+        <div class="gal__slide"><div class="art art--kitchen"><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c4">Višnja's kitchen</span></span></div>
+        <div class="gal__slide"><div class="art art--shop"><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="gal.c5">The family shop</span></span></div>
+      </div>
+      <a class="tag-b" href="https://maps.google.com/?q=Prodan+Tartufi,+Pra%C5%A1%C4%8Dari+43,+52420+Buzet" target="_blank" rel="noopener">Buzet, Istria <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5l7 7-7 7"/></svg></a>
+      <button class="sqbtn l" type="button" id="galPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="sqbtn r" type="button" id="galNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button>
+      <span class="gal__prog"><i id="galProg"></i></span>
+      <span class="gal__count" id="galCount" aria-live="polite">1/5</span>
+    </div>
+  </div>
+</section>
+
+<!-- 01 Family story -->
+<section class="sec story bg-cream" id="story">
+  <div class="wm" id="wm" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">01</span><span data-i18n="st.label">The family</span></p>
+      <h2 data-i18n="st.title">Generations of truffle hunters</h2>
+    </div>
+    <div class="story__grid">
+      <div>
+        <p class="lead rv" data-i18n="st.lead">Truffle hunting runs in the Prodan family. It has been passed down from one generation to the next, together with the woods and the dogs.</p>
+        <p class="rv" data-delay="1" data-i18n="st.p1">Today you are welcomed like a guest at home. Višnja explains what truffles are and how they grow. Her brother takes you into the woods with their trained dogs, Sky among them. Back at the house, Višnja cooks with the truffles while they are still fresh.</p>
+        <p class="rv" data-delay="2" data-i18n="st.p2">Buzet is called the city of truffles. Spend a morning here and you will see why.</p>
+        <div class="stats rv" data-delay="2">
+          <div class="stat"><b><span class="count" data-to="4.9" data-dec="1">4.9</span></b><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7.1L12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z"/></svg></span><small data-i18n="st.s1">Google rating</small></div>
+          <div class="stat"><b><span class="count" data-to="275" data-dec="0">275</span></b><small data-i18n="st.s2">Google reviews</small></div>
+          <div class="stat"><b>7/7</b><small data-i18n="st.s3">Open daily 08:00 to 22:00</small></div>
+        </div>
+        <div class="sig rv" data-delay="2">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#C49A4A" stroke-width="1"/><use href="#i-dog" x="14" y="26" width="72" height="50" color="#5A3E2B"/></svg>
+          <div><b>Višnja</b><small data-i18n="st.role">and the Prodan family</small></div>
+        </div>
+      </div>
+      <aside class="direct rv" data-delay="1">
+        <svg class="deco" viewBox="0 0 200 140" aria-hidden="true"><use href="#i-dog" width="200" height="140"/></svg>
+        <p class="label" data-i18n="dr.label">Book direct</p>
+        <h3 data-i18n="dr.title">Talk to the family, not a platform</h3>
+        <p data-i18n="dr.p">Most guests find us through booking platforms. Here you can book straight with us.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg><span data-i18n="dr.l1">Your message goes straight to Višnja on WhatsApp</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="dr.l2">Ask anything before you decide</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="dr.l3">Agree on the day, the time and the menu together</span></li>
+        </ul>
+        <a class="pill pill--cream pill--block" href="#book" data-i18n="dr.cta">Book direct</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- 02 Experiences (tabs) -->
+<section class="sec has-deco bg-white" id="experiences">
+  <svg class="deco" viewBox="0 0 40 72" style="width:34px;right:8%;top:60px;color:#B98A44;opacity:0.55" data-par="0.4" aria-hidden="true"><use href="#i-leaf" width="40" height="72"/></svg>
+  <svg class="deco d2" viewBox="0 0 30 40" style="width:22px;left:6%;top:150px;color:#7A5A36;opacity:0.5" data-par="0.6" aria-hidden="true"><use href="#i-acorn" width="30" height="40"/></svg>
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">02</span><span data-i18n="ex.label">Experiences</span></p>
+      <h2 data-i18n="ex.title">Choose your truffle day</h2>
+      <p data-i18n="ex.lead">Every visit starts with a welcome and an explanation of truffles. Then you choose how the day continues.</p>
+    </div>
+    <div class="tabs rv" role="tablist" id="tabs">
+      <button class="tab" role="tab" id="tab-1" aria-controls="p-1" aria-selected="true" data-i18n="ex.t1">Truffle hunt + breakfast</button>
+      <button class="tab" role="tab" id="tab-2" aria-controls="p-2" aria-selected="false" tabindex="-1" data-i18n="ex.t2">Hunt + tasting menu</button>
+      <button class="tab" role="tab" id="tab-3" aria-controls="p-3" aria-selected="false" tabindex="-1" data-i18n="ex.t3">Gnocchi class</button>
+      <button class="tab" role="tab" id="tab-4" aria-controls="p-4" aria-selected="false" tabindex="-1" data-i18n="ex.t4">Tasting only</button>
+      <span class="tabs__ink" id="tabsInk" aria-hidden="true"></span>
+    </div>
+    <div class="panels rv" data-delay="1">
+      <div class="panel on" role="tabpanel" id="p-1" aria-labelledby="tab-1">
+        <div class="frame"><div class="art art--dogs"><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="ex.k1">Morning</span></div>
+        <div>
+          <h3 data-i18n="ex.t1">Truffle hunt + breakfast</h3>
+          <p class="panel__meta"><span data-i18n="from">from</span> <b class="ph">XX&nbsp;€</b> <span data-i18n="pp">per person</span></p>
+          <p data-i18n="ex.p1">Start the day in the woods with the dogs, then come back to a truffle breakfast cooked by Višnja.</p>
+          <ul class="dots"><li data-i18n="ex.b.welcome">Welcome and an explanation of truffles</li><li data-i18n="ex.b.hunt">Truffle hunt in the woods with the trained dogs</li><li data-i18n="ex.b.breakfast">Truffle breakfast with fresh truffles</li></ul>
+          <a class="ulink" href="#book" data-pick="breakfast"><span data-i18n="ex.cta">Book this experience</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="panel" role="tabpanel" id="p-2" aria-labelledby="tab-2">
+        <div class="frame"><div class="art art--kitchen"><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="ex.k2">Most complete</span></div>
+        <div>
+          <h3 data-i18n="ex.t2">Hunt + tasting menu</h3>
+          <p class="panel__meta"><span data-i18n="from">from</span> <b class="ph">XX&nbsp;€</b> <span data-i18n="pp">per person</span></p>
+          <p data-i18n="ex.p2">The full day: the hunt with the dogs, then a tasting menu that Višnja cooks with fresh truffles.</p>
+          <ul class="dots"><li data-i18n="ex.b.welcome">Welcome and an explanation of truffles</li><li data-i18n="ex.b.hunt">Truffle hunt in the woods with the trained dogs</li><li data-i18n="ex.b.menu">Truffle tasting menu cooked by Višnja</li></ul>
+          <a class="ulink" href="#book" data-pick="lunch"><span data-i18n="ex.cta">Book this experience</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="panel" role="tabpanel" id="p-3" aria-labelledby="tab-3">
+        <div class="frame"><div class="art art--gnocchi"><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="ex.k3">Hands on</span></div>
+        <div>
+          <h3 data-i18n="ex.t3">Gnocchi class</h3>
+          <p class="panel__meta"><span data-i18n="from">from</span> <b class="ph">XX&nbsp;€</b> <span data-i18n="pp">per person</span></p>
+          <p data-i18n="ex.p3">Roll up your sleeves and learn to make gnocchi with Višnja. Ask us how to add it to your truffle day.</p>
+          <ul class="dots"><li data-i18n="ex.b.welcome">Welcome and an explanation of truffles</li><li data-i18n="ex.b.gnocchi">Learn to make gnocchi with Višnja</li><li data-i18n="ex.b.ask">Combine it with the hunt, just ask us</li></ul>
+          <a class="ulink" href="#book" data-pick="gnocchi"><span data-i18n="ex.cta">Book this experience</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="panel" role="tabpanel" id="p-4" aria-labelledby="tab-4">
+        <div class="frame"><div class="art art--truffles"><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="ex.k4">At the table</span></div>
+        <div>
+          <h3 data-i18n="ex.t4">Tasting only</h3>
+          <p class="panel__meta"><span data-i18n="from">from</span> <b class="ph">XX&nbsp;€</b> <span data-i18n="pp">per person</span></p>
+          <p data-i18n="ex.p4">No muddy shoes needed. Sit down to the truffle tasting menu that Višnja cooks with fresh truffles.</p>
+          <ul class="dots"><li data-i18n="ex.b.welcome">Welcome and an explanation of truffles</li><li data-i18n="ex.b.menu">Truffle tasting menu cooked by Višnja</li><li data-i18n="ex.b.shop">Time to browse the family shop</li></ul>
+          <a class="ulink" href="#book" data-pick="tasting"><span data-i18n="ex.cta">Book this experience</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <p class="ex__note" data-i18n="ex.note">Prices marked XX&nbsp;€ are examples to be edited.</p>
+  </div>
+</section>
+
+<!-- 03 Your day -->
+<section class="sec has-deco bg-linen" id="day">
+  <svg class="deco" viewBox="0 0 200 240" style="width:190px;right:-60px;top:30px;color:#4E6A4A;opacity:0.16" data-par="0.2" aria-hidden="true"><use href="#i-oak" width="200" height="240"/></svg>
+  <svg class="deco d2" viewBox="0 0 40 72" style="width:26px;left:5%;bottom:140px;color:#B98A44;opacity:0.5" data-par="0.5" aria-hidden="true"><use href="#i-leaf" width="40" height="72"/></svg>
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">03</span><span data-i18n="dy.label">Your day</span></p>
+      <h2 data-i18n="dy.title">From the woods to the table</h2>
+      <p data-i18n="dy.lead">Four simple steps. All you need to bring is curiosity and good shoes.</p>
+    </div>
+    <div class="day__body">
+      <div class="day__img-wrap">
+        <div class="frame day__img rv-img">
+          <div class="art art--woods" data-par="0.1"><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
+          <span class="tag-b">Buzet, Istria</span>
+          <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Praščari 43, Sv. Ivan</span>
+        </div>
+      </div>
+      <ol class="tl" id="tl">
+        <li aria-hidden="true" style="list-style:none"><span class="tl__track"></span><span class="tl__fill" id="tlFill"></span></li>
+        <li class="step"><span class="step__dot"><svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v9H4z"/><path d="M10 20v-5h4v5"/></svg></span><small data-i18n="dy.n1">Step 1</small><h3 data-i18n="dy.s1">Welcome</h3><p data-i18n="dy.p1">We welcome you at the family home and explain what truffles are, black and white, and how the dogs find them.</p></li>
+        <li class="step"><span class="step__dot"><svg viewBox="0 0 24 24"><path d="M4 14c2-1 3-3 6-3h5c2 0 3-1 4-3l1 1c0 3-2 5-4 6v4h-2v-3H9v3H7v-4c-1-.3-2-.6-3-1z"/></svg></span><small data-i18n="dy.n2">Step 2</small><h3 data-i18n="dy.s2">The hunt with the dogs</h3><p data-i18n="dy.p2">Into the woods with Višnja's brother and the trained dogs, Sky among them. The dogs do the work, and you usually find truffles.</p></li>
+        <li class="step"><span class="step__dot"><svg viewBox="0 0 24 24"><path d="M5 11h14v2a7 7 0 0 1-14 0z"/><path d="M9 7c0-1 1-1 1-2M13 7c0-1 1-1 1-2"/></svg></span><small data-i18n="dy.n3">Step 3</small><h3 data-i18n="dy.s3">Cooking</h3><p data-i18n="dy.p3">Back in the kitchen, Višnja cooks with fresh truffles. If you like, she teaches you to make gnocchi.</p></li>
+        <li class="step"><span class="step__dot"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><path d="M3 4v6c0 1 1 2 2 2v8M5 4v5M21 4c-2 1-3 3-3 6h3v10"/></svg></span><small data-i18n="dy.n4">Step 4</small><h3 data-i18n="dy.s4">At the table</h3><p data-i18n="dy.p4">A truffle breakfast or the tasting menu, depending on the experience you choose.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- Forest band -->
+<div class="band" id="band">
+  <svg class="deco d2" viewBox="0 0 200 240" style="width:200px;right:6%;top:-30px;color:#ffffff;opacity:0.08" data-par="0.2" aria-hidden="true"><use href="#i-oak" width="200" height="240"/></svg>
+  <span class="band__orb a" data-par="0.18"></span><span class="band__orb b" data-par="-0.12"></span>
+  <div class="wrap">
+    <div class="rv">
+      <p class="label" data-i18n="band.label">Season</p>
+      <h2 data-i18n="band.t">White truffle season in autumn</h2>
+      <p data-i18n="band.p">Planning a visit? Ask us what the woods are offering when you want to come.</p>
+    </div>
+    <a class="pill pill--outline rv" data-delay="1" href="#book" data-i18n="band.cta">Plan your visit</a>
+  </div>
+</div>
+
+<!-- 04 Shop -->
+<section class="sec has-deco bg-white" id="shop">
+  <svg class="deco" viewBox="0 0 60 170" style="width:46px;right:5%;top:40px;color:#8E8A3A;opacity:0.35" data-par="0.3" aria-hidden="true"><use href="#i-oil" width="60" height="170"/></svg>
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">04</span><span data-i18n="sp.label">Family shop</span></p>
+      <h2 data-i18n="sp.title">Take the woods home</h2>
+      <p data-i18n="sp.lead">Truffle products from our shop, including white truffle olive oil. Put together a gift box and order it on WhatsApp.</p>
+    </div>
+    <div class="shop__panel rv" data-delay="1">
+      <div class="motes" id="motes" aria-hidden="true"></div>
+      <div class="shop__grid">
+        <div class="box-wrap">
+          <div class="gbox" id="gbox">
+            <svg viewBox="0 0 400 330" aria-hidden="true">
+              <ellipse cx="200" cy="312" rx="160" ry="12" fill="#2B1F16" opacity=".12"/>
+              <use href="#i-oil" x="92" y="26" width="64" height="182"/>
+              <use href="#i-tb" x="150" y="100" width="64" height="55"/>
+              <use href="#i-tw" x="196" y="92" width="72" height="62"/>
+              <use href="#i-leaf" x="300" y="66" width="34" height="62" transform="rotate(28 317 97)" color="#5E7448"/>
+              <use href="#i-acorn" x="264" y="116" width="22" height="30" color="#7A5A36"/>
+              <path d="M60 150H340V290C340 298 334 304 326 304H74C66 304 60 298 60 290Z" fill="url(#gBox)"/>
+              <rect x="278" y="150" width="24" height="154" fill="url(#gGold)"/>
+              <g class="lid">
+                <rect x="54" y="140" width="292" height="22" rx="4" fill="#26412F"/>
+                <rect x="278" y="140" width="24" height="22" fill="url(#gGold)"/>
+                <path d="M290 140C270 114 240 118 248 133C255 144 278 142 290 140ZM290 140C310 114 340 118 332 133C325 144 302 142 290 140Z" fill="none" stroke="url(#gGold)" stroke-width="5" stroke-linejoin="round"/>
+                <circle cx="290" cy="141" r="6" fill="#E2C48A"/>
+              </g>
+              <text x="168" y="240" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="30" fill="#E2C48A">Prodan</text>
+              <text x="168" y="264" text-anchor="middle" font-family="Figtree, sans-serif" font-size="10" letter-spacing="4" fill="#E2C48A" opacity=".8">TARTUFI · BUZET</text>
+            </svg>
+            <span class="gbox__glare" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="flow">
+          <h3 data-i18n="sp.h">Truffle gift box</h3>
+          <p data-i18n="sp.p">Tap what you would like. Your order opens on WhatsApp and the family replies with what is available and the price.</p>
+          <p class="flab" data-i18n="sp.choose">What would you like?</p>
+          <div class="prods" id="prods">
+            <button type="button" class="prod" data-k="sp.i1" aria-pressed="true"><svg viewBox="0 0 60 170" aria-hidden="true"><use href="#i-oil" width="60" height="170"/></svg><span data-i18n="sp.i1">White truffle olive oil</span></button>
+            <button type="button" class="prod" data-k="sp.i2" aria-pressed="false"><svg viewBox="0 0 100 86" aria-hidden="true"><use href="#i-tb" width="100" height="86"/></svg><span data-i18n="sp.i2">Truffle products</span></button>
+            <button type="button" class="prod prod--wide" data-k="sp.i3" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="1"/><path d="M2 6h20v3H2zM12 6v15M12 6C10 2 6 2.5 6 4.5S10 6 12 6zm0 0c2-4 6-3.5 6-1.5S14 6 12 6z"/></svg><span data-i18n="sp.i3">Packed as a gift box</span></button>
+          </div>
+          <a class="pill pill--block" id="shopBtn" href="https://wa.me/385915512796" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg><span data-i18n="sp.cta">Order on WhatsApp</span></a>
+          <p class="fine" data-i18n="sp.fine">You can also visit the shop, open daily 08:00 to 22:00.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 Good to know -->
+<section class="sec has-deco bg-cream" id="good">
+  <svg class="deco" viewBox="0 0 200 140" style="width:150px;left:-30px;bottom:30px;color:#5A3E2B;opacity:0.1" data-par="0.15" aria-hidden="true"><use href="#i-dog" width="200" height="140"/></svg>
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">05</span><span data-i18n="gk.label">Good to know</span></p>
+      <h2 data-i18n="gk.title">Before you come</h2>
+    </div>
+    <div class="gtk rv" data-delay="1">
+      <dl>
+        <div class="gtk__row"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg><dt data-i18n="gk.h">Opening hours</dt><dd data-i18n="gk.hV">Daily, 08:00 to 22:00</dd></div>
+        <div class="gtk__row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17h16v2H4zM4 17c0-3 1-5 1-9h5c0 3 2 4 5 5s5 2 5 4"/></svg><dt data-i18n="gk.s">What to wear</dt><dd data-i18n="gk.sV">Comfortable shoes for the woods</dd></div>
+        <div class="gtk__row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14c2-1 3-3 6-3h5c2 0 3-1 4-3l1 1c0 3-2 5-4 6v4h-2v-3H9v3H7v-4c-1-.3-2-.6-3-1z"/></svg><dt data-i18n="gk.d">The dogs</dt><dd data-i18n="gk.dV">The dogs do the work, you follow and watch</dd></div>
+        <div class="gtk__row"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="2.6"/><circle cx="16.5" cy="9" r="2"/><path d="M4 20c0-3 2.2-5.5 5-5.5s5 2.5 5 5.5M14 20c0-2.4 1.1-4.3 2.5-4.3S19.5 17.6 19.5 20"/></svg><dt data-i18n="gk.k">Kids</dt><dd data-i18n="gk.kV">Kids welcome</dd></div>
+        <div class="gtk__row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19C5 10 11 5 20 4c0 9-5 15-14 15M5 19l8-8"/></svg><dt data-i18n="gk.v">Vegetarian</dt><dd data-i18n="gk.vV">Ask us, we will talk about the menu</dd></div>
+        <div class="gtk__row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5h3.2l1.8 4.6-2.4 1.5a11.5 11.5 0 0 0 6.8 6.8l1.5-2.4 4.6 1.8v3.2a2 2 0 0 1-2 2A17.5 17.5 0 0 1 3 5.5a2 2 0 0 1 2-2z"/></svg><dt data-i18n="gk.p">Phone and WhatsApp</dt><dd><a href="tel:+385915512796">+385&nbsp;91&nbsp;551&nbsp;2796</a></dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 06 Nearby -->
+<section class="sec bg-white" id="nearby">
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">06</span><span data-i18n="nb.label">What's nearby</span></p>
+      <h2 data-i18n="nb.title">Stay for the hill towns</h2>
+      <p data-i18n="nb.lead">Make a day of it. Inland Istria is made for slow drives between hilltop towns.</p>
+    </div>
+  </div>
+  <div class="peek" id="peek">
+    <article class="ncard rv">
+      <div class="frame"><div class="art art--buzet"></div><span class="tag-b" data-i18n="nb.k1">City of truffles</span></div>
+      <h3>Buzet</h3>
+      <p data-i18n="nb.p1">Our home town, known as the city of truffles. An old town on its hilltop, close to the woods where we hunt.</p>
+      <ul><li data-i18n="nb.l1">Old town on the hill</li><li data-i18n="nb.l2">Truffle country all around</li></ul>
+    </article>
+    <article class="ncard rv" data-delay="1">
+      <div class="frame"><div class="art art--motovun"></div><span class="tag-b" data-i18n="nb.k2">Hilltop town</span></div>
+      <h3>Motovun</h3>
+      <p data-i18n="nb.p2">One of the best known hilltop towns of inland Istria, with wide views over the green valley below.</p>
+      <ul><li data-i18n="nb.l3">Walk the old town walls</li><li data-i18n="nb.l4">Views over the valley</li></ul>
+    </article>
+    <article class="ncard rv" data-delay="2">
+      <div class="frame"><div class="art art--hills"></div><span class="tag-b" data-i18n="nb.k3">Inland Istria</span></div>
+      <h3 data-i18n="nb.t3">Istrian hill towns</h3>
+      <p data-i18n="nb.p3">Small stone towns on hilltops, quiet roads between them. Ask us for our favourites when you visit.</p>
+      <ul><li data-i18n="nb.l5">Stone towns and quiet roads</li><li data-i18n="nb.l6">Tips from the family</li></ul>
+    </article>
+  </div>
+  <div class="wrap">
+    <div class="peek__ui">
+      <button class="rbtn" type="button" id="pkPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="peek__bar"><i id="pkBar"></i></div>
+      <button class="rbtn" type="button" id="pkNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- 07 Booking -->
+<section class="sec book has-deco" id="book">
+  <svg class="deco" viewBox="0 0 200 240" style="width:260px;right:-90px;top:40px" data-par="0.12" aria-hidden="true"><use href="#i-oak" width="200" height="240"/></svg>
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">07</span><span data-i18n="bk.label">Book direct</span></p>
+      <h2 data-i18n="bk.title">Book your truffle day</h2>
+      <p data-i18n="bk.lead">Choose the experience, the date and how many you are. WhatsApp opens with your message and the family confirms the details.</p>
+    </div>
+    <div class="book__grid">
+      <form class="form rv" id="form" novalidate>
+        <fieldset class="field">
+          <legend data-i18n="f.exp">Experience</legend>
+          <div class="chips" id="expChips">
+            <label class="chip"><input type="radio" name="exp" value="breakfast"><span data-i18n="short.breakfast">Hunt + breakfast</span></label>
+            <label class="chip"><input type="radio" name="exp" value="lunch" checked><span data-i18n="short.lunch">Hunt + lunch</span></label>
+            <label class="chip"><input type="radio" name="exp" value="gnocchi"><span data-i18n="short.gnocchi">Gnocchi class</span></label>
+            <label class="chip"><input type="radio" name="exp" value="tasting"><span data-i18n="short.tasting">Tasting only</span></label>
+          </div>
+        </fieldset>
+        <label class="field">
+          <span data-i18n="f.date">Pick a date</span>
+          <input class="ctl" type="date" id="fDate">
+        </label>
+        <div class="field">
+          <span id="gLbl" data-i18n="f.guests">Guests</span>
+          <div class="stepper" role="group" aria-labelledby="gLbl"><button type="button" id="gMinus" aria-label="Fewer">&minus;</button><output id="gOut" aria-live="polite">2</output><button type="button" id="gPlus" aria-label="More">+</button></div>
+        </div>
+        <fieldset class="field">
+          <legend data-i18n="f.lang">Language</legend>
+          <div class="chips chips--4" id="langChips">
+            <label class="chip"><input type="radio" name="glang" value="EN" checked><span>EN</span></label>
+            <label class="chip"><input type="radio" name="glang" value="DE"><span>DE</span></label>
+            <label class="chip"><input type="radio" name="glang" value="IT"><span>IT</span></label>
+            <label class="chip"><input type="radio" name="glang" value="HR"><span>HR</span></label>
+          </div>
+        </fieldset>
+        <label class="field">
+          <span data-i18n="f.name">Your name</span>
+          <input class="ctl" type="text" id="fName" autocomplete="name" data-i18n-ph="f.nameph" placeholder="Name and surname">
+        </label>
+        <button class="pill pill--cream pill--block" type="submit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>
+          <span data-i18n="f.submit">Send on WhatsApp</span>
+        </button>
+      </form>
+      <div class="book__aside rv" data-delay="1">
+        <div class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg><div><b data-i18n="bk.n1t">Straight to the family</b><p data-i18n="bk.n1">No platform in between. Višnja reads your message and replies herself.</p></div></div>
+        <div class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg><div><b data-i18n="bk.n2t">Open daily</b><p data-i18n="bk.n2">08:00 to 22:00. Call or message +385&nbsp;91&nbsp;551&nbsp;2796.</p></div></div>
+        <div class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg><div><b data-i18n="bk.n3t">No payment here</b><p data-i18n="bk.n3">This form only sends a request. Prices marked XX&nbsp;€ are examples.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec has-deco bg-cream" id="faq">
+  <svg class="deco" viewBox="0 0 180 140" style="width:130px;right:-24px;bottom:30px;opacity:0.5" data-par="0.18" aria-hidden="true"><use href="#i-basket" width="180" height="140"/></svg>
+  <div class="wrap faq__grid">
+    <div class="sh rv">
+      <p class="label" data-i18n="faq.label">Questions</p>
+      <h2 data-i18n="faq.title">Before your truffle day</h2>
+    </div>
+    <div class="faq__list rv" data-delay="1">
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q1">Will we really find truffles?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a1">Usually, yes. The dogs do the work and most hunts end with truffles. It is nature, so nothing is guaranteed, and that is part of the fun.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q2">What should I wear?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a2">Comfortable shoes for the woods and clothes for the weather. The rest is up to the dogs.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q3">Can we bring the kids?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a3">Of course. Kids are welcome, and watching the dogs at work is a favourite.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q4">Is there a vegetarian option?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a4">Ask us when you book and we will talk about the menu together.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">When is white truffle season?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a5">White truffle season is in autumn. Ask us what the woods are offering at the time you want to visit.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q6">Why book direct?</span><span class="pm" aria-hidden="true"></span></button><div class="qa__a"><div><p data-i18n="a6">You talk to the family directly. Your message goes straight to Višnja, you can ask anything and agree on the details together.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 Contact -->
+<section class="sec has-deco bg-white" id="contact">
+  <svg class="deco" viewBox="0 0 30 40" style="width:20px;right:12%;top:70px;color:#7A5A36;opacity:0.45" data-par="0.4" aria-hidden="true"><use href="#i-acorn" width="30" height="40"/></svg>
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">08</span><span data-i18n="ct.label">Contact</span></p>
+      <h2 data-i18n="ct.title">Find us near Buzet</h2>
+    </div>
+    <div class="contact__grid">
+      <div>
+        <p class="addr rv">Praščari 43, Sv. Ivan<br>52420&nbsp;Buzet, Istria, Croatia</p>
+        <a class="ulink rv" href="https://maps.google.com/?q=Prodan+Tartufi,+Pra%C5%A1%C4%8Dari+43,+52420+Buzet" target="_blank" rel="noopener"><span data-i18n="ct.map">Open in maps</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <ul class="hours rv" data-delay="1">
+          <li><span data-i18n="ct.daily">Monday to Sunday</span><span>08:00 to 22:00</span></li>
+          <li><span data-i18n="ct.phone">Phone and WhatsApp</span><span>+385&nbsp;91&nbsp;551&nbsp;2796</span></li>
+        </ul>
+        <div class="contact__btns rv" data-delay="2">
+          <a class="pill" href="https://wa.me/385915512796" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="pill pill--ghost" href="tel:+385915512796" data-i18n="ct.call">Call us</a>
+        </div>
+      </div>
+      <div class="frame contact__img rv-img">
+        <div class="art art--buzet" data-par="0.1"></div>
+        <span class="tag-b">Sv. Ivan, Buzet</span>
+        <div class="pin"><div class="pin__ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div></div>
+        <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Praščari 43, 52420&nbsp;Buzet</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <svg class="foot__hill" viewBox="0 0 400 150" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><use href="#i-buzet" width="400" height="150"/></svg>
+  <div class="wrap">
+    <div class="foot__top">
+      <div>
+        <a href="#top" class="logo">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#C49A4A" stroke-width="1"/><path d="M50 24C62 22 74 30 76 44C78 58 70 72 54 75C40 78 26 70 24 56C22 40 34 26 50 24Z" fill="#C49A4A"/><path d="M36 42L44 38L50 44L58 38L66 44M34 56L42 52L50 58L58 52L68 58" fill="none" stroke="#2B1F16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/></svg>
+          <span><b>Prodan Tartufi</b><small data-i18n="fo.tag">A family of truffle hunters</small></span>
+        </a>
+      </div>
+      <div><h4 data-i18n="fo.addr">Address</h4>Praščari 43, Sv. Ivan<br>52420&nbsp;Buzet, Istria</div>
+      <div><h4 data-i18n="fo.contact">Contact</h4><a href="tel:+385915512796">+385&nbsp;91&nbsp;551&nbsp;2796</a><br><a href="https://wa.me/385915512796" target="_blank" rel="noopener">WhatsApp</a></div>
+      <div><h4 data-i18n="fo.hours">Opening hours</h4><span data-i18n="fo.hoursV">Daily 08:00 to 22:00</span></div>
+    </div>
+    <div class="foot__bot">
+      <span>© 2026 Prodan Tartufi</span>
+      <span data-i18n="fo.note">Website concept, proposal</span>
+    </div>
+  </div>
+</footer>
+
+<a class="fab" id="fab" href="#book">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+  <span data-i18n="nav.book">Book direct</span>
+</a>
+
+<div class="sbar" id="sbar" aria-hidden="true">
+  <div><small data-i18n="bar.t">Your request</small><b id="barSum">Hunt + lunch · 2 guests</b></div>
+  <button class="pill" type="button" id="barBtn" tabindex="-1"><span data-i18n="bar.cta">Send</span></button>
+</div>
+
+<div class="ctag">Concept by Marija</div>
+
+<script>
+(function(){
+  "use strict";
+  var NB = " ";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function(s,c){return (c||document).querySelector(s)};
+  var $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  var WA = "https://wa.me/385915512796?text=";
+
+  /* ---------- i18n: EN is read from the page, DE / IT / HR from these dictionaries ---------- */
+  var DE = {
+    "nav.story":"Unsere Geschichte","nav.exp":"Erlebnisse","nav.day":"Ihr Tag","nav.shop":"Shop","nav.contact":"Kontakt","nav.good":"Gut zu wissen","nav.faq":"Fragen","nav.book":"Direkt buchen",
+    "hero.eyebrow":"Buzet, die Stadt der Trüffel","hero.t1":"Trüffelsuche","hero.t2":"mit Familie Prodan","hero.t3":"in den Eichenwäldern Istriens",
+    "hero.txt":"Folgen Sie Sky und den Hunden in den Wald und genießen Sie danach frische Trüffel, gekocht von Višnja.","hero.cta":"Ihren Trüffeltag buchen",
+    "finder.t":"Trüffelsuche + Mittagessen","finder.sub":"Datum wählen • 2 Gäste",
+    "gal.t":"Ein Morgen im Trüffelwald","gal.sub":"Eichenwälder, kluge Hunde und eine Familienküche bei Buzet.",
+    "gal.c1":"Die Eichenwälder","gal.c2":"Sky und die Hunde bei der Arbeit","gal.c3":"Schwarze und weiße Trüffel","gal.c4":"Višnjas Küche","gal.c5":"Der Familienladen",
+    "st.label":"Die Familie","st.title":"Trüffeljäger seit Generationen",
+    "st.lead":"Die Trüffelsuche liegt Familie Prodan im Blut. Sie wird von Generation zu Generation weitergegeben, zusammen mit dem Wald und den Hunden.",
+    "st.p1":"Heute werden Sie empfangen wie ein Gast im eigenen Haus. Višnja erklärt, was Trüffel sind und wie sie wachsen. Ihr Bruder geht mit Ihnen und den ausgebildeten Hunden in den Wald, Sky ist auch dabei. Zurück im Haus kocht Višnja mit den Trüffeln, solange sie frisch sind.",
+    "st.p2":"Buzet wird die Stadt der Trüffel genannt. Verbringen Sie hier einen Morgen und Sie wissen, warum.",
+    "st.s1":"Google Bewertung","st.s2":"Google Rezensionen","st.s3":"Täglich geöffnet 08:00 bis 22:00","st.role":"und Familie Prodan",
+    "dr.label":"Direkt buchen","dr.title":"Sprechen Sie mit der Familie, nicht mit einer Plattform","dr.p":"Die meisten Gäste finden uns über Buchungsportale. Hier buchen Sie direkt bei uns.",
+    "dr.l1":"Ihre Nachricht geht direkt per WhatsApp an Višnja","dr.l2":"Fragen Sie alles, bevor Sie sich entscheiden","dr.l3":"Tag, Uhrzeit und Menü stimmen wir gemeinsam ab","dr.cta":"Direkt buchen",
+    "ex.label":"Erlebnisse","ex.title":"Wählen Sie Ihren Trüffeltag","ex.lead":"Jeder Besuch beginnt mit einem Willkommen und einer Einführung in die Welt der Trüffel. Danach wählen Sie, wie der Tag weitergeht.",
+    "ex.t1":"Trüffelsuche + Frühstück","ex.t2":"Suche + Degustationsmenü","ex.t3":"Gnocchi Kurs","ex.t4":"Nur Degustation",
+    "ex.k1":"Morgens","ex.k2":"Am vollständigsten","ex.k3":"Selbst gemacht","ex.k4":"Am Tisch",
+    "from":"ab","pp":"pro Person",
+    "ex.p1":"Beginnen Sie den Tag mit den Hunden im Wald und kehren Sie dann zu einem Trüffelfrühstück von Višnja zurück.",
+    "ex.p2":"Der ganze Tag: die Suche mit den Hunden, danach ein Degustationsmenü, das Višnja mit frischen Trüffeln kocht.",
+    "ex.p3":"Ärmel hoch: Lernen Sie mit Višnja, Gnocchi zu machen. Fragen Sie uns, wie Sie es mit Ihrem Trüffeltag verbinden.",
+    "ex.p4":"Keine schmutzigen Schuhe nötig. Genießen Sie das Trüffel Degustationsmenü, das Višnja mit frischen Trüffeln kocht.",
+    "ex.b.welcome":"Willkommen und Einführung in die Trüffel","ex.b.hunt":"Trüffelsuche im Wald mit den ausgebildeten Hunden","ex.b.breakfast":"Trüffelfrühstück mit frischen Trüffeln","ex.b.menu":"Trüffel Degustationsmenü von Višnja","ex.b.gnocchi":"Gnocchi machen mit Višnja","ex.b.ask":"Mit der Suche kombinierbar, fragen Sie uns","ex.b.shop":"Zeit zum Stöbern im Familienladen",
+    "ex.cta":"Dieses Erlebnis buchen","ex.note":"Mit XX"+NB+"€ markierte Preise sind Beispiele zum Bearbeiten.",
+    "dy.label":"Ihr Tag","dy.title":"Vom Wald auf den Tisch","dy.lead":"Vier einfache Schritte. Mitbringen müssen Sie nur Neugier und gute Schuhe.",
+    "dy.n1":"Schritt 1","dy.n2":"Schritt 2","dy.n3":"Schritt 3","dy.n4":"Schritt 4",
+    "dy.s1":"Willkommen","dy.p1":"Wir empfangen Sie im Haus der Familie und erklären, was Trüffel sind, schwarze und weiße, und wie die Hunde sie finden.",
+    "dy.s2":"Die Suche mit den Hunden","dy.p2":"In den Wald mit Višnjas Bruder und den ausgebildeten Hunden, Sky ist auch dabei. Die Hunde machen die Arbeit, und meistens finden Sie Trüffel.",
+    "dy.s3":"Kochen","dy.p3":"Zurück in der Küche kocht Višnja mit frischen Trüffeln. Wenn Sie möchten, zeigt sie Ihnen, wie man Gnocchi macht.",
+    "dy.s4":"Am Tisch","dy.p4":"Ein Trüffelfrühstück oder das Degustationsmenü, je nach gewähltem Erlebnis.",
+    "band.label":"Saison","band.t":"Weiße Trüffelsaison im Herbst","band.p":"Sie planen einen Besuch? Fragen Sie uns, was der Wald zu Ihrer Reisezeit bietet.","band.cta":"Besuch planen",
+    "sp.label":"Familienladen","sp.title":"Nehmen Sie den Wald mit nach Hause","sp.lead":"Trüffelprodukte aus unserem Laden, darunter Olivenöl mit weißem Trüffel. Stellen Sie eine Geschenkbox zusammen und bestellen Sie per WhatsApp.",
+    "sp.h":"Trüffel Geschenkbox","sp.p":"Tippen Sie an, was Sie möchten. Ihre Bestellung öffnet sich in WhatsApp und die Familie antwortet mit Verfügbarkeit und Preis.",
+    "sp.choose":"Was hätten Sie gern?","sp.i1":"Olivenöl mit weißem Trüffel","sp.i2":"Trüffelprodukte","sp.i3":"Als Geschenkbox verpackt","sp.cta":"Per WhatsApp bestellen","sp.fine":"Sie können den Laden auch besuchen, täglich 08:00 bis 22:00.",
+    "gk.label":"Gut zu wissen","gk.title":"Bevor Sie kommen","gk.h":"Öffnungszeiten","gk.hV":"Täglich, 08:00 bis 22:00","gk.s":"Kleidung","gk.sV":"Bequeme Schuhe für den Wald","gk.d":"Die Hunde","gk.dV":"Die Hunde machen die Arbeit, Sie folgen und schauen zu","gk.k":"Kinder","gk.kV":"Kinder sind willkommen","gk.v":"Vegetarisch","gk.vV":"Fragen Sie uns, wir sprechen über das Menü","gk.p":"Telefon und WhatsApp",
+    "nb.label":"In der Nähe","nb.title":"Bleiben Sie für die Bergstädtchen","nb.lead":"Machen Sie einen Ausflug daraus. Das istrische Hinterland ist wie gemacht für langsame Fahrten zwischen Hügelstädten.",
+    "nb.k1":"Stadt der Trüffel","nb.k2":"Hügelstadt","nb.k3":"Inneres Istrien",
+    "nb.p1":"Unsere Heimatstadt, bekannt als Stadt der Trüffel. Eine Altstadt auf dem Hügel, nah an den Wäldern, in denen wir suchen.","nb.l1":"Altstadt auf dem Hügel","nb.l2":"Rundherum Trüffelland",
+    "nb.p2":"Eine der bekanntesten Hügelstädte im Inneren Istriens, mit weitem Blick über das grüne Tal.","nb.l3":"Spaziergang auf der Stadtmauer","nb.l4":"Blick über das Tal",
+    "nb.t3":"Istrische Hügelstädte","nb.p3":"Kleine Steinstädtchen auf Hügeln und ruhige Straßen dazwischen. Fragen Sie uns bei Ihrem Besuch nach unseren Lieblingsorten.","nb.l5":"Steinstädtchen und ruhige Straßen","nb.l6":"Tipps von der Familie",
+    "bk.label":"Direkt buchen","bk.title":"Buchen Sie Ihren Trüffeltag","bk.lead":"Wählen Sie Erlebnis, Datum und Personenzahl. WhatsApp öffnet sich mit Ihrer Nachricht und die Familie bestätigt die Details.",
+    "f.exp":"Erlebnis","short.breakfast":"Suche + Frühstück","short.lunch":"Suche + Mittagessen","short.gnocchi":"Gnocchi Kurs","short.tasting":"Nur Degustation",
+    "f.date":"Datum wählen","f.guests":"Gäste","f.lang":"Sprache","f.name":"Ihr Name","f.nameph":"Vor und Nachname","f.submit":"Per WhatsApp senden",
+    "bk.n1t":"Direkt zur Familie","bk.n1":"Keine Plattform dazwischen. Višnja liest Ihre Nachricht und antwortet selbst.",
+    "bk.n2t":"Täglich geöffnet","bk.n2":"08:00 bis 22:00. Anrufen oder schreiben: +385"+NB+"91"+NB+"551"+NB+"2796.",
+    "bk.n3t":"Keine Zahlung hier","bk.n3":"Dieses Formular sendet nur eine Anfrage. Mit XX"+NB+"€ markierte Preise sind Beispiele.",
+    "faq.label":"Fragen","faq.title":"Vor Ihrem Trüffeltag",
+    "q1":"Finden wir wirklich Trüffel?","a1":"Meistens ja. Die Hunde machen die Arbeit und die meisten Suchen enden mit Trüffeln. Es ist Natur, garantiert ist nichts, und genau das macht den Reiz aus.",
+    "q2":"Was soll ich anziehen?","a2":"Bequeme Schuhe für den Wald und Kleidung passend zum Wetter. Den Rest erledigen die Hunde.",
+    "q3":"Können wir Kinder mitbringen?","a3":"Natürlich. Kinder sind willkommen, und den Hunden bei der Arbeit zuzusehen ist ein Highlight.",
+    "q4":"Gibt es eine vegetarische Option?","a4":"Fragen Sie uns bei der Buchung, dann sprechen wir gemeinsam über das Menü.",
+    "q5":"Wann ist weiße Trüffelsaison?","a5":"Die weiße Trüffelsaison ist im Herbst. Fragen Sie uns, was der Wald zu Ihrer Reisezeit bietet.",
+    "q6":"Warum direkt buchen?","a6":"Sie sprechen direkt mit der Familie. Ihre Nachricht geht direkt an Višnja, Sie können alles fragen und die Details gemeinsam abstimmen.",
+    "ct.label":"Kontakt","ct.title":"So finden Sie uns bei Buzet","ct.map":"In Karten öffnen","ct.daily":"Montag bis Sonntag","ct.phone":"Telefon und WhatsApp","ct.call":"Anrufen",
+    "fo.tag":"Eine Familie von Trüffeljägern","fo.addr":"Adresse","fo.contact":"Kontakt","fo.hours":"Öffnungszeiten","fo.hoursV":"Täglich 08:00 bis 22:00","fo.note":"Website Konzept, Vorschlag",
+    "bar.t":"Ihre Anfrage","bar.cta":"Senden",
+    "js.menu":"Menü","js.close":"Schließen","js.prev":"Zurück","js.next":"Weiter","js.guest":"Gast","js.guests":"Gäste",
+    "wa.hello":"Hallo Familie Prodan! Ich möchte direkt buchen.","wa.exp":"Erlebnis","wa.date":"Datum","wa.guests":"Gäste","wa.lang":"Sprache","wa.name":"Name","wa.flex":"flexibel","wa.thanks":"Vielen Dank!",
+    "wa.shop":"Hallo! Ich möchte aus Ihrem Laden bestellen","wa.shopAsk":"Was ist verfügbar und was kostet es?"
+  };
+  var IT = {
+    "nav.story":"La nostra storia","nav.exp":"Esperienze","nav.day":"La vostra giornata","nav.shop":"Negozio","nav.contact":"Contatti","nav.good":"Da sapere","nav.faq":"Domande","nav.book":"Prenota diretto",
+    "hero.eyebrow":"Buzet, la città del tartufo","hero.t1":"Caccia al tartufo","hero.t2":"con la famiglia Prodan","hero.t3":"nei boschi di querce dell'Istria",
+    "hero.txt":"Seguite Sky e i cani nel bosco, poi sedetevi a tavola con tartufi freschi cucinati da Višnja.","hero.cta":"Prenota la tua giornata al tartufo",
+    "finder.t":"Caccia al tartufo + pranzo","finder.sub":"Scegli una data • 2 ospiti",
+    "gal.t":"Una mattina nel bosco dei tartufi","gal.sub":"Boschi di querce, cani bravissimi e una cucina di famiglia vicino a Buzet.",
+    "gal.c1":"I boschi di querce","gal.c2":"Sky e i cani al lavoro","gal.c3":"Tartufi neri e bianchi","gal.c4":"La cucina di Višnja","gal.c5":"Il negozio di famiglia",
+    "st.label":"La famiglia","st.title":"Cercatori di tartufi da generazioni",
+    "st.lead":"La caccia al tartufo è nel sangue della famiglia Prodan. Si tramanda di generazione in generazione, insieme ai boschi e ai cani.",
+    "st.p1":"Oggi vi accogliamo come ospiti di casa. Višnja vi spiega cosa sono i tartufi e come crescono. Suo fratello vi porta nel bosco con i cani addestrati, tra cui Sky. Tornati a casa, Višnja cucina i tartufi finché sono freschi.",
+    "st.p2":"Buzet è chiamata la città del tartufo. Passate qui una mattina e capirete perché.",
+    "st.s1":"Valutazione Google","st.s2":"Recensioni Google","st.s3":"Aperto ogni giorno dalle 08:00 alle 22:00","st.role":"e la famiglia Prodan",
+    "dr.label":"Prenota diretto","dr.title":"Parlate con la famiglia, non con una piattaforma","dr.p":"La maggior parte degli ospiti ci trova tramite i portali di prenotazione. Qui potete prenotare direttamente con noi.",
+    "dr.l1":"Il vostro messaggio arriva direttamente a Višnja su WhatsApp","dr.l2":"Chiedete tutto prima di decidere","dr.l3":"Giorno, orario e menù si decidono insieme","dr.cta":"Prenota diretto",
+    "ex.label":"Esperienze","ex.title":"Scegliete la vostra giornata al tartufo","ex.lead":"Ogni visita inizia con un benvenuto e una spiegazione sui tartufi. Poi scegliete come continua la giornata.",
+    "ex.t1":"Caccia al tartufo + colazione","ex.t2":"Caccia + menù degustazione","ex.t3":"Corso di gnocchi","ex.t4":"Solo degustazione",
+    "ex.k1":"Mattina","ex.k2":"La più completa","ex.k3":"Con le mani","ex.k4":"A tavola",
+    "from":"da","pp":"a persona",
+    "ex.p1":"Iniziate la giornata nel bosco con i cani, poi tornate per una colazione al tartufo cucinata da Višnja.",
+    "ex.p2":"La giornata completa: la caccia con i cani, poi un menù degustazione che Višnja cucina con tartufi freschi.",
+    "ex.p3":"Rimboccatevi le maniche e imparate a fare gli gnocchi con Višnja. Chiedeteci come aggiungerlo alla vostra giornata al tartufo.",
+    "ex.p4":"Niente scarpe infangate. Sedetevi a tavola per il menù degustazione al tartufo che Višnja cucina con tartufi freschi.",
+    "ex.b.welcome":"Benvenuto e spiegazione sui tartufi","ex.b.hunt":"Caccia al tartufo nel bosco con i cani addestrati","ex.b.breakfast":"Colazione al tartufo con tartufi freschi","ex.b.menu":"Menù degustazione al tartufo cucinato da Višnja","ex.b.gnocchi":"Imparare a fare gli gnocchi con Višnja","ex.b.ask":"Da abbinare alla caccia, chiedeteci","ex.b.shop":"Tempo per curiosare nel negozio di famiglia",
+    "ex.cta":"Prenota questa esperienza","ex.note":"I prezzi indicati con XX"+NB+"€ sono esempi da modificare.",
+    "dy.label":"La vostra giornata","dy.title":"Dal bosco alla tavola","dy.lead":"Quattro semplici passi. Portate solo curiosità e scarpe comode.",
+    "dy.n1":"Passo 1","dy.n2":"Passo 2","dy.n3":"Passo 3","dy.n4":"Passo 4",
+    "dy.s1":"Benvenuto","dy.p1":"Vi accogliamo a casa della famiglia e vi spieghiamo cosa sono i tartufi, neri e bianchi, e come li trovano i cani.",
+    "dy.s2":"La caccia con i cani","dy.p2":"Nel bosco con il fratello di Višnja e i cani addestrati, tra cui Sky. I cani fanno il lavoro e di solito i tartufi si trovano.",
+    "dy.s3":"In cucina","dy.p3":"Tornati in cucina, Višnja cucina con i tartufi freschi. Se volete, vi insegna a fare gli gnocchi.",
+    "dy.s4":"A tavola","dy.p4":"Una colazione al tartufo o il menù degustazione, secondo l'esperienza scelta.",
+    "band.label":"Stagione","band.t":"La stagione del tartufo bianco è in autunno","band.p":"State pianificando una visita? Chiedeteci cosa offre il bosco nel periodo in cui volete venire.","band.cta":"Pianifica la visita",
+    "sp.label":"Negozio di famiglia","sp.title":"Portate il bosco a casa","sp.lead":"Prodotti al tartufo dal nostro negozio, tra cui l'olio d'oliva al tartufo bianco. Componete una confezione regalo e ordinatela su WhatsApp.",
+    "sp.h":"Confezione regalo al tartufo","sp.p":"Toccate ciò che desiderate. L'ordine si apre su WhatsApp e la famiglia risponde con disponibilità e prezzo.",
+    "sp.choose":"Cosa desiderate?","sp.i1":"Olio d'oliva al tartufo bianco","sp.i2":"Prodotti al tartufo","sp.i3":"In confezione regalo","sp.cta":"Ordina su WhatsApp","sp.fine":"Potete anche visitare il negozio, aperto ogni giorno dalle 08:00 alle 22:00.",
+    "gk.label":"Da sapere","gk.title":"Prima di venire","gk.h":"Orari","gk.hV":"Ogni giorno, dalle 08:00 alle 22:00","gk.s":"Cosa indossare","gk.sV":"Scarpe comode per il bosco","gk.d":"I cani","gk.dV":"I cani fanno il lavoro, voi seguite e guardate","gk.k":"Bambini","gk.kV":"I bambini sono benvenuti","gk.v":"Vegetariani","gk.vV":"Chiedeteci, parliamo insieme del menù","gk.p":"Telefono e WhatsApp",
+    "nb.label":"Nei dintorni","nb.title":"Fermatevi per i borghi","nb.lead":"Fatene una gita. L'Istria interna è fatta per guidare piano tra i borghi in collina.",
+    "nb.k1":"Città del tartufo","nb.k2":"Borgo in collina","nb.k3":"Istria interna",
+    "nb.p1":"La nostra città, conosciuta come la città del tartufo. Un centro storico in cima alla collina, vicino ai boschi dove cerchiamo.","nb.l1":"Centro storico sulla collina","nb.l2":"Terra di tartufi tutto intorno",
+    "nb.p2":"Uno dei borghi in collina più noti dell'Istria interna, con ampie viste sulla verde valle sottostante.","nb.l3":"Passeggiata sulle mura","nb.l4":"Viste sulla valle",
+    "nb.t3":"Borghi dell'Istria","nb.p3":"Piccoli borghi di pietra sulle colline e strade tranquille tra l'uno e l'altro. Chiedeteci i nostri preferiti quando venite.","nb.l5":"Borghi di pietra e strade tranquille","nb.l6":"Consigli dalla famiglia",
+    "bk.label":"Prenota diretto","bk.title":"Prenotate la vostra giornata al tartufo","bk.lead":"Scegliete l'esperienza, la data e quanti siete. WhatsApp si apre con il vostro messaggio e la famiglia conferma i dettagli.",
+    "f.exp":"Esperienza","short.breakfast":"Caccia + colazione","short.lunch":"Caccia + pranzo","short.gnocchi":"Corso di gnocchi","short.tasting":"Solo degustazione",
+    "f.date":"Scegli una data","f.guests":"Ospiti","f.lang":"Lingua","f.name":"Il vostro nome","f.nameph":"Nome e cognome","f.submit":"Invia su WhatsApp",
+    "bk.n1t":"Direttamente alla famiglia","bk.n1":"Nessuna piattaforma in mezzo. Višnja legge il vostro messaggio e risponde lei stessa.",
+    "bk.n2t":"Aperto ogni giorno","bk.n2":"Dalle 08:00 alle 22:00. Chiamate o scrivete al +385"+NB+"91"+NB+"551"+NB+"2796.",
+    "bk.n3t":"Nessun pagamento qui","bk.n3":"Questo modulo invia solo una richiesta. I prezzi indicati con XX"+NB+"€ sono esempi.",
+    "faq.label":"Domande","faq.title":"Prima della vostra giornata al tartufo",
+    "q1":"Troveremo davvero i tartufi?","a1":"Di solito sì. I cani fanno il lavoro e la maggior parte delle cacce finisce con dei tartufi. È natura, quindi nulla è garantito, ed è anche questo il bello.",
+    "q2":"Cosa devo indossare?","a2":"Scarpe comode per il bosco e abiti adatti al tempo. Al resto pensano i cani.",
+    "q3":"Possiamo portare i bambini?","a3":"Certo. I bambini sono benvenuti e guardare i cani al lavoro piace sempre molto.",
+    "q4":"C'è un'opzione vegetariana?","a4":"Chiedeteci quando prenotate e parleremo insieme del menù.",
+    "q5":"Quando è la stagione del tartufo bianco?","a5":"La stagione del tartufo bianco è in autunno. Chiedeteci cosa offre il bosco nel periodo in cui volete venire.",
+    "q6":"Perché prenotare diretto?","a6":"Parlate direttamente con la famiglia. Il vostro messaggio arriva a Višnja, potete chiedere tutto e decidere i dettagli insieme.",
+    "ct.label":"Contatti","ct.title":"Dove trovarci vicino a Buzet","ct.map":"Apri nelle mappe","ct.daily":"Da lunedì a domenica","ct.phone":"Telefono e WhatsApp","ct.call":"Chiamaci",
+    "fo.tag":"Una famiglia di cercatori di tartufi","fo.addr":"Indirizzo","fo.contact":"Contatti","fo.hours":"Orari","fo.hoursV":"Ogni giorno dalle 08:00 alle 22:00","fo.note":"Concept del sito, proposta",
+    "bar.t":"La vostra richiesta","bar.cta":"Invia",
+    "js.menu":"Menu","js.close":"Chiudi","js.prev":"Precedente","js.next":"Successivo","js.guest":"ospite","js.guests":"ospiti",
+    "wa.hello":"Buongiorno famiglia Prodan! Vorrei prenotare direttamente.","wa.exp":"Esperienza","wa.date":"Data","wa.guests":"Ospiti","wa.lang":"Lingua","wa.name":"Nome","wa.flex":"flessibile","wa.thanks":"Grazie!",
+    "wa.shop":"Buongiorno! Vorrei ordinare dal vostro negozio","wa.shopAsk":"Cosa è disponibile e quanto costa?"
+  };
+  var HR = {
+    "nav.story":"Naša priča","nav.exp":"Doživljaji","nav.day":"Vaš dan","nav.shop":"Trgovina","nav.contact":"Kontakt","nav.good":"Dobro je znati","nav.faq":"Pitanja","nav.book":"Rezerviraj izravno",
+    "hero.eyebrow":"Buzet, grad tartufa","hero.t1":"Lov na tartufe","hero.t2":"s obitelji Prodan","hero.t3":"u hrastovim šumama Istre",
+    "hero.txt":"Pratite Sky i pse u šumu, a zatim sjednite za stol uz svježe tartufe koje kuha Višnja.","hero.cta":"Rezervirajte svoj dan s tartufima",
+    "finder.t":"Lov na tartufe + ručak","finder.sub":"Odaberite datum • 2 gosta",
+    "gal.t":"Jutro u šumi tartufa","gal.sub":"Hrastove šume, pametni psi i obiteljska kuhinja kraj Buzeta.",
+    "gal.c1":"Hrastove šume","gal.c2":"Sky i psi na poslu","gal.c3":"Crni i bijeli tartufi","gal.c4":"Višnjina kuhinja","gal.c5":"Obiteljska trgovina",
+    "st.label":"Obitelj","st.title":"Generacije tragača za tartufima",
+    "st.lead":"Lov na tartufe obitelji Prodan je u krvi. Prenosi se s generacije na generaciju, zajedno sa šumom i psima.",
+    "st.p1":"Danas vas dočekujemo kao goste u vlastitom domu. Višnja vam objasni što su tartufi i kako rastu. Njezin brat vodi vas u šumu s dresiranim psima, među njima je i Sky. Kad se vratite, Višnja kuha s tartufima dok su još svježi.",
+    "st.p2":"Buzet zovu gradom tartufa. Provedite ovdje jedno jutro i shvatit ćete zašto.",
+    "st.s1":"Ocjena na Googleu","st.s2":"Recenzija na Googleu","st.s3":"Otvoreno svaki dan 08:00 do 22:00","st.role":"i obitelj Prodan",
+    "dr.label":"Rezerviraj izravno","dr.title":"Razgovarajte s obitelji, ne s platformom","dr.p":"Većina gostiju pronađe nas preko platformi za rezervacije. Ovdje možete rezervirati izravno kod nas.",
+    "dr.l1":"Vaša poruka stiže ravno Višnji na WhatsApp","dr.l2":"Pitajte sve prije nego što odlučite","dr.l3":"Dan, vrijeme i meni dogovaramo zajedno","dr.cta":"Rezerviraj izravno",
+    "ex.label":"Doživljaji","ex.title":"Odaberite svoj dan s tartufima","ex.lead":"Svaki posjet počinje dobrodošlicom i pričom o tartufima. Zatim birate kako se dan nastavlja.",
+    "ex.t1":"Lov na tartufe + doručak","ex.t2":"Lov + degustacijski meni","ex.t3":"Radionica njoka","ex.t4":"Samo degustacija",
+    "ex.k1":"Jutro","ex.k2":"Najpotpunije","ex.k3":"Vlastitim rukama","ex.k4":"Za stolom",
+    "from":"od","pp":"po osobi",
+    "ex.p1":"Započnite dan u šumi s psima, a zatim se vratite na doručak s tartufima koji kuha Višnja.",
+    "ex.p2":"Cijeli dan: lov s psima, a zatim degustacijski meni koji Višnja kuha sa svježim tartufima.",
+    "ex.p3":"Zasučite rukave i naučite raditi njoke s Višnjom. Pitajte nas kako ih dodati svom danu s tartufima.",
+    "ex.p4":"Bez blatnjavih cipela. Sjednite za stol uz degustacijski meni s tartufima koji Višnja kuha sa svježim tartufima.",
+    "ex.b.welcome":"Dobrodošlica i priča o tartufima","ex.b.hunt":"Lov na tartufe u šumi s dresiranim psima","ex.b.breakfast":"Doručak sa svježim tartufima","ex.b.menu":"Degustacijski meni s tartufima koji kuha Višnja","ex.b.gnocchi":"Naučite raditi njoke s Višnjom","ex.b.ask":"Može uz lov, samo nas pitajte","ex.b.shop":"Vrijeme za razgledavanje obiteljske trgovine",
+    "ex.cta":"Rezerviraj ovaj doživljaj","ex.note":"Cijene označene s XX"+NB+"€ su primjeri za uređivanje.",
+    "dy.label":"Vaš dan","dy.title":"Iz šume na stol","dy.lead":"Četiri jednostavna koraka. Ponesite samo znatiželju i dobre cipele.",
+    "dy.n1":"Korak 1","dy.n2":"Korak 2","dy.n3":"Korak 3","dy.n4":"Korak 4",
+    "dy.s1":"Dobrodošlica","dy.p1":"Dočekujemo vas u obiteljskom domu i objašnjavamo što su tartufi, crni i bijeli, i kako ih psi pronalaze.",
+    "dy.s2":"Lov s psima","dy.p2":"U šumu s Višnjinim bratom i dresiranim psima, među njima je i Sky. Psi rade posao, a tartufi se obično i nađu.",
+    "dy.s3":"Kuhanje","dy.p3":"Natrag u kuhinji Višnja kuha sa svježim tartufima. Ako želite, naučit će vas raditi njoke.",
+    "dy.s4":"Za stolom","dy.p4":"Doručak s tartufima ili degustacijski meni, ovisno o doživljaju koji odaberete.",
+    "band.label":"Sezona","band.t":"Sezona bijelih tartufa je u jesen","band.p":"Planirate posjet? Pitajte nas što šuma nudi u vrijeme kad želite doći.","band.cta":"Planirajte posjet",
+    "sp.label":"Obiteljska trgovina","sp.title":"Ponesite šumu kući","sp.lead":"Proizvodi od tartufa iz naše trgovine, među njima i maslinovo ulje s bijelim tartufom. Složite poklon kutiju i naručite je na WhatsApp.",
+    "sp.h":"Poklon kutija s tartufima","sp.p":"Dodirnite što želite. Narudžba se otvara u WhatsAppu, a obitelj vam javlja što je dostupno i cijenu.",
+    "sp.choose":"Što biste željeli?","sp.i1":"Maslinovo ulje s bijelim tartufom","sp.i2":"Proizvodi od tartufa","sp.i3":"Zapakirano kao poklon kutija","sp.cta":"Naruči na WhatsApp","sp.fine":"Trgovinu možete i posjetiti, otvoreno svaki dan od 08:00 do 22:00.",
+    "gk.label":"Dobro je znati","gk.title":"Prije dolaska","gk.h":"Radno vrijeme","gk.hV":"Svaki dan, 08:00 do 22:00","gk.s":"Što obući","gk.sV":"Udobne cipele za šumu","gk.d":"Psi","gk.dV":"Psi rade posao, vi pratite i gledate","gk.k":"Djeca","gk.kV":"Djeca su dobrodošla","gk.v":"Vegetarijanci","gk.vV":"Pitajte nas, dogovorit ćemo meni","gk.p":"Telefon i WhatsApp",
+    "nb.label":"U blizini","nb.title":"Ostanite zbog gradića na brdima","nb.lead":"Napravite izlet. Unutrašnjost Istre stvorena je za laganu vožnju između gradića na brežuljcima.",
+    "nb.k1":"Grad tartufa","nb.k2":"Gradić na brdu","nb.k3":"Unutrašnjost Istre",
+    "nb.p1":"Naš grad, poznat kao grad tartufa. Stari grad na brdu, blizu šuma u kojima tražimo tartufe.","nb.l1":"Stari grad na brdu","nb.l2":"Svuda okolo zemlja tartufa",
+    "nb.p2":"Jedan od najpoznatijih gradića na brdu u unutrašnjosti Istre, sa širokim pogledom na zelenu dolinu.","nb.l3":"Šetnja gradskim zidinama","nb.l4":"Pogled na dolinu",
+    "nb.t3":"Istarski gradići na brdima","nb.p3":"Mali kameni gradići na brežuljcima i mirne ceste između njih. Pitajte nas za naša omiljena mjesta kad dođete.","nb.l5":"Kameni gradići i mirne ceste","nb.l6":"Savjeti obitelji",
+    "bk.label":"Rezerviraj izravno","bk.title":"Rezervirajte svoj dan s tartufima","bk.lead":"Odaberite doživljaj, datum i broj osoba. WhatsApp se otvara s vašom porukom, a obitelj potvrđuje detalje.",
+    "f.exp":"Doživljaj","short.breakfast":"Lov + doručak","short.lunch":"Lov + ručak","short.gnocchi":"Radionica njoka","short.tasting":"Samo degustacija",
+    "f.date":"Odaberite datum","f.guests":"Gosti","f.lang":"Jezik","f.name":"Vaše ime","f.nameph":"Ime i prezime","f.submit":"Pošalji na WhatsApp",
+    "bk.n1t":"Ravno obitelji","bk.n1":"Bez platforme u sredini. Višnja čita vašu poruku i sama odgovara.",
+    "bk.n2t":"Otvoreno svaki dan","bk.n2":"08:00 do 22:00. Nazovite ili pišite na +385"+NB+"91"+NB+"551"+NB+"2796.",
+    "bk.n3t":"Ovdje se ne plaća","bk.n3":"Ovaj obrazac samo šalje upit. Cijene označene s XX"+NB+"€ su primjeri.",
+    "faq.label":"Pitanja","faq.title":"Prije vašeg dana s tartufima",
+    "q1":"Hoćemo li stvarno naći tartufe?","a1":"Obično da. Psi rade posao i većina lova završi s tartufima. To je priroda, pa ništa nije zajamčeno, i upravo je to dio čarolije.",
+    "q2":"Što obući?","a2":"Udobne cipele za šumu i odjeću prema vremenu. Ostalo prepustite psima.",
+    "q3":"Možemo li povesti djecu?","a3":"Naravno. Djeca su dobrodošla, a gledati pse na poslu im je uvijek omiljeno.",
+    "q4":"Postoji li vegetarijanska opcija?","a4":"Pitajte nas pri rezervaciji pa ćemo zajedno dogovoriti meni.",
+    "q5":"Kada je sezona bijelih tartufa?","a5":"Sezona bijelih tartufa je u jesen. Pitajte nas što šuma nudi u vrijeme kad želite doći.",
+    "q6":"Zašto rezervirati izravno?","a6":"Razgovarate izravno s obitelji. Vaša poruka stiže ravno Višnji, možete pitati sve i zajedno dogovoriti detalje.",
+    "ct.label":"Kontakt","ct.title":"Pronađite nas kraj Buzeta","ct.map":"Otvori u kartama","ct.daily":"Ponedjeljak do nedjelje","ct.phone":"Telefon i WhatsApp","ct.call":"Nazovite nas",
+    "fo.tag":"Obitelj tragača za tartufima","fo.addr":"Adresa","fo.contact":"Kontakt","fo.hours":"Radno vrijeme","fo.hoursV":"Svaki dan 08:00 do 22:00","fo.note":"Koncept web stranice, prijedlog",
+    "bar.t":"Vaš upit","bar.cta":"Pošalji",
+    "js.menu":"Izbornik","js.close":"Zatvori","js.prev":"Prethodna","js.next":"Sljedeća","js.guest":"gost","js.guests":"gosta",
+    "wa.hello":"Pozdrav obitelji Prodan! Želim rezervirati izravno.","wa.exp":"Doživljaj","wa.date":"Datum","wa.guests":"Gosti","wa.lang":"Jezik","wa.name":"Ime","wa.flex":"po dogovoru","wa.thanks":"Hvala!",
+    "wa.shop":"Pozdrav! Želim naručiti iz vaše trgovine","wa.shopAsk":"Što je dostupno i koja je cijena?"
+  };
+  var ENJS = {
+    "js.menu":"Menu","js.close":"Close","js.prev":"Previous","js.next":"Next","js.guest":"guest","js.guests":"guests",
+    "wa.hello":"Hello Prodan family! I would like to book directly.","wa.exp":"Experience","wa.date":"Date","wa.guests":"Guests","wa.lang":"Language","wa.name":"Name","wa.flex":"flexible","wa.thanks":"Thank you!",
+    "wa.shop":"Hello! I would like to order from your shop","wa.shopAsk":"What is available and what is the price?"
+  };
+  var EN = {};
+  $$("[data-i18n]").forEach(function(el){ var k = el.getAttribute("data-i18n"); if(!(k in EN)) EN[k] = el.innerHTML; });
+  $$("[data-i18n-ph]").forEach(function(el){ EN[el.getAttribute("data-i18n-ph")] = el.placeholder; });
+  for(var k in ENJS) EN[k] = ENJS[k];
+  var DICT = {en:EN, de:DE, it:IT, hr:HR}, lang = "en", langTouched = false;
+  try{ var sv = localStorage.getItem("pt-lang"); if(sv && DICT[sv]) lang = sv; }catch(e){}
+  function t(k){ var v = DICT[lang][k]; return v != null ? v : (EN[k] || ""); }
+
+  function applyLang(l){
+    lang = l; document.documentElement.lang = l;
+    $$("[data-i18n]").forEach(function(el){ el.innerHTML = t(el.getAttribute("data-i18n")); });
+    $$("[data-i18n-ph]").forEach(function(el){ el.placeholder = t(el.getAttribute("data-i18n-ph")); });
+    $$(".lang button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+    $$("#pkPrev,#galPrev").forEach(function(b){ b.setAttribute("aria-label", t("js.prev")); });
+    $$("#pkNext,#galNext").forEach(function(b){ b.setAttribute("aria-label", t("js.next")); });
+    $("#menuLbl").textContent = document.body.classList.contains("menu-open") ? t("js.close") : t("js.menu");
+    if(!langTouched){ var r = $("#langChips input[value=" + l.toUpperCase() + "]"); if(r) r.checked = true; }
+    updateSummary(); updateShop(); moveInk();
+    try{ localStorage.setItem("pt-lang", l); }catch(e){}
+  }
+  $$(".lang button").forEach(function(b){ b.addEventListener("click", function(){ applyLang(b.dataset.lang); }); });
+
+  /* ---------- Watermark ---------- */
+  (function(){ var wm = $("#wm"), h = ""; for(var i=0;i<36;i++) h += "<span>Tartufi</span>"; wm.innerHTML = h; })();
+
+  /* ---------- Preloader ---------- */
+  var pre = $("#pre");
+  function start(){ document.body.classList.remove("locked"); document.body.classList.add("ready"); galAuto(); }
+  if(reduce){ pre.style.display = "none"; start(); }
+  else setTimeout(function(){ pre.classList.add("done"); setTimeout(start, 350); setTimeout(function(){ pre.style.display = "none"; }, 1300); }, 1500);
+
+  /* ---------- Menu ---------- */
+  var menuBtn = $("#menuBtn"), menu = $("#menu");
+  function setMenu(open){
+    document.body.classList.toggle("menu-open", open);
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    menu.setAttribute("aria-hidden", open ? "false" : "true");
+    $("#menuLbl").textContent = open ? t("js.close") : t("js.menu");
+  }
+  menuBtn.addEventListener("click", function(){ setMenu(!document.body.classList.contains("menu-open")); });
+  $$("#menu a").forEach(function(a){ a.addEventListener("click", function(){ setMenu(false); }); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") setMenu(false); });
+
+  /* ---------- Header, FAB, sticky bar, concept tag ---------- */
+  var hdr = $("#hdr"), fab = $("#fab"), hero = $("#hero"), ctag = $(".ctag"), formVis = false, isMobile = window.matchMedia("(max-width:899px)");
+  new IntersectionObserver(function(es){ formVis = es[0].isIntersecting; ui(); }, {rootMargin:"0px 0px -25% 0px"}).observe($("#form"));
+  function ui(){
+    var y = window.scrollY, barOn = formVis && isMobile.matches;
+    hdr.classList.toggle("scrolled", y > 40);
+    document.body.classList.toggle("bar-on", barOn);
+    $("#sbar").setAttribute("aria-hidden", barOn ? "false" : "true");
+    $("#barBtn").tabIndex = barOn ? 0 : -1;
+    fab.classList.toggle("show", y > hero.offsetHeight * .85 && !barOn);
+    ctag.classList.toggle("off", y > hero.offsetHeight * .5);
+  }
+
+  /* ---------- Swipe helper ---------- */
+  function swipe(el, fn){
+    var sx = 0, sy = 0;
+    el.addEventListener("touchstart", function(e){ sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, {passive:true});
+    el.addEventListener("touchend", function(e){
+      var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) fn(dx < 0 ? 1 : -1);
+    }, {passive:true});
+  }
+
+  /* ---------- Illustrated image fallbacks (our own SVG drawings) ---------- */
+  var FOG = '<rect x="-20" y="Y" width="440" height="H" fill="#EDE4CC" opacity="O"/>';
+  function fog(y,h,o){ return FOG.replace("Y",y).replace("H",h).replace("O",o); }
+  var ILL = {
+    woods: '<g color="#A7A88A"><use href="#i-buzet" x="60" y="150" width="320" height="120"/></g>' + fog(220,60,".35") +
+           '<g color="#7E8868"><use href="#i-oak" x="-20" y="190" width="140" height="170"/><use href="#i-oak" x="140" y="200" width="120" height="150"/><use href="#i-oak" x="280" y="185" width="140" height="170"/></g>' + fog(320,50,".3") +
+           '<g color="#3E4C34"><use href="#i-oak" x="-90" y="170" width="250" height="300"/><use href="#i-oak" x="250" y="160" width="250" height="300"/></g>' +
+           '<polygon points="270,120 290,120 230,500 170,500" fill="#FFE9B8" opacity=".22"/><rect x="0" y="440" width="400" height="60" fill="#2A3626"/><g color="#C49A4A"><use href="#i-leaf" x="180" y="380" width="16" height="29" transform="rotate(40 188 394)"/><use href="#i-leaf" x="110" y="300" width="12" height="22" transform="rotate(-30 116 311)"/></g>',
+    dogs:  '<g color="#8F9070" opacity=".8"><use href="#i-oak" x="-40" y="20" width="200" height="240"/><use href="#i-oak" x="230" y="0" width="210" height="250"/></g>' + fog(210,60,".3") +
+           '<rect x="0" y="330" width="400" height="170" fill="#4A4A30" opacity=".55"/><g color="#2B241C"><use href="#i-dog" x="70" y="190" width="250" height="175"/></g><g color="#B98A44"><use href="#i-leaf" x="320" y="330" width="18" height="32" transform="rotate(70 329 346)"/><use href="#i-leaf" x="40" y="350" width="14" height="25" transform="rotate(-50 47 362)"/></g><g><use href="#i-tb" x="300" y="336" width="34" height="29"/></g>',
+    truffles: '<g><use href="#i-basket" x="40" y="160" width="320" height="250"/></g><g><use href="#i-tw" x="250" y="400" width="80" height="69"/><use href="#i-tb" x="70" y="410" width="66" height="57"/></g><g color="#5E7448"><use href="#i-leaf" x="300" y="110" width="30" height="54" transform="rotate(30 315 137)"/></g><g color="#7A5A36"><use href="#i-acorn" x="180" y="430" width="24" height="32"/></g>',
+    kitchen: '<g><use href="#i-plate" x="40" y="200" width="320" height="175"/></g><g><use href="#i-tb" x="290" y="120" width="70" height="60"/></g><g color="#5A3E2B"><use href="#i-gnocchi" x="20" y="380" width="200" height="122"/></g><g color="#5E7448"><use href="#i-leaf" x="70" y="110" width="26" height="47" transform="rotate(-30 83 133)"/></g>',
+    gnocchi: '<g color="#5A3E2B"><use href="#i-gnocchi" x="30" y="150" width="340" height="208"/></g><g><use href="#i-tw" x="260" y="380" width="70" height="60"/></g><g fill="#FBF7EF" opacity=".55"><circle cx="90" cy="120" r="3"/><circle cx="130" cy="90" r="2"/><circle cx="300" cy="130" r="2.5"/><circle cx="210" cy="400" r="2"/></g>',
+    shop:  '<g><use href="#i-oil" x="70" y="130" width="100" height="283"/><use href="#i-oil" x="170" y="190" width="76" height="215"/></g><g><use href="#i-tb" x="250" y="330" width="80" height="69"/><use href="#i-tw" x="280" y="270" width="70" height="60"/></g><g color="#C49A4A"><use href="#i-leaf" x="300" y="120" width="26" height="47" transform="rotate(30 313 143)"/></g><rect x="20" y="410" width="360" height="6" rx="3" fill="#C49A4A" opacity=".5"/>',
+    buzet: '<g color="#8C8C6C"><use href="#i-buzet" x="-20" y="170" width="440" height="165"/></g>' + fog(300,40,".4") + '<g color="#5E6A4C"><use href="#i-hill" x="-60" y="330" width="520" height="160"/></g><g color="#34402C"><use href="#i-oak" x="-60" y="330" width="150" height="180"/><use href="#i-oak" x="320" y="320" width="150" height="180"/></g>',
+    motovun: '<g color="#7E8466"><use href="#i-buzet" x="20" y="140" width="380" height="142" transform="translate(420 0) scale(-1 1)"/></g>' + fog(270,50,".4") + '<g color="#56634A"><use href="#i-hill" x="-80" y="320" width="560" height="170"/></g><g color="#2F3B28"><use href="#i-oak" x="280" y="340" width="160" height="190"/></g>',
+    hills: '<g color="#9C9C7E"><use href="#i-hill" x="-40" y="200" width="300" height="90"/></g><g color="#8A8A6C"><use href="#i-buzet" x="180" y="170" width="240" height="90"/></g>' + fog(250,50,".4") + '<g color="#64704F"><use href="#i-hill" x="-100" y="290" width="400" height="140"/><use href="#i-buzet" x="-40" y="250" width="220" height="82"/></g><g color="#3A4630"><use href="#i-hill" x="80" y="360" width="460" height="150"/></g>'
+  };
+  $$(".art").forEach(function(a){
+    var m = a.className.match(/art--(\w+)/), key = m && m[1];
+    if(!ILL[key]) return;
+    a.insertAdjacentHTML("afterbegin", '<svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + ILL[key] + '</svg>');
+  });
+
+  /* ---------- Hero: Three.js misty oak forest (lazy) ---------- */
+  var heroOn = true, gl = null;
+  new IntersectionObserver(function(es){ heroOn = es[0].isIntersecting; if(gl) gl.toggle(); }).observe(hero);
+  function canGL(){ try{ var c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl"))); }catch(e){ return false; } }
+  function loadThree(){
+    if(reduce || !canGL()) return;
+    var s3 = document.createElement("script");
+    s3.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+    s3.async = true;
+    s3.onload = function(){ try{ gl = initForest(); }catch(err){ gl = null; document.body.classList.remove("gl-on"); } };
+    document.head.appendChild(s3);
+  }
+  if(document.readyState === "complete") setTimeout(loadThree, 50); else window.addEventListener("load", function(){ setTimeout(loadThree, 50); });
+
+  function initForest(){
+    var THREE = window.THREE; if(!THREE || !THREE.InstancedMesh) return null;
+    var canvas = $("#forest"), mobile = window.matchMedia("(max-width:899px)").matches || window.matchMedia("(pointer:coarse)").matches;
+    var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:!mobile, alpha:false, powerPreference:"high-performance"});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2));
+    var FOGC = new THREE.Color(0xCFC5A8);
+    renderer.setClearColor(FOGC, 1);
+    var scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(FOGC, .058);
+    var camera = new THREE.PerspectiveCamera(55, 1, .1, 120);
+    scene.add(camera);
+    function rnd(a, b){ return a + Math.random() * (b - a); }
+    function canvasTex(w, h, draw){ var c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h); return new THREE.CanvasTexture(c); }
+
+    /* sky backdrop with dawn glow, attached to the camera */
+    var skyTex = canvasTex(256, 256, function(x, w, h){
+      var g = x.createLinearGradient(0, 0, 0, h);
+      g.addColorStop(0, "#9AA48C"); g.addColorStop(.45, "#CFC5A8"); g.addColorStop(.62, "#D8CCAA"); g.addColorStop(1, "#CFC5A8");
+      x.fillStyle = g; x.fillRect(0, 0, w, h);
+      var r = x.createRadialGradient(w*.66, h*.48, 2, w*.66, h*.48, w*.42);
+      r.addColorStop(0, "rgba(255,236,186,1)"); r.addColorStop(.35, "rgba(255,224,160,.55)"); r.addColorStop(1, "rgba(255,224,160,0)");
+      x.fillStyle = r; x.fillRect(0, 0, w, h);
+    });
+    var sky = new THREE.Mesh(new THREE.PlaneGeometry(150, 90), new THREE.MeshBasicMaterial({map:skyTex, fog:false, depthWrite:false}));
+    sky.position.set(0, 4, -70); sky.renderOrder = -1; camera.add(sky);
+
+    /* ground: low-poly with a lighter leaf-litter path */
+    var gGeo = new THREE.PlaneGeometry(70, 110, 35, 55); gGeo.rotateX(-Math.PI / 2);
+    var gp = gGeo.attributes.position, cols = [], cPath = new THREE.Color(0x8A6A42), cSide = new THREE.Color(0x3C4A2C), tmp = new THREE.Color();
+    for(var i=0;i<gp.count;i++){
+      var gx = gp.getX(i), gz = gp.getZ(i);
+      gp.setY(i, Math.sin(gx*.35)*.18 + Math.cos(gz*.3)*.2 + rnd(-.12,.12) + Math.max(0, Math.abs(gx) - 8) * .12);
+      tmp.copy(cSide).lerp(cPath, Math.max(0, 1 - Math.abs(gx + Math.sin(gz*.15)*1.2) / 2.6) * .85);
+      tmp.offsetHSL(0, 0, rnd(-.03,.03));
+      cols.push(tmp.r, tmp.g, tmp.b);
+    }
+    gGeo.setAttribute("color", new THREE.Float32BufferAttribute(cols, 3));
+    gGeo = gGeo.toNonIndexed(); gGeo.computeVertexNormals();
+    var ground = new THREE.Mesh(gGeo, new THREE.MeshLambertMaterial({vertexColors:true}));
+    ground.position.z = -40; scene.add(ground);
+
+    /* lights: warm dawn back light */
+    scene.add(new THREE.HemisphereLight(0xF3E3C0, 0x2A2E1E, .95));
+    var sun = new THREE.DirectionalLight(0xFFD49A, .85); sun.position.set(8, 12, -30); scene.add(sun);
+    var fill = new THREE.DirectionalLight(0xC9D2B8, .25); fill.position.set(-6, 4, 10); scene.add(fill);
+
+    /* low-poly oaks as instanced trunks + canopy blobs */
+    var nTrees = mobile ? 70 : 120, trees = [];
+    for(var n=0;n<nTrees;n++){
+      var z = rnd(-75, 3), side = Math.random() < .5 ? -1 : 1, xm = z > -12 ? rnd(3.4, 13) : z > -45 ? rnd(1.8, 12) : rnd(.6, 14);
+      trees.push({x: side * xm + Math.sin(z*.15)*1.2, z: z, h: rnd(3.2, 6.5), r: rnd(.7, 1.3)});
+    }
+    var trunkGeo = new THREE.CylinderGeometry(.13, .26, 1, 6, 1); trunkGeo.translate(0, .5, 0);
+    var trunks = new THREE.InstancedMesh(trunkGeo, new THREE.MeshLambertMaterial({color:0xffffff}), nTrees);
+    var canGeo = new THREE.IcosahedronGeometry(1, 0), perTree = 3;
+    var canopy = new THREE.InstancedMesh(canGeo, new THREE.MeshLambertMaterial({color:0xffffff}), nTrees * perTree);
+    var M = new THREE.Matrix4(), Q = new THREE.Quaternion(), E = new THREE.Euler(), S = new THREE.Vector3(), P = new THREE.Vector3();
+    var leafCols = [0x3D5A3A, 0x4E6A40, 0x5C7448, 0x6B7A46, 0x7E7A3E, 0x8A6E36], barkCols = [0x3B2A1E, 0x45342A, 0x2F241B];
+    var ci = 0;
+    trees.forEach(function(tr, idx){
+      E.set(rnd(-.06,.06), rnd(0, 6.28), rnd(-.08,.08)); Q.setFromEuler(E);
+      P.set(tr.x, -.1, tr.z); S.set(tr.r, tr.h, tr.r);
+      M.compose(P, Q, S); trunks.setMatrixAt(idx, M);
+      trunks.setColorAt(idx, tmp.set(barkCols[idx % 3]));
+      for(var b=0;b<perTree;b++){
+        var s = rnd(1.1, 2.1) * (b === 0 ? 1.15 : .85) * tr.r;
+        E.set(rnd(0,3), rnd(0,3), rnd(0,3)); Q.setFromEuler(E);
+        P.set(tr.x + rnd(-1, 1) * (b ? 1 : .2), tr.h - .2 + rnd(-.3, .8) + (b ? -.4 : .3), tr.z + rnd(-.8, .8));
+        S.set(s * rnd(1, 1.3), s * rnd(.75, 1), s * rnd(1, 1.3));
+        M.compose(P, Q, S); canopy.setMatrixAt(ci, M);
+        canopy.setColorAt(ci, tmp.set(leafCols[Math.floor(Math.random() * leafCols.length)]).offsetHSL(0, 0, rnd(-.03, .04)));
+        ci++;
+      }
+    });
+    trunks.instanceMatrix.needsUpdate = true; canopy.instanceMatrix.needsUpdate = true;
+    if(trunks.instanceColor) trunks.instanceColor.needsUpdate = true;
+    if(canopy.instanceColor) canopy.instanceColor.needsUpdate = true;
+    scene.add(trunks); scene.add(canopy);
+
+    /* bushes and stones along the path */
+    var nB = mobile ? 40 : 70, bushes = new THREE.InstancedMesh(canGeo, new THREE.MeshLambertMaterial({color:0xffffff}), nB);
+    for(var bI=0;bI<nB;bI++){
+      var bz = rnd(-60, 6), bx = (Math.random() < .5 ? -1 : 1) * rnd(1.4, 7) + Math.sin(bz*.15)*1.2, bs = rnd(.25, .7);
+      E.set(rnd(0,3), rnd(0,3), rnd(0,3)); Q.setFromEuler(E); P.set(bx, bs * .3, bz); S.set(bs * 1.4, bs, bs * 1.2);
+      M.compose(P, Q, S); bushes.setMatrixAt(bI, M);
+      bushes.setColorAt(bI, tmp.set(bI % 5 === 0 ? 0x7A7468 : leafCols[bI % 4]));
+    }
+    bushes.instanceMatrix.needsUpdate = true; if(bushes.instanceColor) bushes.instanceColor.needsUpdate = true;
+    scene.add(bushes);
+
+    /* light shafts */
+    var shaftTex = canvasTex(64, 256, function(x, w, h){
+      var g = x.createLinearGradient(0, 0, w, 0);
+      g.addColorStop(0, "rgba(255,255,255,0)"); g.addColorStop(.5, "rgba(255,255,255,1)"); g.addColorStop(1, "rgba(255,255,255,0)");
+      x.fillStyle = g; x.fillRect(0, 0, w, h);
+      x.globalCompositeOperation = "destination-in";
+      var v = x.createLinearGradient(0, 0, 0, h); v.addColorStop(0, "rgba(0,0,0,1)"); v.addColorStop(.7, "rgba(0,0,0,.5)"); v.addColorStop(1, "rgba(0,0,0,0)");
+      x.fillStyle = v; x.fillRect(0, 0, w, h);
+    });
+    var shafts = [], nS = mobile ? 7 : 11;
+    for(var sI=0;sI<nS;sI++){
+      var sm = new THREE.MeshBasicMaterial({map:shaftTex, color:0xFFE2A6, transparent:true, opacity:0, blending:THREE.AdditiveBlending, depthWrite:false, fog:false, side:THREE.DoubleSide});
+      var sh = new THREE.Mesh(new THREE.PlaneGeometry(rnd(1.2, 2.8), 26), sm);
+      var sz = rnd(-34, -2);
+      sh.position.set(rnd(-7, 9), 9, sz); sh.rotation.z = rnd(.3, .45);
+      sh.userData = {base: rnd(.05, .13) * (1 - Math.min(1, -sz / 45) * .5), ph: rnd(0, 6.28), sp: rnd(.15, .35)};
+      shafts.push(sh); scene.add(sh);
+    }
+
+    /* volumetric fog banks */
+    var fogTex = canvasTex(128, 128, function(x, w, h){
+      var r = x.createRadialGradient(w/2, h/2, 0, w/2, h/2, w/2);
+      r.addColorStop(0, "rgba(255,255,255,.9)"); r.addColorStop(.5, "rgba(255,255,255,.35)"); r.addColorStop(1, "rgba(255,255,255,0)");
+      x.fillStyle = r; x.fillRect(0, 0, w, h);
+    });
+    var fogs = [], nFog = mobile ? 12 : 20;
+    for(var fI=0;fI<nFog;fI++){
+      var fs = new THREE.Sprite(new THREE.SpriteMaterial({map:fogTex, color:0xEFE6CF, transparent:true, opacity:rnd(.25, .5), depthWrite:false}));
+      var w = rnd(10, 18); fs.scale.set(w, w * rnd(.3, .45), 1);
+      fs.position.set(rnd(-12, 12), rnd(.3, 2.4), rnd(-50, 4));
+      fs.userData = {sp: rnd(.08, .25) * (Math.random() < .5 ? -1 : 1)};
+      fogs.push(fs); scene.add(fs);
+    }
+
+    /* drifting dust in the light */
+    var dotTex = canvasTex(32, 32, function(x, w, h){ var r = x.createRadialGradient(16, 16, 0, 16, 16, 16); r.addColorStop(0, "rgba(255,255,255,1)"); r.addColorStop(1, "rgba(255,255,255,0)"); x.fillStyle = r; x.fillRect(0, 0, w, h); });
+    var nD = mobile ? 260 : 520, dPos = new Float32Array(nD * 3), dSeed = [];
+    for(var dI=0;dI<nD;dI++){ dPos[dI*3] = rnd(-7, 7); dPos[dI*3+1] = rnd(.2, 6); dPos[dI*3+2] = rnd(-30, 8); dSeed.push(rnd(0, 6.28)); }
+    var dGeo = new THREE.BufferGeometry(); dGeo.setAttribute("position", new THREE.BufferAttribute(dPos, 3));
+    var dust = new THREE.Points(dGeo, new THREE.PointsMaterial({map:dotTex, color:0xFFE6B0, size:mobile ? .09 : .07, transparent:true, opacity:.85, blending:THREE.AdditiveBlending, depthWrite:false, sizeAttenuation:true}));
+    scene.add(dust);
+
+    /* falling oak leaves */
+    var leafTex = canvasTex(64, 64, function(x){
+      x.translate(32, 32); x.fillStyle = "#fff"; x.beginPath();
+      x.moveTo(0, 30); x.lineTo(0, 22);
+      var pts = [[-6,20],[-12,18],[-10,12],[-16,8],[-10,4],[-15,-2],[-9,-5],[-11,-12],[-5,-12],[-4,-20],[0,-28],[4,-20],[5,-12],[11,-12],[9,-5],[15,-2],[10,4],[16,8],[10,12],[12,18],[6,20],[0,22]];
+      for(var p=0;p<pts.length;p+=2){ var a = pts[p], b = pts[p+1] || pts[p]; x.quadraticCurveTo(a[0], a[1], b[0], b[1]); }
+      x.closePath(); x.fill();
+      x.strokeStyle = "rgba(0,0,0,.25)"; x.lineWidth = 1.2; x.beginPath(); x.moveTo(0, 26); x.lineTo(0, -24); x.stroke();
+    });
+    var nL = mobile ? 36 : 70;
+    var leaves = new THREE.InstancedMesh(new THREE.PlaneGeometry(.22, .22), new THREE.MeshLambertMaterial({map:leafTex, color:0xffffff, transparent:true, alphaTest:.4, side:THREE.DoubleSide}), nL);
+    var leafState = [], lc = [0xB98A44, 0xC49A4A, 0x9A6A34, 0x7E7A3E, 0xA65E2E, 0x6B7A46];
+    function spawnLeaf(o, camZ, anywhere){
+      o.x = rnd(-6, 6); o.y = anywhere ? rnd(0, 7) : rnd(5, 8); o.z = camZ - rnd(1.5, 18);
+      o.vx = rnd(-.15, .15); o.vy = rnd(.25, .55); o.rx = rnd(0, 6); o.ry = rnd(0, 6); o.rz = rnd(0, 6); o.sx = rnd(.8, 2); o.sy = rnd(.6, 1.8); o.ph = rnd(0, 6.28); o.s = rnd(.7, 1.3);
+    }
+    for(var lI=0;lI<nL;lI++){ var o = {}; spawnLeaf(o, 8, true); leafState.push(o); leaves.setColorAt(lI, tmp.set(lc[lI % lc.length])); }
+    if(leaves.instanceColor) leaves.instanceColor.needsUpdate = true;
+    scene.add(leaves);
+
+    /* pointer parallax */
+    var ptr = {x:0, y:0}, ptrS = {x:0, y:0};
+    window.addEventListener("pointermove", function(e){
+      if(!heroOn) return;
+      ptr.x = (e.clientX / window.innerWidth) * 2 - 1; ptr.y = (e.clientY / window.innerHeight) * 2 - 1;
+    }, {passive:true});
+    if(window.DeviceOrientationEvent && mobile){
+      window.addEventListener("deviceorientation", function(e){ if(e.gamma == null) return; ptr.x = Math.max(-1, Math.min(1, e.gamma / 25)); ptr.y = Math.max(-1, Math.min(1, (e.beta - 45) / 30)); }, {passive:true});
+    }
+
+    function size(){
+      var w = hero.clientWidth, h = hero.clientHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h; camera.fov = w < h ? 68 : 55; camera.updateProjectionMatrix();
+    }
+    size(); window.addEventListener("resize", size);
+
+    var running = false, last = 0, clock = 0, camZ = 8, walk = 0;
+    function loop(ts){
+      if(!running) return;
+      requestAnimationFrame(loop);
+      var dt = Math.min(.05, (ts - (last || ts)) / 1000); last = ts; clock += dt;
+      var p = Math.min(1, window.scrollY / Math.max(1, hero.offsetHeight));
+      var targetZ = 8 - p * 16 - Math.sin(clock * .05) * .6;
+      var dz = (targetZ - camZ) * .05; camZ += dz; walk += Math.abs(dz) * 2.2 + dt * .25;
+      ptrS.x += (ptr.x - ptrS.x) * .04; ptrS.y += (ptr.y - ptrS.y) * .04;
+      var px = Math.sin(camZ * .15) * 1.2;
+      camera.position.set(px + ptrS.x * .7, 1.7 + Math.sin(walk * 2.2) * .05 - ptrS.y * .3 + p * .4, camZ);
+      camera.lookAt(px * .6 + ptrS.x * 1.6, 1.9 - ptrS.y * .6 + p * .2, camZ - 10);
+
+      for(var i=0;i<shafts.length;i++){ var s = shafts[i], u = s.userData; s.material.opacity = u.base * (.55 + .45 * Math.sin(clock * u.sp + u.ph)); }
+      for(var f=0;f<fogs.length;f++){ var fo = fogs[f]; fo.position.x += fo.userData.sp * dt; if(fo.position.x > 14) fo.position.x = -14; if(fo.position.x < -14) fo.position.x = 14; }
+      var a = dGeo.attributes.position.array;
+      for(var d=0;d<nD;d++){
+        var j = d * 3; a[j+1] += Math.sin(clock * .6 + dSeed[d]) * .0025 + .0018; a[j] += Math.cos(clock * .4 + dSeed[d]) * .002;
+        if(a[j+1] > 6.2) a[j+1] = .2;
+        if(a[j+2] > camZ + 2) a[j+2] -= 32; else if(a[j+2] < camZ - 32) a[j+2] += 32;
+      }
+      dGeo.attributes.position.needsUpdate = true;
+      for(var l=0;l<nL;l++){
+        var o = leafState[l];
+        o.y -= o.vy * dt; o.x += (o.vx + Math.sin(clock * 1.3 + o.ph) * .35) * dt;
+        o.rx += o.sx * dt; o.rz += o.sy * dt;
+        if(o.y < 0 || o.z > camZ + .5 || o.z < camZ - 22) spawnLeaf(o, camZ, false);
+        E.set(o.rx, o.ry, o.rz); Q.setFromEuler(E); P.set(o.x, o.y, o.z); S.set(o.s, o.s, o.s);
+        M.compose(P, Q, S); leaves.setMatrixAt(l, M);
+      }
+      leaves.instanceMatrix.needsUpdate = true;
+      renderer.render(scene, camera);
+    }
+    function toggle(){
+      var want = heroOn && !document.hidden;
+      if(want && !running){ running = true; last = 0; requestAnimationFrame(loop); }
+      else if(!want) running = false;
+    }
+    document.addEventListener("visibilitychange", toggle);
+    camera.position.set(0, 1.7, camZ); camera.lookAt(0, 1.9, camZ - 10);
+    renderer.render(scene, camera);
+    document.body.classList.add("gl-on");
+    toggle();
+    return {toggle:toggle};
+  }
+
+  /* ---------- Shop motes ---------- */
+  if(!reduce){
+    var mo = $("#motes");
+    for(var mI=0; mI<18; mI++){
+      var el = document.createElement("i"), s = 2 + Math.random()*3;
+      el.style.cssText = "left:"+(Math.random()*100)+"%;width:"+s+"px;height:"+s+"px;animation-duration:"+(12+Math.random()*14)+"s;animation-delay:"+(-Math.random()*20)+"s";
+      mo.appendChild(el);
+    }
+  }
+
+  /* ---------- Reveals + counters ---------- */
+  function countUp(el){
+    var to = parseFloat(el.dataset.to), dec = parseInt(el.dataset.dec, 10) || 0;
+    if(reduce){ el.textContent = to.toFixed(dec); return; }
+    var t0 = null;
+    function step(ts){ if(!t0) t0 = ts; var k = Math.min(1, (ts - t0) / 1600), e = 1 - Math.pow(1 - k, 3); el.textContent = (to * e).toFixed(dec); if(k < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); $$(".count", e.target).forEach(countUp); io.unobserve(e.target); } });
+  }, {threshold:0, rootMargin:"0px 0px -4% 0px"});
+  $$(".rv,.rv-img").forEach(function(el){ if(reduce) el.classList.add("in"); else io.observe(el); });
+
+  /* ---------- rAF: parallax, timeline, gift box tilt ---------- */
+  var parEls = $$("[data-par]"), hpEls = $$("[data-hp]"), heroMedia = $("#heroMedia"), wm = $("#wm"), tl = $("#tl"), tlFill = $("#tlFill"), steps = $$(".step"), gbox = $("#gbox");
+  var fine = window.matchMedia("(hover:hover) and (pointer:fine)").matches, ticking = false;
+  function update(){
+    ticking = false;
+    var vh = window.innerHeight, y = window.scrollY;
+    ui();
+    if(!reduce){
+      if(y < vh * 1.2){
+        heroMedia.style.transform = "translate3d(0," + (y * .25).toFixed(1) + "px,0)";
+        for(var hp=0; hp<hpEls.length; hp++) hpEls[hp].style.transform = "translate(0," + (-y * parseFloat(hpEls[hp].dataset.hp)).toFixed(1) + "px)";
+      }
+      for(var i=0;i<parEls.length;i++){
+        var el = parEls[i], r = el.parentNode.getBoundingClientRect();
+        if(r.bottom < -100 || r.top > vh + 100) continue;
+        el.style.transform = "translate3d(0," + (-(r.top + r.height/2 - vh/2) * parseFloat(el.dataset.par)).toFixed(1) + "px,0)";
+      }
+      var wr = wm.parentNode.getBoundingClientRect();
+      if(wr.bottom > 0 && wr.top < vh) wm.style.transform = "rotate(-12deg) translate3d(" + (wr.top * .06).toFixed(1) + "px," + (wr.top * .12).toFixed(1) + "px,0)";
+      if(!fine){
+        var vr = gbox.getBoundingClientRect();
+        if(vr.bottom > 0 && vr.top < vh){
+          var p = (vr.top + vr.height/2 - vh/2) / vh;
+          gbox.style.setProperty("--rx", (p * 14).toFixed(2) + "deg");
+          gbox.style.setProperty("--ry", (Math.sin(p * 3.2) * 9).toFixed(2) + "deg");
+          gbox.style.setProperty("--my", (30 + p * 60).toFixed(1) + "%");
+          gbox.style.setProperty("--mx", (50 - p * 40).toFixed(1) + "%");
+        }
+      }
+    }
+    var tr = tl.getBoundingClientRect(), trig = vh * .62;
+    if(!reduce) tlFill.style.transform = "scaleY(" + Math.min(1, Math.max(0, (trig - tr.top) / tr.height)).toFixed(3) + ")";
+    for(var s=0;s<steps.length;s++) steps[s].classList.toggle("on", reduce || steps[s].getBoundingClientRect().top < trig);
+  }
+  function req(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener("scroll", req, {passive:true});
+  window.addEventListener("resize", function(){ req(); moveInk(); });
+  if(fine && !reduce){
+    var bw = gbox.parentNode;
+    bw.addEventListener("pointermove", function(e){
+      var r = gbox.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+      gbox.style.setProperty("--ry", ((px - .5) * 18).toFixed(2) + "deg");
+      gbox.style.setProperty("--rx", ((.5 - py) * 14).toFixed(2) + "deg");
+      gbox.style.setProperty("--mx", (px * 100).toFixed(1) + "%");
+      gbox.style.setProperty("--my", (py * 100).toFixed(1) + "%");
+    });
+    bw.addEventListener("pointerleave", function(){ gbox.style.setProperty("--rx","0deg"); gbox.style.setProperty("--ry","0deg"); });
+  }
+
+  /* ---------- Experience tabs ---------- */
+  var tabs = $$(".tab"), panels = $$(".panel"), ink = $("#tabsInk"), tabWrap = $("#tabs");
+  function moveInk(){
+    var cur = $(".tab[aria-selected=true]"); if(!cur) return;
+    ink.style.width = cur.offsetWidth + "px"; ink.style.transform = "translateX(" + cur.offsetLeft + "px)";
+  }
+  function selectTab(tab, focus){
+    tabs.forEach(function(x){ var on = x === tab; x.setAttribute("aria-selected", on ? "true" : "false"); x.tabIndex = on ? 0 : -1; });
+    panels.forEach(function(p){ p.classList.toggle("on", p.id === tab.getAttribute("aria-controls")); });
+    moveInk();
+    tabWrap.scrollTo({left: tab.offsetLeft - (tabWrap.clientWidth - tab.offsetWidth) / 2, behavior: reduce ? "auto" : "smooth"});
+    if(focus) tab.focus();
+  }
+  tabs.forEach(function(tab, i){
+    tab.addEventListener("click", function(){ selectTab(tab); });
+    tab.addEventListener("keydown", function(e){
+      if(e.key === "ArrowRight"){ e.preventDefault(); selectTab(tabs[(i + 1) % tabs.length], true); }
+      if(e.key === "ArrowLeft"){ e.preventDefault(); selectTab(tabs[(i - 1 + tabs.length) % tabs.length], true); }
+    });
+  });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(moveInk);
+  $$("[data-pick]").forEach(function(a){ a.addEventListener("click", function(){ var r = $("#expChips input[value=" + a.dataset.pick + "]"); if(r){ r.checked = true; updateSummary(); } }); });
+
+  /* ---------- Nearby peek carousel ---------- */
+  var peek = $("#peek"), pkBar = $("#pkBar"), cards = $$(".ncard", peek);
+  function pkStep(){ return cards[1].offsetLeft - cards[0].offsetLeft; }
+  function pkUpdate(){
+    var max = peek.scrollWidth - peek.clientWidth, ratio = peek.clientWidth / peek.scrollWidth;
+    pkBar.style.width = (Math.min(1, ratio) * 100).toFixed(1) + "%";
+    pkBar.style.transform = "translateX(" + (max > 0 ? (peek.scrollLeft / max) * ((1 / ratio) - 1) * 100 : 0).toFixed(1) + "%)";
+  }
+  peek.addEventListener("scroll", pkUpdate, {passive:true});
+  window.addEventListener("resize", pkUpdate);
+  $("#pkNext").addEventListener("click", function(){ peek.scrollBy({left:pkStep(), behavior: reduce ? "auto" : "smooth"}); });
+  $("#pkPrev").addEventListener("click", function(){ peek.scrollBy({left:-pkStep(), behavior: reduce ? "auto" : "smooth"}); });
+
+  /* ---------- Gallery carousel ---------- */
+  var gal = $("#gal"), galTrack = $("#galTrack"), galSlides = $$(".gal__slide"), gIdx = 0, gTimer = null, galVis = false, galProg = $("#galProg");
+  function galGo(n){
+    gIdx = (n + galSlides.length) % galSlides.length;
+    galTrack.style.transform = "translate3d(" + (-gIdx * 100) + "%,0,0)";
+    galSlides.forEach(function(s,i){ s.classList.toggle("cur", i === gIdx); });
+    $("#galCount").textContent = (gIdx + 1) + "/" + galSlides.length;
+    galAuto();
+  }
+  function galAuto(){
+    clearTimeout(gTimer); galProg.classList.remove("run"); void galProg.offsetWidth;
+    if(reduce || !galVis || document.hidden) return;
+    galProg.classList.add("run");
+    gTimer = setTimeout(function(){ galGo(gIdx + 1); }, 6000);
+  }
+  new IntersectionObserver(function(es){ galVis = es[0].isIntersecting; galAuto(); }, {threshold:.35}).observe(gal);
+  document.addEventListener("visibilitychange", galAuto);
+  $("#galNext").addEventListener("click", function(){ galGo(gIdx + 1); });
+  $("#galPrev").addEventListener("click", function(){ galGo(gIdx - 1); });
+  swipe(gal, function(d){ galGo(gIdx + d); });
+
+  /* ---------- Shop order ---------- */
+  function updateShop(){
+    var items = $$("#prods .prod[aria-pressed=true]").map(function(b){ return t(b.dataset.k); });
+    var msg = t("wa.shop") + (items.length ? ": " + items.join(", ") : "") + ". " + t("wa.shopAsk") + " " + t("wa.thanks");
+    $("#shopBtn").href = WA + encodeURIComponent(msg);
+  }
+  $$("#prods .prod").forEach(function(b){
+    b.addEventListener("click", function(){ b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); updateShop(); });
+  });
+
+  /* ---------- Booking form ---------- */
+  var guests = 2, gOut = $("#gOut"), fDate = $("#fDate");
+  (function(){ var d = new Date(); fDate.min = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0"+d.getDate()).slice(-2); })();
+  function expVal(){ var r = $("#expChips input:checked"); return r ? r.value : "lunch"; }
+  function guestTxt(){ return guests + NB + (guests === 1 ? t("js.guest") : t("js.guests")); }
+  function updateSummary(){
+    gOut.textContent = guests;
+    $("#gMinus").disabled = guests <= 1; $("#gPlus").disabled = guests >= 12;
+    $("#barSum").textContent = t("short." + expVal()) + " · " + guestTxt();
+  }
+  function bumpG(){ if(reduce) return; gOut.classList.remove("bump"); void gOut.offsetWidth; gOut.classList.add("bump"); }
+  $("#gMinus").addEventListener("click", function(){ if(guests > 1){ guests--; updateSummary(); bumpG(); } });
+  $("#gPlus").addEventListener("click", function(){ if(guests < 12){ guests++; updateSummary(); bumpG(); } });
+  $$("#expChips input").forEach(function(r){ r.addEventListener("change", updateSummary); });
+  $$("#langChips input").forEach(function(r){ r.addEventListener("change", function(){ langTouched = true; }); });
+  function send(){
+    var date = t("wa.flex");
+    if(fDate.value){ var p = fDate.value.split("-"); date = p[2] + "." + p[1] + "." + p[0] + "."; }
+    var name = $("#fName").value.trim(), gl2 = $("#langChips input:checked");
+    var msg = t("wa.hello") + "\n" + t("wa.exp") + ": " + t("short." + expVal()) + "\n" + t("wa.date") + ": " + date + "\n" + t("wa.guests") + ": " + guests + "\n" + t("wa.lang") + ": " + (gl2 ? gl2.value : "EN") + (name ? "\n" + t("wa.name") + ": " + name : "") + "\n" + t("wa.thanks");
+    window.open(WA + encodeURIComponent(msg), "_blank", "noopener");
+  }
+  $("#form").addEventListener("submit", function(e){ e.preventDefault(); send(); });
+  $("#barBtn").addEventListener("click", send);
+
+  /* ---------- FAQ ---------- */
+  $$(".qa button").forEach(function(b){
+    b.addEventListener("click", function(){
+      var qa = b.parentNode, open = !qa.classList.contains("open");
+      $$(".qa.open").forEach(function(x){ if(x !== qa){ x.classList.remove("open"); x.querySelector("button").setAttribute("aria-expanded","false"); } });
+      qa.classList.toggle("open", open); b.setAttribute("aria-expanded", open ? "true" : "false");
+      setTimeout(req, 650);
+    });
+  });
+
+  applyLang(lang);
+  pkUpdate();
+  update();
+})();
+</script>
+<!-- mdp: custom date picker (replaces the tiny native one) -->
+<style id="mdp-css">
+.mdp-wrap{position:relative;display:block;width:100%}
+.mdp-wrap>input[type="date"]{color:transparent!important;-webkit-text-fill-color:transparent!important;cursor:pointer;caret-color:transparent}
+.mdp-wrap>input[type="date"]::-webkit-calendar-picker-indicator{opacity:0;display:none}
+.mdp-wrap>input[type="date"]::-webkit-datetime-edit{opacity:0}
+.mdp-label{position:absolute;left:0;top:0;bottom:0;right:44px;display:flex;align-items:center;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mdp-label.ph{opacity:.55}
+.mdp-ico{position:absolute;right:14px;top:50%;width:20px;height:20px;transform:translateY(-50%);pointer-events:none;opacity:.7}
+.mdp-pop{position:absolute;left:0;top:calc(100% + 8px);z-index:200;width:min(360px,calc(100vw - 32px));background:#fff;color:#1B1B1B;border:1px solid rgba(0,0,0,.08);border-radius:20px;box-shadow:0 24px 60px -18px rgba(0,0,0,.28);padding:18px 16px 14px;font-family:inherit;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .22s,transform .22s}
+.mdp-pop.up{top:auto;bottom:calc(100% + 8px)}
+.mdp-pop.right{left:auto;right:0}
+.mdp-pop.on{opacity:1;transform:none;pointer-events:auto}
+.mdp-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 12px}
+.mdp-title{font-size:17px;font-weight:600;letter-spacing:.01em;text-transform:capitalize}
+.mdp-nav{width:40px;height:40px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:#fff;color:inherit;display:grid;place-items:center;cursor:pointer;font-size:18px;line-height:1;transition:background .2s}
+.mdp-nav:hover:not(:disabled){background:rgba(0,0,0,.05)}
+.mdp-nav:disabled{opacity:.3;cursor:default}
+.mdp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.mdp-dow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-align:center;opacity:.5;padding:4px 0 6px}
+.mdp-day{height:44px;border:0;border-radius:12px;background:transparent;color:inherit;font:inherit;font-size:16px;cursor:pointer;transition:background .15s,color .15s;font-variant-numeric:tabular-nums}
+.mdp-day:hover:not(:disabled):not(.sel){background:rgba(0,0,0,.06)}
+.mdp-day.today{box-shadow:inset 0 0 0 1px rgba(0,0,0,.35)}
+.mdp-day.inrange{background:rgba(0,0,0,.06);border-radius:0}
+.mdp-day.sel{background:var(--mdp-accent,#1B1B1B);color:#fff;font-weight:600}
+.mdp-day:disabled{opacity:.22;cursor:default;text-decoration:line-through}
+.mdp-day.sel:disabled{opacity:1;text-decoration:none}
+.mdp-day.out{visibility:hidden}
+.mdp-foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding:0 4px;font-size:13px;opacity:.65}
+.mdp-foot button{border:0;background:none;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 0}
+</style>
+<script id="mdp-js">
+(function(){
+  var TXT={hr:["Odaberite datum","Danas","Zatvoreno"],en:["Choose a date","Today","Closed"],de:["Datum wählen","Heute","Geschlossen"],it:["Scegli la data","Oggi","Chiuso"],sl:["Izberite datum","Danes","Zaprto"]};
+  function lang(){var l=(document.documentElement.lang||"en").slice(0,2).toLowerCase();return TXT[l]?l:"en";}
+  function loc(){return {hr:"hr-HR",en:"en-GB",de:"de-DE",it:"it-IT",sl:"sl-SI"}[lang()];}
+  function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+  function parse(s){if(!s)return null;var p=s.split("-");return p.length===3?new Date(+p[0],+p[1]-1,+p[2]):null;}
+  function today(){var t=new Date();return new Date(t.getFullYear(),t.getMonth(),t.getDate());}
+  function accentFor(el){
+    var f=el.closest("form")||el.closest("section")||document.body;
+    var b=f.querySelector('button[type="submit"],.pill,.btn,button');
+    var c=b?getComputedStyle(b).backgroundColor:"";
+    if(!c||c==="rgba(0, 0, 0, 0)"||c==="transparent"||/255, 255, 255/.test(c))c="#1B1B1B";
+    return c;
+  }
+  var pickers=[];
+  function closeAll(except){pickers.forEach(function(p){if(p!==except)p.close();});}
+  function Picker(input){
+    var self=this;this.input=input;var baseColor=getComputedStyle(input).color;
+    var wrap=document.createElement("span");wrap.className="mdp-wrap";
+    input.parentNode.insertBefore(wrap,input);wrap.appendChild(input);
+    input.readOnly=true;input.setAttribute("inputmode","none");input.setAttribute("autocomplete","off");
+    var label=document.createElement("span");label.className="mdp-label";wrap.appendChild(label);
+    var ico=document.createElementNS("http://www.w3.org/2000/svg","svg");ico.setAttribute("viewBox","0 0 24 24");ico.setAttribute("class","mdp-ico");ico.innerHTML='<rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 9.5h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>';wrap.appendChild(ico);
+    var pop=document.createElement("div");pop.className="mdp-pop";pop.setAttribute("role","dialog");wrap.appendChild(pop);
+    this.wrap=wrap;this.label=label;this.ico=ico;this.pop=pop;
+    var sel=parse(input.value);this.view=sel?new Date(sel.getFullYear(),sel.getMonth(),1):new Date(today().getFullYear(),today().getMonth(),1);
+    function sync(){
+      var cs=getComputedStyle(input);
+      label.style.paddingLeft=cs.paddingLeft;label.style.fontSize=cs.fontSize;label.style.fontFamily=cs.fontFamily;label.style.fontWeight=cs.fontWeight;label.style.letterSpacing=cs.letterSpacing;
+      label.style.color=baseColor;ico.style.color=baseColor;
+      var d=parse(input.value);
+      if(d){label.classList.remove("ph");label.textContent=new Intl.DateTimeFormat(loc(),(wrap.offsetWidth<260?{weekday:"short",day:"numeric",month:"short"}:{weekday:"short",day:"numeric",month:"long",year:"numeric"})).format(d);}
+      else{label.classList.add("ph");label.textContent=TXT[lang()][0];}
+    }
+    this.sync=sync;
+    input.addEventListener("change",sync);input.addEventListener("input",sync);
+    function open(e){if(e){e.preventDefault();}if(self.isOpen){self.close();return;}self.show();}
+    input.addEventListener("mousedown",function(e){e.preventDefault();open();});
+    input.addEventListener("touchend",function(e){e.preventDefault();open();});
+    input.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "||e.key==="ArrowDown"){e.preventDefault();open();}if(e.key==="Escape")self.close();});
+    input.addEventListener("click",function(e){e.preventDefault();});
+    pop.addEventListener("mousedown",function(e){e.preventDefault();});
+    new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+    pickers.push(this);sync();
+    var _desc=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");
+    Object.defineProperty(input,"value",{configurable:true,get:function(){return _desc.get.call(this);},set:function(v){_desc.set.call(this,v);sync();}});
+  }
+  Picker.prototype.show=function(){
+    closeAll(this);this.render();var pop=this.pop,wrap=this.wrap;pop.style.left="";pop.classList.remove("right");
+    var r=wrap.getBoundingClientRect();pop.classList.toggle("up",window.innerHeight-r.bottom<420&&r.top>420);
+    pop.classList.add("on");this.isOpen=true;
+    var pr=pop.getBoundingClientRect(),vw=document.documentElement.clientWidth;
+    if(pr.right>vw-12){pop.style.left=(pr.left-r.left-(pr.right-(vw-12)))+"px";}
+    pr=pop.getBoundingClientRect();if(pr.left<12){pop.style.left=(12-r.left)+"px";}
+  };
+  Picker.prototype.close=function(){this.pop.classList.remove("on");this.isOpen=false;};
+  Picker.prototype.bounds=function(){
+    var mn=parse(this.input.min)||today(),mx=parse(this.input.max);
+    if(!mx){mx=today();mx.setFullYear(mx.getFullYear()+1);}
+    var closed=(this.input.dataset.closed||"").split(",").filter(Boolean).map(Number);
+    var pair=this.pair,start=null,end=null;
+    if(pair&&pair.role==="end"){start=parse(pair.other.value);if(start&&start>=mn){mn=new Date(start);mn.setDate(mn.getDate()+1);}}
+    if(pair){var a=pair.role==="start"?this.input:pair.other,b=pair.role==="start"?pair.other:this.input;start=parse(a.value);end=parse(b.value);}
+    return {mn:mn,mx:mx,closed:closed,start:start,end:end};
+  };
+  Picker.prototype.render=function(){
+    var self=this,b=this.bounds(),L=lang(),v=this.view,pop=this.pop;
+    pop.style.setProperty("--mdp-accent",accentFor(this.input));
+    var title=new Intl.DateTimeFormat(loc(),{month:"long",year:"numeric"}).format(v);
+    var prevOk=new Date(v.getFullYear(),v.getMonth(),0)>=new Date(b.mn.getFullYear(),b.mn.getMonth(),1);
+    var nextOk=new Date(v.getFullYear(),v.getMonth()+1,1)<=b.mx;
+    var h='<div class="mdp-head"><button type="button" class="mdp-nav" data-n="-1" aria-label="prev"'+(prevOk?"":" disabled")+'>&#8249;</button><div class="mdp-title">'+title+'</div><button type="button" class="mdp-nav" data-n="1" aria-label="next"'+(nextOk?"":" disabled")+'>&#8250;</button></div><div class="mdp-grid">';
+    var base=new Date(2024,0,1);/* Monday */
+    for(var i=0;i<7;i++){var dd=new Date(base);dd.setDate(1+i);h+='<div class="mdp-dow">'+new Intl.DateTimeFormat(loc(),{weekday:"short"}).format(dd).replace(".","").slice(0,3)+'</div>';}
+    var first=(new Date(v.getFullYear(),v.getMonth(),1).getDay()+6)%7,days=new Date(v.getFullYear(),v.getMonth()+1,0).getDate();
+    var sel=parse(this.input.value),t=today();
+    for(i=0;i<first;i++)h+='<button type="button" class="mdp-day out" disabled tabindex="-1"></button>';
+    for(var d=1;d<=days;d++){
+      var dt=new Date(v.getFullYear(),v.getMonth(),d),dis=dt<b.mn||dt>b.mx||b.closed.indexOf(dt.getDay())>-1;
+      var c="mdp-day";if(+dt===+t)c+=" today";if(sel&&+dt===+sel)c+=" sel";
+      if(b.start&&b.end&&dt>b.start&&dt<b.end)c+=" inrange";if((b.start&&+dt===+b.start)||(b.end&&+dt===+b.end))c+=" sel";
+      h+='<button type="button" class="'+c+'" data-d="'+iso(dt)+'"'+(dis?' disabled title="'+(b.closed.indexOf(dt.getDay())>-1?TXT[L][2]:"")+'"':"")+'>'+d+'</button>';
+    }
+    h+='</div><div class="mdp-foot"><span>'+(b.closed.length?TXT[L][2]+": "+b.closed.map(function(n){var x=new Date(base);x.setDate(1+((n+6)%7));return new Intl.DateTimeFormat(loc(),{weekday:"short"}).format(x);}).join(", "):"")+'</span>'+((t>=b.mn&&b.closed.indexOf(t.getDay())<0)?'<button type="button" data-today>'+TXT[L][1]+'</button>':"")+'</div>';
+    pop.innerHTML=h;
+    pop.querySelectorAll(".mdp-nav").forEach(function(n){n.onclick=function(){self.view=new Date(v.getFullYear(),v.getMonth()+(+n.dataset.n),1);self.render();};});
+    pop.querySelectorAll(".mdp-day[data-d]:not(:disabled)").forEach(function(n){n.onclick=function(){self.pick(n.dataset.d);};});
+    var tb=pop.querySelector("[data-today]");if(tb)tb.onclick=function(){self.pick(iso(t));};
+  };
+  Picker.prototype.pick=function(val){
+    var inp=this.input;inp.value=val;
+    inp.dispatchEvent(new Event("input",{bubbles:true}));inp.dispatchEvent(new Event("change",{bubbles:true}));
+    this.close();
+    if(this.pair&&this.pair.role==="start"){var o=this.pair.other,s=parse(val),e=parse(o.value);
+      if(!e||e<=s){var n=new Date(s);n.setDate(n.getDate()+7);o.value=iso(n);o.dispatchEvent(new Event("input",{bubbles:true}));o.dispatchEvent(new Event("change",{bubbles:true}));}
+      var op=pickers.filter(function(p){return p.input===o;})[0];if(op){op.view=new Date(s.getFullYear(),s.getMonth(),1);setTimeout(function(){op.input.dispatchEvent(new Event("mdp-open"));},250);}}
+  };
+  function init(){
+    var ins=[].slice.call(document.querySelectorAll('input[type="date"]'));
+    ins.forEach(function(i){if(!i.closest(".mdp-wrap"))new Picker(i);});
+    var forms={};pickers.forEach(function(p){var f=p.input.form||p.input.closest("section");var k=f?(f.id||[].indexOf.call(document.querySelectorAll("form,section"),f)):"x";(forms[k]=forms[k]||[]).push(p);});
+    Object.keys(forms).forEach(function(k){var g=forms[k];if(g.length===2){g[0].pair={role:"start",other:g[1].input};g[1].pair={role:"end",other:g[0].input};
+      g[1].input.addEventListener("mdp-open",function(){if(!g[1].isOpen)g[1].show();});}});
+    document.addEventListener("mousedown",function(e){if(!e.target.closest(".mdp-wrap"))closeAll();});
+    document.addEventListener("touchstart",function(e){if(!e.target.closest(".mdp-wrap"))closeAll();},{passive:true});
+    document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAll();});
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})();
+</script>
+</body>
+</html>

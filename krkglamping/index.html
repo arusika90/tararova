@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<!--
+  Krk Glamping Village, Brusići (island of Krk): website proposal mockup (Concept by Marija)
+
+  IMAGE SLOTS (optional, put real photos in ./img/ using these exact names):
+    img/hero.jpg   gallery slide 1 + "Glamping tent" card
+    img/2.jpg      gallery slide 2 (pool) + "Glamping with kids" card
+    img/3.jpg      gallery slide 3 (evening, string lights) + "Other tent types" card
+    img/4.jpg      gallery slide 4 (dogs welcome) + "Glamping with your dog" card
+    img/5.jpg      gallery slide 5 (Krk hills) + contact card
+  No licensed photos are used. Every slot falls back to our own inline SVG
+  illustrations (bell tent, pines, pool with loungers, string lights, dog,
+  stars, Krk hills), so the page looks finished without photos.
+  Hero: Three.js (cdnjs, r128) low-poly glamping evening with glowing tents,
+  pines, starry twilight sky, twinkling string lights and fireflies.
+  Falls back to a static SVG scene without WebGL, if three.js fails, or with
+  prefers-reduced-motion.
+  Prices "from XX €" are example placeholders. Number of tents, sizes and
+  prices are intentionally not stated: the hosts fill them in.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Krk Glamping Village</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Krk Glamping Village">
+<meta property="og:description" content="Krk Glamping Village in Brusići, island of Krk. Air conditioned glamping tents, a clean pool, families and dogs welcome. Book direct with Robert and Edvin.">
+<meta property="og:url" content="https://tararova.com/krkglamping/">
+<meta property="og:image" content="https://tararova.com/krkglamping/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="description" content="Krk Glamping Village in Brusići, island of Krk. Air conditioned glamping tents, a clean pool, families and dogs welcome. Book direct with Robert and Edvin.">
+<meta name="theme-color" content="#F2EADF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Figtree:wght@400;500;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F2EADF; --white:#FFFFFF; --ink:#1B1B1B; --muted:#5F625B; --black:#0B0B0B;
+  --pine:#1F4A3A; --pine-d:#0F2E24; --pine-l:#5E8A70; --terra:#C8673F; --terra-l:#E29A72; --sand:#E6D8C3;
+  --line:#E2DACD; --grey:#DADADA; --r:38px;
+  --serif:"Fraunces",Georgia,serif; --sans:"Figtree",system-ui,-apple-system,sans-serif; --script:"Mrs Saint Delafield",cursive;
+  --gutter:20px; --header:60px; --ease:cubic-bezier(.22,.61,.36,1); --out:cubic-bezier(.16,1,.3,1);
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.16 0 0 0 0 0.13 0 0 0 .5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
+body.locked,body.menu-open{overflow:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+::selection{background:var(--terra);color:#fff}
+.wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 var(--gutter)}
+.label{font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px;margin:0}
+.label .num{color:var(--terra)}
+h1,h2,h3{margin:0;font-weight:400}
+h1,h2{font-family:var(--serif);letter-spacing:-.01em;font-variation-settings:"opsz" 72}
+h2{font-size:clamp(34px,9vw,54px);line-height:1.15}
+h2 em,h1 em{font-style:italic;font-weight:300}
+p{margin:0 0 1em}
+.ph{border-bottom:1px dashed var(--terra);font-style:normal;white-space:nowrap}
+section{scroll-margin-top:calc(var(--header) + 10px)}
+.sec{padding:80px 0}
+.bg-canvas{background:var(--canvas)}
+.bg-white{background:var(--white)}
+.sh{position:relative;padding-bottom:26px;margin-bottom:40px}
+.sh::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line);transform:scaleX(0);transform-origin:left;transition:transform 1.4s var(--out) .2s}
+.sh.in::after{transform:none}
+.sh h2{margin-top:14px}
+.sh p{margin:16px 0 0;max-width:46ch;color:var(--muted)}
+@media(min-width:900px){:root{--gutter:48px;--header:72px}.sec{padding:130px 0}.sh{display:grid;grid-template-columns:1fr 1fr;gap:40px 80px;align-items:end}.sh .label{grid-column:1/-1}.sh h2{margin:0}.sh p{margin:0}}
+
+/* buttons */
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:999px;border:1px solid var(--pine);background:var(--pine);color:#fff;font-size:15px;font-weight:600;letter-spacing:.02em;cursor:pointer;position:relative;overflow:hidden;isolation:isolate;transition:color .45s var(--ease),border-color .45s var(--ease)}
+.pill::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--pine-d);transform:translateY(101%);transition:transform .55s var(--out)}
+.pill:hover::before,.pill:focus-visible::before{transform:none}
+.pill svg{width:18px;height:18px;flex:none}
+.pill--canvas{background:var(--canvas);border-color:var(--canvas);color:var(--ink)}
+.pill--canvas::before{background:#fff}
+.pill--outline{background:transparent;border-color:currentColor;color:var(--ink)}
+.pill--outline::before{background:var(--pine)}
+.pill--outline:hover{color:#fff;border-color:var(--pine)}
+.pill--grey{background:#E8E8E8;border-color:#E8E8E8;color:var(--ink);width:100%}
+.pill--grey::before{background:#fff}
+.pill--block{width:100%}
+.ulink{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:16px;padding-bottom:3px;background:linear-gradient(currentColor,currentColor) left bottom/100% 1px no-repeat;transition:background-size .5s var(--ease)}
+.ulink:hover{background-size:35% 1px}
+.ulink svg{width:15px;height:15px;transition:transform .4s var(--ease)}
+.ulink:hover svg{transform:translateX(4px)}
+
+/* image fallbacks */
+.art{position:relative;overflow:hidden;isolation:isolate}
+.art::after{content:"";position:absolute;inset:0;z-index:3;background-image:var(--grain);opacity:.18;mix-blend-mode:multiply;pointer-events:none}
+.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;opacity:0;transition:opacity 1.2s var(--ease)}
+.art img.ok{opacity:1}
+.art--dusk{background:linear-gradient(180deg,#203A44 0%,#4A4B5A 42%,#C9785A 70%,#E6A47C 80%,#2B4A3B 81%)}
+.art--pool{background:linear-gradient(180deg,#F6E3CC 0%,#F2EADF 55%,#E6D8C3 100%)}
+.art--night{background:linear-gradient(180deg,#0E1F24 0%,#173238 55%,#1D3A30 100%)}
+.art--camp{background:linear-gradient(170deg,#EFE4D2 0%,#E6D8C3 60%,#D7C4A6 100%)}
+.art--hills{background:linear-gradient(180deg,#2C3E4E 0%,#7A5A5E 38%,#D98A5E 60%,#EDB487 70%,#5D8A8C 71%,#3E6E70 100%)}
+.ill{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.ill .tw{animation:tw 3.2s ease-in-out infinite alternate}
+.ill .tw:nth-child(3n){animation-delay:-1.1s;animation-duration:2.4s}.ill .tw:nth-child(4n){animation-delay:-2s;animation-duration:4s}
+@keyframes tw{from{opacity:.25}to{opacity:1}}
+
+/* frame, tag, caption */
+.frame{position:relative;border-radius:var(--r);overflow:hidden;transform:translateZ(0)}
+.frame>.art{position:absolute;inset:0}
+.tag-b{position:absolute;top:28px;right:0;z-index:6;background:#111;color:#fff;font-size:15px;line-height:1.2;padding:9px 14px 9px 16px;border-radius:8px 0 0 8px;display:inline-flex;align-items:center;gap:6px}
+.tag-b svg{width:14px;height:14px}
+.cap{position:absolute;left:0;right:0;bottom:0;z-index:6;padding:56px 24px 22px;background:linear-gradient(to top,rgba(0,0,0,.58),rgba(0,0,0,0));color:#fff;font-size:15px;display:flex;align-items:center;gap:8px}
+.cap svg{width:16px;height:16px;flex:none}
+
+/* SVG library: string-light bulbs + stars twinkle inside <use> */
+.bulb{animation:bulb 2.6s ease-in-out infinite alternate}
+.bulb:nth-of-type(2n){animation-delay:-.9s;animation-duration:2s}.bulb:nth-of-type(3n){animation-delay:-1.7s;animation-duration:3.1s}
+@keyframes bulb{from{opacity:.55}to{opacity:1}}
+
+/* PRELOADER */
+.pre{position:fixed;inset:0;z-index:200;background:var(--canvas);display:grid;place-items:center;transition:transform 1s var(--out) .1s;animation:preSafety 0s 5s forwards}
+.pre__in{display:flex;flex-direction:column;align-items:center;gap:18px;transition:opacity .5s var(--ease),transform .8s var(--ease)}
+.pre svg{width:96px;height:96px;overflow:visible}
+.pre .ln{fill:none;stroke:var(--pine);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.3s var(--ease) forwards}
+.pre .ln.d{animation-delay:.35s;stroke:var(--terra)}
+.pre .ln.g{animation-delay:.6s;stroke-width:1;opacity:.6}
+.pre__name{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);opacity:0;animation:fadeIn .8s var(--ease) .7s forwards;padding-left:.32em}
+.pre.done{transform:translateY(-100%)}
+.pre.done .pre__in{opacity:0;transform:translateY(-30px)}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes preSafety{to{visibility:hidden;opacity:0}}
+
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:60;height:var(--header);color:#fff;transition:background .5s var(--ease),color .5s var(--ease),box-shadow .5s var(--ease)}
+.hdr.scrolled,.menu-open .hdr{background:#fff;color:var(--ink);box-shadow:0 1px 0 rgba(0,0,0,.05),0 6px 20px rgba(0,0,0,.05)}
+.hdr .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.logo{display:flex;align-items:center;gap:10px;line-height:1}
+.logo svg{width:32px;height:32px;flex:none}
+.logo b{display:block;font-family:var(--serif);font-weight:400;font-size:19px}
+.logo small{display:block;font-size:9px;letter-spacing:.24em;text-transform:uppercase;opacity:.8;margin-top:4px}
+.hdr__r{display:flex;align-items:center;gap:16px}
+.langs{display:flex;align-items:center;gap:2px;font-size:12px;font-weight:600;letter-spacing:.1em}
+.langs button{background:none;border:0;padding:8px 6px;cursor:pointer;opacity:.55;transition:opacity .3s}
+.langs button[aria-pressed="true"]{opacity:1;text-decoration:underline;text-underline-offset:5px}
+.hdr .langs{display:none}
+.hdr__book{display:none;min-height:40px;padding:0 20px;font-size:13px;background:transparent;border-color:currentColor;color:inherit}
+.hdr__book::before{background:var(--pine)}
+.hdr__book:hover{color:#fff;border-color:var(--pine)}
+.menu-btn{display:flex;align-items:center;gap:10px;background:none;border:0;padding:10px 0;font:600 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
+.burger{position:relative;width:22px;height:12px}
+.burger i{position:absolute;left:0;right:0;height:1.5px;background:currentColor;transition:transform .45s var(--out),top .45s var(--out)}
+.burger i:first-child{top:0}.burger i:last-child{top:10px}
+.menu-open .burger i:first-child{top:5px;transform:rotate(45deg)}
+.menu-open .burger i:last-child{top:5px;transform:rotate(-45deg)}
+@media(min-width:900px){.hdr .langs{display:flex}.hdr__book{display:inline-flex}}
+.menu{position:fixed;inset:0;z-index:58;background:#fff;color:var(--ink);padding:calc(var(--header) + 24px) var(--gutter) calc(30px + env(safe-area-inset-bottom));display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility 0s .45s;overflow-y:auto}
+.menu-open .menu{opacity:1;visibility:visible;transition:opacity .45s var(--ease)}
+.menu nav a{display:block;padding:9px 0;font:400 32px/1.15 var(--serif);border-bottom:1px solid #EEE;opacity:0;transform:translateY(18px);transition:opacity .5s,transform .7s var(--out)}
+.menu-open .menu nav a{opacity:1;transform:none}
+.menu nav a:nth-child(2){transition-delay:.04s}.menu nav a:nth-child(3){transition-delay:.08s}.menu nav a:nth-child(4){transition-delay:.12s}.menu nav a:nth-child(5){transition-delay:.16s}.menu nav a:nth-child(6){transition-delay:.2s}.menu nav a:nth-child(7){transition-delay:.24s}.menu nav a:nth-child(8){transition-delay:.28s}
+.menu-foot{margin-top:auto;padding-top:26px;display:grid;gap:16px}
+.menu .langs{font-size:14px;color:var(--pine)}
+.menu .langs button{padding:10px 8px}
+.menu-tel{color:var(--muted);font-size:15px}
+.menu-open .fab,.menu-open .ctag,.menu-open #bar{opacity:0!important;pointer-events:none!important}
+
+/* HERO */
+.hero{position:relative;height:100vh;height:100svh;min-height:640px;overflow:hidden;color:#fff;background:#14262A}
+.hero__media{position:absolute;inset:-6% 0;z-index:1;will-change:transform}
+.hero__scene{position:absolute;inset:0;width:100%;height:100%}
+.hero__scene g{will-change:transform}
+.hero__scene .ff{animation:ff 7s ease-in-out infinite alternate}
+.hero__scene .ff:nth-child(2n){animation-duration:9s;animation-delay:-3s}.hero__scene .ff:nth-child(3n){animation-duration:11s;animation-delay:-6s}
+@keyframes ff{0%{transform:translate(0,0);opacity:.2}50%{opacity:1}100%{transform:translate(14px,-18px);opacity:.3}}
+.gl-on .hero__scene{visibility:hidden}
+#gl{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;opacity:0;transition:opacity 1.6s var(--ease)}
+.gl-on #gl{opacity:1}
+.hero__veil{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to top,rgba(8,16,13,.86) 0%,rgba(8,16,13,.45) 42%,rgba(8,16,13,0) 66%),linear-gradient(to right,rgba(8,16,13,.45) 0%,rgba(8,16,13,0) 70%),linear-gradient(to bottom,rgba(8,16,13,.4),rgba(8,16,13,0) 20%)}
+.hero__c{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:70px;pointer-events:none}
+.hero__c a,.hero__c button{pointer-events:auto}
+.hero .label{color:rgba(255,255,255,.88);margin-bottom:16px}
+.hero h1{font-size:clamp(44px,11.6vw,92px);line-height:1.05}
+.hero h1 em{color:var(--terra-l)}
+.mask{display:block;overflow:hidden;padding-bottom:.06em}
+.mask>span{display:block;transform:translateY(112%);transition:transform 1.4s var(--out)}
+.ready .mask>span{transform:none}
+.ready .mask:nth-child(2)>span{transition-delay:.15s}
+.hero__txt{font-size:17px;margin:16px 0 16px;max-width:36ch;color:rgba(255,255,255,.92)}
+.hero__rate{display:inline-flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.9)}
+.hero__rate b{font-family:var(--serif);font-weight:400;font-size:22px;color:#fff}
+.hero__rate .stars{color:var(--terra-l)}
+.hero__cta{margin-top:22px;max-width:440px}
+.fade-up{opacity:0;transform:translateY(18px);transition:opacity 1.1s var(--ease),transform 1.2s var(--out)}
+.ready .fade-up{opacity:1;transform:none}
+.ready .d1{transition-delay:.4s}.ready .d2{transition-delay:.55s}.ready .d3{transition-delay:.7s}
+.stars{display:inline-flex;gap:2px}
+.stars svg{width:13px;height:13px;fill:currentColor}
+
+/* FINDER pill */
+.finder{position:relative;z-index:7;margin-top:-34px;padding:0 var(--gutter) 22px;background:linear-gradient(transparent 34px,#fff 34px)}
+.finder a{display:flex;align-items:center;gap:14px;max-width:560px;margin:0 auto;min-height:66px;padding:10px 10px 10px 22px;background:#fff;border:1px solid #CFCFCF;border-radius:999px;box-shadow:0 10px 34px -12px rgba(0,0,0,.18);transition:box-shadow .4s var(--ease),transform .4s var(--ease)}
+.finder a:hover{box-shadow:0 14px 40px -12px rgba(0,0,0,.26);transform:translateY(-1px)}
+.finder__ic{width:22px;height:22px;flex:none;color:var(--ink)}
+.finder__t{flex:1;min-width:0;line-height:1.3}
+.finder__t b{display:block;font-weight:600;font-size:16px}
+.finder__t small{display:block;font-size:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.finder__go{width:46px;height:46px;border-radius:50%;background:var(--pine);color:#fff;display:grid;place-items:center;flex:none}
+.finder__go svg{width:18px;height:18px}
+
+/* REVEALS */
+.rv{opacity:0;transform:translate3d(0,30px,0);transition:opacity 1.1s var(--ease),transform 1.2s var(--out)}
+.rv.in{opacity:1;transform:none}
+.rv-img{clip-path:inset(10% 4% 0 4% round var(--r));transition:clip-path 1.6s var(--out)}
+.rv-img.in{clip-path:inset(0 0 0 0 round var(--r))}
+.rv-img .art{scale:1.15;transition:scale 2.2s var(--out)}
+.rv-img.in .art{scale:1}
+[data-delay="1"]{transition-delay:.12s!important}[data-delay="2"]{transition-delay:.24s!important}[data-delay="3"]{transition-delay:.36s!important}
+
+/* GALLERY near-black */
+.gal-sec{background:var(--black);color:#fff;text-align:center;padding:80px 0 0}
+.gal-sec h2{color:#fff}
+.gal-sec .sub{color:rgba(255,255,255,.72);max-width:40ch;margin:14px auto 40px}
+.gal{position:relative;border-radius:40px 40px 0 0;overflow:hidden;aspect-ratio:4/5;max-height:80vh;width:100%;touch-action:pan-y}
+.gal__track{display:flex;height:100%;transition:transform 1s var(--out)}
+.gal__slide{position:relative;flex:0 0 100%;height:100%;overflow:hidden}
+.gal__slide .art{position:absolute;inset:0;transform:scale(1.08);transition:transform 6s var(--ease)}
+.gal__slide.cur .art{transform:scale(1)}
+.gal .tag-b{top:0;border-radius:0 0 0 8px;padding:12px 16px;text-align:left}
+.sqbtn{position:absolute;top:50%;z-index:6;width:48px;height:56px;margin-top:-28px;background:#111;color:#fff;border:0;display:grid;place-items:center;cursor:pointer;transition:background .3s}
+.sqbtn:hover{background:#333}
+.sqbtn svg{width:18px;height:18px}
+.sqbtn.l{left:0}.sqbtn.r{right:0}
+.gal__count{position:absolute;right:0;bottom:0;z-index:6;background:#111;color:#fff;font-size:15px;letter-spacing:.08em;padding:10px 16px;font-variant-numeric:tabular-nums}
+.gal__prog{position:absolute;left:0;right:0;bottom:0;z-index:5;height:2px;background:rgba(255,255,255,.2)}
+.gal__prog i{display:block;height:100%;background:#fff;transform:scaleX(0);transform-origin:left}
+.gal__prog i.run{animation:prog 6s linear forwards}
+@keyframes prog{to{transform:scaleX(1)}}
+.gal .cap{text-align:left;padding-right:80px}
+@media(min-width:900px){.gal{aspect-ratio:16/8}}
+
+/* WELCOME */
+.welcome{position:relative;overflow:hidden}
+.wm{position:absolute;inset:-10% -20%;display:flex;flex-wrap:wrap;gap:10px 60px;align-content:flex-start;transform:rotate(-12deg);font-family:var(--script);font-size:64px;line-height:1.3;color:var(--pine-d);opacity:.06;pointer-events:none;user-select:none;will-change:transform}
+.welcome .wrap{position:relative}
+.wel__grid{display:grid;gap:48px}
+.welcome .lead{font-family:var(--serif);font-size:22px;line-height:1.4;margin-bottom:20px}
+.sig{display:flex;align-items:center;gap:14px;margin-top:26px}
+.sig svg{width:50px;height:50px;flex:none}
+.sig b{display:block;font-family:var(--script);font-weight:400;font-size:42px;line-height:.9}
+.sig small{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.badge{display:flex;align-items:center;gap:16px;padding:22px;border-radius:20px;background:#fff}
+.badge__g{width:46px;height:46px;border-radius:50%;background:var(--canvas);display:grid;place-items:center;font-weight:600;font-size:19px;flex:none}
+.badge b{font-family:var(--serif);font-weight:400;font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
+.badge .stars{color:var(--terra)}
+.badge small{display:block;font-size:14px;color:var(--muted);margin-top:2px}
+.kind{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px}
+.kind li{display:flex;gap:14px;align-items:center;background:#fff;border-radius:16px;padding:14px 16px;font-size:16px;line-height:1.4}
+.kind svg{width:26px;height:26px;flex:none;stroke:var(--pine);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+@media(min-width:900px){.wel__grid{grid-template-columns:1.2fr 1fr;gap:100px;align-items:start}}
+
+/* decorative layers */
+.has-deco{position:relative;overflow:hidden;overflow:clip}
+.has-deco>.wrap{position:relative;z-index:1}
+.deco{position:absolute;z-index:0;height:auto;pointer-events:none;will-change:transform}
+
+/* TENTS peek carousel */
+.peek{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px max(var(--gutter),calc((100vw - 1200px)/2 + var(--gutter))) 8px;scroll-padding:0 max(var(--gutter),calc((100vw - 1200px)/2 + var(--gutter)))}
+.peek::-webkit-scrollbar{display:none}
+.peek::after{content:"";flex:0 0 1px}
+.tcard{flex:0 0 82vw;max-width:400px;scroll-snap-align:start}
+.tcard .frame{aspect-ratio:4/5;margin-bottom:22px}
+.tcard__k{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);font-weight:600;margin:0 0 6px}
+.tcard h3{font-size:22px;font-weight:500;line-height:1.3}
+.tcard__meta{font-size:15px;color:var(--muted);margin:4px 0 12px}
+.tcard p{color:#3b3a36;margin-bottom:14px}
+.tcard ul{list-style:none;padding:0;margin:0 0 20px}
+.tcard li{position:relative;padding:5px 0 5px 22px;font-size:16px}
+.tcard li::before{content:"";position:absolute;left:2px;top:15px;width:7px;height:7px;border-radius:50%;background:var(--terra)}
+.peek__ui{display:flex;align-items:center;gap:18px;margin-top:30px}
+.peek__bar{flex:1;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+.peek__bar i{display:block;height:100%;width:25%;background:var(--ink);border-radius:2px}
+.rbtn{width:46px;height:46px;border-radius:50%;border:1px solid var(--ink);background:transparent;display:grid;place-items:center;cursor:pointer;transition:background .3s,color .3s}
+.rbtn:hover{background:var(--ink);color:#fff}
+.rbtn svg{width:16px;height:16px}
+.note{margin-top:22px;font-size:14px;color:var(--muted)}
+@media(min-width:900px){.tcard{flex-basis:360px}}
+
+/* AMENITIES */
+.am{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.am__i{background:#fff;border-radius:20px;padding:22px 18px;display:flex;flex-direction:column;gap:10px}
+.am__i svg{width:34px;height:34px;stroke:var(--pine);fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.am__i svg .ac{stroke:var(--terra)}
+.am__i h3{font-size:17px;font-weight:600;line-height:1.3}
+.am__i p{margin:0;font-size:15px;line-height:1.45;color:var(--muted)}
+.am__i.ask{background:transparent;border:1px dashed #CDBFA8}
+@media(min-width:900px){.am{grid-template-columns:repeat(4,1fr);gap:18px}.am__i{padding:30px 26px}}
+
+/* BOOK DIRECT deep green */
+.direct{position:relative;overflow:hidden;background:var(--pine-d);color:#fff;padding:90px 0 120px}
+.direct .wrap{position:relative;z-index:2}
+.direct .label{color:var(--terra-l)}
+.direct .sh::after{background:rgba(255,255,255,.16)}
+.direct .sh p{color:rgba(255,255,255,.76)}
+.ben{list-style:none;padding:0;margin:0 0 40px;display:grid;gap:0}
+.ben li{display:grid;grid-template-columns:56px 1fr;gap:4px 16px;padding:24px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.ben li:first-child{border-top:1px solid rgba(255,255,255,.14)}
+.ben__n{font-family:var(--serif);font-size:34px;line-height:1;color:var(--terra-l);grid-row:span 2}
+.ben h3{font-family:var(--serif);font-size:26px;line-height:1.2}
+.ben p{margin:0;color:rgba(255,255,255,.78)}
+.direct__cta{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.direct__cta small{color:rgba(255,255,255,.6);font-size:14px}
+.dstar{position:absolute;z-index:1;color:#F6E7C9;pointer-events:none;animation:tw 3s ease-in-out infinite alternate}
+.direct .deco{z-index:1;opacity:.9}
+@media(min-width:900px){.ben{grid-template-columns:repeat(3,1fr);gap:40px}.ben li{grid-template-columns:1fr;border-top:1px solid rgba(255,255,255,.14)}.ben__n{grid-row:auto;margin-bottom:10px}}
+
+/* GOOD TO KNOW */
+.gtk{background:var(--canvas);border-radius:20px;padding:10px 22px}
+.gtk dl{margin:0}
+.gtk__row{display:grid;grid-template-columns:26px 1fr;gap:2px 16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.gtk__row:last-child{border-bottom:0}
+.gtk__row svg{width:24px;height:24px;stroke:var(--ink);fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;grid-row:span 2;margin-top:2px}
+.gtk dt{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.gtk dd{margin:0;font-size:16px;line-height:1.5}
+.gtk dd a{text-decoration:underline;text-underline-offset:3px}
+@media(min-width:900px){.gtk dl{display:grid;grid-template-columns:1fr 1fr;column-gap:60px}.gtk{padding:20px 40px}.gtk__row:nth-last-child(2){border-bottom:0}}
+
+/* NEARBY */
+.near__grid{display:grid;gap:36px}
+.near__img{aspect-ratio:3/2}
+.nlist{list-style:none;padding:0;margin:0;border-top:1px solid #D9CFBF}
+.nlist li{display:grid;grid-template-columns:44px 1fr;gap:2px 16px;padding:22px 0;border-bottom:1px solid #D9CFBF}
+.nlist__ic{width:44px;height:44px;border-radius:50%;background:#fff;display:grid;place-items:center;grid-row:span 2}
+.nlist__ic svg{width:22px;height:22px;stroke:var(--pine);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.nlist h3{font-size:20px;font-weight:500;line-height:1.3}
+.nlist p{margin:0;color:var(--muted);font-size:16px}
+@media(min-width:900px){.near__grid{grid-template-columns:1fr 1fr;gap:100px;align-items:center}.near__img{aspect-ratio:4/5}}
+
+/* BOOKING form */
+.book__grid{display:grid;gap:40px}
+.book__side{display:grid;gap:18px;align-content:start}
+.form{display:grid;gap:22px}
+.field{display:grid;gap:8px;min-width:0}
+.field>span,.field legend,.fl{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);padding:0}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.dates{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.ctl{width:100%;min-height:56px;padding:0 14px;border:1px solid var(--grey);border-radius:4px;background:#fff;color:var(--ink);font-size:16px;-webkit-appearance:none;appearance:none;transition:border-color .3s}
+.ctl:focus{outline:none;border-color:var(--pine)}
+.ctl::placeholder{color:#9A9A92}
+textarea.ctl{min-height:96px;padding:14px;resize:vertical;line-height:1.5}
+.ctl.err{border-color:#B0574A}
+.err-msg{display:none;margin:0;font-size:14px;color:#B0574A}
+.err-msg.on{display:block}
+.steps{display:grid;gap:12px}
+.step-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.step-row:first-child{border-top:1px solid var(--line)}
+.step-row b{display:block;font-weight:500;font-size:17px}
+.step-row small{display:block;font-size:13px;color:var(--muted)}
+.qty{display:inline-grid;grid-template-columns:48px 52px 48px;height:48px;border:1px solid var(--grey);border-radius:4px;overflow:hidden;background:#fff;flex:none}
+.qty button{border:0;background:#F2F2F2;font-size:22px;line-height:1;cursor:pointer;transition:background .3s}
+.qty button:hover{background:#E6E6E6}
+.qty button:disabled{opacity:.35;cursor:default}
+.qty output{display:grid;place-items:center;font-size:17px;border-left:1px solid var(--grey);border-right:1px solid var(--grey);font-variant-numeric:tabular-nums}
+.chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.chip{position:relative;width:100%}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip>span{display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;border:1px solid var(--grey);border-radius:4px;font-size:16px;cursor:pointer;background:#fff;transition:background .35s,color .35s,border-color .35s}
+.chip>span svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.3}
+.chip input:checked+span{background:var(--pine);border-color:var(--pine);color:#fff}
+.chip input:focus-visible+span{outline:2px solid var(--terra);outline-offset:2px}
+.form .fine{font-size:14px;color:var(--muted);margin:0;text-align:center}
+.sum{background:var(--canvas);border-radius:20px;padding:22px}
+.sum small{display:block;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.sum b{display:block;font-family:var(--serif);font-weight:400;font-size:32px;line-height:1.2;margin-top:4px;font-variant-numeric:tabular-nums}
+.sum b.bump{animation:bump .5s var(--out)}
+@keyframes bump{0%{opacity:.3;transform:translateY(6px)}100%{opacity:1;transform:none}}
+.wa-note{display:flex;gap:14px;align-items:flex-start;padding:20px;border-radius:20px;border:1px solid var(--line)}
+.wa-note svg{width:28px;height:28px;flex:none;color:var(--pine)}
+.wa-note p{margin:0;font-size:16px;color:#3b3a36}
+@media(min-width:900px){.book__grid{grid-template-columns:1fr 1.1fr;gap:100px}.book__side{position:sticky;top:120px}}
+
+/* sticky bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:80;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -10px 34px -10px rgba(0,0,0,.16);padding:14px var(--gutter) calc(14px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:14px;transform:translateY(110%);transition:transform .6s var(--out),opacity .3s}
+.bar-on .bar{transform:none}
+.bar small{display:block;font-size:13px;color:var(--muted);line-height:1.2}
+.bar b{display:block;font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.25;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar .pill{padding:0 22px;flex:none;min-height:48px}
+@media(min-width:900px){.bar{display:none}}
+
+/* FAQ */
+.faq__list{border-top:1px solid #D9CFBF}
+.qa{border-bottom:1px solid #D9CFBF}
+.qa button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0;background:none;border:0;text-align:left;cursor:pointer;font-family:var(--serif);font-size:21px;line-height:1.3}
+.qa .pm{position:relative;width:34px;height:34px;flex:none;border-radius:50%;border:1px solid var(--ink);transition:background .4s,transform .6s var(--out)}
+.qa .pm::before,.qa .pm::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.2px;background:var(--ink);transform:translate(-50%,-50%);transition:transform .5s var(--out),background .4s}
+.qa .pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+.qa.open .pm{background:var(--pine);border-color:var(--pine);transform:rotate(180deg)}
+.qa.open .pm::before,.qa.open .pm::after{background:#fff}
+.qa.open .pm::after{transform:translate(-50%,-50%) rotate(0)}
+.qa__a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--out)}
+.qa.open .qa__a{grid-template-rows:1fr}
+.qa__a>div{overflow:hidden}
+.qa__a p{margin:0;padding:0 0 24px;color:#3b3a36;max-width:60ch;opacity:0;transform:translateY(-6px);transition:opacity .5s,transform .6s var(--out)}
+.qa.open .qa__a p{opacity:1;transform:none;transition-delay:.1s}
+@media(min-width:900px){.faq__grid{display:grid;grid-template-columns:1fr 1.4fr;gap:100px}.faq__grid .sh{display:block}.faq__grid .sh h2{margin-top:14px}.faq__grid .sh p{margin-top:16px}}
+
+/* CONTACT card */
+.ccard{display:grid;background:var(--canvas);border-radius:var(--r);overflow:hidden}
+.ccard__img{position:relative;aspect-ratio:3/2}
+.ccard__img .art{position:absolute;inset:0}
+.ccard__b{padding:30px 22px 26px}
+.addr{font-family:var(--serif);font-size:28px;line-height:1.25;margin:10px 0 14px}
+.clist{list-style:none;padding:0;margin:22px 0 26px;border-top:1px solid var(--line)}
+.clist li{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);font-size:16px}
+.clist svg{width:22px;height:22px;flex:none;stroke:var(--ink);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.clist a{text-decoration:underline;text-underline-offset:3px}
+.cbtns{display:grid;gap:10px}
+.pin{position:absolute;left:50%;top:46%;z-index:5;transform:translate(-50%,-50%)}
+.pin__ring{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.8);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:grid;place-items:center;position:relative;color:var(--pine)}
+.pin__ring::before,.pin__ring::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid #fff;animation:ripple 3.6s var(--ease) infinite;opacity:0}
+.pin__ring::after{animation-delay:1.8s}
+@keyframes ripple{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.4);opacity:0}}
+.pin__ring svg{width:30px;height:30px}
+@media(min-width:700px){.cbtns{grid-template-columns:1fr 1fr}.cbtns .pill:last-child{grid-column:1/-1}}
+@media(min-width:900px){.ccard{grid-template-columns:1fr 1fr}.ccard__img{aspect-ratio:auto;min-height:520px}.ccard__b{padding:56px 52px}}
+
+/* FOOTER */
+.foot{background:#101614;color:rgba(255,255,255,.75);padding:70px 0 130px;font-size:15px}
+.foot__top{display:grid;gap:34px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.14)}
+.foot .logo{color:#fff}
+.foot .logo svg{width:42px;height:42px}
+.foot .logo b{font-size:24px}
+.foot__tag{margin:14px 0 0;color:rgba(255,255,255,.6)}
+.foot h4{margin:0 0 10px;font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--terra-l)}
+.foot p{margin:0}
+.foot a:hover{color:#fff}
+.foot__bot{padding-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:13px;color:rgba(255,255,255,.5)}
+@media(min-width:900px){.foot__top{grid-template-columns:1.5fr 1fr 1fr 1fr}}
+
+/* FLOATING */
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:70;display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 22px 0 18px;border-radius:999px;background:var(--pine);color:#fff;font-size:15px;font-weight:600;box-shadow:0 14px 34px -14px rgba(0,0,0,.45);transform:translateY(140%);opacity:0;transition:transform .7s var(--out),opacity .5s var(--ease),background .3s}
+.fab.show{transform:none;opacity:1}
+.bar-on .fab{transform:translateY(140%);opacity:0;pointer-events:none}
+.fab:hover{background:var(--pine-d)}
+.fab svg{width:18px;height:18px}
+.ctag{position:fixed;left:var(--gutter);top:calc(var(--header) + 8px);z-index:55;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.88);background:rgba(0,0,0,.24);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);padding:4px 9px;border-radius:999px;pointer-events:none;transition:opacity .5s var(--ease)}
+.ctag.off{opacity:0}
+
+/* language switch fade */
+.i18n-fade{transition:opacity .25s var(--ease)}
+body.switching main{opacity:.4;transition:opacity .2s}
+main{transition:opacity .35s var(--ease)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
+  .rv,.fade-up{opacity:1!important;transform:none!important}
+  .rv-img{clip-path:none!important}
+  .mask>span{transform:none!important}
+  .rv-img .art{scale:1!important}
+  #gl{display:none}
+}
+
+/* ===== mobile fixes v2 ===== */
+html input,html select,html textarea{font-size:16px;min-width:0;max-width:100%;box-sizing:border-box}
+html input[type="date"],html input[type="time"]{-webkit-appearance:none;appearance:none;display:block;width:100%;height:56px;min-height:56px;line-height:56px;padding:0 14px;text-align:left;overflow:hidden;white-space:nowrap}
+html input[type="date"]::-webkit-date-and-time-value,html input[type="time"]::-webkit-date-and-time-value{text-align:left;margin:0;line-height:56px;min-height:0}
+html input[type="date"]::-webkit-datetime-edit,html input[type="time"]::-webkit-datetime-edit{padding:0;line-height:56px}
+html input[type="date"]::-webkit-calendar-picker-indicator{margin:0 0 0 auto}
+html select{height:56px;line-height:normal}
+.menu-open .fab,.menu-open .ctag,.menu-open #bar{opacity:0!important;pointer-events:none!important}
+@media(max-width:380px){.dates{grid-template-columns:1fr}.qty{grid-template-columns:44px 46px 44px}}
+
+/* faq: no double line under the heading */
+.faq,.faq-list,.faq__list{border-top:0!important}
+.faq>:first-child,.faq-list>:first-child,.faq__list>:first-child{border-top:0!important}
+.faq>:first-child::before,.faq-list>:first-child::before,.faq__list>:first-child::before{display:none!important}
+</style>
+</head>
+<body class="locked">
+
+<!-- Illustration library: our own drawings, used as parallax layers and photo fallbacks -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gWater" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8FC7C2"/><stop offset=".6" stop-color="#5FA9A8"/><stop offset="1" stop-color="#3E8C8E"/></linearGradient>
+    <radialGradient id="gGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFC47A" stop-opacity=".75"/><stop offset="1" stop-color="#FFC47A" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gHsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1C22"/><stop offset=".38" stop-color="#2D3F4F"/><stop offset=".56" stop-color="#8A5E5A"/><stop offset=".64" stop-color="#D9875A"/></linearGradient>
+  </defs>
+  <symbol id="i-pine" viewBox="0 0 60 140"><path d="M30 4L44 34H37L50 62H41L55 94H44L58 120H2L16 94H5L19 62H10L23 34H16Z" fill="currentColor"/><rect x="27" y="118" width="6" height="20" fill="currentColor" opacity=".8"/></symbol>
+  <symbol id="i-tent" viewBox="0 0 200 160">
+    <path d="M20 92L4 146M180 92L196 146" stroke="#6E5A44" stroke-width="1" opacity=".7"/>
+    <path d="M100 12C92 40 50 76 20 92H180C150 76 108 40 100 12Z" fill="#F3E3C4"/>
+    <path d="M100 12C96 40 80 70 64 92M100 12C104 40 120 70 136 92" fill="none" stroke="#CDB58E" stroke-width="1"/>
+    <path d="M20 92L16 140H184L180 92Z" fill="#E4CFA9"/>
+    <path d="M100 70C92 94 86 118 84 140H116C114 118 108 94 100 70Z" fill="#FFC47A"/>
+    <path d="M100 70C96 94 94 118 96 140" fill="none" stroke="#E89A4E" stroke-width="1"/>
+    <path d="M100 2V14" stroke="#7A5A3A" stroke-width="2" stroke-linecap="round"/><path d="M100 4l10 3-10 3z" fill="#C8673F"/>
+  </symbol>
+  <symbol id="i-pool" viewBox="0 0 320 170">
+    <path d="M40 66H280L312 132H8Z" fill="#F6F1E8"/>
+    <path d="M52 72H268L294 126H26Z" fill="url(#gWater)"/>
+    <g fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".75"><path d="M70 90q12-5 24 0t24 0 24 0"/><path d="M160 104q12-5 24 0t24 0 24 0"/><path d="M60 114q12-5 24 0t24 0"/></g>
+    <g stroke="#8B8B85" stroke-width="2" stroke-linecap="round" fill="none"><path d="M246 54V82M258 54V82M246 62H258M246 72H258"/><path d="M246 54a6 6 0 0 1 12 0"/></g>
+    <g stroke-linecap="round" fill="none"><path d="M26 152H86L100 136" stroke="#C8673F" stroke-width="7"/><path d="M32 156V166M80 156V166" stroke="#7A6A58" stroke-width="2"/><path d="M168 152H228L242 136" stroke="#C8673F" stroke-width="7"/><path d="M174 156V166M222 156V166" stroke="#7A6A58" stroke-width="2"/></g>
+    <path d="M128 150V96" stroke="#7A6A58" stroke-width="2"/><path d="M100 104Q128 82 156 104Z" fill="#F2EADF" stroke="#C8673F" stroke-width="1.2"/>
+  </symbol>
+  <symbol id="i-lights" viewBox="0 0 400 90">
+    <path d="M0 12Q100 72 200 14Q300 72 400 12" fill="none" stroke="#1A1E1A" stroke-width="1.2" opacity=".75"/>
+    <g fill="#FFD38A"><circle class="bulb" cx="25" cy="31" r="4"/><circle class="bulb" cx="50" cy="40" r="4"/><circle class="bulb" cx="75" cy="46" r="4"/><circle class="bulb" cx="100" cy="48" r="4"/><circle class="bulb" cx="125" cy="46" r="4"/><circle class="bulb" cx="150" cy="41" r="4"/><circle class="bulb" cx="175" cy="32" r="4"/><circle class="bulb" cx="225" cy="32" r="4"/><circle class="bulb" cx="250" cy="41" r="4"/><circle class="bulb" cx="275" cy="46" r="4"/><circle class="bulb" cx="300" cy="48" r="4"/><circle class="bulb" cx="325" cy="46" r="4"/><circle class="bulb" cx="350" cy="40" r="4"/><circle class="bulb" cx="375" cy="31" r="4"/></g>
+    <g fill="#FFD38A" opacity=".22"><circle cx="50" cy="40" r="11"/><circle cx="100" cy="48" r="11"/><circle cx="150" cy="41" r="11"/><circle cx="250" cy="41" r="11"/><circle cx="300" cy="48" r="11"/><circle cx="350" cy="40" r="11"/></g>
+  </symbol>
+  <symbol id="i-dog" viewBox="0 0 120 120">
+    <path d="M32 100C18 100 12 88 18 78" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+    <path d="M38 112V96C30 92 26 80 30 66C34 52 46 46 56 46L60 30C60 22 66 16 74 16H80L86 8L89 20C96 22 101 28 101 33L92 37C88 39 84 39 82 41L80 52C86 62 88 80 86 96V112H78V99L70 100V112Z" fill="currentColor"/>
+    <path d="M60 46C66 50 74 50 80 47" fill="none" stroke="#C8673F" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="84" cy="25" r="1.8" fill="#F2EADF"/>
+  </symbol>
+  <symbol id="i-star" viewBox="0 0 20 20"><path d="M10 0C10.6 6 14 9.4 20 10C14 10.6 10.6 14 10 20C9.4 14 6 10.6 0 10C6 9.4 9.4 6 10 0Z" fill="currentColor"/></symbol>
+  <symbol id="i-hills" viewBox="0 0 400 140">
+    <path d="M0 70C40 50 70 40 110 52C150 64 180 30 230 34C280 38 310 60 400 46V140H0Z" fill="currentColor" opacity=".45"/>
+    <path d="M0 96C50 80 90 74 140 86C190 98 230 70 290 74C340 78 370 92 400 86V140H0Z" fill="currentColor" opacity=".72"/>
+    <path d="M0 120C60 108 120 112 180 118C240 124 320 104 400 112V140H0Z" fill="currentColor"/>
+  </symbol>
+  <!-- line icons -->
+  <symbol id="ic-pool" viewBox="0 0 32 32"><path d="M10 20V7a3 3 0 0 1 6 0M20 20V7a3 3 0 0 1 6 0M10 11h10M10 16h10"/><path class="ac" d="M3 24c2.2 0 2.2-1.5 4.4-1.5S9.6 24 11.8 24s2.2-1.5 4.4-1.5 2.2 1.5 4.4 1.5 2.2-1.5 4.4-1.5S27.8 24 30 24M3 28c2.2 0 2.2-1.5 4.4-1.5S9.6 28 11.8 28s2.2-1.5 4.4-1.5 2.2 1.5 4.4 1.5 2.2-1.5 4.4-1.5S27.8 28 30 28"/></symbol>
+  <symbol id="ic-snow" viewBox="0 0 32 32"><path d="M16 3v26M4.7 9.5l22.6 13M4.7 22.5l22.6-13"/><path class="ac" d="M12.5 4.5L16 8l3.5-3.5M12.5 27.5L16 24l3.5 3.5"/></symbol>
+  <symbol id="ic-family" viewBox="0 0 32 32"><circle cx="10" cy="7" r="3"/><circle cx="22" cy="7" r="3"/><path d="M5 28V17a5 5 0 0 1 10 0v11M17 28V17a5 5 0 0 1 10 0v11"/><circle class="ac" cx="16" cy="20" r="2.2"/><path class="ac" d="M13 28v-3a3 3 0 0 1 6 0v3"/></symbol>
+  <symbol id="ic-paw" viewBox="0 0 32 32"><path d="M16 17c-4 0-8 4.5-8 8 0 2.2 1.8 3 3.5 3 2 0 2.8-1 4.5-1s2.5 1 4.5 1c1.7 0 3.5-.8 3.5-3 0-3.5-4-8-8-8z"/><ellipse class="ac" cx="9" cy="12" rx="2.4" ry="3"/><ellipse class="ac" cx="23" cy="12" rx="2.4" ry="3"/><ellipse cx="13" cy="6.5" rx="2.2" ry="2.8"/><ellipse cx="19" cy="6.5" rx="2.2" ry="2.8"/></symbol>
+  <symbol id="ic-moon" viewBox="0 0 32 32"><path d="M21 4a11 11 0 1 0 7 17A9 9 0 0 1 21 4z"/><path class="ac" d="M24 8.5l.8 1.7 1.7.8-1.7.8-.8 1.7-.8-1.7-1.7-.8 1.7-.8z"/></symbol>
+  <symbol id="ic-compass" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12"/><path class="ac" d="M20.5 11.5l-2.8 6.2-6.2 2.8 2.8-6.2z"/><path d="M16 4v2M16 26v2M4 16h2M26 16h2"/></symbol>
+  <symbol id="ic-park" viewBox="0 0 32 32"><rect x="4" y="4" width="24" height="24" rx="4"/><path class="ac" d="M12 23V9h5.5a4 4 0 0 1 0 8H12"/></symbol>
+  <symbol id="ic-clock" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12"/><path class="ac" d="M16 9v7l5 3"/></symbol>
+  <symbol id="ic-key" viewBox="0 0 32 32"><circle cx="10" cy="16" r="5"/><path d="M15 16h13M24 16v4M20 16v3"/></symbol>
+  <symbol id="ic-baby" viewBox="0 0 32 32"><path d="M4 12h24M6 12v14M26 12v14M4 26h24M11 12v14M16 12v14M21 12v14"/><path d="M6 8c3-3 17-3 20 0"/></symbol>
+  <symbol id="ic-phone" viewBox="0 0 32 32"><path d="M8 4h5l2 7-3 2c1.5 3.2 4 5.7 7 7l2-3 7 2v5c0 1.7-1.3 3-3 3C14.8 27 5 17.2 5 7c0-1.7 1.3-3 3-3z"/></symbol>
+  <symbol id="ic-pin" viewBox="0 0 32 32"><path d="M16 29s-9-8.2-9-15a9 9 0 0 1 18 0c0 6.8-9 15-9 15z"/><circle cx="16" cy="14" r="3.2"/></symbol>
+  <symbol id="ic-fridge" viewBox="0 0 32 32"><rect x="8" y="3" width="16" height="26" rx="2.5"/><path d="M8 12h16M12 7v2M12 16v4"/></symbol>
+  <symbol id="ic-hand" viewBox="0 0 32 32"><path d="M4 18l6-4c2-1.3 3.5-1.2 5 0l3 2h4a2 2 0 0 1 0 4h-6"/><path d="M4 26l4-2h8l10-6a2 2 0 0 0-2-3.5L19 17"/></symbol>
+  <symbol id="ic-town" viewBox="0 0 32 32"><path d="M4 28h24M6 28V14l5-4 5 4v14M16 28V8l5-4 5 4v20M10 18h2M10 23h2M20 13h2M20 18h2M20 23h2"/></symbol>
+  <symbol id="ic-wave" viewBox="0 0 32 32"><path d="M3 18c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2 2.5-2 5-2M3 24c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2 2.5-2 5-2"/><circle cx="22" cy="9" r="4"/></symbol>
+  <symbol id="ic-road" viewBox="0 0 32 32"><path d="M10 28L14 4M22 28L18 4M16 8v3M16 15v3M16 22v3"/></symbol>
+  <symbol id="ic-wa" viewBox="0 0 32 32"><path d="M16 3.5A12.4 12.4 0 0 0 5.3 22.2L3.8 28.2l6.2-1.6A12.5 12.5 0 1 0 16 3.5z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11.6 9.8c-.3-.6-.6-.6-.9-.6h-.8c-.3 0-.7.1-1 .5s-1.4 1.3-1.4 3.2 1.4 3.7 1.6 4 2.7 4.3 6.7 5.8c3.3 1.3 4 1 4.7 1s2.3-.9 2.6-1.9.3-1.7.2-1.9-.3-.3-.7-.5-2.3-1.1-2.6-1.3-.6-.2-.9.2-1 1.3-1.2 1.5-.4.3-.8.1a10 10 0 0 1-5-4.4c-.4-.6.4-.6 1-1.9.1-.2.1-.4 0-.6s-.9-2.2-1.3-3z" fill="currentColor"/></symbol>
+</svg>
+
+<div class="pre" id="pre" aria-hidden="true">
+  <div class="pre__in">
+    <svg viewBox="0 0 100 100">
+      <path class="ln" pathLength="1" d="M50 16C46 34 28 54 14 62H86C72 54 54 34 50 16Z"/>
+      <path class="ln" pathLength="1" d="M14 62L12 82H88L86 62"/>
+      <path class="ln d" pathLength="1" d="M50 50C46 62 43 72 42 82H58C57 72 54 62 50 50Z"/>
+      <path class="ln g" pathLength="1" d="M4 92H96"/>
+    </svg>
+    <div class="pre__name">Krk Glamping Village</div>
+  </div>
+</div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Krk Glamping Village">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 14C46 32 28 52 14 60H86C72 52 54 32 50 14Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M14 60L12 80H88L86 60" fill="none" stroke="currentColor" stroke-width="3"/><path d="M50 48C46 60 43 70 42 80H58C57 70 54 60 50 48Z" fill="#C8673F"/></svg>
+      <span><b>Krk Glamping</b><small>Village · Brusići</small></span>
+    </a>
+    <div class="hdr__r">
+      <div class="langs" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="de" aria-pressed="false">DE</button><button type="button" data-lang="it" aria-pressed="false">IT</button><button type="button" data-lang="hr" aria-pressed="false">HR</button><button type="button" data-lang="sl" aria-pressed="false">SL</button>
+      </div>
+      <a href="#book" class="pill hdr__book" data-i18n="nav.book">Book direct</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span id="menuLbl">Menu</span><span class="burger"><i></i><i></i></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <nav aria-label="Menu">
+    <a href="#gallery" data-i18n="nav.gal">Gallery</a>
+    <a href="#welcome" data-i18n="nav.welcome">Welcome</a>
+    <a href="#tents" data-i18n="nav.tents">The tents</a>
+    <a href="#amenities" data-i18n="nav.amen">Amenities</a>
+    <a href="#direct" data-i18n="nav.direct">Why book direct</a>
+    <a href="#nearby" data-i18n="nav.near">Nearby</a>
+    <a href="#faq" data-i18n="nav.faq">FAQ</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
+  </nav>
+  <div class="menu-foot">
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="de" aria-pressed="false">DE</button><button type="button" data-lang="it" aria-pressed="false">IT</button><button type="button" data-lang="hr" aria-pressed="false">HR</button><button type="button" data-lang="sl" aria-pressed="false">SL</button>
+    </div>
+    <a href="#book" class="pill pill--block" data-i18n="nav.form">Check dates</a>
+    <a class="menu-tel" href="tel:+385914501113">+385&nbsp;91&nbsp;450&nbsp;1113 · Robert &amp; Edvin</a>
+  </div>
+</div>
+
+<span class="ctag" id="ctag" data-i18n="ctag">Concept by Marija</span>
+
+<main id="top">
+
+<section class="hero" id="hero" aria-label="Krk Glamping Village">
+  <!-- Static SVG glamping evening: fallback when WebGL is off, three.js fails or reduced motion is set -->
+  <div class="hero__media" id="heroMedia" aria-hidden="true">
+    <svg class="hero__scene" viewBox="0 0 400 760" preserveAspectRatio="xMidYMid slice">
+      <rect width="400" height="760" fill="url(#gHsky)"/>
+      <g id="svgStars" data-hp="0.04" fill="#FFF6E4"></g>
+      <g data-hp="0.08" color="#2C4048"><use href="#i-hills" x="-40" y="380" width="480" height="168"/></g>
+      <rect y="520" width="400" height="240" fill="#16291F"/>
+      <g data-hp="0.14" color="#18302A"><use href="#i-pine" x="-10" y="300" width="90" height="230"/><use href="#i-pine" x="60" y="350" width="60" height="160"/><use href="#i-pine" x="300" y="280" width="100" height="250"/><use href="#i-pine" x="250" y="360" width="56" height="150"/></g>
+      <g data-hp="0.2">
+        <ellipse cx="130" cy="560" rx="110" ry="40" fill="url(#gGlow)"/><ellipse cx="290" cy="530" rx="80" ry="30" fill="url(#gGlow)"/>
+        <use href="#i-tent" x="230" y="470" width="110" height="88"/>
+        <use href="#i-tent" x="50" y="470" width="160" height="128"/>
+      </g>
+      <g data-hp="0.26"><use href="#i-lights" x="-20" y="400" width="440" height="99"/></g>
+      <g data-hp="0.32" color="#0F2119"><use href="#i-pine" x="-60" y="420" width="150" height="380"/><use href="#i-pine" x="320" y="440" width="140" height="360"/></g>
+      <g fill="#E6F59A"><circle class="ff" cx="90" cy="620" r="2"/><circle class="ff" cx="200" cy="590" r="1.6"/><circle class="ff" cx="300" cy="640" r="2"/><circle class="ff" cx="250" cy="560" r="1.4"/><circle class="ff" cx="150" cy="660" r="1.8"/><circle class="ff" cx="340" cy="590" r="1.5"/><circle class="ff" cx="40" cy="560" r="1.6"/></g>
+    </svg>
+  </div>
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="hero__veil"></div>
+  <div class="hero__c">
+    <div class="wrap">
+      <p class="label fade-up" data-i18n="hero.label">Brusići · island of Krk</p>
+      <h1><span class="mask"><span data-i18n="hero.t1">Glamping under</span></span><span class="mask"><span><em data-i18n="hero.t2">the Krk pines</em></span></span></h1>
+      <p class="hero__txt fade-up d1" data-i18n="hero.txt">Air conditioned tents, a clean pool and quiet evenings under the stars. Families, kids and dogs are all welcome.</p>
+      <span class="hero__rate fade-up d2"><b>4.9</b><span class="stars" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L10 14.8 4.6 17.7l1.1-6.1L1.2 7.4l6.1-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L10 14.8 4.6 17.7l1.1-6.1L1.2 7.4l6.1-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L10 14.8 4.6 17.7l1.1-6.1L1.2 7.4l6.1-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L10 14.8 4.6 17.7l1.1-6.1L1.2 7.4l6.1-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L10 14.8 4.6 17.7l1.1-6.1L1.2 7.4l6.1-.8z"/></svg></span><span data-i18n="hero.rating">Google rating · 113 reviews</span></span>
+      <div class="hero__cta fade-up d3"><a class="pill pill--grey" href="#book" data-i18n="hero.cta">Check your dates</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="finder">
+  <a href="#book">
+    <svg class="finder__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+    <span class="finder__t"><b>Krk, Brusići</b><small data-i18n="finder.sub">Any dates • 2 adults, 1 child</small></span>
+    <span class="finder__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+</div>
+
+<!-- Photo carousel (near black) -->
+<section class="gal-sec" id="gallery" aria-roledescription="carousel" aria-label="Gallery">
+  <div class="wrap">
+    <h2 class="rv" data-i18n="gal.t">A quiet corner of Krk</h2>
+    <p class="sub rv" data-delay="1" data-i18n="gal.sub">Tents among the pines, a pool for slow afternoons and evenings that end under the stars.</p>
+    <div class="gal rv" data-delay="1" id="gal">
+      <div class="gal__track" id="galTrack">
+        <div class="gal__slide cur"><div class="art art--dusk" data-ill="tents"><img src="img/hero.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><use href="#ic-pin"/></svg><span data-i18n="gal.c1">Glamping tents among the pines</span></span></div>
+        <div class="gal__slide"><div class="art art--pool" data-ill="pool"><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><use href="#ic-pin"/></svg><span data-i18n="gal.c2">The pool</span></span></div>
+        <div class="gal__slide"><div class="art art--night" data-ill="lights"><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><use href="#ic-pin"/></svg><span data-i18n="gal.c3">Evenings under string lights</span></span></div>
+        <div class="gal__slide"><div class="art art--camp" data-ill="dog"><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><use href="#ic-pin"/></svg><span data-i18n="gal.c4">Dogs welcome</span></span></div>
+        <div class="gal__slide"><div class="art art--hills" data-ill="hills"><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="cap"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><use href="#ic-pin"/></svg><span data-i18n="gal.c5">The hills of Krk</span></span></div>
+      </div>
+      <a class="tag-b" href="https://www.google.com/maps/search/?api=1&amp;query=Krk+Glamping+Village+Bru%C5%A1i%C4%87i+34+Kapovci" target="_blank" rel="noopener">Brusići, Krk <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5l7 7-7 7"/></svg></a>
+      <button class="sqbtn l" type="button" id="galPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="sqbtn r" type="button" id="galNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button>
+      <span class="gal__prog"><i id="galProg"></i></span>
+      <span class="gal__count" id="galCount" aria-live="polite">1/5</span>
+    </div>
+  </div>
+</section>
+
+<!-- 01 Welcome -->
+<section class="sec welcome bg-canvas" id="welcome">
+  <div class="wm" id="wm" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="sh rv"><p class="label"><span class="num">01</span><span data-i18n="wel.label">Welcome</span></p><h2 data-i18n="wel.t">Hello from Robert and Edvin</h2></div>
+    <div class="wel__grid">
+      <div class="rv">
+        <p class="lead" data-i18n="wel.lead">We look after Krk Glamping Village ourselves, so you always know who to call.</p>
+        <p data-i18n="wel.p1">Guests often tell us about the little things: a baby bed ready when they arrive, something cold waiting in the fridge, a hand when the car decided to stop working. That is simply how we like to host.</p>
+        <p data-i18n="wel.p2">Brusići is a quiet spot on the island of Krk, a calm base for beach days and evenings by the tent.</p>
+        <div class="sig">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#1F4A3A" stroke-width="1.4" opacity=".4"/><path d="M50 22C47 36 34 52 24 58H76C66 52 53 36 50 22Z" fill="none" stroke="#1F4A3A" stroke-width="2.4"/><path d="M24 58L23 72H77L76 58" fill="none" stroke="#1F4A3A" stroke-width="2.4"/><path d="M50 46C47 56 45 64 44 72H56C55 64 53 56 50 46Z" fill="#C8673F"/></svg>
+          <div><b>Robert &amp; Edvin</b><small data-i18n="wel.role">Your hosts</small></div>
+        </div>
+      </div>
+      <div class="rv" data-delay="1">
+        <div class="badge">
+          <span class="badge__g" aria-hidden="true">G</span>
+          <div><b><span class="count" data-to="4.9" data-dec="1">4.9</span></b><span class="stars" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L10 14.8 4.6 17.7l1.1-6.1L1.2 7.4l6.1-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L10 14.8 4.6 17.7l1.1-6.1L1.2 7.4l6.1-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L10 14.8 4.6 17.7l1.1-6.1L1.2 7.4l6.1-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L10 14.8 4.6 17.7l1.1-6.1L1.2 7.4l6.1-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L10 14.8 4.6 17.7l1.1-6.1L1.2 7.4l6.1-.8z"/></svg></span><small><span data-i18n="badge.l">Google rating</span>, <span class="count" data-to="113">113</span> <span data-i18n="badge.s">reviews</span></small></div>
+        </div>
+        <ul class="kind">
+          <li><svg viewBox="0 0 32 32"><use href="#ic-baby"/></svg><span data-i18n="kind.1">Baby bed on request</span></li>
+          <li><svg viewBox="0 0 32 32"><use href="#ic-fridge"/></svg><span data-i18n="kind.2">Refreshments in the fridge on arrival</span></li>
+          <li><svg viewBox="0 0 32 32"><use href="#ic-hand"/></svg><span data-i18n="kind.3">Help when you need it, even with a broken down car</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 Tents -->
+<section class="sec bg-white" id="tents">
+  <div class="wrap"><div class="sh rv"><p class="label"><span class="num">02</span><span data-i18n="tents.label">The tents</span></p><h2 data-i18n="tents.t">Sleep in a glamping tent</h2><p data-i18n="tents.lead">The comfort of a room, the feeling of camping. Swipe for more, and ask us about other tent types.</p></div></div>
+  <div class="peek" id="peek">
+    <article class="tcard rv">
+      <div class="frame rv-img"><div class="art art--dusk" data-ill="tents"><img src="img/hero.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t1.k">Air conditioned</span></div>
+      <h3 data-i18n="t1.t">Glamping tent</h3>
+      <p class="tcard__meta"><span data-i18n="from">from</span> <b class="ph">XX&nbsp;€</b> <span data-i18n="pernight">per night</span></p>
+      <p data-i18n="t1.p">A proper bed under canvas, air conditioning for warm summer nights and the pines right outside.</p>
+      <ul><li data-i18n="t1.l1">Air conditioning</li><li data-i18n="t1.l2">Pool on site</li><li data-i18n="t1.l3">Quiet location</li></ul>
+      <a class="ulink" href="#book" data-i18n="cta">Check dates</a>
+    </article>
+    <article class="tcard rv" data-delay="1">
+      <div class="frame rv-img"><div class="art art--pool" data-ill="pool"><img src="img/2.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t2.k">Families</span></div>
+      <h3 data-i18n="t2.t">Glamping with kids</h3>
+      <p class="tcard__meta"><span data-i18n="from">from</span> <b class="ph">XX&nbsp;€</b> <span data-i18n="pernight">per night</span></p>
+      <p data-i18n="t2.p">Kids love sleeping in a tent. A baby bed is available on request, just tell us when you book.</p>
+      <ul><li data-i18n="t2.l1">Baby bed on request</li><li data-i18n="t2.l2">Families welcome</li><li data-i18n="t2.l3">Pool for the afternoons</li></ul>
+      <a class="ulink" href="#book" data-i18n="cta">Check dates</a>
+    </article>
+    <article class="tcard rv" data-delay="2">
+      <div class="frame rv-img"><div class="art art--camp" data-ill="dog"><img src="img/4.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t3.k">Dogs welcome</span></div>
+      <h3 data-i18n="t3.t">Glamping with your dog</h3>
+      <p class="tcard__meta"><span data-i18n="from">from</span> <b class="ph">XX&nbsp;€</b> <span data-i18n="pernight">per night</span></p>
+      <p data-i18n="t3.p">Your dog is part of the family, so bring them along. Just mention them in your request.</p>
+      <ul><li data-i18n="t3.l1">Dogs welcome</li><li data-i18n="t3.l2">Quiet surroundings</li><li data-i18n="t3.l3">A base for exploring the island</li></ul>
+      <a class="ulink" href="#book" data-i18n="cta">Check dates</a>
+    </article>
+    <article class="tcard rv" data-delay="3">
+      <div class="frame rv-img"><div class="art art--night" data-ill="lights"><img src="img/3.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="t4.k">Ask us</span></div>
+      <h3 data-i18n="t4.t">Other tent types</h3>
+      <p class="tcard__meta" data-i18n="t4.m">Availability and prices on request</p>
+      <p data-i18n="t4.p">Looking for a different setup? Send Robert and Edvin a message and they will tell you what is available for your dates.</p>
+      <ul><li data-i18n="t4.l1">Reply on WhatsApp</li><li data-i18n="t4.l2">Personal advice</li></ul>
+      <a class="ulink" id="askLink" href="https://wa.me/385914501113" target="_blank" rel="noopener"><span data-i18n="t4.cta">Ask on WhatsApp</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article>
+  </div>
+  <div class="wrap">
+    <div class="peek__ui"><span class="peek__bar"><i id="pkBar"></i></span><button class="rbtn" type="button" id="pkPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button><button class="rbtn" type="button" id="pkNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button></div>
+    <p class="note" data-i18n="tents.note">Prices marked XX are example placeholders, to be filled in by the hosts.</p>
+  </div>
+</section>
+
+<!-- 03 Amenities -->
+<section class="sec bg-canvas has-deco" id="amenities">
+  <svg class="deco" data-par="0.12" style="right:-30px;top:40px;width:130px" viewBox="0 0 60 140" aria-hidden="true" color="#1F4A3A" opacity=".1"><use href="#i-pine"/></svg>
+  <div class="wrap">
+    <div class="sh rv"><p class="label"><span class="num">03</span><span data-i18n="am.label">Amenities</span></p><h2 data-i18n="am.t">Everything for an easy stay</h2><p data-i18n="am.lead">Simple comforts that make a holiday in a tent feel effortless.</p></div>
+    <div class="am">
+      <div class="am__i rv"><svg viewBox="0 0 32 32"><use href="#ic-pool"/></svg><h3 data-i18n="am.pool">Clean pool</h3><p data-i18n="am.poolP">For slow afternoons between beach days.</p></div>
+      <div class="am__i rv" data-delay="1"><svg viewBox="0 0 32 32"><use href="#ic-snow"/></svg><h3 data-i18n="am.ac">Air conditioning</h3><p data-i18n="am.acP">In the glamping tents, for cool summer nights.</p></div>
+      <div class="am__i rv"><svg viewBox="0 0 32 32"><use href="#ic-family"/></svg><h3 data-i18n="am.fam">Families with kids</h3><p data-i18n="am.famP">Baby bed on request.</p></div>
+      <div class="am__i rv" data-delay="1"><svg viewBox="0 0 32 32"><use href="#ic-paw"/></svg><h3 data-i18n="am.dog">Dogs welcome</h3><p data-i18n="am.dogP">Bring the whole family.</p></div>
+      <div class="am__i rv"><svg viewBox="0 0 32 32"><use href="#ic-moon"/></svg><h3 data-i18n="am.quiet">Quiet location</h3><p data-i18n="am.quietP">Pines, birdsong and starry nights.</p></div>
+      <div class="am__i rv" data-delay="1"><svg viewBox="0 0 32 32"><use href="#ic-compass"/></svg><h3 data-i18n="am.base">Base for the island</h3><p data-i18n="am.baseP">Beaches and Krk town within reach.</p></div>
+      <div class="am__i rv"><svg viewBox="0 0 32 32"><use href="#ic-clock"/></svg><h3 data-i18n="am.rec">Reception</h3><p data-i18n="am.recP">Open 08:00 to 22:00.</p></div>
+      <div class="am__i ask rv" data-delay="1"><svg viewBox="0 0 32 32"><use href="#ic-park"/></svg><h3 data-i18n="am.park">Parking</h3><p data-i18n="am.parkP">Ask the hosts for details.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 Book direct (deep green) -->
+<section class="direct" id="direct">
+  <svg class="dstar" style="left:12%;top:60px;width:12px" viewBox="0 0 20 20" aria-hidden="true"><use href="#i-star"/></svg>
+  <svg class="dstar" style="left:70%;top:36px;width:16px;animation-delay:-1.2s" viewBox="0 0 20 20" aria-hidden="true"><use href="#i-star"/></svg>
+  <svg class="dstar" style="left:88%;top:120px;width:9px;animation-delay:-2s" viewBox="0 0 20 20" aria-hidden="true"><use href="#i-star"/></svg>
+  <svg class="dstar" style="left:42%;top:18px;width:8px;animation-delay:-.6s" viewBox="0 0 20 20" aria-hidden="true"><use href="#i-star"/></svg>
+  <svg class="deco" data-par="0.06" style="left:0;right:0;bottom:-6px;width:100%" viewBox="0 0 400 140" preserveAspectRatio="none" aria-hidden="true" color="#163D30"><use href="#i-hills"/></svg>
+  <svg class="deco" data-par="0.14" style="right:-24px;bottom:-10px;width:120px" viewBox="0 0 60 140" aria-hidden="true" color="#0A2119"><use href="#i-pine"/></svg>
+  <svg class="deco" data-par="0.1" style="right:70px;bottom:-6px;width:70px" viewBox="0 0 60 140" aria-hidden="true" color="#0C251C"><use href="#i-pine"/></svg>
+  <div class="wrap">
+    <div class="sh rv"><p class="label"><span class="num">04</span><span data-i18n="dir.label">Book direct</span></p><h2 data-i18n="dir.t">Book with us directly</h2><p data-i18n="dir.lead">You can find us on the big booking platforms too. Booking directly is simply better for both sides.</p></div>
+    <ul class="ben">
+      <li class="rv"><span class="ben__n">01</span><h3 data-i18n="dir.1">Best price</h3><p data-i18n="dir.1p">No platform commission, so the best rate goes to you.</p></li>
+      <li class="rv" data-delay="1"><span class="ben__n">02</span><h3 data-i18n="dir.2">Direct contact</h3><p data-i18n="dir.2p">Talk to Robert and Edvin on WhatsApp, before and during your stay.</p></li>
+      <li class="rv" data-delay="2"><span class="ben__n">03</span><h3 data-i18n="dir.3">Flexible</h3><p data-i18n="dir.3p">Dates, arrival time or a special request? We sort it out together.</p></li>
+    </ul>
+    <div class="direct__cta rv"><a class="pill pill--canvas" href="#book" data-i18n="dir.cta">Check your dates</a><small data-i18n="dir.note">Also listed on Booking and Pitchup.</small></div>
+  </div>
+</section>
+
+<!-- 05 Good to know -->
+<section class="sec bg-white" id="gtk">
+  <div class="wrap">
+    <div class="sh rv"><p class="label"><span class="num">05</span><span data-i18n="gtk.label">Good to know</span></p><h2 data-i18n="gtk.t">Before you arrive</h2></div>
+    <div class="gtk rv">
+      <dl>
+        <div class="gtk__row"><svg viewBox="0 0 32 32"><use href="#ic-key"/></svg><dt data-i18n="gtk.in">Check-in / check-out</dt><dd data-i18n="gtk.inV">By arrangement with the hosts</dd></div>
+        <div class="gtk__row"><svg viewBox="0 0 32 32"><use href="#ic-clock"/></svg><dt data-i18n="gtk.rec">Reception</dt><dd data-i18n="gtk.recV">08:00 to 22:00</dd></div>
+        <div class="gtk__row"><svg viewBox="0 0 32 32"><use href="#ic-paw"/></svg><dt data-i18n="gtk.dog">Dogs</dt><dd data-i18n="gtk.dogV">Welcome, please mention them in your request</dd></div>
+        <div class="gtk__row"><svg viewBox="0 0 32 32"><use href="#ic-baby"/></svg><dt data-i18n="gtk.baby">Baby bed</dt><dd data-i18n="gtk.babyV">On request</dd></div>
+        <div class="gtk__row"><svg viewBox="0 0 32 32"><use href="#ic-moon"/></svg><dt data-i18n="gtk.quiet">Quiet hours</dt><dd data-i18n="gtk.quietV">Kept in the evening, details from the hosts</dd></div>
+        <div class="gtk__row"><svg viewBox="0 0 32 32"><use href="#ic-park"/></svg><dt data-i18n="gtk.park">Parking</dt><dd data-i18n="gtk.parkV">Ask the hosts</dd></div>
+        <div class="gtk__row"><svg viewBox="0 0 32 32"><use href="#ic-phone"/></svg><dt data-i18n="gtk.phone">Phone / WhatsApp</dt><dd><a href="tel:+385914501113">+385&nbsp;91&nbsp;450&nbsp;1113</a></dd></div>
+        <div class="gtk__row"><svg viewBox="0 0 32 32"><use href="#ic-pin"/></svg><dt data-i18n="fo.addr">Address</dt><dd>Brusići 34, 51500 Kapovci</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 06 Nearby -->
+<section class="sec bg-canvas" id="nearby">
+  <div class="wrap">
+    <div class="sh rv"><p class="label"><span class="num">06</span><span data-i18n="near.label">What's nearby</span></p><h2 data-i18n="near.t">Explore the island</h2><p data-i18n="near.lead">Brusići is a good base for discovering Krk. Ask Robert and Edvin for their favourite spots.</p></div>
+    <div class="near__grid">
+      <div class="frame near__img rv-img"><div class="art art--hills" data-ill="hills"><img src="img/5.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b">Island of Krk</span></div>
+      <ul class="nlist">
+        <li class="rv"><span class="nlist__ic"><svg viewBox="0 0 32 32"><use href="#ic-town"/></svg></span><h3 data-i18n="near.1">Krk town</h3><p data-i18n="near.1p">Old stone streets, the harbour and evening walks.</p></li>
+        <li class="rv" data-delay="1"><span class="nlist__ic"><svg viewBox="0 0 32 32"><use href="#ic-wave"/></svg></span><h3 data-i18n="near.2">Beaches of Krk</h3><p data-i18n="near.2p">Coves and bays all around the island.</p></li>
+        <li class="rv" data-delay="2"><span class="nlist__ic"><svg viewBox="0 0 32 32"><use href="#ic-road"/></svg></span><h3 data-i18n="near.3">Island villages</h3><p data-i18n="near.3p">Small villages, konobas and viewpoints to discover by car.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 07 Booking request -->
+<section class="sec bg-white" id="book">
+  <div class="wrap">
+    <div class="sh rv"><p class="label"><span class="num">07</span><span data-i18n="bk.label">Your request</span></p><h2 data-i18n="bk.t">Check your dates</h2><p data-i18n="bk.lead">Choose your dates and who is coming. Your request opens in WhatsApp and Robert or Edvin will reply with availability and the price.</p></div>
+    <div class="book__grid">
+      <div class="book__side rv">
+        <div class="sum"><small data-i18n="bar.sm">Your stay</small><b id="sumTxt">7 nights · 2+1</b></div>
+        <div class="wa-note"><svg viewBox="0 0 32 32"><use href="#ic-wa"/></svg><p data-i18n="f.fine">No payment and no login. Just a message to the hosts.</p></div>
+      </div>
+      <form class="form rv" id="form" novalidate data-delay="1">
+        <div class="dates">
+          <label class="field"><span data-i18n="f.in">Check-in</span><input class="ctl" type="date" id="fIn" required></label>
+          <label class="field"><span data-i18n="f.out">Check-out</span><input class="ctl" type="date" id="fOut" required></label>
+        </div>
+        <p class="err-msg" id="dErr" data-i18n="f.err">Check-out must be after check-in.</p>
+        <div class="steps">
+          <div class="step-row"><div><b data-i18n="f.adults">Adults</b></div><div class="qty"><button type="button" data-q="ad" data-d="-1" aria-label="-">&minus;</button><output id="qAd">2</output><button type="button" data-q="ad" data-d="1" aria-label="+">+</button></div></div>
+          <div class="step-row"><div><b data-i18n="f.kids">Children</b></div><div class="qty"><button type="button" data-q="ki" data-d="-1" aria-label="-">&minus;</button><output id="qKi">1</output><button type="button" data-q="ki" data-d="1" aria-label="+">+</button></div></div>
+        </div>
+        <fieldset class="field">
+          <legend data-i18n="f.dog">Bringing a dog?</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="dog" value="yes"><span><svg viewBox="0 0 32 32"><use href="#ic-paw"/></svg><span data-i18n="f.yes">Yes</span></span></label>
+            <label class="chip"><input type="radio" name="dog" value="no" checked><span data-i18n="f.no">No</span></label>
+          </div>
+        </fieldset>
+        <label class="field"><span data-i18n="f.name">Your name</span><input class="ctl" type="text" id="fName" autocomplete="name" data-i18n-ph="f.nameph" placeholder="Name (optional)"></label>
+        <label class="field"><span data-i18n="f.note">Message</span><textarea class="ctl" id="fNote" rows="3" data-i18n-ph="f.noteph" placeholder="Anything we should know? (optional)"></textarea></label>
+        <button class="pill pill--block" type="submit"><svg viewBox="0 0 32 32"><use href="#ic-wa"/></svg><span data-i18n="f.submit">Send request on WhatsApp</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- 08 FAQ -->
+<section class="sec bg-canvas" id="faq">
+  <div class="wrap faq__grid">
+    <div class="sh rv"><p class="label"><span class="num">08</span><span data-i18n="faq.label">Questions</span></p><h2 data-i18n="faq.t">Frequently asked</h2></div>
+    <div class="faq__list rv">
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q1">Can we bring our dog?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a1">Yes, dogs are welcome. Just mention your dog in the request so Robert and Edvin can prepare.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q2">Is it suitable for families with kids?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a2">Very much so. Families with kids are welcome and a baby bed is available on request.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q3">Do the tents have air conditioning?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a3">Yes, the glamping tents have air conditioning, so summer nights stay comfortable.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q4">What time is check-in and check-out?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a4">Check-in and check-out are by arrangement. Reception is open from 08:00 to 22:00.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q5">Why should we book directly?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a5">You get the best price without platform commission, talk to the hosts directly and keep things flexible. Your request goes straight to Robert and Edvin on WhatsApp.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q6">Is there parking?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a6">Please ask the hosts about parking when you send your request.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="q7">Do I pay online?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="a7">No. This form only sends a message. The hosts confirm availability and the price personally.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 Contact -->
+<section class="sec bg-white" id="contact">
+  <div class="wrap">
+    <div class="sh rv"><p class="label"><span class="num">09</span><span data-i18n="ct.label">Contact</span></p><h2 data-i18n="ct.t">Come and stay with us</h2></div>
+    <div class="ccard rv">
+      <div class="ccard__img"><div class="art art--dusk" data-ill="tents"></div><span class="pin" aria-hidden="true"><span class="pin__ring"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><use href="#ic-pin"/></svg></span></span><span class="tag-b">Brusići, Krk</span></div>
+      <div class="ccard__b">
+        <p class="label">Krk Glamping Village</p>
+        <p class="addr">Brusići 34<br>51500 Kapovci / Brusići<br><span data-i18n="ct.island">Island of Krk, Croatia</span></p>
+        <ul class="clist">
+          <li><svg viewBox="0 0 32 32"><use href="#ic-phone"/></svg><a href="tel:+385914501113">+385&nbsp;91&nbsp;450&nbsp;1113</a></li>
+          <li><svg viewBox="0 0 32 32"><use href="#ic-clock"/></svg><span data-i18n="ct.rec">Reception 08:00 to 22:00</span></li>
+          <li><svg viewBox="0 0 32 32"><use href="#ic-family"/></svg><span data-i18n="ct.hosts">Hosts: Robert and Edvin</span></li>
+        </ul>
+        <div class="cbtns">
+          <a class="pill" href="https://wa.me/385914501113" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><use href="#ic-wa"/></svg><span data-i18n="ct.wa">WhatsApp</span></a>
+          <a class="pill pill--outline" href="tel:+385914501113" data-i18n="ct.call">Call</a>
+          <a class="pill pill--outline" href="https://www.google.com/maps/search/?api=1&amp;query=Krk+Glamping+Village+Bru%C5%A1i%C4%87i+34+Kapovci" target="_blank" rel="noopener" data-i18n="ct.map">Open in maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div>
+        <a href="#top" class="logo" aria-label="Krk Glamping Village"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 14C46 32 28 52 14 60H86C72 52 54 32 50 14Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M14 60L12 80H88L86 60" fill="none" stroke="currentColor" stroke-width="3"/><path d="M50 48C46 60 43 70 42 80H58C57 70 54 60 50 48Z" fill="#C8673F"/></svg><span><b>Krk Glamping</b><small>Village · Brusići</small></span></a>
+        <p class="foot__tag" data-i18n="fo.tag">Glamping on the island of Krk</p>
+      </div>
+      <div><h4 data-i18n="fo.addr">Address</h4><p>Brusići 34<br>51500 Kapovci / Brusići<br>Krk, Croatia</p></div>
+      <div><h4 data-i18n="fo.contact">Contact</h4><p><a href="tel:+385914501113">+385&nbsp;91&nbsp;450&nbsp;1113</a><br><a href="https://wa.me/385914501113" target="_blank" rel="noopener">WhatsApp</a></p></div>
+      <div><h4 data-i18n="fo.rec">Reception</h4><p data-i18n="gtk.recV">08:00 to 22:00</p></div>
+    </div>
+    <div class="foot__bot"><span>© 2026 Krk Glamping Village</span><span data-i18n="fo.note">Website concept, proposal by Marija</span></div>
+  </div>
+</footer>
+
+<a class="fab" id="fab" href="#book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span data-i18n="fab">Check dates</span></a>
+
+<div class="bar" id="bar" aria-hidden="true">
+  <div><small data-i18n="bar.sm">Your stay</small><b id="barTxt">7 nights · 2+1</b></div>
+  <button class="pill" type="button" id="barBtn" tabindex="-1"><svg viewBox="0 0 32 32"><use href="#ic-wa"/></svg><span data-i18n="bar.btn">Send</span></button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function(s,c){return (c||document).querySelector(s)};
+  var $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  var WA = "https://wa.me/385914501113?text=";
+
+  /* ---------- i18n: EN is read from the page, others from this dictionary ---------- */
+  var EN_JS = {
+    "menu":"Menu","close":"Close","js.nights":"nights","js.night":"night","js.any":"Any dates","js.dog":"dog","js.prev":"Previous","js.next":"Next",
+    "wa.hello":"Hello Robert and Edvin!","wa.want":"I would like to ask about a stay at Krk Glamping Village.","wa.in":"Check-in","wa.out":"Check-out","wa.dog":"Dog","wa.yes":"yes","wa.no":"no","wa.name":"Name","wa.note":"Message","wa.thanks":"Thank you!","wa.ask":"Hello! I would like to ask about other tent types at Krk Glamping Village."
+  };
+  var L = {
+de:{"menu":"Menü","close":"Schließen","nav.book":"Direkt buchen","nav.gal":"Galerie","nav.welcome":"Willkommen","nav.tents":"Die Zelte","nav.amen":"Ausstattung","nav.direct":"Warum direkt buchen","nav.near":"In der Nähe","nav.form":"Termine anfragen","nav.faq":"FAQ","nav.contact":"Kontakt","ctag":"Konzept: Marija",
+"hero.label":"Brusići · Insel Krk","hero.t1":"Glamping unter","hero.t2":"den Kiefern von Krk","hero.txt":"Klimatisierte Zelte, ein sauberer Pool und ruhige Abende unter den Sternen. Familien, Kinder und Hunde sind herzlich willkommen.","hero.rating":"Google Bewertung · 113 Rezensionen","hero.cta":"Termine prüfen","finder.sub":"Beliebige Daten • 2 Erwachsene, 1 Kind",
+"gal.t":"Eine ruhige Ecke von Krk","gal.sub":"Zelte zwischen Kiefern, ein Pool für langsame Nachmittage und Abende, die unter den Sternen enden.","gal.c1":"Glampingzelte zwischen Kiefern","gal.c2":"Der Pool","gal.c3":"Abende unter Lichterketten","gal.c4":"Hunde willkommen","gal.c5":"Die Hügel von Krk",
+"wel.label":"Willkommen","wel.t":"Hallo von Robert und Edvin","wel.lead":"Wir kümmern uns selbst um das Krk Glamping Village, Sie wissen also immer, wen Sie anrufen können.","wel.p1":"Gäste erzählen uns oft von den kleinen Dingen: ein Babybett, das bei der Ankunft bereitsteht, etwas Kühles im Kühlschrank, eine helfende Hand, als das Auto plötzlich streikte. So sind wir einfach gern Gastgeber.","wel.p2":"Brusići ist ein ruhiger Ort auf der Insel Krk, ein entspannter Ausgangspunkt für Strandtage und Abende am Zelt.","wel.role":"Ihre Gastgeber","badge.l":"Google Bewertung","badge.s":"Rezensionen","kind.1":"Babybett auf Anfrage","kind.2":"Erfrischungen im Kühlschrank bei Ankunft","kind.3":"Hilfe, wenn Sie sie brauchen, sogar bei einer Autopanne",
+"tents.label":"Die Zelte","tents.t":"Schlafen im Glampingzelt","tents.lead":"Der Komfort eines Zimmers, das Gefühl von Camping. Wischen Sie für mehr und fragen Sie uns nach weiteren Zelttypen.","from":"ab","pernight":"pro Nacht","cta":"Termine prüfen",
+"t1.k":"Klimatisiert","t1.t":"Glampingzelt","t1.p":"Ein richtiges Bett unter Zeltstoff, Klimaanlage für warme Sommernächte und die Kiefern direkt vor dem Eingang.","t1.l1":"Klimaanlage","t1.l2":"Pool vor Ort","t1.l3":"Ruhige Lage",
+"t2.k":"Familien","t2.t":"Glamping mit Kindern","t2.p":"Kinder lieben es, im Zelt zu schlafen. Ein Babybett gibt es auf Anfrage, sagen Sie es uns einfach bei der Buchung.","t2.l1":"Babybett auf Anfrage","t2.l2":"Familien willkommen","t2.l3":"Pool für die Nachmittage",
+"t3.k":"Hunde willkommen","t3.t":"Glamping mit Hund","t3.p":"Ihr Hund gehört zur Familie, also bringen Sie ihn mit. Erwähnen Sie ihn einfach in Ihrer Anfrage.","t3.l1":"Hunde willkommen","t3.l2":"Ruhige Umgebung","t3.l3":"Ausgangspunkt für die Insel",
+"t4.k":"Fragen Sie uns","t4.t":"Weitere Zelttypen","t4.m":"Verfügbarkeit und Preise auf Anfrage","t4.p":"Sie suchen etwas anderes? Schreiben Sie Robert und Edvin, sie sagen Ihnen, was für Ihre Daten frei ist.","t4.l1":"Antwort per WhatsApp","t4.l2":"Persönliche Beratung","t4.cta":"Per WhatsApp fragen","tents.note":"Mit XX markierte Preise sind Beispiel-Platzhalter, die Gastgeber tragen sie ein.",
+"am.label":"Ausstattung","am.t":"Alles für einen entspannten Aufenthalt","am.lead":"Einfacher Komfort, der Urlaub im Zelt ganz leicht macht.","am.pool":"Sauberer Pool","am.poolP":"Für ruhige Nachmittage zwischen Strandtagen.","am.ac":"Klimaanlage","am.acP":"In den Glampingzelten, für kühle Sommernächte.","am.fam":"Familien mit Kindern","am.famP":"Babybett auf Anfrage.","am.dog":"Hunde willkommen","am.dogP":"Die ganze Familie kommt mit.","am.quiet":"Ruhige Lage","am.quietP":"Kiefern, Vogelgesang und Sternennächte.","am.base":"Ausgangspunkt für die Insel","am.baseP":"Strände und die Stadt Krk in Reichweite.","am.rec":"Rezeption","am.recP":"Geöffnet von 08:00 bis 22:00.","am.park":"Parken","am.parkP":"Fragen Sie die Gastgeber.",
+"dir.label":"Direkt buchen","dir.t":"Buchen Sie direkt bei uns","dir.lead":"Sie finden uns auch auf den großen Buchungsportalen. Direkt zu buchen ist einfach besser für beide Seiten.","dir.1":"Bester Preis","dir.1p":"Keine Portalprovision, der beste Preis geht an Sie.","dir.2":"Direkter Kontakt","dir.2p":"Sprechen Sie mit Robert und Edvin per WhatsApp, vor und während Ihres Aufenthalts.","dir.3":"Flexibel","dir.3p":"Daten, Ankunftszeit oder ein besonderer Wunsch? Wir klären das gemeinsam.","dir.cta":"Termine prüfen","dir.note":"Auch auf Booking und Pitchup gelistet.",
+"gtk.label":"Gut zu wissen","gtk.t":"Vor Ihrer Anreise","gtk.in":"Check-in / Check-out","gtk.inV":"Nach Absprache mit den Gastgebern","gtk.rec":"Rezeption","gtk.recV":"08:00 bis 22:00","gtk.dog":"Hunde","gtk.dogV":"Willkommen, bitte in der Anfrage erwähnen","gtk.baby":"Babybett","gtk.babyV":"Auf Anfrage","gtk.quiet":"Ruhezeiten","gtk.quietV":"Abends gilt Ruhe, Details von den Gastgebern","gtk.park":"Parken","gtk.parkV":"Bitte bei den Gastgebern fragen","gtk.phone":"Telefon / WhatsApp",
+"near.label":"In der Nähe","near.t":"Entdecken Sie die Insel","near.lead":"Brusići ist ein guter Ausgangspunkt, um Krk zu entdecken. Fragen Sie Robert und Edvin nach ihren Lieblingsorten.","near.1":"Stadt Krk","near.1p":"Alte Steingassen, der Hafen und Abendspaziergänge.","near.2":"Strände von Krk","near.2p":"Buchten rund um die ganze Insel.","near.3":"Inseldörfer","near.3p":"Kleine Dörfer, Konobas und Aussichtspunkte, mit dem Auto zu entdecken.",
+"bk.label":"Ihre Anfrage","bk.t":"Termine prüfen","bk.lead":"Wählen Sie Ihre Daten und wer mitkommt. Die Anfrage öffnet sich in WhatsApp, Robert oder Edvin antworten mit Verfügbarkeit und Preis.","f.in":"Anreise","f.out":"Abreise","f.err":"Die Abreise muss nach der Anreise liegen.","f.adults":"Erwachsene","f.kids":"Kinder","f.dog":"Kommt ein Hund mit?","f.yes":"Ja","f.no":"Nein","f.name":"Ihr Name","f.nameph":"Name (optional)","f.note":"Nachricht","f.noteph":"Sollten wir etwas wissen? (optional)","f.submit":"Anfrage per WhatsApp senden","f.fine":"Keine Zahlung, kein Login. Nur eine Nachricht an die Gastgeber.","bar.sm":"Ihr Aufenthalt","bar.btn":"Senden",
+"faq.label":"Fragen","faq.t":"Häufige Fragen","q1":"Dürfen wir unseren Hund mitbringen?","a1":"Ja, Hunde sind willkommen. Erwähnen Sie Ihren Hund einfach in der Anfrage, damit Robert und Edvin sich vorbereiten können.","q2":"Ist es für Familien mit Kindern geeignet?","a2":"Sehr sogar. Familien mit Kindern sind willkommen und ein Babybett gibt es auf Anfrage.","q3":"Haben die Zelte eine Klimaanlage?","a3":"Ja, die Glampingzelte sind klimatisiert, so bleiben Sommernächte angenehm.","q4":"Wann sind Check-in und Check-out?","a4":"Check-in und Check-out nach Absprache. Die Rezeption ist von 08:00 bis 22:00 geöffnet.","q5":"Warum direkt buchen?","a5":"Sie bekommen den besten Preis ohne Portalprovision, sprechen direkt mit den Gastgebern und bleiben flexibel. Ihre Anfrage geht direkt per WhatsApp an Robert und Edvin.","q6":"Gibt es Parkplätze?","a6":"Bitte fragen Sie die Gastgeber nach dem Parken, wenn Sie Ihre Anfrage senden.","q7":"Bezahle ich online?","a7":"Nein. Dieses Formular sendet nur eine Nachricht. Die Gastgeber bestätigen Verfügbarkeit und Preis persönlich.",
+"ct.label":"Kontakt","ct.t":"Kommen Sie zu uns","ct.island":"Insel Krk, Kroatien","ct.rec":"Rezeption 08:00 bis 22:00","ct.hosts":"Gastgeber: Robert und Edvin","ct.wa":"WhatsApp","ct.call":"Anrufen","ct.map":"In Karten öffnen",
+"fo.tag":"Glamping auf der Insel Krk","fo.addr":"Adresse","fo.contact":"Kontakt","fo.rec":"Rezeption","fo.note":"Website-Konzept, Vorschlag von Marija","fab":"Termine prüfen",
+"js.nights":"Nächte","js.night":"Nacht","js.any":"Beliebige Daten","js.dog":"Hund","js.prev":"Zurück","js.next":"Weiter","wa.hello":"Hallo Robert und Edvin!","wa.want":"Ich möchte gern einen Aufenthalt im Krk Glamping Village anfragen.","wa.in":"Anreise","wa.out":"Abreise","wa.dog":"Hund","wa.yes":"ja","wa.no":"nein","wa.name":"Name","wa.note":"Nachricht","wa.thanks":"Vielen Dank!","wa.ask":"Hallo! Ich möchte nach weiteren Zelttypen im Krk Glamping Village fragen."},
+it:{"menu":"Menu","close":"Chiudi","nav.book":"Prenota diretto","nav.gal":"Galleria","nav.welcome":"Benvenuti","nav.tents":"Le tende","nav.amen":"Servizi","nav.direct":"Perché prenotare diretto","nav.near":"Nei dintorni","nav.form":"Verifica date","nav.faq":"FAQ","nav.contact":"Contatti","ctag":"Concept di Marija",
+"hero.label":"Brusići · isola di Krk","hero.t1":"Glamping sotto","hero.t2":"i pini di Krk","hero.txt":"Tende climatizzate, una piscina pulita e serate tranquille sotto le stelle. Famiglie, bambini e cani sono i benvenuti.","hero.rating":"Valutazione Google · 113 recensioni","hero.cta":"Verifica le date","finder.sub":"Date libere • 2 adulti, 1 bambino",
+"gal.t":"Un angolo tranquillo di Krk","gal.sub":"Tende tra i pini, una piscina per pomeriggi lenti e serate che finiscono sotto le stelle.","gal.c1":"Tende glamping tra i pini","gal.c2":"La piscina","gal.c3":"Serate sotto le luci","gal.c4":"Cani benvenuti","gal.c5":"Le colline di Krk",
+"wel.label":"Benvenuti","wel.t":"Un saluto da Robert ed Edvin","wel.lead":"Ci occupiamo noi stessi del Krk Glamping Village, così sapete sempre chi chiamare.","wel.p1":"Gli ospiti ci raccontano spesso le piccole cose: un lettino pronto all'arrivo, qualcosa di fresco in frigo, un aiuto quando l'auto ha deciso di fermarsi. È semplicemente il nostro modo di accogliere.","wel.p2":"Brusići è un angolo tranquillo dell'isola di Krk, una base serena per giornate al mare e serate accanto alla tenda.","wel.role":"I vostri host","badge.l":"Valutazione Google","badge.s":"recensioni","kind.1":"Lettino su richiesta","kind.2":"Qualcosa di fresco in frigo all'arrivo","kind.3":"Un aiuto quando serve, anche con l'auto in panne",
+"tents.label":"Le tende","tents.t":"Dormire in una tenda glamping","tents.lead":"Il comfort di una camera, la sensazione del campeggio. Scorrete per vedere di più e chiedeteci degli altri tipi di tenda.","from":"da","pernight":"a notte","cta":"Verifica le date",
+"t1.k":"Climatizzata","t1.t":"Tenda glamping","t1.p":"Un vero letto sotto la tela, aria condizionata per le calde notti d'estate e i pini appena fuori.","t1.l1":"Aria condizionata","t1.l2":"Piscina in struttura","t1.l3":"Posizione tranquilla",
+"t2.k":"Famiglie","t2.t":"Glamping con bambini","t2.p":"I bambini adorano dormire in tenda. Un lettino è disponibile su richiesta, basta dircelo alla prenotazione.","t2.l1":"Lettino su richiesta","t2.l2":"Famiglie benvenute","t2.l3":"Piscina per i pomeriggi",
+"t3.k":"Cani benvenuti","t3.t":"Glamping con il cane","t3.p":"Il vostro cane fa parte della famiglia, portatelo con voi. Indicatelo nella richiesta.","t3.l1":"Cani benvenuti","t3.l2":"Ambiente tranquillo","t3.l3":"Base per scoprire l'isola",
+"t4.k":"Chiedeteci","t4.t":"Altri tipi di tenda","t4.m":"Disponibilità e prezzi su richiesta","t4.p":"Cercate una sistemazione diversa? Scrivete a Robert ed Edvin, vi diranno cosa è disponibile per le vostre date.","t4.l1":"Risposta su WhatsApp","t4.l2":"Consiglio personale","t4.cta":"Chiedi su WhatsApp","tents.note":"I prezzi con XX sono esempi segnaposto, da completare a cura degli host.",
+"am.label":"Servizi","am.t":"Tutto per un soggiorno facile","am.lead":"Comodità semplici che rendono la vacanza in tenda davvero rilassante.","am.pool":"Piscina pulita","am.poolP":"Per pomeriggi lenti tra una giornata al mare e l'altra.","am.ac":"Aria condizionata","am.acP":"Nelle tende glamping, per notti d'estate fresche.","am.fam":"Famiglie con bambini","am.famP":"Lettino su richiesta.","am.dog":"Cani benvenuti","am.dogP":"Venite con tutta la famiglia.","am.quiet":"Posizione tranquilla","am.quietP":"Pini, canto degli uccelli e notti stellate.","am.base":"Base per l'isola","am.baseP":"Spiagge e la città di Krk a portata di mano.","am.rec":"Reception","am.recP":"Aperta dalle 08:00 alle 22:00.","am.park":"Parcheggio","am.parkP":"Chiedete agli host.",
+"dir.label":"Prenota diretto","dir.t":"Prenotate direttamente con noi","dir.lead":"Ci trovate anche sui grandi portali di prenotazione. Prenotare direttamente è semplicemente meglio per entrambi.","dir.1":"Miglior prezzo","dir.1p":"Nessuna commissione del portale, il prezzo migliore va a voi.","dir.2":"Contatto diretto","dir.2p":"Parlate con Robert ed Edvin su WhatsApp, prima e durante il soggiorno.","dir.3":"Flessibilità","dir.3p":"Date, orario di arrivo o una richiesta speciale? Lo risolviamo insieme.","dir.cta":"Verifica le date","dir.note":"Presenti anche su Booking e Pitchup.",
+"gtk.label":"Buono a sapersi","gtk.t":"Prima del vostro arrivo","gtk.in":"Check-in / check-out","gtk.inV":"Su accordo con gli host","gtk.rec":"Reception","gtk.recV":"Dalle 08:00 alle 22:00","gtk.dog":"Cani","gtk.dogV":"Benvenuti, indicateli nella richiesta","gtk.baby":"Lettino","gtk.babyV":"Su richiesta","gtk.quiet":"Ore di silenzio","gtk.quietV":"Rispettate la sera, dettagli dagli host","gtk.park":"Parcheggio","gtk.parkV":"Chiedete agli host","gtk.phone":"Telefono / WhatsApp",
+"near.label":"Nei dintorni","near.t":"Scoprite l'isola","near.lead":"Brusići è una buona base per scoprire Krk. Chiedete a Robert ed Edvin i loro posti preferiti.","near.1":"Città di Krk","near.1p":"Antiche vie in pietra, il porto e passeggiate serali.","near.2":"Spiagge di Krk","near.2p":"Calette e baie tutto intorno all'isola.","near.3":"Villaggi dell'isola","near.3p":"Piccoli villaggi, konobe e punti panoramici da scoprire in auto.",
+"bk.label":"La vostra richiesta","bk.t":"Verifica le date","bk.lead":"Scegliete le date e chi viene con voi. La richiesta si apre su WhatsApp e Robert o Edvin risponderanno con disponibilità e prezzo.","f.in":"Arrivo","f.out":"Partenza","f.err":"La partenza deve essere dopo l'arrivo.","f.adults":"Adulti","f.kids":"Bambini","f.dog":"Venite con un cane?","f.yes":"Sì","f.no":"No","f.name":"Il vostro nome","f.nameph":"Nome (facoltativo)","f.note":"Messaggio","f.noteph":"Qualcosa che dovremmo sapere? (facoltativo)","f.submit":"Invia richiesta su WhatsApp","f.fine":"Nessun pagamento e nessun login. Solo un messaggio agli host.","bar.sm":"Il vostro soggiorno","bar.btn":"Invia",
+"faq.label":"Domande","faq.t":"Domande frequenti","q1":"Possiamo portare il cane?","a1":"Sì, i cani sono benvenuti. Indicate il vostro cane nella richiesta così Robert ed Edvin possono prepararsi.","q2":"È adatto alle famiglie con bambini?","a2":"Assolutamente. Le famiglie con bambini sono benvenute e un lettino è disponibile su richiesta.","q3":"Le tende hanno l'aria condizionata?","a3":"Sì, le tende glamping sono climatizzate, così le notti d'estate restano piacevoli.","q4":"A che ora sono check-in e check-out?","a4":"Check-in e check-out su accordo. La reception è aperta dalle 08:00 alle 22:00.","q5":"Perché prenotare direttamente?","a5":"Avete il prezzo migliore senza commissioni del portale, parlate direttamente con gli host e restate flessibili. La richiesta arriva direttamente a Robert ed Edvin su WhatsApp.","q6":"C'è un parcheggio?","a6":"Chiedete agli host del parcheggio quando inviate la richiesta.","q7":"Si paga online?","a7":"No. Questo modulo invia solo un messaggio. Gli host confermano di persona disponibilità e prezzo.",
+"ct.label":"Contatti","ct.t":"Venite a trovarci","ct.island":"Isola di Krk, Croazia","ct.rec":"Reception dalle 08:00 alle 22:00","ct.hosts":"Host: Robert ed Edvin","ct.wa":"WhatsApp","ct.call":"Chiama","ct.map":"Apri nelle mappe",
+"fo.tag":"Glamping sull'isola di Krk","fo.addr":"Indirizzo","fo.contact":"Contatti","fo.rec":"Reception","fo.note":"Concept del sito, proposta di Marija","fab":"Verifica date",
+"js.nights":"notti","js.night":"notte","js.any":"Date libere","js.dog":"cane","js.prev":"Precedente","js.next":"Successiva","wa.hello":"Ciao Robert ed Edvin!","wa.want":"Vorrei chiedere informazioni per un soggiorno al Krk Glamping Village.","wa.in":"Arrivo","wa.out":"Partenza","wa.dog":"Cane","wa.yes":"sì","wa.no":"no","wa.name":"Nome","wa.note":"Messaggio","wa.thanks":"Grazie!","wa.ask":"Ciao! Vorrei chiedere degli altri tipi di tenda al Krk Glamping Village."},
+hr:{"menu":"Izbornik","close":"Zatvori","nav.book":"Rezerviraj izravno","nav.gal":"Galerija","nav.welcome":"Dobrodošli","nav.tents":"Šatori","nav.amen":"Sadržaji","nav.direct":"Zašto izravno","nav.near":"U blizini","nav.form":"Provjeri datume","nav.faq":"Pitanja","nav.contact":"Kontakt","ctag":"Koncept: Marija",
+"hero.label":"Brusići · otok Krk","hero.t1":"Glamping pod","hero.t2":"krčkim borovima","hero.txt":"Klimatizirani šatori, čist bazen i mirne večeri pod zvijezdama. Obitelji, djeca i psi su dobrodošli.","hero.rating":"Google ocjena · 113 recenzija","hero.cta":"Provjerite datume","finder.sub":"Bilo koji datumi • 2 odrasla, 1 dijete",
+"gal.t":"Mirni kutak Krka","gal.sub":"Šatori među borovima, bazen za spora poslijepodneva i večeri koje završavaju pod zvijezdama.","gal.c1":"Glamping šatori među borovima","gal.c2":"Bazen","gal.c3":"Večeri pod lampicama","gal.c4":"Psi su dobrodošli","gal.c5":"Krčka brda",
+"wel.label":"Dobrodošli","wel.t":"Pozdrav od Roberta i Edvina","wel.lead":"O Krk Glamping Villageu brinemo sami, pa uvijek znate koga nazvati.","wel.p1":"Gosti nam često pričaju o sitnicama: dječji krevetić spreman pri dolasku, nešto hladno u hladnjaku, pomoć kad je auto odlučio stati. Jednostavno, tako volimo ugostiti.","wel.p2":"Brusići su mirno mjesto na otoku Krku, opuštena baza za dane na plaži i večeri uz šator.","wel.role":"Vaši domaćini","badge.l":"Google ocjena","badge.s":"recenzija","kind.1":"Dječji krevetić na upit","kind.2":"Osvježenje u hladnjaku pri dolasku","kind.3":"Pomoć kad zatreba, čak i kad se auto pokvari",
+"tents.label":"Šatori","tents.t":"Spavajte u glamping šatoru","tents.lead":"Udobnost sobe, osjećaj kampiranja. Povucite za više i pitajte nas za druge vrste šatora.","from":"od","pernight":"po noći","cta":"Provjerite datume",
+"t1.k":"Klimatizirano","t1.t":"Glamping šator","t1.p":"Pravi krevet pod platnom, klima uređaj za tople ljetne noći i borovi odmah ispred ulaza.","t1.l1":"Klima uređaj","t1.l2":"Bazen u kampu","t1.l3":"Mirna lokacija",
+"t2.k":"Obitelji","t2.t":"Glamping s djecom","t2.p":"Djeca obožavaju spavati u šatoru. Dječji krevetić je dostupan na upit, samo nam javite pri rezervaciji.","t2.l1":"Dječji krevetić na upit","t2.l2":"Obitelji dobrodošle","t2.l3":"Bazen za poslijepodneva",
+"t3.k":"Psi dobrodošli","t3.t":"Glamping sa psom","t3.p":"Vaš pas je dio obitelji, povedite ga. Samo ga navedite u upitu.","t3.l1":"Psi dobrodošli","t3.l2":"Mirno okruženje","t3.l3":"Baza za istraživanje otoka",
+"t4.k":"Pitajte nas","t4.t":"Druge vrste šatora","t4.m":"Dostupnost i cijene na upit","t4.p":"Tražite nešto drugačije? Pošaljite poruku Robertu i Edvinu, reći će vam što je slobodno za vaše datume.","t4.l1":"Odgovor na WhatsAppu","t4.l2":"Osobni savjet","t4.cta":"Pitajte na WhatsAppu","tents.note":"Cijene označene s XX su primjeri, domaćini ih upisuju.",
+"am.label":"Sadržaji","am.t":"Sve za opušten boravak","am.lead":"Jednostavne udobnosti zbog kojih je odmor u šatoru lagan.","am.pool":"Čist bazen","am.poolP":"Za spora poslijepodneva između dana na plaži.","am.ac":"Klima uređaj","am.acP":"U glamping šatorima, za svježe ljetne noći.","am.fam":"Obitelji s djecom","am.famP":"Dječji krevetić na upit.","am.dog":"Psi dobrodošli","am.dogP":"Dođite s cijelom obitelji.","am.quiet":"Mirna lokacija","am.quietP":"Borovi, cvrkut ptica i zvjezdane noći.","am.base":"Baza za otok","am.baseP":"Plaže i grad Krk nadohvat ruke.","am.rec":"Recepcija","am.recP":"Otvorena od 08:00 do 22:00.","am.park":"Parking","am.parkP":"Pitajte domaćine.",
+"dir.label":"Izravna rezervacija","dir.t":"Rezervirajte izravno kod nas","dir.lead":"Možete nas pronaći i na velikim platformama za rezervacije. Izravna rezervacija jednostavno je bolja za obje strane.","dir.1":"Najbolja cijena","dir.1p":"Bez provizije platforme, najbolja cijena ide vama.","dir.2":"Izravan kontakt","dir.2p":"Razgovarajte s Robertom i Edvinom na WhatsAppu, prije i tijekom boravka.","dir.3":"Fleksibilno","dir.3p":"Datumi, vrijeme dolaska ili posebna želja? Dogovorit ćemo se zajedno.","dir.cta":"Provjerite datume","dir.note":"Nalazimo se i na Bookingu i Pitchupu.",
+"gtk.label":"Dobro je znati","gtk.t":"Prije dolaska","gtk.in":"Prijava / odjava","gtk.inV":"Po dogovoru s domaćinima","gtk.rec":"Recepcija","gtk.recV":"Od 08:00 do 22:00","gtk.dog":"Psi","gtk.dogV":"Dobrodošli, navedite ih u upitu","gtk.baby":"Dječji krevetić","gtk.babyV":"Na upit","gtk.quiet":"Vrijeme mira","gtk.quietV":"Navečer se poštuje mir, detalje daju domaćini","gtk.park":"Parking","gtk.parkV":"Pitajte domaćine","gtk.phone":"Telefon / WhatsApp",
+"near.label":"U blizini","near.t":"Istražite otok","near.lead":"Brusići su dobra baza za upoznavanje Krka. Pitajte Roberta i Edvina za njihova omiljena mjesta.","near.1":"Grad Krk","near.1p":"Stare kamene ulice, luka i večernje šetnje.","near.2":"Plaže otoka Krka","near.2p":"Uvale i zaljevi oko cijelog otoka.","near.3":"Otočna sela","near.3p":"Mala sela, konobe i vidikovci koje ćete otkriti autom.",
+"bk.label":"Vaš upit","bk.t":"Provjerite datume","bk.lead":"Odaberite datume i tko dolazi. Upit se otvara u WhatsAppu, a Robert ili Edvin odgovorit će s dostupnošću i cijenom.","f.in":"Dolazak","f.out":"Odlazak","f.err":"Odlazak mora biti nakon dolaska.","f.adults":"Odrasli","f.kids":"Djeca","f.dog":"Dolazite sa psom?","f.yes":"Da","f.no":"Ne","f.name":"Vaše ime","f.nameph":"Ime (neobavezno)","f.note":"Poruka","f.noteph":"Nešto što trebamo znati? (neobavezno)","f.submit":"Pošaljite upit na WhatsApp","f.fine":"Bez plaćanja i bez prijave. Samo poruka domaćinima.","bar.sm":"Vaš boravak","bar.btn":"Pošalji",
+"faq.label":"Pitanja","faq.t":"Česta pitanja","q1":"Možemo li povesti psa?","a1":"Da, psi su dobrodošli. Samo navedite psa u upitu kako bi se Robert i Edvin mogli pripremiti.","q2":"Je li prikladno za obitelji s djecom?","a2":"Itekako. Obitelji s djecom su dobrodošle, a dječji krevetić dostupan je na upit.","q3":"Imaju li šatori klima uređaj?","a3":"Da, glamping šatori su klimatizirani, pa su ljetne noći ugodne.","q4":"Kada je prijava i odjava?","a4":"Prijava i odjava su po dogovoru. Recepcija radi od 08:00 do 22:00.","q5":"Zašto rezervirati izravno?","a5":"Dobivate najbolju cijenu bez provizije platforme, razgovarate izravno s domaćinima i ostajete fleksibilni. Upit stiže ravno Robertu i Edvinu na WhatsApp.","q6":"Ima li parkinga?","a6":"Pitajte domaćine za parking kada pošaljete upit.","q7":"Plaćam li online?","a7":"Ne. Ovaj obrazac samo šalje poruku. Domaćini osobno potvrđuju dostupnost i cijenu.",
+"ct.label":"Kontakt","ct.t":"Dođite k nama","ct.island":"Otok Krk, Hrvatska","ct.rec":"Recepcija od 08:00 do 22:00","ct.hosts":"Domaćini: Robert i Edvin","ct.wa":"WhatsApp","ct.call":"Nazovite","ct.map":"Otvori u kartama",
+"fo.tag":"Glamping na otoku Krku","fo.addr":"Adresa","fo.contact":"Kontakt","fo.rec":"Recepcija","fo.note":"Koncept web stranice, prijedlog: Marija","fab":"Provjeri datume",
+"js.nights":"noći","js.night":"noć","js.any":"Bilo koji datumi","js.dog":"pas","js.prev":"Prethodna","js.next":"Sljedeća","wa.hello":"Pozdrav Robert i Edvin!","wa.want":"Zanima me boravak u Krk Glamping Villageu.","wa.in":"Dolazak","wa.out":"Odlazak","wa.dog":"Pas","wa.yes":"da","wa.no":"ne","wa.name":"Ime","wa.note":"Poruka","wa.thanks":"Hvala!","wa.ask":"Pozdrav! Zanimaju me druge vrste šatora u Krk Glamping Villageu."},
+sl:{"menu":"Meni","close":"Zapri","nav.book":"Rezerviraj neposredno","nav.gal":"Galerija","nav.welcome":"Dobrodošli","nav.tents":"Šotori","nav.amen":"Ponudba","nav.direct":"Zakaj neposredno","nav.near":"V bližini","nav.form":"Preveri datume","nav.faq":"Vprašanja","nav.contact":"Kontakt","ctag":"Koncept: Marija",
+"hero.label":"Brusići · otok Krk","hero.t1":"Glamping pod","hero.t2":"krškimi borovci","hero.txt":"Klimatizirani šotori, čist bazen in mirni večeri pod zvezdami. Družine, otroci in psi so dobrodošli.","hero.rating":"Ocena Google · 113 mnenj","hero.cta":"Preverite datume","finder.sub":"Poljubni datumi • 2 odrasla, 1 otrok",
+"gal.t":"Miren kotiček Krka","gal.sub":"Šotori med borovci, bazen za počasna popoldneva in večeri, ki se končajo pod zvezdami.","gal.c1":"Glamping šotori med borovci","gal.c2":"Bazen","gal.c3":"Večeri pod lučkami","gal.c4":"Psi dobrodošli","gal.c5":"Hribi Krka",
+"wel.label":"Dobrodošli","wel.t":"Pozdrav od Roberta in Edvina","wel.lead":"Za Krk Glamping Village skrbiva sama, zato vedno veste, koga poklicati.","wel.p1":"Gostje nam pogosto pripovedujejo o malenkostih: otroška posteljica, pripravljena ob prihodu, nekaj hladnega v hladilniku, pomoč, ko se je avto odločil ustaviti. Preprosto, tako rada gostiva.","wel.p2":"Brusići so miren kraj na otoku Krku, sproščeno izhodišče za dneve na plaži in večere ob šotoru.","wel.role":"Vaša gostitelja","badge.l":"Ocena Google","badge.s":"mnenj","kind.1":"Otroška posteljica na zahtevo","kind.2":"Osvežitev v hladilniku ob prihodu","kind.3":"Pomoč, ko jo potrebujete, tudi ob okvari avta",
+"tents.label":"Šotori","tents.t":"Spanje v glamping šotoru","tents.lead":"Udobje sobe, občutek kampiranja. Podrsajte za več in nas vprašajte za druge vrste šotorov.","from":"od","pernight":"na noč","cta":"Preverite datume",
+"t1.k":"Klimatizirano","t1.t":"Glamping šotor","t1.p":"Prava postelja pod platnom, klimatska naprava za tople poletne noči in borovci tik pred vhodom.","t1.l1":"Klimatska naprava","t1.l2":"Bazen v kampu","t1.l3":"Mirna lokacija",
+"t2.k":"Družine","t2.t":"Glamping z otroki","t2.p":"Otroci obožujejo spanje v šotoru. Otroška posteljica je na voljo na zahtevo, samo povejte nam ob rezervaciji.","t2.l1":"Otroška posteljica na zahtevo","t2.l2":"Družine dobrodošle","t2.l3":"Bazen za popoldneva",
+"t3.k":"Psi dobrodošli","t3.t":"Glamping s psom","t3.p":"Vaš pes je del družine, zato ga pripeljite s seboj. Samo omenite ga v povpraševanju.","t3.l1":"Psi dobrodošli","t3.l2":"Mirna okolica","t3.l3":"Izhodišče za raziskovanje otoka",
+"t4.k":"Vprašajte nas","t4.t":"Druge vrste šotorov","t4.m":"Razpoložljivost in cene na povpraševanje","t4.p":"Iščete kaj drugega? Pišite Robertu in Edvinu, povedala vam bosta, kaj je prosto za vaše datume.","t4.l1":"Odgovor na WhatsAppu","t4.l2":"Osebni nasvet","t4.cta":"Vprašajte na WhatsAppu","tents.note":"Cene, označene z XX, so primeri, vpišeta jih gostitelja.",
+"am.label":"Ponudba","am.t":"Vse za sproščeno bivanje","am.lead":"Preprosto udobje, s katerim je dopust v šotoru lahek.","am.pool":"Čist bazen","am.poolP":"Za počasna popoldneva med dnevi na plaži.","am.ac":"Klimatska naprava","am.acP":"V glamping šotorih, za sveže poletne noči.","am.fam":"Družine z otroki","am.famP":"Otroška posteljica na zahtevo.","am.dog":"Psi dobrodošli","am.dogP":"Pridite s celo družino.","am.quiet":"Mirna lokacija","am.quietP":"Borovci, ptičje petje in zvezdnate noči.","am.base":"Izhodišče za otok","am.baseP":"Plaže in mesto Krk na dosegu roke.","am.rec":"Recepcija","am.recP":"Odprta od 08:00 do 22:00.","am.park":"Parkiranje","am.parkP":"Vprašajte gostitelja.",
+"dir.label":"Neposredna rezervacija","dir.t":"Rezervirajte neposredno pri nas","dir.lead":"Najdete nas tudi na velikih platformah za rezervacije. Neposredna rezervacija je preprosto boljša za obe strani.","dir.1":"Najboljša cena","dir.1p":"Brez provizije platforme, najboljša cena je vaša.","dir.2":"Neposreden stik","dir.2p":"Pogovarjajte se z Robertom in Edvinom na WhatsAppu, pred bivanjem in med njim.","dir.3":"Prilagodljivo","dir.3p":"Datumi, čas prihoda ali posebna želja? Uredimo skupaj.","dir.cta":"Preverite datume","dir.note":"Najdete nas tudi na Bookingu in Pitchupu.",
+"gtk.label":"Dobro je vedeti","gtk.t":"Pred prihodom","gtk.in":"Prijava / odjava","gtk.inV":"Po dogovoru z gostiteljema","gtk.rec":"Recepcija","gtk.recV":"Od 08:00 do 22:00","gtk.dog":"Psi","gtk.dogV":"Dobrodošli, omenite jih v povpraševanju","gtk.baby":"Otroška posteljica","gtk.babyV":"Na zahtevo","gtk.quiet":"Nočni mir","gtk.quietV":"Zvečer velja mir, podrobnosti povesta gostitelja","gtk.park":"Parkiranje","gtk.parkV":"Vprašajte gostitelja","gtk.phone":"Telefon / WhatsApp",
+"near.label":"V bližini","near.t":"Raziščite otok","near.lead":"Brusići so dobro izhodišče za odkrivanje Krka. Vprašajte Roberta in Edvina za njuna najljubša mesta.","near.1":"Mesto Krk","near.1p":"Stare kamnite ulice, pristanišče in večerni sprehodi.","near.2":"Plaže otoka Krk","near.2p":"Zalivčki in zalivi okoli celega otoka.","near.3":"Otoške vasi","near.3p":"Majhne vasi, konobe in razgledišča, ki jih odkrijete z avtom.",
+"bk.label":"Vaše povpraševanje","bk.t":"Preverite datume","bk.lead":"Izberite datume in kdo pride. Povpraševanje se odpre v WhatsAppu, Robert ali Edvin pa vam odgovorita z razpoložljivostjo in ceno.","f.in":"Prihod","f.out":"Odhod","f.err":"Odhod mora biti po prihodu.","f.adults":"Odrasli","f.kids":"Otroci","f.dog":"Pridete s psom?","f.yes":"Da","f.no":"Ne","f.name":"Vaše ime","f.nameph":"Ime (neobvezno)","f.note":"Sporočilo","f.noteph":"Kaj naj vemo? (neobvezno)","f.submit":"Pošljite povpraševanje na WhatsApp","f.fine":"Brez plačila in brez prijave. Samo sporočilo gostiteljema.","bar.sm":"Vaše bivanje","bar.btn":"Pošlji",
+"faq.label":"Vprašanja","faq.t":"Pogosta vprašanja","q1":"Lahko pripeljemo psa?","a1":"Da, psi so dobrodošli. Samo omenite psa v povpraševanju, da se Robert in Edvin lahko pripravita.","q2":"Je primerno za družine z otroki?","a2":"Še kako. Družine z otroki so dobrodošle, otroška posteljica pa je na voljo na zahtevo.","q3":"Imajo šotori klimatsko napravo?","a3":"Da, glamping šotori so klimatizirani, zato so poletne noči prijetne.","q4":"Kdaj sta prijava in odjava?","a4":"Prijava in odjava sta po dogovoru. Recepcija je odprta od 08:00 do 22:00.","q5":"Zakaj rezervirati neposredno?","a5":"Dobite najboljšo ceno brez provizije platforme, govorite neposredno z gostiteljema in ostanete prilagodljivi. Povpraševanje gre naravnost Robertu in Edvinu na WhatsApp.","q6":"Je na voljo parkiranje?","a6":"Za parkiranje vprašajte gostitelja, ko pošljete povpraševanje.","q7":"Plačam na spletu?","a7":"Ne. Ta obrazec samo pošlje sporočilo. Gostitelja osebno potrdita razpoložljivost in ceno.",
+"ct.label":"Kontakt","ct.t":"Pridite k nam","ct.island":"Otok Krk, Hrvaška","ct.rec":"Recepcija od 08:00 do 22:00","ct.hosts":"Gostitelja: Robert in Edvin","ct.wa":"WhatsApp","ct.call":"Pokličite","ct.map":"Odpri v zemljevidih",
+"fo.tag":"Glamping na otoku Krk","fo.addr":"Naslov","fo.contact":"Kontakt","fo.rec":"Recepcija","fo.note":"Koncept spletne strani, predlog: Marija","fab":"Preveri datume",
+"js.nights":"noči","js.night":"noč","js.any":"Poljubni datumi","js.dog":"pes","js.prev":"Prejšnja","js.next":"Naslednja","wa.hello":"Pozdravljena, Robert in Edvin!","wa.want":"Zanima me bivanje v Krk Glamping Village.","wa.in":"Prihod","wa.out":"Odhod","wa.dog":"Pes","wa.yes":"da","wa.no":"ne","wa.name":"Ime","wa.note":"Sporočilo","wa.thanks":"Hvala!","wa.ask":"Pozdravljeni! Zanimajo me druge vrste šotorov v Krk Glamping Village."}
+  };
+  var EN = {};
+  $$("[data-i18n]").forEach(function(el){ var k = el.getAttribute("data-i18n"); if(!(k in EN)) EN[k] = el.innerHTML; });
+  $$("[data-i18n-ph]").forEach(function(el){ EN[el.getAttribute("data-i18n-ph")] = el.placeholder; });
+  for(var k in EN_JS) EN[k] = EN_JS[k];
+  L.en = EN;
+  var lang = "en";
+  try{ var sv = localStorage.getItem("kgv-lang"); if(sv && L[sv]) lang = sv; }catch(e){}
+  function t(k){ var v = L[lang][k]; return v != null ? v : (EN[k] != null ? EN[k] : ""); }
+
+  function applyLang(l, anim){
+    var run = function(){
+      lang = l; document.documentElement.lang = l;
+      $$("[data-i18n]").forEach(function(el){ el.innerHTML = t(el.getAttribute("data-i18n")); });
+      $$("[data-i18n-ph]").forEach(function(el){ el.placeholder = t(el.getAttribute("data-i18n-ph")); });
+      $$(".langs button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+      $$("#pkPrev,#galPrev").forEach(function(b){ b.setAttribute("aria-label", t("js.prev")); });
+      $$("#pkNext,#galNext").forEach(function(b){ b.setAttribute("aria-label", t("js.next")); });
+      $("#menuLbl").textContent = document.body.classList.contains("menu-open") ? t("close") : t("menu");
+      $("#askLink").href = WA + encodeURIComponent(t("wa.ask"));
+      updSum(true);
+      document.body.classList.remove("switching");
+      try{ localStorage.setItem("kgv-lang", l); }catch(e){}
+    };
+    if(anim && !reduce){ document.body.classList.add("switching"); setTimeout(run, 180); } else run();
+  }
+  $$(".langs button").forEach(function(b){ b.addEventListener("click", function(){ applyLang(b.dataset.lang, true); }); });
+
+  /* ---------- Watermark ---------- */
+  (function(){ var html = ""; for(var i=0;i<36;i++) html += "<span>Krk Glamping</span>"; $("#wm").innerHTML = html; })();
+
+  /* ---------- Static hero stars ---------- */
+  (function(){
+    var g = $("#svgStars"), s = "";
+    for(var i=0;i<70;i++){ var x = (Math.random()*400).toFixed(1), y = (Math.random()*380).toFixed(1), r = (Math.random()*1.1 + .3).toFixed(2); s += '<circle class="tw" cx="'+x+'" cy="'+y+'" r="'+r+'" style="animation:tw '+(2+Math.random()*3).toFixed(1)+'s ease-in-out '+(-Math.random()*3).toFixed(1)+'s infinite alternate"/>'; }
+    g.innerHTML = s;
+  })();
+
+  /* ---------- Illustrated photo fallbacks (our own SVG drawings) ---------- */
+  function starField(n, h, col){ var s = '<g fill="'+(col||"#FFF6E4")+'">'; for(var i=0;i<n;i++) s += '<circle class="tw" cx="'+(Math.random()*400).toFixed(0)+'" cy="'+(Math.random()*h).toFixed(0)+'" r="'+(Math.random()*1.3+.4).toFixed(1)+'"/>'; return s + '</g>'; }
+  var ILL = {
+    tents: function(){ return starField(28, 200) +
+      '<g color="#2E4A48"><use href="#i-hills" x="-20" y="250" width="440" height="154"/></g>' +
+      '<rect y="400" width="400" height="100" fill="#183229"/>' +
+      '<ellipse cx="200" cy="440" rx="170" ry="46" fill="url(#gGlow)"/>' +
+      '<g color="#1A3830"><use href="#i-pine" x="0" y="200" width="90" height="230"/><use href="#i-pine" x="70" y="260" width="58" height="150"/><use href="#i-pine" x="300" y="180" width="100" height="250"/><use href="#i-pine" x="270" y="270" width="50" height="130"/></g>' +
+      '<use href="#i-tent" x="105" y="300" width="190" height="152"/>' +
+      '<use href="#i-lights" x="-10" y="150" width="420" height="95"/>' +
+      '<g color="#10241C"><use href="#i-pine" x="-50" y="300" width="100" height="240"/><use href="#i-pine" x="350" y="310" width="90" height="220"/></g>'; },
+    pool: function(){ return '<circle cx="300" cy="110" r="46" fill="#E29A72" opacity=".85"/><circle cx="300" cy="110" r="70" fill="#E29A72" opacity=".15"/>' +
+      '<g color="#B9C7B5"><use href="#i-hills" x="-20" y="150" width="440" height="140"/></g>' +
+      '<rect y="270" width="400" height="230" fill="#EDE3D3"/>' +
+      '<g color="#2C5A46"><use href="#i-pine" x="-10" y="110" width="80" height="190"/><use href="#i-pine" x="50" y="160" width="50" height="130"/><use href="#i-pine" x="340" y="150" width="70" height="160"/></g>' +
+      '<use href="#i-pool" x="20" y="250" width="360" height="191"/>'; },
+    lights: function(){ return starField(60, 260) +
+      '<circle cx="320" cy="80" r="16" fill="#F6E7C9" opacity=".9"/><circle cx="326" cy="76" r="14" fill="#0E1F24"/>' +
+      '<g color="#1C3A33"><use href="#i-hills" x="-30" y="280" width="460" height="160"/></g>' +
+      '<rect y="430" width="400" height="70" fill="#14281F"/>' +
+      '<ellipse cx="230" cy="440" rx="120" ry="34" fill="url(#gGlow)"/>' +
+      '<use href="#i-tent" x="160" y="350" width="130" height="104"/>' +
+      '<use href="#i-lights" x="-30" y="110" width="460" height="104"/><use href="#i-lights" x="20" y="210" width="380" height="86" opacity=".85"/>' +
+      '<g color="#0D1F18"><use href="#i-pine" x="-20" y="250" width="110" height="260"/></g>' +
+      '<g fill="#E6F59A"><circle class="tw" cx="120" cy="400" r="2.2"/><circle class="tw" cx="300" cy="380" r="1.8"/><circle class="tw" cx="340" cy="430" r="2"/><circle class="tw" cx="200" cy="330" r="1.6"/></g>'; },
+    dog: function(){ return '<g color="#C9B596"><use href="#i-hills" x="-20" y="200" width="440" height="154"/></g>' +
+      '<g color="#2C5A46"><use href="#i-pine" x="300" y="90" width="100" height="250"/><use href="#i-pine" x="-20" y="130" width="80" height="200"/></g>' +
+      '<rect y="340" width="400" height="160" fill="#D9C7A7"/>' +
+      '<use href="#i-tent" x="40" y="150" width="280" height="224" opacity=".95"/>' +
+      '<ellipse cx="270" cy="470" rx="70" ry="8" fill="#1F4A3A" opacity=".18"/>' +
+      '<g color="#3A2E25"><use href="#i-dog" x="200" y="340" width="140" height="140"/></g>'; },
+    hills: function(){ return starField(22, 120) +
+      '<circle cx="110" cy="230" r="34" fill="#F6C79A" opacity=".9"/>' +
+      '<g color="#3E4E5C"><use href="#i-hills" x="-30" y="180" width="460" height="170"/></g>' +
+      '<g fill="none" stroke="#fff" stroke-width="1.4" opacity=".35" stroke-linecap="round"><path d="M40 380h60M160 400h90M280 372h70M80 430h50M220 450h80"/></g>' +
+      '<g color="#1F4A3A"><use href="#i-pine" x="300" y="260" width="110" height="270"/><use href="#i-pine" x="250" y="330" width="60" height="160"/></g>'; }
+  };
+  $$(".art[data-ill]").forEach(function(a){
+    var fn = ILL[a.dataset.ill]; if(!fn) return;
+    a.insertAdjacentHTML("afterbegin", '<svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + fn() + '</svg>');
+  });
+
+  /* ---------- Preloader ---------- */
+  var pre = $("#pre");
+  function start(){
+    document.body.classList.remove("locked");
+    document.body.classList.add("ready");
+    galAuto();
+    loadThree();
+  }
+  if(reduce){ pre.style.display = "none"; start(); }
+  else setTimeout(function(){ pre.classList.add("done"); setTimeout(start, 350); setTimeout(function(){ pre.style.display = "none"; }, 1300); }, 1500);
+
+  /* ---------- Header, FAB, bar, concept tag ---------- */
+  var hdr = $("#hdr"), fab = $("#fab"), hero = $("#hero"), ctag = $("#ctag"), bar = $("#bar");
+  var secVis = false, bookVis = false, isMobile = window.matchMedia("(max-width:899px)");
+  new IntersectionObserver(function(es){ bookVis = es[0].isIntersecting; ui(); }, {rootMargin:"-10% 0px -25% 0px"}).observe($("#form"));
+  new IntersectionObserver(function(es){ secVis = es[0].isIntersecting; ui(); }, {threshold:0}).observe($("#book"));
+  function ui(){
+    var y = window.scrollY, barOn = bookVis && isMobile.matches;
+    hdr.classList.toggle("scrolled", y > 40);
+    document.body.classList.toggle("bar-on", barOn);
+    bar.setAttribute("aria-hidden", barOn ? "false" : "true");
+    $("#barBtn").tabIndex = barOn ? 0 : -1;
+    fab.classList.toggle("show", y > hero.offsetHeight * .85 && !secVis && !barOn);
+    ctag.classList.toggle("off", y > hero.offsetHeight * .5);
+  }
+
+  /* ---------- Menu ---------- */
+  var menuBtn = $("#menuBtn"), menu = $("#menu");
+  function setMenu(open){
+    document.body.classList.toggle("menu-open", open);
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    menu.setAttribute("aria-hidden", open ? "false" : "true");
+    $("#menuLbl").textContent = open ? t("close") : t("menu");
+  }
+  menuBtn.addEventListener("click", function(){ setMenu(!document.body.classList.contains("menu-open")); });
+  $$("#menu a").forEach(function(a){ a.addEventListener("click", function(){ setMenu(false); }); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") setMenu(false); });
+
+  /* ---------- Swipe helper ---------- */
+  function swipe(el, fn){
+    var sx = 0, sy = 0;
+    el.addEventListener("touchstart", function(e){ sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, {passive:true});
+    el.addEventListener("touchend", function(e){
+      var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) fn(dx < 0 ? 1 : -1);
+    }, {passive:true});
+  }
+
+  /* ---------- Reveals + counters ---------- */
+  function countUp(el){
+    var to = parseFloat(el.dataset.to), dec = parseInt(el.dataset.dec || "0", 10), t0 = null;
+    if(reduce){ el.textContent = to.toFixed(dec); return; }
+    function step(ts){ if(!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 1600), e = 1 - Math.pow(1 - p, 3); el.textContent = (to * e).toFixed(dec); if(p < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); $$(".count", e.target).forEach(countUp); io.unobserve(e.target); } });
+  }, {threshold:0, rootMargin:"0px 0px -6% 0px"});
+  $$(".rv,.rv-img,.sh").forEach(function(el){ if(reduce) el.classList.add("in"); else io.observe(el); });
+
+  /* ---------- rAF: parallax ---------- */
+  var parEls = $$("[data-par]"), hpEls = $$("[data-hp]"), heroMedia = $("#heroMedia"), wm = $("#wm"), ticking = false;
+  function update(){
+    ticking = false;
+    var vh = window.innerHeight, y = window.scrollY;
+    ui();
+    if(reduce) return;
+    if(y < vh * 1.2){
+      heroMedia.style.transform = "translate3d(0," + (y * .25).toFixed(1) + "px,0)";
+      for(var hp=0; hp<hpEls.length; hp++) hpEls[hp].style.transform = "translate(0," + (-y * parseFloat(hpEls[hp].dataset.hp)).toFixed(1) + "px)";
+    }
+    for(var i=0;i<parEls.length;i++){
+      var el = parEls[i], r = el.parentNode.getBoundingClientRect();
+      if(r.bottom < -100 || r.top > vh + 100) continue;
+      el.style.transform = "translate3d(0," + (-(r.top + r.height/2 - vh/2) * parseFloat(el.dataset.par)).toFixed(1) + "px,0)";
+    }
+    var wr = wm.parentNode.getBoundingClientRect();
+    if(wr.bottom > 0 && wr.top < vh) wm.style.transform = "rotate(-12deg) translate3d(" + (wr.top * .06).toFixed(1) + "px," + (wr.top * .12).toFixed(1) + "px,0)";
+  }
+  function req(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener("scroll", req, {passive:true});
+  window.addEventListener("resize", req);
+
+  /* ---------- Tents peek carousel ---------- */
+  var peek = $("#peek"), pkBar = $("#pkBar"), cards = $$(".tcard", peek);
+  function pkStep(){ return cards[1].offsetLeft - cards[0].offsetLeft; }
+  function pkUpdate(){
+    var max = peek.scrollWidth - peek.clientWidth, ratio = peek.clientWidth / peek.scrollWidth;
+    pkBar.style.width = (ratio * 100).toFixed(1) + "%";
+    pkBar.style.transform = "translateX(" + (max > 0 ? (peek.scrollLeft / max) * ((1 / ratio) - 1) * 100 : 0).toFixed(1) + "%)";
+  }
+  peek.addEventListener("scroll", pkUpdate, {passive:true});
+  window.addEventListener("resize", pkUpdate);
+  $("#pkNext").addEventListener("click", function(){ peek.scrollBy({left:pkStep(), behavior: reduce ? "auto" : "smooth"}); });
+  $("#pkPrev").addEventListener("click", function(){ peek.scrollBy({left:-pkStep(), behavior: reduce ? "auto" : "smooth"}); });
+
+  /* ---------- Gallery carousel (autoplay, swipe, counter) ---------- */
+  var gal = $("#gal"), galTrack = $("#galTrack"), galSlides = $$(".gal__slide"), gIdx = 0, gTimer = null, galVis = false, galProg = $("#galProg");
+  function galGo(n){
+    gIdx = (n + galSlides.length) % galSlides.length;
+    galTrack.style.transform = "translate3d(" + (-gIdx * 100) + "%,0,0)";
+    galSlides.forEach(function(s,i){ s.classList.toggle("cur", i === gIdx); });
+    $("#galCount").textContent = (gIdx + 1) + "/" + galSlides.length;
+    galAuto();
+  }
+  function galAuto(){
+    clearTimeout(gTimer); galProg.classList.remove("run"); void galProg.offsetWidth;
+    if(reduce || !galVis || document.hidden) return;
+    galProg.classList.add("run");
+    gTimer = setTimeout(function(){ galGo(gIdx + 1); }, 6000);
+  }
+  new IntersectionObserver(function(es){ galVis = es[0].isIntersecting; galAuto(); }, {threshold:.35}).observe(gal);
+  document.addEventListener("visibilitychange", galAuto);
+  $("#galNext").addEventListener("click", function(){ galGo(gIdx + 1); });
+  $("#galPrev").addEventListener("click", function(){ galGo(gIdx - 1); });
+  swipe(gal, function(d){ galGo(gIdx + d); });
+
+  /* ---------- Booking request form ---------- */
+  var fIn = $("#fIn"), fOut = $("#fOut"), Q = {ad:2, ki:1}, LIM = {ad:[1,10], ki:[0,10]};
+  function iso(d){ return d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0"+d.getDate()).slice(-2); }
+  function addDays(d, n){ var x = new Date(d.getTime()); x.setDate(x.getDate() + n); return x; }
+  function parse(v){ if(!v) return null; var p = v.split("-"); return new Date(+p[0], +p[1]-1, +p[2]); }
+  function fmt(v){ var p = v.split("-"); return p[2] + "." + p[1] + "." + p[0] + "."; }
+  (function(){ var now = new Date(); fIn.min = iso(now); fOut.min = iso(addDays(now,1)); fIn.value = iso(addDays(now,14)); fOut.value = iso(addDays(now,21)); })();
+  function nights(){ var a = parse(fIn.value), b = parse(fOut.value); if(!a || !b) return 0; return Math.round((b - a) / 864e5); }
+  function sumText(){
+    var n = nights(), dog = ($("input[name=dog]:checked") || {}).value === "yes";
+    var s = n > 0 ? n + " " + (n === 1 ? t("js.night") : t("js.nights")) : t("js.any");
+    s += " · " + Q.ad + "+" + Q.ki;
+    if(dog) s += " + " + t("js.dog");
+    return s;
+  }
+  function updSum(silent){
+    var s = sumText();
+    ["#sumTxt","#barTxt"].forEach(function(id){ $(id).textContent = s; });
+    $("#qAd").textContent = Q.ad; $("#qKi").textContent = Q.ki;
+    $$(".qty button").forEach(function(b){ var k = b.dataset.q, d = +b.dataset.d; b.disabled = d < 0 ? Q[k] <= LIM[k][0] : Q[k] >= LIM[k][1]; });
+    if(!silent && !reduce){ var el = $("#sumTxt"); el.classList.remove("bump"); void el.offsetWidth; el.classList.add("bump"); }
+  }
+  function checkDates(){
+    var bad = fIn.value && fOut.value && nights() <= 0;
+    $("#dErr").classList.toggle("on", !!bad); fOut.classList.toggle("err", !!bad);
+    return !bad;
+  }
+  fIn.addEventListener("change", function(){
+    var a = parse(fIn.value);
+    if(a){ fOut.min = iso(addDays(a,1)); if(!fOut.value || nights() <= 0) fOut.value = iso(addDays(a,7)); }
+    checkDates(); updSum();
+  });
+  fOut.addEventListener("change", function(){ checkDates(); updSum(); });
+  $$(".qty button").forEach(function(b){ b.addEventListener("click", function(){ var k = b.dataset.q; Q[k] = Math.min(LIM[k][1], Math.max(LIM[k][0], Q[k] + (+b.dataset.d))); updSum(); }); });
+  $$("input[name=dog]").forEach(function(r){ r.addEventListener("change", function(){ updSum(); }); });
+  function send(){
+    if(!checkDates()){ fOut.focus(); return; }
+    var dog = ($("input[name=dog]:checked") || {}).value === "yes", name = $("#fName").value.trim(), note = $("#fNote").value.trim(), n = nights();
+    var msg = t("wa.hello") + "\n" + t("wa.want") + "\n" +
+      t("wa.in") + ": " + (fIn.value ? fmt(fIn.value) : t("js.any")) + "\n" +
+      t("wa.out") + ": " + (fOut.value ? fmt(fOut.value) : t("js.any")) + (n > 0 ? " (" + n + " " + (n === 1 ? t("js.night") : t("js.nights")) + ")" : "") + "\n" +
+      t("f.adults") + ": " + Q.ad + "\n" + t("f.kids") + ": " + Q.ki + "\n" +
+      t("wa.dog") + ": " + (dog ? t("wa.yes") : t("wa.no")) +
+      (name ? "\n" + t("wa.name") + ": " + name : "") + (note ? "\n" + t("wa.note") + ": " + note : "") + "\n" + t("wa.thanks");
+    window.open(WA + encodeURIComponent(msg), "_blank", "noopener");
+  }
+  $("#form").addEventListener("submit", function(e){ e.preventDefault(); send(); });
+  $("#barBtn").addEventListener("click", send);
+
+  /* ---------- FAQ ---------- */
+  $$(".qa button").forEach(function(b){
+    b.addEventListener("click", function(){
+      var qa = b.parentNode, open = !qa.classList.contains("open");
+      $$(".qa.open").forEach(function(x){ if(x !== qa){ x.classList.remove("open"); x.querySelector("button").setAttribute("aria-expanded","false"); } });
+      qa.classList.toggle("open", open); b.setAttribute("aria-expanded", open ? "true" : "false");
+      setTimeout(req, 650);
+    });
+  });
+
+  /* ---------- Hero: Three.js glamping evening (lazy, never blocking) ---------- */
+  var heroOn = true, gl = null, threeAsked = false;
+  new IntersectionObserver(function(es){ heroOn = es[0].isIntersecting; if(gl) gl.toggle(); }).observe(hero);
+  function canGL(){
+    try{ var c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl"))); }catch(e){ return false; }
+  }
+  function loadThree(){
+    if(threeAsked || reduce || !canGL()) return; threeAsked = true;
+    var s3 = document.createElement("script");
+    s3.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+    s3.async = true;
+    s3.onload = function(){ try{ gl = initScene(); }catch(err){ gl = null; document.body.classList.remove("gl-on"); } };
+    s3.onerror = function(){ gl = null; };
+    document.head.appendChild(s3);
+  }
+
+  function initScene(){
+    var THREE = window.THREE; if(!THREE) return null;
+    var canvas = $("#gl"), mobile = window.matchMedia("(max-width:899px)").matches || window.matchMedia("(pointer:coarse)").matches;
+    var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:!mobile, alpha:false, powerPreference:"high-performance"});
+    var PR = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2);
+    renderer.setPixelRatio(PR);
+    renderer.setClearColor(0x14262A, 1);
+    var scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0x2A3A3F, 11, 60);
+    var camera = new THREE.PerspectiveCamera(50, 1, .1, 240);
+    var uT = {value:0}, uScale = {value:400};
+    var i;
+
+    /* sky dome + stars, follow the camera */
+    var skyG = new THREE.Group(); scene.add(skyG);
+    var skyMat = new THREE.ShaderMaterial({
+      side:THREE.BackSide, depthWrite:false, fog:false,
+      uniforms:{cTop:{value:new THREE.Color(0x0A1A20)}, cMid:{value:new THREE.Color(0x2B3D4D)}, cHor:{value:new THREE.Color(0xD9875A)}},
+      vertexShader:"varying vec3 vD; void main(){ vD = normalize(position); gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }",
+      fragmentShader:[
+        "uniform vec3 cTop; uniform vec3 cMid; uniform vec3 cHor; varying vec3 vD;",
+        "void main(){ float h = vD.y;",
+        " vec3 c = mix(cHor, cMid, smoothstep(-.02,.2,h)); c = mix(c, cTop, smoothstep(.18,.62,h));",
+        " float g = pow(max(0., 1. - abs(h - .03)*5.), 2.) * smoothstep(-.4, 1., -vD.z*.7 - vD.x*.3);",
+        " c += vec3(.34,.14,.05)*g*.6; gl_FragColor = vec4(c,1.); }"
+      ].join("\n")
+    });
+    skyMat.renderOrder = -1;
+    var sky = new THREE.Mesh(new THREE.SphereGeometry(110, 32, 16), skyMat); sky.renderOrder = -2; skyG.add(sky);
+
+    var nS = mobile ? 650 : 1200, sPos = new Float32Array(nS*3), sPh = new Float32Array(nS), sSz = new Float32Array(nS);
+    for(i=0;i<nS;i++){
+      var y = .1 + Math.pow(Math.random(), .9)*.9, th = Math.random()*Math.PI*2, rr = Math.sqrt(1 - y*y);
+      sPos[i*3] = Math.cos(th)*rr*95; sPos[i*3+1] = y*95; sPos[i*3+2] = Math.sin(th)*rr*95;
+      sPh[i] = Math.random()*6.283; sSz[i] = 2.2 + Math.pow(Math.random(), 4)*3.6;
+    }
+    var sGeo = new THREE.BufferGeometry();
+    sGeo.setAttribute("position", new THREE.BufferAttribute(sPos, 3));
+    sGeo.setAttribute("aPh", new THREE.BufferAttribute(sPh, 1));
+    sGeo.setAttribute("aS", new THREE.BufferAttribute(sSz, 1));
+    var starMat = new THREE.ShaderMaterial({
+      transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, fog:false,
+      uniforms:{uT:uT, uPR:{value:PR}},
+      vertexShader:[
+        "attribute float aPh; attribute float aS; uniform float uT; uniform float uPR; varying float vA;",
+        "void main(){ vec4 mv = modelViewMatrix*vec4(position,1.);",
+        " float tw = .55 + .45*sin(uT*(.8 + fract(aPh*3.1)*2.2) + aPh*7.);",
+        " vA = (.35 + .65*tw) * smoothstep(.06, .3, normalize(position).y);",
+        " gl_PointSize = aS*uPR*(.75 + .35*tw); gl_Position = projectionMatrix*mv; }"
+      ].join("\n"),
+      fragmentShader:"varying float vA; void main(){ float d = length(gl_PointCoord - .5); float a = smoothstep(.5, 0., d); gl_FragColor = vec4(vec3(1.,.96,.88), a*vA); }"
+    });
+    var stars = new THREE.Points(sGeo, starMat); stars.renderOrder = -1; skyG.add(stars);
+
+    /* lights */
+    scene.add(new THREE.HemisphereLight(0x7F8FB0, 0x16261B, .75));
+    var dl = new THREE.DirectionalLight(0xFF9A66, .5); dl.position.set(-20, 7, -40); scene.add(dl);
+
+    /* ground */
+    var seg = mobile ? 36 : 56;
+    var gGeo = new THREE.PlaneGeometry(150, 150, seg, seg); gGeo.rotateX(-Math.PI/2);
+    var gp = gGeo.attributes.position;
+    for(i=0;i<gp.count;i++){
+      var gx = gp.getX(i), gz = gp.getZ(i), d = Math.hypot(gx, gz + 2);
+      var h = d < 10 ? 0 : (Math.sin(gx*.21) + Math.cos(gz*.17)) * .45 * Math.min(1, (d - 10)/12);
+      gp.setY(i, h + (Math.random() - .5)*.14);
+    }
+    gGeo.computeVertexNormals();
+    scene.add(new THREE.Mesh(gGeo, new THREE.MeshStandardMaterial({color:0x2A4A33, roughness:1, metalness:0, flatShading:true})));
+
+    /* Krk hills */
+    var hillMat = new THREE.MeshStandardMaterial({color:0x22392F, roughness:1, flatShading:true});
+    [[-40,-56,28,10,14],[-6,-64,32,13,14],[28,-58,26,9,12],[54,-44,22,8,12],[-62,-38,20,7,10],[10,-48,16,5,8]].forEach(function(hd){
+      var m = new THREE.Mesh(new THREE.SphereGeometry(1, 9, 5), hillMat); m.scale.set(hd[2], hd[3], hd[4]); m.position.set(hd[0], -1.5, hd[1]); scene.add(m);
+    });
+
+    /* pines (instanced low-poly cones) */
+    var trees = [], tries = 0, nT = mobile ? 34 : 60;
+    while(trees.length < nT && tries < 3000){
+      tries++;
+      var tx = (Math.random() - .5)*56, tz = -34 + Math.random()*38;
+      if(Math.abs(tx) < 6.5 && tz > -7.5 && tz < 4) continue;
+      if(tz > 1 && Math.abs(tx) < 10) continue;
+      trees.push([tx, tz, .9 + Math.random()*1]);
+    }
+    trees.push([-6.8, 1.6, 1.6], [7.4, 1.0, 1.8], [-8.6, -2.4, 1.4], [6.2, -6.8, 1.5], [-3.4, -9, 1.3], [2.2, -10.2, 1.6], [9.5, -3.5, 1.2]);
+    var treeMat = new THREE.MeshStandardMaterial({color:0x1F4535, roughness:.95, flatShading:true});
+    var trunkMat = new THREE.MeshStandardMaterial({color:0x3B2A1E, roughness:1, flatShading:true});
+    var parts = [[new THREE.ConeGeometry(1, 1.4, 7), 1.1, treeMat], [new THREE.ConeGeometry(.78, 1.2, 7), 1.75, treeMat], [new THREE.ConeGeometry(.52, 1, 7), 2.35, treeMat], [new THREE.CylinderGeometry(.07, .11, .8, 5), .4, trunkMat]];
+    var dummy = new THREE.Object3D();
+    parts.forEach(function(p){
+      var im = new THREE.InstancedMesh(p[0], p[2], trees.length);
+      trees.forEach(function(tr, k){
+        var sy = tr[2] * (1 + (k % 5)*.06);
+        dummy.position.set(tr[0], p[1]*sy, tr[1]); dummy.scale.set(tr[2], sy, tr[2]); dummy.rotation.set(0, k*1.7, 0); dummy.updateMatrix();
+        im.setMatrixAt(k, dummy.matrix);
+      });
+      scene.add(im);
+    });
+
+    /* glowing bell tents */
+    var gc = document.createElement("canvas"); gc.width = gc.height = 128;
+    var gx2 = gc.getContext("2d"), grd = gx2.createRadialGradient(64,64,0,64,64,64);
+    grd.addColorStop(0, "rgba(255,200,130,1)"); grd.addColorStop(.35, "rgba(255,160,80,.45)"); grd.addColorStop(1, "rgba(255,140,60,0)");
+    gx2.fillStyle = grd; gx2.fillRect(0,0,128,128);
+    var glowTex = new THREE.CanvasTexture(gc);
+    var doorMat = new THREE.MeshBasicMaterial({color:0xFFC27A});
+    var doorShape = new THREE.Shape(); doorShape.moveTo(-.3, 0); doorShape.lineTo(.3, 0); doorShape.lineTo(0, .72); doorShape.lineTo(-.3, 0);
+    var doorGeo = new THREE.ShapeGeometry(doorShape);
+    var wallGeo = new THREE.CylinderGeometry(1.15, 1.2, .5, 12, 1, true), roofGeo = new THREE.ConeGeometry(1.22, 1.45, 12, 1, true), poleGeo = new THREE.CylinderGeometry(.025, .025, .35, 4);
+    var poleMat = new THREE.MeshStandardMaterial({color:0x3A2A1C, roughness:1});
+    var tents = [], tentDefs = [[-3.3,-1.6,.35,1],[.5,-3.5,0,1.1],[3.8,-.9,-.4,.95],[-1.3,-8.6,.15,.9],[5.4,-7.4,-.3,.85]];
+    tentDefs.forEach(function(td, k){
+      var g = new THREE.Group();
+      var mat = new THREE.MeshStandardMaterial({color:0xEADCC2, roughness:.9, emissive:0x7A4416, emissiveIntensity:.36, flatShading:true});
+      var wall = new THREE.Mesh(wallGeo, mat); wall.position.y = .25;
+      var roof = new THREE.Mesh(roofGeo, mat); roof.position.y = .5 + .725;
+      var door = new THREE.Mesh(doorGeo, doorMat); door.position.set(0, .01, 1.21);
+      var pole = new THREE.Mesh(poleGeo, poleMat); pole.position.y = 2.05;
+      var glow = new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex, color:0xFFA65A, blending:THREE.AdditiveBlending, depthWrite:false, transparent:true, opacity:.8}));
+      glow.position.set(0, .45, 1.55); glow.scale.set(3.4, 2.4, 1);
+      g.add(wall, roof, door, pole, glow);
+      var light = null;
+      if(k < 3){ light = new THREE.PointLight(0xFFA860, 1.2, 7, 2); light.position.set(0, .6, 1.8); g.add(light); }
+      g.position.set(td[0], 0, td[1]); g.rotation.y = td[2]; g.scale.setScalar(td[3]);
+      scene.add(g);
+      tents.push({mat:mat, glow:glow, light:light, ph:Math.random()*10});
+    });
+
+    /* string lights between poles */
+    var polesDef = [[-6.2,.9,2.3],[-1.7,-.2,2.6],[2.3,-1.8,2.4],[6.2,.3,2.3],[.9,-6.4,2.5]];
+    var spans = [[0,1],[1,2],[2,3],[1,4]];
+    polesDef.forEach(function(p){ var m = new THREE.Mesh(new THREE.CylinderGeometry(.04, .055, p[2], 5), poleMat); m.position.set(p[0], p[2]/2, p[1]); scene.add(m); });
+    var bPos = [], bPh = [], wireMat = new THREE.LineBasicMaterial({color:0x0E1612, transparent:true, opacity:.7});
+    spans.forEach(function(sp){
+      var a = polesDef[sp[0]], b = polesDef[sp[1]], len = Math.hypot(b[0]-a[0], b[1]-a[1]), sag = len*.12, pts = [];
+      for(var s=0; s<=24; s++){ var u = s/24; pts.push(new THREE.Vector3(a[0] + (b[0]-a[0])*u, a[2] + (b[2]-a[2])*u - sag*4*u*(1-u), a[1] + (b[1]-a[1])*u)); }
+      scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), wireMat));
+      var nb = Math.round(len / .42);
+      for(var q=1; q<nb; q++){ var v = q/nb; bPos.push(a[0] + (b[0]-a[0])*v, a[2] + (b[2]-a[2])*v - sag*4*v*(1-v) - .07, a[1] + (b[1]-a[1])*v); bPh.push(Math.random()); }
+    });
+    var bGeo = new THREE.BufferGeometry();
+    bGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(bPos), 3));
+    bGeo.setAttribute("aPh", new THREE.BufferAttribute(new Float32Array(bPh), 1));
+    var glowFrag = [
+      "uniform vec3 uC; varying float vA;",
+      "void main(){ float d = length(gl_PointCoord - .5)*2.; if(d > 1.) discard;",
+      " float core = smoothstep(.32, .0, d); float halo = pow(1. - d, 2.)*.55;",
+      " gl_FragColor = vec4(uC*(core*1.2 + halo), (core + halo)*vA); }"
+    ].join("\n");
+    var bulbMat = new THREE.ShaderMaterial({
+      transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, fog:false,
+      uniforms:{uT:uT, uScale:uScale, uC:{value:new THREE.Color(1., .8, .48)}},
+      vertexShader:[
+        "attribute float aPh; uniform float uT; uniform float uScale; varying float vA;",
+        "void main(){ vec4 mv = modelViewMatrix*vec4(position,1.);",
+        " float tw = .62 + .38*sin(uT*(1.4 + aPh*1.6) + aPh*40.);",
+        " vA = tw; gl_PointSize = .62*uScale/-mv.z*(.8 + .25*tw); gl_Position = projectionMatrix*mv; }"
+      ].join("\n"),
+      fragmentShader:glowFrag
+    });
+    scene.add(new THREE.Points(bGeo, bulbMat));
+
+    /* fireflies */
+    var nF = mobile ? 40 : 75, fPos = new Float32Array(nF*3), fPh = new Float32Array(nF), fSeed = new Float32Array(nF*3);
+    for(i=0;i<nF;i++){
+      fPos[i*3] = (Math.random() - .5)*18; fPos[i*3+1] = .3 + Math.random()*2.2; fPos[i*3+2] = -9 + Math.random()*13;
+      fPh[i] = Math.random()*6.283; fSeed[i*3] = .6 + Math.random(); fSeed[i*3+1] = .6 + Math.random(); fSeed[i*3+2] = .6 + Math.random();
+    }
+    var fGeo = new THREE.BufferGeometry();
+    fGeo.setAttribute("position", new THREE.BufferAttribute(fPos, 3));
+    fGeo.setAttribute("aPh", new THREE.BufferAttribute(fPh, 1));
+    fGeo.setAttribute("aSeed", new THREE.BufferAttribute(fSeed, 3));
+    var ffMat = new THREE.ShaderMaterial({
+      transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, fog:false,
+      uniforms:{uT:uT, uScale:uScale, uC:{value:new THREE.Color(.86, 1., .5)}},
+      vertexShader:[
+        "attribute float aPh; attribute vec3 aSeed; uniform float uT; uniform float uScale; varying float vA;",
+        "void main(){",
+        " vec3 p = position + vec3(sin(uT*.35*aSeed.x + aPh)*.9, sin(uT*.5*aSeed.y + aPh*1.7)*.35, cos(uT*.3*aSeed.z + aPh*.6)*.9);",
+        " vec4 mv = modelViewMatrix*vec4(p,1.);",
+        " float b = pow(max(0., sin(uT*(.5 + aSeed.x*.5) + aPh*9.)), 2.);",
+        " vA = .12 + .88*b; gl_PointSize = .34*uScale/-mv.z*(.6 + .4*b); gl_Position = projectionMatrix*mv; }"
+      ].join("\n"),
+      fragmentShader:glowFrag
+    });
+    scene.add(new THREE.Points(fGeo, ffMat));
+
+    /* camera: slow drift + pointer parallax */
+    var tx2 = 0, ty2 = 0, px = 0, py = 0, portrait = false;
+    window.addEventListener("pointermove", function(e){ tx2 = e.clientX / window.innerWidth * 2 - 1; ty2 = e.clientY / window.innerHeight * 2 - 1; }, {passive:true});
+    hero.addEventListener("touchmove", function(e){ var tt = e.touches[0]; tx2 = tt.clientX / window.innerWidth * 2 - 1; ty2 = tt.clientY / window.innerHeight * 2 - 1; }, {passive:true});
+
+    function size(){
+      var w = hero.clientWidth, h = hero.clientHeight;
+      portrait = h > w;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.fov = portrait ? 62 : 48;
+      camera.updateProjectionMatrix();
+      uScale.value = h * PR / (2 * Math.tan(camera.fov * Math.PI / 360));
+    }
+    size(); window.addEventListener("resize", size);
+
+    var running = false, last = 0, clock = 0;
+    function frame(dt){
+      clock += dt; uT.value = clock;
+      px += (tx2 - px) * .04; py += (ty2 - py) * .04;
+      var sp = Math.min(1, window.scrollY / Math.max(1, hero.offsetHeight));
+      var bz = portrait ? 12 : 9.6, by = portrait ? 2.7 : 2.3, ly = portrait ? -1.1 : .45;
+      camera.position.set(Math.sin(clock*.045)*1.5 + px*.9, by + Math.sin(clock*.06)*.18 - py*.35 + sp*1.4, bz + Math.cos(clock*.035)*.7 - sp*2.2);
+      camera.lookAt(px*.35 + Math.sin(clock*.045)*.45, ly - sp*.4, -3);
+      skyG.position.copy(camera.position);
+      for(var k=0;k<tents.length;k++){
+        var o = tents[k], f = Math.sin(clock*2.3 + o.ph)*.04 + Math.sin(clock*7.1 + o.ph*2.)*.02;
+        o.mat.emissiveIntensity = .36 + f;
+        o.glow.material.opacity = .6 + f*2;
+        if(o.light) o.light.intensity = 1.2 + f*5;
+      }
+      renderer.render(scene, camera);
+    }
+    function loop(ts){
+      if(!running) return;
+      requestAnimationFrame(loop);
+      var dt = Math.min(.05, (ts - (last || ts)) / 1000); last = ts;
+      frame(dt);
+    }
+    function toggle(){
+      var want = heroOn && !document.hidden;
+      if(want && !running){ running = true; last = 0; requestAnimationFrame(loop); }
+      else if(!want) running = false;
+    }
+    document.addEventListener("visibilitychange", toggle);
+    frame(0);
+    document.body.classList.add("gl-on");
+    toggle();
+    return {toggle:toggle};
+  }
+
+  applyLang(lang, false);
+  pkUpdate();
+  update();
+})();
+</script>
+<!-- mdp: custom date picker (replaces the tiny native one) -->
+<style id="mdp-css">
+.mdp-wrap{position:relative;display:block;width:100%}
+.mdp-wrap>input[type="date"]{color:transparent!important;-webkit-text-fill-color:transparent!important;cursor:pointer;caret-color:transparent}
+.mdp-wrap>input[type="date"]::-webkit-calendar-picker-indicator{opacity:0;display:none}
+.mdp-wrap>input[type="date"]::-webkit-datetime-edit{opacity:0}
+.mdp-label{position:absolute;left:0;top:0;bottom:0;right:44px;display:flex;align-items:center;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mdp-label.ph{opacity:.55}
+.mdp-ico{position:absolute;right:14px;top:50%;width:20px;height:20px;transform:translateY(-50%);pointer-events:none;opacity:.7}
+.mdp-pop{position:absolute;left:0;top:calc(100% + 8px);z-index:200;width:min(360px,calc(100vw - 32px));background:#fff;color:#1B1B1B;border:1px solid rgba(0,0,0,.08);border-radius:20px;box-shadow:0 24px 60px -18px rgba(0,0,0,.28);padding:18px 16px 14px;font-family:inherit;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .22s,transform .22s}
+.mdp-pop.up{top:auto;bottom:calc(100% + 8px)}
+.mdp-pop.right{left:auto;right:0}
+.mdp-pop.on{opacity:1;transform:none;pointer-events:auto}
+.mdp-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 12px}
+.mdp-title{font-size:17px;font-weight:600;letter-spacing:.01em;text-transform:capitalize}
+.mdp-nav{width:40px;height:40px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:#fff;color:inherit;display:grid;place-items:center;cursor:pointer;font-size:18px;line-height:1;transition:background .2s}
+.mdp-nav:hover:not(:disabled){background:rgba(0,0,0,.05)}
+.mdp-nav:disabled{opacity:.3;cursor:default}
+.mdp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.mdp-dow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-align:center;opacity:.5;padding:4px 0 6px}
+.mdp-day{height:44px;border:0;border-radius:12px;background:transparent;color:inherit;font:inherit;font-size:16px;cursor:pointer;transition:background .15s,color .15s;font-variant-numeric:tabular-nums}
+.mdp-day:hover:not(:disabled):not(.sel){background:rgba(0,0,0,.06)}
+.mdp-day.today{box-shadow:inset 0 0 0 1px rgba(0,0,0,.35)}
+.mdp-day.inrange{background:rgba(0,0,0,.06);border-radius:0}
+.mdp-day.sel{background:var(--mdp-accent,#1B1B1B);color:#fff;font-weight:600}
+.mdp-day:disabled{opacity:.22;cursor:default;text-decoration:line-through}
+.mdp-day.sel:disabled{opacity:1;text-decoration:none}
+.mdp-day.out{visibility:hidden}
+.mdp-foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding:0 4px;font-size:13px;opacity:.65}
+.mdp-foot button{border:0;background:none;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 0}
+</style>
+<script id="mdp-js">
+(function(){
+  var TXT={hr:["Odaberite datum","Danas","Zatvoreno"],en:["Choose a date","Today","Closed"],de:["Datum wählen","Heute","Geschlossen"],it:["Scegli la data","Oggi","Chiuso"],sl:["Izberite datum","Danes","Zaprto"]};
+  function lang(){var l=(document.documentElement.lang||"en").slice(0,2).toLowerCase();return TXT[l]?l:"en";}
+  function loc(){return {hr:"hr-HR",en:"en-GB",de:"de-DE",it:"it-IT",sl:"sl-SI"}[lang()];}
+  function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+  function parse(s){if(!s)return null;var p=s.split("-");return p.length===3?new Date(+p[0],+p[1]-1,+p[2]):null;}
+  function today(){var t=new Date();return new Date(t.getFullYear(),t.getMonth(),t.getDate());}
+  function accentFor(el){
+    var f=el.closest("form")||el.closest("section")||document.body;
+    var b=f.querySelector('button[type="submit"],.pill,.btn,button');
+    var c=b?getComputedStyle(b).backgroundColor:"";
+    if(!c||c==="rgba(0, 0, 0, 0)"||c==="transparent"||/255, 255, 255/.test(c))c="#1B1B1B";
+    return c;
+  }
+  var pickers=[];
+  function closeAll(except){pickers.forEach(function(p){if(p!==except)p.close();});}
+  function Picker(input){
+    var self=this;this.input=input;var baseColor=getComputedStyle(input).color;
+    var wrap=document.createElement("span");wrap.className="mdp-wrap";
+    input.parentNode.insertBefore(wrap,input);wrap.appendChild(input);
+    input.readOnly=true;input.setAttribute("inputmode","none");input.setAttribute("autocomplete","off");
+    var label=document.createElement("span");label.className="mdp-label";wrap.appendChild(label);
+    var ico=document.createElementNS("http://www.w3.org/2000/svg","svg");ico.setAttribute("viewBox","0 0 24 24");ico.setAttribute("class","mdp-ico");ico.innerHTML='<rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 9.5h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>';wrap.appendChild(ico);
+    var pop=document.createElement("div");pop.className="mdp-pop";pop.setAttribute("role","dialog");wrap.appendChild(pop);
+    this.wrap=wrap;this.label=label;this.ico=ico;this.pop=pop;
+    var sel=parse(input.value);this.view=sel?new Date(sel.getFullYear(),sel.getMonth(),1):new Date(today().getFullYear(),today().getMonth(),1);
+    function sync(){
+      var cs=getComputedStyle(input);
+      label.style.paddingLeft=cs.paddingLeft;label.style.fontSize=cs.fontSize;label.style.fontFamily=cs.fontFamily;label.style.fontWeight=cs.fontWeight;label.style.letterSpacing=cs.letterSpacing;
+      label.style.color=baseColor;ico.style.color=baseColor;
+      var d=parse(input.value);
+      if(d){label.classList.remove("ph");label.textContent=new Intl.DateTimeFormat(loc(),(wrap.offsetWidth<260?{weekday:"short",day:"numeric",month:"short"}:{weekday:"short",day:"numeric",month:"long",year:"numeric"})).format(d);}
+      else{label.classList.add("ph");label.textContent=TXT[lang()][0];}
+    }
+    this.sync=sync;
+    input.addEventListener("change",sync);input.addEventListener("input",sync);
+    function open(e){if(e){e.preventDefault();}if(self.isOpen){self.close();return;}self.show();}
+    input.addEventListener("mousedown",function(e){e.preventDefault();open();});
+    input.addEventListener("touchend",function(e){e.preventDefault();open();});
+    input.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "||e.key==="ArrowDown"){e.preventDefault();open();}if(e.key==="Escape")self.close();});
+    input.addEventListener("click",function(e){e.preventDefault();});
+    pop.addEventListener("mousedown",function(e){e.preventDefault();});
+    new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+    pickers.push(this);sync();
+    var _desc=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");
+    Object.defineProperty(input,"value",{configurable:true,get:function(){return _desc.get.call(this);},set:function(v){_desc.set.call(this,v);sync();}});
+  }
+  Picker.prototype.show=function(){
+    closeAll(this);this.render();var pop=this.pop,wrap=this.wrap;pop.style.left="";pop.classList.remove("right");
+    var r=wrap.getBoundingClientRect();pop.classList.toggle("up",window.innerHeight-r.bottom<420&&r.top>420);
+    pop.classList.add("on");this.isOpen=true;
+    var pr=pop.getBoundingClientRect(),vw=document.documentElement.clientWidth;
+    if(pr.right>vw-12){pop.style.left=(pr.left-r.left-(pr.right-(vw-12)))+"px";}
+    pr=pop.getBoundingClientRect();if(pr.left<12){pop.style.left=(12-r.left)+"px";}
+  };
+  Picker.prototype.close=function(){this.pop.classList.remove("on");this.isOpen=false;};
+  Picker.prototype.bounds=function(){
+    var mn=parse(this.input.min)||today(),mx=parse(this.input.max);
+    if(!mx){mx=today();mx.setFullYear(mx.getFullYear()+1);}
+    var closed=(this.input.dataset.closed||"").split(",").filter(Boolean).map(Number);
+    var pair=this.pair,start=null,end=null;
+    if(pair&&pair.role==="end"){start=parse(pair.other.value);if(start&&start>=mn){mn=new Date(start);mn.setDate(mn.getDate()+1);}}
+    if(pair){var a=pair.role==="start"?this.input:pair.other,b=pair.role==="start"?pair.other:this.input;start=parse(a.value);end=parse(b.value);}
+    return {mn:mn,mx:mx,closed:closed,start:start,end:end};
+  };
+  Picker.prototype.render=function(){
+    var self=this,b=this.bounds(),L=lang(),v=this.view,pop=this.pop;
+    pop.style.setProperty("--mdp-accent",accentFor(this.input));
+    var title=new Intl.DateTimeFormat(loc(),{month:"long",year:"numeric"}).format(v);
+    var prevOk=new Date(v.getFullYear(),v.getMonth(),0)>=new Date(b.mn.getFullYear(),b.mn.getMonth(),1);
+    var nextOk=new Date(v.getFullYear(),v.getMonth()+1,1)<=b.mx;
+    var h='<div class="mdp-head"><button type="button" class="mdp-nav" data-n="-1" aria-label="prev"'+(prevOk?"":" disabled")+'>&#8249;</button><div class="mdp-title">'+title+'</div><button type="button" class="mdp-nav" data-n="1" aria-label="next"'+(nextOk?"":" disabled")+'>&#8250;</button></div><div class="mdp-grid">';
+    var base=new Date(2024,0,1);/* Monday */
+    for(var i=0;i<7;i++){var dd=new Date(base);dd.setDate(1+i);h+='<div class="mdp-dow">'+new Intl.DateTimeFormat(loc(),{weekday:"short"}).format(dd).replace(".","").slice(0,3)+'</div>';}
+    var first=(new Date(v.getFullYear(),v.getMonth(),1).getDay()+6)%7,days=new Date(v.getFullYear(),v.getMonth()+1,0).getDate();
+    var sel=parse(this.input.value),t=today();
+    for(i=0;i<first;i++)h+='<button type="button" class="mdp-day out" disabled tabindex="-1"></button>';
+    for(var d=1;d<=days;d++){
+      var dt=new Date(v.getFullYear(),v.getMonth(),d),dis=dt<b.mn||dt>b.mx||b.closed.indexOf(dt.getDay())>-1;
+      var c="mdp-day";if(+dt===+t)c+=" today";if(sel&&+dt===+sel)c+=" sel";
+      if(b.start&&b.end&&dt>b.start&&dt<b.end)c+=" inrange";if((b.start&&+dt===+b.start)||(b.end&&+dt===+b.end))c+=" sel";
+      h+='<button type="button" class="'+c+'" data-d="'+iso(dt)+'"'+(dis?' disabled title="'+(b.closed.indexOf(dt.getDay())>-1?TXT[L][2]:"")+'"':"")+'>'+d+'</button>';
+    }
+    h+='</div><div class="mdp-foot"><span>'+(b.closed.length?TXT[L][2]+": "+b.closed.map(function(n){var x=new Date(base);x.setDate(1+((n+6)%7));return new Intl.DateTimeFormat(loc(),{weekday:"short"}).format(x);}).join(", "):"")+'</span>'+((t>=b.mn&&b.closed.indexOf(t.getDay())<0)?'<button type="button" data-today>'+TXT[L][1]+'</button>':"")+'</div>';
+    pop.innerHTML=h;
+    pop.querySelectorAll(".mdp-nav").forEach(function(n){n.onclick=function(){self.view=new Date(v.getFullYear(),v.getMonth()+(+n.dataset.n),1);self.render();};});
+    pop.querySelectorAll(".mdp-day[data-d]:not(:disabled)").forEach(function(n){n.onclick=function(){self.pick(n.dataset.d);};});
+    var tb=pop.querySelector("[data-today]");if(tb)tb.onclick=function(){self.pick(iso(t));};
+  };
+  Picker.prototype.pick=function(val){
+    var inp=this.input;inp.value=val;
+    inp.dispatchEvent(new Event("input",{bubbles:true}));inp.dispatchEvent(new Event("change",{bubbles:true}));
+    this.close();
+    if(this.pair&&this.pair.role==="start"){var o=this.pair.other,s=parse(val),e=parse(o.value);
+      if(!e||e<=s){var n=new Date(s);n.setDate(n.getDate()+7);o.value=iso(n);o.dispatchEvent(new Event("input",{bubbles:true}));o.dispatchEvent(new Event("change",{bubbles:true}));}
+      var op=pickers.filter(function(p){return p.input===o;})[0];if(op){op.view=new Date(s.getFullYear(),s.getMonth(),1);setTimeout(function(){op.input.dispatchEvent(new Event("mdp-open"));},250);}}
+  };
+  function init(){
+    var ins=[].slice.call(document.querySelectorAll('input[type="date"]'));
+    ins.forEach(function(i){if(!i.closest(".mdp-wrap"))new Picker(i);});
+    var forms={};pickers.forEach(function(p){var f=p.input.form||p.input.closest("section");var k=f?(f.id||[].indexOf.call(document.querySelectorAll("form,section"),f)):"x";(forms[k]=forms[k]||[]).push(p);});
+    Object.keys(forms).forEach(function(k){var g=forms[k];if(g.length===2){g[0].pair={role:"start",other:g[1].input};g[1].pair={role:"end",other:g[0].input};
+      g[1].input.addEventListener("mdp-open",function(){if(!g[1].isOpen)g[1].show();});}});
+    document.addEventListener("mousedown",function(e){if(!e.target.closest(".mdp-wrap"))closeAll();});
+    document.addEventListener("touchstart",function(e){if(!e.target.closest(".mdp-wrap"))closeAll();},{passive:true});
+    document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAll();});
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})();
+</script>
+</body>
+</html>

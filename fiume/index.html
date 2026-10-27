@@ -1,0 +1,2275 @@
+<!DOCTYPE html>
+<!--
+  KONOBA FIUME / landing page proposal mockup
+  Koncept: Marija
+
+  Photo slots (optional). Drop real photos into ./img/ with these names.
+  Until then every slot shows a hand-drawn inline SVG illustration as its fallback:
+    img/hero.jpg       gallery slide 1 (sea / exterior mood)
+    img/interior.jpg   stone walls and brick arches (story, gallery, reservation)
+    img/fish.jpg       fresh catch (gallery)
+    img/calamari.jpg   grilled calamari (gallery, menu card)
+    img/market.jpg     Ribarnica, the fish market (gallery)
+
+  External: Google Fonts, plus three.js r128 from cdnjs for the 3D hero
+  (loaded on demand, static SVG scene is used without WebGL or with reduced motion).
+-->
+<html lang="hr" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Konoba Fiume · Rijeka</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Konoba Fiume · Rijeka">
+<meta property="og:description" content="Konoba Fiume, obiteljska riblja konoba uz riječku ribarnicu. Ulov dana na ploči. Ul. Vatroslava Lisinskog 12, Rijeka.">
+<meta property="og:url" content="https://tararova.com/fiume/">
+<meta property="og:image" content="https://tararova.com/fiume/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="description" content="Konoba Fiume, obiteljska riblja konoba uz riječku ribarnicu. Ulov dana na ploči. Ul. Vatroslava Lisinskog 12, Rijeka.">
+<meta name="theme-color" content="#0F1A22">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Figtree:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.replace('no-js','js');</script>
+<style>
+:root{
+  --ink:#0F1A22; --ink-2:#16303F; --black:#0B0B0B; --tag:#111;
+  --linen:#F1EAE6; --linen-2:#E7DDD5; --white:#FFFFFF; --text:#1B1B1B; --muted:#5E5854;
+  --brass:#B08D57; --brass-2:#C9A872; --terra:#B5583B; --teal:#0E7C66; --teal-2:#0B6655;
+  --chip:#DADADA; --line:rgba(27,27,27,.14); --line-l:rgba(255,255,255,.18);
+  --serif:"Fraunces", Georgia, "Times New Roman", serif;
+  --sans:"Figtree", "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --hand:"Caveat", "Bradley Hand", cursive;
+  --script:"Mrs Saint Delafield", cursive;
+  --g:20px; --hh:64px; --sh:50px; --max:1240px; --r:36px;
+  --ease:cubic-bezier(.22,.8,.2,1); --ease-io:cubic-bezier(.77,0,.18,1);
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--text);font-family:var(--sans);font-weight:400;font-size:17px;line-height:1.6;overflow-x:hidden;overflow-x:clip;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+::selection{background:var(--brass);color:var(--ink)}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--g);position:relative;z-index:1}
+.label{font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+
+/* ============ PRELOADER ============ */
+#pre{position:fixed;inset:0;z-index:300;background:var(--ink);display:grid;place-items:center;color:#fff;animation:lift 1s var(--ease-io) 1.5s forwards}
+#pre .word{display:flex;gap:.22em;font-family:var(--serif);font-weight:300;font-size:46px;letter-spacing:.08em;justify-content:center}
+#pre .word span{display:inline-block;overflow:hidden;line-height:1.15}
+#pre .word i{display:inline-block;font-style:normal;transform:translateY(110%);animation:up .7s var(--ease) forwards;animation-delay:calc(.3s + var(--d) * .08s)}
+#pre .bar{width:120px;height:1px;background:var(--brass);margin:16px auto 0;transform:scaleX(0);transform-origin:left;animation:draw 1s var(--ease) .1s forwards}
+#pre .sub{margin-top:14px;text-align:center;opacity:0;color:var(--brass-2);animation:fade .6s ease .8s forwards}
+@keyframes lift{to{transform:translateY(-100%);visibility:hidden}}
+@keyframes up{to{transform:none}}
+@keyframes draw{to{transform:scaleX(1)}}
+@keyframes fade{to{opacity:1}}
+
+/* ============ HEADER ============ */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:80;height:var(--hh);color:#fff;transition:background .45s var(--ease),color .45s var(--ease),box-shadow .45s}
+.hdr .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hdr.solid{background:#fff;color:var(--text);box-shadow:0 2px 18px rgba(0,0,0,.07)}
+.logo{display:flex;flex-direction:column;line-height:1}
+.logo small{font-size:9px;letter-spacing:.42em;text-transform:uppercase;opacity:.75;margin-bottom:5px;font-weight:500}
+.logo b{font-family:var(--serif);font-weight:400;font-size:25px;letter-spacing:.02em}
+.hdr-r{display:flex;align-items:center;gap:10px}
+.langs{position:relative;display:flex;gap:2px}
+.langs button{font-size:12px;font-weight:500;letter-spacing:.12em;padding:9px 7px;opacity:.6;transition:opacity .3s;position:relative}
+.langs button::after{content:"";position:absolute;left:7px;right:7px;bottom:4px;height:1px;background:currentColor;transform:scaleX(0);transition:transform .4s var(--ease)}
+.langs button[aria-pressed="true"]{opacity:1}
+.langs button[aria-pressed="true"]::after{transform:scaleX(1)}
+.menu-btn{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.16em;padding:10px 0 10px 6px}
+.burger{width:22px;height:14px;position:relative;display:inline-block}
+.burger i{position:absolute;left:0;right:0;height:1.5px;background:currentColor;transition:transform .45s var(--ease),opacity .3s,top .45s var(--ease)}
+.burger i:nth-child(1){top:0}.burger i:nth-child(2){top:6px}.burger i:nth-child(3){top:12px}
+.menu-open .burger i:nth-child(1){top:6px;transform:rotate(45deg)}
+.menu-open .burger i:nth-child(2){opacity:0}
+.menu-open .burger i:nth-child(3){top:6px;transform:rotate(-45deg)}
+.menu-open .hdr{color:#fff;background:transparent;box-shadow:none}
+.hdr-book{display:none!important}
+/* mobile language popover */
+@media (max-width:759px){
+  .hdr .langs button:not([aria-pressed="true"]){display:none}
+  .hdr .langs.open{flex-direction:column;position:absolute;top:2px;right:-6px;background:#fff;color:var(--text);border-radius:4px;box-shadow:0 12px 40px rgba(0,0,0,.14);padding:4px}
+  .hdr .langs.open button{display:block;opacity:.7}
+  .hdr .langs.open button[aria-pressed="true"]{opacity:1}
+  .hdr .langs.open::before{content:"";width:44px;height:0}
+}
+
+/* overlay menu */
+.ovl{position:fixed;inset:0;z-index:75;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:calc(var(--hh) + 28px) var(--g) calc(28px + env(safe-area-inset-bottom));clip-path:inset(0 0 100% 0);transition:clip-path .8s var(--ease-io);visibility:hidden}
+.menu-open .ovl{clip-path:inset(0 0 0 0);visibility:visible}
+.ovl ol{list-style:none;margin:0;padding:0}
+.ovl li{overflow:hidden;border-bottom:1px solid var(--line-l)}
+.ovl ol a{display:flex;align-items:baseline;gap:16px;padding:14px 0;font-family:var(--serif);font-size:32px;line-height:1.15;transform:translateY(105%);transition:transform .8s var(--ease)}
+.ovl ol a small{font-family:var(--sans);font-size:12px;letter-spacing:.2em;color:var(--brass-2)}
+.menu-open .ovl ol a{transform:none;transition-delay:calc(.25s + var(--i) * .06s)}
+.ovl-foot{display:grid;gap:18px;opacity:0;transform:translateY(12px);transition:opacity .6s .55s,transform .6s var(--ease) .55s}
+.menu-open .ovl-foot{opacity:1;transform:none}
+.ovl .langs button{opacity:.55;font-size:13px;padding:10px 12px 10px 0}
+.ovl .langs button::after{left:0;right:12px}
+.ovl-contact{font-size:15px;color:rgba(255,255,255,.75);display:flex;flex-wrap:wrap;gap:6px 18px}
+.menu-open{overflow:hidden}
+
+/* ============ BUTTONS / LINKS ============ */
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:0 30px;border-radius:999px;font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:.02em;position:relative;overflow:hidden;isolation:isolate;transition:color .45s var(--ease),background .45s var(--ease),border-color .45s,transform .3s}
+.pill::before{content:"";position:absolute;inset:0;border-radius:inherit;transform:translateY(101%);transition:transform .5s var(--ease);z-index:-1}
+.pill:hover::before,.pill:focus-visible::before{transform:none}
+.pill:active{transform:scale(.98)}
+.pill-dark{background:var(--ink);color:#fff}
+.pill-dark::before{background:var(--teal)}
+.pill-linen{background:var(--linen);color:var(--text)}
+.pill-linen::before{background:#fff}
+.pill-grey{background:#E8E8E8;color:var(--text);width:100%}
+.pill-grey::before{background:#fff}
+.pill-outline{border:1px solid currentColor;color:#fff}
+.pill-outline::before{background:#fff}
+.pill-outline:hover,.pill-outline:focus-visible{color:var(--teal)}
+.pill .arr{width:16px;height:1px;background:currentColor;position:relative;transition:width .4s var(--ease)}
+.pill .arr::after{content:"";position:absolute;right:0;top:-3px;width:7px;height:7px;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:rotate(45deg)}
+.pill:hover .arr{width:24px}
+.ulink{display:inline-block;font-weight:500;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px;transition:text-underline-offset .3s,color .3s}
+.ulink:hover{text-underline-offset:8px}
+.alink{position:relative;display:inline-block}
+.alink::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;transform-origin:right;transform:scaleX(0);transition:transform .5s var(--ease)}
+.alink:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* ============ PHOTO SLOTS / ILLUSTRATION ============ */
+.ph{position:relative;overflow:hidden;border-radius:var(--r);background:var(--ink);margin:0;isolation:isolate}
+.ph .layer{position:absolute;left:0;right:0;top:-10%;bottom:-10%;will-change:transform}
+.ph svg.sc,.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.tag{position:absolute;z-index:3;top:28px;right:0;background:var(--tag);color:#fff;font-size:15px;line-height:1.2;padding:10px 14px 10px 14px;border-radius:8px 0 0 8px;display:inline-flex;align-items:center;gap:8px;max-width:80%}
+.tag svg{width:14px;height:14px;flex:none}
+a.tag:hover{background:#000}
+.deco{position:absolute;pointer-events:none;z-index:0;will-change:transform}
+.deco svg{display:block;width:100%;height:auto;overflow:visible}
+
+/* ============ HERO ============ */
+.hero{position:relative;height:100vh;height:100svh;min-height:620px;overflow:hidden;color:#fff;background:radial-gradient(120% 70% at 50% -10%,#2a6f8f 0%,#12405a 35%,#0a2638 65%,#061723 100%);touch-action:pan-y}
+.hero-static{position:absolute;inset:-6% 0 -6% 0;will-change:transform;transition:opacity 1.6s ease}
+.hero-static>svg{position:absolute;inset:0;width:100%;height:100%}
+.hero-static .swim{position:absolute;left:0;top:0;width:100%;height:100%}
+.swim g{animation:swim var(--t,26s) linear infinite;animation-delay:var(--dl,0s)}
+@keyframes swim{from{transform:translateX(-30%)}to{transform:translateX(130%)}}
+#gl{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.8s ease;display:block}
+.gl-on #gl{opacity:1}
+.gl-on .hero-static{opacity:0}
+.hero-shade{position:absolute;inset:0;z-index:2;pointer-events:none;background:
+  linear-gradient(90deg,rgba(4,14,22,.78) 0%,rgba(4,14,22,.35) 45%,rgba(4,14,22,0) 75%),
+  linear-gradient(0deg,rgba(4,14,22,.9) 0%,rgba(4,14,22,.4) 38%,rgba(4,14,22,0) 62%),
+  linear-gradient(180deg,rgba(4,14,22,.45) 0%,rgba(4,14,22,0) 22%)}
+.spill{position:absolute;z-index:4;top:calc(var(--hh) + 10px);left:var(--g);right:var(--g);max-width:460px;display:flex;align-items:center;gap:14px;background:#fff;color:var(--text);border:1px solid #CFCFCF;border-radius:999px;padding:10px 12px 10px 18px;box-shadow:0 10px 30px rgba(0,0,0,.12);transition:transform .4s var(--ease),box-shadow .4s}
+.spill:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(0,0,0,.16)}
+.spill .ic{width:22px;height:22px;flex:none;color:var(--ink)}
+.spill .tx{flex:1;min-width:0;line-height:1.25}
+.spill b{display:block;font-weight:600;font-size:15px}
+.spill span{display:block;font-size:13.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.spill .go{width:38px;height:38px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;flex:none}
+.spill .go svg{width:14px;height:14px}
+.hero-c{position:absolute;z-index:3;left:0;right:0;bottom:74px}
+.eyebrow{color:rgba(255,255,255,.85);display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--brass-2)}
+.h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,8.4vw,104px);line-height:1.04;letter-spacing:-.01em;margin:14px 0 0}
+.h1 .ln{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.h1 .ln>span{display:inline-block}
+.addr{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:15px;color:#fff;text-decoration:underline;text-underline-offset:5px;text-decoration-color:rgba(255,255,255,.4);transition:text-decoration-color .3s}
+.addr:hover{text-decoration-color:#fff}
+.addr svg{width:16px;height:16px;flex:none}
+.hero .lead{font-size:17px;line-height:1.55;max-width:34ch;margin:16px 0 0;color:rgba(255,255,255,.88)}
+.hero .ctas{margin-top:24px;display:grid;gap:14px;justify-items:start;max-width:420px}
+.hero .ctas .pill{width:100%}
+.hero .ulink{color:#fff;font-size:15px}
+.hint{display:none;align-items:center;gap:10px;margin-top:18px;font-size:12.5px;color:rgba(255,255,255,.6)}
+.gl-on .hint{display:flex}
+.hint i{width:7px;height:7px;border-radius:50%;background:var(--brass-2);box-shadow:0 0 0 0 rgba(201,168,114,.6);animation:hint 2.2s infinite}
+@keyframes hint{70%{box-shadow:0 0 0 10px rgba(201,168,114,0)}100%{box-shadow:0 0 0 0 rgba(201,168,114,0)}}
+.wave{position:absolute;z-index:4;left:0;right:0;bottom:-1px;width:100%;height:46px;display:block;pointer-events:none}
+.js .hero .rv-h{opacity:0;transform:translateY(18px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.js .h1 .ln>span{transform:translateY(105%);transition:transform 1.2s var(--ease)}
+.js.ready .hero .rv-h{opacity:1;transform:none}
+.js.ready .h1 .ln>span{transform:none}
+.js.ready .h1 .ln:nth-child(2)>span{transition-delay:.12s}
+.js.ready .hero .d1{transition-delay:.3s}.js.ready .hero .d2{transition-delay:.45s}.js.ready .hero .d3{transition-delay:.6s}.js.ready .hero .d4{transition-delay:.75s}
+
+/* ============ SUB NAV ============ */
+.subnav{position:sticky;top:var(--hh);z-index:60;height:var(--sh);background:#fff;border-bottom:1px solid var(--line)}
+.subnav ul{list-style:none;margin:0 auto;max-width:var(--max);padding:0 var(--g);height:100%;display:flex;gap:24px;overflow-x:auto;scrollbar-width:none;position:relative}
+.subnav ul::-webkit-scrollbar{display:none}
+.subnav li{flex:none;display:flex}
+.subnav a{display:flex;align-items:center;font-size:14px;font-weight:500;color:var(--muted);transition:color .35s;white-space:nowrap}
+.subnav a.on{color:var(--text)}
+.subnav .ind{position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--ink);transition:transform .5s var(--ease),width .5s var(--ease)}
+
+/* ============ SECTIONS ============ */
+section[id]{scroll-margin-top:calc(var(--hh) + var(--sh) - 1px)}
+.sec{position:relative;padding:84px 0;overflow:hidden}
+.linen{background:var(--linen)}
+.white{background:#fff}
+.ink{background:var(--ink);color:#fff}
+.black{background:var(--black);color:#fff}
+.teal{background:var(--teal);color:#fff}
+.shead{position:relative;padding-bottom:22px;margin-bottom:36px}
+.shead::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line);transform-origin:left}
+.ink .shead::after,.teal .shead::after,.black .shead::after{background:var(--line-l)}
+.js .shead::after{transform:scaleX(0);transition:transform 1.4s var(--ease) .2s}
+.js .shead.in::after{transform:scaleX(1)}
+.kick{display:flex;align-items:center;gap:12px;color:var(--muted)}
+.kick b{font-family:var(--serif);font-style:italic;font-weight:400;font-size:17px;letter-spacing:0;text-transform:none;color:var(--brass)}
+.ink .kick,.teal .kick,.black .kick{color:rgba(255,255,255,.7)}
+.teal .kick b{color:#fff}
+.h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,58px);line-height:1.15;letter-spacing:-.005em;margin:14px 0 0}
+.h2 em{font-style:italic;font-weight:300}
+.intro{color:var(--muted);max-width:56ch;margin:16px 0 0}
+.ink .intro,.teal .intro,.black .intro{color:rgba(255,255,255,.75)}
+.js .rv{opacity:0;transform:translateY(26px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease);transition-delay:calc(var(--i,0) * 90ms)}
+.js .rv.in{opacity:1;transform:none}
+.js .unveil{clip-path:inset(100% 0 0 0 round var(--r));transition:clip-path 1.5s var(--ease-io)}
+.js .unveil.in{clip-path:inset(0 0 0 0 round var(--r))}
+.js .unveil .layer>*{transition:transform 1.8s var(--ease)}
+.js .unveil:not(.in) .layer>*{transform:scale(1.15)}
+
+/* ============ STORY ============ */
+.story-grid{display:grid;gap:44px}
+.story-txt p{margin:18px 0 0;max-width:54ch}
+.story-txt p.big{font-family:var(--serif);font-size:23px;line-height:1.4;color:var(--text)}
+.story-img .ph{aspect-ratio:4/5}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:36px;border-top:1px solid var(--line)}
+.stats div{padding:18px 8px 0 0}
+.stats div+div{padding-left:12px;border-left:1px solid var(--line)}
+.stats b{display:block;font-family:var(--serif);font-weight:400;font-size:30px;line-height:1}
+.stats span{display:block;margin-top:8px;font-size:12px;color:var(--muted);line-height:1.4}
+
+/* good to know */
+.know{display:grid;gap:56px}
+.know h3{font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.15;margin:0 0 18px}
+.gtk{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.gtk li{display:grid;grid-template-columns:30px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.gtk svg{width:24px;height:24px;color:var(--ink);margin-top:2px}
+.gtk .k{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.gtk .v{margin-top:2px}
+.near{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.near li{display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.near .ic{width:44px;height:44px;border-radius:50%;background:var(--linen);display:grid;place-items:center;flex:none}
+.near .ic svg{width:22px;height:22px}
+.near .nm{flex:1;font-weight:500;line-height:1.3}
+.near .nm small{display:block;font-weight:400;font-size:14.5px;color:var(--muted);margin-top:2px}
+.near .d{flex:none;font-size:13px;color:var(--teal);font-weight:500;text-align:right}
+
+/* ============ GALLERY (near black) ============ */
+.gal{text-align:center}
+.gal .h2{margin-top:10px}
+.gal .intro{margin:14px auto 0}
+.car{position:relative;margin-top:44px;border-radius:var(--r) var(--r) 0 0;overflow:hidden;aspect-ratio:4/5;background:#111;touch-action:pan-y;text-align:left}
+.car .sl{position:absolute;inset:0;opacity:0;transition:opacity 1.2s var(--ease);visibility:hidden}
+.car .sl.on{opacity:1;visibility:visible;z-index:1}
+.car .sl .ph{position:absolute;inset:0;border-radius:0}
+.car .sl .layer{top:0;bottom:0;transform:scale(1.12)}
+.car .sl.on .layer{animation:kb 9s ease-out forwards}
+@keyframes kb{from{transform:scale(1.14)}to{transform:scale(1.02)}}
+.car .tag{z-index:4;top:24px}
+.car .tag span{display:inline-block;transition:opacity .35s,transform .35s var(--ease)}
+.car .tag.sw span{opacity:0;transform:translateY(5px)}
+.car .arw{position:absolute;z-index:4;top:50%;width:46px;height:46px;margin-top:-23px;background:#000;color:#fff;display:grid;place-items:center;transition:background .3s}
+.car .arw:hover{background:#222}
+.car .arw svg{width:16px;height:16px}
+.car .prev{left:0}.car .next{right:0}
+.car .cnt{position:absolute;z-index:4;right:0;bottom:0;background:#000;color:#fff;font-size:14px;font-weight:500;letter-spacing:.08em;padding:10px 16px;min-width:64px;text-align:center}
+.car .bar{position:absolute;z-index:4;left:0;bottom:0;right:64px;height:2px;background:rgba(255,255,255,.15)}
+.car .bar i{position:absolute;inset:0;background:#fff;transform-origin:left;transform:scaleX(0)}
+
+/* ============ BOARD ============ */
+.board-sec .netbg{position:absolute;inset:-10% 0;opacity:.18;z-index:0}
+.board-grid{display:grid;gap:44px}
+.frame{position:relative;padding:12px;border-radius:4px;background:linear-gradient(135deg,#6b4a2e 0%,#3e2817 30%,#5d3f26 55%,#2d1d10 100%);box-shadow:0 40px 80px -40px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,220,170,.12)}
+.frame::after{content:"";position:absolute;left:14%;right:14%;bottom:-10px;height:12px;border-radius:0 0 3px 3px;background:linear-gradient(180deg,#5d3f26,#2d1d10)}
+.chalk-piece{position:absolute;z-index:2;bottom:-8px;right:22%;width:34px;height:8px;border-radius:2px;background:linear-gradient(180deg,#fbf8f2,#d8d2c6);transform:rotate(-4deg)}
+.board{position:relative;overflow:hidden;padding:28px 22px 34px;min-height:440px;background:
+  radial-gradient(ellipse 40% 30% at 22% 28%,rgba(255,255,255,.07),transparent 70%),
+  radial-gradient(ellipse 45% 35% at 78% 72%,rgba(255,255,255,.06),transparent 70%),
+  radial-gradient(ellipse 30% 20% at 60% 12%,rgba(255,255,255,.05),transparent 70%),
+  linear-gradient(160deg,#26332f 0%,#1d2826 60%,#18211f 100%);color:rgba(247,244,237,.93);font-family:var(--hand)}
+.board::before{content:"";position:absolute;inset:0;background:var(--grain);opacity:.18;mix-blend-mode:screen;pointer-events:none}
+.board::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.035) 34%,transparent 40%),linear-gradient(100deg,transparent 58%,rgba(255,255,255,.03) 62%,transparent 70%)}
+.board .bi{position:relative;z-index:1;filter:url(#chalky)}
+.bh{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;border-bottom:2px dashed rgba(247,244,237,.35);padding-bottom:10px}
+.bh .t{font-size:52px;font-weight:600;line-height:.9}
+.bh .dt{font-size:20px;opacity:.8;text-align:right;line-height:1.1}
+.bl{list-style:none;margin:14px 0 0;padding:0}
+.bl li{display:flex;align-items:baseline;gap:8px;font-size:27px;line-height:1.2;padding:6px 0}
+.bl .dots{flex:1;border-bottom:2px dotted rgba(247,244,237,.35);transform:translateY(-6px);min-width:16px}
+.bl .pr{flex:none;font-size:24px;color:#f1d9a6}
+.bl small{display:block;font-size:19px;opacity:.7;line-height:1.1}
+.bf{margin-top:16px;font-size:26px;color:#f3c3b0;transform:rotate(-2deg);display:inline-block}
+.bf u{text-decoration:none;border-bottom:2px solid rgba(243,195,176,.6)}
+.doodle{position:absolute;right:18px;bottom:18px;width:96px;height:48px;z-index:1;color:rgba(247,244,237,.6)}
+.js .chalk-w{clip-path:inset(-10px 100% -10px 0);transition:clip-path .9s cubic-bezier(.45,.05,.4,1);transition-delay:calc(.25s + var(--i,0) * .32s)}
+.js .board.in .chalk-w{clip-path:inset(-10px -20px -10px 0)}
+.js .doodle path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s ease 2.6s}
+.js .board.in .doodle path{stroke-dashoffset:0}
+.board-side .note{font-size:14px;color:rgba(255,255,255,.5);margin-top:22px;border-left:1px solid var(--brass);padding-left:12px}
+.board-side .pill{margin-top:28px}
+
+/* ============ MENU (peek carousel) ============ */
+.mtop{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.tabs{position:relative;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--g) * -1);padding:2px var(--g) 4px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;padding:10px 18px;border-radius:999px;border:1px solid rgba(27,27,27,.22);font-size:15px;font-weight:500;color:var(--text);transition:background .4s var(--ease),color .4s,border-color .4s;white-space:nowrap}
+.tabs button:hover{border-color:var(--text)}
+.tabs button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.cnav{display:none;gap:8px}
+.cnav button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(27,27,27,.25);display:grid;place-items:center;transition:background .3s,color .3s,border-color .3s}
+.cnav button:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cnav svg{width:15px;height:15px}
+.cards{list-style:none;margin:28px calc(var(--g) * -1) 0;padding:0 var(--g) 6px;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--g);scrollbar-width:none;overscroll-behavior-x:contain}
+.cards::-webkit-scrollbar{display:none}
+.card{flex:0 0 82%;scroll-snap-align:start;opacity:0;transform:translateX(40px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--i) * 70ms)}
+.cards.show .card{opacity:1;transform:none}
+.cards.out .card{opacity:0;transform:translateX(-24px);transition-duration:.3s;transition-delay:calc(var(--i) * 30ms)}
+.card .ph{aspect-ratio:4/5;background:var(--bg,#16303f)}
+.card .ph .layer{top:0;bottom:0;transition:transform 1.2s var(--ease)}
+.card:hover .ph .layer{transform:scale(1.04)}
+.card h3{font-family:var(--sans);font-weight:500;font-size:22px;line-height:1.25;margin:18px 0 0}
+.card p{margin:6px 0 0;color:var(--muted);font-size:16px}
+.bul{margin:10px 0 0;padding-left:18px;font-size:15.5px}
+.bul li{margin:2px 0}
+.bul li::marker{color:var(--brass)}
+.crow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.crow .pr{font-family:var(--serif);font-size:19px}
+.cprog{margin-top:26px;height:2px;background:rgba(27,27,27,.12);position:relative;overflow:hidden;border-radius:2px}
+.cprog i{position:absolute;top:0;bottom:0;left:0;width:30%;background:var(--ink);border-radius:2px;transition:width .3s}
+.menu-note{font-size:14px;color:var(--muted);margin-top:18px}
+
+/* ============ SPOTLIGHT (pale tint, inset panel) ============ */
+.spot-sec{background:#F8F4F1}
+.panel{background:#fff;border-radius:20px;padding:28px 20px 32px;display:grid;gap:32px;border:1px solid rgba(27,27,27,.06);box-shadow:0 30px 80px -50px rgba(15,26,34,.25)}
+.panel .ph{aspect-ratio:4/3}
+.nlist{list-style:none;margin:24px 0 0;padding:0;counter-reset:n}
+.nlist li{display:grid;grid-template-columns:52px 1fr;gap:14px;padding:16px 0;border-top:1px solid var(--line);counter-increment:n}
+.nlist li::before{content:"0" counter(n);font-family:var(--serif);font-size:30px;line-height:1;color:var(--brass);font-weight:300}
+.nlist b{display:block;font-weight:600}
+.nlist span{color:var(--muted);font-size:16px}
+
+/* ============ STEPS (teal band) ============ */
+.wm{position:absolute;inset:-20% -10%;z-index:0;pointer-events:none;font-family:var(--script);color:#fff;opacity:.06;font-size:118px;line-height:1.05;white-space:nowrap;transform:rotate(-8deg)}
+.wm div:nth-child(even){padding-left:140px}
+.steps{position:relative;list-style:none;margin:20px 0 0;padding:0 0 0 64px;display:grid;gap:48px}
+.steps .rail{position:absolute;left:23px;top:8px;bottom:8px;width:1px;background:rgba(255,255,255,.25)}
+.steps .rail i{position:absolute;inset:0;background:#fff;transform-origin:top;transform:scaleY(var(--p,0))}
+.step{position:relative}
+.step .dot{position:absolute;left:-64px;top:0;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:var(--teal);display:grid;place-items:center;color:#fff;transition:border-color .8s,background .8s}
+.step.in .dot{border-color:#fff;background:var(--teal-2)}
+.step .dot svg{width:22px;height:22px}
+.js .step .dot svg *{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.4s ease .2s}
+.js .step.in .dot svg *{stroke-dashoffset:0}
+.step .k{font-family:var(--serif);font-style:italic;color:rgba(255,255,255,.7);font-size:17px}
+.step h3{font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.15;margin:2px 0 8px}
+.step p{margin:0;color:rgba(255,255,255,.8);max-width:38ch}
+.steps-cta{margin-top:48px}
+
+/* ============ RECOGNITION ============ */
+.rec{display:grid;border-top:1px solid var(--line)}
+.rec article{display:grid;grid-template-columns:92px 1fr;gap:20px;align-items:center;padding:28px 0;border-bottom:1px solid var(--line)}
+.seal{position:relative;width:92px;height:92px;color:var(--brass)}
+.seal svg{position:absolute;inset:0;width:100%;height:100%}
+.seal .ring{animation:spin 30s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.seal .mid{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-size:25px;color:var(--text)}
+.rec h3{font-family:var(--sans);font-weight:500;font-size:21px;line-height:1.25;margin:0}
+.rec p{margin:4px 0 0;font-size:15.5px;color:var(--muted)}
+.stars{color:var(--brass);letter-spacing:.12em;font-size:13px}
+
+/* ============ RESERVATION ============ */
+.res-grid{display:grid;gap:40px}
+.res-img .ph{aspect-ratio:4/5}
+.form{display:grid;gap:26px}
+.fld{display:grid;gap:10px}
+.fld>label,.fld>.lb{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.inp{width:100%;font:inherit;font-size:17px;color:var(--text);background:#fff;border:1px solid var(--chip);border-radius:4px;padding:0 14px;min-height:52px;outline:none;transition:border-color .3s;-webkit-appearance:none;appearance:none}
+.inp:focus{border-color:var(--ink)}
+input[type="date"].inp{display:flex;align-items:center}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.chip{min-height:48px;border:1px solid var(--chip);border-radius:4px;background:#fff;font-size:16px;font-weight:500;color:var(--text);transition:background .3s,color .3s,border-color .3s,transform .2s;position:relative}
+.chip:hover:not(:disabled){border-color:var(--ink)}
+.chip:active:not(:disabled){transform:scale(.97)}
+.chip[aria-checked="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip:disabled{color:#b4b0ab;background:transparent;cursor:not-allowed;text-decoration:line-through;text-decoration-thickness:1px}
+.chips-h{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted);margin-top:-2px}
+.stp{display:inline-grid;grid-template-columns:52px 64px 52px;border:1px solid var(--chip);border-radius:4px;background:#fff;height:52px;overflow:hidden;width:max-content}
+.stp button{display:grid;place-items:center;font-size:22px;line-height:1;transition:background .25s}
+.stp button:hover:not(:disabled){background:var(--linen)}
+.stp button:disabled{color:#c4c0bb;cursor:not-allowed}
+.stp output{display:grid;place-items:center;border-left:1px solid var(--chip);border-right:1px solid var(--chip);font-size:19px;font-weight:600}
+.stp output.bump{animation:bump .35s var(--ease)}
+@keyframes bump{40%{transform:translateY(-3px);opacity:.4}}
+.warn{font-size:14.5px;color:var(--terra);margin:-10px 0 0;display:none}
+.warn.on{display:block}
+.or{display:flex;align-items:center;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:15px}
+.or a{font-family:var(--serif);font-size:22px;color:var(--text)}
+.tip{font-size:15px;color:var(--muted);border-left:2px solid var(--brass);padding-left:14px;margin:0}
+.form .pill-dark{width:100%}
+
+/* sticky bottom bar (mobile, reservation) */
+.sbar{position:fixed;z-index:85;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.1);padding:14px var(--g) calc(14px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:12px;transform:translateY(110%);transition:transform .6s var(--ease)}
+.sbar.show{transform:none}
+.sbar .sm{line-height:1.25}
+.sbar .sm small{display:block;font-size:12px;color:var(--muted);letter-spacing:.04em}
+.sbar .sm b{font-size:17px;font-weight:600}
+.sbar .pill{min-height:48px;padding:0 24px;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+
+/* ============ FAQ ============ */
+.faq{border-top:1px solid var(--line);max-width:860px}
+.fq-i{border-bottom:1px solid var(--line)}
+.fq{width:100%;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 0;text-align:left;font-size:18px;font-weight:500;line-height:1.35}
+.pm{position:relative;width:16px;height:16px;flex:none}
+.pm::before,.pm::after{content:"";position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-.75px;background:currentColor;transition:transform .45s var(--ease)}
+.pm::after{transform:rotate(90deg)}
+.open .pm::after{transform:rotate(0)}
+.fa{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.open .fa{grid-template-rows:1fr}
+.fa>div{overflow:hidden}
+.fa p{margin:0 0 22px;color:var(--muted);max-width:62ch}
+
+/* ============ CONTACT ============ */
+.ct-grid{display:grid;gap:52px}
+.hours{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-l)}
+.hours li{display:flex;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid var(--line-l);color:rgba(255,255,255,.8)}
+.hours li.today{color:#fff;font-weight:500}
+.hours li.today .dn::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--brass-2);margin-left:10px;vertical-align:middle}
+.hours .tm{font-family:var(--serif);font-size:19px}
+.hours li.closed .tm{color:#E59B82;font-style:italic}
+.status{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
+.status i{width:8px;height:8px;border-radius:50%;background:#7fbf8a;position:relative}
+.status i::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid #7fbf8a;animation:ping 2s ease-out infinite}
+.status.closed i{background:#E59B82}.status.closed i::after{border-color:#E59B82}
+@keyframes ping{from{transform:scale(.4);opacity:1}to{transform:scale(1.4);opacity:0}}
+.cinfo{margin-top:28px;display:grid;gap:14px}
+.cinfo a{display:flex;gap:14px;align-items:flex-start}
+.cinfo svg{width:20px;height:20px;color:var(--brass-2);flex:none;margin-top:4px}
+.map{position:relative;background:#0A141B;aspect-ratio:4/3.4;overflow:hidden;border-radius:var(--r)}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.map .dr{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.4s var(--ease)}
+.map.in .dr{stroke-dashoffset:0}
+.no-js .map .dr{stroke-dashoffset:0}
+.map .lbl{font-family:var(--sans);font-size:9px;letter-spacing:.2em;fill:rgba(255,255,255,.65);text-transform:uppercase}
+.map .lbl-s{font-family:var(--serif);font-style:italic;font-size:16px;fill:rgba(255,255,255,.3)}
+.map .pin{opacity:0;transform:translateY(-14px)}
+.map.in .pin{animation:drop .9s var(--ease) 1.4s forwards}
+@keyframes drop{to{opacity:1;transform:none}}
+.map .pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{from{transform:scale(.3);opacity:.9}to{transform:scale(2.2);opacity:0}}
+.map .wv{animation:wv 6s linear infinite}
+@keyframes wv{to{stroke-dashoffset:-60}}
+.map-foot{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:18px;flex-wrap:wrap}
+.map-foot small{font-size:13px;color:rgba(255,255,255,.5)}
+
+/* ============ FOOTER ============ */
+.ftr{background:var(--black);color:rgba(255,255,255,.72);padding:76px 0 120px;position:relative;overflow:hidden}
+.ftr .big{font-family:var(--script);font-size:46vw;line-height:.7;color:rgba(255,255,255,.05);position:absolute;right:-4vw;bottom:-2vw;pointer-events:none;white-space:nowrap}
+.ftr-grid{display:grid;gap:36px;position:relative}
+.ftr h4{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--brass-2);margin:0 0 10px}
+.ftr p{margin:0;font-size:15.5px}
+.ftr .logo b{color:#fff}
+.ftr .bot{position:relative;margin-top:52px;padding-top:22px;border-top:1px solid var(--line-l);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:13px;color:rgba(255,255,255,.45)}
+
+/* ============ FLOATING ============ */
+.fab{position:fixed;z-index:70;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));display:inline-flex;align-items:center;gap:10px;min-height:50px;padding:0 22px;border-radius:999px;background:var(--ink);color:#fff;border:1px solid rgba(201,168,114,.55);font-size:14px;font-weight:600;letter-spacing:.04em;box-shadow:0 14px 34px -14px rgba(15,26,34,.55);transform:translateY(150%);opacity:0;transition:transform .7s var(--ease),opacity .5s,background .3s}
+.fab.show{transform:none;opacity:1}
+.fab:hover{background:var(--teal)}
+.fab i{width:7px;height:7px;border-radius:50%;background:var(--brass-2)}
+.kt{position:fixed;z-index:90;left:12px;bottom:calc(12px + env(safe-area-inset-bottom));font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.85);background:rgba(15,26,34,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);padding:6px 9px;border-radius:3px;pointer-events:none;transition:transform .6s var(--ease)}
+.bar-up .kt{transform:translateY(-84px)}
+
+/* ============ DESKTOP ============ */
+@media (min-width:760px){
+  :root{--g:44px;--hh:78px;--sh:56px;--r:40px}
+  .sec{padding:128px 0}
+  .hdr-book{display:inline-flex!important;min-height:44px;padding:0 22px;font-size:14px}
+  .hdr:not(.solid) .hdr-book{background:#fff;color:var(--text)}
+  .hdr-r{gap:18px}
+  .spill{left:auto;right:var(--g);top:calc(var(--hh) + 18px);width:380px}
+  .hero-c{bottom:96px}
+  .hero .lead{font-size:19px}
+  .hero .ctas{display:flex;align-items:center;gap:30px;max-width:none}
+  .hero .ctas .pill{width:auto;min-width:240px}
+  .story-grid{grid-template-columns:1.05fr 1fr;align-items:center;gap:88px}
+  .know{grid-template-columns:1.15fr 1fr;gap:88px}
+  .car{aspect-ratio:16/8.5}
+  .car .arw{width:56px;height:56px;margin-top:-28px}
+  .board-grid{grid-template-columns:.85fr 1.15fr;align-items:center;gap:88px}
+  .board{padding:44px 44px 48px;min-height:520px}
+  .bh .t{font-size:66px}
+  .bl li{font-size:32px}
+  .tabs{margin:0;padding:2px 0 4px}
+  .cnav{display:flex}
+  .cards{margin:36px 0 0;padding:0 0 6px;scroll-padding:0;gap:28px}
+  .card{flex-basis:calc((100% - 56px) / 3)}
+  .panel{grid-template-columns:1.05fr 1fr;align-items:center;padding:28px;gap:56px}
+  .panel .ph{aspect-ratio:4/3.6}
+  .panel .ptxt{padding-right:28px}
+  .steps{grid-template-columns:repeat(3,1fr);padding:72px 0 0;gap:48px}
+  .steps .rail{left:0;right:0;top:23px;bottom:auto;height:1px;width:auto}
+  .steps .rail i{transform-origin:left;transform:scaleX(var(--p,0))}
+  .step .dot{left:0;top:-72px}
+  .rec{grid-template-columns:repeat(3,1fr);border-top:0}
+  .rec article{grid-template-columns:1fr;border-bottom:0;border-top:1px solid var(--line);padding:36px 32px 0 0;align-content:start}
+  .rec article+article{padding-left:32px;border-left:1px solid var(--line)}
+  .res-grid{grid-template-columns:1fr 1fr;gap:88px;align-items:start}
+  .res-img{position:sticky;top:calc(var(--hh) + var(--sh) + 32px)}
+  .chips{grid-template-columns:repeat(6,1fr)}
+  .ct-grid{grid-template-columns:.9fr 1.1fr;gap:88px}
+  .ftr-grid{grid-template-columns:1.4fr 1fr 1fr 1fr}
+  .ftr .big{font-size:30vw}
+  .subnav ul{justify-content:center;gap:44px}
+  .ovl{padding-left:max(var(--g),calc((100vw - 900px)/2));padding-right:max(var(--g),calc((100vw - 900px)/2))}
+  .ovl ol a{font-size:46px}
+  .sbar{display:none}
+  .wm{font-size:180px}
+}
+@media (min-width:1100px){.card{flex-basis:calc((100% - 84px) / 3.4)}}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
+  #pre{animation-delay:.15s!important}
+  .seal .ring,.map .pulse,.status i::after,.map .wv,.swim g,.hint i{animation:none!important}
+  .car .sl.on .layer{animation:none;transform:scale(1.02)}
+}
+
+/* ===== mobile fixes v2 ===== */
+html input,html select,html textarea{font-size:16px;min-width:0;max-width:100%;box-sizing:border-box}
+html input[type="date"],html input[type="time"]{-webkit-appearance:none;appearance:none;display:block;width:100%;height:56px;min-height:56px;line-height:56px;padding:0 14px;text-align:left;overflow:hidden;white-space:nowrap}
+html input[type="date"]::-webkit-date-and-time-value,html input[type="time"]::-webkit-date-and-time-value{text-align:left;margin:0;line-height:56px;min-height:0}
+html input[type="date"]::-webkit-datetime-edit,html input[type="time"]::-webkit-datetime-edit{padding:0;line-height:56px}
+html input[type="date"]::-webkit-calendar-picker-indicator{margin:0 0 0 auto}
+html select{height:56px;line-height:normal}
+
+@media(max-width:899px){.subnav{display:none!important}}
+.menu-open .fab,.menu-open .concept,.menu-open .ctag,.menu-open #bar,.menu-open #sbar{opacity:0!important;pointer-events:none!important}
+.menu-open .kt{opacity:0!important}
+
+/* faq: no double line under the heading */
+.faq,.faq-list,.faq__list{border-top:0!important}
+.faq>:first-child,.faq-list>:first-child,.faq__list>:first-child{border-top:0!important}
+.faq>:first-child::before,.faq-list>:first-child::before,.faq__list>:first-child::before{display:none!important}
+</style>
+</head>
+<body>
+
+<!-- ================= SVG SPRITE: hand-drawn illustration library ================= -->
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="chalky" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="1.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <linearGradient id="gSea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a6f8f"/><stop offset=".35" stop-color="#134560"/><stop offset=".75" stop-color="#0a2638"/><stop offset="1" stop-color="#061723"/></linearGradient>
+    <linearGradient id="gWarm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a2c1c"/><stop offset=".6" stop-color="#26160e"/><stop offset="1" stop-color="#140b07"/></linearGradient>
+    <linearGradient id="gSlate" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2c3f4a"/><stop offset="1" stop-color="#0f191f"/></linearGradient>
+    <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1e7da"/><stop offset=".55" stop-color="#c9cfcc"/><stop offset="1" stop-color="#8fa0a6"/></linearGradient>
+    <linearGradient id="gLinen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F1EAE6"/><stop offset="1" stop-color="#E2D5CB"/></linearGradient>
+    <linearGradient id="gSilver" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#27465a"/><stop offset=".38" stop-color="#5f8496"/><stop offset=".62" stop-color="#cdd9dc"/><stop offset="1" stop-color="#f6f3ec"/></linearGradient>
+    <linearGradient id="gBream" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#465d68"/><stop offset=".45" stop-color="#9fb1b6"/><stop offset=".8" stop-color="#e9ece6"/><stop offset="1" stop-color="#f7f4ec"/></linearGradient>
+    <linearGradient id="gScampi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e58f72"/><stop offset="1" stop-color="#f6c9b0"/></linearGradient>
+    <linearGradient id="gRayF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7d7462"/><stop offset="1" stop-color="#b9ae94"/></linearGradient>
+    <linearGradient id="gTent" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c76a4c"/><stop offset="1" stop-color="#8f3c26"/></linearGradient>
+    <linearGradient id="gBeam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8f1ff" stop-opacity=".28"/><stop offset="1" stop-color="#d8f1ff" stop-opacity="0"/></linearGradient>
+    <radialGradient id="gGlow"><stop offset="0" stop-color="#ffc27a" stop-opacity=".6"/><stop offset="1" stop-color="#ffc27a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gPlate"><stop offset="0" stop-color="#fdfaf4"/><stop offset=".8" stop-color="#efe7da"/><stop offset="1" stop-color="#ddd2c1"/></radialGradient>
+    <radialGradient id="gStew"><stop offset="0" stop-color="#d39a5c"/><stop offset="1" stop-color="#8a4f26"/></radialGradient>
+    <radialGradient id="gVig" cx=".5" cy=".45" r=".75"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient>
+    <pattern id="pNet" width="28" height="28" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0H28M0 0V28" stroke="#C9A872" stroke-width="1" stroke-opacity=".7" fill="none"/><circle r="1.9" fill="#C9A872"/></pattern>
+    <pattern id="pWave" width="80" height="26" patternUnits="userSpaceOnUse"><path d="M0 12 Q20 2 40 12 T80 12" stroke="#d8f1ff" stroke-opacity=".55" fill="none"/><path d="M0 21 Q20 11 40 21 T80 21" stroke="#d8f1ff" stroke-opacity=".25" fill="none"/></pattern>
+    <pattern id="pWaveInk" width="80" height="26" patternUnits="userSpaceOnUse"><path d="M0 12 Q20 2 40 12 T80 12" stroke="#0F1A22" stroke-opacity=".5" fill="none"/><path d="M0 21 Q20 11 40 21 T80 21" stroke="#0F1A22" stroke-opacity=".22" fill="none"/></pattern>
+    <pattern id="pBrick" width="60" height="24" patternUnits="userSpaceOnUse"><path d="M0 .5H60M0 12.5H60M.5 0V12M30.5 12V24" stroke="#d9a066" stroke-opacity=".25" fill="none"/></pattern>
+    <pattern id="pWood" width="400" height="34" patternUnits="userSpaceOnUse"><path d="M0 17 C100 6 300 28 400 17" stroke="#fff" stroke-opacity=".05" stroke-width="2" fill="none"/></pattern>
+    <clipPath id="cpMantle"><path d="M60 6 C78 30 86 76 82 122 C74 128 46 128 38 122 C34 76 42 30 60 6 Z"/></clipPath>
+
+    <!-- sardine -->
+    <symbol id="s-sardine" viewBox="0 0 200 60">
+      <path d="M26 30 L4 14 Q11 30 4 46 Z" fill="url(#gSilver)" stroke="#0F1A22" stroke-opacity=".55"/>
+      <path d="M84 16 L96 6 L108 15 Z M70 43 L82 51 L92 44 Z" fill="#7d98a4" stroke="#0F1A22" stroke-opacity=".5"/>
+      <path d="M22 30 C46 15 112 11 160 23 C174 26 184 28.5 193 30 C184 31.5 174 34 160 37 C112 49 46 45 22 30 Z" fill="url(#gSilver)" stroke="#0F1A22" stroke-opacity=".6"/>
+      <path d="M32 27 C70 19 120 18 158 25" stroke="#0F1A22" stroke-opacity=".3" fill="none" stroke-width=".8"/>
+      <path d="M40 31 C80 29 120 29 156 30" stroke="#fff" stroke-opacity=".6" fill="none" stroke-width=".8"/>
+      <g fill="#0F1A22" fill-opacity=".45"><circle cx="62" cy="24" r="1.5"/><circle cx="77" cy="22.5" r="1.5"/><circle cx="92" cy="21.6" r="1.5"/><circle cx="107" cy="21.3" r="1.5"/><circle cx="122" cy="21.6" r="1.4"/></g>
+      <path d="M158 20 Q151 30 158 40" stroke="#0F1A22" stroke-opacity=".5" fill="none"/>
+      <path d="M140 33 L128 41 L139 38 Z" fill="#c4d1d5" stroke="#0F1A22" stroke-opacity=".4"/>
+      <circle cx="176" cy="28.5" r="2.7" fill="#0F1A22"/><circle cx="176.9" cy="27.7" r=".8" fill="#fff"/>
+    </symbol>
+
+    <!-- gilt-head sea bream -->
+    <symbol id="s-bream" viewBox="0 0 220 120">
+      <path d="M34 60 L6 32 Q16 60 6 88 Z" fill="url(#gBream)" stroke="#0F1A22" stroke-opacity=".55"/>
+      <path d="M70 30 L76 12 L86 25 L94 9 L104 23 L112 10 L122 24 L132 14 L140 31 Z" fill="#8ea2a8" stroke="#0F1A22" stroke-opacity=".5"/>
+      <path d="M96 92 L104 108 L116 96 L126 106 L134 92 Z" fill="#8ea2a8" stroke="#0F1A22" stroke-opacity=".5"/>
+      <path d="M30 60 C50 22 120 10 170 36 C188 46 198 54 205 60 C198 68 186 76 170 84 C120 108 50 98 30 60 Z" fill="url(#gBream)" stroke="#0F1A22" stroke-opacity=".6"/>
+      <g stroke="#0F1A22" stroke-opacity=".18" fill="none" stroke-width=".8">
+        <path d="M60 40 q6 6 0 12 M76 34 q6 6 0 12 M92 30 q6 6 0 12 M108 30 q6 6 0 12 M124 32 q6 6 0 12 M140 38 q6 6 0 12"/>
+        <path d="M60 58 q6 6 0 12 M76 54 q6 6 0 12 M92 52 q6 6 0 12 M108 52 q6 6 0 12 M124 54 q6 6 0 12 M140 58 q6 6 0 12"/>
+        <path d="M74 74 q6 6 0 12 M92 72 q6 6 0 12 M110 72 q6 6 0 12 M128 74 q6 6 0 12"/>
+      </g>
+      <path d="M44 58 C90 50 140 50 168 56" stroke="#0F1A22" stroke-opacity=".35" fill="none"/>
+      <path d="M176 40 Q186 44 190 54" stroke="#C9A872" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M164 34 Q153 60 164 86" stroke="#0F1A22" stroke-opacity=".5" fill="none"/>
+      <path d="M150 66 L126 78 L146 72 Z" fill="#c9d2d2" stroke="#0F1A22" stroke-opacity=".4"/>
+      <circle cx="182" cy="53" r="5" fill="#f4efe2" stroke="#0F1A22" stroke-opacity=".5"/><circle cx="182.5" cy="53" r="3" fill="#0F1A22"/>
+      <path d="M198 64 Q202 66 205 62" stroke="#0F1A22" stroke-opacity=".5" fill="none"/>
+    </symbol>
+
+    <!-- Kvarner scampi -->
+    <symbol id="s-scampi" viewBox="0 0 220 120">
+      <g stroke="#7a3320" stroke-opacity=".7" fill="none" stroke-linecap="round">
+        <path d="M186 46 C198 22 208 10 219 2"/><path d="M188 48 C204 30 212 24 219 20"/>
+        <path d="M134 60 l-6 16 M146 61 l-4 16 M158 61 l-2 15 M170 60 l0 14"/>
+      </g>
+      <path d="M176 46 C190 34 200 26 216 16 L213 26 C200 34 190 42 178 50 Z" fill="url(#gScampi)" stroke="#7a3320" stroke-opacity=".7"/>
+      <path d="M180 56 C194 66 204 74 216 84 L210 90 C198 80 188 70 178 60 Z" fill="url(#gScampi)" stroke="#7a3320" stroke-opacity=".7"/>
+      <path d="M52 60 L28 44 L33 60 L28 76 Z M52 60 L34 50 M52 60 L34 70" fill="url(#gScampi)" stroke="#7a3320" stroke-opacity=".7"/>
+      <path d="M120 41 C95 39 70 45 52 60 C70 67 95 65 120 61 Z" fill="url(#gScampi)" stroke="#7a3320" stroke-opacity=".7"/>
+      <path d="M106 41 Q101 51 106 62 M92 42 Q87 52 92 63 M78 45 Q74 54 78 64 M64 50 Q61 57 64 64" stroke="#7a3320" stroke-opacity=".5" fill="none"/>
+      <path d="M118 50 C128 34 176 34 192 51 C176 66 128 66 118 50 Z" fill="url(#gScampi)" stroke="#7a3320" stroke-opacity=".7"/>
+      <path d="M130 46 C148 42 166 42 182 47" stroke="#fff" stroke-opacity=".5" fill="none"/>
+      <circle cx="186" cy="46" r="2.4" fill="#2a120a"/>
+    </symbol>
+
+    <!-- octopus tentacle -->
+    <symbol id="s-tentacle" viewBox="0 0 210 210">
+      <path d="M0 210 C0 128 56 72 122 72 C180 72 206 120 184 154 C166 180 120 178 112 150 C106 128 126 114 142 122 C152 128 152 140 146 144 C140 134 130 130 126 138 C122 152 140 164 158 152 C178 136 168 94 122 94 C72 94 34 134 34 210 Z" fill="url(#gTent)" stroke="#5e2414" stroke-opacity=".6"/>
+      <path d="M12 200 C16 138 64 86 122 82 C166 80 190 112 176 144" stroke="#f3c7b1" stroke-opacity=".35" fill="none" stroke-width="1.2"/>
+      <g fill="#f1d9c4" stroke="#8f3c26" stroke-opacity=".7">
+        <circle cx="36" cy="190" r="6"/><circle cx="40" cy="164" r="5.6"/><circle cx="50" cy="140" r="5.2"/><circle cx="66" cy="119" r="4.8"/><circle cx="86" cy="104" r="4.4"/><circle cx="108" cy="96" r="4"/><circle cx="130" cy="95" r="3.6"/><circle cx="150" cy="101" r="3.2"/><circle cx="164" cy="116" r="2.9"/><circle cx="166" cy="134" r="2.5"/>
+      </g>
+    </symbol>
+
+    <!-- squid -->
+    <symbol id="s-squid" viewBox="0 0 120 220">
+      <g stroke="#b99772" stroke-width="4" stroke-linecap="round" fill="none">
+        <path d="M46 146 C40 166 48 182 40 204"/><path d="M53 148 C52 170 58 188 54 212"/><path d="M60 148 C62 172 56 190 62 214"/><path d="M67 148 C70 170 64 188 68 210"/><path d="M74 146 C82 166 74 182 82 202"/>
+      </g>
+      <g stroke="#b99772" stroke-width="2" stroke-linecap="round" fill="none"><path d="M50 148 C30 180 20 196 14 216"/><path d="M70 148 C90 180 100 196 106 216"/></g>
+      <path d="M46 22 C30 34 22 50 24 62 L40 58 Z M74 22 C90 34 98 50 96 62 L80 58 Z" fill="#e2cdb0" stroke="#6b4a2e" stroke-opacity=".6"/>
+      <path d="M60 6 C78 30 86 76 82 122 C74 128 46 128 38 122 C34 76 42 30 60 6 Z" fill="#efe1cb" stroke="#6b4a2e" stroke-opacity=".6"/>
+      <g fill="#b5583b" fill-opacity=".35"><circle cx="54" cy="40" r="2"/><circle cx="66" cy="52" r="2.4"/><circle cx="52" cy="70" r="2"/><circle cx="68" cy="84" r="2.2"/><circle cx="56" cy="100" r="2"/><circle cx="64" cy="30" r="1.6"/></g>
+      <path d="M60 14 C62 50 62 90 60 120" stroke="#6b4a2e" stroke-opacity=".25" fill="none"/>
+      <path d="M40 122 C38 134 42 146 60 148 C78 146 82 134 80 122 Z" fill="#e2cdb0" stroke="#6b4a2e" stroke-opacity=".6"/>
+      <circle cx="48" cy="134" r="3.6" fill="#1b1b1b"/><circle cx="72" cy="134" r="3.6" fill="#1b1b1b"/>
+    </symbol>
+    <symbol id="s-squid-g" viewBox="0 0 120 220">
+      <use href="#s-squid" width="120" height="220"/>
+      <g clip-path="url(#cpMantle)">
+        <path d="M60 6 C78 30 86 76 82 122 C74 128 46 128 38 122 C34 76 42 30 60 6 Z" fill="#c98a4f" fill-opacity=".4"/>
+        <path d="M14 34 L106 70 M14 58 L106 94 M14 82 L106 118 M14 106 L106 142 M14 10 L106 46" stroke="#3a1d0e" stroke-opacity=".55" stroke-width="5" stroke-linecap="round"/>
+      </g>
+    </symbol>
+
+    <!-- stingray -->
+    <symbol id="s-ray" viewBox="0 0 200 200">
+      <path d="M100 136 C102 160 98 180 100 198" stroke="#4d4638" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M86 128 L78 146 L96 138 Z M114 128 L122 146 L104 138 Z" fill="#9d9378" stroke="#4d4638" stroke-opacity=".6"/>
+      <path d="M100 18 C128 40 172 66 196 84 C170 96 128 112 100 138 C72 112 30 96 4 84 C28 66 72 40 100 18 Z" fill="url(#gRayF)" stroke="#4d4638" stroke-opacity=".7"/>
+      <path d="M100 30 C100 70 100 100 100 132 M100 60 C70 70 40 78 18 84 M100 60 C130 70 160 78 182 84" stroke="#4d4638" stroke-opacity=".2" fill="none"/>
+      <g fill="#4d4638" fill-opacity=".35"><circle cx="70" cy="76" r="2"/><circle cx="130" cy="76" r="2"/><circle cx="84" cy="96" r="1.6"/><circle cx="116" cy="96" r="1.6"/><circle cx="56" cy="88" r="1.4"/><circle cx="144" cy="88" r="1.4"/><circle cx="100" cy="110" r="1.6"/></g>
+      <circle cx="90" cy="58" r="3.2" fill="#1b1b1b"/><circle cx="110" cy="58" r="3.2" fill="#1b1b1b"/>
+    </symbol>
+
+    <!-- lemon slice -->
+    <symbol id="s-lemon" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" fill="#e5bf47" stroke="#a8862b" stroke-opacity=".6"/>
+      <circle cx="50" cy="50" r="41" fill="#f8f0c8"/>
+      <circle cx="50" cy="50" r="38" fill="#f1da7c"/>
+      <path d="M50 50 L88 50 M50 50 L76.9 76.9 M50 50 L50 88 M50 50 L23.1 76.9 M50 50 L12 50 M50 50 L23.1 23.1 M50 50 L50 12 M50 50 L76.9 23.1" stroke="#f8f0c8" stroke-width="3.2"/>
+      <circle cx="50" cy="50" r="5" fill="#f8f0c8"/>
+      <g fill="#fff" fill-opacity=".45"><ellipse cx="66" cy="38" rx="5" ry="2" transform="rotate(-30 66 38)"/><ellipse cx="36" cy="64" rx="4" ry="1.6" transform="rotate(40 36 64)"/></g>
+    </symbol>
+
+    <!-- swiss chard leaf -->
+    <symbol id="s-chard" viewBox="0 0 120 200">
+      <path d="M60 14 C20 30 2 90 22 136 C34 160 50 170 60 176 C70 170 86 160 98 136 C118 90 100 30 60 14 Z" fill="#3f6b4a" stroke="#22402c" stroke-opacity=".8"/>
+      <g fill="#5a8a63" fill-opacity=".5"><ellipse cx="40" cy="70" rx="10" ry="6"/><ellipse cx="80" cy="96" rx="11" ry="6"/><ellipse cx="44" cy="120" rx="9" ry="5"/><ellipse cx="78" cy="56" rx="8" ry="5"/></g>
+      <path d="M60 60 C48 66 36 70 24 84 M60 90 C46 98 34 104 20 116 M60 120 C48 128 40 136 30 148 M60 60 C72 66 84 70 96 84 M60 90 C74 98 86 104 100 116 M60 120 C72 128 80 136 90 148" stroke="#c4553a" stroke-opacity=".75" stroke-width="1.6" fill="none"/>
+      <path d="M60 30 L60 198" stroke="#c4553a" stroke-width="5" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- bowl (content colour = currentColor) -->
+    <symbol id="s-bowl" viewBox="0 0 200 140">
+      <path d="M80 26 c-8 -8 8 -14 0 -22 M100 22 c-8 -8 8 -14 0 -22 M120 26 c-8 -8 8 -14 0 -22" stroke="#fff" stroke-opacity=".5" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M12 56 C16 116 184 116 188 56 Z" fill="#e9e0d1" stroke="#a89a84" stroke-opacity=".8"/>
+      <path d="M40 92 C70 104 130 104 160 92" stroke="#a89a84" stroke-opacity=".5" fill="none"/>
+      <ellipse cx="100" cy="56" rx="88" ry="30" fill="#f8f3eb" stroke="#a89a84" stroke-opacity=".8"/>
+      <ellipse cx="100" cy="58" rx="72" ry="22" fill="currentColor"/>
+      <ellipse cx="86" cy="52" rx="30" ry="6" fill="#fff" fill-opacity=".18"/>
+      <g fill="#fbf6ee"><ellipse cx="96" cy="60" rx="8" ry="4"/><ellipse cx="122" cy="54" rx="6" ry="3"/><ellipse cx="72" cy="58" rx="5" ry="3"/></g>
+      <g fill="#4f7a4a"><circle cx="82" cy="54" r="2"/><circle cx="110" cy="64" r="2"/><circle cx="128" cy="60" r="1.8"/><circle cx="100" cy="50" r="1.6"/></g>
+    </symbol>
+
+    <!-- local wine -->
+    <symbol id="s-wine" viewBox="0 0 120 220">
+      <path d="M26 6 h16 v58 c0 10 14 18 14 34 v110 c0 4 -3 6 -7 6 h-30 c-4 0 -7 -2 -7 -6 v-110 c0 -16 14 -24 14 -34 Z" fill="#1f3a30" stroke="#0b1612"/>
+      <rect x="22" y="2" width="24" height="10" rx="2" fill="#7a1f2b"/>
+      <path d="M18 128 h46 v46 h-46 Z" fill="#f1eae6" transform="translate(-6 0)"/>
+      <path d="M20 140 h30 M20 150 h22" stroke="#B08D57" stroke-width="2" transform="translate(-6 0)"/>
+      <path d="M48 86 v100" stroke="#fff" stroke-opacity=".18" stroke-width="3" stroke-linecap="round"/>
+      <path d="M72 120 C72 152 108 152 108 120 L106 94 H74 Z" fill="#fff" fill-opacity=".14" stroke="#e8dccb" stroke-opacity=".9"/>
+      <path d="M73 124 C74 148 106 148 107 124 Z" fill="#8a2433"/>
+      <path d="M90 148 V202 M76 206 H104" stroke="#e8dccb" stroke-opacity=".9" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- ===== Scenes (photo fallbacks) ===== -->
+    <symbol id="sc-sea" viewBox="0 0 800 800">
+      <rect width="800" height="800" fill="url(#gSea)"/>
+      <path d="M230 -10 L300 -10 L470 810 L360 810 Z M430 -10 L476 -10 L610 810 L530 810 Z M80 -10 L130 -10 L220 810 L150 810 Z" fill="url(#gBeam)"/>
+      <rect width="800" height="70" fill="url(#pWave)" opacity=".5"/>
+      <g>
+        <use href="#s-sardine" width="200" height="60" transform="translate(110 240) scale(1.1)"/>
+        <use href="#s-sardine" width="200" height="60" transform="translate(330 200) scale(.9)"/>
+        <use href="#s-sardine" width="200" height="60" transform="translate(520 262) scale(1.15)"/>
+        <use href="#s-sardine" width="200" height="60" transform="translate(240 320) scale(.8)"/>
+        <use href="#s-sardine" width="200" height="60" transform="translate(430 345) scale(1)"/>
+        <use href="#s-sardine" width="200" height="60" transform="translate(610 380) scale(.75)"/>
+        <use href="#s-sardine" width="200" height="60" transform="translate(140 410) scale(.95)"/>
+        <use href="#s-sardine" width="200" height="60" transform="translate(360 445) scale(1.1)"/>
+        <use href="#s-sardine" width="200" height="60" transform="translate(570 480) scale(.85)"/>
+        <use href="#s-sardine" width="200" height="60" transform="translate(250 530) scale(.7)"/>
+      </g>
+      <use href="#s-bream" width="220" height="120" transform="translate(430 590) scale(1.3)" opacity=".9"/>
+      <use href="#s-squid" width="120" height="220" transform="translate(110 520) rotate(-28) scale(.9)" opacity=".85"/>
+      <g fill="#d8f1ff" fill-opacity=".35"><circle cx="90" cy="150" r="3"/><circle cx="700" cy="220" r="2.5"/><circle cx="660" cy="560" r="3.5"/><circle cx="320" cy="640" r="2"/><circle cx="520" cy="130" r="2"/><circle cx="740" cy="420" r="2"/></g>
+      <rect width="800" height="800" fill="url(#gVig)"/>
+    </symbol>
+
+    <symbol id="sc-interior" viewBox="0 0 800 800">
+      <rect width="800" height="800" fill="url(#gWarm)"/>
+      <rect width="800" height="640" fill="url(#pBrick)"/>
+      <circle cx="400" cy="300" r="300" fill="url(#gGlow)"/>
+      <circle cx="170" cy="400" r="170" fill="url(#gGlow)" opacity=".7"/>
+      <circle cx="630" cy="400" r="170" fill="url(#gGlow)" opacity=".7"/>
+      <g stroke="#e0aa70" stroke-opacity=".6" stroke-width="3">
+        <path d="M60 640 V350 A110 110 0 0 1 280 350 V640 Z" fill="#120a06" fill-opacity=".5"/>
+        <path d="M290 640 V330 A110 110 0 0 1 510 330 V640 Z" fill="#120a06" fill-opacity=".45"/>
+        <path d="M520 640 V350 A110 110 0 0 1 740 350 V640 Z" fill="#120a06" fill-opacity=".5"/>
+      </g>
+      <g stroke="#e0aa70" stroke-opacity=".28" stroke-width="2" fill="none">
+        <path d="M42 640 V350 A128 128 0 0 1 298 350"/><path d="M272 640 V330 A128 128 0 0 1 528 330"/><path d="M502 640 V350 A128 128 0 0 1 758 350"/>
+      </g>
+      <g stroke="#e0aa70" stroke-opacity=".35" stroke-width="2"><path d="M170 240 v-18 M108 262 l-10 -14 M232 262 l10 -14 M400 220 v-18 M338 242 l-10 -14 M462 242 l10 -14 M630 240 v-18 M568 262 l-10 -14 M692 262 l10 -14"/></g>
+      <path d="M400 0 V240" stroke="#1a100a" stroke-width="2"/>
+      <path d="M356 270 Q400 220 444 270 Z" fill="#c98a4f" stroke="#7a4a26"/>
+      <circle cx="400" cy="276" r="11" fill="#ffe2b0"/>
+      <rect y="640" width="800" height="160" fill="#100905"/>
+      <path d="M0 640 H800" stroke="#e0aa70" stroke-opacity=".35" stroke-width="2"/>
+      <path d="M110 600 H690 L712 624 H88 Z" fill="#3a2215" stroke="#e0aa70" stroke-opacity=".3"/>
+      <path d="M130 624 V720 M670 624 V720" stroke="#2a180e" stroke-width="10"/>
+      <use href="#s-wine" width="120" height="220" transform="translate(300 392) scale(.95)"/>
+      <rect x="520" y="546" width="14" height="54" fill="#f1eae6"/>
+      <ellipse cx="527" cy="538" rx="5" ry="10" fill="#ffd27a"/>
+      <circle cx="527" cy="540" r="60" fill="url(#gGlow)"/>
+      <rect width="800" height="800" fill="url(#gVig)"/>
+    </symbol>
+
+    <symbol id="sc-fish" viewBox="0 0 800 800">
+      <rect width="800" height="800" fill="url(#gSlate)"/>
+      <rect width="800" height="800" fill="url(#pNet)" opacity=".3"/>
+      <use href="#s-chard" width="120" height="200" transform="translate(170 540) rotate(-55) scale(2.2) translate(-60 -100)"/>
+      <use href="#s-bream" width="220" height="120" transform="translate(410 390) rotate(-8) scale(2.7) translate(-110 -60)"/>
+      <use href="#s-lemon" width="100" height="100" transform="translate(640 620) scale(1.5) translate(-50 -50)"/>
+      <use href="#s-lemon" width="100" height="100" transform="translate(610 190) scale(1.05) translate(-50 -50)"/>
+      <g fill="#fff" fill-opacity=".5"><rect x="300" y="610" width="4" height="4" transform="rotate(20 300 610)"/><rect x="340" y="640" width="3" height="3"/><rect x="520" y="560" width="4" height="4" transform="rotate(40 520 560)"/><rect x="250" y="220" width="3" height="3"/><rect x="460" y="190" width="4" height="4"/></g>
+      <rect width="800" height="800" fill="url(#gVig)"/>
+    </symbol>
+
+    <symbol id="sc-calamari" viewBox="0 0 800 800">
+      <rect width="800" height="800" fill="#2a1912"/>
+      <rect width="800" height="800" fill="url(#pWood)"/>
+      <circle cx="400" cy="400" r="312" fill="url(#gPlate)"/>
+      <circle cx="400" cy="400" r="238" fill="none" stroke="#d9cbb5" stroke-width="2"/>
+      <use href="#s-chard" width="120" height="200" transform="translate(290 500) rotate(62) scale(1.5) translate(-60 -100)"/>
+      <use href="#s-squid-g" width="120" height="220" transform="translate(430 370) rotate(-55) scale(2.1) translate(-60 -110)"/>
+      <use href="#s-lemon" width="100" height="100" transform="translate(600 560) scale(1.15) translate(-50 -50)"/>
+      <g fill="#c9a04a" fill-opacity=".35"><ellipse cx="300" cy="300" rx="14" ry="6"/><ellipse cx="520" cy="270" rx="10" ry="4"/><ellipse cx="480" cy="560" rx="12" ry="5"/></g>
+      <rect width="800" height="800" fill="url(#gVig)"/>
+    </symbol>
+
+    <symbol id="sc-market" viewBox="0 0 800 800">
+      <rect width="800" height="800" fill="url(#gSky)"/>
+      <circle cx="630" cy="170" r="220" fill="url(#gGlow)" opacity=".55"/>
+      <path d="M150 150 q10 -10 20 0 q10 -10 20 0 M220 120 q8 -8 16 0 q8 -8 16 0 M560 110 q8 -8 16 0 q8 -8 16 0" stroke="#0F1A22" stroke-opacity=".6" fill="none" stroke-width="2"/>
+      <path d="M300 300 Q400 226 500 300 Z" fill="#c8bda9" stroke="#0F1A22" stroke-opacity=".45" stroke-width="2"/>
+      <path d="M50 330 H750 L728 298 H72 Z" fill="#bdb29e" stroke="#0F1A22" stroke-opacity=".45" stroke-width="2"/>
+      <rect x="70" y="330" width="660" height="310" fill="#ddd5c6" stroke="#0F1A22" stroke-opacity=".45" stroke-width="2"/>
+      <text x="400" y="322" text-anchor="middle" font-family="Figtree, sans-serif" font-size="15" letter-spacing="8" fill="#0F1A22" fill-opacity=".75">RIBARNICA</text>
+      <g fill="#3b4d58" fill-opacity=".85" stroke="#0F1A22" stroke-opacity=".4" stroke-width="2">
+        <path d="M100 600 V440 A45 45 0 0 1 190 440 V600 Z"/><path d="M210 600 V440 A45 45 0 0 1 300 440 V600 Z"/>
+        <path d="M500 600 V440 A45 45 0 0 1 590 440 V600 Z"/><path d="M610 600 V440 A45 45 0 0 1 700 440 V600 Z"/>
+        <path d="M345 640 V450 A55 55 0 0 1 455 450 V640 Z" fill="#26343d"/>
+      </g>
+      <g stroke="#ddd5c6" stroke-opacity=".7" stroke-width="2"><path d="M145 400 V600 M100 500 H190 M255 400 V600 M210 500 H300 M545 400 V600 M500 500 H590 M655 400 V600 M610 500 H700"/></g>
+      <rect y="640" width="800" height="160" fill="#8e8b81"/>
+      <path d="M0 680 H800 M0 730 H800 M120 640 L80 800 M280 640 L260 800 M520 640 L540 800 M680 640 L720 800" stroke="#0F1A22" stroke-opacity=".12" stroke-width="2"/>
+      <path d="M36 640 V420 M764 640 V420" stroke="#0F1A22" stroke-opacity=".7" stroke-width="4"/>
+      <circle cx="36" cy="414" r="10" fill="#f6e3b8" stroke="#0F1A22" stroke-opacity=".6"/><circle cx="764" cy="414" r="10" fill="#f6e3b8" stroke="#0F1A22" stroke-opacity=".6"/>
+      <rect x="110" y="668" width="230" height="86" fill="#8a5a36" stroke="#3a2215" stroke-width="2"/>
+      <rect x="470" y="676" width="240" height="78" fill="#8a5a36" stroke="#3a2215" stroke-width="2"/>
+      <path d="M110 700 H340 M470 706 H710" stroke="#3a2215" stroke-opacity=".5" stroke-width="2"/>
+      <use href="#s-sardine" width="200" height="60" transform="translate(116 646) scale(.55)"/>
+      <use href="#s-sardine" width="200" height="60" transform="translate(220 652) scale(.55)"/>
+      <use href="#s-sardine" width="200" height="60" transform="translate(160 664) scale(.5)"/>
+      <use href="#s-bream" width="220" height="120" transform="translate(484 636) scale(.55)"/>
+      <use href="#s-bream" width="220" height="120" transform="translate(590 644) scale(.5)"/>
+    </symbol>
+
+    <symbol id="sc-stew" viewBox="0 0 800 800">
+      <rect width="800" height="800" fill="url(#gLinen)"/>
+      <rect y="660" width="800" height="16" fill="#B5583B" fill-opacity=".55"/><rect y="690" width="800" height="6" fill="#B5583B" fill-opacity=".4"/>
+      <circle cx="400" cy="400" r="300" fill="url(#gPlate)" stroke="#d9cbb5"/>
+      <circle cx="400" cy="400" r="214" fill="#f7f2ea" stroke="#cdbfa8" stroke-width="2"/>
+      <circle cx="400" cy="400" r="184" fill="url(#gStew)"/>
+      <g fill="#ecd393" stroke="#b8954a" stroke-opacity=".6"><ellipse cx="330" cy="350" rx="34" ry="26"/><ellipse cx="470" cy="440" rx="38" ry="28"/><ellipse cx="380" cy="480" rx="28" ry="22"/></g>
+      <g fill="#fbf6ee" stroke="#e2d6c2"><path d="M420 320 c20 -10 50 0 52 20 c2 18 -30 26 -52 16 c-16 -8 -16 -28 0 -36 Z"/><path d="M300 430 c14 -14 44 -10 48 8 c4 18 -24 30 -42 22 c-14 -6 -16 -20 -6 -30 Z"/><path d="M450 360 c10 -4 24 2 24 12 c0 10 -16 12 -24 6 c-6 -4 -6 -14 0 -18 Z"/></g>
+      <g fill="#4f7a4a"><circle cx="360" cy="320" r="5"/><circle cx="440" cy="400" r="4"/><circle cx="330" cy="400" r="4"/><circle cx="500" cy="380" r="3.5"/><circle cx="410" cy="470" r="4.5"/><circle cx="380" cy="420" r="3"/></g>
+      <ellipse cx="370" cy="370" rx="60" ry="18" fill="#f1c07a" fill-opacity=".25"/>
+      <use href="#s-chard" width="120" height="200" transform="translate(670 640) rotate(-40) scale(1.25) translate(-60 -100)"/>
+      <use href="#s-lemon" width="100" height="100" transform="translate(150 170) scale(1.15) translate(-50 -50)"/>
+      <path d="M640 120 L540 290" stroke="#b7aa95" stroke-width="12" stroke-linecap="round"/>
+      <ellipse cx="530" cy="310" rx="26" ry="38" transform="rotate(30 530 310)" fill="#d9cfbf" stroke="#b7aa95" stroke-width="2"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- PRELOADER -->
+<div id="pre" aria-hidden="true">
+  <div>
+    <div class="word"><span><i style="--d:0">F</i></span><span><i style="--d:1">I</i></span><span><i style="--d:2">U</i></span><span><i style="--d:3">M</i></span><span><i style="--d:4">E</i></span></div>
+    <div class="bar"></div>
+    <div class="sub label">Konoba · Rijeka</div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Konoba Fiume"><small>Konoba</small><b>Fiume</b></a>
+    <div class="hdr-r">
+      <div class="langs" id="langsHdr" role="group" aria-label="Language">
+        <button type="button" data-lang="hr" aria-pressed="true">HR</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-lang="it" aria-pressed="false">IT</button>
+        <button type="button" data-lang="de" aria-pressed="false">DE</button>
+      </div>
+      <a href="#rezervacija" class="pill pill-dark hdr-book"><span data-i18n="nav.book">Rezerviraj</span></a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="ovl"><span>MENU</span><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- OVERLAY MENU -->
+<div class="ovl" id="ovl" aria-label="Menu">
+  <ol>
+    <li><a href="#prica" style="--i:0"><small>01</small><span data-i18n="sub.story">Priča</span></a></li>
+    <li><a href="#ploca" style="--i:1"><small>02</small><span data-i18n="sub.board">Ploča</span></a></li>
+    <li><a href="#jelovnik" style="--i:2"><small>03</small><span data-i18n="sub.menu">Jelovnik</span></a></li>
+    <li><a href="#rezervacija" style="--i:3"><small>04</small><span data-i18n="sub.res">Rezervacija</span></a></li>
+    <li><a href="#faq" style="--i:4"><small>05</small><span data-i18n="ovl.faq">Česta pitanja</span></a></li>
+    <li><a href="#kontakt" style="--i:5"><small>06</small><span data-i18n="sub.contact">Kontakt</span></a></li>
+  </ol>
+  <div class="ovl-foot">
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" data-lang="hr" aria-pressed="true">HR</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="it" aria-pressed="false">IT</button>
+      <button type="button" data-lang="de" aria-pressed="false">DE</button>
+    </div>
+    <a href="#rezervacija" class="pill pill-linen"><span data-i18n="hero.cta">Rezerviraj stol</span><i class="arr"></i></a>
+    <div class="ovl-contact"><a class="alink" href="tel:+38551312108">+385 51 312 108</a><a class="alink" href="mailto:konoba.fiume@gmail.com">konoba.fiume@gmail.com</a></div>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- ================= HERO (3D school of fish, static SVG fallback) ================= -->
+<section class="hero" id="hero" aria-label="Konoba Fiume">
+  <div class="hero-static" id="heroStatic" aria-hidden="true">
+    <svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"><use href="#sc-sea" width="800" height="800"/></svg>
+    <svg class="swim" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">
+      <g style="--t:30s;--dl:-4s"><use href="#s-sardine" width="200" height="60" transform="translate(0 160) scale(.7)"/><use href="#s-sardine" width="200" height="60" transform="translate(60 200) scale(.55)"/></g>
+      <g style="--t:38s;--dl:-20s"><use href="#s-sardine" width="200" height="60" transform="translate(0 300) scale(.6)"/></g>
+      <g style="--t:46s;--dl:-12s"><use href="#s-bream" width="220" height="120" transform="translate(0 120) scale(.5)" opacity=".7"/></g>
+    </svg>
+  </div>
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="hero-shade"></div>
+
+  <a class="spill rv-h d4" href="#rezervacija" id="spill">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg>
+    <span class="tx"><b data-i18n="spill.t">Stol za večeras</b><span id="spillSub">Danas • 2 osobe</span></span>
+    <span class="go" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3l5 5-5 5"/></svg></span>
+  </a>
+
+  <div class="hero-c">
+    <div class="wrap">
+      <div class="eyebrow label rv-h" data-i18n="hero.eyebrow">Riblja konoba uz ribarnicu</div>
+      <h1 class="h1"><span class="ln"><span>Konoba</span></span> <span class="ln"><span>Fiume</span></span></h1>
+      <a class="addr rv-h d1" href="https://maps.google.com/?q=Konoba+Fiume,+Ul.+Vatroslava+Lisinskog+12,+51000+Rijeka" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>
+        <span>Ul. Vatroslava Lisinskog 12, 51000 Rijeka</span>
+      </a>
+      <p class="lead rv-h d2" data-i18n="hero.lead">Što jutros stigne na ribarnicu, za ručak je na vašem stolu.</p>
+      <div class="ctas rv-h d3">
+        <a href="#rezervacija" class="pill pill-grey"><span data-i18n="hero.cta">Rezerviraj stol</span></a>
+        <a href="#ploca" class="ulink" data-i18n="hero.board">Pogledaj današnju ploču</a>
+      </div>
+      <div class="hint rv-h d4"><i></i><span id="hintTxt"></span></div>
+    </div>
+  </div>
+
+  <svg class="wave" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#FFFFFF" d="M0 28 C240 10 480 42 720 26 S1200 8 1440 24 L1440 46 L0 46 Z">
+      <animate attributeName="d" dur="9s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1; .45 0 .55 1" values="M0 28 C240 10 480 42 720 26 S1200 8 1440 24 L1440 46 L0 46 Z;M0 22 C240 40 480 12 720 28 S1200 40 1440 20 L1440 46 L0 46 Z;M0 28 C240 10 480 42 720 26 S1200 8 1440 24 L1440 46 L0 46 Z"/>
+    </path>
+    <path fill="none" stroke="#C9A872" stroke-width="1" stroke-opacity=".9" d="M0 20 C240 2 480 34 720 18 S1200 0 1440 16">
+      <animate attributeName="d" dur="9s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1; .45 0 .55 1" values="M0 20 C240 2 480 34 720 18 S1200 0 1440 16;M0 14 C240 32 480 4 720 20 S1200 32 1440 12;M0 20 C240 2 480 34 720 18 S1200 0 1440 16"/>
+    </path>
+  </svg>
+</section>
+
+<!-- STICKY SUB NAV -->
+<nav class="subnav" aria-label="Sections">
+  <ul id="subnav">
+    <li><a href="#prica" data-nav="prica" data-i18n="sub.story">Priča</a></li>
+    <li><a href="#ploca" data-nav="ploca" data-i18n="sub.board">Ploča</a></li>
+    <li><a href="#jelovnik" data-nav="jelovnik" data-i18n="sub.menu">Jelovnik</a></li>
+    <li><a href="#rezervacija" data-nav="rezervacija" data-i18n="sub.res">Rezervacija</a></li>
+    <li><a href="#kontakt" data-nav="kontakt" data-i18n="sub.contact">Kontakt</a></li>
+    <li aria-hidden="true" class="ind" id="subInd"></li>
+  </ul>
+</nav>
+
+<!-- ================= 01 STORY (linen) ================= -->
+<section class="sec linen" id="prica" data-sec="prica">
+  <div class="deco" data-px="-0.35" style="width:190px;top:56px;right:-30px;opacity:.6"><svg viewBox="0 0 200 60"><use href="#s-sardine" width="200" height="60"/></svg></div>
+  <div class="deco" data-px="-0.22" style="width:120px;top:110px;right:110px;opacity:.45"><svg viewBox="0 0 200 60"><use href="#s-sardine" width="200" height="60"/></svg></div>
+  <div class="deco" data-py="0.18" style="width:110px;bottom:40px;left:-34px;opacity:.85"><svg viewBox="0 0 100 100"><use href="#s-lemon" width="100" height="100"/></svg></div>
+  <div class="wrap">
+    <div class="story-grid">
+      <div class="story-txt">
+        <div class="shead rv">
+          <div class="kick label"><b>01</b><span data-i18n="story.label">Priča</span></div>
+          <h2 class="h2" data-i18n-html="story.title">Vrata do vrata <em>s ribarnicom</em></h2>
+        </div>
+        <p class="big rv" style="--i:1" data-i18n="story.p1">Konoba Fiume je obiteljska konoba u srcu Rijeke.</p>
+        <p class="rv" style="--i:2" data-i18n="story.p2">Riba stiže s ribarnice svaki dan.</p>
+        <div class="stats rv" style="--i:3">
+          <div><b data-i18n="stat.g">4,6</b><span data-i18n="stat.g.l">Google, 2.300+ recenzija</span></div>
+          <div><b>G&amp;M</b><span data-i18n="stat.gm.l">Gault&amp;Millau Hrvatska</span></div>
+          <div><b data-i18n="stat.p">Luka</b><span data-i18n="stat.p.l">Gastronomska luka Rijeke</span></div>
+        </div>
+      </div>
+      <div class="story-img rv" style="--i:1">
+        <figure class="ph unveil">
+          <div class="layer" data-par="0.08"><svg class="sc" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#sc-interior" width="800" height="800"/></svg><img src="img/interior.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+          <figcaption class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span data-i18n="cap.2">Kameni zidovi i lukovi</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOOD TO KNOW + NEARBY (white) -->
+<section class="sec white" data-sec="prica" aria-labelledby="gtkT">
+  <div class="deco" data-py="-0.12" style="width:90px;top:40px;right:-20px;opacity:.9;transform-origin:center"><svg viewBox="0 0 120 200"><use href="#s-chard" width="120" height="200"/></svg></div>
+  <div class="deco" data-px="0.3" style="width:140px;bottom:46px;left:-60px;opacity:.5"><svg viewBox="0 0 200 60"><use href="#s-sardine" width="200" height="60"/></svg></div>
+  <div class="wrap">
+    <div class="know">
+      <div class="rv">
+        <div class="shead"><h2 class="h2" id="gtkT" data-i18n="gtk.title">Dobro je znati</h2></div>
+        <ul class="gtk">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>
+            <div><div class="k" data-i18n="gtk.h.k">Radno vrijeme</div><div class="v" data-i18n="gtk.h.v">Pon do pet 07:00 do 22:00, sub 07:00 do 16:00</div></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4M10 13l4 4M14 13l-4 4"/></svg>
+            <div><div class="k" data-i18n="gtk.s.k">Nedjelja</div><div class="v" data-i18n="gtk.s.v">Zatvoreno</div></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M5.2 4h3l1.5 4-2 1.4a11 11 0 0 0 6.9 6.9l1.4-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A16 16 0 0 1 3.6 5.6 1.5 1.5 0 0 1 5.2 4z"/></svg>
+            <div><div class="k" data-i18n="gtk.r.k">Rezervacije</div><div class="v"><span data-i18n="gtk.r.v">Telefonom ili e-mailom</span>: <a class="ulink" href="tel:+38551312108">+385 51 312 108</a></div></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M7.5 20l2-4M16.5 20l-2-4M6.5 8.5h6M6.5 11.5h9"/></svg>
+            <div><div class="k" data-i18n="gtk.c.k">Ulov dana</div><div class="v" data-i18n="gtk.c.v">Na ploči na ulazu.</div></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M2 8l3 4-3 4"/><path d="M5 12c2.5-3.5 6-5 9.5-5 3 0 5.5 2.4 6.5 5-1 2.6-3.5 5-6.5 5-3.5 0-7-1.5-9.5-5z"/><circle cx="16.6" cy="11" r=".6"/></svg>
+            <div><div class="k" data-i18n="gtk.l.k">Lokacija</div><div class="v" data-i18n="gtk.l.v">Uz povijesnu ribarnicu</div></div></li>
+        </ul>
+      </div>
+      <div class="rv" style="--i:1">
+        <div class="shead"><h2 class="h2" data-i18n="near.title">U blizini</h2></div>
+        <ul class="near">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 20V10l9-5 9 5v10M3 20h18M8 20v-6a4 4 0 0 1 8 0v6"/></svg></span><div class="nm" data-i18n-html="near.1">Ribarnica</div><span class="d" data-i18n="near.1d">Odmah pored</span></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 20h16M6 20V9M10 20V9M14 20V9M18 20V9M3 9h18L12 4z"/></svg></span><div class="nm" data-i18n-html="near.2">Korzo</div><span class="d" data-i18n="near.2d">U blizini</span></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 3v14M8 6h8M12 17c-4 0-7-2.5-7.5-6M12 17c4 0 7-2.5 7.5-6M3 11h3M18 11h3M3 21c2 0 2-1 4.5-1s2.5 1 4.5 1 2-1 4.5-1 2.5 1 4.5 1"/></svg></span><div class="nm" data-i18n-html="near.3">Luka Rijeka</div><span class="d" data-i18n="near.3d">U blizini</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY (near black) -->
+<section class="sec black gal" data-sec="prica" aria-labelledby="galT">
+  <div class="wrap">
+    <h2 class="h2 rv" id="galT" data-i18n="gal.title">Kamen, cigla i more</h2>
+    <p class="intro rv" style="--i:1" data-i18n="gal.sub">Zavirite u konobu i na ribarnicu odmah do nas.</p>
+    <div class="car rv" style="--i:2" id="car" aria-roledescription="carousel">
+      <div class="sl on" data-cap="cap.1" data-link="#prica"><figure class="ph"><div class="layer"><svg class="sc" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#sc-sea" width="800" height="800"/></svg><img src="img/hero.jpg" alt="" onerror="this.remove()"></div></figure></div>
+      <div class="sl" data-cap="cap.2" data-link="#prica"><figure class="ph"><div class="layer"><svg class="sc" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#sc-interior" width="800" height="800"/></svg><img src="img/interior.jpg" alt="" loading="lazy" onerror="this.remove()"></div></figure></div>
+      <div class="sl" data-cap="cap.3" data-link="#ploca"><figure class="ph"><div class="layer"><svg class="sc" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#sc-fish" width="800" height="800"/></svg><img src="img/fish.jpg" alt="" loading="lazy" onerror="this.remove()"></div></figure></div>
+      <div class="sl" data-cap="cap.4" data-link="#jelovnik"><figure class="ph"><div class="layer"><svg class="sc" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#sc-calamari" width="800" height="800"/></svg><img src="img/calamari.jpg" alt="" loading="lazy" onerror="this.remove()"></div></figure></div>
+      <div class="sl" data-cap="cap.5" data-link="#kontakt"><figure class="ph"><div class="layer"><svg class="sc" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#sc-market" width="800" height="800"/></svg><img src="img/market.jpg" alt="" loading="lazy" onerror="this.remove()"></div></figure></div>
+      <a class="tag" id="carTag" href="#prica"><span id="carTagTxt">Konoba Fiume, Rijeka</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></a>
+      <button type="button" class="arw prev" id="carPrev" aria-label="Previous"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 3L5 8l5 5"/></svg></button>
+      <button type="button" class="arw next" id="carNext" aria-label="Next"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3l5 5-5 5"/></svg></button>
+      <div class="bar" aria-hidden="true"><i id="carBar"></i></div>
+      <div class="cnt" id="carCnt" aria-live="polite">1/5</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 BLACKBOARD (sea ink) ================= -->
+<section class="sec ink board-sec" id="ploca" data-sec="ploca">
+  <svg class="netbg" data-py="0.1" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="400" fill="url(#pNet)"/></svg>
+  <div class="deco" data-px="0.4" style="width:70px;top:70px;left:-40px;opacity:.7;transform-origin:center"><svg viewBox="0 0 120 220" style="transform:rotate(90deg)"><use href="#s-squid" width="120" height="220"/></svg></div>
+  <div class="wrap">
+    <div class="board-grid">
+      <div class="board-side">
+        <div class="shead rv">
+          <div class="kick label"><b>02</b><span data-i18n="board.label">Ploča</span></div>
+          <h2 class="h2" data-i18n-html="board.title">Što je <em>danas</em> stiglo</h2>
+        </div>
+        <p class="intro rv" style="--i:1" data-i18n="board.intro">Kao na ulazu u konobu.</p>
+        <p class="note rv" style="--i:2" data-i18n="board.note">Primjer ploče.</p>
+        <a href="#rezervacija" class="pill pill-linen rv" style="--i:3"><span data-i18n="hero.cta">Rezerviraj stol</span><i class="arr"></i></a>
+      </div>
+      <div class="frame rv" style="--i:1">
+        <div class="board" id="board">
+          <div class="bi">
+            <div class="bh chalk-w" style="--i:0"><span class="t" data-i18n="board.today">Danas</span><span class="dt" id="bdate"></span></div>
+            <ul class="bl" id="blist"></ul>
+            <div class="bf chalk-w" id="bfoot"><u data-i18n="board.foot">Kad nestane, nestane!</u></div>
+          </div>
+          <svg class="doodle" viewBox="0 0 96 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path pathLength="1" d="M10 24c10-14 30-18 48-14 10 2 18 8 24 14-6 6-14 12-24 14-18 4-38 0-48-14z"/>
+            <path pathLength="1" d="M10 24L2 14M10 24L2 34"/>
+            <path pathLength="1" d="M70 20a1.5 1.5 0 1 0 .1 0M38 14c4 6 4 14 0 20M50 13c3 7 3 15 0 22"/>
+          </svg>
+        </div>
+        <span class="chalk-piece"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 MENU (linen, peek carousel) ================= -->
+<section class="sec linen" id="jelovnik" data-sec="jelovnik">
+  <div class="deco" data-px="-0.25" style="width:200px;top:40px;right:-50px;opacity:.75"><svg viewBox="0 0 220 120"><use href="#s-scampi" width="220" height="120"/></svg></div>
+  <div class="deco" data-py="0.14" style="width:150px;bottom:-30px;right:-36px;opacity:.55"><svg viewBox="0 0 210 210"><use href="#s-tentacle" width="210" height="210"/></svg></div>
+  <div class="wrap">
+    <div class="shead rv">
+      <div class="kick label"><b>03</b><span data-i18n="menu.label">Jelovnik</span></div>
+      <h2 class="h2" data-i18n-html="menu.title">Iz naše <em>kuhinje</em></h2>
+      <p class="intro" data-i18n="menu.intro">Kvarnerski klasici.</p>
+    </div>
+    <div class="mtop rv" style="--i:1">
+      <div class="tabs" role="tablist" id="tabs" aria-label="Menu">
+        <button type="button" role="tab" aria-selected="true" data-tab="riba" data-i18n="tab.riba">Riba</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="skoljke" data-i18n="tab.skoljke">Školjke i rakovi</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="meso" data-i18n="tab.meso">Meso</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="slatko" data-i18n="tab.slatko">Slatko</button>
+      </div>
+      <div class="cnav"><button type="button" id="cPrev" aria-label="Previous"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 3L5 8l5 5"/></svg></button><button type="button" id="cNext" aria-label="Next"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3l5 5-5 5"/></svg></button></div>
+    </div>
+    <ul class="cards" id="cards" role="tabpanel" aria-live="polite"></ul>
+    <div class="cprog" aria-hidden="true"><i id="cprog"></i></div>
+    <p class="menu-note" data-i18n="menu.note">Cijene su oznake za prijedlog.</p>
+  </div>
+</section>
+
+<!-- SPOTLIGHT (pale tint, inset panel) -->
+<section class="sec spot-sec" data-sec="jelovnik" aria-labelledby="spotT">
+  <div class="wrap">
+    <div class="panel rv">
+      <figure class="ph unveil">
+        <div class="layer" data-par="0.06"><svg class="sc" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#sc-stew" width="800" height="800"/></svg></div>
+        <figcaption class="tag"><span data-i18n="spot.tag">Petkom u konobi</span></figcaption>
+      </figure>
+      <div class="ptxt">
+        <div class="kick label"><span data-i18n="spot.label">U fokusu</span></div>
+        <h2 class="h2" id="spotT" data-i18n="spot.title">Petak: bakalar</h2>
+        <p class="intro" data-i18n="spot.p">Petkom kuhamo varivo od bakalara.</p>
+        <ol class="nlist">
+          <li><div><b data-i18n="spot.1t">Samo petkom</b><span data-i18n="spot.1d">Jednom tjedno.</span></div></li>
+          <li><div><b data-i18n="spot.2t">Dođite za ručak</b><span data-i18n="spot.2d">Zna nestati.</span></div></li>
+          <li><div><b data-i18n="spot.3t">Uz čašu lokalnog vina</b><span data-i18n="spot.3d">Lokalna vina.</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET TO PLATE (teal band, script watermark) -->
+<section class="sec teal" data-sec="jelovnik" aria-labelledby="stepsT">
+  <div class="wm" data-py="-0.12" aria-hidden="true"><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div></div>
+  <div class="deco" data-px="0.45" style="width:150px;top:40px;left:-80px;opacity:.55"><svg viewBox="0 0 200 60"><use href="#s-sardine" width="200" height="60"/></svg></div>
+  <div class="deco" data-px="0.3" style="width:100px;top:84px;left:20px;opacity:.4"><svg viewBox="0 0 200 60"><use href="#s-sardine" width="200" height="60"/></svg></div>
+  <div class="wrap">
+    <div class="shead rv">
+      <div class="kick label"><b>04</b><span data-i18n="steps.label">Od ribarnice do tanjura</span></div>
+      <h2 class="h2" id="stepsT" data-i18n-html="steps.title">Od ribarnice <em>do vašeg tanjura</em></h2>
+    </div>
+    <ol class="steps" id="steps">
+      <li class="rail" aria-hidden="true"><i></i></li>
+      <li class="step">
+        <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path pathLength="1" d="M2 8l3 4-3 4"/><path pathLength="1" d="M5 12c2.5-3.5 6-5 9.5-5 3 0 5.5 2.4 6.5 5-1 2.6-3.5 5-6.5 5-3.5 0-7-1.5-9.5-5z"/></svg></span>
+        <span class="k">i.</span><h3 data-i18n="s1.t">Jutro na ribarnici</h3><p data-i18n="s1.d">Ribarnica je odmah do nas.</p>
+      </li>
+      <li class="step">
+        <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect pathLength="1" x="3" y="4" width="18" height="12" rx="1"/><path pathLength="1" d="M7.5 20l2-4M16.5 20l-2-4M6.5 8.5h6M6.5 11.5h9"/></svg></span>
+        <span class="k">ii.</span><h3 data-i18n="s2.t">Kredom na ploču</h3><p data-i18n="s2.d">Ulov dana na ploči.</p>
+      </li>
+      <li class="step">
+        <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle pathLength="1" cx="13" cy="13" r="6.5"/><circle pathLength="1" cx="13" cy="13" r="3.4"/><path pathLength="1" d="M3 4v5a1.5 1.5 0 0 0 3 0V4M4.5 10v10"/></svg></span>
+        <span class="k">iii.</span><h3 data-i18n="s3.t">Na vaš tanjur</h3><p data-i18n="s3.d">Na žaru, prženo ili iz lonca.</p>
+      </li>
+    </ol>
+    <a href="#ploca" class="pill pill-outline steps-cta rv"><span data-i18n="steps.cta">Pogledaj ploču</span><i class="arr"></i></a>
+  </div>
+</section>
+
+<!-- RECOGNITION (white) -->
+<section class="sec white" data-sec="jelovnik" aria-labelledby="recT">
+  <div class="wrap">
+    <div class="shead rv">
+      <div class="kick label"><b>05</b><span data-i18n="rec.label">Priznanja</span></div>
+      <h2 class="h2" id="recT" data-i18n-html="rec.title">Prepoznati od <em>struke i gostiju</em></h2>
+    </div>
+    <div class="rec">
+      <article class="rv">
+        <div class="seal">
+          <svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="c1" d="M50 50m-40 0a40 40 0 1 1 80 0a40 40 0 1 1 -80 0"/></defs><circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width=".6"/><text font-family="Figtree" font-size="7.6" letter-spacing="3.2" fill="currentColor"><textPath href="#c1">GAULT&amp;MILLAU · CROATIA · GUIDE ·</textPath></text></svg>
+          <div class="mid">G&amp;M</div>
+        </div>
+        <div><h3>Gault&amp;Millau</h3><p data-i18n="rec.1">Navedeni u vodiču Gault&amp;Millau Hrvatska.</p></div>
+      </article>
+      <article class="rv" style="--i:1">
+        <div class="seal">
+          <svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="c2" d="M50 50m-40 0a40 40 0 1 1 80 0a40 40 0 1 1 -80 0"/></defs><circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width=".6"/><text font-family="Figtree" font-size="7.2" letter-spacing="2.6" fill="currentColor"><textPath href="#c2">RIJEČKE GASTRONOMSKE LUKE ·</textPath></text></svg>
+          <div class="mid"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#B08D57" stroke-width="1.1" aria-hidden="true"><path d="M12 3v15M8 6h8M12 18c-4 0-7-2.5-7.5-6M12 18c4 0 7-2.5 7.5-6M3 12h3M18 12h3"/><circle cx="12" cy="3.8" r="1.2"/></svg></div>
+        </div>
+        <div><h3 data-i18n="rec.2t">Ribarska gastronomska luka</h3><p data-i18n="rec.2">Visit Rijeka, Riječke gastronomske luke.</p></div>
+      </article>
+      <article class="rv" style="--i:2">
+        <div class="seal">
+          <svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="c3" d="M50 50m-40 0a40 40 0 1 1 80 0a40 40 0 1 1 -80 0"/></defs><circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width=".6"/><text font-family="Figtree" font-size="7.6" letter-spacing="3.4" fill="currentColor"><textPath href="#c3">GOOGLE · ★★★★★ · GOOGLE ·</textPath></text></svg>
+          <div class="mid"><span data-i18n="stat.g">4,6</span></div>
+        </div>
+        <div><h3>Google</h3><div class="stars" aria-hidden="true">★★★★★</div><p data-i18n="rec.3">Više od 2.300 recenzija.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06 RESERVATION (linen) ================= -->
+<section class="sec linen" id="rezervacija" data-sec="rezervacija">
+  <div class="deco" data-px="-0.2" style="width:220px;top:24px;right:-90px;opacity:.35"><svg viewBox="0 0 220 120"><use href="#s-bream" width="220" height="120"/></svg></div>
+  <div class="wrap">
+    <div class="res-grid">
+      <div class="res-img rv">
+        <figure class="ph unveil">
+          <div class="layer" data-par="0.08"><svg class="sc" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#sc-interior" width="800" height="800"/></svg><img src="img/interior.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+          <figcaption class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span data-i18n="res.kicker">Kamen, cigla, lukovi</span></figcaption>
+        </figure>
+      </div>
+      <div>
+        <div class="shead rv">
+          <div class="kick label"><b>06</b><span data-i18n="res.label">Rezervacija</span></div>
+          <h2 class="h2" data-i18n-html="res.title">Rezervirajte <em>stol</em></h2>
+          <p class="intro" data-i18n="res.intro">Odaberite dan, sat i broj osoba.</p>
+        </div>
+        <form class="form rv" style="--i:1" id="resForm" novalidate>
+          <div class="fld"><label for="fDate" data-i18n="f.date">Datum</label><input class="inp" type="date" id="fDate" data-closed="0" required></div>
+          <p class="warn" id="warn" role="alert"></p>
+          <div class="fld">
+            <span class="lb" id="tLbl" data-i18n="f.time">Vrijeme</span>
+            <div class="chips" id="chips" role="radiogroup" aria-labelledby="tLbl"></div>
+            <div class="chips-h"><span data-i18n="f.lunch">Ručak</span><span data-i18n="f.dinner">Večera</span></div>
+          </div>
+          <div class="fld">
+            <span class="lb" id="gLbl" data-i18n="f.guests">Broj osoba</span>
+            <div class="stp" role="group" aria-labelledby="gLbl">
+              <button type="button" id="gMinus" aria-label="-">&#8722;</button><output id="gOut" aria-live="polite">2</output><button type="button" id="gPlus" aria-label="+">+</button>
+            </div>
+          </div>
+          <div class="fld"><label for="fName" data-i18n="f.name">Ime</label><input class="inp" type="text" id="fName" autocomplete="name"></div>
+          <button type="submit" class="pill pill-dark"><span data-i18n="f.send">Pošalji upit e-mailom</span><i class="arr"></i></button>
+          <div class="or"><span data-i18n="f.or">ili nazovite</span><a class="alink" href="tel:+38551312108">+385 51 312 108</a></div>
+          <p class="tip" data-i18n="f.tip">Dođite ranije.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ (white) -->
+<section class="sec white" id="faq" data-sec="rezervacija" aria-labelledby="faqT">
+  <div class="wrap">
+    <div class="shead rv">
+      <div class="kick label"><span data-i18n="ovl.faq">Česta pitanja</span></div>
+      <h2 class="h2" id="faqT" data-i18n="faq.title">Dobro je pitati</h2>
+    </div>
+    <div class="faq rv" style="--i:1" id="faqList">
+      <div class="fq-i"><button type="button" class="fq" aria-expanded="false"><span data-i18n="faq.q1">Kako rezervirati stol?</span><i class="pm" aria-hidden="true"></i></button><div class="fa"><div><p data-i18n="faq.a1">Telefonom ili e-mailom.</p></div></div></div>
+      <div class="fq-i"><button type="button" class="fq" aria-expanded="false"><span data-i18n="faq.q2">Radite li nedjeljom?</span><i class="pm" aria-hidden="true"></i></button><div class="fa"><div><p data-i18n="faq.a2">Nedjeljom smo zatvoreni.</p></div></div></div>
+      <div class="fq-i"><button type="button" class="fq" aria-expanded="false"><span data-i18n="faq.q3">Gdje vidim dnevnu ponudu?</span><i class="pm" aria-hidden="true"></i></button><div class="fa"><div><p data-i18n="faq.a3">Na ploči na ulazu.</p></div></div></div>
+      <div class="fq-i"><button type="button" class="fq" aria-expanded="false"><span data-i18n="faq.q4">Mogu li platiti karticom?</span><i class="pm" aria-hidden="true"></i></button><div class="fa"><div><p data-i18n="faq.a4">Pitajte konobara.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 07 CONTACT (sea ink) ================= -->
+<section class="sec ink" id="kontakt" data-sec="kontakt">
+  <div class="wrap">
+    <div class="shead rv">
+      <div class="kick label"><b>07</b><span data-i18n="ct.label">Kontakt</span></div>
+      <h2 class="h2" data-i18n-html="ct.title">Gdje smo i <em>kad radimo</em></h2>
+    </div>
+    <div class="ct-grid">
+      <div class="rv">
+        <div class="status" id="status"><i></i><span id="statusTxt"></span></div>
+        <ul class="hours" id="hours">
+          <li data-d="1-5"><span class="dn" data-i18n="h.wk">Ponedjeljak do petak</span><span class="tm">07:00 / 22:00</span></li>
+          <li data-d="6"><span class="dn" data-i18n="h.sat">Subota</span><span class="tm">07:00 / 16:00</span></li>
+          <li data-d="0" class="closed"><span class="dn" data-i18n="h.sun">Nedjelja</span><span class="tm" data-i18n="h.closed">Zatvoreno</span></li>
+        </ul>
+        <div class="cinfo">
+          <a href="https://maps.google.com/?q=Konoba+Fiume,+Ul.+Vatroslava+Lisinskog+12,+51000+Rijeka" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span class="alink">Ul. Vatroslava Lisinskog 12, 51000 Rijeka</span></a>
+          <a href="tel:+38551312108"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5.2 4h3l1.5 4-2 1.4a11 11 0 0 0 6.9 6.9l1.4-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A16 16 0 0 1 3.6 5.6 1.5 1.5 0 0 1 5.2 4z"/></svg><span class="alink">+385 51 312 108</span></a>
+          <a href="mailto:konoba.fiume@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg><span class="alink">konoba.fiume@gmail.com</span></a>
+        </div>
+      </div>
+      <div class="rv" style="--i:1">
+        <div class="map" id="map">
+          <svg viewBox="0 0 400 340" fill="none" role="img" aria-label="Rijeka waterfront">
+            <defs>
+              <linearGradient id="mSea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#17313f"/><stop offset="1" stop-color="#0b1820"/></linearGradient>
+              <pattern id="mGrid" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M22 0H0V22" stroke="rgba(255,255,255,.05)" stroke-width=".6"/></pattern>
+            </defs>
+            <rect width="400" height="340" fill="url(#mGrid)"/>
+            <path d="M-2 76.7 L0.0 76.7 L11.5 81.9 L13.6 96.2 L44.0 108.8 L46.1 108.1 L49.2 97.6 L52.4 94.5 L81.7 102.9 L82.7 116.5 L86.9 116.5 L90.1 109.8 L92.1 107.8 L102.6 112.6 L104.7 115.1 L120.4 121.7 L121.5 140.2 L123.6 139.5 L125.7 135.3 L128.8 132.9 L133.0 125.2 L150.8 133.6 L151.8 148.2 L155.0 147.5 L160.2 137.4 L167.5 139.5 L172.8 145.8 L179.1 148.2 L183.2 148.6 L187.4 153.8 L188.5 176.5 L191.6 172.6 L208.4 181.7 L212.6 184.8 L213.6 196.3 L220.9 200.2 L227.2 202.3 L230.4 201.6 L234.6 202.6 L242.9 200.2 L250.3 196.3 L256.5 189.0 L258.6 188.3 L259.7 183.4 L261.8 182.4 L262.8 186.9 L267.0 189.4 L268.1 205.4 L294.2 211.7 L311.0 219.3 L318.3 218.6 L319.4 206.1 L320.4 205.0 L334.0 207.5 L343.5 207.5 L346.6 208.9 L351.8 213.1 L360.2 217.3 L362.3 220.4 L365.4 222.5 L370.7 224.2 L374.9 227.0 L379.1 232.6 L385.3 235.0 L386.4 241.0 L390.6 247.9 L392.7 253.9 L399.0 256.7 L402 256.7 L402 342 L-2 342 Z" fill="url(#mSea)"/>
+            <path class="dr" pathLength="1" d="M-2 76.7 L0.0 76.7 L11.5 81.9 L13.6 96.2 L44.0 108.8 L46.1 108.1 L49.2 97.6 L52.4 94.5 L81.7 102.9 L82.7 116.5 L86.9 116.5 L90.1 109.8 L92.1 107.8 L102.6 112.6 L104.7 115.1 L120.4 121.7 L121.5 140.2 L123.6 139.5 L125.7 135.3 L128.8 132.9 L133.0 125.2 L150.8 133.6 L151.8 148.2 L155.0 147.5 L160.2 137.4 L167.5 139.5 L172.8 145.8 L179.1 148.2 L183.2 148.6 L187.4 153.8 L188.5 176.5 L191.6 172.6 L208.4 181.7 L212.6 184.8 L213.6 196.3 L220.9 200.2 L227.2 202.3 L230.4 201.6 L234.6 202.6 L242.9 200.2 L250.3 196.3 L256.5 189.0 L258.6 188.3 L259.7 183.4 L261.8 182.4 L262.8 186.9 L267.0 189.4 L268.1 205.4 L294.2 211.7 L311.0 219.3 L318.3 218.6 L319.4 206.1 L320.4 205.0 L334.0 207.5 L343.5 207.5 L346.6 208.9 L351.8 213.1 L360.2 217.3 L362.3 220.4 L365.4 222.5 L370.7 224.2 L374.9 227.0 L379.1 232.6 L385.3 235.0 L386.4 241.0 L390.6 247.9 L392.7 253.9 L399.0 256.7 L402 256.7" stroke="#B08D57" stroke-width="1.1" stroke-linejoin="round"/>
+            <path class="wv" d="M40 250 q8 -4 16 0 t16 0 M150 285 q8 -4 16 0 t16 0 M290 275 q8 -4 16 0 t16 0 M110 318 q8 -4 16 0 t16 0 M330 318 q8 -4 16 0 t16 0" stroke="rgba(255,255,255,.22)" stroke-width=".8" stroke-dasharray="10 5"/>
+                        <text class="lbl" x="22" y="106">Korzo</text>
+            <text class="lbl" x="36" y="72" data-i18n="map.port">Luka</text>
+            <text class="lbl" x="150" y="128">Ribarnica</text>
+            <text class="lbl" x="280" y="152">Delta</text>
+            <text class="lbl" x="318" y="206">Sušak</text>
+            <text class="lbl-s" x="110" y="296">Kvarner</text>
+            <circle class="pulse" cx="205" cy="157" r="9" fill="none" stroke="#B08D57" stroke-width="1"/>
+            <g class="pin"><path d="M205 159 c-7 -8 -11 -13 -11 -19 a11 11 0 0 1 22 0 c0 6 -4 11 -11 19z" fill="#B08D57"/><circle cx="205" cy="140" r="3.6" fill="#0F1A22"/></g>
+            <text x="219" y="163" font-family="Fraunces, serif" font-style="italic" font-size="16" fill="#FFFFFF">Konoba Fiume</text>
+          </svg>
+        </div>
+        <div class="map-foot">
+          <small data-i18n="map.note">Obala prema stvarnoj karti Rijeke.</small>
+          <a class="pill pill-linen" href="https://maps.google.com/?q=Konoba+Fiume,+Ul.+Vatroslava+Lisinskog+12,+51000+Rijeka" target="_blank" rel="noopener"><span data-i18n="map.dir">Upute do nas</span><i class="arr"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="ftr">
+  <div class="big" aria-hidden="true">Fiume</div>
+  <div class="wrap">
+    <div class="ftr-grid">
+      <div>
+        <a href="#top" class="logo"><small>Konoba</small><b>Fiume</b></a>
+        <p style="margin-top:18px;max-width:30ch" data-i18n="ft.tag">Obiteljska riblja konoba uz riječku ribarnicu.</p>
+      </div>
+      <div><h4 data-i18n="ft.addr">Adresa</h4><p>Ul. Vatroslava Lisinskog 12<br>51000 Rijeka</p></div>
+      <div><h4 data-i18n="ft.contact">Kontakt</h4><p><a class="alink" href="tel:+38551312108">+385 51 312 108</a><br><a class="alink" href="mailto:konoba.fiume@gmail.com">konoba.fiume@gmail.com</a></p></div>
+      <div><h4 data-i18n="ft.hours">Radno vrijeme</h4><p data-i18n-html="ft.hours.v">Pon do pet 07:00 do 22:00</p></div>
+    </div>
+    <div class="bot"><span>&copy; 2026 Konoba Fiume</span><span data-i18n="ft.note">Prijedlog dizajna. Ilustracije su privremene.</span></div>
+  </div>
+</footer>
+
+<!-- mobile sticky reservation bar -->
+<div class="sbar" id="sbar" aria-hidden="true">
+  <div class="sm"><small data-i18n="sbar.k">Vaš stol</small><b id="sbarSum">2 osobe · 20:00</b></div>
+  <button type="button" class="pill pill-dark" id="sbarBtn" tabindex="-1"><span data-i18n="nav.book">Rezerviraj</span></button>
+</div>
+<a href="#rezervacija" class="fab" id="fab"><i></i><span data-i18n="nav.book">Rezerviraj</span></a>
+<div class="kt">Koncept: Marija</div>
+
+<script>
+(function(){
+"use strict";
+var RM = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var $ = function(s,c){return (c||document).querySelector(s);};
+var $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s));};
+var mqMobile = window.matchMedia("(max-width: 759px)");
+
+/* ================= I18N ================= */
+var T = {
+hr:{
+ "nav.book":"Rezerviraj","sub.story":"Priča","sub.board":"Ploča","sub.menu":"Jelovnik","sub.res":"Rezervacija","sub.contact":"Kontakt","ovl.faq":"Česta pitanja",
+ "hero.eyebrow":"Riblja konoba uz ribarnicu","hero.lead":"Što jutros stigne na ribarnicu, za ručak je na vašem stolu. Obiteljska konoba pod kamenim zidovima i lukovima od cigle.","hero.cta":"Rezerviraj stol","hero.board":"Pogledaj današnju ploču",
+ "hint.touch":"Dotaknite more, ribe se raziđu","hint.mouse":"Prijeđite mišem preko mora",
+ "spill.t":"Stol za večeras","d.today":"Danas","d.tomorrow":"Sutra",
+ "cap.1":"Konoba Fiume, Rijeka","cap.2":"Kameni zidovi i lukovi","cap.3":"Ulov dana","cap.4":"Lignje na žaru","cap.5":"Ribarnica, Rijeka",
+ "story.label":"Priča","story.title":"Vrata do vrata <em>s ribarnicom</em>",
+ "story.p1":"Konoba Fiume je obiteljska konoba u srcu Rijeke, odmah uz povijesnu ribarnicu, blizu luke i Korza.",
+ "story.p2":"Kameni zidovi, lukovi od cigle i visoki stropovi čuvaju stari, pošteni ugođaj. Riba stiže s ribarnice svaki dan, a ono što stigne napišemo kredom na ploču na ulazu. Kuhamo jednostavno, kako se ovdje oduvijek kuhalo.",
+ "stat.g":"4,6","stat.g.l":"Google, 2.300+ recenzija","stat.gm.l":"Gault&Millau Hrvatska","stat.p":"Luka","stat.p.l":"Gastronomska luka Rijeke",
+ "gtk.title":"Dobro je znati","gtk.h.k":"Radno vrijeme","gtk.h.v":"Pon do pet 07:00 do 22:00, sub 07:00 do 16:00","gtk.s.k":"Nedjelja","gtk.s.v":"Zatvoreno",
+ "gtk.r.k":"Rezervacije","gtk.r.v":"Telefonom ili e-mailom","gtk.c.k":"Ulov dana","gtk.c.v":"Ispisan kredom na ploči na ulazu. Najtraženija jela znaju nestati nakon ručka.",
+ "gtk.l.k":"Lokacija","gtk.l.v":"Uz povijesnu ribarnicu, blizu luke i Korza",
+ "near.title":"U blizini","near.1":"Ribarnica<small>Povijesna riječka ribarnica</small>","near.1d":"Odmah pored","near.2":"Korzo<small>Glavna gradska šetnica</small>","near.2d":"U blizini","near.3":"Luka Rijeka<small>Rive i gatovi</small>","near.3d":"U blizini",
+ "gal.title":"Kamen, cigla i more","gal.sub":"Zavirite u konobu i na ribarnicu odmah do nas.",
+ "board.label":"Ploča","board.title":"Što je <em>danas</em> stiglo","board.intro":"Kao na ulazu u konobu: ploča se piše prema onome što taj dan donese ribarnica.","board.note":"Primjer ploče za ovaj prijedlog. Prava ponuda mijenja se svaki dan.",
+ "board.today":"Danas","board.foot":"Kad nestane, nestane!",
+ "b.1":"Srdele i inćuni","b.1s":"s blitvom i krumpirom","b.2":"Orada na žaru","b.3":"Lignje","b.3s":"na žaru ili pržene","b.4":"Raža","b.5":"Kvarnerski škampi","b.6":"Riblja juha",
+ "menu.label":"Jelovnik","menu.title":"Iz naše <em>kuhinje</em>","menu.intro":"Kvarnerski klasici, bez puno priče. Uz to lokalna vina.","menu.note":"Cijene (XX €) su oznake za ovaj prijedlog. Konoba ih upisuje sama.",
+ "tab.riba":"Riba","tab.skoljke":"Školjke i rakovi","tab.meso":"Meso","tab.slatko":"Slatko","card.link":"Rezerviraj stol",
+ "d.sard":"Srdele i inćuni","d.sard.d":"Mala plava riba, kako se jede uz more.","d.sard.b1":"S blitvom","d.sard.b2":"S krumpirom",
+ "d.orada":"Orada na žaru","d.orada.d":"Cijela riba, ravno sa žara.","d.orada.b1":"Prema ulovu dana",
+ "d.raza":"Raža","d.raza.d":"Kvarnerski klasik iz naše kuhinje.","d.raza.b1":"Prema ulovu dana",
+ "d.bak":"Bakalar","d.bak.d":"Na tradicionalni način.","d.bak.b1":"Pitajte za pripremu dana",
+ "d.juha":"Riblja juha","d.juha.d":"Topao početak svakog obroka.",
+ "d.petak":"Varivo od bakalara","d.petak.d":"Kuhamo ga petkom.","d.petak.b1":"Samo petkom",
+ "d.lig":"Lignje","d.lig.d":"Najtraženije jelo konobe.","d.lig.b1":"Na žaru","d.lig.b2":"Pržene",
+ "d.skampi":"Kvarnerski škampi","d.skampi.d":"Iz Kvarnerskog zaljeva.",
+ "d.crni":"Crni rižot","d.crni.d":"Riječki klasik uz more.","d.pasta":"Pašta s plodovima mora","d.pasta.d":"S plodovima mora dana.",
+ "d.hob":"Hobotnica","d.hob.d":"Prema ponudi dana.",
+ "d.gulas":"Teleći gulaš","d.gulas.d":"Domaće, kao kod kuće.","d.jan":"Kuhana janjetina","d.jan.d":"Na tradicionalni način.",
+ "d.des":"Slatko dana","d.des.d":"Pitajte konobara što je danas.","d.vino":"Lokalna vina","d.vino.d":"Uz ribu i uz sve ostalo.",
+ "spot.label":"U fokusu","spot.title":"Petak: bakalar","spot.tag":"Petkom u konobi","spot.p":"Petkom kuhamo varivo od bakalara. Jedan lonac, jednom tjedno, dok traje.",
+ "spot.1t":"Samo petkom","spot.1d":"Varivo od bakalara kuha se jednom tjedno.","spot.2t":"Dođite za ručak","spot.2d":"Najtraženija jela znaju nestati nakon ručka.","spot.3t":"Uz čašu lokalnog vina","spot.3d":"Lokalna vina idu uz sve s ploče.",
+ "steps.label":"Od ribarnice do tanjura","steps.title":"Od ribarnice <em>do vašeg tanjura</em>","steps.cta":"Pogledaj ploču",
+ "s1.t":"Jutro na ribarnici","s1.d":"Ribarnica je odmah do nas. Uzimamo ono što je taj dan najbolje.",
+ "s2.t":"Kredom na ploču","s2.d":"Ulov dana ispisujemo na ploči na ulazu, pa odmah vidite što ima.",
+ "s3.t":"Na vaš tanjur","s3.d":"Na žaru, prženo ili iz lonca, s blitvom, krumpirom i čašom lokalnog vina.",
+ "rec.label":"Priznanja","rec.title":"Prepoznati od <em>struke i gostiju</em>","rec.1":"Navedeni u vodiču Gault&Millau Hrvatska.","rec.2t":"Ribarska gastronomska luka","rec.2":"Visit Rijeka nas je uvrstio među Riječke gastronomske luke.","rec.3":"Ocjena 4,6 iz više od 2.300 recenzija.",
+ "res.kicker":"Kamen, cigla, lukovi","res.label":"Rezervacija","res.title":"Rezervirajte <em>stol</em>","res.intro":"Odaberite dan, sat i broj osoba. Otvorit će se e-mail s upitom, a konoba vam potvrđuje rezervaciju.",
+ "f.date":"Datum","f.time":"Vrijeme","f.lunch":"Ručak","f.dinner":"Večera","f.guests":"Broj osoba","f.name":"Ime","f.send":"Pošalji upit e-mailom","f.or":"ili nazovite","f.tip":"Želite nešto s ploče? Dođite ranije, najtraženija jela znaju nestati nakon ručka.",
+ "f.sun":"Nedjeljom ne radimo. Odaberite drugi dan.","f.nodate":"Odaberite datum.","f.notime":"Za taj dan nema slobodnih termina. Odaberite drugi dan ili nazovite.","f.sat":"Subotom radimo do 16:00.",
+ "sbar.k":"Vaš stol",
+ "m.subj":"Rezervacija stola","m.hi":"Poštovani,","m.req":"želim rezervirati stol u Konobi Fiume.","m.date":"Datum","m.time":"Vrijeme","m.guests":"Broj osoba","m.name":"Ime","m.bye":"Hvala i lijep pozdrav",
+ "faq.title":"Dobro je pitati",
+ "faq.q1":"Kako rezervirati stol?","faq.a1":"Nazovite nas na +385 51 312 108 ili pošaljite upit na konoba.fiume@gmail.com. Obrazac iznad složi poruku umjesto vas.",
+ "faq.q2":"Radite li nedjeljom?","faq.a2":"Nedjeljom smo zatvoreni. Od ponedjeljka do petka radimo od 07:00 do 22:00, a subotom od 07:00 do 16:00.",
+ "faq.q3":"Gdje vidim dnevnu ponudu?","faq.a3":"Na ploči na ulazu. Ponuda ovisi o tome što taj dan stigne na ribarnicu, a najtraženija jela znaju nestati nakon ručka.",
+ "faq.q4":"Mogu li platiti karticom?","faq.a4":"Pitajte konobara.",
+ "ct.label":"Kontakt","ct.title":"Gdje smo i <em>kad radimo</em>","h.wk":"Ponedjeljak do petak","h.sat":"Subota","h.sun":"Nedjelja","h.closed":"Zatvoreno","st.open":"Sada otvoreno","st.closed":"Sada zatvoreno",
+ "map.port":"Luka","map.note":"Obala prema stvarnoj karti Rijeke.","map.dir":"Upute do nas",
+ "ft.tag":"Obiteljska riblja konoba uz riječku ribarnicu.","ft.addr":"Adresa","ft.contact":"Kontakt","ft.hours":"Radno vrijeme","ft.hours.v":"Pon do pet 07:00 do 22:00<br>Sub 07:00 do 16:00<br>Nedjelja zatvoreno","ft.note":"Prijedlog dizajna. Ilustracije su privremene."
+},
+en:{
+ "nav.book":"Book","sub.story":"Story","sub.board":"The board","sub.menu":"Menu","sub.res":"Reservation","sub.contact":"Contact","ovl.faq":"FAQ",
+ "hero.eyebrow":"A fish tavern by the market","hero.lead":"What lands at the fish market in the morning is on your table by lunch. A family tavern under stone walls and brick arches.","hero.cta":"Book a table","hero.board":"See today's board",
+ "hint.touch":"Touch the water and the fish scatter","hint.mouse":"Move across the water",
+ "spill.t":"A table for tonight","d.today":"Today","d.tomorrow":"Tomorrow",
+ "cap.1":"Konoba Fiume, Rijeka","cap.2":"Stone walls and arches","cap.3":"Catch of the day","cap.4":"Grilled calamari","cap.5":"Ribarnica, Rijeka",
+ "story.label":"Our story","story.title":"Next door <em>to the fish market</em>",
+ "story.p1":"Konoba Fiume is a family-run tavern in the heart of Rijeka, right beside the historic fish market and close to the port and the Korzo.",
+ "story.p2":"Stone walls, brick arches and high ceilings keep the old, honest feel of the place. The fish comes from the market every day, and whatever arrives goes up in chalk on the board by the door. The cooking is simple, the way it has always been done here.",
+ "stat.g":"4.6","stat.g.l":"Google, 2,300+ reviews","stat.gm.l":"Gault&Millau Croatia","stat.p":"Port","stat.p.l":"Rijeka Gastronomic Port",
+ "gtk.title":"Good to know","gtk.h.k":"Opening hours","gtk.h.v":"Mon to Fri 07:00 to 22:00, Sat 07:00 to 16:00","gtk.s.k":"Sunday","gtk.s.v":"Closed",
+ "gtk.r.k":"Reservations","gtk.r.v":"By phone or email","gtk.c.k":"Daily catch","gtk.c.v":"Chalked on the board at the entrance. Popular dishes can run out after lunch.",
+ "gtk.l.k":"Location","gtk.l.v":"Beside the historic fish market, near the port and the Korzo",
+ "near.title":"What's nearby","near.1":"Fish market<small>Rijeka's historic Ribarnica</small>","near.1d":"Right next door","near.2":"Korzo<small>The city's main promenade</small>","near.2d":"Close by","near.3":"Port of Rijeka<small>The waterfront and quays</small>","near.3d":"Close by",
+ "gal.title":"Stone, brick and the sea","gal.sub":"A look inside the konoba and at the fish market next door.",
+ "board.label":"The board","board.title":"What came in <em>today</em>","board.intro":"Just like at the door: the board is written from whatever the market brings that day.","board.note":"Sample board for this proposal. The real offer changes every day.",
+ "board.today":"Today","board.foot":"When it's gone, it's gone!",
+ "b.1":"Sardines and anchovies","b.1s":"with Swiss chard and potatoes","b.2":"Grilled sea bream","b.3":"Calamari","b.3s":"grilled or fried","b.4":"Stingray","b.5":"Kvarner scampi","b.6":"Fish soup",
+ "menu.label":"Menu","menu.title":"From our <em>kitchen</em>","menu.intro":"Kvarner classics, nothing fussy. And local wines to go with them.","menu.note":"Prices (XX €) are placeholders for this proposal, to be filled in by the konoba.",
+ "tab.riba":"Fish","tab.skoljke":"Shellfish","tab.meso":"Meat","tab.slatko":"Sweet","card.link":"Book a table",
+ "d.sard":"Sardines and anchovies","d.sard.d":"Small blue fish, the way they eat it by the sea.","d.sard.b1":"With Swiss chard","d.sard.b2":"With potatoes",
+ "d.orada":"Grilled sea bream","d.orada.d":"The whole fish, straight off the grill.","d.orada.b1":"As the day's catch allows",
+ "d.raza":"Stingray","d.raza.d":"A Kvarner classic from our kitchen.","d.raza.b1":"As the day's catch allows",
+ "d.bak":"Bakalar (cod)","d.bak.d":"Made the traditional way.","d.bak.b1":"Ask how it's made today",
+ "d.juha":"Fish soup","d.juha.d":"A warm start to any meal.",
+ "d.petak":"Cod stew","d.petak.d":"We cook it on Fridays.","d.petak.b1":"Fridays only",
+ "d.lig":"Calamari","d.lig.d":"The konoba's most loved dish.","d.lig.b1":"Grilled","d.lig.b2":"Fried",
+ "d.skampi":"Kvarner scampi","d.skampi.d":"From the Kvarner Bay.",
+ "d.crni":"Black risotto","d.crni.d":"A seaside classic in Rijeka.","d.pasta":"Seafood pasta","d.pasta.d":"With the day's seafood.",
+ "d.hob":"Octopus","d.hob.d":"When the day brings it.",
+ "d.gulas":"Veal goulash","d.gulas.d":"Homestyle, like at home.","d.jan":"Boiled lamb","d.jan.d":"Made the traditional way.",
+ "d.des":"Sweet of the day","d.des.d":"Ask your server what's on today.","d.vino":"Local wines","d.vino.d":"For the fish, and everything else.",
+ "spot.label":"Spotlight","spot.title":"Friday: bakalar","spot.tag":"Fridays at the konoba","spot.p":"On Fridays we cook a cod stew. One pot, once a week, while it lasts.",
+ "spot.1t":"Fridays only","spot.1d":"The cod stew is cooked once a week.","spot.2t":"Come for lunch","spot.2d":"Popular dishes can run out after lunch.","spot.3t":"With a glass of local wine","spot.3d":"Local wines go with everything on the board.",
+ "steps.label":"Market to plate","steps.title":"From the market <em>to your plate</em>","steps.cta":"See the board",
+ "s1.t":"Morning at the market","s1.d":"The fish market is right next door. We take what is best that day.",
+ "s2.t":"Chalk on the board","s2.d":"The day's catch goes up on the board at the entrance, so you see straight away what there is.",
+ "s3.t":"Onto your plate","s3.d":"Grilled, fried or from the pot, with chard, potatoes and a glass of local wine.",
+ "rec.label":"Recognition","rec.title":"Trusted by <em>critics and guests</em>","rec.1":"Listed in the Gault&Millau Croatia guide.","rec.2t":"Fishermen's Gastronomic Port","rec.2":"Recognised by Visit Rijeka as one of Rijeka's Gastronomic Ports.","rec.3":"Rated 4.6 from more than 2,300 reviews.",
+ "res.kicker":"Stone, brick, arches","res.label":"Reservation","res.title":"Book your <em>table</em>","res.intro":"Pick a day, a time and how many of you. An email with your request will open, and the konoba confirms.",
+ "f.date":"Date","f.time":"Time","f.lunch":"Lunch","f.dinner":"Dinner","f.guests":"Guests","f.name":"Name","f.send":"Send request by email","f.or":"or call","f.tip":"After something from the board? Come early, favourites can run out after lunch.",
+ "f.sun":"We're closed on Sundays. Please pick another day.","f.nodate":"Please choose a date.","f.notime":"No times left for that day. Pick another day or give us a call.","f.sat":"On Saturdays we're open until 16:00.",
+ "sbar.k":"Your table",
+ "m.subj":"Table reservation","m.hi":"Hello,","m.req":"I would like to book a table at Konoba Fiume.","m.date":"Date","m.time":"Time","m.guests":"Guests","m.name":"Name","m.bye":"Thank you and kind regards",
+ "faq.title":"Good to ask",
+ "faq.q1":"How do I book a table?","faq.a1":"Call us on +385 51 312 108 or send a request to konoba.fiume@gmail.com. The form above writes the email for you.",
+ "faq.q2":"Are you open on Sundays?","faq.a2":"We're closed on Sundays. Monday to Friday we're open 07:00 to 22:00, Saturday 07:00 to 16:00.",
+ "faq.q3":"Where can I see the daily offer?","faq.a3":"On the board at the entrance. It depends on what the market brings that day, and popular dishes can run out after lunch.",
+ "faq.q4":"Can I pay by card?","faq.a4":"Ask your server.",
+ "ct.label":"Contact","ct.title":"Where to <em>find us</em>","h.wk":"Monday to Friday","h.sat":"Saturday","h.sun":"Sunday","h.closed":"Closed","st.open":"Open now","st.closed":"Closed now",
+ "map.port":"Port","map.note":"Coastline traced from the real map of Rijeka.","map.dir":"Get directions",
+ "ft.tag":"A family-run fish tavern by Rijeka's fish market.","ft.addr":"Address","ft.contact":"Contact","ft.hours":"Opening hours","ft.hours.v":"Mon to Fri 07:00 to 22:00<br>Sat 07:00 to 16:00<br>Sunday closed","ft.note":"Design proposal. Illustrations are placeholders."
+},
+it:{
+ "nav.book":"Prenota","sub.story":"Storia","sub.board":"Lavagna","sub.menu":"Menù","sub.res":"Prenotazione","sub.contact":"Contatti","ovl.faq":"Domande",
+ "hero.eyebrow":"Trattoria di pesce accanto al mercato","hero.lead":"Quello che arriva al mercato la mattina, a pranzo è sul vostro tavolo. Una trattoria di famiglia tra muri di pietra e archi in mattoni.","hero.cta":"Prenota un tavolo","hero.board":"La lavagna di oggi",
+ "hint.touch":"Tocca l'acqua, i pesci si disperdono","hint.mouse":"Muovi il mouse sull'acqua",
+ "spill.t":"Un tavolo per stasera","d.today":"Oggi","d.tomorrow":"Domani",
+ "cap.1":"Konoba Fiume, Rijeka","cap.2":"Muri di pietra e archi","cap.3":"Pescato del giorno","cap.4":"Calamari alla griglia","cap.5":"Ribarnica, Rijeka",
+ "story.label":"La storia","story.title":"Porta a porta <em>con il mercato del pesce</em>",
+ "story.p1":"Konoba Fiume è una trattoria di famiglia nel cuore di Rijeka, accanto allo storico mercato del pesce, vicino al porto e al Korzo.",
+ "story.p2":"Muri in pietra, archi in mattoni e soffitti alti custodiscono un'atmosfera semplice e sincera. Il pesce arriva dal mercato ogni giorno e quello che c'è viene scritto col gesso sulla lavagna all'ingresso. Una cucina semplice, come si è sempre fatto qui.",
+ "stat.g":"4,6","stat.g.l":"Google, oltre 2.300 recensioni","stat.gm.l":"Gault&Millau Croazia","stat.p":"Porto","stat.p.l":"Porto gastronomico di Rijeka",
+ "gtk.title":"Buono a sapersi","gtk.h.k":"Orari","gtk.h.v":"Lun a ven 07:00 alle 22:00, sab 07:00 alle 16:00","gtk.s.k":"Domenica","gtk.s.v":"Chiuso",
+ "gtk.r.k":"Prenotazioni","gtk.r.v":"Per telefono o e-mail","gtk.c.k":"Pescato del giorno","gtk.c.v":"Scritto col gesso sulla lavagna all'ingresso. I piatti più richiesti possono finire dopo pranzo.",
+ "gtk.l.k":"Posizione","gtk.l.v":"Accanto allo storico mercato del pesce, vicino al porto e al Korzo",
+ "near.title":"Nei dintorni","near.1":"Mercato del pesce<small>La storica Ribarnica di Rijeka</small>","near.1d":"Proprio accanto","near.2":"Korzo<small>La passeggiata principale della città</small>","near.2d":"Vicino","near.3":"Porto di Rijeka<small>Il lungomare e i moli</small>","near.3d":"Vicino",
+ "gal.title":"Pietra, mattoni e mare","gal.sub":"Uno sguardo nella konoba e al mercato del pesce accanto.",
+ "board.label":"Lavagna","board.title":"Cosa è arrivato <em>oggi</em>","board.intro":"Come all'ingresso: la lavagna si scrive con quello che il mercato porta quel giorno.","board.note":"Lavagna di esempio per questa proposta. L'offerta vera cambia ogni giorno.",
+ "board.today":"Oggi","board.foot":"Fino a esaurimento!",
+ "b.1":"Sarde e alici","b.1s":"con bietole e patate","b.2":"Orata alla griglia","b.3":"Calamari","b.3s":"alla griglia o fritti","b.4":"Razza","b.5":"Scampi del Quarnero","b.6":"Zuppa di pesce",
+ "menu.label":"Menù","menu.title":"Dalla nostra <em>cucina</em>","menu.intro":"Classici del Quarnero, senza fronzoli. E vini locali per accompagnarli.","menu.note":"I prezzi (XX €) sono segnaposto per questa proposta, li inserisce la konoba.",
+ "tab.riba":"Pesce","tab.skoljke":"Molluschi e crostacei","tab.meso":"Carne","tab.slatko":"Dolci","card.link":"Prenota un tavolo",
+ "d.sard":"Sarde e alici","d.sard.d":"Pesce azzurro, come si mangia sul mare.","d.sard.b1":"Con bietole","d.sard.b2":"Con patate",
+ "d.orada":"Orata alla griglia","d.orada.d":"Il pesce intero, dalla griglia.","d.orada.b1":"Secondo il pescato del giorno",
+ "d.raza":"Razza","d.raza.d":"Un classico del Quarnero dalla nostra cucina.","d.raza.b1":"Secondo il pescato del giorno",
+ "d.bak":"Baccalà","d.bak.d":"Alla maniera tradizionale.","d.bak.b1":"Chiedete la preparazione del giorno",
+ "d.juha":"Zuppa di pesce","d.juha.d":"Un inizio caldo per ogni pasto.",
+ "d.petak":"Stufato di baccalà","d.petak.d":"Lo cuciniamo il venerdì.","d.petak.b1":"Solo il venerdì",
+ "d.lig":"Calamari","d.lig.d":"Il piatto più amato della konoba.","d.lig.b1":"Alla griglia","d.lig.b2":"Fritti",
+ "d.skampi":"Scampi del Quarnero","d.skampi.d":"Dal golfo del Quarnero.",
+ "d.crni":"Risotto nero","d.crni.d":"Un classico di mare a Rijeka.","d.pasta":"Pasta ai frutti di mare","d.pasta.d":"Con i frutti di mare del giorno.",
+ "d.hob":"Polpo","d.hob.d":"Secondo l'offerta del giorno.",
+ "d.gulas":"Gulasch di vitello","d.gulas.d":"Fatto in casa, come una volta.","d.jan":"Agnello lesso","d.jan.d":"Alla maniera tradizionale.",
+ "d.des":"Dolce del giorno","d.des.d":"Chiedete al cameriere cosa c'è oggi.","d.vino":"Vini locali","d.vino.d":"Per il pesce, e non solo.",
+ "spot.label":"In primo piano","spot.title":"Venerdì: baccalà","spot.tag":"Il venerdì in konoba","spot.p":"Il venerdì cuciniamo lo stufato di baccalà. Una pentola, una volta a settimana, finché dura.",
+ "spot.1t":"Solo il venerdì","spot.1d":"Lo stufato di baccalà si cucina una volta a settimana.","spot.2t":"Venite a pranzo","spot.2d":"I piatti più richiesti possono finire dopo pranzo.","spot.3t":"Con un bicchiere di vino locale","spot.3d":"I vini locali stanno bene con tutto ciò che è sulla lavagna.",
+ "steps.label":"Dal mercato al piatto","steps.title":"Dal mercato <em>al vostro piatto</em>","steps.cta":"Vedi la lavagna",
+ "s1.t":"Mattina al mercato","s1.d":"Il mercato del pesce è proprio accanto. Prendiamo il meglio della giornata.",
+ "s2.t":"Col gesso sulla lavagna","s2.d":"Il pescato del giorno si scrive sulla lavagna all'ingresso, così vedete subito cosa c'è.",
+ "s3.t":"Nel vostro piatto","s3.d":"Alla griglia, fritto o in umido, con bietole, patate e un bicchiere di vino locale.",
+ "rec.label":"Riconoscimenti","rec.title":"Apprezzati da <em>critica e ospiti</em>","rec.1":"Presenti nella guida Gault&Millau Croazia.","rec.2t":"Porto gastronomico dei pescatori","rec.2":"Riconosciuti da Visit Rijeka tra i Porti gastronomici di Rijeka.","rec.3":"Voto 4,6 su oltre 2.300 recensioni.",
+ "res.kicker":"Pietra, mattoni, archi","res.label":"Prenotazione","res.title":"Prenota il tuo <em>tavolo</em>","res.intro":"Scegliete giorno, orario e numero di persone. Si aprirà un'e-mail con la richiesta e la konoba vi conferma.",
+ "f.date":"Data","f.time":"Orario","f.lunch":"Pranzo","f.dinner":"Cena","f.guests":"Persone","f.name":"Nome","f.send":"Invia richiesta via e-mail","f.or":"oppure chiamate","f.tip":"Volete qualcosa dalla lavagna? Venite presto, i piatti più richiesti finiscono dopo pranzo.",
+ "f.sun":"La domenica siamo chiusi. Scegliete un altro giorno.","f.nodate":"Scegliete una data.","f.notime":"Nessun orario disponibile per quel giorno. Scegliete un altro giorno o chiamateci.","f.sat":"Il sabato siamo aperti fino alle 16:00.",
+ "sbar.k":"Il vostro tavolo",
+ "m.subj":"Prenotazione tavolo","m.hi":"Buongiorno,","m.req":"vorrei prenotare un tavolo alla Konoba Fiume.","m.date":"Data","m.time":"Orario","m.guests":"Persone","m.name":"Nome","m.bye":"Grazie e cordiali saluti",
+ "faq.title":"Buono a chiedersi",
+ "faq.q1":"Come prenoto un tavolo?","faq.a1":"Chiamateci al +385 51 312 108 o scrivete a konoba.fiume@gmail.com. Il modulo qui sopra prepara l'e-mail per voi.",
+ "faq.q2":"Siete aperti la domenica?","faq.a2":"La domenica siamo chiusi. Da lunedì a venerdì siamo aperti dalle 07:00 alle 22:00, il sabato dalle 07:00 alle 16:00.",
+ "faq.q3":"Dove vedo l'offerta del giorno?","faq.a3":"Sulla lavagna all'ingresso. Dipende da cosa porta il mercato quel giorno, e i piatti più richiesti possono finire dopo pranzo.",
+ "faq.q4":"Posso pagare con la carta?","faq.a4":"Chiedete al cameriere.",
+ "ct.label":"Contatti","ct.title":"Dove <em>trovarci</em>","h.wk":"Da lunedì a venerdì","h.sat":"Sabato","h.sun":"Domenica","h.closed":"Chiuso","st.open":"Aperto ora","st.closed":"Chiuso ora",
+ "map.port":"Porto","map.note":"Costa tracciata dalla mappa reale di Rijeka.","map.dir":"Indicazioni",
+ "ft.tag":"Trattoria di pesce di famiglia accanto al mercato di Rijeka.","ft.addr":"Indirizzo","ft.contact":"Contatti","ft.hours":"Orari","ft.hours.v":"Lun a ven 07:00 alle 22:00<br>Sab 07:00 alle 16:00<br>Domenica chiuso","ft.note":"Proposta di design. Illustrazioni provvisorie."
+},
+de:{
+ "nav.book":"Reservieren","sub.story":"Geschichte","sub.board":"Tafel","sub.menu":"Speisekarte","sub.res":"Reservierung","sub.contact":"Kontakt","ovl.faq":"Häufige Fragen",
+ "hero.eyebrow":"Fischtaverne am Fischmarkt","hero.lead":"Was morgens auf dem Fischmarkt ankommt, steht mittags auf Ihrem Tisch. Eine Familientaverne mit Steinmauern und Ziegelbögen.","hero.cta":"Tisch reservieren","hero.board":"Die Tafel von heute",
+ "hint.touch":"Berühren Sie das Wasser, die Fische weichen aus","hint.mouse":"Fahren Sie mit der Maus über das Wasser",
+ "spill.t":"Ein Tisch für heute Abend","d.today":"Heute","d.tomorrow":"Morgen",
+ "cap.1":"Konoba Fiume, Rijeka","cap.2":"Steinmauern und Bögen","cap.3":"Fang des Tages","cap.4":"Gegrillte Calamari","cap.5":"Ribarnica, Rijeka",
+ "story.label":"Geschichte","story.title":"Tür an Tür <em>mit dem Fischmarkt</em>",
+ "story.p1":"Konoba Fiume ist eine familiengeführte Taverne im Herzen von Rijeka, direkt neben dem historischen Fischmarkt, nahe am Hafen und am Korzo.",
+ "story.p2":"Steinmauern, Ziegelbögen und hohe Decken bewahren die alte, ehrliche Atmosphäre. Der Fisch kommt jeden Tag vom Markt, und was da ist, steht mit Kreide auf der Tafel am Eingang. Gekocht wird einfach, so wie man es hier schon immer macht.",
+ "stat.g":"4,6","stat.g.l":"Google, über 2.300 Bewertungen","stat.gm.l":"Gault&Millau Kroatien","stat.p":"Hafen","stat.p.l":"Gastronomischer Hafen Rijeka",
+ "gtk.title":"Gut zu wissen","gtk.h.k":"Öffnungszeiten","gtk.h.v":"Mo bis Fr 07:00 bis 22:00 Uhr, Sa 07:00 bis 16:00 Uhr","gtk.s.k":"Sonntag","gtk.s.v":"Geschlossen",
+ "gtk.r.k":"Reservierungen","gtk.r.v":"Telefonisch oder per E-Mail","gtk.c.k":"Tagesfang","gtk.c.v":"Mit Kreide auf der Tafel am Eingang. Beliebte Gerichte sind nach dem Mittag oft vergriffen.",
+ "gtk.l.k":"Lage","gtk.l.v":"Neben dem historischen Fischmarkt, nahe Hafen und Korzo",
+ "near.title":"In der Nähe","near.1":"Fischmarkt<small>Die historische Ribarnica von Rijeka</small>","near.1d":"Gleich nebenan","near.2":"Korzo<small>Die Flaniermeile der Stadt</small>","near.2d":"Ganz nah","near.3":"Hafen Rijeka<small>Uferpromenade und Kais</small>","near.3d":"Ganz nah",
+ "gal.title":"Stein, Ziegel und Meer","gal.sub":"Ein Blick in die Konoba und auf den Fischmarkt nebenan.",
+ "board.label":"Tafel","board.title":"Was <em>heute</em> angekommen ist","board.intro":"Wie am Eingang: Die Tafel wird mit dem geschrieben, was der Markt an diesem Tag bringt.","board.note":"Beispieltafel für diesen Entwurf. Das echte Angebot wechselt täglich.",
+ "board.today":"Heute","board.foot":"Solange der Vorrat reicht!",
+ "b.1":"Sardinen und Sardellen","b.1s":"mit Mangold und Kartoffeln","b.2":"Gegrillte Dorade","b.3":"Calamari","b.3s":"gegrillt oder frittiert","b.4":"Rochen","b.5":"Kvarner Scampi","b.6":"Fischsuppe",
+ "menu.label":"Speisekarte","menu.title":"Aus unserer <em>Küche</em>","menu.intro":"Klassiker aus der Kvarner Bucht, ohne Schnickschnack. Dazu Weine aus der Region.","menu.note":"Preise (XX €) sind Platzhalter für diesen Entwurf, die Konoba trägt sie selbst ein.",
+ "tab.riba":"Fisch","tab.skoljke":"Meeresfrüchte","tab.meso":"Fleisch","tab.slatko":"Süßes","card.link":"Tisch reservieren",
+ "d.sard":"Sardinen und Sardellen","d.sard.d":"Kleiner blauer Fisch, wie man ihn am Meer isst.","d.sard.b1":"Mit Mangold","d.sard.b2":"Mit Kartoffeln",
+ "d.orada":"Gegrillte Dorade","d.orada.d":"Der ganze Fisch, direkt vom Grill.","d.orada.b1":"Je nach Tagesfang",
+ "d.raza":"Rochen","d.raza.d":"Ein Klassiker der Kvarner Bucht aus unserer Küche.","d.raza.b1":"Je nach Tagesfang",
+ "d.bak":"Bakalar (Kabeljau)","d.bak.d":"Nach traditioneller Art.","d.bak.b1":"Fragen Sie nach der Zubereitung des Tages",
+ "d.juha":"Fischsuppe","d.juha.d":"Ein warmer Auftakt für jedes Essen.",
+ "d.petak":"Kabeljau-Eintopf","d.petak.d":"Wir kochen ihn freitags.","d.petak.b1":"Nur freitags",
+ "d.lig":"Calamari","d.lig.d":"Das beliebteste Gericht der Konoba.","d.lig.b1":"Gegrillt","d.lig.b2":"Frittiert",
+ "d.skampi":"Kvarner Scampi","d.skampi.d":"Aus der Kvarner Bucht.",
+ "d.crni":"Schwarzes Risotto","d.crni.d":"Ein Klassiker am Meer in Rijeka.","d.pasta":"Pasta mit Meeresfrüchten","d.pasta.d":"Mit den Meeresfrüchten des Tages.",
+ "d.hob":"Oktopus","d.hob.d":"Je nach Tagesangebot.",
+ "d.gulas":"Kalbsgulasch","d.gulas.d":"Hausgemacht, wie zu Hause.","d.jan":"Gekochtes Lamm","d.jan.d":"Nach traditioneller Art.",
+ "d.des":"Dessert des Tages","d.des.d":"Fragen Sie nach, was es heute gibt.","d.vino":"Weine aus der Region","d.vino.d":"Zum Fisch und zu allem anderen.",
+ "spot.label":"Im Fokus","spot.title":"Freitag: Bakalar","spot.tag":"Freitags in der Konoba","spot.p":"Freitags kochen wir Kabeljau-Eintopf. Ein Topf, einmal pro Woche, solange er reicht.",
+ "spot.1t":"Nur freitags","spot.1d":"Der Kabeljau-Eintopf wird einmal pro Woche gekocht.","spot.2t":"Kommen Sie zum Mittagessen","spot.2d":"Beliebte Gerichte sind nach dem Mittag oft vergriffen.","spot.3t":"Mit einem Glas Wein aus der Region","spot.3d":"Regionale Weine passen zu allem auf der Tafel.",
+ "steps.label":"Vom Markt auf den Teller","steps.title":"Vom Markt <em>auf Ihren Teller</em>","steps.cta":"Zur Tafel",
+ "s1.t":"Morgens am Markt","s1.d":"Der Fischmarkt ist gleich nebenan. Wir nehmen, was an dem Tag am besten ist.",
+ "s2.t":"Mit Kreide an die Tafel","s2.d":"Der Tagesfang steht auf der Tafel am Eingang, so sehen Sie sofort, was es gibt.",
+ "s3.t":"Auf Ihren Teller","s3.d":"Gegrillt, frittiert oder aus dem Topf, mit Mangold, Kartoffeln und einem Glas Wein aus der Region.",
+ "rec.label":"Auszeichnungen","rec.title":"Geschätzt von <em>Kritik und Gästen</em>","rec.1":"Gelistet im Gault&Millau Kroatien.","rec.2t":"Gastronomischer Fischerhafen","rec.2":"Von Visit Rijeka als einer der Gastronomischen Häfen Rijekas anerkannt.","rec.3":"Bewertet mit 4,6 aus über 2.300 Bewertungen.",
+ "res.kicker":"Stein, Ziegel, Bögen","res.label":"Reservierung","res.title":"Reservieren Sie <em>Ihren Tisch</em>","res.intro":"Wählen Sie Tag, Uhrzeit und Personenzahl. Es öffnet sich eine E-Mail mit Ihrer Anfrage, die Konoba bestätigt.",
+ "f.date":"Datum","f.time":"Uhrzeit","f.lunch":"Mittag","f.dinner":"Abend","f.guests":"Personen","f.name":"Name","f.send":"Anfrage per E-Mail senden","f.or":"oder rufen Sie an","f.tip":"Lust auf etwas von der Tafel? Kommen Sie früh, Beliebtes ist nach dem Mittag oft weg.",
+ "f.sun":"Sonntags ist geschlossen. Bitte wählen Sie einen anderen Tag.","f.nodate":"Bitte wählen Sie ein Datum.","f.notime":"Für diesen Tag sind keine Zeiten mehr frei. Wählen Sie einen anderen Tag oder rufen Sie an.","f.sat":"Samstags haben wir bis 16:00 Uhr geöffnet.",
+ "sbar.k":"Ihr Tisch",
+ "m.subj":"Tischreservierung","m.hi":"Guten Tag,","m.req":"ich möchte gerne einen Tisch in der Konoba Fiume reservieren.","m.date":"Datum","m.time":"Uhrzeit","m.guests":"Personen","m.name":"Name","m.bye":"Vielen Dank und freundliche Grüße",
+ "faq.title":"Gut zu fragen",
+ "faq.q1":"Wie reserviere ich einen Tisch?","faq.a1":"Rufen Sie uns an unter +385 51 312 108 oder schreiben Sie an konoba.fiume@gmail.com. Das Formular oben schreibt die E-Mail für Sie.",
+ "faq.q2":"Haben Sie sonntags geöffnet?","faq.a2":"Sonntags ist geschlossen. Montag bis Freitag sind wir von 07:00 bis 22:00 Uhr da, samstags von 07:00 bis 16:00 Uhr.",
+ "faq.q3":"Wo sehe ich das Tagesangebot?","faq.a3":"Auf der Tafel am Eingang. Es hängt davon ab, was der Markt an dem Tag bringt, und beliebte Gerichte sind nach dem Mittag oft vergriffen.",
+ "faq.q4":"Kann ich mit Karte zahlen?","faq.a4":"Fragen Sie bitte das Personal.",
+ "ct.label":"Kontakt","ct.title":"So finden <em>Sie uns</em>","h.wk":"Montag bis Freitag","h.sat":"Samstag","h.sun":"Sonntag","h.closed":"Geschlossen","st.open":"Jetzt geöffnet","st.closed":"Jetzt geschlossen",
+ "map.port":"Hafen","map.note":"Küstenlinie nach der echten Karte von Rijeka.","map.dir":"Route planen",
+ "ft.tag":"Familiengeführte Fischtaverne am Fischmarkt von Rijeka.","ft.addr":"Adresse","ft.contact":"Kontakt","ft.hours":"Öffnungszeiten","ft.hours.v":"Mo bis Fr 07:00 bis 22:00<br>Sa 07:00 bis 16:00<br>Sonntag geschlossen","ft.note":"Designentwurf. Illustrationen sind Platzhalter."
+}};
+var LOC = {hr:"hr-HR",en:"en-GB",it:"it-IT",de:"de-DE"};
+var lang = "hr";
+try{ var saved = localStorage.getItem("fiume-lang"); if(saved && T[saved]) lang = saved; }catch(e){}
+function t(k){ return (T[lang] && T[lang][k] != null) ? T[lang][k] : (T.hr[k] != null ? T.hr[k] : k); }
+function pad(n){ return (n < 10 ? "0" : "") + n; }
+function guestsLabel(n){
+  if(lang === "hr"){ var m10 = n % 10, m100 = n % 100; var w = (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) ? "osobe" : "osoba"; return n + " " + w; }
+  if(lang === "en") return n + (n === 1 ? " guest" : " guests");
+  if(lang === "it") return n + (n === 1 ? " persona" : " persone");
+  return n + (n === 1 ? " Person" : " Personen");
+}
+
+function applyLang(l){
+  lang = l; document.documentElement.lang = l;
+  try{ localStorage.setItem("fiume-lang", l); }catch(e){}
+  $$("[data-i18n]").forEach(function(el){ el.textContent = t(el.getAttribute("data-i18n")); });
+  $$("[data-i18n-html]").forEach(function(el){ el.innerHTML = t(el.getAttribute("data-i18n-html")); });
+  $$(".langs button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang === l ? "true" : "false"); });
+  renderBoard(); renderCards(false); carCaption(); updateHours(); refreshSlots(); updateSummary(); setHint();
+  requestAnimationFrame(moveSubInd);
+}
+$$(".langs").forEach(function(group){
+  group.addEventListener("click", function(e){
+    var b = e.target.closest("button"); if(!b) return;
+    var inHeader = group.id === "langsHdr";
+    if(inHeader && mqMobile.matches && !group.classList.contains("open") && b.dataset.lang === lang){ group.classList.add("open"); return; }
+    group.classList.remove("open");
+    if(b.dataset.lang !== lang) applyLang(b.dataset.lang);
+  });
+});
+document.addEventListener("click", function(e){ var g = $("#langsHdr"); if(g.classList.contains("open") && !g.contains(e.target)) g.classList.remove("open"); });
+
+/* ================= PRELOADER ================= */
+setTimeout(function(){ document.documentElement.classList.add("ready"); }, RM ? 150 : 1450);
+setTimeout(function(){ var p = $("#pre"); if(p) p.remove(); }, RM ? 600 : 2700);
+
+/* ================= OVERLAY MENU ================= */
+var menuBtn = $("#menuBtn"), ovl = $("#ovl");
+function setMenu(open){
+  document.body.classList.toggle("menu-open", open);
+  menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  ovl.setAttribute("aria-hidden", open ? "false" : "true");
+  onScrollUI();
+}
+ovl.setAttribute("aria-hidden","true");
+menuBtn.addEventListener("click", function(){ setMenu(!document.body.classList.contains("menu-open")); });
+$$("#ovl a").forEach(function(a){ a.addEventListener("click", function(){ setMenu(false); }); });
+document.addEventListener("keydown", function(e){ if(e.key === "Escape") setMenu(false); });
+
+/* ================= HEADER / FAB / SBAR / SUBNAV ================= */
+var hdr = $("#hdr"), fab = $("#fab"), hero = $("#hero"), sbar = $("#sbar");
+var resIn = false;
+function onScrollUI(){
+  var y = window.scrollY, hh = hero.offsetHeight, menuOpen = document.body.classList.contains("menu-open");
+  hdr.classList.toggle("solid", y > hh - 120 && !menuOpen);
+  var barOn = resIn && mqMobile.matches && !menuOpen;
+  sbar.classList.toggle("show", barOn);
+  sbar.setAttribute("aria-hidden", barOn ? "false" : "true");
+  $("#sbarBtn").tabIndex = barOn ? 0 : -1;
+  document.body.classList.toggle("bar-up", barOn);
+  fab.classList.toggle("show", y > hh * .85 && !resIn && !menuOpen);
+}
+if("IntersectionObserver" in window){
+  new IntersectionObserver(function(es){ es.forEach(function(e){ resIn = e.isIntersecting; onScrollUI(); }); },{threshold:0,rootMargin:"-30% 0px -30% 0px"}).observe($("#rezervacija"));
+}
+
+var subLinks = $$("#subnav a"), subUl = $("#subnav"), subInd = $("#subInd"), activeNav = null;
+function moveSubInd(){
+  var a = activeNav ? $('#subnav a[data-nav="' + activeNav + '"]') : null;
+  if(!a){ subInd.style.width = "0px"; return; }
+  var li = a.parentNode;
+  subInd.style.width = li.offsetWidth + "px";
+  subInd.style.transform = "translateX(" + li.offsetLeft + "px)";
+  if(subUl.scrollWidth > subUl.clientWidth){
+    var target = li.offsetLeft - (subUl.clientWidth - li.offsetWidth) / 2;
+    subUl.scrollTo({left: target, behavior: RM ? "auto" : "smooth"});
+  }
+}
+function setNav(id){
+  if(id === activeNav) return; activeNav = id;
+  subLinks.forEach(function(a){ a.classList.toggle("on", a.dataset.nav === id); });
+  moveSubInd();
+}
+if("IntersectionObserver" in window){
+  var secIO = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting) setNav(e.target.dataset.sec); });
+  },{rootMargin:"-45% 0px -50% 0px"});
+  $$("[data-sec]").forEach(function(s){ secIO.observe(s); });
+  new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) setNav(null); }); },{rootMargin:"-45% 0px -50% 0px"}).observe(hero);
+}
+
+/* ================= HERO HINT ================= */
+function setHint(){ var h = $("#hintTxt"); if(h) h.textContent = t(window.matchMedia("(pointer: coarse)").matches ? "hint.touch" : "hint.mouse"); }
+
+/* ================= GALLERY CAROUSEL ================= */
+var car = $("#car"), slides = $$("#car .sl"), cur = 0, N = slides.length, DUR = 6000, tStart = performance.now(), carVisible = false, docHidden = false;
+var carTag = $("#carTag"), carTagTxt = $("#carTagTxt"), carCnt = $("#carCnt"), carBar = $("#carBar");
+function carCaption(){ carTagTxt.textContent = t(slides[cur].dataset.cap); carTag.setAttribute("href", slides[cur].dataset.link); carCnt.textContent = (cur + 1) + "/" + N; }
+function go(i){
+  i = (i + N) % N; if(i === cur) return;
+  slides[cur].classList.remove("on");
+  var lay = slides[i].querySelector(".layer"); lay.style.animation = "none"; void lay.offsetWidth; lay.style.animation = "";
+  slides[i].classList.add("on"); cur = i;
+  carTag.classList.add("sw"); setTimeout(function(){ carCaption(); carTag.classList.remove("sw"); }, 300);
+  tStart = performance.now();
+}
+$("#carNext").addEventListener("click", function(){ go(cur + 1); });
+$("#carPrev").addEventListener("click", function(){ go(cur - 1); });
+(function(){
+  var sx = null, sy = null;
+  car.addEventListener("touchstart", function(e){ sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, {passive:true});
+  car.addEventListener("touchend", function(e){
+    if(sx === null) return;
+    var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(cur + (dx < 0 ? 1 : -1));
+    sx = null;
+  }, {passive:true});
+})();
+if("IntersectionObserver" in window){
+  new IntersectionObserver(function(es){ es.forEach(function(e){ carVisible = e.isIntersecting; if(carVisible) tStart = performance.now(); }); },{threshold:.4}).observe(car);
+}
+document.addEventListener("visibilitychange", function(){ docHidden = document.hidden; if(!docHidden) tStart = performance.now(); });
+
+/* ================= PARALLAX + MAIN LOOP ================= */
+var parEls = $$("[data-par]"), decoEls = $$("[data-px],[data-py]"), heroStatic = $("#heroStatic"), stepsEl = $("#steps"), vh = window.innerHeight;
+window.addEventListener("resize", function(){ vh = window.innerHeight; moveSubInd(); updateCprog(); onScrollUI(); }, {passive:true});
+var lastY = -1;
+function loop(now){
+  if(!RM && carVisible && !docHidden){
+    var p = Math.max(0, Math.min(1, (now - tStart) / DUR));
+    carBar.style.transform = "scaleX(" + p + ")";
+    if(p >= 1) go(cur + 1);
+  }
+  var y = window.scrollY;
+  if(y !== lastY){
+    lastY = y; onScrollUI();
+    if(!RM){
+      if(y < vh * 1.2) heroStatic.style.transform = "translate3d(0," + (y * .3).toFixed(1) + "px,0)";
+      var i, el, r, off;
+      for(i = 0; i < parEls.length; i++){
+        el = parEls[i]; r = el.parentNode.getBoundingClientRect();
+        if(r.bottom < -100 || r.top > vh + 100) continue;
+        off = (r.top + r.height / 2 - vh / 2) * parseFloat(el.dataset.par);
+        el.style.transform = "translate3d(0," + off.toFixed(1) + "px,0)";
+      }
+      for(i = 0; i < decoEls.length; i++){
+        el = decoEls[i]; var sec = el.parentNode; r = sec.getBoundingClientRect();
+        if(r.bottom < -200 || r.top > vh + 200) continue;
+        off = (r.top + r.height / 2 - vh / 2);
+        var px = parseFloat(el.dataset.px || 0), py = parseFloat(el.dataset.py || 0);
+        el.style.transform = "translate3d(" + (off * px).toFixed(1) + "px," + (off * py).toFixed(1) + "px,0)";
+      }
+    }
+    var sr = stepsEl.getBoundingClientRect();
+    var sp = Math.max(0, Math.min(1, (vh * .75 - sr.top) / (sr.height * .9)));
+    stepsEl.style.setProperty("--p", RM ? 1 : sp.toFixed(3));
+  }
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+/* ================= REVEALS ================= */
+if("IntersectionObserver" in window){
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+  },{rootMargin:"0px 0px -10% 0px", threshold:.05});
+  $$(".rv,.step,.map,.shead").forEach(function(el){ io.observe(el); });
+  /* clip-path hides the element from IO, so watch its parent and reveal the image */
+  var uio = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target._unveil.classList.add("in"); uio.unobserve(e.target); } });
+  },{rootMargin:"0px 0px -10% 0px", threshold:.05});
+  $$(".unveil").forEach(function(el){ el.parentNode._unveil = el; uio.observe(el.parentNode); });
+  var bio = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); bio.unobserve(e.target); } });
+  },{threshold:.35});
+  bio.observe($("#board"));
+} else {
+  $$(".rv,.unveil,.step,.map,.shead,.board").forEach(function(el){ el.classList.add("in"); });
+}
+if(RM || !("IntersectionObserver" in window)){
+  $$(".unveil").forEach(function(el){ el.classList.add("in"); });
+}
+
+/* ================= BOARD ================= */
+var BOARD = [["b.1","b.1s"],["b.2"],["b.3","b.3s"],["b.4"],["b.5"],["b.6"]];
+function renderBoard(){
+  var h = "";
+  BOARD.forEach(function(it, i){
+    h += '<li class="chalk-w" style="--i:' + (i + 1) + '"><span class="nm">' + t(it[0]) + (it[1] ? "<small>" + t(it[1]) + "</small>" : "") + '</span><span class="dots"></span><span class="pr">XX €</span></li>';
+  });
+  $("#blist").innerHTML = h;
+  $("#bfoot").style.setProperty("--i", BOARD.length + 1);
+  var d = new Date();
+  try{ $("#bdate").textContent = new Intl.DateTimeFormat(LOC[lang], {weekday:"long", day:"numeric", month:"long"}).format(d); }
+  catch(e){ $("#bdate").textContent = d.toLocaleDateString(); }
+}
+
+/* ================= MENU CARDS ================= */
+function U(sym, w, h, cx, cy, s, r, extra){ return '<use href="#' + sym + '" width="' + w + '" height="' + h + '" transform="translate(' + cx + " " + cy + ") rotate(" + (r || 0) + ") scale(" + s + ") translate(" + (-w / 2) + " " + (-h / 2) + ')"' + (extra || "") + "/>"; }
+var V = {
+  sard: function(){ return '<rect width="400" height="500" fill="url(#pWave)" opacity=".25"/>' + U("s-sardine",200,60,210,170,1.3,-6) + U("s-sardine",200,60,170,250,1.6,-4) + U("s-sardine",200,60,230,340,1.15,-8) + U("s-chard",120,200,80,430,1,40); },
+  orada: function(){ return '<rect width="400" height="500" fill="url(#pNet)" opacity=".22"/>' + U("s-bream",220,120,200,240,1.55,-8) + U("s-lemon",100,100,310,400,.9,0); },
+  raza: function(){ return '<rect width="400" height="500" fill="url(#pWave)" opacity=".2"/>' + U("s-ray",200,200,200,240,1.6,-10); },
+  bak: function(){ return U("s-bowl",200,140,200,270,1.6,0,' style="color:#efe6d4"') + U("s-chard",120,200,320,410,.9,-30); },
+  juha: function(){ return U("s-bowl",200,140,200,260,1.6,0,' style="color:#c8823f"') + U("s-lemon",100,100,90,410,.8,0); },
+  petak: function(){ return U("s-bowl",200,140,200,250,1.6,0,' style="color:#a5652f"') + U("s-chard",120,200,90,410,.9,30) + U("s-lemon",100,100,320,410,.7,0); },
+  lig: function(){ return '<rect width="400" height="500" fill="url(#pWood)"/><circle cx="200" cy="250" r="160" fill="url(#gPlate)"/>' + U("s-squid-g",120,220,205,245,1.3,-50) + U("s-lemon",100,100,300,350,.7,0); },
+  skampi: function(){ return '<rect width="400" height="500" fill="url(#pWave)" opacity=".22"/>' + U("s-scampi",220,120,200,200,1.55,-12) + U("s-scampi",220,120,190,330,1.2,8); },
+  crni: function(){ return U("s-bowl",200,140,200,250,1.6,0,' style="color:#1d1d1d"') + U("s-lemon",100,100,310,400,.75,0); },
+  pasta: function(){ return U("s-bowl",200,140,200,280,1.6,0,' style="color:#e2b56a"') + U("s-scampi",220,120,210,180,.85,-10); },
+  hob: function(){ return '<rect width="400" height="500" fill="url(#pNet)" opacity=".2"/>' + U("s-tentacle",210,210,200,250,1.45,0); },
+  gulas: function(){ return U("s-bowl",200,140,200,260,1.6,0,' style="color:#7e3f1f"'); },
+  jan: function(){ return U("s-bowl",200,140,200,250,1.6,0,' style="color:#d9c29b"') + U("s-chard",120,200,90,400,.85,30); },
+  des: function(){ return U("s-lemon",100,100,170,210,1.7,0) + U("s-lemon",100,100,270,320,1.1,0) + U("s-lemon",100,100,140,360,.8,0); },
+  vino: function(){ return U("s-wine",120,220,200,250,1.55,0); }
+};
+var MENU = {
+  riba:[{k:"d.sard",v:"sard",bg:"#16303F",b:["d.sard.b1","d.sard.b2"]},{k:"d.orada",v:"orada",bg:"#24343E",b:["d.orada.b1"]},{k:"d.raza",v:"raza",bg:"#0E7C66",b:["d.raza.b1"]},{k:"d.bak",v:"bak",bg:"#E2D5CB",b:["d.bak.b1"]},{k:"d.juha",v:"juha",bg:"#3A2215"},{k:"d.petak",v:"petak",bg:"#B5583B",b:["d.petak.b1"]}],
+  skoljke:[{k:"d.lig",v:"lig",bg:"#2A1912",b:["d.lig.b1","d.lig.b2"],img:"img/calamari.jpg"},{k:"d.skampi",v:"skampi",bg:"#16303F"},{k:"d.crni",v:"crni",bg:"#E2D5CB"},{k:"d.pasta",v:"pasta",bg:"#0E7C66"},{k:"d.hob",v:"hob",bg:"#24343E"}],
+  meso:[{k:"d.gulas",v:"gulas",bg:"#E2D5CB"},{k:"d.jan",v:"jan",bg:"#3A2215"}],
+  slatko:[{k:"d.des",v:"des",bg:"#16303F"},{k:"d.vino",v:"vino",bg:"#E2D5CB"}]
+};
+var tab = "riba", tabs = $$("#tabs button"), cards = $("#cards"), busy = false;
+function cardsHTML(k){
+  return MENU[k].map(function(d, i){
+    var bul = d.b ? '<ul class="bul">' + d.b.map(function(x){ return "<li>" + t(x) + "</li>"; }).join("") + "</ul>" : "";
+    var img = d.img ? '<img src="' + d.img + '" alt="" loading="lazy" onerror="this.remove()">' : "";
+    return '<li class="card" style="--i:' + i + '"><figure class="ph" style="--bg:' + d.bg + '"><div class="layer"><svg class="sc" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + V[d.v]() + "</svg>" + img + "</div></figure>" +
+      "<h3>" + t(d.k) + "</h3><p>" + t(d.k + ".d") + "</p>" + bul +
+      '<div class="crow"><span class="pr">XX €</span><a class="ulink" href="#rezervacija">' + t("card.link") + "</a></div></li>";
+  }).join("");
+}
+function renderCards(animate){
+  if(!animate){ cards.innerHTML = cardsHTML(tab); cards.classList.add("show"); updateCprog(); return; }
+}
+function updateCprog(){
+  var max = cards.scrollWidth - cards.clientWidth, bar = $("#cprog");
+  var vis = cards.scrollWidth ? cards.clientWidth / cards.scrollWidth : 1;
+  var p = max > 0 ? cards.scrollLeft / max : 0;
+  bar.style.width = (Math.min(1, vis) * 100).toFixed(1) + "%";
+  bar.style.transform = "translateX(" + (p * (1 / Math.min(1, vis) - 1) * 100).toFixed(1) + "%)";
+}
+cards.addEventListener("scroll", updateCprog, {passive:true});
+function cardStep(){ var c = cards.querySelector(".card"); return c ? c.offsetWidth + 16 : 300; }
+$("#cPrev").addEventListener("click", function(){ cards.scrollBy({left: -cardStep(), behavior: RM ? "auto" : "smooth"}); });
+$("#cNext").addEventListener("click", function(){ cards.scrollBy({left: cardStep(), behavior: RM ? "auto" : "smooth"}); });
+tabs.forEach(function(b){
+  b.addEventListener("click", function(){
+    var k = b.dataset.tab; if(k === tab || busy) return;
+    busy = true; tab = k;
+    tabs.forEach(function(x){ x.setAttribute("aria-selected", x === b ? "true" : "false"); });
+    var tb = $("#tabs"); tb.scrollTo({left: b.offsetLeft - (tb.clientWidth - b.offsetWidth) / 2, behavior: RM ? "auto" : "smooth"});
+    cards.classList.add("out");
+    setTimeout(function(){
+      cards.classList.remove("show","out");
+      cards.innerHTML = cardsHTML(k);
+      cards.scrollLeft = 0; updateCprog();
+      void cards.offsetWidth;
+      cards.classList.add("show");
+      setTimeout(function(){ busy = false; }, 400);
+    }, RM ? 0 : 320);
+  });
+});
+
+/* ================= RESERVATION ================= */
+var SLOTS = ["12:00","13:00","14:00","19:00","20:00","21:00"];
+var fDate = $("#fDate"), chipsEl = $("#chips"), warn = $("#warn"), guests = 2, gOut = $("#gOut"), selTime = "20:00";
+function isoOf(d){ return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+(function(){
+  var d = new Date(); fDate.min = isoOf(d);
+  var n = new Date(d); if(n.getDay() === 0 || (n.getDay() === 6 && n.getHours() >= 13) || n.getHours() >= 20) n.setDate(n.getDate() + 1);
+  if(n.getDay() === 0) n.setDate(n.getDate() + 1);
+  fDate.value = isoOf(n);
+})();
+function selDate(){ if(!fDate.value) return null; var p = fDate.value.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+chipsEl.innerHTML = SLOTS.map(function(s){ return '<button type="button" class="chip" role="radio" aria-checked="false" data-t="' + s + '">' + s + "</button>"; }).join("");
+var chips = $$(".chip", chipsEl);
+function refreshSlots(){
+  var d = selDate(), now = new Date(), msg = "";
+  var dow = d ? d.getDay() : -1, isToday = d && isoOf(d) === isoOf(now);
+  var avail = [];
+  chips.forEach(function(c){
+    var hh = parseInt(c.dataset.t, 10), ok = true;
+    if(!d || dow === 0) ok = false;
+    if(dow === 6 && hh >= 16) ok = false;
+    if(isToday && (hh * 60) <= (now.getHours() * 60 + now.getMinutes() + 30)) ok = false;
+    c.disabled = !ok; if(ok) avail.push(c.dataset.t);
+  });
+  if(avail.indexOf(selTime) < 0) selTime = avail.length ? (avail.indexOf("13:00") > -1 && dow === 6 ? "13:00" : avail[avail.length > 3 ? avail.length - 2 : 0]) : null;
+  chips.forEach(function(c){ c.setAttribute("aria-checked", c.dataset.t === selTime ? "true" : "false"); c.tabIndex = (c.dataset.t === selTime || (!selTime && !c.disabled)) ? 0 : -1; });
+  if(!d) msg = t("f.nodate"); else if(dow === 0) msg = t("f.sun"); else if(!avail.length) msg = t("f.notime"); else if(dow === 6) msg = t("f.sat");
+  warn.textContent = msg; warn.classList.toggle("on", !!msg);
+  updateSummary();
+}
+chipsEl.addEventListener("click", function(e){
+  var c = e.target.closest(".chip"); if(!c || c.disabled) return;
+  selTime = c.dataset.t; refreshSlots();
+});
+chipsEl.addEventListener("keydown", function(e){
+  if(["ArrowRight","ArrowLeft","ArrowDown","ArrowUp"].indexOf(e.key) < 0) return;
+  e.preventDefault();
+  var en = chips.filter(function(c){ return !c.disabled; }); if(!en.length) return;
+  var idx = en.findIndex(function(c){ return c.dataset.t === selTime; });
+  idx = (idx + ((e.key === "ArrowRight" || e.key === "ArrowDown") ? 1 : -1) + en.length) % en.length;
+  selTime = en[idx].dataset.t; refreshSlots(); en[idx].focus();
+});
+fDate.addEventListener("change", refreshSlots);
+function setG(v){
+  guests = Math.max(1, Math.min(20, v)); gOut.textContent = guests;
+  gOut.classList.remove("bump"); void gOut.offsetWidth; gOut.classList.add("bump");
+  $("#gMinus").disabled = guests <= 1; $("#gPlus").disabled = guests >= 20;
+  updateSummary();
+}
+$("#gMinus").addEventListener("click", function(){ setG(guests - 1); });
+$("#gPlus").addEventListener("click", function(){ setG(guests + 1); });
+$("#gMinus").disabled = true;
+function dayLabel(d){
+  var now = new Date(), tm = new Date(now); tm.setDate(now.getDate() + 1);
+  if(isoOf(d) === isoOf(now)) return t("d.today");
+  if(isoOf(d) === isoOf(tm)) return t("d.tomorrow");
+  try{ return new Intl.DateTimeFormat(LOC[lang], {weekday:"short", day:"numeric", month:"short"}).format(d); }catch(e){ return fDate.value; }
+}
+function updateSummary(){
+  var d = selDate();
+  $("#sbarSum").textContent = guestsLabel(guests) + (selTime ? " · " + selTime : "");
+  $("#spillSub").textContent = (d ? dayLabel(d) : t("d.today")) + " • " + guestsLabel(guests) + (selTime ? " • " + selTime : "");
+}
+function submitRes(){
+  var d = selDate();
+  if(!d || d.getDay() === 0 || !selTime){ refreshSlots(); $("#rezervacija").scrollIntoView({behavior: RM ? "auto" : "smooth"}); return; }
+  var ds;
+  try{ ds = new Intl.DateTimeFormat(LOC[lang], {weekday:"long", day:"numeric", month:"long", year:"numeric"}).format(d); }catch(err){ ds = fDate.value; }
+  var name = $("#fName").value.trim();
+  var subj = t("m.subj") + " · " + ds + " · " + selTime + " · " + guestsLabel(guests);
+  var body = t("m.hi") + "\n\n" + t("m.req") + "\n\n" + t("m.date") + ": " + ds + "\n" + t("m.time") + ": " + selTime + "\n" + t("m.guests") + ": " + guests + "\n" + (name ? t("m.name") + ": " + name + "\n" : "") + "\n" + t("m.bye") + (name ? ",\n" + name : "");
+  window.location.href = "mailto:konoba.fiume@gmail.com?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(body);
+}
+$("#resForm").addEventListener("submit", function(e){ e.preventDefault(); submitRes(); });
+$("#sbarBtn").addEventListener("click", submitRes);
+
+/* ================= FAQ ================= */
+$$("#faqList .fq").forEach(function(b){
+  b.addEventListener("click", function(){
+    var it = b.parentNode, open = !it.classList.contains("open");
+    it.classList.toggle("open", open); b.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+});
+
+/* ================= HOURS / STATUS (Europe/Zagreb) ================= */
+function zagNow(){
+  try{
+    var parts = new Intl.DateTimeFormat("en-GB", {timeZone:"Europe/Zagreb", weekday:"short", hour:"2-digit", minute:"2-digit", hourCycle:"h23"}).formatToParts(new Date());
+    var o = {}; parts.forEach(function(x){ o[x.type] = x.value; });
+    var map = {Sun:0, Mon:1, Tue:2, Wed:3, Thu:4, Fri:5, Sat:6};
+    return {d: map[o.weekday], m: (+o.hour) * 60 + (+o.minute)};
+  }catch(e){ var n = new Date(); return {d: n.getDay(), m: n.getHours() * 60 + n.getMinutes()}; }
+}
+function updateHours(){
+  var z = zagNow(), open = false;
+  if(z.d >= 1 && z.d <= 5) open = z.m >= 420 && z.m < 1320;
+  if(z.d === 6) open = z.m >= 420 && z.m < 960;
+  $("#status").classList.toggle("closed", !open);
+  $("#statusTxt").textContent = t(open ? "st.open" : "st.closed");
+  $$("#hours li").forEach(function(li){
+    var r = li.dataset.d, today = (r === "1-5") ? (z.d >= 1 && z.d <= 5) : (+r === z.d);
+    li.classList.toggle("today", today);
+  });
+}
+setInterval(updateHours, 60000);
+
+/* ================= SMOOTH ANCHORS ================= */
+document.addEventListener("click", function(e){
+  var a = e.target.closest('a[href^="#"]'); if(!a) return;
+  var id = a.getAttribute("href"); if(id.length < 2) return;
+  var el = document.querySelector(id); if(!el) return;
+  e.preventDefault();
+  el.scrollIntoView({behavior: RM ? "auto" : "smooth", block: "start"});
+  if(history.replaceState) history.replaceState(null, "", id);
+});
+if(RM){ var w = $(".wave"); if(w && w.pauseAnimations) w.pauseAnimations(); }
+
+/* ================= 3D HERO: school of fish (three.js r128) ================= */
+function webglOK(){ try{ var c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); }catch(e){ return false; } }
+function loadThree(){
+  if(RM || !webglOK()) return;
+  var s = document.createElement("script");
+  s.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+  s.async = true;
+  s.onload = function(){ try{ startFish(); }catch(err){ if(window.console) console.warn("3D hero fallback:", err); hero.classList.remove("gl-on"); } };
+  document.head.appendChild(s);
+}
+function fishGeometry(THREE){
+  var P = {
+    n:[0,0,1], t1:[0,.3,.18], b1:[0,-.27,.18], l1:[-.14,0,.18], r1:[.14,0,.18],
+    t2:[0,.12,-.52], b2:[0,-.1,-.52], l2:[-.06,0,-.52], r2:[.06,0,-.52],
+    pd:[0,0,-.72], tt:[0,.34,-1.05], tb:[0,-.34,-1.05], tm:[0,0,-.92], df:[0,.44,-.12]
+  };
+  var tris = [
+    ["n","t1","r1"],["n","r1","b1"],["n","b1","l1"],["n","l1","t1"],
+    ["t1","t2","r2"],["t1","r2","r1"],["r1","r2","b2"],["r1","b2","b1"],["b1","b2","l2"],["b1","l2","l1"],["l1","l2","t2"],["l1","t2","t1"],
+    ["t2","pd","r2"],["r2","pd","b2"],["b2","pd","l2"],["l2","pd","t2"],
+    ["pd","tt","tm"],["pd","tm","tb"],["t1","df","t2"]
+  ];
+  var pos = [];
+  tris.forEach(function(tr){ tr.forEach(function(k){ pos.push(P[k][0], P[k][1], P[k][2]); }); });
+  var g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+  g.computeVertexNormals();
+  return g;
+}
+function startFish(){
+  var THREE = window.THREE; if(!THREE) return;
+  var canvas = $("#gl");
+  var coarse = window.matchMedia("(pointer: coarse)").matches;
+  var mobile = window.innerWidth < 760 || coarse;
+  var low = (navigator.hardwareConcurrency || 4) <= 4 || (navigator.deviceMemory && navigator.deviceMemory <= 4);
+  var COUNT = mobile ? (low ? 70 : 100) : (low ? 110 : 150);
+  var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: !mobile, alpha: true, powerPreference: "high-performance"});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, low ? 1.5 : 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.setClearColor(0x000000, 0);
+  var scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x0b2c42, 0.05);
+  var camera = new THREE.PerspectiveCamera(55, 1, 0.1, 80);
+  camera.position.set(0, 0, 13);
+
+  scene.add(new THREE.HemisphereLight(0xaee4ff, 0x06121c, 0.95));
+  var sun = new THREE.DirectionalLight(0xffffff, 1.35); sun.position.set(2, 10, 5); scene.add(sun);
+  var rim = new THREE.DirectionalLight(0x6fd0ff, 0.6); rim.position.set(-6, -2, -6); scene.add(rim);
+
+  /* fish */
+  var mat = new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 0.55, roughness: 0.3, flatShading: true, side: THREE.DoubleSide});
+  var uTime = {value: 0};
+  mat.onBeforeCompile = function(sh){
+    sh.uniforms.uTime = uTime;
+    sh.vertexShader = sh.vertexShader
+      .replace("#include <common>", "#include <common>\nuniform float uTime;\nvarying float vLy;")
+      .replace("#include <begin_vertex>", "#include <begin_vertex>\n#ifdef USE_INSTANCING\nfloat ph = instanceMatrix[3].x * 1.7 + instanceMatrix[3].y * 2.3 + instanceMatrix[3].z;\n#else\nfloat ph = 0.0;\n#endif\nfloat tw = smoothstep(0.25, -1.05, position.z);\ntransformed.x += sin(uTime * 11.0 + ph + position.z * 3.2) * 0.16 * tw;\nvLy = position.y;");
+    sh.fragmentShader = sh.fragmentShader
+      .replace("#include <common>", "#include <common>\nvarying float vLy;")
+      .replace("#include <fog_fragment>", "vec3 vdir = normalize(vViewPosition);\nfloat fr = pow(1.0 - clamp(abs(dot(normal, vdir)), 0.0, 1.0), 2.0);\nvec3 irid = 0.5 + 0.5 * cos(6.2831 * (fr * 0.9 + vec3(0.0, 0.33, 0.67)));\ngl_FragColor.rgb += irid * fr * 0.32 + smoothstep(0.0, -0.25, vLy) * 0.07;\n#include <fog_fragment>");
+  };
+  var mesh = new THREE.InstancedMesh(fishGeometry(THREE), mat, COUNT);
+  mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  var col = new THREE.Color();
+  for(var c = 0; c < COUNT; c++){
+    col.setHSL(0.53 + Math.random() * 0.07, 0.22 + Math.random() * 0.25, 0.58 + Math.random() * 0.2);
+    mesh.setColorAt(c, col);
+  }
+  if(mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+  scene.add(mesh);
+
+  /* light rays */
+  var rays = [];
+  var rayV = "varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }";
+  var rayF = "uniform float uTime; uniform float uSeed; varying vec2 vUv; void main(){ float e = smoothstep(0.0, 0.5, vUv.x) * smoothstep(1.0, 0.5, vUv.x); float f = pow(vUv.y, 1.7); float fl = 0.7 + 0.3 * sin(uTime * 0.5 + uSeed * 6.28); gl_FragColor = vec4(vec3(0.65, 0.88, 1.0), e * e * f * fl * 0.2); }";
+  [[-5,-4,.35,3.2],[-1.5,-6,.18,4],[2.5,-3,.28,2.6],[5.5,-5,.12,3.6],[0.5,-1,.22,2]].forEach(function(r, i){
+    var m = new THREE.ShaderMaterial({uniforms:{uTime: uTime, uSeed:{value: i * 0.37}}, vertexShader: rayV, fragmentShader: rayF, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide});
+    var pl = new THREE.Mesh(new THREE.PlaneGeometry(r[3], 26), m);
+    pl.position.set(r[0], 3, r[1]); pl.rotation.z = r[2]; scene.add(pl); rays.push(pl);
+  });
+
+  /* particles */
+  var PN = mobile ? 180 : 360, pp = new Float32Array(PN * 3);
+  for(var q = 0; q < PN; q++){ pp[q*3] = (Math.random() - .5) * 26; pp[q*3+1] = (Math.random() - .5) * 16; pp[q*3+2] = (Math.random() - .5) * 14; }
+  var pg = new THREE.BufferGeometry(); pg.setAttribute("position", new THREE.BufferAttribute(pp, 3));
+  var dc = document.createElement("canvas"); dc.width = dc.height = 64;
+  var dx = dc.getContext("2d"), grd = dx.createRadialGradient(32,32,0,32,32,32);
+  grd.addColorStop(0,"rgba(255,255,255,1)"); grd.addColorStop(.4,"rgba(255,255,255,.35)"); grd.addColorStop(1,"rgba(255,255,255,0)");
+  dx.fillStyle = grd; dx.fillRect(0,0,64,64);
+  var pts = new THREE.Points(pg, new THREE.PointsMaterial({size: 0.09, map: new THREE.CanvasTexture(dc), transparent: true, depthWrite: false, opacity: .7, color: 0xcdeeff, blending: THREE.AdditiveBlending}));
+  scene.add(pts);
+
+  /* boids state */
+  var P = new Float32Array(COUNT * 3), Vv = new Float32Array(COUNT * 3), SZ = new Float32Array(COUNT), PAN = new Float32Array(COUNT);
+  var B = {x: 6, y: 4, z: 4};
+  for(var i = 0; i < COUNT; i++){
+    P[i*3] = (Math.random() - .5) * 8; P[i*3+1] = (Math.random() - .5) * 5; P[i*3+2] = (Math.random() - .5) * 6;
+    var a = Math.random() * 6.28; Vv[i*3] = Math.cos(a) * 2; Vv[i*3+1] = (Math.random() - .5) * .5; Vv[i*3+2] = Math.sin(a) * 2;
+    SZ[i] = (mobile ? .28 : .32) + Math.random() * .16;
+  }
+  var dummy = new THREE.Object3D(), look = new THREE.Vector3();
+  var ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), pointerOn = 0, mouse = {x: 0, y: 0, sx: 0, sy: 0};
+  function setPointer(cx, cy){
+    var r = hero.getBoundingClientRect();
+    ndc.x = ((cx - r.left) / r.width) * 2 - 1; ndc.y = -((cy - r.top) / r.height) * 2 + 1;
+    mouse.x = ndc.x; mouse.y = ndc.y; pointerOn = 1.6;
+  }
+  hero.addEventListener("pointermove", function(e){ setPointer(e.clientX, e.clientY); }, {passive: true});
+  hero.addEventListener("pointerdown", function(e){ setPointer(e.clientX, e.clientY); }, {passive: true});
+  hero.addEventListener("touchstart", function(e){ setPointer(e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
+  hero.addEventListener("touchmove", function(e){ setPointer(e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
+  hero.addEventListener("pointerleave", function(){ pointerOn = 0; });
+
+  function resize(){
+    var w = hero.clientWidth, h = hero.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h; camera.updateProjectionMatrix();
+    var halfH = Math.tan(THREE.MathUtils.degToRad(27.5)) * 13, halfW = halfH * camera.aspect;
+    B.x = Math.max(halfW * 1.05, 3.2); B.y = halfH * .82; B.z = 4;
+  }
+  resize();
+  window.addEventListener("resize", resize, {passive: true});
+
+  var R2 = 1.6 * 1.6, SR2 = .55 * .55, o = new THREE.Vector3(), dir = new THREE.Vector3();
+  function step(dt, time){
+    var tx = Math.sin(time * .13) * B.x * .45, ty = Math.sin(time * .21) * B.y * .35, tz = Math.cos(time * .17) * 2;
+    var usePtr = pointerOn > 0;
+    if(usePtr){ ray.setFromCamera(ndc, camera); o.copy(ray.ray.origin); dir.copy(ray.ray.direction); }
+    for(var i = 0; i < COUNT; i++){
+      var ix = i * 3, px = P[ix], py = P[ix+1], pz = P[ix+2], vx = Vv[ix], vy = Vv[ix+1], vz = Vv[ix+2];
+      var n = 0, ax = 0, ay = 0, az = 0, cx = 0, cy = 0, cz = 0, sx = 0, sy = 0, sz = 0;
+      for(var j = 0; j < COUNT; j++){
+        if(j === i) continue;
+        var jx = j * 3, dx = P[jx] - px, dy = P[jx+1] - py, dz = P[jx+2] - pz, d2 = dx*dx + dy*dy + dz*dz;
+        if(d2 < R2){
+          n++; ax += Vv[jx]; ay += Vv[jx+1]; az += Vv[jx+2]; cx += P[jx]; cy += P[jx+1]; cz += P[jx+2];
+          if(d2 < SR2 && d2 > 1e-5){ sx -= dx / d2; sy -= dy / d2; sz -= dz / d2; }
+        }
+      }
+      var fx = 0, fy = 0, fz = 0;
+      if(n){
+        fx += (ax / n - vx) * 1.1; fy += (ay / n - vy) * 1.1; fz += (az / n - vz) * 1.1;
+        fx += (cx / n - px) * .7; fy += (cy / n - py) * .7; fz += (cz / n - pz) * .7;
+        fx += sx * .9; fy += sy * .9; fz += sz * .9;
+      }
+      fx += (tx - px) * .12; fy += (ty - py) * .12; fz += (tz - pz) * .12;
+      if(px > B.x) fx -= (px - B.x) * 3; if(px < -B.x) fx -= (px + B.x) * 3;
+      if(py > B.y) fy -= (py - B.y) * 3; if(py < -B.y) fy -= (py + B.y) * 3;
+      if(pz > B.z) fz -= (pz - B.z) * 3; if(pz < -B.z) fz -= (pz + B.z) * 3;
+      if(usePtr){
+        var wx = px - o.x, wy = py - o.y, wz = pz - o.z, tp = wx*dir.x + wy*dir.y + wz*dir.z;
+        var qx = wx - dir.x * tp, qy = wy - dir.y * tp, qz = wz - dir.z * tp, dd = Math.sqrt(qx*qx + qy*qy + qz*qz);
+        if(dd < 2.6 && dd > 1e-4){ var k = (1 - dd / 2.6) * 55 / dd; fx += qx * k; fy += qy * k; fz += qz * k; PAN[i] = 1; }
+      }
+      vx += fx * dt; vy += fy * dt; vz += fz * dt;
+      vy *= .985;
+      var sp = Math.sqrt(vx*vx + vy*vy + vz*vz), maxS = 3.1 + PAN[i] * 4, minS = 1.3;
+      if(sp > maxS){ vx *= maxS / sp; vy *= maxS / sp; vz *= maxS / sp; }
+      else if(sp < minS && sp > 1e-4){ vx *= minS / sp; vy *= minS / sp; vz *= minS / sp; }
+      PAN[i] *= Math.pow(.25, dt);
+      Vv[ix] = vx; Vv[ix+1] = vy; Vv[ix+2] = vz;
+      P[ix] = px + vx * dt; P[ix+1] = py + vy * dt; P[ix+2] = pz + vz * dt;
+      dummy.position.set(P[ix], P[ix+1], P[ix+2]);
+      look.set(P[ix] + vx, P[ix+1] + vy, P[ix+2] + vz);
+      dummy.lookAt(look);
+      dummy.scale.setScalar(SZ[i]);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(i, dummy.matrix);
+    }
+    mesh.instanceMatrix.needsUpdate = true;
+    pointerOn = Math.max(0, pointerOn - dt);
+  }
+
+  var running = false, heroVis = true, last = performance.now(), clock = 0, first = true;
+  function frame(now){
+    if(!running) return;
+    var dt = Math.min(.033, (now - last) / 1000); last = now; clock += dt;
+    uTime.value = clock;
+    step(dt, clock);
+    var arr = pg.attributes.position.array;
+    for(var q = 0; q < PN; q++){
+      arr[q*3+1] += dt * .25; arr[q*3] += Math.sin(clock * .5 + q) * dt * .05;
+      if(arr[q*3+1] > 8) arr[q*3+1] = -8;
+    }
+    pg.attributes.position.needsUpdate = true;
+    var hp = Math.max(0, Math.min(1, window.scrollY / hero.offsetHeight));
+    mouse.sx += (mouse.x - mouse.sx) * .04; mouse.sy += (mouse.y - mouse.sy) * .04;
+    camera.position.set(mouse.sx * .6, -hp * 1.4 + mouse.sy * .35, 13 - hp * 5.5);
+    camera.lookAt(0, -hp * .9, 0);
+    renderer.render(scene, camera);
+    if(first){ first = false; hero.classList.add("gl-on"); setHint(); }
+    requestAnimationFrame(frame);
+  }
+  function update(){
+    var should = heroVis && !document.hidden;
+    if(should && !running){ running = true; last = performance.now(); requestAnimationFrame(frame); }
+    else if(!should) running = false;
+  }
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ heroVis = e.isIntersecting; update(); }); },{threshold:0}).observe(hero);
+  }
+  document.addEventListener("visibilitychange", update);
+  canvas.addEventListener("webglcontextlost", function(e){ e.preventDefault(); running = false; hero.classList.remove("gl-on"); });
+  update();
+}
+
+/* ================= INIT ================= */
+applyLang(lang);
+setG(2);
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ moveSubInd(); updateCprog(); });
+if(document.readyState === "complete") loadThree(); else window.addEventListener("load", loadThree);
+})();
+</script>
+<!-- mdp: custom date picker (replaces the tiny native one) -->
+<style id="mdp-css">
+.mdp-wrap{position:relative;display:block;width:100%}
+.mdp-wrap>input[type="date"]{color:transparent!important;-webkit-text-fill-color:transparent!important;cursor:pointer;caret-color:transparent}
+.mdp-wrap>input[type="date"]::-webkit-calendar-picker-indicator{opacity:0;display:none}
+.mdp-wrap>input[type="date"]::-webkit-datetime-edit{opacity:0}
+.mdp-label{position:absolute;left:0;top:0;bottom:0;right:44px;display:flex;align-items:center;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mdp-label.ph{opacity:.55}
+.mdp-ico{position:absolute;right:14px;top:50%;width:20px;height:20px;transform:translateY(-50%);pointer-events:none;opacity:.7}
+.mdp-pop{position:absolute;left:0;top:calc(100% + 8px);z-index:200;width:min(360px,calc(100vw - 32px));background:#fff;color:#1B1B1B;border:1px solid rgba(0,0,0,.08);border-radius:20px;box-shadow:0 24px 60px -18px rgba(0,0,0,.28);padding:18px 16px 14px;font-family:inherit;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .22s,transform .22s}
+.mdp-pop.up{top:auto;bottom:calc(100% + 8px)}
+.mdp-pop.right{left:auto;right:0}
+.mdp-pop.on{opacity:1;transform:none;pointer-events:auto}
+.mdp-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 12px}
+.mdp-title{font-size:17px;font-weight:600;letter-spacing:.01em;text-transform:capitalize}
+.mdp-nav{width:40px;height:40px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:#fff;color:inherit;display:grid;place-items:center;cursor:pointer;font-size:18px;line-height:1;transition:background .2s}
+.mdp-nav:hover:not(:disabled){background:rgba(0,0,0,.05)}
+.mdp-nav:disabled{opacity:.3;cursor:default}
+.mdp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.mdp-dow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-align:center;opacity:.5;padding:4px 0 6px}
+.mdp-day{height:44px;border:0;border-radius:12px;background:transparent;color:inherit;font:inherit;font-size:16px;cursor:pointer;transition:background .15s,color .15s;font-variant-numeric:tabular-nums}
+.mdp-day:hover:not(:disabled):not(.sel){background:rgba(0,0,0,.06)}
+.mdp-day.today{box-shadow:inset 0 0 0 1px rgba(0,0,0,.35)}
+.mdp-day.inrange{background:rgba(0,0,0,.06);border-radius:0}
+.mdp-day.sel{background:var(--mdp-accent,#1B1B1B);color:#fff;font-weight:600}
+.mdp-day:disabled{opacity:.22;cursor:default;text-decoration:line-through}
+.mdp-day.sel:disabled{opacity:1;text-decoration:none}
+.mdp-day.out{visibility:hidden}
+.mdp-foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding:0 4px;font-size:13px;opacity:.65}
+.mdp-foot button{border:0;background:none;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 0}
+</style>
+<script id="mdp-js">
+(function(){
+  var TXT={hr:["Odaberite datum","Danas","Zatvoreno"],en:["Choose a date","Today","Closed"],de:["Datum wählen","Heute","Geschlossen"],it:["Scegli la data","Oggi","Chiuso"],sl:["Izberite datum","Danes","Zaprto"]};
+  function lang(){var l=(document.documentElement.lang||"en").slice(0,2).toLowerCase();return TXT[l]?l:"en";}
+  function loc(){return {hr:"hr-HR",en:"en-GB",de:"de-DE",it:"it-IT",sl:"sl-SI"}[lang()];}
+  function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+  function parse(s){if(!s)return null;var p=s.split("-");return p.length===3?new Date(+p[0],+p[1]-1,+p[2]):null;}
+  function today(){var t=new Date();return new Date(t.getFullYear(),t.getMonth(),t.getDate());}
+  function accentFor(el){
+    var f=el.closest("form")||el.closest("section")||document.body;
+    var b=f.querySelector('button[type="submit"],.pill,.btn,button');
+    var c=b?getComputedStyle(b).backgroundColor:"";
+    if(!c||c==="rgba(0, 0, 0, 0)"||c==="transparent"||/255, 255, 255/.test(c))c="#1B1B1B";
+    return c;
+  }
+  var pickers=[];
+  function closeAll(except){pickers.forEach(function(p){if(p!==except)p.close();});}
+  function Picker(input){
+    var self=this;this.input=input;var baseColor=getComputedStyle(input).color;
+    var wrap=document.createElement("span");wrap.className="mdp-wrap";
+    input.parentNode.insertBefore(wrap,input);wrap.appendChild(input);
+    input.readOnly=true;input.setAttribute("inputmode","none");input.setAttribute("autocomplete","off");
+    var label=document.createElement("span");label.className="mdp-label";wrap.appendChild(label);
+    var ico=document.createElementNS("http://www.w3.org/2000/svg","svg");ico.setAttribute("viewBox","0 0 24 24");ico.setAttribute("class","mdp-ico");ico.innerHTML='<rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 9.5h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>';wrap.appendChild(ico);
+    var pop=document.createElement("div");pop.className="mdp-pop";pop.setAttribute("role","dialog");wrap.appendChild(pop);
+    this.wrap=wrap;this.label=label;this.ico=ico;this.pop=pop;
+    var sel=parse(input.value);this.view=sel?new Date(sel.getFullYear(),sel.getMonth(),1):new Date(today().getFullYear(),today().getMonth(),1);
+    function sync(){
+      var cs=getComputedStyle(input);
+      label.style.paddingLeft=cs.paddingLeft;label.style.fontSize=cs.fontSize;label.style.fontFamily=cs.fontFamily;label.style.fontWeight=cs.fontWeight;label.style.letterSpacing=cs.letterSpacing;
+      label.style.color=baseColor;ico.style.color=baseColor;
+      var d=parse(input.value);
+      if(d){label.classList.remove("ph");label.textContent=new Intl.DateTimeFormat(loc(),(wrap.offsetWidth<260?{weekday:"short",day:"numeric",month:"short"}:{weekday:"short",day:"numeric",month:"long",year:"numeric"})).format(d);}
+      else{label.classList.add("ph");label.textContent=TXT[lang()][0];}
+    }
+    this.sync=sync;
+    input.addEventListener("change",sync);input.addEventListener("input",sync);
+    function open(e){if(e){e.preventDefault();}if(self.isOpen){self.close();return;}self.show();}
+    input.addEventListener("mousedown",function(e){e.preventDefault();open();});
+    input.addEventListener("touchend",function(e){e.preventDefault();open();});
+    input.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "||e.key==="ArrowDown"){e.preventDefault();open();}if(e.key==="Escape")self.close();});
+    input.addEventListener("click",function(e){e.preventDefault();});
+    pop.addEventListener("mousedown",function(e){e.preventDefault();});
+    new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+    pickers.push(this);sync();
+    var _desc=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");
+    Object.defineProperty(input,"value",{configurable:true,get:function(){return _desc.get.call(this);},set:function(v){_desc.set.call(this,v);sync();}});
+  }
+  Picker.prototype.show=function(){
+    closeAll(this);this.render();var pop=this.pop,wrap=this.wrap;pop.style.left="";pop.classList.remove("right");
+    var r=wrap.getBoundingClientRect();pop.classList.toggle("up",window.innerHeight-r.bottom<420&&r.top>420);
+    pop.classList.add("on");this.isOpen=true;
+    var pr=pop.getBoundingClientRect(),vw=document.documentElement.clientWidth;
+    if(pr.right>vw-12){pop.style.left=(pr.left-r.left-(pr.right-(vw-12)))+"px";}
+    pr=pop.getBoundingClientRect();if(pr.left<12){pop.style.left=(12-r.left)+"px";}
+  };
+  Picker.prototype.close=function(){this.pop.classList.remove("on");this.isOpen=false;};
+  Picker.prototype.bounds=function(){
+    var mn=parse(this.input.min)||today(),mx=parse(this.input.max);
+    if(!mx){mx=today();mx.setFullYear(mx.getFullYear()+1);}
+    var closed=(this.input.dataset.closed||"").split(",").filter(Boolean).map(Number);
+    var pair=this.pair,start=null,end=null;
+    if(pair&&pair.role==="end"){start=parse(pair.other.value);if(start&&start>=mn){mn=new Date(start);mn.setDate(mn.getDate()+1);}}
+    if(pair){var a=pair.role==="start"?this.input:pair.other,b=pair.role==="start"?pair.other:this.input;start=parse(a.value);end=parse(b.value);}
+    return {mn:mn,mx:mx,closed:closed,start:start,end:end};
+  };
+  Picker.prototype.render=function(){
+    var self=this,b=this.bounds(),L=lang(),v=this.view,pop=this.pop;
+    pop.style.setProperty("--mdp-accent",accentFor(this.input));
+    var title=new Intl.DateTimeFormat(loc(),{month:"long",year:"numeric"}).format(v);
+    var prevOk=new Date(v.getFullYear(),v.getMonth(),0)>=new Date(b.mn.getFullYear(),b.mn.getMonth(),1);
+    var nextOk=new Date(v.getFullYear(),v.getMonth()+1,1)<=b.mx;
+    var h='<div class="mdp-head"><button type="button" class="mdp-nav" data-n="-1" aria-label="prev"'+(prevOk?"":" disabled")+'>&#8249;</button><div class="mdp-title">'+title+'</div><button type="button" class="mdp-nav" data-n="1" aria-label="next"'+(nextOk?"":" disabled")+'>&#8250;</button></div><div class="mdp-grid">';
+    var base=new Date(2024,0,1);/* Monday */
+    for(var i=0;i<7;i++){var dd=new Date(base);dd.setDate(1+i);h+='<div class="mdp-dow">'+new Intl.DateTimeFormat(loc(),{weekday:"short"}).format(dd).replace(".","").slice(0,3)+'</div>';}
+    var first=(new Date(v.getFullYear(),v.getMonth(),1).getDay()+6)%7,days=new Date(v.getFullYear(),v.getMonth()+1,0).getDate();
+    var sel=parse(this.input.value),t=today();
+    for(i=0;i<first;i++)h+='<button type="button" class="mdp-day out" disabled tabindex="-1"></button>';
+    for(var d=1;d<=days;d++){
+      var dt=new Date(v.getFullYear(),v.getMonth(),d),dis=dt<b.mn||dt>b.mx||b.closed.indexOf(dt.getDay())>-1;
+      var c="mdp-day";if(+dt===+t)c+=" today";if(sel&&+dt===+sel)c+=" sel";
+      if(b.start&&b.end&&dt>b.start&&dt<b.end)c+=" inrange";if((b.start&&+dt===+b.start)||(b.end&&+dt===+b.end))c+=" sel";
+      h+='<button type="button" class="'+c+'" data-d="'+iso(dt)+'"'+(dis?' disabled title="'+(b.closed.indexOf(dt.getDay())>-1?TXT[L][2]:"")+'"':"")+'>'+d+'</button>';
+    }
+    h+='</div><div class="mdp-foot"><span>'+(b.closed.length?TXT[L][2]+": "+b.closed.map(function(n){var x=new Date(base);x.setDate(1+((n+6)%7));return new Intl.DateTimeFormat(loc(),{weekday:"short"}).format(x);}).join(", "):"")+'</span>'+((t>=b.mn&&b.closed.indexOf(t.getDay())<0)?'<button type="button" data-today>'+TXT[L][1]+'</button>':"")+'</div>';
+    pop.innerHTML=h;
+    pop.querySelectorAll(".mdp-nav").forEach(function(n){n.onclick=function(){self.view=new Date(v.getFullYear(),v.getMonth()+(+n.dataset.n),1);self.render();};});
+    pop.querySelectorAll(".mdp-day[data-d]:not(:disabled)").forEach(function(n){n.onclick=function(){self.pick(n.dataset.d);};});
+    var tb=pop.querySelector("[data-today]");if(tb)tb.onclick=function(){self.pick(iso(t));};
+  };
+  Picker.prototype.pick=function(val){
+    var inp=this.input;inp.value=val;
+    inp.dispatchEvent(new Event("input",{bubbles:true}));inp.dispatchEvent(new Event("change",{bubbles:true}));
+    this.close();
+    if(this.pair&&this.pair.role==="start"){var o=this.pair.other,s=parse(val),e=parse(o.value);
+      if(!e||e<=s){var n=new Date(s);n.setDate(n.getDate()+7);o.value=iso(n);o.dispatchEvent(new Event("input",{bubbles:true}));o.dispatchEvent(new Event("change",{bubbles:true}));}
+      var op=pickers.filter(function(p){return p.input===o;})[0];if(op){op.view=new Date(s.getFullYear(),s.getMonth(),1);setTimeout(function(){op.input.dispatchEvent(new Event("mdp-open"));},250);}}
+  };
+  function init(){
+    var ins=[].slice.call(document.querySelectorAll('input[type="date"]'));
+    ins.forEach(function(i){if(!i.closest(".mdp-wrap"))new Picker(i);});
+    var forms={};pickers.forEach(function(p){var f=p.input.form||p.input.closest("section");var k=f?(f.id||[].indexOf.call(document.querySelectorAll("form,section"),f)):"x";(forms[k]=forms[k]||[]).push(p);});
+    Object.keys(forms).forEach(function(k){var g=forms[k];if(g.length===2){g[0].pair={role:"start",other:g[1].input};g[1].pair={role:"end",other:g[0].input};
+      g[1].input.addEventListener("mdp-open",function(){if(!g[1].isOpen)g[1].show();});}});
+    document.addEventListener("mousedown",function(e){if(!e.target.closest(".mdp-wrap"))closeAll();});
+    document.addEventListener("touchstart",function(e){if(!e.target.closest(".mdp-wrap"))closeAll();},{passive:true});
+    document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAll();});
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})();
+</script>
+</body>
+</html>
