@@ -171,8 +171,8 @@ section{scroll-margin-top:calc(var(--header) + 50px)}
 .hero__scene .bob{animation:bob 9s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
 .hero__scene .bob.b2{animation-duration:12s;animation-delay:-4s}
 @keyframes bob{from{transform:translate(0,0) rotate(-6deg)}to{transform:translate(10px,-8px) rotate(8deg)}}
-.hero__media{display:none}.hero__hint{display:none!important}.hero__photo{position:absolute;inset:0;z-index:2;background:url(img/hero-bg.jpg) 40% 46%/cover no-repeat;animation:heroKB 18s ease-in-out infinite alternate}@keyframes heroKB{from{transform:scale(1.04)}to{transform:scale(1.12) translate(-1%,-1%)}}@media(min-width:900px){.hero{background:#0D2B2F}.hero__photo{left:38%;background-position:35% 58%}.hero__photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,#0D2B2F 0%,rgba(13,43,47,.55) 22%,rgba(13,43,47,0) 50%)}}@media(prefers-reduced-motion:reduce){.hero__photo{animation:none}}
-#water{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;opacity:0;transition:opacity 1.6s var(--ease)}
+.hero__media{display:none}.hero__photo{position:absolute;inset:0;z-index:2;background:url(img/hero-bg.jpg) 40% 46%/cover no-repeat;animation:heroKB 18s ease-in-out infinite alternate}@keyframes heroKB{from{transform:scale(1.04)}to{transform:scale(1.12) translate(-1%,-1%)}}@media(min-width:900px){.hero{background:#0D2B2F}.hero__photo{left:38%;background-position:35% 58%}.hero__photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,#0D2B2F 0%,rgba(13,43,47,.55) 22%,rgba(13,43,47,0) 50%)}}@media(prefers-reduced-motion:reduce){.hero__photo{animation:none}}
+#water{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;display:block;opacity:0;transition:opacity 1.6s var(--ease)}
 .gl-on #water{opacity:1}
 .hero__hint{display:none;align-items:center;gap:10px;margin-top:18px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8)}
 .gl-on .hero__hint{display:inline-flex}
@@ -1219,205 +1219,85 @@ html select{height:56px;line-height:normal}
     a.insertAdjacentHTML("afterbegin", '<svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + ILL[key] + '</svg>');
   });
 
-  /* ---------- Hero: Three.js water ---------- */
+  /* ---------- Hero: photo under water (WebGL, no libraries) ---------- */
   var heroOn = true, gl = null;
   new IntersectionObserver(function(es){ heroOn = es[0].isIntersecting; if(gl) gl.toggle(); }).observe(hero);
-  function canGL(){
-    try{ var c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl"))); }catch(e){ return false; }
-  }
-  if(false && !reduce && canGL()){
-    var s3 = document.createElement("script");
-    s3.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
-    s3.async = true;
-    s3.onload = function(){ try{ gl = initWater(); }catch(err){ gl = null; document.body.classList.remove("gl-on"); } };
-    document.head.appendChild(s3);
-  }
+  if(!reduce){ try{ gl = initWater(); }catch(err){ gl = null; document.body.classList.remove("gl-on"); } }
 
   function initWater(){
-    var THREE = window.THREE; if(!THREE) return null;
-    var canvas = $("#water"), mobile = window.matchMedia("(max-width:899px)").matches || window.matchMedia("(pointer:coarse)").matches;
-    var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:!mobile, alpha:false, powerPreference:"high-performance"});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2));
-    renderer.setClearColor(0xC9AE99, 1);
-    var scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0xB89A86, 14, 30);
-    var camera = new THREE.PerspectiveCamera(45, 1, .1, 100);
-    var camBase = new THREE.Vector3(0, 6.2, 7.2), camTarget = new THREE.Vector3(0, 0, -.6);
-    camera.position.copy(camBase);
-
-    var NR = 12, rip = [], ripIdx = 0;
-    for(var i=0;i<NR;i++) rip.push(new THREE.Vector4(0,0,-100,0));
-    var uniforms = { uTime:{value:0}, uRip:{value:rip} };
-
-    var HEIGHT = [
-      "uniform float uTime;",
-      "uniform vec4 uRip[12];",
-      "float waveH(vec2 p){",
-      "  float h = .07*sin(p.x*.55+uTime*.45) + .05*sin(p.y*.8-uTime*.38) + .03*sin((p.x+p.y)*1.25+uTime*.7) + .015*sin(p.x*2.3-p.y*1.7+uTime*1.1);",
-      "  for(int i=0;i<12;i++){",
-      "    vec4 r = uRip[i]; float age = uTime - r.z;",
-      "    if(age > 0. && age < 7.){",
-      "      float d = distance(p, r.xy); float k = d - age*1.5;",
-      "      float env = exp(-k*k*.9) * exp(-age*.55) * r.w / (1. + d*.5);",
-      "      h += env * sin(k*5.5) * .16;",
-      "    }",
-      "  }",
-      "  return h;",
-      "}"
-    ].join("\n");
-
-    var vert = HEIGHT + [
-      "varying vec2 vP; varying vec3 vW;",
+    var canvas = document.createElement("canvas"); canvas.id = "water"; canvas.setAttribute("aria-hidden","true");
+    var g = canvas.getContext("webgl", {antialias:false, premultipliedAlpha:false}) || canvas.getContext("experimental-webgl");
+    if(!g) return null;
+    hero.querySelector(".hero__photo").after(canvas);
+    var mobile = window.matchMedia("(max-width:899px)").matches || window.matchMedia("(pointer:coarse)").matches;
+    var vs = "attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}";
+    var fs = [
+      "precision highp float;",
+      "uniform sampler2D uImg; uniform vec2 uRes; uniform float uT, uX0; uniform vec2 uSc, uOff; uniform vec4 uR[10];",
+      "float H(vec2 p){",
+      "  float h=.035*sin(p.x*.9+uT*.6)+.03*sin(p.y*1.1-uT*.5)+.018*sin((p.x+p.y)*1.7+uT*.9);",
+      "  for(int i=0;i<10;i++){ vec4 r=uR[i]; float age=uT-r.z;",
+      "    if(age>0.&&age<6.){ float d=distance(p,r.xy); float k=d-age*1.6;",
+      "      h+=exp(-k*k*1.2)*exp(-age*.6)*r.w/(1.+d*.6)*sin(k*6.)*.22; } }",
+      "  return h; }",
       "void main(){",
-      "  vec3 pos = position.xzy; pos.z *= -1.;",
-      "  pos.y = waveH(pos.xz);",
-      "  vP = pos.xz; vec4 w = modelMatrix*vec4(pos,1.); vW = w.xyz;",
-      "  gl_Position = projectionMatrix*viewMatrix*w;",
-      "}"
-    ].join("\n");
-
-    var frag = "precision highp float;\n" + HEIGHT + [
-      "varying vec2 vP; varying vec3 vW;",
-      "uniform vec3 fogColor; uniform float fogNear; uniform float fogFar;",
-      "float caustic(vec2 uv, float t){",
-      "  vec2 p = mod(uv*6.28318, 6.28318) - 250.; vec2 i = p; float c = 1.; float inten = .005;",
-      "  for(int n=0;n<4;n++){",
-      "    float tt = t*(1. - (3.5/float(n+1)));",
-      "    i = p + vec2(cos(tt-i.x)+sin(tt+i.y), sin(tt-i.y)+cos(tt+i.x));",
-      "    c += 1./length(vec2(p.x/(sin(i.x+tt)/inten), p.y/(cos(i.y+tt)/inten)));",
-      "  }",
-      "  c /= 4.; c = 1.17 - pow(c, 1.4); return pow(abs(c), 8.);",
-      "}",
-      "void main(){",
-      "  float e = .04;",
-      "  float h = waveH(vP);",
-      "  vec3 n = normalize(vec3(-(waveH(vP+vec2(e,0.))-h)/e, 1., -(waveH(vP+vec2(0.,e))-h)/e));",
-      "  vec3 V = normalize(cameraPosition - vW);",
-      "  vec2 ref = vP + n.xz*1.4;",
-      "  float r = length(vP*vec2(.09,.12));",
-      "  vec3 floorA = vec3(.66,.80,.79), floorB = vec3(.58,.74,.74), deep = vec3(.07,.23,.25);",
-      "  vec3 base = mix(floorA, floorB, smoothstep(-3.,4.,ref.x+ref.y*.5));",
-      "  base = mix(base, deep, smoothstep(.35, 1.05, r));",
-      "  float c = caustic(ref*.11 + vec2(0., uTime*.006), uTime*.32);",
-      "  float c2 = caustic(ref*.07 - vec2(uTime*.004, 0.), uTime*.21+3.);",
-      "  base += vec3(1.,.93,.82) * (c*.32 + c2*.18) * (1. - smoothstep(.4,1.,r));",
-      "  vec3 L = normalize(vec3(-.4, 1., -.6));",
-      "  float spec = pow(max(dot(reflect(-L, n), V), 0.), 90.);",
-      "  float fres = pow(1. - max(dot(n, V), 0.), 3.);",
-      "  vec3 sky = vec3(1., .96, .9);",
-      "  vec3 col = mix(base, sky, fres*.55) + vec3(1.,.95,.86)*spec*.7;",
-      "  col += vec3(.06,.04,.03) * smoothstep(.0,.12,h);",
-      "  float fd = gl_FragCoord.z / gl_FragCoord.w;",
-      "  col = mix(col, fogColor, smoothstep(fogNear, fogFar, fd));",
-      "  gl_FragColor = vec4(col, 1.);",
-      "}"
-    ].join("\n");
-
-    var segs = mobile ? 110 : 180;
-    var geo = new THREE.PlaneGeometry(40, 40, segs, segs);
-    var mat = new THREE.ShaderMaterial({ uniforms: THREE.UniformsUtils.merge([THREE.UniformsLib.fog, uniforms]), vertexShader:vert, fragmentShader:frag, fog:true });
-    mat.uniforms.uRip.value = rip;
-    var water = new THREE.Mesh(geo, mat);
-    scene.add(water);
-
-    function jsH(x, z, t){
-      var h = .07*Math.sin(x*.55+t*.45) + .05*Math.sin(z*.8-t*.38) + .03*Math.sin((x+z)*1.25+t*.7);
-      for(var i=0;i<NR;i++){
-        var r = rip[i], age = t - r.z;
-        if(age > 0 && age < 7){
-          var d = Math.hypot(x - r.x, z - r.y), k = d - age*1.5;
-          h += Math.exp(-k*k*.9) * Math.exp(-age*.55) * r.w / (1 + d*.5) * Math.sin(k*5.5) * .16;
-        }
-      }
-      return h;
-    }
-
-    /* petals and leaves drawn on canvas */
-    function petalTex(type){
-      var c = document.createElement("canvas"); c.width = 128; c.height = 64;
-      var x = c.getContext("2d"), g;
-      x.translate(64,32);
-      x.beginPath(); x.moveTo(-60,0); x.bezierCurveTo(-30,-34,30,-30,60,0); x.bezierCurveTo(30,30,-30,34,-60,0);
-      if(type === "leaf"){ g = x.createLinearGradient(-60,0,60,0); g.addColorStop(0,"#7E8A6F"); g.addColorStop(1,"#A9B39C"); }
-      else{ g = x.createLinearGradient(-60,0,60,0); g.addColorStop(0,"#E3BFB8"); g.addColorStop(.7,"#F8E6E1"); g.addColorStop(1,"#FFF6F3"); }
-      x.fillStyle = g; x.fill();
-      x.strokeStyle = type === "leaf" ? "rgba(70,80,60,.5)" : "rgba(255,255,255,.7)"; x.lineWidth = 1.5;
-      x.beginPath(); x.moveTo(-54,0); x.quadraticCurveTo(0,-3,54,0); x.stroke();
-      var t = new THREE.CanvasTexture(c); return t;
-    }
-    var texP = petalTex("petal"), texL = petalTex("leaf");
-    var floaters = [], nF = mobile ? 6 : 10;
-    for(var f=0; f<nF; f++){
-      var leaf = f % 3 === 2, s = leaf ? .9 + Math.random()*.4 : .55 + Math.random()*.35;
-      var m = new THREE.Mesh(new THREE.PlaneGeometry(s*2, s), new THREE.MeshBasicMaterial({map: leaf ? texL : texP, transparent:true, depthWrite:false, fog:true}));
-      m.rotation.x = -Math.PI/2;
-      var o = {mesh:m, cx:(Math.random()-.5)*12, cz:(Math.random()-.5)*7 - 1, rad:.6 + Math.random()*1.6, sp:(Math.random()<.5?-1:1)*(.02+Math.random()*.03), ph:Math.random()*6.28, rot:Math.random()*6.28, vr:(Math.random()-.5)*.08, px:0, pz:0};
-      floaters.push(o); scene.add(m);
-    }
-
-    /* ripples from touch and cursor */
-    var ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), plane = new THREE.Plane(new THREE.Vector3(0,1,0), 0), hit = new THREE.Vector3(), lastRip = 0, clock = 0;
-    function addRipple(cx, cy, amp){
-      var r = canvas.getBoundingClientRect();
-      ndc.set(((cx - r.left)/r.width)*2 - 1, -((cy - r.top)/r.height)*2 + 1);
-      ray.setFromCamera(ndc, camera);
-      if(!ray.ray.intersectPlane(plane, hit)) return;
-      rip[ripIdx].set(hit.x, hit.z, clock, amp); ripIdx = (ripIdx + 1) % NR;
-      floaters.forEach(function(o){
-        var dx = o.mesh.position.x - hit.x, dz = o.mesh.position.z - hit.z, d = Math.hypot(dx, dz) + .001;
-        if(d < 3){ o.px += dx/d * (3-d) * .02 * amp; o.pz += dz/d * (3-d) * .02 * amp; o.vr += (Math.random()-.5)*.1; }
-      });
-    }
-    hero.addEventListener("pointerdown", function(e){ addRipple(e.clientX, e.clientY, 1.4); });
-    hero.addEventListener("pointermove", function(e){
-      if(e.pointerType === "touch") return;
-      var now = performance.now(); if(now - lastRip > 140){ lastRip = now; addRipple(e.clientX, e.clientY, .55); }
-    });
-    hero.addEventListener("touchmove", function(e){
-      var now = performance.now(); if(now - lastRip > 120){ lastRip = now; addRipple(e.touches[0].clientX, e.touches[0].clientY, .8); }
-    }, {passive:true});
-
+      "  vec2 s=gl_FragCoord.xy/uRes; float A=uRes.x/uRes.y;",
+      "  vec2 p=vec2(s.x*A,s.y)*7.; float e=.02, h=H(p);",
+      "  vec2 gr=vec2(H(p+vec2(e,0.))-h, H(p+vec2(0.,e))-h)/e; gr/=max(1.,length(gr)/1.6);",
+      "  float lx=(s.x-uX0)/(1.-uX0);",
+      "  float z=1.03+.03*sin(uT*.06);",
+      "  vec2 l=(vec2(lx,s.y)-.5)/z+.5;",
+      "  vec2 uv=uOff+l*uSc+gr*.008;",
+      "  vec3 c=texture2D(uImg,clamp(uv,.001,.999)).rgb;",
+      "  float sp=pow(clamp(dot(normalize(vec3(-gr,1.)),normalize(vec3(-.4,.6,1.))),0.,1.),60.);",
+      "  c+=vec3(1.,.95,.86)*sp*.35 + vec3(.9,.97,1.)*clamp(-gr.x-gr.y,0.,1.)*.05;",
+      "  vec3 teal=vec3(.051,.169,.184);",
+      "  if(uX0>0.){ float t=clamp(lx/.5,0.,1.); c=mix(c,teal,pow(1.-t,1.6)); }",
+      "  gl_FragColor=vec4(c,1.);",
+      "}"].join("\n");
+    function sh(t,src){ var o=g.createShader(t); g.shaderSource(o,src); g.compileShader(o); if(!g.getShaderParameter(o,g.COMPILE_STATUS)) throw g.getShaderInfoLog(o); return o; }
+    var pr=g.createProgram(); g.attachShader(pr,sh(g.VERTEX_SHADER,vs)); g.attachShader(pr,sh(g.FRAGMENT_SHADER,fs)); g.linkProgram(pr); g.useProgram(pr);
+    var b=g.createBuffer(); g.bindBuffer(g.ARRAY_BUFFER,b); g.bufferData(g.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),g.STATIC_DRAW);
+    var al=g.getAttribLocation(pr,"a"); g.enableVertexAttribArray(al); g.vertexAttribPointer(al,2,g.FLOAT,false,0,0);
+    var U={}; ["uImg","uRes","uT","uX0","uSc","uOff","uR"].forEach(function(n){ U[n]=g.getUniformLocation(pr,n); });
+    var NR=10, rip=new Float32Array(NR*4), ri=0, clock=0, ready=false, IA=1100/1467;
+    for(var i=0;i<NR;i++) rip[i*4+2]=-100;
+    var tex=g.createTexture(), img=new Image();
+    img.onload=function(){
+      g.bindTexture(g.TEXTURE_2D,tex); g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,true);
+      g.texImage2D(g.TEXTURE_2D,0,g.RGB,g.RGB,g.UNSIGNED_BYTE,img);
+      g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.LINEAR); g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MAG_FILTER,g.LINEAR);
+      g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_S,g.CLAMP_TO_EDGE); g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_T,g.CLAMP_TO_EDGE);
+      IA=img.width/img.height; ready=true; size(); draw(); document.body.classList.add("gl-on"); toggle();
+    };
+    img.src="img/hero-bg.jpg";
     function size(){
-      var w = hero.clientWidth, h = hero.clientHeight;
-      renderer.setSize(w, h, false);
-      camera.aspect = w / h;
-      camera.fov = w < h ? 58 : 45;
-      camera.updateProjectionMatrix();
+      var dpr=Math.min(window.devicePixelRatio||1, mobile?1.5:2), w=hero.clientWidth, h=hero.clientHeight;
+      canvas.width=Math.round(w*dpr); canvas.height=Math.round(h*dpr); g.viewport(0,0,canvas.width,canvas.height);
+      var desk=w>=900, x0=desk?.38:0, rw=w*(1-x0), rA=rw/h, px=desk?.35:.4, py=desk?.58:.46, sx=1, sy=1;
+      if(rA>IA) sy=IA/rA; else sx=rA/IA;
+      g.uniform2f(U.uRes,canvas.width,canvas.height); g.uniform1f(U.uX0,x0);
+      g.uniform2f(U.uSc,sx,sy); g.uniform2f(U.uOff,(1-sx)*px, 1-sy-(1-sy)*py);
     }
-    size(); window.addEventListener("resize", size);
-
-    var running = false, last = 0, camY = camBase.y, camZ = camBase.z, autoT = 0;
+    window.addEventListener("resize",function(){ if(ready){ size(); draw(); } });
+    function addRip(cx,cy,amp){
+      var r=canvas.getBoundingClientRect(), A=r.width/r.height;
+      rip[ri*4]=((cx-r.left)/r.width)*A*7; rip[ri*4+1]=(1-(cy-r.top)/r.height)*7; rip[ri*4+2]=clock; rip[ri*4+3]=amp; ri=(ri+1)%NR;
+    }
+    hero.addEventListener("pointerdown",function(e){ addRip(e.clientX,e.clientY,1.); });
+    var lastRip=0;
+    hero.addEventListener("pointermove",function(e){ if(e.pointerType==="touch") return; var n=performance.now(); if(n-lastRip>140){ lastRip=n; addRip(e.clientX,e.clientY,.5); } });
+    hero.addEventListener("touchmove",function(e){ var n=performance.now(); if(n-lastRip>120){ lastRip=n; addRip(e.touches[0].clientX,e.touches[0].clientY,.8); } },{passive:true});
+    function draw(){ g.uniform1f(U.uT,clock); g.uniform4fv(U.uR,rip); g.drawArrays(g.TRIANGLE_STRIP,0,4); }
+    var running=false, last=0, autoT=0;
     function loop(ts){
-      if(!running) return;
-      requestAnimationFrame(loop);
-      var dt = Math.min(.05, (ts - (last || ts)) / 1000); last = ts; clock += dt;
-      uniforms.uTime.value = clock; mat.uniforms.uTime.value = clock;
-      autoT += dt; if(autoT > 4.2){ autoT = 0; rip[ripIdx].set((Math.random()-.5)*8, (Math.random()-.5)*5 - 1, clock, .6); ripIdx = (ripIdx + 1) % NR; }
-      var p = Math.min(1, window.scrollY / Math.max(1, hero.offsetHeight));
-      camY += ((camBase.y + p*3.2) - camY) * .06;
-      camZ += ((camBase.z - p*4.4) - camZ) * .06;
-      camera.position.set(Math.sin(clock*.08)*.35, camY, camZ);
-      camera.lookAt(camTarget);
-      for(var i=0;i<floaters.length;i++){
-        var o = floaters[i]; o.ph += o.sp * dt * 6;
-        o.cx += o.px; o.cz += o.pz; o.px *= .95; o.pz *= .95;
-        if(o.cx > 9) o.cx = -9; if(o.cx < -9) o.cx = 9; if(o.cz > 5) o.cz = -6; if(o.cz < -7) o.cz = 4;
-        var x = o.cx + Math.cos(o.ph)*o.rad, z = o.cz + Math.sin(o.ph)*o.rad*.6;
-        o.rot += o.vr * dt; o.vr *= .995; if(Math.abs(o.vr) < .02) o.vr = o.vr < 0 ? -.02 : .02;
-        o.mesh.position.set(x, jsH(x, z, clock) + .03, z);
-        o.mesh.rotation.z = o.rot + Math.sin(clock*.5 + i)*.15;
-      }
-      renderer.render(scene, camera);
+      if(!running) return; requestAnimationFrame(loop);
+      var dt=Math.min(.05,(ts-(last||ts))/1000); last=ts; clock+=dt;
+      autoT+=dt; if(autoT>5){ autoT=0; var r=canvas.getBoundingClientRect(); addRip(r.left+r.width*(.45+Math.random()*.45), r.top+r.height*(.15+Math.random()*.4), .55); }
+      draw();
     }
-    function toggle(){
-      var want = heroOn && !document.hidden;
-      if(want && !running){ running = true; last = 0; requestAnimationFrame(loop); }
-      else if(!want) running = false;
-    }
-    document.addEventListener("visibilitychange", toggle);
-    renderer.render(scene, camera);
-    document.body.classList.add("gl-on");
-    toggle();
+    function toggle(){ var want=ready&&heroOn&&!document.hidden; if(want&&!running){ running=true; last=0; requestAnimationFrame(loop); } else if(!want) running=false; }
+    document.addEventListener("visibilitychange",toggle);
     return {toggle:toggle};
   }
 
