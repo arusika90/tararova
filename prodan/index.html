@@ -1723,6 +1723,7 @@ html select{height:56px;line-height:normal}
     var camera = new THREE.PerspectiveCamera(55, 1, .1, 120);
     scene.add(camera);
     function rnd(a, b){ return a + Math.random() * (b - a); }
+    function alphaTex(w, h, draw){ var c = document.createElement("canvas"); c.width = w; c.height = h; var x = c.getContext("2d"); draw(x, w, h); var src = x.getImageData(0, 0, w, h).data, out = new Uint8Array(w * h * 4); for(var yy=0; yy<h; yy++){ for(var xx=0; xx<w; xx++){ var si = (yy * w + xx) * 4, di = ((h - 1 - yy) * w + xx) * 4; out[di] = 255; out[di+1] = 255; out[di+2] = 255; out[di+3] = src[si+3]; } } var t = new THREE.DataTexture(out, w, h, THREE.RGBAFormat); t.generateMipmaps = false; t.minFilter = THREE.LinearFilter; t.magFilter = THREE.LinearFilter; t.needsUpdate = true; return t; }
     function canvasTex(w, h, draw){ var c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h); var t = new THREE.CanvasTexture(c); t.generateMipmaps = false; t.minFilter = THREE.LinearFilter; t.magFilter = THREE.LinearFilter; return t; }
 
     /* sky backdrop with dawn glow, attached to the camera */
@@ -1802,7 +1803,7 @@ html select{height:56px;line-height:normal}
     scene.add(bushes);
 
     /* light shafts */
-    var shaftTex = canvasTex(64, 256, function(x, w, h){
+    var shaftTex = alphaTex(64, 256, function(x, w, h){
       var g = x.createLinearGradient(0, 0, w, 0);
       g.addColorStop(0, "rgba(255,255,255,0)"); g.addColorStop(.5, "rgba(255,255,255,1)"); g.addColorStop(1, "rgba(255,255,255,0)");
       x.fillStyle = g; x.fillRect(0, 0, w, h);
@@ -1821,7 +1822,7 @@ html select{height:56px;line-height:normal}
     }
 
     /* volumetric fog banks */
-    var fogTex = canvasTex(128, 128, function(x, w, h){
+    var fogTex = alphaTex(128, 128, function(x, w, h){
       var r = x.createRadialGradient(w/2, h/2, 0, w/2, h/2, w/2);
       r.addColorStop(0, "rgba(255,255,255,.9)"); r.addColorStop(.5, "rgba(255,255,255,.35)"); r.addColorStop(1, "rgba(255,255,255,0)");
       x.fillStyle = r; x.fillRect(0, 0, w, h);
@@ -1836,7 +1837,7 @@ html select{height:56px;line-height:normal}
     }
 
     /* drifting dust in the light */
-    var dotTex = canvasTex(32, 32, function(x, w, h){ var r = x.createRadialGradient(16, 16, 0, 16, 16, 16); r.addColorStop(0, "rgba(255,255,255,1)"); r.addColorStop(1, "rgba(255,255,255,0)"); x.fillStyle = r; x.fillRect(0, 0, w, h); });
+    var dotTex = alphaTex(32, 32, function(x, w, h){ var r = x.createRadialGradient(16, 16, 0, 16, 16, 16); r.addColorStop(0, "rgba(255,255,255,1)"); r.addColorStop(1, "rgba(255,255,255,0)"); x.fillStyle = r; x.fillRect(0, 0, w, h); });
     var nD = mobile ? 260 : 520, dPos = new Float32Array(nD * 3), dSeed = [];
     for(var dI=0;dI<nD;dI++){ dPos[dI*3] = rnd(-7, 7); dPos[dI*3+1] = rnd(.2, 6); dPos[dI*3+2] = rnd(-30, 8); dSeed.push(rnd(0, 6.28)); }
     var dGeo = new THREE.BufferGeometry(); dGeo.setAttribute("position", new THREE.BufferAttribute(dPos, 3));
@@ -2023,7 +2024,7 @@ html select{height:56px;line-height:normal}
     var spores = new THREE.Points(spGeo, new THREE.PointsMaterial({map:dotTex, color:0xFFD9A0, size:.045, transparent:true, opacity:.8, blending:THREE.AdditiveBlending, depthWrite:false}));
     scene.add(spores);
     /* touch: a scent wave on the ground or on the soil, truffles twitch */
-    var ringTex = canvasTex(128, 128, function(x, w){ x.strokeStyle = "rgba(255,255,255,1)"; x.lineWidth = 5; x.beginPath(); x.arc(w/2, w/2, w/2 - 6, 0, 6.29); x.stroke(); x.strokeStyle = "rgba(255,255,255,.35)"; x.lineWidth = 12; x.beginPath(); x.arc(w/2, w/2, w/2 - 14, 0, 6.29); x.stroke(); });
+    var ringTex = alphaTex(128, 128, function(x, w){ x.strokeStyle = "rgba(255,255,255,1)"; x.lineWidth = 5; x.beginPath(); x.arc(w/2, w/2, w/2 - 6, 0, 6.29); x.stroke(); x.strokeStyle = "rgba(255,255,255,.35)"; x.lineWidth = 12; x.beginPath(); x.arc(w/2, w/2, w/2 - 14, 0, 6.29); x.stroke(); });
     var rings = [], ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), gPlane = new THREE.Plane(new THREE.Vector3(0,1,0), 0), fPlane = new THREE.Plane(new THREE.Vector3(0,0,1), -FACE_Z - .01), hitP = new THREE.Vector3();
     for(var rI=0;rI<6;rI++){ var rm = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({map:ringTex, color:0xFFE2AE, transparent:true, opacity:0, blending:THREE.AdditiveBlending, depthWrite:false, side:THREE.DoubleSide})); rm.userData = {t:9}; rings.push(rm); scene.add(rm); }
     var ringI = 0;
