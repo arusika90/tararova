@@ -291,7 +291,7 @@ header{position:fixed;top:18px;left:50%;transform:translateX(-50%);width:min(cal
 .web-card>span{font-size:12px;font-weight:800;color:var(--accent-text);letter-spacing:.1em}
 .web-card h3{font-size:clamp(21px,1.6vw,24px);line-height:1.12;letter-spacing:-.02em;margin:auto 0 10px}
 .web-card p{margin:0;line-height:1.5;color:#5e5565;font-size:15.5px}
-.wm{position:relative;height:132px;margin:14px 0 20px;border-radius:16px;background:#f1efea;overflow:hidden}
+.wm{position:relative;height:132px;margin:14px 0 20px;border-radius:16px;background:#2a292e;overflow:hidden}
 .js .wm:not(.play) *,.js .wm:not(.play) *:before,.js .wm:not(.play) *:after{animation-play-state:paused!important}
 .wb{position:absolute;inset:14px 14px -10px;background:#fff;border-radius:10px;box-shadow:0 10px 24px rgba(23,19,29,.08);overflow:hidden}
 .wb-bar{height:18px;display:flex;align-items:center;gap:4px;padding:0 8px;background:#efede8}
@@ -321,8 +321,8 @@ header{position:fixed;top:18px;left:50%;transform:translateX(-50%);width:min(cal
 .cal-g i.pk:after{content:"";position:absolute;inset:-4px;border-radius:7px;border:2px solid var(--violet);opacity:0;animation:tap 6s ease infinite}
 @keyframes pick{0%,32%{background:#f3eff9;color:#8a8296;transform:none}38%{transform:scale(.8)}44%,88%{background:var(--violet);color:#fff;transform:none}96%,100%{background:#f3eff9;color:#8a8296}}
 @keyframes tap{0%,30%{opacity:0;transform:scale(1.8)}36%{opacity:.8;transform:scale(1)}46%,100%{opacity:0;transform:scale(1.6)}}
-.toast{position:absolute;left:50%;bottom:10px;transform:translate(-50%,30px);background:#17131d;color:#fff;font-size:10px;font-weight:800;padding:7px 12px;border-radius:999px;white-space:nowrap;box-shadow:0 10px 20px rgba(23,19,29,.2);animation:toast 6s var(--ease) infinite;opacity:0;line-height:1.3}
-.toast b{color:#3ddc84}
+.toast{position:absolute;left:50%;bottom:10px;transform:translate(-50%,30px);background:#17131d;color:#fff;font-size:10px;font-weight:800;padding:7px 12px;border-radius:999px;white-space:nowrap;box-shadow:0 10px 20px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.18);animation:toast 6s var(--ease) infinite;opacity:0;line-height:1.3}
+.toast b{color:var(--accent)}
 @keyframes toast{0%,46%{opacity:0;transform:translate(-50%,30px)}54%,86%{opacity:1;transform:translate(-50%,0)}94%,100%{opacity:0;transform:translate(-50%,10px)}}
 .map svg{position:absolute;inset:0;width:100%;height:100%}
 .pin{position:absolute;left:46%;top:24%;width:26px;height:34px;transform-origin:50% 100%;animation:pin 6s cubic-bezier(.3,1.5,.5,1) infinite}
@@ -699,8 +699,8 @@ a.land-card:hover span{color:var(--accent-text,#4b6b00)}
 @media(max-width:900px){.websites .web-intro{grid-template-columns:1fr}.websites .web-cards{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.websites .web-cards{grid-template-columns:1fr}.websites .web-card{min-height:0}}
 .wm.app{display:flex;align-items:flex-end;justify-content:center}
-.ap-ph{position:relative;width:86px;height:118px;border-radius:16px 16px 0 0;background:#fff;border:3px solid #17131d;border-bottom:0;padding:16px 8px 0;display:flex;flex-direction:column;gap:5px}
-.ap-isl{position:absolute;top:4px;left:50%;width:26px;height:6px;border-radius:4px;background:#17131d;transform:translateX(-50%)}
+.ap-ph{position:relative;width:86px;height:118px;border-radius:16px 16px 0 0;background:#fff;border:3px solid #55545b;border-bottom:0;padding:16px 8px 0;display:flex;flex-direction:column;gap:5px}
+.ap-isl{position:absolute;top:4px;left:50%;width:26px;height:6px;border-radius:4px;background:#2a292e;transform:translateX(-50%)}
 .ap-t{display:block;width:60%;height:7px;border-radius:4px;background:#17131d}
 .ap-card{display:block;height:18px;border-radius:6px;background:#ecebe6;transform-origin:left;animation:apIn 4s var(--ease) infinite}
 .ap-card.c1{background:var(--accent)}.ap-card.c2{animation-delay:.25s}.ap-card.c3{animation-delay:.5s;opacity:.6}
@@ -710,7 +710,7 @@ a.land-card:hover span{color:var(--accent-text,#4b6b00)}
 @keyframes apIn{0%,8%{transform:scaleX(0)}22%,100%{transform:scaleX(1)}}
 @keyframes apPush{0%,35%{opacity:0;transform:translateY(-8px)}45%,85%{opacity:1;transform:none}100%{opacity:0}}
 .wm.sys{display:flex;gap:8px;padding:12px}
-.sy-side{width:26px;background:#17131d;border-radius:8px;padding:8px 6px;display:flex;flex-direction:column;gap:6px}
+.sy-side{width:26px;background:#3a393f;border-radius:8px;padding:8px 6px;display:flex;flex-direction:column;gap:6px}
 .sy-side i{height:5px;border-radius:3px;background:#4a4352}.sy-side i.on{background:var(--accent)}
 .sy-main{flex:1;display:flex;flex-direction:column;gap:8px}
 .sy-kpi{display:flex;gap:6px}.sy-kpi b{flex:1;height:22px;border-radius:6px;background:#fff}
