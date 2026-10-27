@@ -1723,7 +1723,7 @@ html select{height:56px;line-height:normal}
     var camera = new THREE.PerspectiveCamera(55, 1, .1, 120);
     scene.add(camera);
     function rnd(a, b){ return a + Math.random() * (b - a); }
-    function canvasTex(w, h, draw){ var c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h); return new THREE.CanvasTexture(c); }
+    function canvasTex(w, h, draw){ var c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h); var t = new THREE.CanvasTexture(c); t.generateMipmaps = false; t.minFilter = THREE.LinearFilter; t.magFilter = THREE.LinearFilter; return t; }
 
     /* sky backdrop with dawn glow, attached to the camera */
     var skyTex = canvasTex(256, 256, function(x, w, h){
