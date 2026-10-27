@@ -605,6 +605,10 @@ header.on-dark.dark-bar{background:rgba(11,11,13,.72)!important;-webkit-backdrop
 .portrait.has-photo .pphoto{object-position:62% 38%;transform:scale(1.35);transform-origin:62% 38%}
 .portrait.has-photo .pshade,.portrait.has-photo svg{display:none}
 @media(max-width:1050px){.about-card{grid-template-columns:1fr;gap:22px}.portrait,.portrait.has-photo{width:96px;height:96px;min-height:0}}
+
+.project .golinks{margin-top:auto;position:relative;z-index:5;display:flex;gap:8px;flex-wrap:wrap}
+.project .golinks .go{margin-top:0}
+.project .go.store{background:rgba(14,11,20,.88);color:#fff}
 </style>
 
 </head>
@@ -629,7 +633,7 @@ header.on-dark.dark-bar{background:rgba(11,11,13,.72)!important;-webkit-backdrop
 <div class="rd-fab">+</div></div>
 <div class="ticket"><div class="tk-main"><span class="tk-tag">BOARDING PASS</span><b>HND ✈ ITM · NH 21</b><small>May 7 · 09:40 · Gate 34</small></div><div class="bars"></div></div>
 </div></div></div>
-<a class="go" href="https://roamdrop.app/" target="_blank" rel="noopener" data-i18n="rd.go">Explore RoamDrop ↗</a></article>
+<div class="golinks"><a class="go" href="https://roamdrop.app/" target="_blank" rel="noopener" data-i18n="rd.go">Explore RoamDrop ↗</a><a class="go store" href="https://apps.apple.com/app/apple-store/id6780668331?pt=128936940&amp;ct=tararova&amp;mt=8" target="_blank" rel="noopener">App Store ↗</a></div></article>
 
 <article class="project circle reveal" data-tilt><div class="name"><span class="icon" style="background:#ffbd00">○</span>CircleOK</div><h3 data-i18n="co.h3">Know they’re okay. Without watching them.</h3><p data-i18n="co.p">CircleOK gives families a small signal that everyday life still looks normal, without turning care into constant tracking.</p>
 <div class="mock" aria-hidden="true" data-speed="-.07" data-max="36"><div class="tilt" style="--rz:-4deg;--ry:14deg;left:56%"><div class="phone co" id="coPhone"><div class="screen"><div class="island"></div><div class="sbar"><span>9:41</span><span><i></i></span></div>
@@ -639,7 +643,7 @@ header.on-dark.dark-bar{background:rgba(11,11,13,.72)!important;-webkit-backdrop
 <div class="cg"><span class="av" style="background:#7c4dff">A</span><div><b>Ana</b><small>Daughter · notified</small></div><span class="ok"></span></div>
 <div class="cg"><span class="av" style="background:#ff8a5b">D</span><div><b>Dino</b><small>Son · notified</small></div><span class="ok"></span></div>
 </div></div></div></div>
-<a class="go" href="https://circleok.app/" target="_blank" rel="noopener" data-i18n="co.go">Explore CircleOK ↗</a></article>
+<div class="golinks"><a class="go" href="https://circleok.app/" target="_blank" rel="noopener" data-i18n="co.go">Explore CircleOK ↗</a></div></article>
 
 <article class="project appray reveal" data-tilt><div class="name"><span class="icon">A</span>Appray</div><h3 data-i18n="ap.h3">Stop praying.<br>Start proving.</h3><p data-i18n="ap.p">Appray helps founders, indie makers and product designers pressure-test an app idea before spending weeks building it.</p>
 <div class="mock" aria-hidden="true" data-speed="-.07" data-max="36"><div class="tilt" style="top:0"><div class="phone ap" id="apPhone"><div class="screen"><div class="island"></div><div class="sbar"><span>9:41</span><span><i></i></span></div>
@@ -647,7 +651,7 @@ header.on-dark.dark-bar{background:rgba(11,11,13,.72)!important;-webkit-backdrop
 <ul class="court"><li>AI Suggestions<span class="vd build">BUILD</span></li><li>Social Feed<span class="vd later">LATER</span></li><li>Gamification<span class="vd kill">KILL</span></li><li>Export PDF<span class="vd prove">PROVE</span></li></ul>
 <div class="report"><div><small>Build</small><b class="rb">6</b></div><div><small>Later</small><b class="rl">2</b></div><div><small>Kill</small><b class="rk">3</b></div><div><small>Prove</small><b class="rp">1</b></div><div class="report-line">Build 6 · Later 2 · Kill 3 · Prove 1</div></div>
 </div></div></div></div>
-<a class="go" href="https://appray.app/" target="_blank" rel="noopener" data-i18n="ap.go">Explore Appray ↗</a></article>
+<div class="golinks"><a class="go" href="https://appray.app/" target="_blank" rel="noopener" data-i18n="ap.go">Explore Appray ↗</a><a class="go store" href="https://apps.apple.com/app/appray/id6771850795" target="_blank" rel="noopener">App Store ↗</a></div></article>
 
 <article class="project tweexy wide reveal" data-tilt><div class="name"><span class="icon" style="background:#0da5af">T</span>Tweexy · GameAnalyze</div><h3 data-i18n="tw.h3">Focus, read through play.</h3><p data-i18n="tw.p">A play-based wellbeing app for parents of kids 4 to 12. Kids play a few minutes of Tweexy Bubbles, and parents see how focus changes over time, compared with their child’s own typical range.</p>
 <div class="mock" aria-hidden="true" data-speed="-.07" data-max="36"><div class="tilt" style="--rz:4deg;--ry:-18deg"><div class="phone tw" id="twPhone"><div class="screen"><div class="island"></div><div class="sbar"><span>9:41</span><span><i></i></span></div>
@@ -657,7 +661,7 @@ header.on-dark.dark-bar{background:rgba(11,11,13,.72)!important;-webkit-backdrop
 <svg class="tw-chart" viewBox="0 0 200 74"><path d="M0 22C30 18 50 26 80 20S140 16 200 22V50C160 54 130 48 90 52S30 54 0 50Z" fill="#0da5af" fill-opacity=".14"/><path class="tw-line" d="M2 40C20 36 32 30 50 33S78 42 96 35S128 24 146 30S178 38 198 31" fill="none" stroke="#0da5af" stroke-width="3" stroke-linecap="round"/><circle class="tw-dot" cx="198" cy="31" r="4.5" fill="#0da5af" stroke="#fff" stroke-width="2"/></svg>
 <div class="tw-chips"><span>Reaction speed</span><span>Attention span</span><span>Motor patterns</span></div>
 </div></div></div></div>
-<a class="go" href="https://tweexy.gamenalyze.com/" target="_blank" rel="noopener" data-i18n="tw.go">Explore Tweexy ↗</a></article>
+<div class="golinks"><a class="go" href="https://tweexy.gamenalyze.com/" target="_blank" rel="noopener" data-i18n="tw.go">Explore Tweexy ↗</a><a class="go store" href="https://apps.apple.com/app/tweexy/id6504583347" target="_blank" rel="noopener">App Store ↗</a><a class="go store" href="https://play.google.com/store/apps/details?id=com.gameanalyze.bubblespop" target="_blank" rel="noopener">Google Play ↗</a></div></article>
 </div></div></section>
 
 <section class="ai"><div class="wrap ai-card reveal"><h2 data-i18n="ai.h2a">AI writes most<br>of my code.</h2><div class="orb" id="orb"><canvas aria-hidden="true"></canvas></div><h2 class="r" data-i18n="ai.h2b">It still doesn’t know<br>what should exist.<em>That’s still my job.</em></h2></div></section>
@@ -1136,18 +1140,10 @@ function rr2(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r)
 function txt(c,s,x,y,font,col,align){c.font=font+" "+FF;c.fillStyle=col;c.textAlign=align||"left";c.fillText(s,x,y)}
 function chrome(c,dark){var col=dark?"#fff":"#17131d";txt(c,"9:41",24,24,"700 10px",col);c.fillStyle="#0e0b14";rr2(c,77,9,70,20,10);c.fill();c.strokeStyle=col;c.lineWidth=1;rr2(c,190,16,14,7,2);c.stroke();c.fillStyle=col;c.fillRect(192,18,8,3);c.globalAlpha=.3;rr2(c,77,472,70,4,2);c.fill();c.globalAlpha=1}
 function shadowCard(c,x,y,w,h,r,fill,sh){c.save();c.shadowColor=sh||"rgba(60,20,140,.08)";c.shadowBlur=12;c.shadowOffsetY=4;rr2(c,x,y,w,h,r);c.fillStyle=fill||"#fff";c.fill();c.restore()}
+function mkImg(src){var im=new Image();im.decoding="async";im.src=src;return im}
+function drawImg(c,im){c.fillStyle="#fff";c.fillRect(0,0,SCR_W,SCR_H);if(im&&im.complete&&im.naturalWidth){var r=Math.max(SCR_W/im.naturalWidth,SCR_H/im.naturalHeight);c.drawImage(im,(SCR_W-im.naturalWidth*r)/2,0,im.naturalWidth*r,im.naturalHeight*r)}}
 var SCREENS=[
- {name:"RoamDrop",draw:function(c){
-   var g=c.createLinearGradient(0,0,0,SCR_H*.4);g.addColorStop(0,"#f6f1ff");g.addColorStop(1,"#fff");c.fillStyle=g;c.fillRect(0,0,SCR_W,SCR_H);chrome(c);
-   txt(c,"Japan",16,60,"800 20px","#17131d");txt(c,"May 6 to 17 · 12 days",16,74,"600 9.5px","#7a7186");
-   c.fillStyle="#6d42f5";c.beginPath();c.arc(194,58,14,0,7);c.fill();txt(c,"MT",194,62,"800 10px","#fff","center");
-   txt(c,"UNPLANNED",16,96,"800 9px","#6d42f5");txt(c,"3 ideas",208,96,"600 9px","#9a92a6","right");
-   [["teamLab","#ffd1e8"],["Ramen alley","#ffe8a8"],["Nara park","#c9f2dc"]].forEach(function(it,i){var x=16+i*80;c.fillStyle="#fff";rr2(c,x,104,74,46,12);c.fill();c.setLineDash([3,2]);c.strokeStyle="rgba(109,66,245,.35)";c.stroke();c.setLineDash([]);c.fillStyle=it[1];rr2(c,x+7,110,14,14,5);c.fill();txt(c,it[0],x+7,142,"700 9px","#17131d")});
-   [["Tue","6"],["Wed","7"],["Thu","8"],["Fri","9"],["Sat","10"]].forEach(function(d,i){var w=(SCR_W-32-20)/5,x=16+i*(w+5),on=i===1;c.fillStyle=on?"#6d42f5":"#f0eafc";rr2(c,x,160,w,32,10);c.fill();txt(c,d[0],x+w/2,172,"700 8px",on?"#e5dcff":"#7a7186","center");txt(c,d[1],x+w/2,186,"800 12px",on?"#fff":"#17131d","center")});
-   txt(c,"DAY 2 · KYOTO",16,212,"800 9px","#6d42f5");txt(c,"4 stops",208,212,"600 9px","#9a92a6","right");
-   [["Flight HND to ITM","09:40 · Gate 34 · K7XQ2","#e9e2ff"],["Hotel check-in","15:00 · Gion","#ffe8f2"],["Tea house tour","17:30 · 2 people","#e4f6ea"],["Dinner in Pontocho","20:00 · Booked","#fff1d6"]].forEach(function(s,i){var y=220+i*50;shadowCard(c,12,y,200,44,13);c.fillStyle="#efe9ff";c.beginPath();c.arc(30,y+22,10,0,7);c.fill();txt(c,String(i+1),30,y+25.5,"800 10px","#6d42f5","center");txt(c,s[0],48,y+19,"700 10.5px","#17131d");txt(c,s[1],48,y+32,"500 9px","#8a8296");c.fillStyle=s[2];rr2(c,186,y+13,18,18,6);c.fill()});
-   c.fillStyle="#6d42f5";rr2(c,170,414,40,40,14);c.fill();txt(c,"+",190,441,"400 22px","#fff","center");
- }},
+ {name:"RoamDrop",img:mkImg("shots/roamdrop-board.webp"),draw:function(c){drawImg(c,this.img)}},
  {name:"CircleOK",draw:function(c){
    c.fillStyle="#fffdf5";c.fillRect(0,0,SCR_W,SCR_H);chrome(c);
    txt(c,"Mom",18,62,"800 18px","#17131d");c.fillStyle="#ffbd00";rr2(c,180,44,26,26,9);c.fill();c.strokeStyle="#fff";c.lineWidth=2.5;c.beginPath();c.arc(193,57,6,0,7);c.stroke();
@@ -1161,15 +1157,7 @@ var SCREENS=[
    txt(c,"THIS WEEK",18,412,"800 9px","#a08a3a");
    ["M","T","W","T","F","S","S"].forEach(function(d,i){var x=30+i*27.5;c.fillStyle=i<5?"#2fbf71":"#f1ead2";c.beginPath();c.arc(x,430,8,0,7);c.fill();txt(c,d,x,452,"700 8px","#8b8170","center")});
  }},
- {name:"Appray",draw:function(c){
-   var g=c.createLinearGradient(0,0,0,SCR_H);g.addColorStop(0,"#1b0e2c");g.addColorStop(1,"#0e0717");c.fillStyle=g;c.fillRect(0,0,SCR_W,SCR_H);chrome(c,true);
-   txt(c,"‹ JTBD · IDEA TEST",16,54,"700 9px","#9d8fb4");txt(c,"Feature Court",16,76,"800 19px","#fff");
-   c.fillStyle="rgba(113,28,255,.22)";rr2(c,16,84,92,18,7);c.fill();c.strokeStyle="rgba(160,120,255,.3)";c.lineWidth=1;c.stroke();txt(c,"Build. Kill. Prove.",23,96,"800 9px","#c7b2ff");
-   [["AI Suggestions","BUILD","#3ddc84","#0e0717"],["Social Feed","LATER","#ffb648","#0e0717"],["Gamification","KILL","#ff5a6a","#fff"],["Export PDF","PROVE","#8c5cff","#fff"]].forEach(function(f,i){var y=114+i*44;c.fillStyle="rgba(255,255,255,.06)";rr2(c,12,y,200,38,12);c.fill();txt(c,f[0],22,y+23,"700 10.5px","#fff");c.font="900 8.5px "+FF;var w=c.measureText(f[1]).width+16;c.save();c.translate(202-w/2,y+19);c.rotate(-.07);c.fillStyle=f[2];rr2(c,-w/2,-9,w,18,6);c.fill();txt(c,f[1],0,3,"900 8.5px",f[3],"center");c.restore()});
-   c.fillStyle="rgba(113,28,255,.18)";rr2(c,12,298,200,70,14);c.fill();c.strokeStyle="rgba(160,120,255,.25)";c.stroke();
-   [["Build","6","#3ddc84"],["Later","2","#ffb648"],["Kill","3","#ff5a6a"],["Prove","1","#a98bff"]].forEach(function(r,i){var x=37+i*50;txt(c,r[0],x,316,"700 8px","#b8a9cf","center");txt(c,r[1],x,336,"800 16px",r[2],"center")});
-   txt(c,"Build 6 · Later 2 · Kill 3 · Prove 1",112,358,"600 8.5px","#cbbfe0","center");
- }},
+ {name:"Appray",img:mkImg("shots/appray-home.webp"),draw:function(c){drawImg(c,this.img)}},
  {name:"Tweexy",draw:function(c){
    var g=c.createLinearGradient(0,0,0,SCR_H*.45);g.addColorStop(0,"#effbfb");g.addColorStop(1,"#fff");c.fillStyle=g;c.fillRect(0,0,SCR_W,SCR_H);chrome(c);
    txt(c,"Tweexy Bubbles",16,58,"800 18px","#0a7d85");txt(c,"Today’s play · 4 min",16,72,"600 9.5px","#6f8a8c");
@@ -1181,7 +1169,7 @@ var SCREENS=[
    txt(c,"Late-night block on · No accounts",112,410,"600 8.5px","#8aa3a5","center");
  }}
 ];
-function drawScreen(i,cv){var c=cv.getContext("2d");c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,cv.width,cv.height);c.setTransform(SK,0,0,SK,0,0);c.save();rr2(c,0,0,SCR_W,SCR_H,34);c.clip();SCREENS[i].draw(c);c.restore()}
+function drawScreen(i,cv){var c=cv.getContext("2d");c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,cv.width,cv.height);c.setTransform(SK,0,0,SK,0,0);c.save();rr2(c,0,0,SCR_W,SCR_H,34);c.clip();SCREENS[i].draw.call(SCREENS[i],c);c.restore()}
 
 function initHero(){
   var T=W.THREE;
@@ -1209,6 +1197,7 @@ function initHero(){
   // screen textures
   var texs=SCREENS.map(function(s,i){var cv=D.createElement("canvas");cv.width=SCR_W*SK;cv.height=SCR_H*SK;drawScreen(i,cv);var t=new T.CanvasTexture(cv);t.encoding=T.sRGBEncoding;t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());t.minFilter=T.LinearFilter;t.generateMipmaps=false;t._cv=cv;return t});
   if(D.fonts&&D.fonts.ready)D.fonts.ready.then(function(){texs.forEach(function(t,i){drawScreen(i,t._cv);t.needsUpdate=true});kick()});
+  SCREENS.forEach(function(sc,i){if(!sc.img)return;function up(){drawScreen(i,texs[i]._cv);texs[i].needsUpdate=true;kick()}if(sc.img.complete)up();else sc.img.addEventListener("load",up)});
   var scrGeo=new T.PlaneGeometry(SW3,SH3);
   var mA=new T.MeshBasicMaterial({map:texs[0],transparent:true,toneMapped:false}),mB=new T.MeshBasicMaterial({map:texs[1],transparent:true,opacity:0,toneMapped:false,depthWrite:false});
   var sA=new T.Mesh(scrGeo,mA),sB=new T.Mesh(scrGeo,mB);sA.position.z=FZ+.003;sB.position.z=FZ+.004;phoneG.add(sA);phoneG.add(sB);
