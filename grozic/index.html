@@ -1746,5 +1746,9 @@ function dodge(){if(window.innerWidth>700){bar.style.bottom="";return}bar.style.
 scanC();window.addEventListener("load",function(){scanC();dodge()});setInterval(dodge,250);window.addEventListener("scroll",dodge,{passive:true});
 var mo=new MutationObserver(function(){bar.classList.toggle("off",document.documentElement.classList.contains("menu-open")||document.body.classList.contains("menu-open")||document.body.classList.contains("nav-open"))});mo.observe(document.body,{attributes:true,attributeFilter:["class"]});mo.observe(document.documentElement,{attributes:true,attributeFilter:["class"]});
 })();</script>
-<script data-goatcounter="https://tararova.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body>
+<script data-goatcounter="https://tararova.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script>(function(){function c(n){if(window.goatcounter&&goatcounter.count)goatcounter.count({path:location.pathname.replace(/\/$/,'')+' > '+n,title:n,event:true})}
+document.addEventListener('click',function(e){var a=e.target.closest('a,button');if(!a)return;var h=a.getAttribute('href')||'',n=null;
+if(/wa\.me\/385916124340/.test(h))n='klik WhatsApp Marija';else if(a.classList.contains('mt-go'))n='klik Zelim ovu stranicu';else if(/tararova\.com\/?(#.*)?$/.test(h))n='klik Tko sam ja';else if(/wa\.me\//.test(h))n='klik WhatsApp posla';else if(/^mailto:/.test(h))n='klik e-mail';else if(/\.(pdf|docx|zip)$/i.test(h))n='preuzimanje '+h.split('/').pop();else if(/^(work|products)\/$/.test(h))n='klik '+h;
+if(n)c(n)},true);
+if(location.pathname==='/'||location.pathname==='/index.html'){var seen={};var io=new IntersectionObserver(function(es){es.forEach(function(x){var id=x.target.id;if(x.isIntersecting&&!seen[id]){seen[id]=1;c('vidio sekciju '+id)}})},{threshold:.35});document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)})}})();</script></body>
 </html>
