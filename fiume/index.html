@@ -200,7 +200,7 @@ a.tag:hover{background:#000}
 .gl-on .hint{display:flex}
 .hint i{width:7px;height:7px;border-radius:50%;background:var(--brass-2);box-shadow:0 0 0 0 rgba(201,168,114,.6);animation:hint 2.2s infinite}
 @keyframes hint{70%{box-shadow:0 0 0 10px rgba(201,168,114,0)}100%{box-shadow:0 0 0 0 rgba(201,168,114,0)}}
-.wave{position:absolute;z-index:4;left:0;right:0;bottom:-1px;width:100%;height:46px;display:block;pointer-events:none}
+.wave{position:absolute;z-index:4;left:0;right:0;bottom:-1px;width:100%;height:110px;display:block;pointer-events:none}@media(max-width:700px){.wave{height:70px}}
 .js .hero .rv-h{opacity:0;transform:translateY(18px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 .js .h1 .ln>span{transform:translateY(105%);transition:transform 1.2s var(--ease)}
 .js.ready .hero .rv-h{opacity:1;transform:none}
@@ -945,13 +945,10 @@ html select{height:56px;line-height:normal}
     </div>
   </div>
 
-  <svg class="wave" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true">
-    <path fill="#FFFFFF" d="M0 28 C240 10 480 42 720 26 S1200 8 1440 24 L1440 46 L0 46 Z">
-      <animate attributeName="d" dur="9s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1; .45 0 .55 1" values="M0 28 C240 10 480 42 720 26 S1200 8 1440 24 L1440 46 L0 46 Z;M0 22 C240 40 480 12 720 28 S1200 40 1440 20 L1440 46 L0 46 Z;M0 28 C240 10 480 42 720 26 S1200 8 1440 24 L1440 46 L0 46 Z"/>
-    </path>
-    <path fill="none" stroke="#C9A872" stroke-width="1" stroke-opacity=".9" d="M0 20 C240 2 480 34 720 18 S1200 0 1440 16">
-      <animate attributeName="d" dur="9s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1; .45 0 .55 1" values="M0 20 C240 2 480 34 720 18 S1200 0 1440 16;M0 14 C240 32 480 4 720 20 S1200 32 1440 12;M0 20 C240 2 480 34 720 18 S1200 0 1440 16"/>
-    </path>
+  <svg class="wave" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#FFFFFF" fill-opacity=".18" d="M0 52 C120 92 240 92 360 52 S600 12 720 52 S960 92 1080 52 S1320 12 1440 52 L1440 110 L0 110 Z"><animate attributeName="d" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1; .45 0 .55 1" values="M0 52 C120 92 240 92 360 52 S600 12 720 52 S960 92 1080 52 S1320 12 1440 52 L1440 110 L0 110 Z;M0 52 C120 12 240 12 360 52 S600 92 720 52 S960 12 1080 52 S1320 92 1440 52 L1440 110 L0 110 Z;M0 52 C120 92 240 92 360 52 S600 12 720 52 S960 92 1080 52 S1320 12 1440 52 L1440 110 L0 110 Z"/></path>
+    <path fill="#FFFFFF" d="M0 72 C120 32 240 32 360 72 S600 112 720 72 S960 32 1080 72 S1320 112 1440 72 L1440 110 L0 110 Z"><animate attributeName="d" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1; .45 0 .55 1" values="M0 72 C120 32 240 32 360 72 S600 112 720 72 S960 32 1080 72 S1320 112 1440 72 L1440 110 L0 110 Z;M0 72 C120 112 240 112 360 72 S600 32 720 72 S960 112 1080 72 S1320 32 1440 72 L1440 110 L0 110 Z;M0 72 C120 32 240 32 360 72 S600 112 720 72 S960 32 1080 72 S1320 112 1440 72 L1440 110 L0 110 Z"/></path>
+    <path fill="none" stroke="#C9A872" stroke-width="2" stroke-opacity=".95" d="M0 60 C120 20 240 20 360 60 S600 100 720 60 S960 20 1080 60 S1320 100 1440 60"><animate attributeName="d" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1; .45 0 .55 1" values="M0 60 C120 20 240 20 360 60 S600 100 720 60 S960 20 1080 60 S1320 100 1440 60;M0 60 C120 100 240 100 360 60 S600 20 720 60 S960 100 1080 60 S1320 20 1440 60;M0 60 C120 20 240 20 360 60 S600 100 720 60 S960 20 1080 60 S1320 100 1440 60"/></path>
   </svg>
 </section>
 
