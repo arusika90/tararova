@@ -539,9 +539,9 @@ html select{height:56px;line-height:normal}
 @keyframes hzoom{from{transform:scale(1.12)}to{transform:scale(1)}}
 .hero__media .hglint{position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 50% at var(--gx,70%) var(--gy,30%),rgba(255,255,255,.16),rgba(255,255,255,0) 70%);mix-blend-mode:soft-light;transition:background .4s}
 @media (prefers-reduced-motion:reduce){.hero__media .hcam img{animation:none}}
-.seaband{position:relative;height:74vh;height:74svh;min-height:460px;max-height:820px;overflow:hidden;color:#fff;background:#06234A;touch-action:pan-y}
+.seaband{position:relative;height:100vh;height:100svh;min-height:560px;max-height:980px;overflow:hidden;color:#fff;background:#06234A;touch-action:pan-y}
 .seaband .hero__media{inset:-8% 0}
-.seaband__c{position:absolute;inset:auto 0 0 0;z-index:5;padding-bottom:48px;pointer-events:none}
+.seaband__c{position:absolute;inset:0 0 auto 0;z-index:5;padding-top:clamp(90px,14vh,150px);pointer-events:none}
 .seaband__t{font-size:clamp(30px,6vw,64px);line-height:1.05;font-style:italic;font-weight:300;margin:0;max-width:16ch}
 .seaband .hero__hint{pointer-events:none}
 </style>
@@ -597,7 +597,7 @@ html select{height:56px;line-height:normal}
 <header class="hdr" id="hdr">
   <div class="wrap">
     <a href="#top" class="logo" aria-label="Opatija Boats">
-      <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><path d="M50 22a6 6 0 1 0 0 .01M50 28V78M36 44H64M24 60C24 72 36 80 50 80C64 80 76 72 76 60L68 65M24 60L32 65" fill="none" stroke="#F2B458" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><circle cx="50" cy="27" r="6" fill="none" stroke="#F2B458" stroke-width="3.2"/><path d="M50 33V76M38 43H62M27 60C28 70 38 76 50 76C62 76 72 70 73 60M27 60L24 66M27 60L33 62M73 60L76 66M73 60L67 62" fill="none" stroke="#F2B458" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span><b>Opatija Boats</b><small data-i18n="logo.sub">Rent a boat &amp; tours</small></span>
     </a>
     <div class="hdr__r">
@@ -763,7 +763,7 @@ html select{height:56px;line-height:normal}
         <p class="rv" data-delay="1" data-i18n="intro.p1">Join a shared tour in a small group, book a private tour with one of our skippers, or rent a speedboat and drive it yourself. You will also find us in Rijeka, at Riva 10.</p>
         <p class="rv" data-delay="1" data-i18n="intro.p2">Everything is arranged over WhatsApp, quick and clear. Tell us the day and how many of you are coming, and we take it from there.</p>
         <div class="sig rv" data-delay="2">
-          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#0A2B5E" stroke-width="1.2" opacity=".5"/><path d="M50 22a6 6 0 1 0 0 .01M50 28V78M36 44H64M24 60C24 72 36 80 50 80C64 80 76 72 76 60L68 65M24 60L32 65" fill="none" stroke="#E5735A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#0A2B5E" stroke-width="1.2" opacity=".5"/><circle cx="50" cy="27" r="6" fill="none" stroke="#F2B458" stroke-width="3.2"/><path d="M50 33V76M38 43H62M27 60C28 70 38 76 50 76C62 76 72 70 73 60M27 60L24 66M27 60L33 62M73 60L76 66M73 60L67 62" fill="none" stroke="#E5735A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <div><b>ML Aquatics</b><small data-i18n="intro.sig">Opatija Boats · Opatija and Rijeka</small></div>
         </div>
       </div>
@@ -1102,7 +1102,7 @@ html select{height:56px;line-height:normal}
     <div class="foot__top">
       <div>
         <a href="#top" class="logo" aria-label="Opatija Boats">
-          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><path d="M50 22a6 6 0 1 0 0 .01M50 28V78M36 44H64M24 60C24 72 36 80 50 80C64 80 76 72 76 60L68 65M24 60L32 65" fill="none" stroke="#F2B458" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><circle cx="50" cy="27" r="6" fill="none" stroke="#F2B458" stroke-width="3.2"/><path d="M50 33V76M38 43H62M27 60C28 70 38 76 50 76C62 76 72 70 73 60M27 60L24 66M27 60L33 62M73 60L76 66M73 60L67 62" fill="none" stroke="#F2B458" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span><b>Opatija Boats</b><small data-i18n="logo.sub">Rent a boat &amp; tours</small></span>
         </a>
         <p style="margin-top:16px;max-width:36ch" data-i18n="foot.p">Shared and private boat tours, speedboat rental and skipper training from Opatija port. ML Aquatics.</p>
@@ -1897,37 +1897,49 @@ function loadThree(){
   s.onerror = function(){ document.getElementById("seaband").classList.remove("gl-on"); };
   document.head.appendChild(s);
 }
+
+
+function alphaTex(w, h, fn){
+  var d = new Uint8Array(w * h * 4);
+  for(var y = 0; y < h; y++) for(var x = 0; x < w; x++){
+    var i = (y * w + x) * 4; d[i] = d[i+1] = d[i+2] = 255; d[i+3] = Math.max(0, Math.min(255, Math.round(fn(x / (w - 1), y / (h - 1)) * 255)));
+  }
+  var t = new THREE.DataTexture(d, w, h, THREE.RGBAFormat); t.generateMipmaps = false; t.minFilter = THREE.LinearFilter; t.magFilter = THREE.LinearFilter; t.needsUpdate = true; return t;
+}
 function coastTexture(THREE){
-  var c = document.createElement("canvas"); c.width = 2048; c.height = 256;
-  var x = c.getContext("2d");
-  var g = x.createLinearGradient(0, 0, 0, 256); g.addColorStop(0, "#1C3F66"); g.addColorStop(1, "#0A2B5E");
-  x.fillStyle = g;
-  // Ucka ridge with the coast running to the right
-  x.beginPath(); x.moveTo(0, 256); x.lineTo(0, 200);
-  var pts = [[80,196],[200,186],[330,170],[460,150],[560,128],[640,112],[700,104],[740,98],[790,90],[840,92],[900,104],[980,118],[1080,134],[1180,150],[1300,164],[1420,176],[1560,186],[1700,196],[1850,204],[2048,210]];
-  pts.forEach(function(p){ x.lineTo(p[0], p[1]); });
-  x.lineTo(2048, 256); x.closePath(); x.fill();
-  // haze fade near the water line
-  var h = x.createLinearGradient(0, 180, 0, 256); h.addColorStop(0, "rgba(233,160,110,0)"); h.addColorStop(1, "rgba(233,160,110,.55)");
-  x.fillStyle = h; x.fillRect(0, 180, 2048, 76);
-  var tx = new THREE.CanvasTexture(c); tx.minFilter = THREE.LinearFilter; return tx;
+  var pts = [[0,200],[80,196],[200,186],[330,170],[460,150],[560,128],[640,112],[700,104],[740,98],[790,90],[840,92],[900,104],[980,118],[1080,134],[1180,150],[1300,164],[1420,176],[1560,186],[1700,196],[1850,204],[2048,210]];
+  function ridge(px){ for(var k = 1; k < pts.length; k++){ if(px <= pts[k][0]){ var a = pts[k-1], b = pts[k], f = (px - a[0]) / (b[0] - a[0]); return a[1] + (b[1] - a[1]) * f; } } return 210; }
+  // texture rows go bottom-up in DataTexture, so v=0 is the bottom of the image
+  return alphaTex(512, 64, function(u, v){ var px = u * 2048, py = (1 - v) * 256; var r = ridge(px); return Math.max(0, Math.min(1, (py - r) / 3 + .5)); });
 }
 function sprayTexture(THREE){
-  var c = document.createElement("canvas"); c.width = c.height = 64; var x = c.getContext("2d");
-  var g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, "rgba(255,250,240,1)"); g.addColorStop(.35, "rgba(255,245,225,.6)"); g.addColorStop(1, "rgba(255,240,220,0)");
-  x.fillStyle = g; x.fillRect(0, 0, 64, 64);
-  return new THREE.CanvasTexture(c);
+  return alphaTex(64, 64, function(u, v){ var dx = u - .5, dy = v - .5, r = Math.sqrt(dx*dx + dy*dy) * 2; return Math.pow(Math.max(0, 1 - r), 1.6); });
+}
+function wakeTexture(){
+  // V of foam: narrow at the stern (v=1), wide and fading at v=0
+  return alphaTex(64, 128, function(u, v){
+    var spread = .06 + (1 - v) * .44, x = Math.abs(u - .5);
+    var edge = Math.exp(-Math.pow((x - spread) / (.025 + (1 - v) * .05), 2));
+    var core = Math.exp(-Math.pow(x / (.04 + (1 - v) * .12), 2)) * .55;
+    var n = .75 + .25 * Math.sin(u * 90 + v * 40) * Math.sin(v * 70);
+    return (edge + core) * Math.pow(v, .7) * n;
+  });
 }
 function startSea(){
   var seaband = document.getElementById("seaband");
   var canvas = $("#sea"), mobile = mqMobile.matches;
-  var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: false, alpha: false, powerPreference: "high-performance"});
+  var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: !mobile, alpha: false, powerPreference: "high-performance"});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2));
   var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(mobile ? 64 : 52, 1, .1, 900);
-  camera.position.set(0, 1.9, 0); camera.rotation.order = "YXZ";
+  scene.fog = new THREE.Fog(0xeeb488, 70, 430);
+  var camera = new THREE.PerspectiveCamera(mobile ? 66 : 54, 1, .05, 900);
+  camera.position.set(0, 2.1, 0); camera.rotation.order = "YXZ"; scene.add(camera);
   var sunDir = new THREE.Vector3(-.18, .085, -1).normalize();
-  var uTime = {value: 0};
+  var uTime = {value: 0}, uTravel = {value: 0};
+  var SPEED = 7.5;
+
+  scene.add(new THREE.HemisphereLight(0xffe4c4, 0x24476e, 1.0));
+  var sunL = new THREE.DirectionalLight(0xffc896, .9); sunL.position.copy(sunDir).multiplyScalar(-60).add(new THREE.Vector3(30, 60, 20)); scene.add(sunL);
 
   /* sky dome */
   var skyMat = new THREE.ShaderMaterial({
@@ -1947,85 +1959,147 @@ function startSea(){
       " gl_FragColor = vec4(col, 1.0); }"
     ].join("\n")
   });
-  var sky = new THREE.Mesh(new THREE.SphereGeometry(600, 32, 16), skyMat); scene.add(sky);
+  scene.add(new THREE.Mesh(new THREE.SphereGeometry(600, 32, 16), skyMat));
 
-  /* ocean */
-  var seg = mobile ? 110 : 180;
+  /* ocean: the water moves past us, so the waves are sampled at z - travel */
+  var seg = mobile ? 120 : 200;
   var geo = new THREE.PlaneGeometry(520, 520, seg, seg); geo.rotateX(-Math.PI / 2); geo.translate(0, 0, -200);
-  var waveFn = [
-    "float wave(vec2 p, float t, out vec3 n){",
-    " float h = 0.0; vec2 d = vec2(0.0);",
-    " vec2 k1 = vec2(0.55,0.35), k2 = vec2(-0.32,0.62), k3 = vec2(0.9,-0.4), k4 = vec2(1.6,1.3), k5 = vec2(-2.3,1.9);",
-    " float a1=0.22,a2=0.16,a3=0.08,a4=0.05,a5=0.028;",
-    " float s;",
-    " s = sin(dot(p,k1)*0.55 + t*0.9);  h += a1*s; d += a1*cos(dot(p,k1)*0.55 + t*0.9)*k1*0.55;",
-    " s = sin(dot(p,k2)*0.7 + t*1.1);   h += a2*s; d += a2*cos(dot(p,k2)*0.7 + t*1.1)*k2*0.7;",
-    " s = sin(dot(p,k3)*1.1 - t*1.4);   h += a3*s; d += a3*cos(dot(p,k3)*1.1 - t*1.4)*k3*1.1;",
-    " s = sin(dot(p,k4)*1.7 + t*2.1);   h += a4*s; d += a4*cos(dot(p,k4)*1.7 + t*2.1)*k4*1.7;",
-    " s = sin(dot(p,k5)*2.6 - t*2.7);   h += a5*s; d += a5*cos(dot(p,k5)*2.6 - t*2.7)*k5*2.6;",
-    " n = normalize(vec3(-d.x, 1.0, -d.y));",
-    " return h; }"
-  ].join("\n");
+  var K = [[.55,.35,.55,.9,.22],[-.32,.62,.7,1.1,.16],[.9,-.4,1.1,-1.4,.08],[1.6,1.3,1.7,2.1,.05],[-2.3,1.9,2.6,-2.7,.028]];
+  var waveFn = "float wave(vec2 p, float t, out vec3 n){ float h = 0.0; vec2 d = vec2(0.0); vec2 k; float f;" +
+    K.map(function(k){ return " k = vec2(" + k[0].toFixed(2) + "," + k[1].toFixed(2) + "); f = dot(p,k)*" + k[2].toFixed(2) + " + t*" + k[3].toFixed(2) + "; h += " + k[4].toFixed(3) + "*sin(f); d += " + k[4].toFixed(3) + "*cos(f)*k*" + k[2].toFixed(2) + ";"; }).join("") +
+    " n = normalize(vec3(-d.x, 1.0, -d.y)); return h; }";
+  function waveJS(x, z, t){ var h = 0; for(var i = 0; i < K.length; i++){ var k = K[i]; h += k[4] * Math.sin((x * k[0] + z * k[1]) * k[2] + t * k[3]); } return h; }
   var seaMat = new THREE.ShaderMaterial({
-    uniforms: {uTime: uTime, uSun: {value: sunDir}, uCam: {value: camera.position}},
+    uniforms: {uTime: uTime, uTravel: uTravel, uSun: {value: sunDir}, uCam: {value: camera.position}},
     vertexShader: [
-      "uniform float uTime; varying vec3 vW; varying vec3 vN;",
+      "uniform float uTime; uniform float uTravel; varying vec3 vW; varying vec3 vN; varying vec2 vS;",
       waveFn,
-      "void main(){ vec3 p = position; vec3 n; float h = wave(p.xz, uTime, n); p.y += h; vW = p; vN = n; gl_Position = projectionMatrix * modelViewMatrix * vec4(p,1.0); }"
+      "void main(){ vec3 p = position; vec2 s = vec2(p.x, p.z - uTravel); vec3 n; float h = wave(s, uTime, n); p.y += h; vW = p; vN = n; vS = s; gl_Position = projectionMatrix * modelViewMatrix * vec4(p,1.0); }"
     ].join("\n"),
     fragmentShader: [
-      "uniform float uTime; uniform vec3 uSun; uniform vec3 uCam; varying vec3 vW; varying vec3 vN;",
+      "uniform float uTime; uniform vec3 uSun; uniform vec3 uCam; varying vec3 vW; varying vec3 vN; varying vec2 vS;",
       "float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }",
       "void main(){",
-      " vec3 N = normalize(vN);",
-      " vec3 V = normalize(uCam - vW);",
-      " float dist = length(vW - uCam);",
-      " /* fine ripple jitter for glitter */",
-      " vec2 g = floor(vW.xz * 6.0);",
-      " float j = hash(g + floor(uTime*6.0)*0.013);",
+      " vec3 N = normalize(vN); vec3 V = normalize(uCam - vW); float dist = length(vW - uCam);",
+      " vec2 g = floor(vS * 6.0); float j = hash(g + floor(uTime*6.0)*0.013);",
       " vec3 Nj = normalize(N + vec3((hash(g+1.3)-0.5)*0.18, 0.0, (hash(g+7.1)-0.5)*0.18));",
       " vec3 deep = vec3(0.03,0.16,0.36); vec3 shal = vec3(0.10,0.36,0.52);",
       " float fres = pow(1.0 - max(dot(N, V), 0.0), 4.0);",
-      " vec3 R = reflect(-V, N);",
-      " float ry = clamp(R.y, 0.0, 1.0);",
+      " vec3 R = reflect(-V, N); float ry = clamp(R.y, 0.0, 1.0);",
       " vec3 skyc = mix(vec3(0.99,0.80,0.56), vec3(0.16,0.33,0.58), smoothstep(0.0,0.35,ry));",
       " vec3 col = mix(deep, shal, smoothstep(-0.3,0.4,vW.y));",
       " col = mix(col, skyc, 0.18 + 0.72*fres);",
       " vec3 H = normalize(V + uSun);",
-      " float spec = pow(max(dot(N,H),0.0), 420.0);",
-      " float glit = pow(max(dot(Nj,H),0.0), 1800.0) * (0.6 + 0.8*j);",
-      " vec3 sunc = vec3(1.0,0.86,0.6);",
-      " col += sunc * (spec*1.4 + glit*3.2);",
-      " /* warm sun path tint toward the sun */",
+      " col += vec3(1.0,0.86,0.6) * (pow(max(dot(N,H),0.0), 420.0)*1.4 + pow(max(dot(Nj,H),0.0), 1800.0)*(0.6+0.8*j)*3.2);",
+      " /* white caps on crests */",
+      " col += vec3(0.95) * smoothstep(0.30, 0.42, vW.y) * (0.35 + 0.65*hash(floor(vS*3.0))) * 0.35 * (1.0 - smoothstep(20.0, 90.0, dist));",
       " vec3 toSun = normalize(vec3(uSun.x, 0.0, uSun.z)); vec3 toP = normalize(vec3(vW.x-uCam.x, 0.0, vW.z-uCam.z));",
-      " float path = pow(max(dot(toSun,toP),0.0), 18.0);",
-      " col += vec3(0.95,0.55,0.30) * path * 0.22 * smoothstep(8.0, 120.0, dist);",
-      " /* haze */",
-      " vec3 haze = vec3(0.95,0.72,0.52);",
-      " col = mix(col, haze, smoothstep(60.0, 420.0, dist));",
+      " col += vec3(0.95,0.55,0.30) * pow(max(dot(toSun,toP),0.0), 18.0) * 0.22 * smoothstep(8.0, 120.0, dist);",
+      " col = mix(col, vec3(0.95,0.72,0.52), smoothstep(60.0, 420.0, dist));",
       " gl_FragColor = vec4(col, 1.0); }"
     ].join("\n")
   });
-  var sea = new THREE.Mesh(geo, seaMat); scene.add(sea);
+  scene.add(new THREE.Mesh(geo, seaMat));
 
-  /* coast silhouette on the horizon */
-  var coast = new THREE.Mesh(new THREE.PlaneGeometry(1500, 120), new THREE.MeshBasicMaterial({map: coastTexture(THREE), transparent: true, depthWrite: false, fog: false}));
+  /* coast on the horizon */
+  var coast = new THREE.Mesh(new THREE.PlaneGeometry(1500, 120), new THREE.MeshBasicMaterial({map: coastTexture(THREE), color: 0x1a3a63, transparent: true, depthWrite: false, fog: false, opacity: .92}));
   coast.position.set(200, 25, -470); scene.add(coast);
 
-  /* wake / spray particles */
-  var COUNT = mobile ? 140 : 280;
+  /* boats */
+  var white = new THREE.MeshLambertMaterial({color: 0xf6f1e8, emissive: 0x4a3c30}), glass = new THREE.MeshLambertMaterial({color: 0x1b2a3a}),
+      navy = new THREE.MeshLambertMaterial({color: 0x10294d}), red = new THREE.MeshLambertMaterial({color: 0xa52a2a}),
+      sky = new THREE.MeshLambertMaterial({color: 0x7fb6d9}), steel = new THREE.MeshLambertMaterial({color: 0xb9c2cc}),
+      teak = new THREE.MeshLambertMaterial({color: 0xb98a5a});
+  function hullGeo(len, w, h){
+    var g = new THREE.BoxGeometry(w, h, len, 4, 2, 12), p = g.attributes.position;
+    for(var i = 0; i < p.count; i++){
+      var x = p.getX(i), y = p.getY(i), z = p.getZ(i), f = .5 - z / len; // 0 stern, 1 bow
+      var tap = f > .5 ? 1 - Math.pow((f - .5) / .5, 1.5) * .97 : 1;
+      p.setX(i, x * tap * (y < 0 ? .5 : 1));
+      if(y > 0 && f > .6) p.setY(i, y + (f - .6) * h * .9);
+      if(y < 0) p.setY(i, y + (f > .6 ? (f - .6) * h * .8 : 0));
+    }
+    g.computeVertexNormals(); return g;
+  }
+  function box(w, h, d, m, x, y, z){ var o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); o.position.set(x, y, z); return o; }
+  var wakeMap = wakeTexture();
+  function makeBoat(type){
+    var g = new THREE.Group(), L, W;
+    if(type === "speed"){ L = 6.5; W = 2.3;
+      g.add(new THREE.Mesh(hullGeo(L, W, .9), white));
+      g.add(box(W * .98, .14, L * .55, navy, 0, -.12, .5));
+      var ws = box(1.7, .5, .12, glass, 0, .78, -.6); ws.rotation.x = -.5; g.add(ws);
+      g.add(box(1.4, .45, .9, white, 0, .62, .4));
+      var top = box(2.0, .06, 2.2, navy, 0, 1.55, .6); g.add(top);
+      [[-.9,.2],[.9,.2],[-.9,1.4],[.9,1.4]].forEach(function(q){ g.add(box(.05, 1.0, .05, steel, q[0], 1.05, q[1])); });
+    } else if(type === "taxi"){ L = 8; W = 2.6;
+      g.add(new THREE.Mesh(hullGeo(L, W, 1.1), white));
+      g.add(box(W * .97, .16, L * .6, red, 0, -.05, .6));
+      g.add(box(1.8, .9, 1.6, white, 0, 1.0, -.6)); g.add(box(1.82, .35, 1.4, glass, 0, 1.2, -.6));
+      g.add(box(2.4, .07, 3.6, red, 0, 2.0, 1.5));
+      [[-1.1,0],[1.1,0],[-1.1,3],[1.1,3]].forEach(function(q){ g.add(box(.05, 1.5, .05, steel, q[0], 1.25, q[1])); });
+    } else if(type === "tour"){ L = 15; W = 4;
+      g.add(new THREE.Mesh(hullGeo(L, W, 1.5), sky));
+      g.add(box(W * .97, .2, L * .7, white, 0, .55, .8));
+      g.add(box(3.4, 1.3, 8, white, 0, 1.4, 1.2)); g.add(box(3.42, .5, 7.6, glass, 0, 1.6, 1.2));
+      g.add(box(3.8, .12, 9.5, white, 0, 2.15, 1.2));
+      g.add(box(.9, .9, 1, red, 1.6, .2, -2)); g.add(box(.9, .9, 1, white, -1.6, .2, -2));
+    } else { L = 9; W = 2.8; // sailboat
+      g.add(new THREE.Mesh(hullGeo(L, W, 1), white));
+      g.add(box(1.6, .5, 2.4, white, 0, .75, .6));
+      g.add(box(.08, 11, .08, steel, 0, 5.8, -.6));
+      var sh = new THREE.Shape(); sh.moveTo(0, 0); sh.lineTo(0, 10); sh.lineTo(3.8, .3); sh.closePath();
+      var sail = new THREE.Mesh(new THREE.ShapeGeometry(sh), new THREE.MeshLambertMaterial({color: 0xfbf6ec, side: THREE.DoubleSide}));
+      sail.position.set(0, .8, -.5); sail.rotation.y = Math.PI / 2 - .25; g.add(sail);
+      var sh2 = new THREE.Shape(); sh2.moveTo(0, 0); sh2.lineTo(0, 9.5); sh2.lineTo(-3.2, .2); sh2.closePath();
+      var jib = new THREE.Mesh(new THREE.ShapeGeometry(sh2), sail.material); jib.position.set(0, .9, -1); jib.rotation.y = Math.PI / 2 - .35; g.add(jib);
+    }
+    var wake = new THREE.Mesh(new THREE.PlaneGeometry(W * 4.5, L * 3.2), new THREE.MeshBasicMaterial({map: wakeMap, transparent: true, depthWrite: false, opacity: .8, color: 0xffffff}));
+    wake.rotation.x = -Math.PI / 2; wake.position.set(0, -.25, L * 1.55 + L * .1); g.add(wake);
+    g.userData = {L: L, wake: wake}; scene.add(g); return g;
+  }
+  // each boat: v = own speed along heading, hd = heading (0 = away from us, PI = towards us, PI/2 = crossing)
+  var boats = [
+    {b: makeBoat("speed"), x: -34, z: -30, v: 9, hd: 1.3},
+    {b: makeBoat("taxi"),  x: 9,   z: -26, v: 5,  hd: .05},
+    {b: makeBoat("tour"),  x: 34,  z: -95, v: 3,  hd: .25},
+    {b: makeBoat("sail"),  x: -55, z: -160, v: 1.5, hd: .6},
+    {b: makeBoat("speed"), x: 28,  z: -150, v: 0, hd: 2.2},
+    {b: makeBoat("taxi"),  x: -30, z: -210, v: 0, hd: .9},
+    {b: makeBoat("sail"),  x: 70,  z: -260, v: 1.2, hd: -.5}
+  ];
+  if(mobile){ boats[0].x = -26; boats[1].x = 3; boats[2].x = 12; boats[4].x = -14; }
+  function respawn(o){ var side = Math.random() < .5 ? -1 : 1; o.z = -220 - Math.random() * 90; o.x = side * (14 + Math.random() * 55); }
+
+  /* our own bow, attached to the camera */
+  var bow = new THREE.Group();
+  var deckShape = new THREE.Shape(); deckShape.moveTo(-1.7, 0); deckShape.quadraticCurveTo(-1.3, -2.6, 0, -4.4); deckShape.quadraticCurveTo(1.3, -2.6, 1.7, 0); deckShape.closePath();
+  var deck = new THREE.Mesh(new THREE.ExtrudeGeometry(deckShape, {depth: .7, bevelEnabled: true, bevelThickness: .08, bevelSize: .08, bevelSegments: 2, curveSegments: 18}), white);
+  deck.rotation.x = Math.PI / 2; bow.add(deck);
+  var teakShape = new THREE.Shape(); teakShape.moveTo(-.45, -.2); teakShape.lineTo(0, -3.4); teakShape.lineTo(.45, -.2); teakShape.closePath();
+  var teakM = new THREE.Mesh(new THREE.ShapeGeometry(teakShape), teak); teakM.rotation.x = -Math.PI / 2; teakM.position.y = .09; bow.add(teakM);
+  var railPts = [new THREE.Vector3(-1.45, .5, .1), new THREE.Vector3(-1.05, .5, -2.3), new THREE.Vector3(0, .55, -4.05), new THREE.Vector3(1.05, .5, -2.3), new THREE.Vector3(1.45, .5, .1)];
+  bow.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(railPts), 60, .035, 6, false), steel));
+  [[-1.4,.0],[-1.15,-1.6],[-.6,-3.2],[.6,-3.2],[1.15,-1.6],[1.4,0]].forEach(function(q){ var s = box(.04, .5, .04, steel, q[0], .27, q[1]); bow.add(s); });
+  var light = new THREE.Mesh(new THREE.SphereGeometry(.07, 10, 8), new THREE.MeshBasicMaterial({color: 0xff5a4a})); light.position.set(0, .65, -4.0); bow.add(light);
+  bow.scale.setScalar(.62); bow.position.set(0, -1.55, -2.3); camera.add(bow);
+  var bowSvg = document.getElementById("bow"); if(bowSvg) bowSvg.style.display = "none";
+
+  /* bow spray */
+  var COUNT = mobile ? 180 : 360;
   var pp = new Float32Array(COUNT * 3), vel = [];
   function spawn(i, init){
     var side = Math.random() < .5 ? -1 : 1;
-    pp[i*3]   = side * (0.9 + Math.random() * 1.6);
-    pp[i*3+1] = -0.2 + Math.random() * 0.5;
-    pp[i*3+2] = init ? -(Math.random() * 16) : -(6 + Math.random() * 10);
-    vel[i] = {x: side * (0.4 + Math.random() * 1.2), y: 0.6 + Math.random() * 1.2, z: 6 + Math.random() * 5, life: 0, max: 1.4 + Math.random() * 1.4};
+    pp[i*3] = side * (.4 + Math.random() * .9); pp[i*3+1] = -.5 + Math.random() * .3; pp[i*3+2] = -5.6 - Math.random() * .8;
+    vel[i] = {x: side * (1.2 + Math.random() * 2.4), y: .8 + Math.random() * 1.8, z: 3 + Math.random() * 4, life: init ? Math.random() * 1.5 : 0, max: .9 + Math.random() * 1.1};
   }
   for(var i = 0; i < COUNT; i++) spawn(i, true);
   var pg = new THREE.BufferGeometry(); pg.setAttribute("position", new THREE.BufferAttribute(pp, 3));
-  var pts = new THREE.Points(pg, new THREE.PointsMaterial({size: mobile ? 0.26 : 0.2, map: sprayTexture(THREE), transparent: true, depthWrite: false, opacity: .75, color: 0xfff1dc, blending: THREE.AdditiveBlending, sizeAttenuation: true}));
-  scene.add(pts);
+  var pts = new THREE.Points(pg, new THREE.PointsMaterial({size: mobile ? .2 : .16, map: sprayTexture(THREE), transparent: true, depthWrite: false, opacity: .8, color: 0xfff4e4, blending: THREE.AdditiveBlending, sizeAttenuation: true, fog: false}));
+  pts.position.set(0, -1.7, -.4); pts.scale.setScalar(.8); camera.add(pts);
+  // side wake lines from our hull
+  var ourWake = new THREE.Mesh(new THREE.PlaneGeometry(9, 30), new THREE.MeshBasicMaterial({map: wakeMap, transparent: true, depthWrite: false, opacity: .55}));
+  ourWake.rotation.x = -Math.PI / 2; ourWake.position.set(0, .02, 10); scene.add(ourWake);
 
   /* pointer tilt */
   var mouse = {x: 0, y: 0, sx: 0, sy: 0};
@@ -2049,20 +2123,32 @@ function startSea(){
     if(!running) return;
     raf = requestAnimationFrame(frame);
     var dt = Math.min(.05, (now - last) / 1000 || .016); last = now; tAcc += dt;
-    uTime.value = tAcc;
+    uTime.value = tAcc; uTravel.value += SPEED * dt;
     mouse.sx += (mouse.x - mouse.sx) * .05; mouse.sy += (mouse.y - mouse.sy) * .05;
-    var roll = Math.sin(tAcc * .62) * .032 + Math.sin(tAcc * 1.31) * .012 + mouse.sx * .035;
-    var pitch = Math.sin(tAcc * .85) * .014 + Math.sin(tAcc * 2.1) * .004 - mouse.sy * .03 - .02;
-    camera.position.y = 1.9 + Math.sin(tAcc * .9) * .11 + Math.sin(tAcc * 1.7) * .03;
-    camera.rotation.set(pitch, -mouse.sx * .05, roll);
-    // spray
+    // the hull slaps over the swell: slow roll, quicker pitch, a little jolt now and then
+    var slap = Math.max(0, Math.sin(tAcc * 2.3)) * Math.max(0, Math.sin(tAcc * .37)) * .02;
+    var roll = Math.sin(tAcc * .62) * .035 + Math.sin(tAcc * 1.31) * .012 + mouse.sx * .035;
+    var pitch = Math.sin(tAcc * 1.05) * .022 + Math.sin(tAcc * 2.4) * .006 - slap - mouse.sy * .03 - .035;
+    camera.position.y = 2.1 + Math.sin(tAcc * 1.05) * .14 + Math.sin(tAcc * 1.9) * .04 + slap * 3;
+    camera.rotation.set(pitch, -mouse.sx * .06, roll);
+    for(var b = 0; b < boats.length; b++){
+      var o = boats[b], g = o.b;
+      o.x += Math.sin(o.hd) * o.v * dt;
+      o.z += SPEED * dt - Math.cos(o.hd) * o.v * dt;
+      if(o.z > 14 || Math.abs(o.x) > 140) respawn(o);
+      var wz = o.z - uTravel.value, y = waveJS(o.x, wz, tAcc);
+      g.position.set(o.x, y - .2, o.z);
+      g.rotation.set((waveJS(o.x, wz - 2, tAcc) - waveJS(o.x, wz + 2, tAcc)) * .25, -o.hd, (waveJS(o.x - 1, wz, tAcc) - waveJS(o.x + 1, wz, tAcc)) * .3);
+      g.userData.wake.visible = o.v > .5;
+    }
     var a = pg.attributes.position.array;
     for(var i = 0; i < COUNT; i++){
       var v = vel[i]; v.life += dt;
-      a[i*3] += v.x * dt; a[i*3+1] += v.y * dt; a[i*3+2] += v.z * dt; v.y -= 2.2 * dt;
-      if(a[i*3+2] > 1.5 || v.life > v.max) spawn(i, false);
+      a[i*3] += v.x * dt; a[i*3+1] += v.y * dt; a[i*3+2] += v.z * dt; v.y -= 3.2 * dt;
+      if(v.life > v.max) spawn(i, false);
     }
     pg.attributes.position.needsUpdate = true;
+    ourWake.position.y = waveJS(0, 10 - uTravel.value, tAcc) * .3 + .05;
     renderer.render(scene, camera);
   }
   function setRun(on){ if(on === running) return; running = on; if(on){ last = performance.now(); raf = requestAnimationFrame(frame); } else cancelAnimationFrame(raf); }
@@ -2072,6 +2158,7 @@ function startSea(){
   seaband.classList.add("gl-on");
   check(); setHint();
 }
+
 if(document.readyState === "complete") loadThree(); else window.addEventListener("load", function(){ setTimeout(loadThree, 50); });
 
 applyLang(lang);
