@@ -35,7 +35,7 @@
 <style>
 :root{
   --linen:#F1EAE6; --white:#FFFFFF; --ink:#1B1B1B; --muted:#6B625C; --black:#0B0B0B;
-  --teal:#0E5C55; --teal-d:#083F3B; --teal-l:#2E8C82; --gold:#C9A45C; --gold-l:#E3C98E; --gold-d:#9E7D3C;
+  --teal:#9A2A1C; --teal-d:#5E170E; --teal-l:#C2552F; --gold:#D39A3A; --gold-l:#ECC27A; --gold-d:#A8711F;
   --lotus:#E8A8B8; --lotus-l:#F6D6DE; --cream:#F7F1E8;
   --line:#E3DBD5; --grey:#DADADA; --r:38px;
   --serif:"Fraunces",Georgia,serif; --sans:"Figtree",system-ui,-apple-system,sans-serif; --script:"Mrs Saint Delafield",cursive;
@@ -100,15 +100,15 @@ section{scroll-margin-top:calc(var(--header) + 20px)}
 .art img.ok{opacity:1}
 @keyframes drift{0%{transform:translate3d(0,0,0) rotate(0)}100%{transform:translate3d(4%,-3%,0) rotate(8deg)}}
 .art--hero{background:linear-gradient(160deg,#124A46 0%,#0A2E2C 55%,#071B1A 100%)}
-.art--hero::before{background:radial-gradient(38% 30% at 30% 35%,rgba(201,164,92,.45),transparent 70%),radial-gradient(30% 26% at 72% 62%,rgba(232,168,184,.4),transparent 70%),radial-gradient(26% 22% at 55% 18%,rgba(46,140,130,.5),transparent 70%)}
+.art--hero::before{background:radial-gradient(38% 30% at 30% 35%,rgba(211,154,58,.45),transparent 70%),radial-gradient(30% 26% at 72% 62%,rgba(232,168,184,.4),transparent 70%),radial-gradient(26% 22% at 55% 18%,rgba(194,85,47,.5),transparent 70%)}
 .art--2{background:linear-gradient(200deg,#E9D9C4 0%,#C7A878 50%,#7A5A33 100%)}
-.art--2::before{background:radial-gradient(34% 28% at 62% 30%,rgba(255,243,220,.95),transparent 70%),radial-gradient(28% 24% at 28% 70%,rgba(201,164,92,.8),transparent 70%),radial-gradient(22% 20% at 80% 80%,rgba(14,92,85,.5),transparent 70%)}
+.art--2::before{background:radial-gradient(34% 28% at 62% 30%,rgba(255,243,220,.95),transparent 70%),radial-gradient(28% 24% at 28% 70%,rgba(211,154,58,.8),transparent 70%),radial-gradient(22% 20% at 80% 80%,rgba(154,42,28,.5),transparent 70%)}
 .art--3{background:linear-gradient(170deg,#DCCDB8 0%,#A79473 50%,#4E5547 100%)}
-.art--3::before{background:radial-gradient(36% 30% at 40% 30%,rgba(247,241,232,.9),transparent 70%),radial-gradient(30% 26% at 70% 70%,rgba(201,164,92,.6),transparent 70%),radial-gradient(24% 20% at 18% 82%,rgba(14,92,85,.6),transparent 70%)}
+.art--3::before{background:radial-gradient(36% 30% at 40% 30%,rgba(247,241,232,.9),transparent 70%),radial-gradient(30% 26% at 70% 70%,rgba(211,154,58,.6),transparent 70%),radial-gradient(24% 20% at 18% 82%,rgba(154,42,28,.6),transparent 70%)}
 .art--4{background:linear-gradient(140deg,#F4E6E2 0%,#E2B9C2 50%,#8C5E6B 100%)}
-.art--4::before{background:radial-gradient(30% 26% at 70% 28%,rgba(255,250,244,.95),transparent 70%),radial-gradient(34% 28% at 30% 66%,rgba(201,164,92,.6),transparent 70%),radial-gradient(20% 18% at 82% 82%,rgba(232,168,184,.9),transparent 70%)}
+.art--4::before{background:radial-gradient(30% 26% at 70% 28%,rgba(255,250,244,.95),transparent 70%),radial-gradient(34% 28% at 30% 66%,rgba(211,154,58,.6),transparent 70%),radial-gradient(20% 18% at 82% 82%,rgba(232,168,184,.9),transparent 70%)}
 .art--5{background:linear-gradient(190deg,#1F4C47 0%,#0F2F2C 55%,#0B1E1C 100%)}
-.art--5::before{background:radial-gradient(30% 26% at 30% 30%,rgba(201,164,92,.55),transparent 70%),radial-gradient(26% 22% at 72% 64%,rgba(232,168,184,.35),transparent 70%),radial-gradient(18% 16% at 60% 20%,rgba(227,201,142,.45),transparent 70%)}
+.art--5::before{background:radial-gradient(30% 26% at 30% 30%,rgba(211,154,58,.55),transparent 70%),radial-gradient(26% 22% at 72% 64%,rgba(232,168,184,.35),transparent 70%),radial-gradient(18% 16% at 60% 20%,rgba(227,201,142,.45),transparent 70%)}
 
 /* photo frame, tag, caption */
 .frame{position:relative;border-radius:var(--r);overflow:hidden;transform:translateZ(0)}
@@ -184,7 +184,7 @@ section{scroll-margin-top:calc(var(--header) + 20px)}
 .menu-open .fab,.menu-open .ctag,.menu-open .sbar{opacity:0!important;pointer-events:none!important}
 
 /* HERO */
-.hero{position:relative;height:100vh;height:100svh;min-height:640px;overflow:hidden;color:#fff;background:#06110F;touch-action:pan-y}
+.hero{position:relative;height:100vh;height:100svh;min-height:640px;overflow:hidden;color:#fff;background:#170503;touch-action:pan-y}
 .hero__media{position:absolute;inset:-8% 0;z-index:1;will-change:transform}
 .hero__scene{position:absolute;inset:0;width:100%;height:100%}
 .hero__scene g{will-change:transform}
@@ -202,7 +202,7 @@ section{scroll-margin-top:calc(var(--header) + 20px)}
 .gl-on .hero__hint{display:inline-flex}
 .hero__hint i{position:relative;width:16px;height:16px;border-radius:50%;border:1px solid rgba(255,255,255,.85)}
 .hero__hint i::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid #fff;animation:ripple 2.6s var(--ease) infinite}
-.hero__veil{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to top,rgba(4,10,9,.86) 0%,rgba(4,10,9,.4) 45%,rgba(4,10,9,0) 70%),linear-gradient(to right,rgba(4,10,9,.5) 0%,rgba(4,10,9,0) 75%),linear-gradient(to bottom,rgba(4,10,9,.4),rgba(4,10,9,0) 22%)}
+.hero__veil{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to top,rgba(23,6,3,.86) 0%,rgba(23,6,3,.4) 45%,rgba(23,6,3,0) 70%),linear-gradient(to right,rgba(23,6,3,.5) 0%,rgba(23,6,3,0) 75%),linear-gradient(to bottom,rgba(23,6,3,.4),rgba(23,6,3,0) 22%)}
 .hero__c{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:66px}
 .hero .label{color:rgba(255,255,255,.85);margin-bottom:16px}
 .hero h1{font-size:clamp(44px,11.4vw,92px);line-height:1.05}
@@ -436,8 +436,8 @@ input[type=date].ctl::-webkit-date-and-time-value{text-align:left}
 .v-wrap{position:relative;z-index:1;perspective:1200px;display:grid;place-items:center;padding:10px 0}
 .voucher{position:relative;width:min(100%,430px);aspect-ratio:1.6/1;border-radius:14px;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out;animation:float 7s ease-in-out infinite}
 @keyframes float{0%,100%{translate:0 0}50%{translate:0 -8px}}
-.voucher__face{position:absolute;inset:0;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#0F3F3A 0%,#0E5C55 50%,#083F3B 100%);color:#F4EEE6;box-shadow:0 40px 70px -40px rgba(8,63,59,.6);padding:20px 22px;display:flex;flex-direction:column;justify-content:space-between}
-.voucher__face::before{content:"";position:absolute;inset:9px;border:1px solid rgba(201,164,92,.6);border-radius:8px;pointer-events:none}
+.voucher__face{position:absolute;inset:0;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#0F3F3A 0%,#9A2A1C 50%,#5E170E 100%);color:#F4EEE6;box-shadow:0 40px 70px -40px rgba(94,23,14,.6);padding:20px 22px;display:flex;flex-direction:column;justify-content:space-between}
+.voucher__face::before{content:"";position:absolute;inset:9px;border:1px solid rgba(211,154,58,.6);border-radius:8px;pointer-events:none}
 .voucher__face::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,236,190,.26) 45%,rgba(227,201,142,.16) 50%,transparent 62%);background-size:250% 100%;animation:shimmer 4.5s var(--ease) infinite;pointer-events:none}
 @keyframes shimmer{0%{background-position:150% 0}60%,100%{background-position:-60% 0}}
 .voucher__glare{position:absolute;inset:0;border-radius:14px;background:radial-gradient(circle at var(--mx,50%) var(--my,30%),rgba(255,255,255,.2),transparent 50%);pointer-events:none;z-index:3}
@@ -445,7 +445,7 @@ input[type=date].ctl::-webkit-date-and-time-value{text-align:left}
 .v-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative}
 .v-top svg{width:40px;height:40px}
 .v-no{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(244,238,230,.6);text-align:right;line-height:1.6}
-.foil{background:linear-gradient(100deg,#9E7D3C 0%,#E3C98E 25%,#C9A45C 45%,#F7EACB 55%,#9E7D3C 80%,#C9A45C 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:foil 6s linear infinite}
+.foil{background:linear-gradient(100deg,#9E7D3C 0%,#E3C98E 25%,#D39A3A 45%,#F7EACB 55%,#9E7D3C 80%,#D39A3A 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:foil 6s linear infinite}
 @keyframes foil{to{background-position:-220% 0}}
 .v-mid{position:relative}
 .v-mid small{display:block;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,238,230,.7);margin-bottom:4px}
@@ -571,10 +571,10 @@ html select{height:56px;line-height:normal}
 .hero__glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(70% 50% at 70% 30%,rgba(242,182,74,.22),rgba(242,182,74,0) 70%);animation:hglow 5s ease-in-out infinite alternate}
 @keyframes hglow{from{opacity:.55}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.hero__ph img,.hero__glow{animation:none}}
-.wband{position:relative;height:82vh;height:82svh;min-height:520px;max-height:860px;overflow:hidden;color:#fff;background:#06110F;touch-action:pan-y}
+.wband{position:relative;height:82vh;height:82svh;min-height:520px;max-height:860px;overflow:hidden;color:#fff;background:#170503;touch-action:pan-y}
 .wband__media{position:absolute;inset:0;z-index:1}
 .wband .hero__scene{position:absolute;inset:0;width:100%;height:100%}
-.wband__veil{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to top,rgba(4,15,14,.82),rgba(4,15,14,0) 55%)}
+.wband__veil{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to top,rgba(23,6,3,.82),rgba(23,6,3,0) 55%)}
 .wband__c{position:absolute;left:0;right:0;bottom:0;z-index:5;padding-bottom:56px}
 .wband .label{color:rgba(255,255,255,.85);margin-bottom:12px}
 .wband h2{font-size:clamp(34px,6.4vw,64px);line-height:1.05;color:#fff}
@@ -592,8 +592,8 @@ html select{height:56px;line-height:normal}
 
 .logo .kslogo{height:38px;width:auto;display:block}.logo span small{margin:0}
 
-.xmas{position:relative;overflow:hidden}
-.xmas .snow{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(2px 2px at 20px 30px,rgba(201,164,92,.5),transparent),radial-gradient(2px 2px at 90px 120px,rgba(201,164,92,.4),transparent),radial-gradient(1.5px 1.5px at 160px 60px,rgba(201,164,92,.45),transparent);background-size:200px 200px;animation:snowf 18s linear infinite;opacity:.8}
+.xmas{position:relative;overflow:hidden;overflow:clip}
+.xmas .snow{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(2px 2px at 20px 30px,rgba(211,154,58,.5),transparent),radial-gradient(2px 2px at 90px 120px,rgba(211,154,58,.4),transparent),radial-gradient(1.5px 1.5px at 160px 60px,rgba(211,154,58,.45),transparent);background-size:200px 200px;animation:snowf 18s linear infinite;opacity:.8}
 @keyframes snowf{from{background-position:0 0}to{background-position:0 400px}}
 @media (prefers-reduced-motion:reduce){.xmas .snow{animation:none}}
 .xg{display:grid;gap:22px;margin-top:28px;position:relative}@media(min-width:900px){.xg{grid-template-columns:1.25fr 1fr;align-items:start}}
@@ -610,7 +610,7 @@ html select{height:56px;line-height:normal}
 .xc__add,.xq button{width:38px;height:38px;border-radius:50%;border:0;background:#8E1B12;color:#fff;font-size:22px;line-height:1;cursor:pointer;flex:none}
 .xc__add.bump{animation:xb .35s}@keyframes xb{50%{transform:scale(1.18)}}
 .xamts{display:flex;flex-wrap:wrap;gap:8px}.xa{border:1px solid rgba(0,0,0,.18);background:#fff;border-radius:999px;padding:10px 18px;font:inherit;cursor:pointer}
-.xcart{background:#3C0804;color:#F6E7C6;border-radius:20px;padding:22px;position:sticky;top:90px}
+.xcart{background:#3C0804;color:#F6E7C6;border-radius:20px;padding:22px;position:sticky;top:calc(var(--header) + 70px)}
 .xcart .xh{margin-top:0;color:#fff}.xcart__e{opacity:.7;font-size:14.5px;margin:0 0 10px}
 .xcart__l{list-style:none;margin:0;padding:0}.xcart__l li{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(246,231,198,.15)}
 .xcart__l li div{flex:1;font-size:14.5px;line-height:1.35}.xcart__l small{opacity:.7}
@@ -618,8 +618,20 @@ html select{height:56px;line-height:normal}
 .xcart__t{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 4px;font-size:15px}.xcart__t b{font-size:26px;color:#fff}
 .xcart__go{display:flex;justify-content:center;margin-top:12px;background:#25D366;color:#073B1F}.xcart__go[aria-disabled="true"]{opacity:.45;pointer-events:none}
 .xcart .fine{color:rgba(246,231,198,.65);font-size:12.5px;margin-top:10px}
-
-.pband{position:relative;height:72vh;min-height:460px;max-height:760px;overflow:hidden;color:#fff;background:#1a0a05}.pband__ph{position:absolute;inset:0}.pband__ph img{width:100%;height:100%;object-fit:cover;animation:kb 26s ease-in-out infinite alternate}.pband .wband__veil{position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(20,6,2,.8),rgba(20,6,2,0) 60%)}.pband .wband__c{position:absolute;left:0;right:0;bottom:0;z-index:3;padding-bottom:56px}.pband h2{font-size:clamp(32px,6vw,60px);line-height:1.05;color:#fff}.pband .label{color:rgba(255,255,255,.85);margin-bottom:12px}
+.pre .pre__logo{width:min(220px,56vw);height:auto;color:#F3E6CF;animation:preIn 1.4s cubic-bezier(.2,.7,.2,1) both}@keyframes preIn{from{opacity:0;transform:translateY(8px) scale(.96);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+#hwater{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:block;opacity:0;transition:opacity 1.4s ease}.hw-on #hwater{opacity:1}.hw-on .hero__ph img{animation:none}
+.xfab{display:none}
+@media(max-width:899px){
+.xfab{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:90;display:flex;align-items:center;justify-content:space-between;gap:12px;height:56px;padding:0 10px 0 20px;border:0;border-radius:999px;background:#3C0804;color:#F6E7C6;font:600 14px/1 var(--sans);box-shadow:0 14px 34px -12px rgba(0,0,0,.5);cursor:pointer;transform:translateY(160%);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.xfab.show{transform:none}.xfab b{font-size:18px;color:#fff}.xfab .xfab__n{display:inline-grid;place-items:center;min-width:24px;height:24px;margin-left:8px;border-radius:12px;background:#D39A3A;color:#3C0804;font-size:13px}
+.xfab .xfab__go{display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:999px;background:#F6E7C6;color:#3C0804;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.xbk{position:fixed;inset:0;z-index:94;background:rgba(20,6,2,.55);opacity:0;pointer-events:none;transition:opacity .35s}
+.xopen .xbk{opacity:1;pointer-events:auto}
+.xopen .xcart{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:95;max-height:82vh;overflow:auto;border-radius:22px 22px 0 0;padding:26px 20px calc(22px + env(safe-area-inset-bottom));opacity:1!important;transform:none!important;animation:xup .45s cubic-bezier(.16,1,.3,1)}
+@keyframes xup{from{transform:translateY(100%)}to{transform:none}}
+.xcart__x{display:none}.xopen .xcart__x{display:block;position:absolute;right:14px;top:14px;width:36px;height:36px;border:0;border-radius:50%;background:rgba(246,231,198,.15);color:#fff;font-size:20px;cursor:pointer}
+.xopen .xfab{transform:translateY(160%)}
+}
 </style>
 <style>.hero__hint{display:none!important}</style>
 </head>
@@ -641,7 +653,7 @@ html select{height:56px;line-height:normal}
   <symbol id="i-lpetal" viewBox="0 0 40 90"><path d="M20 2C32 20 40 46 36 68C33 80 27 88 20 88C13 88 7 80 4 68C0 46 8 20 20 2z" fill="url(#gLotus)" stroke="currentColor" stroke-width=".8"/><path d="M20 10C21 36 21 60 20 84" fill="none" stroke="#fff" stroke-width=".8" opacity=".7"/></symbol>
   <!-- lotus flower -->
   <symbol id="i-lotus" viewBox="0 0 240 180">
-    <ellipse cx="120" cy="160" rx="100" ry="12" fill="#2E8C82" opacity=".35"/>
+    <ellipse cx="120" cy="160" rx="100" ry="12" fill="#C2552F" opacity=".35"/>
     <use href="#i-lpetal" width="40" height="90" transform="translate(120 160) rotate(-78) translate(-20 -88)"/><use href="#i-lpetal" width="40" height="90" transform="translate(120 160) rotate(78) translate(-20 -88)"/>
     <use href="#i-lpetal" width="44" height="100" transform="translate(120 160) rotate(-52) translate(-22 -98)"/><use href="#i-lpetal" width="44" height="100" transform="translate(120 160) rotate(52) translate(-22 -98)"/>
     <use href="#i-lpetal" width="46" height="112" transform="translate(120 160) rotate(-28) translate(-23 -110)"/><use href="#i-lpetal" width="46" height="112" transform="translate(120 160) rotate(28) translate(-23 -110)"/>
@@ -660,13 +672,13 @@ html select{height:56px;line-height:normal}
   </symbol>
   <!-- herbal compress ball -->
   <symbol id="i-ball" viewBox="0 0 160 200">
-    <ellipse cx="80" cy="190" rx="60" ry="7" fill="#083F3B" opacity=".12"/>
+    <ellipse cx="80" cy="190" rx="60" ry="7" fill="#5E170E" opacity=".12"/>
     <path d="M80 2C84 20 92 34 96 50" fill="none" stroke="#B59A6B" stroke-width="3" stroke-linecap="round"/>
     <path d="M66 54C70 40 90 40 94 54C100 58 96 70 80 72C64 70 60 58 66 54z" fill="#E8DCC4" stroke="currentColor" stroke-width=".8"/>
     <circle cx="80" cy="128" r="58" fill="url(#gBall)" stroke="currentColor" stroke-width=".9"/>
     <g fill="none" stroke="currentColor" stroke-width=".7" opacity=".55"><path d="M30 110C60 96 100 96 130 110"/><path d="M26 136C56 150 104 150 134 136"/><path d="M60 72C44 100 44 156 60 184"/><path d="M100 72C116 100 116 156 100 184"/><path d="M80 70V186"/></g>
     <g fill="none" stroke="#fff" stroke-width="1.4" opacity=".6"><path d="M48 100C60 92 72 90 82 92"/></g>
-    <g fill="#2E8C82" opacity=".35"><ellipse cx="60" cy="118" rx="7" ry="3" transform="rotate(-30 60 118)"/><ellipse cx="104" cy="140" rx="7" ry="3" transform="rotate(20 104 140)"/><ellipse cx="90" cy="110" rx="5" ry="2.4"/></g>
+    <g fill="#C2552F" opacity=".35"><ellipse cx="60" cy="118" rx="7" ry="3" transform="rotate(-30 60 118)"/><ellipse cx="104" cy="140" rx="7" ry="3" transform="rotate(20 104 140)"/><ellipse cx="90" cy="110" rx="5" ry="2.4"/></g>
   </symbol>
   <!-- Thai pattern border (kranok-like) -->
   <symbol id="i-thai" viewBox="0 0 400 24" preserveAspectRatio="none">
@@ -705,15 +717,7 @@ html select{height:56px;line-height:normal}
 </svg>
 
 <div class="pre" id="pre" aria-hidden="true">
-  <div class="pre__in">
-    <svg viewBox="0 0 100 100">
-      <circle class="ring" cx="50" cy="50" r="46" pathLength="1" transform="rotate(-90 50 50)"/>
-      <path class="s" pathLength="1" d="M50 22C58 34 62 50 50 68C38 50 42 34 50 22z"/>
-      <path class="s" pathLength="1" d="M50 68C34 64 24 54 22 40C36 42 46 52 50 68z"/>
-      <path class="s" pathLength="1" d="M50 68C66 64 76 54 78 40C64 42 54 52 50 68z"/>
-      <path class="s g" pathLength="1" d="M28 74C40 70 60 70 72 74"/>
-    </svg>
-    <div class="pre__name">Khao Sun</div>
+  <div class="pre__in"><svg class="pre__logo" viewBox="0 0 352 130" fill="currentColor"> <path d="M 50.993 2.519 C 47.655 11.298, 28.996 33.386, 21.230 37.751 L 17.273 39.975 16.585 31.737 C 14.438 6.044, 12.636 1.610, 4.579 2.201 L 0.500 2.500 0.239 42.192 L -0.023 81.883 4.951 92.692 C 9.160 101.836, 10.277 103.500, 12.213 103.500 C 14.276 103.500, 14.567 102.893, 15.183 97.310 C 15.558 93.905, 16.346 90.222, 16.933 89.125 C 17.523 88.024, 18 81.647, 18 74.873 L 18 62.614 26.579 75.057 C 31.297 81.901, 39.202 94.250, 44.145 102.500 C 53.607 118.291, 53.263 117.161, 51.357 126.204 C 50.867 128.528, 51.174 129.006, 53.549 129.602 C 57.708 130.646, 59.311 127.912, 58.593 121 C 57.650 111.915, 33.861 66.079, 23.575 53.526 C 21.609 51.127, 20 48.896, 20 48.569 C 20 48.242, 22.529 46.856, 25.621 45.489 C 36.943 40.482, 52.553 26.795, 62.673 13 C 67.745 6.086, 68.203 4.736, 66.368 2.115 C 65.119 0.332, 63.870 -0, 58.419 -0 C 52.426 -0, 51.880 0.185, 50.993 2.519 M 222.942 3.287 C 208.947 8.058, 195.081 19.213, 190.380 29.482 C 188.218 34.204, 187.846 36.246, 188.184 41.551 C 188.955 53.657, 195.662 57.240, 220.920 59.037 C 238.853 60.313, 241.742 62.398, 240.727 73.324 C 239.531 86.207, 231.865 86.908, 217 75.494 C 208.998 69.349, 201.871 65, 199.804 65 C 195.489 65, 194 68.412, 194 78.304 C 194 90.187, 196.777 96.610, 203.897 101.194 C 208.256 104.001, 208.950 104.136, 217 103.756 C 226.037 103.329, 233.368 100.576, 237.426 96.085 C 238.485 94.913, 241.692 93.273, 244.553 92.442 C 247.413 91.610, 250.539 90.062, 251.498 89.002 C 253.683 86.587, 252.752 83.570, 250.040 84.279 C 248.316 84.730, 248.428 84.212, 251.052 79.562 C 252.673 76.689, 254 73.587, 254 72.669 C 254 71.196, 254.224 71.224, 255.914 72.914 C 257.511 74.511, 257.680 75.464, 256.938 78.664 C 255.473 84.978, 255.803 91.661, 257.674 93.531 C 261.313 97.170, 268.945 93.302, 273.655 85.430 C 274.618 83.820, 274.725 84.171, 274.300 87.549 C 273.327 95.283, 283.420 102.576, 289.543 98.563 C 292.013 96.945, 292.142 96.484, 291.601 91.169 C 291.265 87.867, 291.596 82.786, 292.393 79 L 293.762 72.500 293.954 82 C 294.280 98.101, 295.131 101.816, 299.394 105.722 C 309.931 115.378, 312.575 103.699, 306.005 76.520 C 303.780 67.316, 303.531 52.981, 305.585 52.302 C 306.193 52.101, 307.237 54.479, 307.962 57.719 C 313.614 82.978, 332.352 109, 344.888 109 C 349.980 109, 353.546 102.193, 351.393 96.582 C 350.457 94.143, 347.095 94.697, 345.818 97.500 C 344.349 100.724, 342.421 100.653, 336.932 97.172 C 326.675 90.667, 317.962 76.339, 313.773 59.090 C 311.185 48.434, 308.976 45.779, 304.425 47.852 C 302.402 48.774, 301.825 48.706, 301.359 47.494 C 301.037 46.653, 299.542 46, 297.940 46 C 295.503 46, 294.944 46.539, 294.053 49.750 C 293.480 51.813, 293.009 54.285, 293.006 55.244 C 292.994 58.713, 286.739 89, 286.034 89 C 284.327 89, 281.793 84.863, 281.333 81.328 C 280.683 76.326, 283.257 64.303, 286.487 57.247 C 289.279 51.150, 288.793 49.333, 284.650 50.373 C 279.575 51.647, 276.316 55.550, 275.586 61.228 C 274.617 68.758, 271.012 79.464, 268.350 82.717 L 266.072 85.500 266.065 82.500 C 266.061 80.850, 267.392 74.775, 269.023 69 C 274.525 49.512, 272.365 46.960, 262 60.702 L 255.500 69.319 254.924 62.708 C 254.153 53.858, 250.334 47.563, 243.652 44.124 C 239.211 41.839, 237.481 41.604, 222.161 41.206 C 209.030 40.865, 205.129 40.446, 203.750 39.232 C 193.276 30.006, 227.460 4.134, 244.479 8.405 C 252.797 10.493, 253.118 20.300, 245 24.314 C 243.625 24.994, 242.356 26.551, 242.180 27.775 C 241.911 29.651, 242.331 30, 244.854 30 C 254.730 30, 259.929 12.793, 252.152 5.844 C 246.190 0.517, 234.157 -0.536, 222.942 3.287 M 61.005 19.494 C 60.257 20.395, 60.028 22.082, 60.427 23.744 C 62.559 32.613, 62.917 35.227, 62.956 42.211 C 63.002 50.205, 59.417 68.433, 54.543 85 C 51.501 95.339, 51.432 97.176, 54.004 99.504 C 55.643 100.987, 56.453 101.115, 58.450 100.205 C 61.197 98.953, 61.803 97.134, 65.015 80.500 C 67.728 66.453, 69.495 60.337, 72.057 56.137 C 75.130 51.098, 75.376 52.936, 72.477 59.269 C 66.383 72.581, 65.570 87.765, 70.471 96.769 C 73.541 102.409, 76.170 104, 82.425 104 C 87.274 104, 89.327 102.334, 88.827 98.805 C 88.547 96.830, 87.836 96.457, 83.859 96.200 C 73.301 95.516, 69.883 81.412, 76.056 64 C 77.713 59.325, 79.567 54.077, 80.176 52.338 C 81.755 47.822, 80.729 46, 76.604 46 C 74.035 46, 72.574 46.708, 70.927 48.750 L 68.709 51.500 69.378 49 C 69.747 47.625, 70.331 40.986, 70.676 34.247 C 71.237 23.296, 71.112 21.781, 69.497 19.997 C 67.368 17.644, 62.766 17.372, 61.005 19.494 M 94.450 37.407 C 87.632 40.377, 83.898 47.779, 83.650 58.818 C 83.503 65.369, 83.550 65.500, 86.065 65.475 C 88.593 65.450, 88.618 65.523, 87.780 70.475 C 86.017 80.898, 88.906 94.398, 93.550 97.441 C 100.392 101.924, 107.949 97.706, 110.149 88.177 C 111.190 83.666, 111.526 83.163, 112.435 84.756 C 117.289 93.273, 123.489 96.692, 125.901 92.185 C 126.841 90.429, 126.058 84.521, 124.565 82.105 C 123.912 81.048, 128.468 70, 129.557 70 C 129.831 70, 129.764 72.848, 129.407 76.329 C 128.507 85.116, 130.843 93.016, 135.361 96.462 C 142.218 101.692, 150.280 98.496, 153.411 89.308 C 155.592 82.906, 155.675 57.206, 153.527 53.053 C 151.873 49.854, 145.913 46.628, 138.709 45.034 C 132.539 43.668, 130.290 44.817, 129.455 49.762 C 127.263 62.739, 122.831 78.397, 121.753 76.971 C 118.365 72.488, 113 62.857, 113 61.257 C 113 60.100, 111.913 57.861, 110.584 56.282 C 109.255 54.703, 107.926 51.856, 107.631 49.955 C 107.335 48.055, 106.830 44.827, 106.508 42.782 C 105.480 36.267, 101.322 34.413, 94.450 37.407 M 96.374 40.985 C 92.004 42.750, 89.538 47.912, 89.203 55.996 L 88.892 63.500 91.052 60.238 C 92.615 57.877, 94.426 56.670, 97.606 55.869 L 102 54.763 102 49.946 C 102 44.951, 100.622 39.953, 99.275 40.063 C 98.849 40.098, 97.543 40.513, 96.374 40.985 M 138.495 56.250 C 135.725 64.084, 135.167 78.024, 137.529 80.386 C 139.600 82.457, 141.641 81.469, 142.930 77.771 C 144.298 73.847, 144.322 59.470, 142.965 56.934 C 141.799 54.756, 139.166 54.353, 138.495 56.250 M 101.655 66.750 C 99.643 74.084, 100.063 83.479, 102.369 82.710 C 103.869 82.210, 105.149 73.463, 104.411 68.750 C 103.791 64.788, 102.458 63.821, 101.655 66.750 M 202 85.121 C 202 93.896, 214.959 98.885, 225.481 94.160 L 229.462 92.372 222.481 91.225 C 218.272 90.534, 212.820 88.683, 208.750 86.565 C 202.389 83.253, 202 83.170, 202 85.121" stroke="none" fill="currentColor" fill-rule="evenodd"/> </svg></div>
   </div>
 </div>
 
@@ -757,24 +761,7 @@ html select{height:56px;line-height:normal}
 <main id="top">
 
 <section class="hero" id="hero" aria-label="Khao Sun">
-  <div class="hero__media" id="heroMedia" aria-hidden="true"><svg class="hero__scene" viewBox="0 0 400 760" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <radialGradient id="hsBg" cx=".5" cy=".4" r=".85"><stop offset="0" stop-color="#1A5A54"/><stop offset=".5" stop-color="#0B2E2C"/><stop offset="1" stop-color="#040F0E"/></radialGradient>
-        <linearGradient id="hsStreak" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7D58A" stop-opacity=".55"/><stop offset="1" stop-color="#F7D58A" stop-opacity="0"/></linearGradient>
-        <filter id="hsBlur"><feGaussianBlur stdDeviation="10"/></filter>
-      </defs>
-      <rect width="400" height="760" fill="url(#hsBg)"/>
-      <g data-hp="0.1" filter="url(#hsBlur)" opacity=".8"><rect x="80" y="250" width="26" height="260" fill="url(#hsStreak)"/><rect x="300" y="230" width="20" height="240" fill="url(#hsStreak)"/><rect x="200" y="290" width="14" height="200" fill="url(#hsStreak)" opacity=".6"/></g>
-      <g class="rip" fill="none" stroke="#C9E3DE" stroke-width="1"><ellipse cx="200" cy="420" rx="140" ry="50"/><ellipse cx="200" cy="420" rx="140" ry="50"/><ellipse cx="200" cy="420" rx="140" ry="50"/></g>
-      <g data-hp="0.18" color="#F2B64A"><use href="#i-candle" x="60" y="130" width="60" height="120"/><use href="#i-candle" x="290" y="110" width="56" height="112"/><use href="#i-candle" x="190" y="170" width="40" height="80" opacity=".8"/></g>
-      <g data-hp="0.3" color="#B06A80">
-        <g class="bob"><use href="#i-lotus" x="60" y="300" width="220" height="165"/></g>
-        <g class="bob b2" color="#C9A45C"><use href="#i-frang" x="280" y="440" width="76" height="76" transform="rotate(20 318 478)"/></g>
-        <g class="bob" color="#C9A45C"><use href="#i-frang" x="30" y="500" width="56" height="56" transform="rotate(-30 58 528)"/></g>
-      </g>
-      <g data-hp="0.4" color="#D98AA0"><g class="bob b2"><use href="#i-lpetal" x="250" y="560" width="30" height="66" transform="rotate(60 265 593)" opacity=".85"/></g></g>
-    </svg></div>
-  <canvas id="water" aria-hidden="true"></canvas>
+  <div class="hero__media" id="heroMedia" aria-hidden="true"><div class="hero__ph" id="heroPh"><img src="img/hero.jpg" alt="" fetchpriority="high"></div><div class="hero__glow"></div></div>
   <div class="hero__veil"></div>
   <div class="hero__c">
     <div class="wrap">
@@ -786,7 +773,6 @@ html select{height:56px;line-height:normal}
         <span>Ul. Slaviše Vajnera Čiče 11, 51000&nbsp;Rijeka</span>
       </a>
       <div class="hero__cta fade-up d3"><a class="pill pill--grey" href="#booking" data-i18n="hero.cta">Book your massage</a></div>
-      <span class="hero__hint fade-up d4" style="display:inline-flex"><i></i><span data-tx='{"hr":"Dodirnite vodu","en":"Touch the water","de":"Berühren Sie das Wasser","it":"Tocca l’acqua"}'>Dodirnite vodu</span></span>
     </div>
   </div>
 </section>
@@ -859,7 +845,7 @@ html select{height:56px;line-height:normal}
         <p class="rv" data-delay="2" data-i18n="intro.p2">During the session the therapist checks how you feel and adjusts the pressure. Nothing is rushed, nothing is forced.</p>
         <p class="rv" data-delay="2" data-i18n="intro.p3">Our promise: only authentic treatments, fixed published prices and the same standard in all four Thai Touch salons, in Opatija, Rijeka, Mali Lošinj and Rab.</p>
         <div class="sig rv" data-delay="2">
-          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#C9A45C" stroke-width="1"/><g fill="none" stroke="#E8A8B8" stroke-width="2" stroke-linejoin="round"><path d="M50 22C58 34 62 50 50 68C38 50 42 34 50 22z"/><path d="M50 68C34 64 24 54 22 40C36 42 46 52 50 68z"/><path d="M50 68C66 64 76 54 78 40C64 42 54 52 50 68z"/></g></svg>
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#D39A3A" stroke-width="1"/><g fill="none" stroke="#E8A8B8" stroke-width="2" stroke-linejoin="round"><path d="M50 22C58 34 62 50 50 68C38 50 42 34 50 22z"/><path d="M50 68C34 64 24 54 22 40C36 42 46 52 50 68z"/><path d="M50 68C66 64 76 54 78 40C64 42 54 52 50 68z"/></g></svg>
           <div><b>Khao Sun</b><small data-i18n="intro.role">Thai therapist, Thai Touch team</small></div>
         </div>
         <div class="badge rv" data-delay="2">
@@ -882,7 +868,7 @@ html select{height:56px;line-height:normal}
 <!-- 02 Treatments -->
 <section class="sec has-deco bg-white" id="treatments">
   <svg class="deco" viewBox="0 0 80 320" style="width:90px;right:-20px;top:30px;color:#4E6A4A;opacity:0.5" data-par="0.25" aria-hidden="true"><use href="#i-bamboo" width="80" height="320"/></svg>
-  <svg class="deco d2" viewBox="0 0 120 120" style="width:70px;left:4%;bottom:60px;color:#C9A45C;opacity:0.6" data-par="-0.15" aria-hidden="true"><use href="#i-frang" width="120" height="120"/></svg>
+  <svg class="deco d2" viewBox="0 0 120 120" style="width:70px;left:4%;bottom:60px;color:#D39A3A;opacity:0.6" data-par="-0.15" aria-hidden="true"><use href="#i-frang" width="120" height="120"/></svg>
   <div class="wrap">
     <div class="sh rv">
       <p class="label"><span class="num">02</span><span data-i18n="tr.label">Treatments</span></p>
@@ -975,12 +961,38 @@ html select{height:56px;line-height:normal}
     <div class="plist rv" id="prices">
       <h3 class="plist__h" data-i18n="pl.t">Full price list</h3>
       <p class="plist__lead" data-i18n="pl.lead">All 18 treatments, durations and prices in euros. Valid in Opatija, Rijeka, Mali Lošinj and Rab.</p>
-      <div class="plist__grps"><div><h4 data-tx='{"hr": "Tajlandske masaže cijelog tijela", "en": "Full-body Thai massages", "de": "Full-body Thai massages", "it": "Full-body Thai massages"}'>Tajlandske masaže cijelog tijela</h4><ul><li><div><b data-tx='{"hr": "Tradicionalna", "en": "Traditional"}'>Tradicionalna</b></div><span class="plist__p">50&nbsp;min&nbsp;47&nbsp;€<br>80&nbsp;min&nbsp;59&nbsp;€</span></li><li><div><b data-tx='{"hr": "Tradicionalna s toplim oblozima", "en": "Traditional with warm compresses"}'>Tradicionalna s toplim oblozima</b></div><span class="plist__p">50&nbsp;min&nbsp;52&nbsp;€<br>80&nbsp;min&nbsp;65&nbsp;€</span></li><li><div><b data-tx='{"hr": "S odabranim eteričnim uljima", "en": "With essential oils"}'>S odabranim eteričnim uljima</b></div><span class="plist__p">50&nbsp;min&nbsp;50&nbsp;€<br>80&nbsp;min&nbsp;63&nbsp;€</span></li><li><div><b data-tx='{"hr": "S eteričnim uljima za trudnice", "en": "Essential oils, for pregnancy"}'>S eteričnim uljima za trudnice</b></div><span class="plist__p">50&nbsp;min&nbsp;56&nbsp;€<br>80&nbsp;min&nbsp;71&nbsp;€</span></li><li><div><b data-tx='{"hr": "Lomi-Lomi", "en": "Lomi-Lomi (Hawaiian)"}'>Lomi-Lomi</b></div><span class="plist__p">50&nbsp;min&nbsp;50&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Parcijalne masaže", "en": "Partial massages", "de": "Partial massages", "it": "Partial massages"}'>Parcijalne masaže</h4><ul><li><div><b data-tx='{"hr": "Istočnjačka masaža stopala", "en": "Eastern foot massage"}'>Istočnjačka masaža stopala</b></div><span class="plist__p">40&nbsp;min&nbsp;37&nbsp;€</span></li><li><div><b data-tx='{"hr": "Masaža stopala i dlanova", "en": "Feet and hands"}'>Masaža stopala i dlanova</b></div><span class="plist__p">50&nbsp;min&nbsp;44&nbsp;€</span></li><li><div><b data-tx='{"hr": "Antistres masaža leđa", "en": "Anti-stress back massage"}'>Antistres masaža leđa</b></div><span class="plist__p">30&nbsp;min&nbsp;35&nbsp;€</span></li><li><div><b data-tx='{"hr": "Opuštajuća masaža leđa", "en": "Relaxing back massage"}'>Opuštajuća masaža leđa</b></div><span class="plist__p">30&nbsp;min&nbsp;37&nbsp;€</span></li><li><div><b data-tx='{"hr": "Masaža lica s eteričnim uljima", "en": "Face massage with essential oils"}'>Masaža lica s eteričnim uljima</b></div><span class="plist__p">20&nbsp;min&nbsp;28&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Kombinirane masaže", "en": "Combined massages", "de": "Combined massages", "it": "Combined massages"}'>Kombinirane masaže</h4><ul><li><div><b data-tx='{"hr": "Opijum", "en": "Opium"}'>Opijum</b></div><span class="plist__p">80&nbsp;min&nbsp;67&nbsp;€</span></li><li><div><b data-tx='{"hr": "Euforija", "en": "Euphoria"}'>Euforija</b></div><span class="plist__p">80&nbsp;min&nbsp;67&nbsp;€</span></li><li><div><b data-tx='{"hr": "Orijentalni mix", "en": "Oriental mix"}'>Orijentalni mix</b></div><span class="plist__p">90&nbsp;min&nbsp;81&nbsp;€</span></li><li><div><b data-tx='{"hr": "Vitalnost", "en": "Vitality"}'>Vitalnost</b></div><span class="plist__p">90&nbsp;min&nbsp;78&nbsp;€</span></li><li><div><b data-tx='{"hr": "Harmonija", "en": "Harmony"}'>Harmonija</b></div><span class="plist__p">100&nbsp;min&nbsp;78&nbsp;€</span></li><li><div><b data-tx='{"hr": "Khao Sun", "en": "Khao Sun"}'>Khao Sun</b></div><span class="plist__p">100&nbsp;min&nbsp;81&nbsp;€</span></li><li><div><b data-tx='{"hr": "Balance", "en": "Balance"}'>Balance</b></div><span class="plist__p">100&nbsp;min&nbsp;84&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Ostala ponuda", "en": "More treatments", "de": "More treatments", "it": "More treatments"}'>Ostala ponuda</h4><ul><li><div><b data-tx='{"hr": "Revital: stopala, noge i glava", "en": "Revital: feet, legs and head"}'>Revital: stopala, noge i glava</b></div><span class="plist__p">50&nbsp;min&nbsp;56&nbsp;€</span></li><li><div><b data-tx='{"hr": "Hot Stone", "en": "Hot Stone"}'>Hot Stone</b></div><span class="plist__p">80&nbsp;min&nbsp;74&nbsp;€</span></li><li><div><b data-tx='{"hr": "Back pain relief therapy", "en": "Back pain relief therapy"}'>Back pain relief therapy</b></div><span class="plist__p">30&nbsp;min&nbsp;44&nbsp;€</span></li><li><div><b data-tx='{"hr": "Back pain relief + masaža glave", "en": "Back pain relief + head massage"}'>Back pain relief + masaža glave</b></div><span class="plist__p">50&nbsp;min&nbsp;53&nbsp;€</span></li><li><div><b data-tx='{"hr": "Eterična ulja s pilingom", "en": "Essential oils with body scrub"}'>Eterična ulja s pilingom</b></d<section class="pband" id="wband" aria-label="Khao Sun">
-  <div class="pband__ph"><img src="https://khao-sun.hr/wp-content/uploads/2023/10/IMG_3417-1024x666.jpg" alt="Khao Sun, Rijeka" loading="lazy"></div>
+      <div class="plist__grps"><div><h4 data-tx='{"hr": "Tajlandske masaže cijelog tijela", "en": "Full-body Thai massages", "de": "Full-body Thai massages", "it": "Full-body Thai massages"}'>Tajlandske masaže cijelog tijela</h4><ul><li><div><b data-tx='{"hr": "Tradicionalna", "en": "Traditional"}'>Tradicionalna</b></div><span class="plist__p">50&nbsp;min&nbsp;47&nbsp;€<br>80&nbsp;min&nbsp;59&nbsp;€</span></li><li><div><b data-tx='{"hr": "Tradicionalna s toplim oblozima", "en": "Traditional with warm compresses"}'>Tradicionalna s toplim oblozima</b></div><span class="plist__p">50&nbsp;min&nbsp;52&nbsp;€<br>80&nbsp;min&nbsp;65&nbsp;€</span></li><li><div><b data-tx='{"hr": "S odabranim eteričnim uljima", "en": "With essential oils"}'>S odabranim eteričnim uljima</b></div><span class="plist__p">50&nbsp;min&nbsp;50&nbsp;€<br>80&nbsp;min&nbsp;63&nbsp;€</span></li><li><div><b data-tx='{"hr": "S eteričnim uljima za trudnice", "en": "Essential oils, for pregnancy"}'>S eteričnim uljima za trudnice</b></div><span class="plist__p">50&nbsp;min&nbsp;56&nbsp;€<br>80&nbsp;min&nbsp;71&nbsp;€</span></li><li><div><b data-tx='{"hr": "Lomi-Lomi", "en": "Lomi-Lomi (Hawaiian)"}'>Lomi-Lomi</b></div><span class="plist__p">50&nbsp;min&nbsp;50&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Parcijalne masaže", "en": "Partial massages", "de": "Partial massages", "it": "Partial massages"}'>Parcijalne masaže</h4><ul><li><div><b data-tx='{"hr": "Istočnjačka masaža stopala", "en": "Eastern foot massage"}'>Istočnjačka masaža stopala</b></div><span class="plist__p">40&nbsp;min&nbsp;37&nbsp;€</span></li><li><div><b data-tx='{"hr": "Masaža stopala i dlanova", "en": "Feet and hands"}'>Masaža stopala i dlanova</b></div><span class="plist__p">50&nbsp;min&nbsp;44&nbsp;€</span></li><li><div><b data-tx='{"hr": "Antistres masaža leđa", "en": "Anti-stress back massage"}'>Antistres masaža leđa</b></div><span class="plist__p">30&nbsp;min&nbsp;35&nbsp;€</span></li><li><div><b data-tx='{"hr": "Opuštajuća masaža leđa", "en": "Relaxing back massage"}'>Opuštajuća masaža leđa</b></div><span class="plist__p">30&nbsp;min&nbsp;37&nbsp;€</span></li><li><div><b data-tx='{"hr": "Masaža lica s eteričnim uljima", "en": "Face massage with essential oils"}'>Masaža lica s eteričnim uljima</b></div><span class="plist__p">20&nbsp;min&nbsp;28&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Kombinirane masaže", "en": "Combined massages", "de": "Combined massages", "it": "Combined massages"}'>Kombinirane masaže</h4><ul><li><div><b data-tx='{"hr": "Opijum", "en": "Opium"}'>Opijum</b></div><span class="plist__p">80&nbsp;min&nbsp;67&nbsp;€</span></li><li><div><b data-tx='{"hr": "Euforija", "en": "Euphoria"}'>Euforija</b></div><span class="plist__p">80&nbsp;min&nbsp;67&nbsp;€</span></li><li><div><b data-tx='{"hr": "Orijentalni mix", "en": "Oriental mix"}'>Orijentalni mix</b></div><span class="plist__p">90&nbsp;min&nbsp;81&nbsp;€</span></li><li><div><b data-tx='{"hr": "Vitalnost", "en": "Vitality"}'>Vitalnost</b></div><span class="plist__p">90&nbsp;min&nbsp;78&nbsp;€</span></li><li><div><b data-tx='{"hr": "Harmonija", "en": "Harmony"}'>Harmonija</b></div><span class="plist__p">100&nbsp;min&nbsp;78&nbsp;€</span></li><li><div><b data-tx='{"hr": "Khao Sun", "en": "Khao Sun"}'>Khao Sun</b></div><span class="plist__p">100&nbsp;min&nbsp;81&nbsp;€</span></li><li><div><b data-tx='{"hr": "Balance", "en": "Balance"}'>Balance</b></div><span class="plist__p">100&nbsp;min&nbsp;84&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Ostala ponuda", "en": "More treatments", "de": "More treatments", "it": "More treatments"}'>Ostala ponuda</h4><ul><li><div><b data-tx='{"hr": "Revital: stopala, noge i glava", "en": "Revital: feet, legs and head"}'>Revital: stopala, noge i glava</b></div><span class="plist__p">50&nbsp;min&nbsp;56&nbsp;€</span></li><li><div><b data-tx='{"hr": "Hot Stone", "en": "Hot Stone"}'>Hot Stone</b></div><span class="plist__p">80&nbsp;min&nbsp;74&nbsp;€</span></li><li><div><b data-tx='{"hr": "Back pain relief therapy", "en": "Back pain relief therapy"}'>Back pain relief therapy</b></div><span class="plist__p">30&nbsp;min&nbsp;44&nbsp;€</span></li><li><div><b data-tx='{"hr": "Back pain relief + masaža glave", "en": "Back pain relief + head massage"}'>Back pain relief + masaža glave</b></div><span class="plist__p">50&nbsp;min&nbsp;53&nbsp;€</span></li><li><div><b data-tx='{"hr": "Eterična ulja s pilingom", "en": "Essential oils with body scrub"}'>Eterična ulja s pilingom</b></div><span class="plist__p">100&nbsp;min&nbsp;84&nbsp;€</span></li><li><div><b data-tx='{"hr": "Stopala s pilingom i masaža glave", "en": "Feet with scrub and head massage"}'>Stopala s pilingom i masaža glave</b></div><span class="plist__p">80&nbsp;min&nbsp;69&nbsp;€</span></li><li><div><b data-tx='{"hr": "Piling cijelog tijela", "en": "Full-body scrub"}'>Piling cijelog tijela</b></div><span class="plist__p">40&nbsp;min&nbsp;32&nbsp;€</span></li><li><div><b data-tx='{"hr": "Piling nogu i stopala", "en": "Leg and foot scrub"}'>Piling nogu i stopala</b></div><span class="plist__p">20&nbsp;min&nbsp;20&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Programi i Ayurveda", "en": "Programmes and Ayurveda", "de": "Programmes and Ayurveda", "it": "Programmes and Ayurveda"}'>Programi i Ayurveda</h4><ul><li><div><b data-tx='{"hr": "Anticelulitni program 7 + 1", "en": "Anti-cellulite programme 7 + 1"}'>Anticelulitni program 7 + 1</b></div><span class="plist__p">255&nbsp;€</span></li><li><div><b data-tx='{"hr": "Anticelulitni program 10 + 1", "en": "Anti-cellulite programme 10 + 1"}'>Anticelulitni program 10 + 1</b></div><span class="plist__p">340&nbsp;€</span></li><li><div><b data-tx='{"hr": "Anticelulitni program s pilingom 7 + 1", "en": "With scrub 7 + 1"}'>Anticelulitni program s pilingom 7 + 1</b></div><span class="plist__p">320&nbsp;€</span></li><li><div><b data-tx='{"hr": "Anticelulitni program s pilingom 10 + 1", "en": "With scrub 10 + 1"}'>Anticelulitni program s pilingom 10 + 1</b></div><span class="plist__p">405&nbsp;€</span></li><li><div><b data-tx='{"hr": "Ayurveda masaže", "en": "Ayurveda massages"}'>Ayurveda masaže</b></div><span class="plist__p">na&nbsp;upit</span></li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 Your session -->
+
+<!-- WATER BAND (3D water moved here from the hero) -->
+<section class="wband" id="wband" aria-label="Khao Sun">
+  <div class="wband__media" aria-hidden="true"><svg class="hero__scene" viewBox="0 0 400 760" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="hsBg" cx=".5" cy=".4" r=".85"><stop offset="0" stop-color="#6E2414"/><stop offset=".5" stop-color="#3A0F07"/><stop offset="1" stop-color="#170503"/></radialGradient>
+        <linearGradient id="hsStreak" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7D58A" stop-opacity=".55"/><stop offset="1" stop-color="#F7D58A" stop-opacity="0"/></linearGradient>
+        <filter id="hsBlur"><feGaussianBlur stdDeviation="10"/></filter>
+      </defs>
+      <rect width="400" height="760" fill="url(#hsBg)"/>
+      <g data-hp="0.1" filter="url(#hsBlur)" opacity=".8"><rect x="80" y="250" width="26" height="260" fill="url(#hsStreak)"/><rect x="300" y="230" width="20" height="240" fill="url(#hsStreak)"/><rect x="200" y="290" width="14" height="200" fill="url(#hsStreak)" opacity=".6"/></g>
+      <g class="rip" fill="none" stroke="#F3D3A6" stroke-width="1"><ellipse cx="200" cy="420" rx="140" ry="50"/><ellipse cx="200" cy="420" rx="140" ry="50"/><ellipse cx="200" cy="420" rx="140" ry="50"/></g>
+      <g data-hp="0.18" color="#F2B64A"><use href="#i-candle" x="60" y="130" width="60" height="120"/><use href="#i-candle" x="290" y="110" width="56" height="112"/><use href="#i-candle" x="190" y="170" width="40" height="80" opacity=".8"/></g>
+      <g data-hp="0.3" color="#B06A80">
+        <g class="bob"><use href="#i-lotus" x="60" y="300" width="220" height="165"/></g>
+        <g class="bob b2" color="#D39A3A"><use href="#i-frang" x="280" y="440" width="76" height="76" transform="rotate(20 318 478)"/></g>
+        <g class="bob" color="#D39A3A"><use href="#i-frang" x="30" y="500" width="56" height="56" transform="rotate(-30 58 528)"/></g>
+      </g>
+      <g data-hp="0.4" color="#D98AA0"><g class="bob b2"><use href="#i-lpetal" x="250" y="560" width="30" height="66" transform="rotate(60 265 593)" opacity=".85"/></g></g>
+    </svg></div>
+  <canvas id="water" aria-hidden="true"></canvas>
   <div class="wband__veil"></div>
   <div class="wband__c wrap">
-    <p class="label" data-tx='{"hr":"Khao Sun · Rijeka","en":"Khao Sun · Rijeka"}'>Khao Sun · Rijeka</p>
-    <h2 data-tx='{"hr":"Vaš komadić Tajlanda u srcu Rijeke","en":"Your piece of Thailand in the heart of Rijeka","de":"Ihr Stück Thailand im Herzen von Rijeka","it":"Il vostro angolo di Thailandia nel cuore di Fiume"}'>Vaš komadić Tajlanda u srcu Rijeke</h2>
+    <p class="label" data-tx='{"hr": "Za trenutak tišine", "en": "For a quiet moment", "de": "Für einen stillen Moment", "it": "Per un momento di quiete"}'>For a quiet moment</p>
+    <h2 data-tx='{"hr": "Mirna voda, toplo svjetlo", "en": "Still water, warm light", "de": "Stilles Wasser, warmes Licht", "it": "Acqua calma, luce calda"}'>Still water, warm light</h2>
+    <p class="wband__hint"><i></i><span data-tx='{"hr": "Dodirnite vodu", "en": "Touch the water", "de": "Berühren Sie das Wasser", "it": "Tocca l’acqua"}'>Touch the water</span></p>
   </div>
 </section>
 
@@ -1076,7 +1088,7 @@ html select{height:56px;line-height:normal}
 
 <!-- 05 Booking (deep teal) -->
 <section class="sec book has-deco" id="booking">
-  <svg class="deco" viewBox="0 0 240 180" style="width:260px;right:-80px;top:20px;color:#2E8C82;opacity:0.25" data-par="0.2" aria-hidden="true"><use href="#i-lotus" width="240" height="180"/></svg>
+  <svg class="deco" viewBox="0 0 240 180" style="width:260px;right:-80px;top:20px;color:#C2552F;opacity:0.25" data-par="0.2" aria-hidden="true"><use href="#i-lotus" width="240" height="180"/></svg>
   <div class="wrap">
     <div class="sh rv">
       <p class="label"><span class="num">05</span><span data-i18n="bk.label">Booking</span></p>
@@ -1143,7 +1155,7 @@ html select{height:56px;line-height:normal}
               <div class="voucher__face">
                 <svg class="vlotus" viewBox="0 0 240 180"><use href="#i-lotus" width="240" height="180"/></svg>
                 <div class="v-top">
-                  <svg viewBox="0 0 100 100"><g fill="none" stroke="#E8A8B8" stroke-width="2.4" stroke-linejoin="round"><path d="M50 22C58 34 62 50 50 68C38 50 42 34 50 22z"/><path d="M50 68C34 64 24 54 22 40C36 42 46 52 50 68z"/><path d="M50 68C66 64 76 54 78 40C64 42 54 52 50 68z"/></g><path d="M28 74C40 70 60 70 72 74" fill="none" stroke="#C9A45C" stroke-width="2" stroke-linecap="round"/></svg>
+                  <svg viewBox="0 0 100 100"><g fill="none" stroke="#E8A8B8" stroke-width="2.4" stroke-linejoin="round"><path d="M50 22C58 34 62 50 50 68C38 50 42 34 50 22z"/><path d="M50 68C34 64 24 54 22 40C36 42 46 52 50 68z"/><path d="M50 68C66 64 76 54 78 40C64 42 54 52 50 68z"/></g><path d="M28 74C40 70 60 70 72 74" fill="none" stroke="#D39A3A" stroke-width="2" stroke-linecap="round"/></svg>
                   <div class="v-no"><span data-i18n="v.gift">Gift voucher</span><br>No. 0001</div>
                 </div>
                 <div class="v-mid"><small data-i18n="v.value">Value</small><b class="foil" id="vVal">80&nbsp;€</b></div>
@@ -1201,7 +1213,7 @@ html select{height:56px;line-height:normal}
         <h3 class="xh" data-tx='{"hr": "Ili bon na iznos", "en": "Or a voucher for an amount", "de": "Oder ein Wertgutschein", "it": "O un buono di valore"}'>Ili bon na iznos</h3>
         <div class="xamts"><button type="button" class="xa" data-v="50">50&nbsp;€</button><button type="button" class="xa" data-v="80">80&nbsp;€</button><button type="button" class="xa" data-v="100">100&nbsp;€</button><button type="button" class="xa" data-v="150">150&nbsp;€</button></div>
       </div>
-      <aside class="xcart rv" data-delay="1" aria-live="polite">
+      <aside class="xcart rv" data-delay="1" aria-live="polite" id="xCart"><button type="button" class="xcart__x" id="xClose" aria-label="Zatvori">×</button>
         <h3 class="xh" data-tx='{"hr": "Košarica", "en": "Basket", "de": "Warenkorb", "it": "Carrello"}'>Košarica</h3>
         <ul class="xcart__l" id="xLines"></ul>
         <p class="xcart__e" id="xEmpty" data-tx='{"hr": "Košarica je prazna. Dodajte masažu ili iznos.", "en": "The basket is empty. Add a massage or an amount.", "de": "Der Korb ist leer. Fügen Sie eine Massage oder einen Betrag hinzu.", "it": "Il carrello è vuoto. Aggiungete un massaggio o un importo."}'>Košarica je prazna. Dodajte masažu ili iznos.</p>
@@ -1653,10 +1665,10 @@ html select{height:56px;line-height:normal}
 
   /* ---------- Illustrated photo fallbacks (our own SVG drawings) ---------- */
   var ILL = {
-    hero: '<g color="#F2B64A"><use href="#i-candle" x="40" y="20" width="60" height="120" opacity=".9"/><use href="#i-candle" x="300" y="40" width="50" height="100" opacity=".8"/></g><g fill="none" stroke="#C9E3DE" stroke-width="1" opacity=".35"><ellipse cx="200" cy="330" rx="150" ry="40"/><ellipse cx="200" cy="330" rx="100" ry="26"/></g><g color="#B06A80"><use href="#i-lotus" x="40" y="180" width="320" height="240"/></g><g color="#C9A45C"><use href="#i-frang" x="290" y="380" width="70" height="70" transform="rotate(20 325 415)"/></g>',
-    2: '<g color="#7A5A33"><use href="#i-ball" x="110" y="90" width="200" height="250"/><use href="#i-ball" x="20" y="200" width="130" height="160" opacity=".85"/></g><g color="#F2B64A"><use href="#i-candle" x="300" y="300" width="56" height="112" opacity=".9"/></g><g color="#C9A45C"><use href="#i-frang" x="250" y="60" width="60" height="60" transform="rotate(-15 280 90)"/></g>',
-    3: '<g color="#3E5A3A"><use href="#i-bamboo" x="-10" y="-20" width="90" height="360"/><use href="#i-bamboo" x="40" y="60" width="80" height="320" opacity=".8"/></g><g color="#9E7D3C"><use href="#i-thai" x="80" y="430" width="340" height="24"/><use href="#i-thai" x="80" y="40" width="340" height="24"/></g><g color="#F2B64A"><use href="#i-candle" x="230" y="240" width="64" height="128"/><use href="#i-candle" x="300" y="280" width="46" height="92" opacity=".85"/></g><g color="#C9A45C"><use href="#i-frang" x="150" y="340" width="56" height="56"/></g>',
-    4: '<g color="#8C5E6B"><use href="#i-hands" x="20" y="150" width="360" height="240"/></g><g color="#C9A45C"><use href="#i-frang" x="60" y="60" width="90" height="90" transform="rotate(-20 105 105)"/><use href="#i-frang" x="280" y="90" width="64" height="64" transform="rotate(30 312 122)"/></g><g color="#D98AA0"><use href="#i-lpetal" x="300" y="400" width="26" height="58" transform="rotate(50 313 429)" opacity=".8"/></g>',
+    hero: '<g color="#F2B64A"><use href="#i-candle" x="40" y="20" width="60" height="120" opacity=".9"/><use href="#i-candle" x="300" y="40" width="50" height="100" opacity=".8"/></g><g fill="none" stroke="#F3D3A6" stroke-width="1" opacity=".35"><ellipse cx="200" cy="330" rx="150" ry="40"/><ellipse cx="200" cy="330" rx="100" ry="26"/></g><g color="#B06A80"><use href="#i-lotus" x="40" y="180" width="320" height="240"/></g><g color="#D39A3A"><use href="#i-frang" x="290" y="380" width="70" height="70" transform="rotate(20 325 415)"/></g>',
+    2: '<g color="#7A5A33"><use href="#i-ball" x="110" y="90" width="200" height="250"/><use href="#i-ball" x="20" y="200" width="130" height="160" opacity=".85"/></g><g color="#F2B64A"><use href="#i-candle" x="300" y="300" width="56" height="112" opacity=".9"/></g><g color="#D39A3A"><use href="#i-frang" x="250" y="60" width="60" height="60" transform="rotate(-15 280 90)"/></g>',
+    3: '<g color="#3E5A3A"><use href="#i-bamboo" x="-10" y="-20" width="90" height="360"/><use href="#i-bamboo" x="40" y="60" width="80" height="320" opacity=".8"/></g><g color="#9E7D3C"><use href="#i-thai" x="80" y="430" width="340" height="24"/><use href="#i-thai" x="80" y="40" width="340" height="24"/></g><g color="#F2B64A"><use href="#i-candle" x="230" y="240" width="64" height="128"/><use href="#i-candle" x="300" y="280" width="46" height="92" opacity=".85"/></g><g color="#D39A3A"><use href="#i-frang" x="150" y="340" width="56" height="56"/></g>',
+    4: '<g color="#8C5E6B"><use href="#i-hands" x="20" y="150" width="360" height="240"/></g><g color="#D39A3A"><use href="#i-frang" x="60" y="60" width="90" height="90" transform="rotate(-20 105 105)"/><use href="#i-frang" x="280" y="90" width="64" height="64" transform="rotate(30 312 122)"/></g><g color="#D98AA0"><use href="#i-lpetal" x="300" y="400" width="26" height="58" transform="rotate(50 313 429)" opacity=".8"/></g>',
     5: '<g color="#E3C98E"><use href="#i-thai" x="30" y="60" width="340" height="24"/><use href="#i-thai" x="30" y="420" width="340" height="24"/></g><g color="#E8A8B8"><use href="#i-lotus" x="70" y="160" width="260" height="195"/></g><g color="#E3C98E"><use href="#i-spark" x="80" y="120" width="16" height="16"/><use href="#i-spark" x="300" y="110" width="22" height="22"/><use href="#i-spark" x="320" y="370" width="12" height="12"/><use href="#i-spark" x="60" y="380" width="10" height="10"/></g>'
   };
   $$(".art").forEach(function(a){
@@ -1666,7 +1678,7 @@ html select{height:56px;line-height:normal}
   });
 
   /* ---------- Hero: Three.js dark water, petals, candle light ---------- */
-  var heroOn = true, gl = null, wband = hero;
+  var heroOn = false, gl = null, wband = $("#wband");
   new IntersectionObserver(function(es){ heroOn = es[0].isIntersecting; if(gl) gl.toggle(); }).observe(wband);
   function canGL(){
     try{ var c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl"))); }catch(e){ return false; }
@@ -1685,9 +1697,9 @@ html select{height:56px;line-height:normal}
     var canvas = $("#water"), mobile = window.matchMedia("(max-width:899px)").matches || window.matchMedia("(pointer:coarse)").matches;
     var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:!mobile, alpha:false, powerPreference:"high-performance"});
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2));
-    renderer.setClearColor(0x06110F, 1);
+    renderer.setClearColor(0x170503, 1);
     var scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x06110F, 12, 30);
+    scene.fog = new THREE.Fog(0x170503, 12, 30);
     var camera = new THREE.PerspectiveCamera(45, 1, .1, 100);
     var camBase = new THREE.Vector3(0, 5.2, 7.6), camTarget = new THREE.Vector3(0, 0, -1.2);
     camera.position.copy(camBase);
@@ -1733,7 +1745,7 @@ html select{height:56px;line-height:normal}
       "  vec3 n = normalize(vec3(-(waveH(vP+vec2(e,0.))-h)/e, 1., -(waveH(vP+vec2(0.,e))-h)/e));",
       "  vec3 V = normalize(cameraPosition - vW);",
       "  float r = length(vP*vec2(.07,.1));",
-      "  vec3 deepA = vec3(.02,.09,.085), deepB = vec3(.05,.2,.18), black = vec3(.01,.03,.03);",
+      "  vec3 deepA = vec3(.09,.025,.012), deepB = vec3(.24,.07,.03), black = vec3(.035,.01,.005);",
       "  vec3 base = mix(deepB, deepA, smoothstep(-6.,6.,vP.y));",
       "  base = mix(base, black, smoothstep(.3, 1.1, r));",
       "  vec3 warm = vec3(1.,.78,.42);",
@@ -1749,12 +1761,12 @@ html select{height:56px;line-height:normal}
       "    vec3 L = normalize(vec3(cx[i], 2.6, cz[i]) - vW);",
       "    cand += pow(max(dot(reflect(-L, n), V), 0.), 120.) * .8 * cw[i] * flick(float(i)*2.1);",
       "  }",
-      "  vec3 moon = vec3(.55,.75,.72);",
+      "  vec3 moon = vec3(.85,.6,.4);",
       "  vec3 Lm = normalize(vec3(.4, 1., -.5));",
       "  float spec = pow(max(dot(reflect(-Lm, n), V), 0.), 60.);",
       "  float fres = pow(1. - max(dot(n, V), 0.), 3.);",
       "  vec3 col = mix(base, moon*.35, fres*.5) + moon*spec*.18 + warm*cand*.55;",
-      "  col += vec3(.02,.05,.045) * smoothstep(.0,.1,h);",
+      "  col += vec3(.06,.016,.008) * smoothstep(.0,.1,h);",
       "  float fd = gl_FragCoord.z / gl_FragCoord.w;",
       "  col = mix(col, fogColor, smoothstep(fogNear, fogFar, fd));",
       "  gl_FragColor = vec4(col, 1.);",
@@ -1855,7 +1867,7 @@ html select{height:56px;line-height:normal}
       var dt = Math.min(.05, (ts - (last || ts)) / 1000); last = ts; clock += dt;
       mat.uniforms.uTime.value = clock;
       autoT += dt; if(autoT > 4.5){ autoT = 0; rip[ripIdx].set((Math.random()-.5)*8, (Math.random()-.5)*5 - 1.5, clock, .5); ripIdx = (ripIdx + 1) % NR; }
-      var p = Math.min(1, window.scrollY / Math.max(1, hero.offsetHeight));
+      var p = Math.max(0, Math.min(1, -wband.getBoundingClientRect().top / Math.max(1, wband.offsetHeight)));
       camY += ((camBase.y + p*3.6) - camY) * .06;
       camZ += ((camBase.z - p*4.6) - camZ) * .06;
       camera.position.set(Math.sin(clock*.07)*.3, camY, camZ);
@@ -2260,6 +2272,7 @@ document.addEventListener('submit',function(e){var f=e.target;c('poslan obrazac 
 var seen={};var io=window.IntersectionObserver&&new IntersectionObserver(function(es){es.forEach(function(x){var id=x.target.id;if(x.isIntersecting&&!seen[id]){seen[id]=1;c('vidio '+id)}})},{threshold:.35});
 if(io&&location.pathname!=='/'&&location.pathname!=='/index.html')document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)})})();</script><script>(function(){function tx(){var l=(document.documentElement.lang||"en").slice(0,2);document.querySelectorAll("[data-tx]").forEach(function(e){try{var o=JSON.parse(e.getAttribute("data-tx"));e.textContent=o[l]||o.en}catch(_){}})}tx();try{new MutationObserver(tx).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]})}catch(e){}
 var h=document.getElementById("hero"),p=document.getElementById("heroPh");if(h&&p&&!matchMedia("(prefers-reduced-motion:reduce)").matches){h.addEventListener("pointermove",function(e){var r=h.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;p.style.transform="scale(1.06) translate("+(-x*18)+"px,"+(-y*12)+"px)"},{passive:true});h.addEventListener("pointerleave",function(){p.style.transform=""})}})();</script>
+<div class="xbk" id="xBk"></div><button type="button" class="xfab" id="xFab"><span><span data-tx='{"hr":"Košarica","en":"Basket","de":"Korb","it":"Carrello"}'>Košarica</span><span class="xfab__n" id="xFabN">0</span></span><span style="display:flex;align-items:center;gap:12px"><b id="xFabT">0&nbsp;€</b><span class="xfab__go" data-tx='{"hr":"Pregled","en":"View","de":"Ansehen","it":"Vedi"}'>Pregled</span></span></button>
 <script>(function(){var cart=[],L=function(){return (document.documentElement.lang||"hr").slice(0,2)};
 var W={hr:["Pozdrav, Khao Sun! Želim naručiti poklon bonove za Božić:","Bon na iznos","Ukupno","Hvala!"],en:["Hello Khao Sun! I would like to order Christmas gift vouchers:","Voucher for","Total","Thank you!"],de:["Hallo Khao Sun! Ich möchte Weihnachtsgutscheine bestellen:","Wertgutschein","Gesamt","Danke!"],it:["Ciao Khao Sun! Vorrei ordinare buoni regalo di Natale:","Buono da","Totale","Grazie!"]};
 function eur(v){return v+"\u00a0€"}
@@ -2267,11 +2280,55 @@ function name(it){return it.amt?(W[L()]||W.hr)[1]+" "+eur(it.p):((L()=="hr"?it.n
 function render(){var ul=document.getElementById("xLines"),tot=0;ul.innerHTML="";cart.forEach(function(it,i){tot+=it.p*it.q;var li=document.createElement("li");li.innerHTML='<div>'+name(it)+'<br><small>'+eur(it.p)+'</small></div><div class="xq"><button type="button" data-i="'+i+'" data-k="-1" aria-label="-">−</button><output>'+it.q+'</output><button type="button" data-i="'+i+'" data-k="1" aria-label="+">+</button></div>';ul.appendChild(li)});
 document.getElementById("xEmpty").hidden=cart.length>0;document.getElementById("xTotal").textContent=eur(tot);
 var w=W[L()]||W.hr,msg=w[0]+"\n"+cart.map(function(it){return "• "+it.q+" × "+name(it)+" ("+eur(it.p*it.q)+")"}).join("\n")+"\n"+w[2]+": "+eur(tot)+"\n"+w[3];
-var go=document.getElementById("xGo");go.href="https://wa.me/385976059886?text="+encodeURIComponent(msg);go.setAttribute("aria-disabled",cart.length?"false":"true")}
+var go=document.getElementById("xGo");go.href="https://wa.me/385976059886?text="+encodeURIComponent(msg);go.setAttribute("aria-disabled",cart.length?"false":"true");var n=0;cart.forEach(function(x){n+=x.q});document.getElementById("xFabN").textContent=n;document.getElementById("xFabT").textContent=eur(tot);fab.classList.toggle("show",n>0&&!inView);if(!n)document.body.classList.remove("xopen")}
 function add(it){var f=cart.filter(function(x){return x.id===it.id})[0];if(f)f.q++;else{it.q=1;cart.push(it)}render()}
 document.querySelectorAll(".xc__add").forEach(function(b){b.addEventListener("click",function(){var d=b.dataset;add({id:d.id,n:d.n,en:d.en,d:d.d,p:+d.p});b.classList.remove("bump");void b.offsetWidth;b.classList.add("bump")})});
 document.querySelectorAll(".xa").forEach(function(b){b.addEventListener("click",function(){add({id:"a"+b.dataset.v,amt:1,p:+b.dataset.v})})});
 document.getElementById("xLines").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var it=cart[+b.dataset.i];it.q+=+b.dataset.k;if(it.q<1)cart.splice(+b.dataset.i,1);render()});
+var fab=document.getElementById("xFab"),xc=document.getElementById("xCart"),inView=false;function cl(){document.body.classList.remove("xopen")}fab.addEventListener("click",function(){document.body.classList.add("xopen")});document.getElementById("xBk").addEventListener("click",cl);document.getElementById("xClose").addEventListener("click",cl);try{new IntersectionObserver(function(es){inView=es[0].isIntersecting&&!document.body.classList.contains("xopen");render()}).observe(xc)}catch(e){}
 try{new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]})}catch(e){}render()})();</script>
+<script>(function(){
+var hero=document.getElementById("hero"),media=document.getElementById("heroMedia");if(!hero||!media)return;
+if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+var canvas=document.createElement("canvas");canvas.id="hwater";canvas.setAttribute("aria-hidden","true");
+var g;try{g=canvas.getContext("webgl",{antialias:false,premultipliedAlpha:false})||canvas.getContext("experimental-webgl")}catch(e){}
+if(!g)return;
+media.appendChild(canvas);
+var mobile=matchMedia("(max-width:899px)").matches||matchMedia("(pointer:coarse)").matches;
+var vs="attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}";
+var fs=["precision highp float;",
+"uniform sampler2D uImg;uniform vec2 uRes;uniform float uT;uniform vec2 uSc,uOff;uniform vec4 uR[10];",
+"float H(vec2 p){float h=.035*sin(p.x*.9+uT*.6)+.03*sin(p.y*1.1-uT*.5)+.018*sin((p.x+p.y)*1.7+uT*.9);",
+"for(int i=0;i<10;i++){vec4 r=uR[i];float age=uT-r.z;if(age>0.&&age<6.){float d=distance(p,r.xy);float k=d-age*1.6;h+=exp(-k*k*1.2)*exp(-age*.6)*r.w/(1.+d*.6)*sin(k*6.)*.22;}}return h;}",
+"void main(){vec2 s=gl_FragCoord.xy/uRes;float A=uRes.x/uRes.y;vec2 p=vec2(s.x*A,s.y)*7.;float e=.02,h=H(p);",
+"vec2 gr=vec2(H(p+vec2(e,0.))-h,H(p+vec2(0.,e))-h)/e;gr/=max(1.,length(gr)/1.6);",
+"float z=1.04+.03*sin(uT*.06);vec2 l=(s-.5)/z+.5;vec2 uv=uOff+l*uSc+gr*.009;",
+"vec3 c=texture2D(uImg,clamp(uv,.001,.999)).rgb;",
+"float sp=pow(clamp(dot(normalize(vec3(-gr,1.)),normalize(vec3(-.4,.6,1.))),0.,1.),60.);",
+"c+=vec3(1.,.86,.62)*sp*.35+vec3(1.,.9,.75)*clamp(-gr.x-gr.y,0.,1.)*.05;gl_FragColor=vec4(c,1.);}"].join("\n");
+function sh(t,src){var o=g.createShader(t);g.shaderSource(o,src);g.compileShader(o);if(!g.getShaderParameter(o,g.COMPILE_STATUS))throw g.getShaderInfoLog(o);return o}
+try{var pr=g.createProgram();g.attachShader(pr,sh(g.VERTEX_SHADER,vs));g.attachShader(pr,sh(g.FRAGMENT_SHADER,fs));g.linkProgram(pr);g.useProgram(pr)}catch(e){canvas.remove();return}
+var b=g.createBuffer();g.bindBuffer(g.ARRAY_BUFFER,b);g.bufferData(g.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),g.STATIC_DRAW);
+var al=g.getAttribLocation(pr,"a");g.enableVertexAttribArray(al);g.vertexAttribPointer(al,2,g.FLOAT,false,0,0);
+var U={};["uImg","uRes","uT","uSc","uOff","uR"].forEach(function(n){U[n]=g.getUniformLocation(pr,n)});
+var NR=10,rip=new Float32Array(NR*4),ri=0,clock=0,ready=false,IA=1.5,on=true;for(var i=0;i<NR;i++)rip[i*4+2]=-100;
+var tex=g.createTexture(),img=new Image();
+img.onload=function(){g.bindTexture(g.TEXTURE_2D,tex);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,true);g.texImage2D(g.TEXTURE_2D,0,g.RGB,g.RGB,g.UNSIGNED_BYTE,img);
+[g.TEXTURE_MIN_FILTER,g.TEXTURE_MAG_FILTER].forEach(function(k){g.texParameteri(g.TEXTURE_2D,k,g.LINEAR)});g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_S,g.CLAMP_TO_EDGE);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_T,g.CLAMP_TO_EDGE);
+IA=img.width/img.height;ready=true;size();draw();hero.classList.add("hw-on");toggle()};
+img.src="img/hero.jpg";
+function size(){var dpr=Math.min(devicePixelRatio||1,mobile?1.5:2),w=media.clientWidth,h=media.clientHeight;canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);g.viewport(0,0,canvas.width,canvas.height);
+var rA=w/h,sx=1,sy=1,px=mobile?.62:.5,py=.5;if(rA>IA)sy=IA/rA;else sx=rA/IA;g.uniform2f(U.uRes,canvas.width,canvas.height);g.uniform2f(U.uSc,sx,sy);g.uniform2f(U.uOff,(1-sx)*px,(1-sy)*py)}
+addEventListener("resize",function(){if(ready){size();draw()}});
+function addRip(cx,cy,amp){var r=canvas.getBoundingClientRect(),A=r.width/r.height;rip[ri*4]=((cx-r.left)/r.width)*A*7;rip[ri*4+1]=(1-(cy-r.top)/r.height)*7;rip[ri*4+2]=clock;rip[ri*4+3]=amp;ri=(ri+1)%NR}
+hero.addEventListener("pointerdown",function(e){addRip(e.clientX,e.clientY,1)});
+var lastRip=0;hero.addEventListener("pointermove",function(e){if(e.pointerType==="touch")return;var n=performance.now();if(n-lastRip>140){lastRip=n;addRip(e.clientX,e.clientY,.5)}});
+hero.addEventListener("touchmove",function(e){var n=performance.now();if(n-lastRip>120){lastRip=n;addRip(e.touches[0].clientX,e.touches[0].clientY,.8)}},{passive:true});
+function draw(){g.uniform1f(U.uT,clock);g.uniform4fv(U.uR,rip);g.drawArrays(g.TRIANGLE_STRIP,0,4)}
+var running=false,last=0,autoT=4;
+function loop(ts){if(!running)return;requestAnimationFrame(loop);var dt=Math.min(.05,(ts-(last||ts))/1000);last=ts;clock+=dt;autoT+=dt;if(autoT>5){autoT=0;var r=canvas.getBoundingClientRect();addRip(r.left+r.width*(.3+Math.random()*.6),r.top+r.height*(.15+Math.random()*.45),.55)}draw()}
+function toggle(){var want=ready&&on&&!document.hidden;if(want&&!running){running=true;last=0;requestAnimationFrame(loop)}else if(!want)running=false}
+new IntersectionObserver(function(es){on=es[0].isIntersecting;toggle()}).observe(hero);document.addEventListener("visibilitychange",toggle);
+})();</script>
 </body>
 </html>
