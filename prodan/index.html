@@ -586,7 +586,11 @@ html select{height:56px;line-height:normal}
 .prod--wide[aria-pressed="true"] .pk-box svg{opacity:1}
 .prod--wide[aria-pressed="true"]{border-style:solid!important;border-color:#26412F!important}
 @media (prefers-reduced-motion:reduce){.gs .it,.gs .ct{transition:opacity .2s}}
-.hdr__nav a{white-space:nowrap}.hdr__book{white-space:nowrap}@media(min-width:1200px) and (max-width:1359px){.hdr__nav{gap:16px!important;font-size:13.5px}.logo--pt svg{height:30px!important}}</style>
+.hdr__nav a{white-space:nowrap}.hdr__book{white-space:nowrap}@media(min-width:1200px) and (max-width:1359px){.hdr__nav{gap:16px!important;font-size:13.5px}.logo--pt svg{height:30px!important}}
+/* FAQ: left heading travels with the questions */
+@media(min-width:900px){.faq__grid>.sh{position:sticky;top:140px;align-self:start}}
+.faq__grid>.sh::after{display:none}
+</style>
 </head>
 <body class="locked">
 

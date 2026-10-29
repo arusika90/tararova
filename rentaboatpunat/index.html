@@ -534,6 +534,10 @@ html select{height:56px;line-height:normal}
 .fl:not([open]) table{display:none}
 
 .logo .rlogo{height:46px;width:auto;flex:none}.foot .logo .rlogo{height:64px}
+
+/* FAQ: left heading travels with the questions */
+@media(min-width:900px){.faq__grid>.sh{position:sticky;top:140px;align-self:start}}
+.faq__grid>.sh::after{display:none}
 </style>
 <style>.hero__hint{display:none!important}</style>
 </head>

@@ -544,6 +544,10 @@ html select{height:56px;line-height:normal}
 .seaband__c{position:absolute;inset:0 0 auto 0;z-index:5;padding-top:clamp(90px,14vh,150px);pointer-events:none}
 .seaband__t{font-size:clamp(30px,6vw,64px);line-height:1.05;font-style:italic;font-weight:300;margin:0;max-width:16ch}
 .seaband .hero__hint{pointer-events:none}
+
+/* FAQ: left heading travels with the questions */
+@media(min-width:900px){.faq__grid>.sh{position:sticky;top:140px;align-self:start}}
+.faq__grid>.sh::after{display:none}
 </style>
 <style>.hero__hint{display:none!important}</style>
 </head>
