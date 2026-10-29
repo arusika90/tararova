@@ -761,7 +761,7 @@ html select{height:56px;line-height:normal}
 <main id="top">
 
 <section class="hero" id="hero" aria-label="Khao Sun">
-  <div class="hero__media" id="heroMedia" aria-hidden="true"><div class="hero__ph" id="heroPh"><img src="img/hero.jpg" alt="" fetchpriority="high"></div><div class="hero__glow"></div></div>
+  <div class="hero__media" id="heroMedia" aria-hidden="true"><div class="hero__ph" id="heroPh"><img src="https://wsrv.nl/?url=khao-sun.hr/wp-content/uploads/2023/10/IMG_3417.jpg&amp;w=1800&amp;output=jpg&amp;q=78" alt="" fetchpriority="high" crossorigin="anonymous"></div><div class="hero__glow"></div></div>
   <div class="hero__veil"></div>
   <div class="hero__c">
     <div class="wrap">
@@ -2316,9 +2316,9 @@ var tex=g.createTexture(),img=new Image();
 img.onload=function(){g.bindTexture(g.TEXTURE_2D,tex);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,true);g.texImage2D(g.TEXTURE_2D,0,g.RGB,g.RGB,g.UNSIGNED_BYTE,img);
 [g.TEXTURE_MIN_FILTER,g.TEXTURE_MAG_FILTER].forEach(function(k){g.texParameteri(g.TEXTURE_2D,k,g.LINEAR)});g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_S,g.CLAMP_TO_EDGE);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_T,g.CLAMP_TO_EDGE);
 IA=img.width/img.height;ready=true;size();draw();hero.classList.add("hw-on");toggle()};
-img.src="img/hero.jpg";
+img.crossOrigin="anonymous";img.src="https://wsrv.nl/?url=khao-sun.hr/wp-content/uploads/2023/10/IMG_3417.jpg&w=1800&output=jpg&q=78";
 function size(){var dpr=Math.min(devicePixelRatio||1,mobile?1.5:2),w=media.clientWidth,h=media.clientHeight;canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);g.viewport(0,0,canvas.width,canvas.height);
-var rA=w/h,sx=1,sy=1,px=mobile?.62:.5,py=.5;if(rA>IA)sy=IA/rA;else sx=rA/IA;g.uniform2f(U.uRes,canvas.width,canvas.height);g.uniform2f(U.uSc,sx,sy);g.uniform2f(U.uOff,(1-sx)*px,(1-sy)*py)}
+var rA=w/h,sx=1,sy=1,px=mobile?.55:.5,py=.5;if(rA>IA)sy=IA/rA;else sx=rA/IA;g.uniform2f(U.uRes,canvas.width,canvas.height);g.uniform2f(U.uSc,sx,sy);g.uniform2f(U.uOff,(1-sx)*px,(1-sy)*py)}
 addEventListener("resize",function(){if(ready){size();draw()}});
 function addRip(cx,cy,amp){var r=canvas.getBoundingClientRect(),A=r.width/r.height;rip[ri*4]=((cx-r.left)/r.width)*A*7;rip[ri*4+1]=(1-(cy-r.top)/r.height)*7;rip[ri*4+2]=clock;rip[ri*4+3]=amp;ri=(ri+1)%NR}
 hero.addEventListener("pointerdown",function(e){addRip(e.clientX,e.clientY,1)});
