@@ -565,6 +565,74 @@ html select{height:56px;line-height:normal}
 .faq>:first-child::before,.faq-list>:first-child::before,.faq__list>:first-child::before{display:none!important}
 </style>
 <style>.hero__hint{display:none!important}</style>
+<style id="trvcart-css">.cbar,.cdlg,.tpop,.tadd{--forest:#0E5C55;--forest-d:#083F3B;--gold:#C9A45C;--gold-l:#E3C98E;--cream:#F7F1E8}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;height:48px;flex:none}
+.qty button{width:34px;height:46px;border:0;background:none;font:500 20px var(--sans);color:var(--forest);cursor:pointer}
+.qty output{min-width:22px;text-align:center;font:600 15px var(--sans);font-variant-numeric:tabular-nums}
+.cbar{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));z-index:70;transform:translate(-50%,140%);display:flex;align-items:center;gap:14px;padding:8px 8px 8px 18px;border-radius:999px;background:var(--forest-d,#16281D);color:#fff;box-shadow:0 18px 40px -16px rgba(0,0,0,.55);transition:transform .45s cubic-bezier(.16,1,.3,1);max-width:calc(100vw - 24px)}
+.cbar.on{transform:translate(-50%,0)}
+.cbar.bump{animation:cbump .5s}
+.cbar__i{position:relative;display:grid;place-items:center;width:30px;height:30px}
+.cbar__i .ic{width:24px;height:24px;color:var(--gold-l)}
+.cbar__n{position:absolute;right:-6px;top:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--gold);color:#fff;font:700 11px/18px var(--sans);text-align:center}
+.cbar__t{font-size:14px;white-space:nowrap}
+.cbar__t small{display:block;font-size:11px;opacity:.7}
+.cbar__go{border:0;border-radius:999px;background:#fff;color:var(--forest);font:600 12px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:13px 18px;cursor:pointer;white-space:nowrap}
+.cdlg{width:min(520px,100vw);max-height:92vh;margin:auto 0 auto auto;height:100vh;max-height:100vh;padding:0;border:0;background:var(--cream);color:var(--ink)}
+.cdlg::backdrop{background:rgba(16,22,16,.5);backdrop-filter:blur(2px)}
+.cdlg{margin:auto 0 0;width:100vw;max-width:100vw;height:auto;max-height:90vh;border-radius:24px 24px 0 0}
+.cdlg__in{display:flex;flex-direction:column;min-height:100%;padding:22px 22px calc(22px + env(safe-area-inset-bottom))}
+.cdlg__h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.cdlg__h h2{font:400 30px var(--serif);margin:0}
+.cdlg__x{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:15px;cursor:pointer}
+.cl{list-style:none;margin:0;padding:0}
+.cl li{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.cl img{width:56px;height:56px;object-fit:contain;background:#fff;border-radius:12px;border:1px solid var(--line)}
+.cl b{display:block;font-weight:600;font-size:15px}
+.cl small{color:var(--muted);font-size:13px}
+.cl .qty{height:38px}
+.cl .qty button{width:32px;height:36px}
+.cf{display:grid;gap:12px;margin-top:18px}
+.cf label{display:grid;gap:6px;font-size:14px;font-weight:500}
+.cf input[type=text],.cf textarea{font:400 16px var(--sans);padding:13px 14px;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--ink)}
+.cf textarea{min-height:70px;resize:vertical}
+.cf .chk{display:flex;gap:10px;align-items:center;font-weight:500}
+.cf .chk input{width:20px;height:20px;accent-color:var(--forest)}
+.csend{margin-top:16px;display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;border-radius:999px;border:0;background:#25A244;color:#fff;font:600 13px var(--sans);letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.csend .ic{width:20px;height:20px}
+.cnote{font-size:13px;color:var(--muted);margin:10px 0 0;text-align:center}
+@keyframes cbump{30%{transform:translate(-50%,-6px) scale(1.04)}}
+.cl li{grid-template-columns:1fr auto auto!important}
+.cl .cl__p{font:600 14px var(--sans);font-variant-numeric:tabular-nums;color:var(--forest)}
+.cl .cempty{display:block!important;padding:24px 0;color:var(--muted);border:0}
+.cl__rm{border:0;background:none;padding:2px 0;margin-top:2px;font:500 12px var(--sans);color:var(--muted);text-decoration:underline;cursor:pointer}
+.ctot{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0 4px;font:600 15px var(--sans)}.ctot b{font:500 24px var(--serif);color:var(--forest)}
+.cprice{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+.cmode{display:flex;gap:8px}.cmode label{flex:1;display:block}.cmode input{position:absolute;opacity:0;pointer-events:none}
+.cmode span{display:block;text-align:center;padding:12px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;font:600 14px var(--sans);cursor:pointer}
+.cmode input:checked+span{background:var(--forest);border-color:var(--forest);color:#fff}
+.cmode input:focus-visible+span{outline:2px solid var(--gold);outline-offset:2px}
+.cdlg h2{font-family:var(--serif)}
+.cdlg{color:var(--ink)}
+.csend:disabled{opacity:.45;cursor:default}
+.cbar__i{border:0;background:none;color:inherit;cursor:pointer;padding:0}
+.cart-on .fab,.cart-on #fab{opacity:0!important;pointer-events:none!important}
+.bar-on .cbar{bottom:calc(88px + env(safe-area-inset-bottom))}
+/* add buttons */
+.tadd{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:40px;height:40px;padding:0;border-radius:999px;border:1px solid var(--forest);background:#fff;color:var(--forest);font:600 13px var(--sans);cursor:pointer;transition:background .25s,color .25s,transform .2s}
+.tadd:hover{background:var(--forest);color:#fff}.tadd:active{transform:scale(.94)}
+.tadd__plus{font:400 22px/1 var(--sans);margin-top:-2px}
+.tadd--l{padding:0 18px 0 14px;height:46px}
+.tadd.ok{background:var(--forest);color:#fff}.tadd.ok .tadd__plus{font-size:0}.tadd.ok .tadd__plus::after{content:"✓";font-size:16px}
+.tpop{position:fixed;z-index:90;min-width:220px;padding:10px;border-radius:18px;background:#fff;box-shadow:0 18px 50px -14px rgba(0,0,0,.35);border:1px solid var(--line)}
+.tpop p{margin:2px 6px 8px;font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.tpop button{display:flex;width:100%;justify-content:space-between;gap:18px;align-items:center;padding:11px 12px;border:0;border-radius:12px;background:none;font:500 15px var(--sans);color:var(--ink);cursor:pointer;text-align:left}
+.tpop button:hover{background:var(--line)}.tpop button b{font-weight:700;color:var(--forest);font-variant-numeric:tabular-nums}
+@media(max-width:599px){.cdlg{width:100vw}.cbar__t small{max-width:42vw;overflow:hidden;text-overflow:ellipsis}}
+
+.plist li>.tadd{margin-top:2px}
+@media(max-width:599px){.plist li{gap:10px}.plist li>.tadd{min-width:36px;height:36px}}
+</style>
 </head>
 <body class="locked">
 
@@ -2203,5 +2271,108 @@ if(location.pathname==='/'||location.pathname==='/index.html'){var seen={};var i
 document.addEventListener('click',function(e){var l=e.target.closest('[data-lang]');if(l)c('jezik '+l.getAttribute('data-lang'))},true);
 document.addEventListener('submit',function(e){var f=e.target;c('poslan obrazac '+(f.id||f.className||'form'))},true);
 var seen={};var io=window.IntersectionObserver&&new IntersectionObserver(function(es){es.forEach(function(x){var id=x.target.id;if(x.isIntersecting&&!seen[id]){seen[id]=1;c('vidio '+id)}})},{threshold:.35});
-if(io&&location.pathname!=='/'&&location.pathname!=='/index.html')document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)})})();</script></body>
+if(io&&location.pathname!=='/'&&location.pathname!=='/index.html')document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)})})();</script>
+<script id="trvcart">window.TRV_CART={wa:"385913078889",key:"thaiCart",kind:"gift",note:{hr:"Narudžba stiže Thai Touchu na WhatsApp. Javljamo vam kako preuzeti bonove.",en:"The order goes to Thai Touch on WhatsApp. We reply with how to collect the vouchers.",de:"Die Bestellung geht per WhatsApp an Thai Touch. Wir melden uns, wie Sie die Gutscheine abholen.",it:"L'ordine arriva a Thai Touch su WhatsApp. Vi diciamo come ritirare i buoni."},priceNote:{hr:"Cijene prema cjeniku Thai Touch. Plaćanje samo gotovinom.",en:"Prices as on the Thai Touch price list. Cash only.",de:"Preise laut Preisliste von Thai Touch. Nur Barzahlung.",it:"Prezzi secondo il listino Thai Touch. Solo contanti."},bind:function(K){var LBL=function(){var l=(document.documentElement.lang||"en").slice(0,2);return {hr:"Poklon bon na iznos",de:"Wertgutschein",it:"Buono di valore"}[l]||"Gift voucher (amount)"};
+ document.querySelectorAll(".plist li").forEach(function(li){var pp=li.querySelector(".plist__p");if(!pp)return;
+  K.button(li,function(){var name=(li.querySelector("b")||li).textContent.trim(),opts=[];pp.innerHTML.split(/<br\s*\/?>/i).forEach(function(seg){var d=document.createElement("div");d.innerHTML=seg;var i=d.querySelector("i"),o=i?i.textContent.replace(/ /g," ").trim():"";if(i)i.remove();var v=K.num(d.textContent.replace(/[^\d,.]/g,""));if(!isNaN(v))opts.push({o:o,p:v})});return {n:name,opts:opts}},{})});
+ document.addEventListener("click",function(e){var b=e.target.closest("#giftBtn,#barBtn");if(!b)return;var v=K.num((document.getElementById("fval")||{}).textContent.replace(/[^\d,.]/g,"")),q=parseInt((document.getElementById("qOut")||{}).textContent,10)||1;
+  if(!v||isNaN(v))return;e.preventDefault();e.stopImmediatePropagation();K.add({n:LBL(),o:"",p:v,q:q});K.open()},true);}};
+/* TRV cart: add items to a basket, send the order on WhatsApp (as on /prodan/proizvodi) */
+(function(){
+var C=window.TRV_CART;if(!C)return;
+var T={
+hr:{add:"Dodaj u košaricu",added:"Dodano ✓",bag:"Košarica",view:"Pogledaj",empty:"Košarica je prazna.",total:"Ukupno",name:"Vaše ime",note:"Napomena",time:"Kada (npr. danas u 19:30)",addr:"Adresa za dostavu",pick:"Za van",deliv:"Dostava",send:"Pošalji narudžbu na WhatsApp",rm:"Ukloni",close:"Zatvori",less:"Manje",more:"Više",item1:"stavka",item2:"stavke",item5:"stavki",choose:"Odaberite",forwho:"Za koga je bon (ime na bonu)",
+ hiFood:"Pozdrav! Želim naručiti:",hiGift:"Pozdrav! Želim naručiti poklon bon:",gift:"Poklon bon",onReq:"cijena na upit",thanks:"Hvala!",how:"Način",when:"Kada",who:"Ime",adr:"Adresa",nt:"Napomena",forw:"Bon za"},
+en:{add:"Add to basket",added:"Added ✓",bag:"Basket",view:"View",empty:"Your basket is empty.",total:"Total",name:"Your name",note:"Note",time:"When (e.g. today at 19:30)",addr:"Delivery address",pick:"Takeaway",deliv:"Delivery",send:"Send the order on WhatsApp",rm:"Remove",close:"Close",less:"Less",more:"More",item1:"item",item2:"items",item5:"items",choose:"Choose",forwho:"Who is the voucher for (name on it)",
+ hiFood:"Hello! I would like to order:",hiGift:"Hello! I would like to order a gift voucher:",gift:"Gift voucher",onReq:"price on request",thanks:"Thank you!",how:"Option",when:"When",who:"Name",adr:"Address",nt:"Note",forw:"Voucher for"},
+de:{add:"In den Korb",added:"Hinzugefügt ✓",bag:"Korb",view:"Ansehen",empty:"Der Korb ist leer.",total:"Gesamt",name:"Ihr Name",note:"Hinweis",time:"Wann (z. B. heute 19:30)",addr:"Lieferadresse",pick:"Zum Mitnehmen",deliv:"Lieferung",send:"Bestellung per WhatsApp senden",rm:"Entfernen",close:"Schließen",less:"Weniger",more:"Mehr",item1:"Artikel",item2:"Artikel",item5:"Artikel",choose:"Wählen",forwho:"Für wen ist der Gutschein (Name)",
+ hiFood:"Hallo! Ich möchte bestellen:",hiGift:"Hallo! Ich möchte einen Gutschein bestellen:",gift:"Gutschein",onReq:"Preis auf Anfrage",thanks:"Danke!",how:"Art",when:"Wann",who:"Name",adr:"Adresse",nt:"Hinweis",forw:"Gutschein für"},
+it:{add:"Aggiungi al carrello",added:"Aggiunto ✓",bag:"Carrello",view:"Vedi",empty:"Il carrello è vuoto.",total:"Totale",name:"Il vostro nome",note:"Nota",time:"Quando (es. oggi alle 19:30)",addr:"Indirizzo di consegna",pick:"Da asporto",deliv:"Consegna",send:"Invia l'ordine su WhatsApp",rm:"Rimuovi",close:"Chiudi",less:"Meno",more:"Più",item1:"articolo",item2:"articoli",item5:"articoli",choose:"Scegli",forwho:"Per chi è il buono (nome)",
+ hiFood:"Ciao! Vorrei ordinare:",hiGift:"Ciao! Vorrei ordinare un buono regalo:",gift:"Buono regalo",onReq:"prezzo su richiesta",thanks:"Grazie!",how:"Modalità",when:"Quando",who:"Nome",adr:"Indirizzo",nt:"Nota",forw:"Buono per"}};
+function lg(){var l=(document.documentElement.lang||"hr").slice(0,2).toLowerCase();return T[l]?l:"en"}
+function t(k){return T[lg()][k]||T.en[k]}
+function ex(o){if(!o)return"";return typeof o==="string"?o:(o[lg()]||o.en||o.hr||"")}
+function eur(v){if(v==null)return t("onReq");var s=v.toFixed(2);return lg()==="en"?"€"+s:s.replace(".",",")+" €"}
+var KEY=C.key,cart=[];try{cart=JSON.parse(localStorage.getItem(KEY)||"[]")||[]}catch(e){cart=[]}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(cart))}catch(e){}}
+var IC_BAG='<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>';
+var IC_WA='<svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.8l5.1-1.3A9.7 9.7 0 1 0 12 2.2zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.9 2c0 1.2.9 2.4 1 2.5.1.2 1.7 2.7 4.2 3.8 1.6.7 2.2.7 3 .6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.5-.4z"/></svg>';
+var GIFT=C.kind==="gift";
+function count(){return cart.reduce(function(a,i){return a+i.q},0)}
+function sum(){var s=0,unk=false;cart.forEach(function(i){if(i.p==null)unk=true;else s+=i.p*i.q});return{s:s,unk:unk}}
+function words(n){return n===1?t("item1"):(n>=2&&n<=4?t("item2"):t("item5"))}
+/* bar */
+var bar=document.createElement("div");bar.className="cbar";
+bar.innerHTML='<button type="button" class="cbar__i" aria-label="">'+IC_BAG+'<span class="cbar__n">0</span></button><span class="cbar__t"><b></b><small></small></span><button type="button" class="cbar__go"></button>';
+document.body.appendChild(bar);
+/* drawer */
+var dlg=document.createElement("dialog");dlg.className="cdlg";
+var modes=C.modes||[];
+dlg.innerHTML='<div class="cdlg__in"><div class="cdlg__h"><h2></h2><button type="button" class="cdlg__x">✕</button></div><ul class="cl"></ul><div class="ctot"><span></span><b></b></div><p class="cprice"></p>'+
+'<form class="cf" novalidate>'+(modes.length>1?'<div class="cmode" role="radiogroup">'+modes.map(function(m,i){return '<label><input type="radio" name="mode" value="'+m+'"'+(i?'':' checked')+'><span data-k="'+m+'"></span></label>'}).join("")+'</div>':'')+
+(GIFT?'<label><span data-k="forwho"></span><input type="text" name="forw"></label>':'<label><span data-k="time"></span><input type="text" name="when"></label>')+
+(modes.indexOf("deliv")>-1?'<label class="caddr" hidden><span data-k="addr"></span><input type="text" name="adr" autocomplete="street-address"></label>':'')+
+'<label><span data-k="name"></span><input type="text" name="ime" autocomplete="name"></label><label><span data-k="note"></span><textarea name="nap"></textarea></label></form>'+
+'<button type="button" class="csend">'+IC_WA+'<span></span></button><p class="cnote"></p></div>';
+document.body.appendChild(dlg);
+var list=dlg.querySelector(".cl"),form=dlg.querySelector(".cf");
+form.addEventListener("change",function(){var a=dlg.querySelector(".caddr"),md=form.querySelector("[name=mode]:checked");if(a)a.hidden=!(md&&md.value==="deliv")});
+function texts(){bar.querySelector(".cbar__i").setAttribute("aria-label",t("bag"));bar.querySelector(".cbar__t b").textContent=t("bag");bar.querySelector(".cbar__go").textContent=t("view");
+ dlg.querySelector("h2").textContent=t("bag");dlg.querySelector(".cdlg__x").setAttribute("aria-label",t("close"));dlg.querySelector(".ctot span").textContent=t("total");
+ dlg.querySelectorAll("[data-k]").forEach(function(e){e.textContent=t(e.dataset.k)});dlg.querySelector(".csend span").textContent=t("send");
+ dlg.querySelector(".cnote").textContent=ex(C.note);dlg.querySelector(".cprice").textContent=ex(C.priceNote);
+ document.querySelectorAll(".tadd").forEach(function(b){b.setAttribute("aria-label",t("add"));var l=b.querySelector(".tadd__l");if(l)l.textContent=ex(b._lab)||t("add")});render()}
+function open(){render();if(dlg.showModal)dlg.showModal();else dlg.setAttribute("open","")}
+bar.querySelector(".cbar__go").onclick=open;bar.querySelector(".cbar__i").onclick=open;
+dlg.querySelector(".cdlg__x").onclick=function(){dlg.close()};
+dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close()});
+function render(){var n=count();bar.classList.toggle("on",n>0);document.body.classList.toggle("cart-on",n>0);bar.querySelector(".cbar__n").textContent=n;
+ var S=sum();bar.querySelector(".cbar__t small").textContent=n+" "+words(n)+(cart.length&&!S.unk?" · "+eur(S.s):"");
+ dlg.querySelector(".ctot b").textContent=cart.length?(S.unk&&S.s===0?t("onReq"):eur(S.s)+(S.unk?" +":"")):"–";
+ dlg.querySelector(".ctot").hidden=!cart.length;
+ if(!cart.length){list.innerHTML='<li class="cempty">'+t("empty")+'</li>';dlg.querySelector(".csend").disabled=true;return}
+ dlg.querySelector(".csend").disabled=false;list.innerHTML="";
+ cart.forEach(function(it,ix){var li=document.createElement("li");
+  li.innerHTML='<div><b></b><small></small><br><button type="button" class="cl__rm"></button></div><span class="cl__p"></span><span class="qty"><button type="button">−</button><output></output><button type="button">+</button></span>';
+  li.querySelector("b").textContent=it.n;li.querySelector("small").textContent=(it.o?it.o+" · ":"")+eur(it.p);li.querySelector("output").textContent=it.q;
+  li.querySelector(".cl__p").textContent=it.p==null?"":eur(it.p*it.q);li.querySelector(".cl__rm").textContent=t("rm");
+  var b=li.querySelectorAll(".qty button");b[0].setAttribute("aria-label",t("less"));b[1].setAttribute("aria-label",t("more"));
+  b[0].onclick=function(){it.q--;if(it.q<1)cart.splice(ix,1);save();render()};b[1].onclick=function(){it.q=Math.min(99,it.q+1);save();render()};
+  li.querySelector(".cl__rm").onclick=function(){cart.splice(ix,1);save();render()};list.appendChild(li)})}
+dlg.querySelector(".csend").onclick=function(){if(!cart.length)return;var q=function(n){return form.querySelector('[name="'+n+'"]')},V=function(n){var e=q(n);return e&&!(e.closest('label')||{}).hidden?(e.value||'').trim():''},MD=form.querySelector('[name=mode]:checked');
+ var m=[GIFT?t("hiGift"):t("hiFood")];
+ cart.forEach(function(i){m.push("• "+i.q+" × "+i.n+(i.o?" ("+i.o+")":"")+(i.p!=null?" · "+eur(i.p*i.q):""))});
+ var S=sum();if(S.s>0)m.push("",t("total")+": "+eur(S.s)+(S.unk?" + "+t("onReq"):""));
+ m.push("");
+ if(MD)m.push(t("how")+": "+t(MD.value));else if(modes.length===1)m.push(t("how")+": "+t(modes[0]));
+ if(V("when"))m.push(t("when")+": "+V("when"));
+ if(V("forw"))m.push(t("forw")+": "+V("forw"));
+ if(V("adr"))m.push(t("adr")+": "+V("adr"));
+ if(V("nap"))m.push(t("nt")+": "+V("nap"));
+ if(V("ime"))m.push(t("who")+": "+V("ime"));
+ m.push(t("thanks"));
+ window.open("https://wa.me/"+C.wa+"?text="+encodeURIComponent(m.join("\n")),"_blank","noopener");
+ try{window.goatcounter&&window.goatcounter.count({path:"cart-send-"+KEY,event:true})}catch(e){}};
+function add(it){var k=it.n+"|"+(it.o||""),f=cart.filter(function(i){return i.k===k})[0];if(f)f.q+=it.q||1;else cart.push({k:k,n:it.n,o:it.o||"",p:it.p,q:it.q||1});save();render();
+ bar.classList.remove("bump");void bar.offsetWidth;bar.classList.add("bump")}
+/* buttons */
+var pop=document.createElement("div");pop.className="tpop";pop.hidden=true;document.body.appendChild(pop);
+document.addEventListener("click",function(e){if(!pop.hidden&&!pop.contains(e.target)&&!e.target.closest(".tadd"))pop.hidden=true});
+addEventListener("scroll",function(){pop.hidden=true},{passive:true});
+function flash(b){b.classList.add("ok");setTimeout(function(){b.classList.remove("ok")},1200)}
+function button(host,getItem,opts){var b=document.createElement("button");b.type="button";b.className="tadd"+(opts.label?" tadd--l":"");b._lab=opts.label;
+ b.innerHTML='<span class="tadd__plus" aria-hidden="true">+</span>'+(opts.label?'<span class="tadd__l"></span>':'');
+ b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();var it=getItem();if(!it)return;
+  if(it.opts&&it.opts.length>1){pop.innerHTML='<p>'+t("choose")+'</p>'+it.opts.map(function(o,i){return '<button type="button" data-i="'+i+'"><span>'+o.o+'</span><b>'+eur(o.p)+'</b></button>'}).join("");
+   var r=b.getBoundingClientRect();pop.hidden=false;var pw=pop.offsetWidth,ph=pop.offsetHeight;pop.style.left=Math.max(8,Math.min(innerWidth-pw-8,r.right-pw))+"px";pop.style.top=(r.bottom+8+ph>innerHeight?r.top-ph-8:r.bottom+8)+"px";
+   pop.querySelectorAll("button").forEach(function(x){x.onclick=function(){var o=it.opts[+x.dataset.i];add({n:it.n,o:o.o,p:o.p});pop.hidden=true;flash(b)}});return}
+  var o=it.opts&&it.opts[0];add({n:it.n,o:o?o.o:it.o,p:o?o.p:it.p});flash(b)});
+ (opts.into||host).appendChild(b);return b}
+function num(s){return parseFloat(String(s).replace(/\s|&nbsp;/g,"").replace(",","."))}
+window.TRVCartKit={add:add,button:button,num:num,eur:eur,open:open};
+if(C.bind)C.bind(window.TRVCartKit);
+new MutationObserver(texts).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});texts();
+})();
+</script>
+</body>
 </html>
