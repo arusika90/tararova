@@ -911,7 +911,15 @@ html select{height:56px;line-height:normal}
 
 <!-- ================= HERO (3D school of fish, static SVG fallback) ================= -->
 <section class="hero" id="hero" aria-label="Konoba Fiume">
-  <div class="hero-photo" aria-hidden="true"><img src="img/interior2.jpg" alt="" fetchpriority="high"></div>
+  <div class="hero-static" id="heroStatic" aria-hidden="true">
+    <svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"><use href="#sc-sea" width="800" height="800"/></svg>
+    <svg class="swim" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">
+      <g style="--t:30s;--dl:-4s"><use href="#s-sardine" width="200" height="60" transform="translate(0 160) scale(.7)"/><use href="#s-sardine" width="200" height="60" transform="translate(60 200) scale(.55)"/></g>
+      <g style="--t:38s;--dl:-20s"><use href="#s-sardine" width="200" height="60" transform="translate(0 300) scale(.6)"/></g>
+      <g style="--t:46s;--dl:-12s"><use href="#s-bream" width="220" height="120" transform="translate(0 120) scale(.5)" opacity=".7"/></g>
+    </svg>
+  </div>
+  <canvas id="gl" aria-hidden="true"></canvas>
   <div class="hero-shade"></div>
 
   <a class="spill rv-h d4" href="#rezervacija" id="spill">
@@ -1124,20 +1132,6 @@ html select{height:56px;line-height:normal}
 </section>
 
 <!-- MARKET TO PLATE (teal band, script watermark) -->
-<section class="seaband" id="sea" aria-label="Riba">
-  <div class="hero-static" id="heroStatic" aria-hidden="true">
-    <svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"><use href="#sc-sea" width="800" height="800"/></svg>
-    <svg class="swim" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">
-      <g style="--t:30s;--dl:-4s"><use href="#s-sardine" width="200" height="60" transform="translate(0 160) scale(.7)"/><use href="#s-sardine" width="200" height="60" transform="translate(60 200) scale(.55)"/></g>
-      <g style="--t:38s;--dl:-20s"><use href="#s-sardine" width="200" height="60" transform="translate(0 300) scale(.6)"/></g>
-      <g style="--t:46s;--dl:-12s"><use href="#s-bream" width="220" height="120" transform="translate(0 120) scale(.5)" opacity=".7"/></g>
-    </svg>
-  </div>
-  <canvas id="gl" aria-hidden="true"></canvas>
-  <div class="hero-shade"></div>
-  <div class="sea-c"><div class="wrap"><p class="eyebrow label" data-i18n="sea.k">Ribarnica, svako jutro</p><h2 class="h2" data-i18n="sea.t">Riba koja je jutros plivala, za ručak je na stolu</h2><p class="sea-h" data-i18n="sea.h">Pomaknite miš ili prst: riba se razbježi.</p></div></div>
-</section>
-
 <section class="sec teal" data-sec="jelovnik" aria-labelledby="stepsT">
   <div class="wm" data-py="-0.12" aria-hidden="true"><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div></div>
   <div class="deco" data-px="0.45" style="width:150px;top:40px;left:-80px;opacity:.55"><svg viewBox="0 0 200 60"><use href="#s-sardine" width="200" height="60"/></svg></div>
@@ -2014,7 +2008,7 @@ if(RM){ var w = $(".wave"); if(w && w.pauseAnimations) w.pauseAnimations(); }
 
 /* ================= 3D HERO: school of fish (three.js r128) ================= */
 function webglOK(){ try{ var c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); }catch(e){ return false; } }
-var seaEl = document.getElementById("sea");
+var seaEl = document.getElementById("hero");
 function loadThree(){
   if(RM || !webglOK()) return;
   var s = document.createElement("script");
