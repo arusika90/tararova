@@ -2234,5 +2234,9 @@ var mo=new MutationObserver(function(){bar.classList.toggle("off",document.docum
 document.addEventListener('click',function(e){var a=e.target.closest('a,button');if(!a)return;var h=a.getAttribute('href')||'',n=null;
 if(/wa\.me\/385916124340/.test(h))n='klik WhatsApp Marija';else if(a.classList.contains('mt-go'))n='klik Zelim ovu stranicu';else if(/tararova\.com\/?(#.*)?$/.test(h))n='klik Tko sam ja';else if(/wa\.me\//.test(h))n='klik WhatsApp posla';else if(/^mailto:/.test(h))n='klik e-mail';else if(/\.(pdf|docx|zip)$/i.test(h))n='preuzimanje '+h.split('/').pop();else if(/^(work|products)\/$/.test(h))n='klik '+h;
 if(n)c(n)},true);
-if(location.pathname==='/'||location.pathname==='/index.html'){var seen={};var io=new IntersectionObserver(function(es){es.forEach(function(x){var id=x.target.id;if(x.isIntersecting&&!seen[id]){seen[id]=1;c('vidio sekciju '+id)}})},{threshold:.35});document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)})}})();</script></body>
+if(location.pathname==='/'||location.pathname==='/index.html'){var seen={};var io=new IntersectionObserver(function(es){es.forEach(function(x){var id=x.target.id;if(x.isIntersecting&&!seen[id]){seen[id]=1;c('vidio sekciju '+id)}})},{threshold:.35});document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)})}})();</script><script>(function(){function c(n){if(window.goatcounter&&goatcounter.count)goatcounter.count({path:location.pathname.replace(/\/$/,'')+' > '+n,title:n,event:true})}
+document.addEventListener('click',function(e){var l=e.target.closest('[data-lang]');if(l)c('jezik '+l.getAttribute('data-lang'))},true);
+document.addEventListener('submit',function(e){var f=e.target;c('poslan obrazac '+(f.id||f.className||'form'))},true);
+var seen={};var io=window.IntersectionObserver&&new IntersectionObserver(function(es){es.forEach(function(x){var id=x.target.id;if(x.isIntersecting&&!seen[id]){seen[id]=1;c('vidio '+id)}})},{threshold:.35});
+if(io&&location.pathname!=='/'&&location.pathname!=='/index.html')document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)})})();</script></body>
 </html>
