@@ -493,7 +493,7 @@ html select{height:56px;line-height:normal}
 .faq,.faq-list,.faq__list{border-top:0!important}
 .faq>:first-child,.faq-list>:first-child,.faq__list>:first-child{border-top:0!important}
 .faq>:first-child::before,.faq-list>:first-child::before,.faq__list>:first-child::before{display:none!important}
-</style>
+.hero__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 62%;z-index:2;animation:heroZoom 18s ease-out both}@keyframes heroZoom{from{transform:scale(1.12)}to{transform:scale(1)}}.hero__media>svg,.hero__media>canvas{display:none!important}@media(prefers-reduced-motion:reduce){.hero__photo{animation:none}}</style>
 </head>
 <body class="locked">
 
@@ -607,7 +607,7 @@ html select{height:56px;line-height:normal}
 <main id="top">
 
 <section class="hero" id="hero" aria-label="Konoba Serafin">
-  <div class="hero__media" id="heroMedia" aria-hidden="true">
+  <div class="hero__media" id="heroMedia" aria-hidden="true"><img class="hero__photo" src="img/hero.jpg" alt="" fetchpriority="high">
     <!-- Static SVG scene: fallback when WebGL is off or reduced motion is set -->
     <svg class="hero__scene" viewBox="0 0 400 760" preserveAspectRatio="xMidYMid slice">
       <g class="dust" fill="#E8C07A">
@@ -849,7 +849,7 @@ html select{height:56px;line-height:normal}
 
 <!-- 05 Nearby -->
 <section class="sec has-deco bg-white" id="blizina">
-  <svg class="deco" viewBox="0 0 400 140" style="width:min(120vw,900px);right:-10%;bottom:-10px;color:#2B2B2B;opacity:0.08" data-par="0.1" aria-hidden="true"><use href="#i-skyline" width="400" height="140"/></svg>
+  
   <div class="wrap near__grid">
     <div class="sh rv">
       <p class="label"><span class="num">05</span><span data-i18n="near.label">Lokacija</span></p>
