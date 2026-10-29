@@ -146,6 +146,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;paddin
 .tag svg{width:14px;height:14px;flex:none}
 a.tag:hover{background:#000}
 .deco{position:absolute;pointer-events:none;z-index:0;will-change:transform}
+.shead+*{border-top:0!important}
+.shead+.rec article{border-top:0!important}
+.school{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.school .sf{position:absolute;left:0;top:0;width:110px;height:33px;will-change:transform;opacity:.45}
+.school .sf svg{width:100%;height:100%;display:block;overflow:visible;animation:wig .5s ease-in-out infinite alternate;transform-origin:30% 50%}
+@keyframes wig{from{transform:skewY(-3deg) scaleX(1)}to{transform:skewY(3deg) scaleX(.97)}}
+.sec>.wrap{position:relative;z-index:1}
+
 .deco svg{display:block;width:100%;height:auto;overflow:visible}
 
 /* ============ HERO ============ */
@@ -961,8 +969,8 @@ html select{height:56px;line-height:normal}
         <p class="rv" style="--i:2" data-i18n="story.p2">Kameni zidovi, lukovi od cigle i visoki stropovi čuvaju stari, pošteni ugođaj. Riba stiže s ribarnice svaki dan, a ono što stigne napišemo kredom na ploču na ulazu. Kuhamo jednostavno, kako se ovdje oduvijek kuhalo. Konobu vodi Nena, koja stigne do svakog stola. U kuhinji su Robert Semion, Danijel Valenčić i Mario Jalžabetić.</p>
         <div class="stats rv" style="--i:3">
           <div><b data-i18n="stat.g">4,6</b><span data-i18n="stat.g.l">Google, 2.300+ recenzija</span></div>
-          <div><b>G&amp;M</b><span data-i18n="stat.gm.l">Gault&amp;Millau 2026</span></div>
-          <div><b data-i18n="stat.p">Luka</b><span data-i18n="stat.p.l">Gastronomska luka Rijeke</span></div>
+          <div><b class="lg"><img src="img/gaultmillau.svg" alt="Gault&amp;Millau" style="height:22px;width:auto;display:block;margin:12px 0 10px"></b><span data-i18n="stat.gm.l">Gault&amp;Millau 2026</span></div>
+          <div><b class="lg"><img src="img/luke.png" alt="Riječke gastronomske luke" style="height:46px;width:auto;display:block"></b><span data-i18n="stat.p.l">Gastronomska luka Rijeke</span></div>
         </div>
       </div>
       <div class="story-img rv" style="--i:1">
@@ -977,7 +985,7 @@ html select{height:56px;line-height:normal}
 
 <!-- GOOD TO KNOW + NEARBY (white) -->
 <section class="sec white" data-sec="prica" aria-labelledby="gtkT">
-  <div class="deco" data-py="-0.12" style="width:90px;top:40px;right:-20px;opacity:.9;transform-origin:center"><svg viewBox="0 0 120 200"><use href="#s-chard" width="120" height="200"/></svg></div>
+  <div class="school" aria-hidden="true"></div>
   <div class="deco" data-px="0.3" style="width:140px;bottom:46px;left:-60px;opacity:.5"><svg viewBox="0 0 200 60"><use href="#s-sardine" width="200" height="60"/></svg></div>
   <div class="wrap">
     <div class="know">
@@ -1149,14 +1157,14 @@ html select{height:56px;line-height:normal}
       <article class="rv">
         <div class="seal">
           <svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="c1" d="M50 50m-40 0a40 40 0 1 1 80 0a40 40 0 1 1 -80 0"/></defs><circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width=".6"/><text font-family="Figtree" font-size="7.6" letter-spacing="3.2" fill="currentColor"><textPath href="#c1">GAULT&amp;MILLAU · CROATIA · GUIDE ·</textPath></text></svg>
-          <div class="mid">G&amp;M</div>
+          <div class="mid"><img src="img/gaultmillau.svg" alt="Gault&amp;Millau" style="width:62px;height:auto;display:block"></div>
         </div>
         <div><h3>Gault&amp;Millau</h3><p data-i18n="rec.1">U vodiču Gault&amp;Millau Hrvatska 2026: konoba u srcu Rijeke, uz ribarnicu, gotovo uvijek puna.</p></div>
       </article>
       <article class="rv" style="--i:1">
         <div class="seal">
           <svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="c2" d="M50 50m-40 0a40 40 0 1 1 80 0a40 40 0 1 1 -80 0"/></defs><circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width=".6"/><text font-family="Figtree" font-size="7.2" letter-spacing="2.6" fill="currentColor"><textPath href="#c2">RIJEČKE GASTRONOMSKE LUKE ·</textPath></text></svg>
-          <div class="mid"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#B08D57" stroke-width="1.1" aria-hidden="true"><path d="M12 3v15M8 6h8M12 18c-4 0-7-2.5-7.5-6M12 18c4 0 7-2.5 7.5-6M3 12h3M18 12h3"/><circle cx="12" cy="3.8" r="1.2"/></svg></div>
+          <div class="mid"><img src="img/luke.png" alt="Riječke gastronomske luke" style="width:58px;height:auto;display:block"></div>
         </div>
         <div><h3 data-i18n="rec.2t">Ribarska gastronomska luka</h3><p data-i18n="rec.2">Visit Rijeka, Riječke gastronomske luke.</p></div>
       </article>
@@ -2382,5 +2390,14 @@ function dodge(){if(window.innerWidth>700){bar.style.bottom="";return}bar.style.
 scanC();window.addEventListener("load",function(){scanC();dodge()});setInterval(dodge,250);window.addEventListener("scroll",dodge,{passive:true});
 var mo=new MutationObserver(function(){bar.classList.toggle("off",document.documentElement.classList.contains("menu-open")||document.body.classList.contains("menu-open")||document.body.classList.contains("nav-open"))});mo.observe(document.body,{attributes:true,attributeFilter:["class"]});mo.observe(document.documentElement,{attributes:true,attributeFilter:["class"]});
 })();</script>
-<script data-goatcounter="https://tararova.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body>
+<script data-goatcounter="https://tararova.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script>(function(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;document.querySelectorAll('.school').forEach(function(sc){var sec=sc.parentNode,W=0,H=0,F=[],mx=-1e4,my=-1e4,vis=false;
+function rs(){W=sc.offsetWidth;H=sc.offsetHeight}rs();addEventListener('resize',rs);
+var types=['s-sardine','s-sardine','s-sardine','s-bream','s-sardine','s-sardine','s-sardine'];
+types.forEach(function(t,i){var d=document.createElement('div');d.className='sf';var w=t=='s-bream'?150:90+Math.random()*40;d.style.width=w+'px';var vb=t=='s-bream'?[220,120]:[200,60];d.style.height=(w*vb[1]/vb[0])+'px';d.innerHTML='<svg viewBox="0 0 '+vb[0]+' '+vb[1]+'"><use href="#'+t+'" width="'+vb[0]+'" height="'+vb[1]+'"/></svg>';d.firstChild.style.animationDuration=(.35+Math.random()*.3)+'s';sc.appendChild(d);
+F.push({el:d,w:w,x:W*(.15+i*.13),by:H*(.12+Math.random()*.76),y:0,v:.35+Math.random()*.35,ph:Math.random()*6,dx:0,dy:0})});
+sec.addEventListener('pointermove',function(e){var r=sc.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top},{passive:true});sec.addEventListener('pointerleave',function(){mx=my=-1e4});
+new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(sc);
+(function fr(){requestAnimationFrame(fr);if(!vis)return;F.forEach(function(f){f.ph+=.03;f.x+=f.v;var cx=f.x+f.w/2,cy=f.by+f.y;var ddx=cx-mx,ddy=cy-my,d=Math.hypot(ddx,ddy)||1;if(d<160){var k=(160-d)/160;f.dx+=ddx/d*k*2.2;f.dy+=ddy/d*k*2.2;f.el.firstChild.style.animationDuration='.15s'}else f.el.firstChild.style.animationDuration='';f.dx*=.92;f.dy*=.92;f.x+=f.dx;f.by+=f.dy;f.by=Math.max(10,Math.min(H-40,f.by));f.y=Math.sin(f.ph)*10;
+if(f.x>W+20){f.x=-f.w-20-Math.random()*120;f.by=H*(.1+Math.random()*.8)}
+var tilt=Math.cos(f.ph)*4+f.dy*3;f.el.style.transform='translate('+f.x+'px,'+(f.by+f.y)+'px) rotate('+tilt+'deg)'})})()})})();</script></body>
 </html>
