@@ -607,7 +607,7 @@ html select{height:56px;line-height:normal}
 .frame-wrap{max-width:1000px}.frame{aspect-ratio:3/2;max-height:none;width:min(100%,calc(58vh * 1.5));margin:0 auto;border-radius:var(--r,32px)}
 }
 </style>
-</head>
+<style id="mdp-range">.mdp-day.hov{background:var(--mdp-accent,#1B1B1B)!important;color:#fff!important;opacity:.75}.mdp-step{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.7;text-align:center;margin:-2px 0 8px}</style></head>
 <body class="locked">
 
 <!-- Illustration library: our own drawings, used as parallax layers and photo fallbacks -->
@@ -2067,7 +2067,7 @@ function initEmbers(){
     Object.defineProperty(input,"value",{configurable:true,get:function(){return _desc.get.call(this);},set:function(v){_desc.set.call(this,v);sync();}});
   }
   Picker.prototype.show=function(){
-    closeAll(this);this.render();var pop=this.pop,wrap=this.wrap;pop.style.left="";pop.classList.remove("right");
+    closeAll(this);if(this.pair&&this.pair.role==="start"){this.step="start";this.hover=null;}this.render();var pop=this.pop,wrap=this.wrap;pop.style.left="";pop.classList.remove("right");
     var r=wrap.getBoundingClientRect();pop.classList.toggle("up",window.innerHeight-r.bottom<420&&r.top>420);
     pop.classList.add("on");this.isOpen=true;
     var pr=pop.getBoundingClientRect(),vw=document.documentElement.clientWidth;
@@ -2082,6 +2082,7 @@ function initEmbers(){
     var pair=this.pair,start=null,end=null;
     if(pair&&pair.role==="end"){start=parse(pair.other.value);if(start&&start>=mn){mn=new Date(start);mn.setDate(mn.getDate()+1);}}
     if(pair){var a=pair.role==="start"?this.input:pair.other,b=pair.role==="start"?pair.other:this.input;start=parse(a.value);end=parse(b.value);}
+    if(this.step==="end"&&start){mn=new Date(start);mn.setDate(mn.getDate()+1);end=this.hover||null;}
     return {mn:mn,mx:mx,closed:closed,start:start,end:end};
   };
   Picker.prototype.render=function(){
@@ -2105,16 +2106,20 @@ function initEmbers(){
     h+='</div><div class="mdp-foot"><span>'+(b.closed.length?TXT[L][2]+": "+b.closed.map(function(n){var x=new Date(base);x.setDate(1+((n+6)%7));return new Intl.DateTimeFormat(loc(),{weekday:"short"}).format(x);}).join(", "):"")+'</span>'+((t>=b.mn&&b.closed.indexOf(t.getDay())<0)?'<button type="button" data-today>'+TXT[L][1]+'</button>':"")+'</div>';
     pop.innerHTML=h;
     pop.querySelectorAll(".mdp-nav").forEach(function(n){n.onclick=function(){self.view=new Date(v.getFullYear(),v.getMonth()+(+n.dataset.n),1);self.render();};});
-    pop.querySelectorAll(".mdp-day[data-d]:not(:disabled)").forEach(function(n){n.onclick=function(){self.pick(n.dataset.d);};});
+    pop.querySelectorAll(".mdp-day[data-d]:not(:disabled)").forEach(function(n){n.onclick=function(){self.pick(n.dataset.d);};if(self.step==="end")n.onmouseenter=function(){var h=parse(n.dataset.d);pop.querySelectorAll(".mdp-day[data-d]").forEach(function(m){var d=parse(m.dataset.d);m.classList.toggle("inrange",!!(b.start&&d>b.start&&d<h));m.classList.toggle("hov",+d===+h);});};});
+    if(self.step==="end"){var hint=document.createElement("div");hint.className="mdp-step";hint.textContent=({hr:"Odaberite datum odlaska",en:"Now choose check-out",de:"Jetzt Abreise wählen",it:"Ora scegli la partenza",sl:"Izberite datum odhoda",ru:"Теперь дата выезда"})[L]||"Now choose check-out";pop.insertBefore(hint,pop.firstChild);}
     var tb=pop.querySelector("[data-today]");if(tb)tb.onclick=function(){self.pick(iso(t));};
   };
   Picker.prototype.pick=function(val){
-    var inp=this.input;inp.value=val;
+    var self=this,inp=this.input;
+    if(this.pair&&this.pair.role==="start"){var o=this.pair.other,s=parse(val);
+      function fire(x){x.dispatchEvent(new Event("input",{bubbles:true}));x.dispatchEvent(new Event("change",{bubbles:true}));}
+      if(this.step==="end"){var st=parse(inp.value);if(st&&s>st){o.value=val;fire(o);this.step="start";this.close();return;}}
+      inp.value=val;fire(inp);var e=parse(o.value);if(!e||e<=s){var n=new Date(s);n.setDate(n.getDate()+1);o.value=iso(n);fire(o);}
+      this.step="end";this.hover=null;this.render();return;}
+    inp.value=val;
     inp.dispatchEvent(new Event("input",{bubbles:true}));inp.dispatchEvent(new Event("change",{bubbles:true}));
     this.close();
-    if(this.pair&&this.pair.role==="start"){var o=this.pair.other,s=parse(val),e=parse(o.value);
-      if(!e||e<=s){var n=new Date(s);n.setDate(n.getDate()+7);o.value=iso(n);o.dispatchEvent(new Event("input",{bubbles:true}));o.dispatchEvent(new Event("change",{bubbles:true}));}
-      var op=pickers.filter(function(p){return p.input===o;})[0];if(op){op.view=new Date(s.getFullYear(),s.getMonth(),1);setTimeout(function(){op.input.dispatchEvent(new Event("mdp-open"));},250);}}
   };
   function init(){
     var ins=[].slice.call(document.querySelectorAll('input[type="date"]'));
