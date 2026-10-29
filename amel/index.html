@@ -549,6 +549,30 @@ html select{height:56px;line-height:normal}
 .story .sh h2{margin-top:14px}
 .map a.tag-b:hover{background:var(--ember)}
 
+
+/* hero photo + grill band */
+.hero__ph{position:absolute;inset:0;overflow:hidden;transform:scale(1.04);transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.hero__ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kb 26s ease-in-out infinite alternate;transform-origin:50% 60%}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.12) translate(-1.5%,-1%)}}
+.hero__warm{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 70% at 50% 110%,rgba(232,96,28,.35),rgba(232,96,28,0) 60%);mix-blend-mode:screen;animation:glow 3.4s ease-in-out infinite alternate}
+@media (prefers-reduced-motion:reduce){.hero__ph img,.hero__warm{animation:none}}
+.gband{position:relative;height:82vh;height:82svh;min-height:520px;max-height:860px;overflow:hidden;color:#fff;background:#0E0B09;touch-action:pan-y}
+.gband__media{position:absolute;inset:0;z-index:1}
+.gband .hero__scene{position:absolute;inset:0;width:100%;height:100%}
+.gband #embers{position:absolute;inset:0;width:100%;height:100%;z-index:2}
+.gband__veil{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to top,rgba(10,8,6,.8),rgba(10,8,6,0) 55%)}
+.gband__c{position:absolute;left:0;right:0;bottom:0;z-index:5;padding-bottom:56px}
+.gband .label{color:rgba(255,255,255,.85);margin-bottom:12px}
+.gband h2{font-size:clamp(34px,6.4vw,64px);line-height:1.05;color:#fff}
+.gband__hint{display:inline-flex;align-items:center;gap:10px;margin-top:16px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.gband__hint i{position:relative;width:16px;height:16px;border-radius:50%;border:1px solid rgba(255,255,255,.85)}
+.gband__hint i::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid #fff;animation:ripple 2.6s var(--ease) infinite}
+
+#jelovnik .dish{display:flex;justify-content:space-between;gap:16px;align-items:baseline}#jelovnik .dish h3{flex:1}#jelovnik .dish .pr{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+
+.sh+ul,.sh+.near,.sh+ul.near{border-top:0}
+
+.logo .amlogo{height:40px;width:auto;display:block}
 </style>
 <style>.hero__hint{display:none!important}</style>
 </head>
@@ -731,8 +755,7 @@ html select{height:56px;line-height:normal}
 <header class="hdr" id="hdr">
   <div class="wrap">
     <a href="#top" class="logo" aria-label="Buffet Amel">
-      <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><path d="M50 78c-11 0-18-7-18-16 0-13 15-17 13-34 9 4 22 15 22 32 0 11-7 18-17 18zm0 0c-4 0-7-3-7-7 0-6 7-8 6-14 4 3 8 6 8 12s-3 9-7 9z" fill="none" stroke="#E8601C" stroke-width="3" stroke-linejoin="round"/></svg>
-      <span><b>Buffet Amel</b><small>Rijeka · ćevapi &amp; grill</small></span>
+      <svg class="amlogo" viewBox="0 0 214 62" role="img" aria-label="buffet grill AMEL"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><path d="M13 37c-6.5 0-10-4.6-10-9.6 0-5.6 4.8-9.8 10.6-9C15 12.3 20.3 8 26.5 8s11.5 4.3 12.9 10.4c5.8-.8 10.6 3.4 10.6 9 0 5-3.5 9.6-10 9.6"/></g><path d="M13 39h27v9.5a4 4 0 0 1-4 4H17a4 4 0 0 1-4-4z" fill="#E8601C"/><text x="60" y="23" font-family="Fraunces,Georgia,serif" font-style="italic" font-size="17" fill="currentColor" letter-spacing=".4">buffet grill</text><text x="58" y="56" font-family="Figtree,'Helvetica Neue',Arial,sans-serif" font-weight="800" font-style="italic" font-size="35" letter-spacing="2" fill="currentColor">AMEL</text></svg>
     </a>
     <div class="hdr__r">
       <div class="lang" role="group" aria-label="Jezik">
@@ -769,7 +792,271 @@ html select{height:56px;line-height:normal}
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <div class="hero__media" id="heroMedia">
+  <div class="hero__media" id="heroMedia"><div class="hero__ph" id="heroPh"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TXY6nN7VTHm3TlS7VT_Vng1kPtTpx8z38beX8AC8RunQ59PYoK8O6pJsuTyxZjRMZ1KbzZ24-MxWNQ9SNN3UMyoorLeo25FRTUpZ5-nGsJvwPbgm18yfPg0vMan2P3R4e2WUb2FsWevfo=w1600-h1600-no" alt="Buffet Amel navečer, ulaz s terasom" fetchpriority="high"></div><div class="hero__warm" aria-hidden="true"></div></div>
+  <div class="hero__veil"></div>
+  <div class="hero__c wrap">
+    <p class="label fade-up d1" data-i18n="hero.label">Rijeka · ćevapi · roštilj</p>
+    <h1>
+      <span class="mask"><span>Buffet Amel</span></span>
+      <span class="mask"><span class="sub" data-i18n="hero.sub">Ćevapi s pogledom na Kvarner</span></span>
+    </h1>
+    <p class="hero__txt fade-up d2" data-i18n="hero.txt">Ćevapi u svježoj lepinji, plate s roštilja za cijelo društvo i pogled na more i Istru. Otvoreno svaki dan od 9 do 23.</p>
+    <a class="hero__addr fade-up d3" href="https://www.google.com/maps/search/?api=1&amp;query=Buffet+Amel%2C+Ul.+Ivana+%C5%BDor%C5%BEa+39%2C+51000+Rijeka" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg><span>Ul. Ivana Žorža 39, 51000 Rijeka</span></a>
+    <div class="ichips fade-up d3">
+      <span><svg><use href="#i-cash"/></svg><span data-i18n="chip.cash">Kartice i gotovina</span></span>
+      <span><svg><use href="#i-car"/></svg><span data-i18n="chip.park">Parking</span></span>
+      <span><svg><use href="#i-bagi"/></svg><span data-i18n="chip.wolt">Wolt dostava</span></span>
+      <span><svg><use href="#i-mtn"/></svg><span data-i18n="chip.view">Pogled na Kvarner</span></span>
+    </div>
+    <div class="hero__cta fade-up d4"><a href="#rezervacija" class="pill pill--grey" data-i18n="hero.cta">Rezerviraj stol</a></div>
+  </div>
+</section>
+
+<!-- FINDER -->
+<div class="finder">
+  <a href="#rezervacija" id="finder">
+    <svg class="finder__ic" viewBox="0 0 32 32"><use href="#i-fork"/></svg>
+    <span class="finder__t"><b data-i18n="finder.b">Stol danas</b><small id="finderS">Danas • 2 gosta</small></span>
+    <span class="finder__go"><svg><use href="#i-r"/></svg></span>
+  </a>
+</div>
+
+<nav class="subnav" aria-label="Sekcije">
+  <div class="subnav__in">
+    <a href="#galerija" data-i18n="nav.gal">Galerija</a><a href="#jelovnik" data-i18n="nav.menu">Jelovnik</a><a href="#zasto" data-i18n="nav.why">Zašto Amel</a><a href="#dostava" data-i18n="nav.near">Za van i dostava</a><a href="#rezervacija" data-i18n="nav.book">Rezervacija</a><a href="#faq">FAQ</a>
+  </div>
+</nav>
+
+<!-- GALLERY near-black -->
+<section class="gal-sec" id="galerija">
+  <div class="wrap">
+    <h2 class="rv" data-i18n="gal.title">Pogled u Buffet Amel</h2>
+    <p class="sub rv" data-delay="1" data-i18n="gal.sub">Roštilj, svježa lepinja i pogled kroz prozor koji se pamti.</p>
+  </div>
+  <div class="gal" id="gal">
+    <div class="gal__track" id="galTrack">
+      <div class="gal__slide cur">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QHrKkkvM--IvA4gRVtbDO4hm10mcNiyvm4VL80BfLlUBwTaQgoPXQ4woEAq78GeUZoilBMMJ9gFW5A4Wcimw1P4FtC5gxXagPVjBWEqjl8DdNPa7DRZHW19b73IFRb7IHzoDkmmIE3anV0=w1600-h1600-no" alt="Buffet Amel, Rijeka" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Unutra", "en": "Inside", "de": "Innen", "it": "All’interno", "hu": "Belül"}'>Unutra</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Qn6-IYw3XArfcDAGh5ozLk12vWL2RXBTNN8fZbQD9uYJEyUGNDpw0RQ_XPZ72_YNHOWhC7Oq2VRMD1aHtQeVSTe3wq2mCpVNKCUYEt68A4LlKu_42_YyR2IjlQzPxdTyRCNQaG=w1600-h1600-no" alt="Buffet Amel, Rijeka" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-mtn"/></svg><span data-tx='{"hr": "Pogled na Kvarner", "en": "View over the Kvarner bay", "de": "Blick auf die Kvarner-Bucht", "it": "Vista sul Quarnero", "hu": "Kilátás a Kvarnerre"}'>Pogled na Kvarner</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TN11EAuCGHjV81Y4nbmpbrJBQskVudbV0AsjGcX6m6PSfqcVF9WvsTAMPAzK5tzUuAoJdK8VjLFw1sC1AmxYaEweZW_xUqPlpGioNT7EWb24kRfTrJprVDXbSNvS0Pur4PcdDsVd78V1ve=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Ćevapi u svježoj lepinji", "en": "Ćevapi in fresh lepinja bread", "de": "Ćevapi im frischen Fladenbrot", "it": "Ćevapi nel pane lepinja fresco", "hu": "Ćevapi friss lepinjában"}'>Ćevapi u svježoj lepinji</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TmAShPRgA6e0R4j0fcQjBPWZhQlg8aghEtxp4mPCF8Qrh8wwnQSEu1dsJLKoQBrs8vdJ0wZd9_-HpAfs_E16LAQpcLbXW2O1PeRWXPjl-O-NhWJsewCCLPhpLQUqDfWm94UE8=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Plata za društvo", "en": "A platter for the table", "de": "Eine Platte für den Tisch", "it": "Un piatto per la tavola", "hu": "Tál az egész asztalnak"}'>Plata za društvo</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9T3nbrTpsXXBjkhezbHfLLIExd2s2B43isTtwIRiSKKt7-ahgUZHYcQkgWI5_v6OlCdHR83LAJL0f5_E0y3yIrhUE0HmaslQHQG6C2yOvhyLY0BLSr4DXWvV5tBk3UX26h_hSKJ=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Unutra", "en": "Inside", "de": "Innen", "it": "All’interno", "hu": "Belül"}'>Unutra</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QYeeY9_I5y7PGxLKEsCo4h1QkofZxxil3I2Vs9CAbcjNpnBzIXCAt8Wv7RDpe-MFzEsMR1RJN4586P7I8vivjFQA2UGjWwUW75sR3mKFjIYWXu68cyXdmhnjJu72jtEHHGFftJ=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-mtn"/></svg><span data-tx='{"hr": "Pogled na Kvarner", "en": "View over the Kvarner bay", "de": "Blick auf die Kvarner-Bucht", "it": "Vista sul Quarnero", "hu": "Kilátás a Kvarnerre"}'>Pogled na Kvarner</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TWQJ8ixe0BccziC6wl2eamXiFdag37Xj6Rp3Bn-PGXEB5sUSdWMJOcDHaU03DYBM1bNwf-8-VBW1yUpujnP-veZ54e9jlWHD3gCp6X-watHR6RfwbTAnp_pK1s-vnzgG0AqtzYnUCiUl4=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "S roštilja", "en": "From the grill", "de": "Vom Grill", "it": "Dalla griglia", "hu": "A grillről"}'>S roštilja</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Qgs6vX_GdwADExCMfv_xfEkY7MV2gB-UiXl2Ikt5ii464gOGKo_3hBCXs-rMcs98tmWEE2TtoAZDiXPFGafwxZ2IyewJuzu8FcwoV9MBZtcagJnX_FBufPg_264bZEKV_HWqN-=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Plata za društvo", "en": "A platter for the table", "de": "Eine Platte für den Tisch", "it": "Un piatto per la tavola", "hu": "Tál az egész asztalnak"}'>Plata za društvo</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9SnNck5AqW0Zi9Sq0PTU0vH1ss4WLj86BpKMGgsA6LG_Bre5qjdiE5uZnxQCXwTwAl0Ff6jieYFFmv_FFxCZn7GmUzY1Wf6BUnHxD2_My6FKeHReaQEcUm0uHsfeNj_QMSKjW1qCa6car8=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Unutra", "en": "Inside", "de": "Innen", "it": "All’interno", "hu": "Belül"}'>Unutra</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9SbPqzV5i65lmc5Hw3RiJ25Gp3AvYdmD7Q1x5HVN3TvSB4J7xuIm7sv7wHXorM6swUfuL2IcOvoLnuyYNqlep7UdcntzvVgoc9MSTLDOB-jZJGW99xxRiVJp2SDuqHmMdbD6GBd=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-sun"/></svg><span data-tx='{"hr": "Zalazak nad Kvarnerom", "en": "Sunset over the Kvarner", "de": "Sonnenuntergang über dem Kvarner", "it": "Tramonto sul Quarnero", "hu": "Naplemente a Kvarner felett"}'>Zalazak nad Kvarnerom</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9RI2rH31SdsYHAls5Qb5rPxNZUjuxclyk4dKpNcQFkNlrepmvNucO48kB45IcC5F51PX_gZNIaAkuXGg0RXk3wrko7PYlVIavwd7dBsh5Vbmj0vS4QJysNWJyzyLkyplbuVZl2a2D3rvcgj=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "S roštilja", "en": "From the grill", "de": "Vom Grill", "it": "Dalla griglia", "hu": "A grillről"}'>S roštilja</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9S7F1wXNdVDcs71u1edxz-SGs07MHbmKQ9woMoSAnlg5brgzvGyZErzOFaD2qTfKF1iZOx4n8kFWjSa0_zcYQ8EQPjKghDEZaXT2sPRl2Lk9GJWjBdCRUVzXOfRKpBx0v9hfmAeSjYgQ2wC=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-wave"/></svg><span data-tx='{"hr": "Lignje", "en": "Squid", "de": "Tintenfisch", "it": "Calamari", "hu": "Tintahal"}'>Lignje</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9RSr4vdPGKyh27_LtZFX-myhjVri-HMRUEG6M-VwEIlLkFuf3XeKvWbtqKthCz7cp2fPAgffirx04M8G1uQDlmKA3tk15HR6eOWyCrq2EmGCLwVqcqK3NPjRNn5asGQ8nt1Ngh-TKXJjAs=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-pin"/></svg><span data-tx='{"hr": "Ulaz", "en": "The entrance", "de": "Der Eingang", "it": "L’ingresso", "hu": "A bejárat"}'>Ulaz</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Tb4KNFeoKfAea9_51EZYY70dPXSAg-F6KQxFwdE0BEA3CYZAYpLUtTUwOs3j2zCrN6zSqHTWxQPr9Yn_YP9Rmql1S_Hp_jNI_EikRE8C7yc9zeKc-3z7qkssrDU0UNCt3z-lDYLg=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-sun"/></svg><span data-tx='{"hr": "Salate", "en": "Salads", "de": "Salate", "it": "Insalate", "hu": "Saláták"}'>Salate</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TGO6tobpeovVdsfw13qK_gPrUz6_yBUIS0jOj9wzNmFy7dqqs8nLtJEeWEV0AYLASED_4gn_etaWt9XhcfCxMuuLCOL_MiFUtCHTNabr3bXBcBRGbP1_HeQNi2ri-HZJMbmv98=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "S roštilja", "en": "From the grill", "de": "Vom Grill", "it": "Dalla griglia", "hu": "A grillről"}'>S roštilja</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Rv7ueBhNPvMnr3e3jUQLzHTPIgLXvoIgpNhc_9ToCZCI-80B4r5efZyv23Qs1lZFbvK7cI81jYTXVgZlL7d5KyWKb72TcZDFb9MWG8NsyL4yFBso7hmYcpONZ6wb5sv4AH9euu=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Burgeri", "en": "Burgers", "de": "Burger", "it": "Hamburger", "hu": "Burgerek"}'>Burgeri</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QAbX8vvfxtysm2snyM0gidgchJynpE1rr6QeH0EbVlumru9nMJCWHrfK06qgfOtXItn8WXYJiEBu8l71Tr2u_6zBoKkAORPyegHBhJPWjV7V0HPKhk0XcNSRGj1SaqF9RwZDU_=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-mtn"/></svg><span data-tx='{"hr": "Pogled na Kvarner", "en": "View over the Kvarner bay", "de": "Blick auf die Kvarner-Bucht", "it": "Vista sul Quarnero", "hu": "Kilátás a Kvarnerre"}'>Pogled na Kvarner</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9RiE4a6KicGHl_os89ChBYK_LyUFDc-00cvz5WPfd40lp5F_KPzb-NiqeoQ9gnQ_-uDg2XMe4ade3pVZBVSXs5rI7mwv0NGjApiolHZUesqlmFvcym8xBRXii49P-HMF4QFpPfM51Hsq_w=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-star"/></svg><span data-tx='{"hr": "Za kraj", "en": "To finish", "de": "Zum Abschluss", "it": "Per finire", "hu": "A végére"}'>Za kraj</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Q70zEUHKSO9PA_tSoWedp4m3-OckNwQClyxlFKmrWK6vLp3gK9onPz_Mu_lua9_9yO0l3pE8keuNeTxYcVG7kFbH_H6NJZF4m2nTZFicZ40GBQoECMdrzTniDS0zHaU_INDq8QWEThirg=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Unutra", "en": "Inside", "de": "Innen", "it": "All’interno", "hu": "Belül"}'>Unutra</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9SSOxmds4VjekBxs7NNI6AVlVTarDqlROkT2tgEzmVri9QF8wWevuNEBc2TDzRhAndTpQ9590Wc3ujow-QXwfeagIM7LjA3yNFM2EL_FbuXNj2uT0VxqKVCAKZrB8GVgdjMpf9j=w1600-h1600-no" alt="Buffet Amel, Rijeka" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Ćevapi u svježoj lepinji", "en": "Ćevapi in fresh lepinja bread", "de": "Ćevapi im frischen Fladenbrot", "it": "Ćevapi nel pane lepinja fresco", "hu": "Ćevapi friss lepinjában"}'>Ćevapi u svježoj lepinji</span></div>
+      </div>
+    </div>
+    <a class="tag-b" href="https://www.google.com/maps/search/?api=1&amp;query=Buffet+Amel%2C+Ul.+Ivana+%C5%BDor%C5%BEa+39%2C+51000+Rijeka" target="_blank" rel="noopener"><span data-i18n="tag">Rijeka, Hrvatska</span><svg><use href="#i-r"/></svg></a>
+    <button class="sqbtn l" id="gPrev" type="button" aria-label="Prethodna"><svg><use href="#i-l"/></svg></button>
+    <button class="sqbtn r" id="gNext" type="button" aria-label="Sljedeća"><svg><use href="#i-r"/></svg></button>
+    <div class="gal__prog"><i id="galProg"></i></div>
+    <div class="gal__count" id="galCount">1/20</div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="sec bg-linen story" id="prica">
+  <div class="wm" id="wm" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="story__grid">
+      <div>
+        <div class="sh rv">
+          <p class="label"><span class="num">01</span><span data-i18n="story.label">Priča</span></p>
+          <h2 data-i18n="story.title">Ćevapi na brdu iznad Rijeke</h2>
+        </div>
+        <p class="lead rv" data-i18n="story.p1">Buffet Amel je roštilj na brdu iznad Rijeke, u Ulici Ivana Žorža 39. Ćevapi se peku na roštilju i stižu u svježoj lepinji, a kroz prozore se vidi cijeli Kvarner, more i Istra.</p>
+        <p class="rv" data-delay="1" data-i18n="story.p2">Gosti kažu da se ovdje jede kao kod rodbine: porcije su velike, cijene razumne, konobarice brze i ljubazne, a sve je besprijekorno čisto. Mnogi Riječani dolaze nekoliko puta mjesečno.</p>
+        <div class="badge rv" data-delay="2">
+          <span class="badge__g">G</span>
+          <div><b>4,4</b> <span class="stars" aria-label="4,4 / 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg class="half"><use href="#i-star"/></svg></span><small><span data-i18n="story.google">Google ocjena</span> · <span data-i18n="story.about">oko</span> 1.800 <span data-i18n="story.rev">recenzija</span></small></div>
+        </div>
+        <div class="stats rv" data-delay="2">
+          <div class="stat"><b data-count="1800" data-pre="~">0</b><span data-i18n="st.1">Google recenzija</span></div>
+          <div class="stat"><b data-count="4.4" data-dec="1">0</b><span data-i18n="st.2">Prosječna ocjena</span></div>
+        </div>
+        <div class="sig rv" data-delay="3"><svg viewBox="0 0 32 32"><use href="#i-fire"/></svg><div><b>Buffet Amel</b><small data-i18n="story.sign">Rijeka, Kvarner</small></div></div>
+      </div>
+      <div class="frame story__img rv-img">
+        <div class="art art--hero"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9T3-XX1kFsGG23vKDGRD3Xb7UsZB7IE1JRDHJMifiwyVuges6W6KGs4iVh-fEklYRW8GpqigK1H3ypgcnTk0ONFT8byGK5EQtAeTLsHUpVhOYkyqmY-6S-hXMQabuGwnXS-HzA=w1600-h1600-no" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+          <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><g opacity=".1" color="#F6A05A"><use href="#i-stonewall" x="-20" y="0" width="480" height="280"/></g><use href="#i-grill" x="20" y="260" width="360" height="180"/><use href="#i-flames" x="100" y="160" width="200" height="160"/><use href="#i-cevapi" x="80" y="120" width="240" height="44"/></svg></div>
+        <span class="tag-b" data-i18n="tag">Rijeka, Hrvatska</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="sec bg-white" id="jelovnik">
+  <div class="wrap">
+    <div class="sh rv">
+      <p class="label"><span class="num">02</span><span data-i18n="menu.label">Jelovnik</span></p>
+      <h2 data-i18n="menu.title">Što se jede kod Amela</h2>
+      <p data-tx='{"hr": "Ćevapi su glavna stvar. Uz njih jela s roštilja, plate za društvo, burgeri, salate i palačinke.", "en": "Ćevapi are the main thing. Next to them grilled dishes, platters for the group, burgers, salads and pancakes.", "de": "Ćevapi sind die Hauptsache. Dazu Grillgerichte, Platten für die Runde, Burger, Salate und Palatschinken.", "it": "I ćevapi sono il piatto principale. Poi grigliate, piatti per la compagnia, hamburger, insalate e crêpes."}'>Ćevapi su glavna stvar. Uz njih jela s roštilja, plate za društvo, burgeri, salate i palačinke.</p>
+    </div>
+    <div class="menu__grid">
+      <div class="rv">
+        <div class="tabs" role="tablist" aria-label="Jelovnik">
+          <button class="tab" role="tab" id="tab-1" aria-selected="true" aria-controls="pane-1" data-tx='{"hr": "Ćevapi i roštilj", "en": "Ćevapi and grill", "de": "Ćevapi und Grill", "it": "Ćevapi e griglia"}'>Ćevapi i roštilj</button>
+          <button class="tab" role="tab" id="tab-2" aria-selected="false" aria-controls="pane-2" data-i18n="tab.2">Plate</button>
+          <button class="tab" role="tab" id="tab-3" aria-selected="false" aria-controls="pane-3" data-i18n="tab.3">Burgeri i salate</button>
+          <button class="tab" role="tab" id="tab-4" aria-selected="false" aria-controls="pane-4" data-i18n="tab.4">Deserti i pića</button>
+        </div>
+        <div class="panes">
+          <div class="pane on" id="pane-1" role="tabpanel" aria-labelledby="tab-1">
+            <div class="dish"><h3><span>Ćevapi mali</span></h3><span class="pr">10,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Ćevapi petica</span><span class="hl" data-i18n="m.hl">Hit</span></h3><span class="pr">10,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Ćevapi srednji</span></h3><span class="pr">10,50&nbsp;€</span></div>
+            <div class="dish"><h3><span>Ćevapi desetka (sarajevski)</span></h3><span class="pr">13,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Ćevapi veliki (banjalučki)</span></h3><span class="pr">13,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>XXXL ćevapi</span></h3><span class="pr">23,50&nbsp;€</span></div>
+            <div class="dish"><h3><span>Šiš ćevap mali / srednji / veliki</span></h3><span class="pr">12,50 / 13,50 / 15,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Pljeskavica u lepinji</span></h3><span class="pr">16,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Pljeskavica punjena sirom u lepinji</span></h3><span class="pr">20,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Pljeskavica s pommes fritesom</span></h3><span class="pr">18,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Gurmanska pljeskavica s pommes fritesom</span></h3><span class="pr">23,50&nbsp;€</span></div>
+            <div class="dish"><h3><span>Kombinacija mala / srednja / velika</span></h3><span class="pr">14,50 / 16,50 / 19,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Pileći file u lepinji</span></h3><span class="pr">14,50&nbsp;€</span></div>
+            <div class="dish"><h3><span>Pileći ražnjići s pommes fritesom</span></h3><span class="pr">18,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Teleći ražnjići u lepinji s pommes fritesom</span></h3><span class="pr">24,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Teleća šnicla s pommes fritesom</span></h3><span class="pr">24,50&nbsp;€</span></div>
+            <div class="dish"><h3><span>Pileći bečki odrezak s pommes fritesom</span></h3><span class="pr">18,50&nbsp;€</span></div>
+            <div class="dish"><h3><span>Pileći file u umaku od gljiva, kroketi i povrće na žaru</span></h3><span class="pr">27,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Jetrica sa žara s prilogom</span></h3><span class="pr">22,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Kobasice roštiljke s pommes fritesom</span></h3><span class="pr">22,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Lignje frigane s pommes fritesom i lepinjom</span></h3><span class="pr">20,00&nbsp;€</span></div>
+          </div>
+          <div class="pane" id="pane-2" role="tabpanel" aria-labelledby="tab-2">
+            <div class="dish"><h3><span>XXXL kombinacija</span><span class="hl" data-i18n="m.share">Za društvo</span></h3><span class="pr">27,50&nbsp;€</span></div>
+            <div class="dish"><h3><span>Miješano meso Amel</span></h3><span class="pr">28,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Miješano meso</span></h3><span class="pr">26,50&nbsp;€</span></div>
+            <div class="dish"><h3><span>Plata Amel za 2 osobe</span></h3><span class="pr">52,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Plata Amel za 3 osobe</span></h3><span class="pr">69,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Plata za 2 osobe</span></h3><span class="pr">49,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Plata za 3 osobe</span></h3><span class="pr">66,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Gurmanska plata za 4 osobe</span></h3><span class="pr">96,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Plate Turnić, Pehlin, Srdoči, Kozala i Drenova</span></h3><span class="pr">24,00&nbsp;€</span></div>
+          </div>
+          <div class="pane" id="pane-3" role="tabpanel" aria-labelledby="tab-3">
+            <div class="dish"><h3><span>Hamburger</span></h3><span class="pr">9,50&nbsp;€</span></div>
+            <div class="dish"><h3><span>Cheeseburger</span></h3><span class="pr">10,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Chickenburger</span></h3><span class="pr">9,50&nbsp;€</span></div>
+            <div class="dish"><h3><span>Chicken cheese burger</span></h3><span class="pr">10,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Burger + pommes frites</span></h3><span class="pr">13,50 do 14,50&nbsp;€</span></div>
+            <div class="dish"><h3><span>Šopska salata</span></h3><span class="pr">7,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Miješana, kupus, rajčica, zelena ili krastavac salata</span></h3><span class="pr">6,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Obročna pileća salata</span></h3><span class="pr">19,50&nbsp;€</span></div>
+          </div>
+          <div class="pane" id="pane-4" role="tabpanel" aria-labelledby="tab-4">
+            <div class="dish"><h3><span>Palačinke: čokolada, marmelada ili Lino Lada</span></h3><span class="pr">5,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Palačinke Nutella</span></h3><span class="pr">5,50&nbsp;€</span></div>
+            <div class="dish"><h3><span>Palačinke s orasima</span></h3><span class="pr">6,00&nbsp;€</span></div>
+            <div class="dish"><h3><span>Coca-Cola 0,5 l</span></h3><span class="pr">3,80&nbsp;€</span></div>
+            <div class="dish"><h3><span>Coca-Cola Zero, Fanta 0,33 l</span></h3><span class="pr">3,50&nbsp;€</span></div>
+            <div class="dish"><h3><span>Karlovačko 0,5 l</span></h3><span class="pr">4,20&nbsp;€</span></div>
+          </div>
+        </div>
+        <p class="menu__note" data-tx='{"hr": "Cijene s Wolta za dostavu (listopad 2026.). Cijene u restoranu provjerite na licu mjesta.", "en": "Prices from Wolt for delivery (October 2026). Please check prices in the restaurant.", "de": "Preise von Wolt für die Lieferung (Oktober 2026). Preise im Restaurant bitte vor Ort erfragen.", "it": "Prezzi di Wolt per la consegna (ottobre 2026). I prezzi in ristorante vanno verificati sul posto."}'>Cijene s Wolta za dostavu (listopad 2026.). Cijene u restoranu provjerite na licu mjesta.</p>
+      </div>
+      <div class="frame menu__pic rv-img">
+        <div class="art art--cev"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9T9iEqhgHt55KS0uZ2n8kzMjMPPwMs8l2tv_VYpS95T1b_6JGWC16wrrpmvZav8L7mdlZnlayfM1Q-6uF9CDH78SwcFUyclEZVrHTTVARsSbUcWiJqmr30rtxeYU2zg62KVpTZZt2gSp-E=w1600-h1600-no" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+          <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-platter" x="40" y="140" width="320" height="240"/><use href="#i-lepinja" x="220" y="40" width="160" height="96"/><use href="#i-olive" x="10" y="20" width="90" height="180" color="#4A5A3E"/></svg></div>
+        <span class="tag-b"><svg><use href="#i-fire"/></svg><span data-i18n="menu.tag">S roštilja</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY deep green -->
+<section class="why has-deco" id="zasto">
+  <i class="why__orb a" data-par="0.08"></i><i class="why__orb b" data-par="-0.05"></i>
+  <svg class="deco" style="right:-30px;top:-10px;width:170px" viewBox="0 0 140 280" data-par="0.12"><use href="#i-olive"/></svg>
+  <div class="wrap">
+    <p class="label rv"><span data-i18n="why.label">Zašto Amel</span></p>
+    <h2 class="rv" data-delay="1" data-i18n="why.title">Tri razloga zbog kojih se gosti vraćaju</h2>
+    <ul class="why__list">
+      <li class="rv"><span class="n">01</span><h3 data-i18n="why.1">Ćevapi i svježa lepinja</h3><p data-i18n="why.1d">Ono po čemu nas znaju. Petica, desetka ili veliki, uvijek u svježoj lepinji.</p></li>
+      <li class="rv" data-delay="1"><span class="n">02</span><h3 data-i18n="why.2">Pogled na Kvarner</h3><p data-i18n="why.2d">Sjedite unutra, a kroz prozore se pruža panorama na more, Kvarner i Istru.</p></li>
+      <li class="rv" data-delay="2"><span class="n">03</span><h3 data-i18n="why.3">Velike porcije, razumne cijene</h3><p data-i18n="why.3d">Plate su za dijeljenje i nitko ne ode gladan. Otvoreno svaki dan, cijele godine.</p></li>
+    </ul>
+    <a href="#rezervacija" class="pill pill--outline rv" data-i18n="why.cta">Rezerviraj stol</a>
+  </div>
+</section>
+
+<!-- SIGNATURE peek carousel -->
+
+<!-- GRILL BAND (3D embers moved here from the hero) -->
+<section class="gband" id="zar" aria-label="Roštilj">
+  <div class="gband__media" id="gbMedia">
     <svg class="hero__scene" viewBox="0 0 400 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
       <defs>
         <linearGradient id="hSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E0B09"/><stop offset=".6" stop-color="#1C1310"/><stop offset="1" stop-color="#2E1A10"/></linearGradient>
@@ -800,181 +1087,14 @@ html select{height:56px;line-height:normal}
     </svg>
     <canvas id="embers" aria-hidden="true"></canvas>
   </div>
-  <div class="hero__veil"></div>
-  <div class="hero__c wrap">
-    <p class="label fade-up d1" data-i18n="hero.label">Rijeka · ćevapi · roštilj</p>
-    <h1>
-      <span class="mask"><span>Buffet Amel</span></span>
-      <span class="mask"><span class="sub" data-i18n="hero.sub">Ćevapi s pogledom na Kvarner</span></span>
-    </h1>
-    <p class="hero__txt fade-up d2" data-i18n="hero.txt">Ćevapi u svježoj lepinji, plate s roštilja za cijelo društvo i pogled na more i Istru. Otvoreno svaki dan od 9 do 23.</p>
-    <a class="hero__addr fade-up d3" href="https://www.google.com/maps/search/?api=1&amp;query=Buffet+Amel%2C+Ul.+Ivana+%C5%BDor%C5%BEa+39%2C+51000+Rijeka" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg><span>Ul. Ivana Žorža 39, 51000 Rijeka</span></a>
-    <div class="ichips fade-up d3">
-      <span><svg><use href="#i-cash"/></svg><span data-i18n="chip.cash">Samo gotovina</span></span>
-      <span><svg><use href="#i-car"/></svg><span data-i18n="chip.park">Parking</span></span>
-      <span><svg><use href="#i-bagi"/></svg><span data-i18n="chip.wolt">Wolt dostava</span></span>
-      <span><svg><use href="#i-mtn"/></svg><span data-i18n="chip.view">Pogled na Kvarner</span></span>
-    </div>
-    <div class="hero__cta fade-up d4"><a href="#rezervacija" class="pill pill--grey" data-i18n="hero.cta">Rezerviraj stol</a></div>
-    <p class="hero__hint fade-up d4"><i></i><span data-i18n="hero.hint">Pomakni prst, iskre reagiraju</span></p>
+  <div class="gband__veil"></div>
+  <div class="gband__c wrap">
+    <p class="label" data-tx='{"hr": "Roštilj", "en": "The grill", "de": "Der Grill", "it": "La griglia"}'>Roštilj</p>
+    <h2 data-tx='{"hr": "Ćevapi pečeni na žaru", "en": "Ćevapi straight off the grill", "de": "Ćevapi direkt vom Grill", "it": "Ćevapi appena tolti dalla griglia"}'>Ćevapi pečeni na žaru</h2>
+    <p class="gband__hint"><i></i><span data-tx='{"hr": "Pomakni prst, iskre reagiraju", "en": "Move your finger, the sparks react", "de": "Finger bewegen, die Funken reagieren", "it": "Muovi il dito, le scintille reagiscono"}'>Pomakni prst, iskre reagiraju</span></p>
   </div>
 </section>
 
-<!-- FINDER -->
-<div class="finder">
-  <a href="#rezervacija" id="finder">
-    <svg class="finder__ic" viewBox="0 0 32 32"><use href="#i-fork"/></svg>
-    <span class="finder__t"><b data-i18n="finder.b">Stol danas</b><small id="finderS">Danas • 2 gosta</small></span>
-    <span class="finder__go"><svg><use href="#i-r"/></svg></span>
-  </a>
-</div>
-
-<nav class="subnav" aria-label="Sekcije">
-  <div class="subnav__in">
-    <a href="#galerija" data-i18n="nav.gal">Galerija</a><a href="#jelovnik" data-i18n="nav.menu">Jelovnik</a><a href="#zasto" data-i18n="nav.why">Zašto Amel</a><a href="#dostava" data-i18n="nav.near">Za van i dostava</a><a href="#rezervacija" data-i18n="nav.book">Rezervacija</a><a href="#faq">FAQ</a>
-  </div>
-</nav>
-
-<!-- GALLERY near-black -->
-<section class="gal-sec" id="galerija">
-  <div class="wrap">
-    <h2 class="rv" data-i18n="gal.title">Pogled u Buffet Amel</h2>
-    <p class="sub rv" data-delay="1" data-i18n="gal.sub">Roštilj, svježa lepinja i pogled kroz prozor koji se pamti.</p>
-  </div>
-  <div class="gal" id="gal">
-    <div class="gal__track" id="galTrack">
-      <div class="gal__slide cur">
-        <div class="art art--hero"><img src="img/hero.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
-          <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><g opacity=".1" color="#F6A05A"><use href="#i-stonewall" x="-20" y="0" width="480" height="280"/></g><use href="#i-grill" x="20" y="250" width="360" height="180"/><use href="#i-flames" x="100" y="150" width="200" height="160"/><use href="#i-platter" x="90" y="60" width="220" height="165"/></svg></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c1">XXXL kombinacija s roštilja</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--cev"><img src="img/2.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
-          <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-lepinja" x="50" y="150" width="300" height="180"/><g stroke="#2A1810" stroke-width="1"><rect x="110" y="214" width="60" height="22" rx="11" fill="url(#gMeat)"/><rect x="170" y="208" width="60" height="22" rx="11" fill="url(#gMeat)"/><rect x="230" y="214" width="60" height="22" rx="11" fill="url(#gMeat)"/><rect x="140" y="226" width="60" height="22" rx="11" fill="url(#gMeat)"/><rect x="200" y="228" width="60" height="22" rx="11" fill="url(#gMeat)"/></g><use href="#i-olive" x="300" y="20" width="90" height="180" color="#4A5A3E"/></svg></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c2">Ćevapi u svježoj lepinji</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--sea"><img src="img/3.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
-          <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-view" x="-40" y="90" width="480" height="360"/><g fill="none" stroke="#2A2522" stroke-width="14" opacity=".85"><rect x="-10" y="40" width="420" height="420"/><path d="M200 40v420M-10 250h420"/></g><ellipse cx="200" cy="486" rx="150" ry="28" fill="url(#gPlate)" stroke="#CFC4B8"/><g stroke="#2A1810" stroke-width="1"><rect x="140" y="468" width="50" height="18" rx="9" fill="url(#gMeat)"/><rect x="196" y="464" width="50" height="18" rx="9" fill="url(#gMeat)"/></g></svg></div>
-        <div class="cap"><svg><use href="#i-mtn"/></svg><span data-i18n="gal.c3">Pogled na Kvarner i Istru</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--fri"><img src="img/4.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
-          <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-squid" x="50" y="140" width="300" height="225"/></svg></div>
-        <div class="cap"><svg><use href="#i-wave"/></svg><span data-i18n="gal.c4">Lignje frigane s pommes fritesom</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--plj"><img src="img/5.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
-          <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-flames" x="110" y="80" width="180" height="140" opacity=".5"/><use href="#i-burger" x="80" y="170" width="240" height="192"/></svg></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-i18n="gal.c5">Burgeri s roštilja</span></div>
-      </div>
-    </div>
-    <a class="tag-b" href="https://www.google.com/maps/search/?api=1&amp;query=Buffet+Amel%2C+Ul.+Ivana+%C5%BDor%C5%BEa+39%2C+51000+Rijeka" target="_blank" rel="noopener"><span data-i18n="tag">Rijeka, Hrvatska</span><svg><use href="#i-r"/></svg></a>
-    <button class="sqbtn l" id="gPrev" type="button" aria-label="Prethodna"><svg><use href="#i-l"/></svg></button>
-    <button class="sqbtn r" id="gNext" type="button" aria-label="Sljedeća"><svg><use href="#i-r"/></svg></button>
-    <div class="gal__prog"><i id="galProg"></i></div>
-    <div class="gal__count" id="galCount">1/5</div>
-  </div>
-</section>
-
-<!-- STORY -->
-<section class="sec bg-linen story" id="prica">
-  <div class="wm" id="wm" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="story__grid">
-      <div>
-        <div class="sh rv">
-          <p class="label"><span class="num">01</span><span data-i18n="story.label">Priča</span></p>
-          <h2 data-i18n="story.title">Ćevapi na brdu iznad Rijeke</h2>
-        </div>
-        <p class="lead rv" data-i18n="story.p1">Buffet Amel je roštilj na brdu iznad Rijeke, u Ulici Ivana Žorža 39. Ćevapi se peku na roštilju i stižu u svježoj lepinji, a kroz prozore se vidi cijeli Kvarner, more i Istra.</p>
-        <p class="rv" data-delay="1" data-i18n="story.p2">Gosti kažu da se ovdje jede kao kod rodbine: porcije su velike, cijene razumne, konobarice brze i ljubazne, a sve je besprijekorno čisto. Mnogi Riječani dolaze nekoliko puta mjesečno.</p>
-        <div class="badge rv" data-delay="2">
-          <span class="badge__g">G</span>
-          <div><b>4,4</b> <span class="stars" aria-label="4,4 / 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg class="half"><use href="#i-star"/></svg></span><small><span data-i18n="story.google">Google ocjena</span> · <span data-i18n="story.about">oko</span> 1.800 <span data-i18n="story.rev">recenzija</span></small></div>
-        </div>
-        <div class="stats rv" data-delay="2">
-          <div class="stat"><b data-count="1800" data-pre="~">0</b><span data-i18n="st.1">Google recenzija</span></div>
-          <div class="stat"><b data-count="4.4" data-dec="1">0</b><span data-i18n="st.2">Prosječna ocjena</span></div>
-        </div>
-        <div class="sig rv" data-delay="3"><svg viewBox="0 0 32 32"><use href="#i-fire"/></svg><div><b>Buffet Amel</b><small data-i18n="story.sign">Rijeka, Kvarner</small></div></div>
-      </div>
-      <div class="frame story__img rv-img">
-        <div class="art art--hero"><img src="img/hero.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
-          <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><g opacity=".1" color="#F6A05A"><use href="#i-stonewall" x="-20" y="0" width="480" height="280"/></g><use href="#i-grill" x="20" y="260" width="360" height="180"/><use href="#i-flames" x="100" y="160" width="200" height="160"/><use href="#i-cevapi" x="80" y="120" width="240" height="44"/></svg></div>
-        <span class="tag-b" data-i18n="tag">Rijeka, Hrvatska</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MENU -->
-<section class="sec bg-white" id="jelovnik">
-  <div class="wrap">
-    <div class="sh rv">
-      <p class="label"><span class="num">02</span><span data-i18n="menu.label">Jelovnik</span></p>
-      <h2 data-i18n="menu.title">Što se jede kod Amela</h2>
-      <p data-i18n="menu.sub">Ćevapi su glavna stvar. Uz njih plate s roštilja, burgeri, salate i deserti.</p>
-    </div>
-    <div class="menu__grid">
-      <div class="rv">
-        <div class="tabs" role="tablist" aria-label="Jelovnik">
-          <button class="tab" role="tab" id="tab-1" aria-selected="true" aria-controls="pane-1" data-i18n="tab.1">Ćevapi</button>
-          <button class="tab" role="tab" id="tab-2" aria-selected="false" aria-controls="pane-2" data-i18n="tab.2">Plate</button>
-          <button class="tab" role="tab" id="tab-3" aria-selected="false" aria-controls="pane-3" data-i18n="tab.3">Burgeri i salate</button>
-          <button class="tab" role="tab" id="tab-4" aria-selected="false" aria-controls="pane-4" data-i18n="tab.4">Deserti i pića</button>
-        </div>
-        <div class="panes">
-          <div class="pane on" id="pane-1" role="tabpanel" aria-labelledby="tab-1">
-            <div class="dish"><h3><span>Ćevapi petica</span><span class="hl" data-i18n="m.hl">Hit</span></h3><p data-i18n="m.1.1d">Pet ćevapa u svježoj lepinji.</p></div>
-            <div class="dish"><h3>Ćevapi desetka</h3><p data-i18n="m.1.2d">Deset ćevapa u svježoj lepinji. Za pravu glad.</p></div>
-            <div class="dish"><h3>Ćevapi veliki</h3><p data-i18n="m.1.3d">Velika porcija ćevapa u lepinji.</p></div>
-            <div class="dish"><h3>Amel combo</h3><p data-i18n="m.1.4d">Kombinacije kuće. Pitajte osoblje što je danas u ponudi.</p></div>
-          </div>
-          <div class="pane" id="pane-2" role="tabpanel" aria-labelledby="tab-2">
-            <div class="dish"><h3><span>XXXL kombinacija</span><span class="hl" data-i18n="m.share">Za društvo</span></h3><p data-i18n="m.2.1d">Miješano meso s roštilja na velikom pladnju. Za dijeljenje.</p></div>
-            <div class="dish"><h3>Lignje frigane s pommes fritesom</h3><p data-i18n="m.2.2d">Pržene lignje uz pommes frites.</p></div>
-            <div class="dish"><h3 data-i18n="m.2.3">Jela s roštilja</h3><p data-i18n="m.2.3d">Ostala jela s roštilja. Pitajte osoblje za cijelu ponudu.</p></div>
-          </div>
-          <div class="pane" id="pane-3" role="tabpanel" aria-labelledby="tab-3">
-            <div class="dish"><h3 data-i18n="m.3.1">Burgeri</h3><p data-i18n="m.3.1d">Burgeri s roštilja.</p></div>
-            <div class="dish"><h3 data-i18n="m.3.2">Vegetarijanski cheeseburger</h3><p data-i18n="m.3.2d">Za one koji ne jedu meso.</p></div>
-            <div class="dish"><h3 data-i18n="m.3.3">Salate</h3><p data-i18n="m.3.3d">Svježe salate uz roštilj.</p></div>
-          </div>
-          <div class="pane" id="pane-4" role="tabpanel" aria-labelledby="tab-4">
-            <div class="dish"><h3 data-i18n="m.4.1">Deserti</h3><p data-i18n="m.4.1d">Za kraj. Pitajte što je danas slatko.</p></div>
-            <div class="dish"><h3 data-i18n="m.4.2">Pića</h3><p data-i18n="m.4.2d">Coca-Cola i druga pića.</p></div>
-            <div class="dish"><h3 data-i18n="m.4.3">Pivo</h3><p data-i18n="m.4.3d">Hladno pivo uz ćevape.</p></div>
-          </div>
-        </div>
-        <p class="menu__note" data-i18n="menu.note">Izbor s jelovnika. Cijelu ponudu i cijene provjerite u restoranu ili na Woltu.</p>
-      </div>
-      <div class="frame menu__pic rv-img">
-        <div class="art art--cev"><img src="img/2.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
-          <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-platter" x="40" y="140" width="320" height="240"/><use href="#i-lepinja" x="220" y="40" width="160" height="96"/><use href="#i-olive" x="10" y="20" width="90" height="180" color="#4A5A3E"/></svg></div>
-        <span class="tag-b"><svg><use href="#i-fire"/></svg><span data-i18n="menu.tag">S roštilja</span></span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHY deep green -->
-<section class="why has-deco" id="zasto">
-  <i class="why__orb a" data-par="0.08"></i><i class="why__orb b" data-par="-0.05"></i>
-  <svg class="deco" style="right:-30px;top:-10px;width:170px" viewBox="0 0 140 280" data-par="0.12"><use href="#i-olive"/></svg>
-  <div class="wrap">
-    <p class="label rv"><span data-i18n="why.label">Zašto Amel</span></p>
-    <h2 class="rv" data-delay="1" data-i18n="why.title">Tri razloga zbog kojih se gosti vraćaju</h2>
-    <ul class="why__list">
-      <li class="rv"><span class="n">01</span><h3 data-i18n="why.1">Ćevapi i svježa lepinja</h3><p data-i18n="why.1d">Ono po čemu nas znaju. Petica, desetka ili veliki, uvijek u svježoj lepinji.</p></li>
-      <li class="rv" data-delay="1"><span class="n">02</span><h3 data-i18n="why.2">Pogled na Kvarner</h3><p data-i18n="why.2d">Sjedite unutra, a kroz prozore se pruža panorama na more, Kvarner i Istru.</p></li>
-      <li class="rv" data-delay="2"><span class="n">03</span><h3 data-i18n="why.3">Velike porcije, razumne cijene</h3><p data-i18n="why.3d">Plate su za dijeljenje i nitko ne ode gladan. Otvoreno svaki dan, cijele godine.</p></li>
-    </ul>
-    <a href="#rezervacija" class="pill pill--outline rv" data-i18n="why.cta">Rezerviraj stol</a>
-  </div>
-</section>
-
-<!-- SIGNATURE peek carousel -->
 <section class="sec bg-linen" id="potpisi">
   <div class="wrap">
     <div class="sh rv">
@@ -984,7 +1104,7 @@ html select{height:56px;line-height:normal}
   </div>
   <div class="peek" id="peek">
     <article class="tcard rv">
-      <div class="frame"><div class="art art--hero"><img src="img/hero.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-platter" x="30" y="140" width="340" height="255"/><use href="#i-flames" x="110" y="20" width="180" height="140" opacity=".8"/></svg></div><span class="tag-b" data-i18n="sig.1tag">Za društvo</span></div>
+      <div class="frame"><div class="art art--hero"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Qgs6vX_GdwADExCMfv_xfEkY7MV2gB-UiXl2Ikt5ii464gOGKo_3hBCXs-rMcs98tmWEE2TtoAZDiXPFGafwxZ2IyewJuzu8FcwoV9MBZtcagJnX_FBufPg_264bZEKV_HWqN-=w1600-h1600-no" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-platter" x="30" y="140" width="340" height="255"/><use href="#i-flames" x="110" y="20" width="180" height="140" opacity=".8"/></svg></div><span class="tag-b" data-i18n="sig.1tag">Za društvo</span></div>
       <h3>XXXL kombinacija</h3>
       <p class="tcard__meta" data-i18n="sig.1m">Roštilj · velika plata</p>
       <p data-i18n="sig.1d">Miješano meso s roštilja na jednom pladnju, za cijeli stol.</p>
@@ -992,7 +1112,7 @@ html select{height:56px;line-height:normal}
       <a href="#rezervacija" class="ulink"><span data-i18n="sig.cta">Rezerviraj stol</span><svg><use href="#i-r"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="1">
-      <div class="frame"><div class="art art--cev"><img src="img/2.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-lepinja" x="50" y="150" width="300" height="180"/><g stroke="#2A1810" stroke-width="1"><rect x="110" y="210" width="60" height="22" rx="11" fill="url(#gMeat)"/><rect x="170" y="206" width="60" height="22" rx="11" fill="url(#gMeat)"/><rect x="230" y="212" width="60" height="22" rx="11" fill="url(#gMeat)"/></g></svg></div><span class="tag-b" data-i18n="sig.2tag">Klasik</span></div>
+      <div class="frame"><div class="art art--cev"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TN11EAuCGHjV81Y4nbmpbrJBQskVudbV0AsjGcX6m6PSfqcVF9WvsTAMPAzK5tzUuAoJdK8VjLFw1sC1AmxYaEweZW_xUqPlpGioNT7EWb24kRfTrJprVDXbSNvS0Pur4PcdDsVd78V1ve=w1600-h1600-no" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-lepinja" x="50" y="150" width="300" height="180"/><g stroke="#2A1810" stroke-width="1"><rect x="110" y="210" width="60" height="22" rx="11" fill="url(#gMeat)"/><rect x="170" y="206" width="60" height="22" rx="11" fill="url(#gMeat)"/><rect x="230" y="212" width="60" height="22" rx="11" fill="url(#gMeat)"/></g></svg></div><span class="tag-b" data-i18n="sig.2tag">Klasik</span></div>
       <h3 data-i18n="sig.2">Ćevapi u lepinji</h3>
       <p class="tcard__meta" data-i18n="sig.2m">Roštilj · svježa lepinja</p>
       <p data-i18n="sig.2d">Ćevapi s roštilja u svježoj lepinji. Birate koliko.</p>
@@ -1000,7 +1120,7 @@ html select{height:56px;line-height:normal}
       <a href="#rezervacija" class="ulink"><span data-i18n="sig.cta">Rezerviraj stol</span><svg><use href="#i-r"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="2">
-      <div class="frame"><div class="art art--fri"><img src="img/4.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-squid" x="30" y="130" width="340" height="255"/></svg></div><span class="tag-b" data-i18n="sig.3tag">S mora</span></div>
+      <div class="frame"><div class="art art--fri"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9S7F1wXNdVDcs71u1edxz-SGs07MHbmKQ9woMoSAnlg5brgzvGyZErzOFaD2qTfKF1iZOx4n8kFWjSa0_zcYQ8EQPjKghDEZaXT2sPRl2Lk9GJWjBdCRUVzXOfRKpBx0v9hfmAeSjYgQ2wC=w1600-h1600-no" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-squid" x="30" y="130" width="340" height="255"/></svg></div><span class="tag-b" data-i18n="sig.3tag">S mora</span></div>
       <h3 data-i18n="sig.3">Lignje frigane</h3>
       <p class="tcard__meta" data-i18n="sig.3m">Friteza · s pommes fritesom</p>
       <p data-i18n="sig.3d">Za one koji uz pogled na more žele nešto iz mora.</p>
@@ -1008,11 +1128,11 @@ html select{height:56px;line-height:normal}
       <a href="#rezervacija" class="ulink"><span data-i18n="sig.cta">Rezerviraj stol</span><svg><use href="#i-r"/></svg></a>
     </article>
     <article class="tcard rv" data-delay="3">
-      <div class="frame"><div class="art art--plj"><img src="img/5.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-grill" x="20" y="300" width="360" height="180"/><use href="#i-burger" x="70" y="140" width="260" height="208"/></svg></div><span class="tag-b" data-i18n="sig.4tag">Burgeri</span></div>
+      <div class="frame"><div class="art art--plj"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Rv7ueBhNPvMnr3e3jUQLzHTPIgLXvoIgpNhc_9ToCZCI-80B4r5efZyv23Qs1lZFbvK7cI81jYTXVgZlL7d5KyWKb72TcZDFb9MWG8NsyL4yFBso7hmYcpONZ6wb5sv4AH9euu=w1600-h1600-no" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'"><svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-grill" x="20" y="300" width="360" height="180"/><use href="#i-burger" x="70" y="140" width="260" height="208"/></svg></div><span class="tag-b" data-i18n="sig.4tag">Burgeri</span></div>
       <h3 data-i18n="sig.4">Burgeri s roštilja</h3>
-      <p class="tcard__meta" data-i18n="sig.4m">Roštilj · i vegetarijanski</p>
-      <p data-i18n="sig.4d">Burgeri s roštilja, a za one koji ne jedu meso i vegetarijanski cheeseburger.</p>
-      <ul><li data-i18n="sig.4b1">Burgeri s roštilja</li><li data-i18n="sig.4b2">Vegetarijanski cheeseburger</li><li data-i18n="sig.4b3">Za stol ili za van</li></ul>
+      <p class="tcard__meta" data-i18n="sig.4m">Roštilj · od 9,50 €</p>
+      <p data-i18n="sig.4d">Hamburger, cheeseburger, chickenburger i chicken cheese burger, sami ili s pommes fritesom.</p>
+      <ul><li data-i18n="sig.4b1">Burgeri s roštilja</li><li data-i18n="sig.4b2">S piletinom ili junetinom</li><li data-i18n="sig.4b3">Za stol ili za van</li></ul>
       <a href="#rezervacija" class="ulink"><span data-i18n="sig.cta">Rezerviraj stol</span><svg><use href="#i-r"/></svg></a>
     </article>
   </div>
@@ -1038,7 +1158,7 @@ html select{height:56px;line-height:normal}
         <dl>
           <div class="gtk__row"><svg><use href="#i-clock"/></svg><dt data-i18n="gtk.hours">Radno vrijeme</dt><dd><span data-i18n="gtk.hoursV1">Svaki dan 09:00–23:00</span><br><span data-i18n="gtk.hoursV2">Cijele godine</span></dd></div>
           <div class="gtk__row"><svg><use href="#i-pin"/></svg><dt data-i18n="gtk.addr">Adresa</dt><dd>Ul. Ivana Žorža 39, 51000 Rijeka</dd></div>
-          <div class="gtk__row"><svg><use href="#i-cash"/></svg><dt data-i18n="gtk.pay">Plaćanje</dt><dd data-i18n="gtk.payV">Samo gotovina</dd></div>
+          <div class="gtk__row"><svg><use href="#i-cash"/></svg><dt data-i18n="gtk.pay">Plaćanje</dt><dd data-i18n="gtk.payV">Kartice i gotovina</dd></div>
           <div class="gtk__row"><svg><use href="#i-car"/></svg><dt data-i18n="gtk.park">Parking</dt><dd data-i18n="gtk.parkV">Besplatan parking za goste u blizini. Kad je pun, benzinska postaja je 3 minute hoda.</dd></div>
           <div class="gtk__row"><svg><use href="#i-mtn"/></svg><dt data-i18n="gtk.space">Prostor</dt><dd data-i18n="gtk.spaceV">Blagovaonica s pogledom na Kvarner kroz prozore</dd></div>
           <div class="gtk__row"><svg><use href="#i-bagi"/></svg><dt data-i18n="gtk.deliv">Za van i dostava</dt><dd data-i18n="gtk.delivV">Za van ili dostava preko Wolta</dd></div>
@@ -1079,7 +1199,7 @@ html select{height:56px;line-height:normal}
         <p class="near__note rv" data-i18n="near.note">Cijene na Woltu mogu se promijeniti. Cijene u restoranu provjerite na licu mjesta.</p>
       </div>
       <div class="frame near__img rv-img">
-        <div class="art art--cev"><img src="img/3.jpg" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
+        <div class="art art--cev"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Q6Hajee_Jxwm5wiWtZYHwlOfYXunxycK9oWoofH-pknIZboDrUhlsWs9MrdkqJ71igrfs8Ovt6wSRwl1idxYceeEO5yymQnjxd4qFFSeahrmD7VADbc0uvRrb_-o_D5I6YlPxuHg=w1600-h1600-no" alt="" onload="this.classList.add('ok')" onerror="this.style.display='none'">
           <svg class="ill" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><use href="#i-olive" x="300" y="30" width="90" height="180" color="#4A5A3E"/><use href="#i-bag" x="40" y="120" width="200" height="250"/><use href="#i-lepinja" x="170" y="270" width="210" height="126"/><g stroke="#2A1810" stroke-width="1"><rect x="215" y="306" width="46" height="18" rx="9" fill="url(#gMeat)"/><rect x="262" y="302" width="46" height="18" rx="9" fill="url(#gMeat)"/><rect x="238" y="318" width="46" height="18" rx="9" fill="url(#gMeat)"/></g></svg></div>
         <span class="tag-b" data-i18n="near.tag">Za van · Wolt</span>
       </div>
@@ -1094,7 +1214,7 @@ html select{height:56px;line-height:normal}
     <div class="sh rv">
       <p class="label"><span class="num">06</span><span data-i18n="book.label">Rezervacija</span></p>
       <h2 data-i18n="book.title">Rezervirajte stol</h2>
-      <p data-i18n="book.sub">Odaberite datum, vrijeme i broj gostiju i ostavite broj telefona. Nazvat ćemo vas da potvrdimo stol.</p>
+      <p data-i18n="book.sub">Odaberite datum, vrijeme i broj gostiju. Upit se otvara u WhatsAppu, bez plaćanja i bez registracije.</p>
     </div>
     <div class="book__grid">
       <form class="form rv" id="bookForm" novalidate>
@@ -1118,13 +1238,13 @@ html select{height:56px;line-height:normal}
           <div class="qty"><button type="button" id="gMinus" aria-label="Manje">&minus;</button><output id="gOut">2</output><button type="button" id="gPlus" aria-label="Više">+</button></div>
         </div>
         <label class="field"><span data-i18n="f.name">Ime</span><input class="ctl" type="text" id="fName" autocomplete="name" data-i18n-ph="f.nameph" placeholder="Vaše ime"></label>
-        <label class="field"><span data-i18n="f.phone">Telefon</span><input class="ctl" type="tel" id="fPhone" autocomplete="tel" inputmode="tel" required data-i18n-ph="f.phoneph" placeholder="Broj za povratni poziv"></label>
-        <button type="submit" class="pill pill--ember pill--block"><svg><use href="#i-phone"/></svg><span data-i18n="f.send">Pošalji upit</span></button>
-        <p class="fine" data-i18n="f.fine">Bez plaćanja i bez registracije. U restoranu se plaća samo gotovinom.</p>
+        <label class="field"><span data-i18n="f.phone">Telefon</span><input class="ctl" type="tel" id="fPhone" autocomplete="tel" inputmode="tel" data-i18n-ph="f.phoneph" placeholder="Broj za povratni poziv"></label>
+        <button type="submit" class="pill pill--ember pill--block"><svg><use href="#i-phone"/></svg><span data-i18n="f.send">Pošalji na WhatsApp</span></button>
+        <p class="fine" data-i18n="f.fine">Bez plaćanja i bez registracije.</p>
         <div class="sent" id="sent" role="status" hidden>
           <b data-i18n="sent.b">Upit je spreman</b>
           <p id="sentT"></p>
-          <p class="fine" data-i18n="sent.note">Ovo je prijedlog stranice, pa se upit još ne šalje. Na gotovoj stranici stiže ravno restoranu, a oni vas nazovu da potvrde. Za stol danas nazovite izravno.</p>
+          <p class="fine" data-i18n="sent.note">Poruka se otvara u WhatsAppu i stiže na +385 91 906 8483. Za stol danas najbrže je nazvati.</p>
           <a href="tel:+38551541581" class="pill pill--linen"><svg><use href="#i-phone"/></svg><span>+385 51 541 581</span></a>
         </div>
       </form>
@@ -1149,7 +1269,7 @@ html select{height:56px;line-height:normal}
     <div class="faq__list rv" data-delay="1">
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.1q">Treba li rezervirati stol?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.1a">Za veće društvo najbolje je nazvati unaprijed na +385 51 541 581.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.2q">Gdje se parkira?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.2a">Gosti imaju besplatan parking u blizini. Često je pun, a onda je alternativa benzinska postaja, tri minute hoda od restorana.</p></div></div></div>
-      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.3q">Može li se platiti karticom?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.3a">Ne, plaća se samo gotovinom.</p></div></div></div>
+      <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.3q">Može li se platiti karticom?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.3a">Da, karticom ili gotovinom.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.4q">Gdje se sjedi?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.4a">Unutra, u blagovaonici s pogledom na Kvarner, more i Istru kroz prozore.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.5q">Dostavljate li?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.5a">Da, preko Wolta. Možete i naručiti za van.</p></div></div></div>
       <div class="qa"><button type="button" aria-expanded="false"><span data-i18n="faq.6q">Mogu li doći sa psom?</span><span class="pm"></span></button><div class="qa__a"><div><p data-i18n="faq.6a">Nažalost, psi ne mogu unutra.</p></div></div></div>
@@ -1218,7 +1338,7 @@ html select{height:56px;line-height:normal}
         <p style="margin:18px 0 0;max-width:34ch" data-i18n="foot.txt">Roštilj na brdu iznad Rijeke. Ćevapi u svježoj lepinji, velike porcije i pogled na Kvarner.</p>
       </div>
       <div><h4 data-i18n="foot.addr">Adresa</h4><p>Ul. Ivana Žorža 39<br>51000 Rijeka, <span data-i18n="c.country">Hrvatska</span></p></div>
-      <div><h4 data-i18n="foot.hours">Radno vrijeme</h4><p><span data-i18n="h.all">Svaki dan</span> 09:00–23:00<br><span data-i18n="gtk.payV">Samo gotovina</span></p></div>
+      <div><h4 data-i18n="foot.hours">Radno vrijeme</h4><p><span data-i18n="h.all">Svaki dan</span> 09:00–23:00<br><span data-i18n="gtk.payV">Kartice i gotovina</span></p></div>
       <div><h4 data-i18n="foot.contact">Kontakt</h4><ul><li><a href="tel:+38551541581">+385 51 541 581</a></li><li><a href="https://www.google.com/maps/dir/?api=1&amp;destination=45.3478991,14.4279894" target="_blank" rel="noopener" data-i18n="c.dir2">Upute do nas</a></li><li><a href="#rezervacija" data-i18n="nav.book">Rezervacija</a></li></ul></div>
     </div>
     <div class="foot__bot"><span>&copy; <span id="yr">2026</span> Buffet Amel, Rijeka</span><span data-i18n="foot.note">Prijedlog web stranice · Koncept: Marija</span></div>
@@ -1248,7 +1368,7 @@ var T = {
 en:{
  "hdr.book":"Book a table","menu":"Menu","nav.home":"Home","nav.gal":"Gallery","nav.menu":"Menu","nav.why":"Why Amel","nav.near":"Take-away & delivery","nav.book":"Reservation","nav.contact":"Contact",
  "hero.label":"Rijeka · ćevapi · grill","hero.sub":"Ćevapi with a view over Kvarner","hero.txt":"Ćevapi in fresh lepinja bread, grill platters for the whole table and a view of the sea and Istria. Open every day from 9 to 23.","hero.cta":"Book a table","hero.hint":"Move your finger, the sparks react",
- "chip.cash":"Cash only","chip.park":"Parking","chip.wolt":"Wolt delivery","chip.view":"View over Kvarner",
+ "chip.cash":"Cards and cash","chip.park":"Parking","chip.wolt":"Wolt delivery","chip.view":"View over Kvarner",
  "finder.b":"Table today","gal.title":"A look inside Buffet Amel","gal.sub":"The grill, fresh lepinja and a view through the window you will remember.",
  "gal.c1":"XXXL mixed grill platter","gal.c2":"Ćevapi in fresh lepinja","gal.c3":"The view over Kvarner and Istria","gal.c4":"Fried squid with fries","gal.c5":"Burgers from the grill","tag":"Rijeka, Croatia",
  "story.label":"Story","story.title":"Ćevapi on the hill above Rijeka","story.p1":"Buffet Amel is a grill on the hill above Rijeka, at Ivana Žorža 39. The ćevapi come off the grill in fresh lepinja bread, and through the windows you see the whole Kvarner bay, the sea and Istria.","story.p2":"Guests say eating here feels like lunch at the in-laws': big portions, reasonable prices, fast and kind waitresses, and everything spotless. Many locals come back several times a month.",
@@ -1265,14 +1385,14 @@ en:{
  "sig.1tag":"For sharing","sig.1m":"Grill · big platter","sig.1d":"Mixed grill on one platter, for the whole table.","sig.1b1":"Mixed meat from the grill","sig.1b2":"For two or more","sig.1b3":"Also to take away or via Wolt",
  "sig.2tag":"Classic","sig.2":"Ćevapi in lepinja","sig.2m":"Grill · fresh lepinja","sig.2d":"Ćevapi from the grill in fresh lepinja. You pick how many.","sig.2b1":"Petica: five pieces","sig.2b2":"Desetka: ten pieces","sig.2b3":"Veliki: a large portion",
  "sig.3tag":"From the sea","sig.3":"Fried squid","sig.3m":"Fried · with fries","sig.3d":"For those who want something from the sea to go with the sea view.","sig.3b1":"Fried squid","sig.3b2":"Fries on the side","sig.3b3":"Also on Wolt",
- "sig.4tag":"Burgers","sig.4":"Burgers from the grill","sig.4m":"Grill · veggie option too","sig.4d":"Burgers from the grill, plus a vegetarian cheeseburger for those who skip meat.","sig.4b1":"Grilled burgers","sig.4b2":"Vegetarian cheeseburger","sig.4b3":"At the table or to take away",
- "gtk.label":"Practical","gtk.title":"Good to know","gtk.sub":"Everything you want to know before you come, in one place.","gtk.hours":"Opening hours","gtk.hoursV1":"Every day 09:00–23:00","gtk.hoursV2":"All year round","gtk.addr":"Address","gtk.pay":"Payment","gtk.payV":"Cash only","gtk.park":"Parking","gtk.parkV":"Free guest parking nearby. When it is full, the petrol station 3 minutes' walk away is the alternative.","gtk.space":"Space","gtk.spaceV":"Indoor dining room with the Kvarner view through the windows","gtk.deliv":"Take-away & delivery","gtk.delivV":"Take-away, or delivery via Wolt","gtk.pets":"Pets","gtk.petsV":"Dogs are not allowed inside","gtk.tel":"Phone",
+ "sig.4tag":"Burgers","sig.4":"Burgers from the grill","sig.4m":"Grill · from 9.50 €","sig.4d":"Hamburger, cheeseburger, chickenburger and chicken cheese burger, on their own or with fries.","sig.4b1":"Grilled burgers","sig.4b2":"With chicken or beef","sig.4b3":"At the table or to take away",
+ "gtk.label":"Practical","gtk.title":"Good to know","gtk.sub":"Everything you want to know before you come, in one place.","gtk.hours":"Opening hours","gtk.hoursV1":"Every day 09:00–23:00","gtk.hoursV2":"All year round","gtk.addr":"Address","gtk.pay":"Payment","gtk.payV":"Cards and cash","gtk.park":"Parking","gtk.parkV":"Free guest parking nearby. When it is full, the petrol station 3 minutes' walk away is the alternative.","gtk.space":"Space","gtk.spaceV":"Indoor dining room with the Kvarner view through the windows","gtk.deliv":"Take-away & delivery","gtk.delivV":"Take-away, or delivery via Wolt","gtk.pets":"Pets","gtk.petsV":"Dogs are not allowed inside","gtk.tel":"Phone",
  "near.label":"Take-away & delivery","near.title":"Ćevapi at home too","near.sub":"No time to drive up the hill? Take it away or order on Wolt.","near.1":"To take away","near.1d":"Ćevapi, platters and burgers packed to take home or to work.","near.2":"Wolt delivery","near.2d":"Buffet Amel is on Wolt. Order in the app and the food comes to your door.","near.3":"A platter for the group","near.3d":"The XXXL platter feeds the whole group, at the table, to take away or delivered.","wolt.h":"On Wolt","wolt.s":"Indicative delivery prices, each with a Coca&#8209;Cola","near.note":"Wolt prices may change. Check restaurant prices on site.","near.tag":"Take-away · Wolt",
- "book.label":"Reservation","book.title":"Book a table","book.sub":"Pick a date, time and number of guests and leave your phone number. We will call you back to confirm.",
- "f.date":"Date","f.time":"Time","f.guests":"Guests","f.name":"Name","f.nameph":"Your name","f.phone":"Phone","f.phoneph":"Number for the call back","f.send":"Send request","f.fine":"No payment, no sign-up. In the restaurant you pay cash only.",
- "sent.b":"Your request is ready","sent.note":"This is a website proposal, so the request is not sent yet. On the finished site it goes straight to the restaurant and they call you back to confirm. For a table today, call directly.",
+ "book.label":"Reservation","book.title":"Book a table","book.sub":"Choose the date, time and number of guests. The request opens in WhatsApp, no payment and no sign-up.",
+ "f.date":"Date","f.time":"Time","f.guests":"Guests","f.name":"Name","f.nameph":"Your name","f.phone":"Phone","f.phoneph":"Number for the call back","f.send":"Send via WhatsApp","f.fine":"No payment, no sign-up.",
+ "sent.b":"Your request is ready","sent.note":"The message opens in WhatsApp and goes to +385 91 906 8483. For a table today, calling is fastest.",
  "book.wa":"Fastest by phone","book.waT":"Call +385 51 541 581, every day from 9 to 23.","h.all":"Every day","book.call":"Call",
- "faq.title":"Frequently asked","faq.1q":"Do I need to book a table?","faq.1a":"For a bigger group, it is best to call ahead on +385 51 541 581.","faq.2q":"Where do I park?","faq.2a":"Guests have free parking nearby. It is often full, and then the petrol station three minutes' walk away is the alternative.","faq.3q":"Can I pay by card?","faq.3a":"No, it is cash only.","faq.4q":"Where do you sit?","faq.4a":"Inside, in the dining room, with the view of Kvarner, the sea and Istria through the windows.","faq.5q":"Do you deliver?","faq.5a":"Yes, via Wolt. You can also order to take away.","faq.6q":"Can I bring my dog?","faq.6a":"Sorry, dogs are not allowed inside.","faq.7q":"When are you open?","faq.7a":"Every day from 9:00 to 23:00, all year round.",
+ "faq.title":"Frequently asked","faq.1q":"Do I need to book a table?","faq.1a":"For a bigger group, it is best to call ahead on +385 51 541 581.","faq.2q":"Where do I park?","faq.2a":"Guests have free parking nearby. It is often full, and then the petrol station three minutes' walk away is the alternative.","faq.3q":"Can I pay by card?","faq.3a":"Yes, by card or in cash.","faq.4q":"Where do you sit?","faq.4a":"Inside, in the dining room, with the view of Kvarner, the sea and Istria through the windows.","faq.5q":"Do you deliver?","faq.5a":"Yes, via Wolt. You can also order to take away.","faq.6q":"Can I bring my dog?","faq.6a":"Sorry, dogs are not allowed inside.","faq.7q":"When are you open?","faq.7a":"Every day from 9:00 to 23:00, all year round.",
  "c.label":"Contact","c.title":"See you on the hill","c.country":"Croatia","c.maps":"Open in Google Maps","c.call":"Call","c.dir":"Directions","c.dir2":"Get directions","c.stylized":"stylized",
  "foot.txt":"A grill on the hill above Rijeka. Ćevapi in fresh lepinja, big portions and a view over Kvarner.","foot.addr":"Address","foot.hours":"Opening hours","foot.contact":"Contact","foot.note":"Website proposal · Concept by Marija","fab":"Book","sbar.l":"Your request","sbar.send":"Send",
  "_today":"Today","_ctag":"Concept by Marija","_g":["guest","guests","guests"],"_sent":"{d} at {t}, {n}","_prev":"Previous","_next":"Next"
@@ -1280,7 +1400,7 @@ en:{
 de:{
  "hdr.book":"Tisch reservieren","menu":"Menü","nav.home":"Start","nav.gal":"Galerie","nav.menu":"Speisekarte","nav.why":"Warum Amel","nav.near":"Mitnehmen & Lieferung","nav.book":"Reservierung","nav.contact":"Kontakt",
  "hero.label":"Rijeka · Ćevapi · Grill","hero.sub":"Ćevapi mit Blick auf die Kvarner-Bucht","hero.txt":"Ćevapi im frischen Lepinja, Grillplatten für den ganzen Tisch und Blick aufs Meer. Täglich von 9 bis 23 Uhr.","hero.cta":"Tisch reservieren","hero.hint":"Finger bewegen, die Funken reagieren",
- "chip.cash":"Nur Barzahlung","chip.park":"Parkplatz","chip.wolt":"Wolt Lieferung","chip.view":"Kvarner-Blick",
+ "chip.cash":"Karte und bar","chip.park":"Parkplatz","chip.wolt":"Wolt Lieferung","chip.view":"Kvarner-Blick",
  "finder.b":"Tisch heute","gal.title":"Ein Blick in das Buffet Amel","gal.sub":"Der Grill, frisches Lepinja und ein Blick aus dem Fenster, den man nicht vergisst.",
  "gal.c1":"XXXL Grillplatte","gal.c2":"Ćevapi im frischen Lepinja","gal.c3":"Blick auf die Kvarner-Bucht und Istrien","gal.c4":"Frittierte Calamari mit Pommes","gal.c5":"Burger vom Grill","tag":"Rijeka, Kroatien",
  "story.label":"Geschichte","story.title":"Ćevapi auf dem Hügel über Rijeka","story.p1":"Das Buffet Amel ist ein Grill auf dem Hügel über Rijeka, in der Ivana Žorža 39. Die Ćevapi kommen vom Grill in frischem Lepinja, und durch die Fenster sieht man die ganze Kvarner-Bucht, das Meer und Istrien.","story.p2":"Gäste sagen, hier isst man wie bei der Familie: große Portionen, faire Preise, schnelle und freundliche Bedienung, und alles ist blitzsauber. Viele Einheimische kommen mehrmals im Monat.",
@@ -1297,14 +1417,14 @@ de:{
  "sig.1tag":"Zum Teilen","sig.1m":"Grill · große Platte","sig.1d":"Gemischtes Grillfleisch auf einer Platte, für den ganzen Tisch.","sig.1b1":"Gemischtes Fleisch vom Grill","sig.1b2":"Für zwei oder mehr","sig.1b3":"Auch zum Mitnehmen oder über Wolt",
  "sig.2tag":"Klassiker","sig.2":"Ćevapi im Lepinja","sig.2m":"Grill · frisches Lepinja","sig.2d":"Ćevapi vom Grill im frischen Lepinja. Sie wählen, wie viele.","sig.2b1":"Petica: fünf Stück","sig.2b2":"Desetka: zehn Stück","sig.2b3":"Veliki: große Portion",
  "sig.3tag":"Aus dem Meer","sig.3":"Frittierte Calamari","sig.3m":"Frittiert · mit Pommes","sig.3d":"Für alle, die zum Meerblick etwas aus dem Meer möchten.","sig.3b1":"Frittierte Calamari","sig.3b2":"Pommes dazu","sig.3b3":"Auch bei Wolt",
- "sig.4tag":"Burger","sig.4":"Burger vom Grill","sig.4m":"Grill · auch vegetarisch","sig.4d":"Burger vom Grill und für alle ohne Fleisch ein vegetarischer Cheeseburger.","sig.4b1":"Burger vom Grill","sig.4b2":"Vegetarischer Cheeseburger","sig.4b3":"Am Tisch oder zum Mitnehmen",
- "gtk.label":"Praktisch","gtk.title":"Gut zu wissen","gtk.sub":"Alles, was Sie vor dem Besuch wissen möchten, an einem Ort.","gtk.hours":"Öffnungszeiten","gtk.hoursV1":"Täglich 09:00–23:00","gtk.hoursV2":"Das ganze Jahr","gtk.addr":"Adresse","gtk.pay":"Zahlung","gtk.payV":"Nur Barzahlung","gtk.park":"Parken","gtk.parkV":"Kostenlose Gästeparkplätze in der Nähe. Wenn sie voll sind, ist die Tankstelle 3 Gehminuten entfernt die Alternative.","gtk.space":"Räume","gtk.spaceV":"Speiseraum mit Blick auf die Kvarner-Bucht durch die Fenster","gtk.deliv":"Mitnehmen & Lieferung","gtk.delivV":"Zum Mitnehmen oder Lieferung über Wolt","gtk.pets":"Haustiere","gtk.petsV":"Hunde sind drinnen nicht erlaubt","gtk.tel":"Telefon",
+ "sig.4tag":"Burger","sig.4":"Burger vom Grill","sig.4m":"Grill · ab 9,50 €","sig.4d":"Hamburger, Cheeseburger, Chickenburger und Chicken Cheese Burger, pur oder mit Pommes.","sig.4b1":"Burger vom Grill","sig.4b2":"Mit Hähnchen oder Rind","sig.4b3":"Am Tisch oder zum Mitnehmen",
+ "gtk.label":"Praktisch","gtk.title":"Gut zu wissen","gtk.sub":"Alles, was Sie vor dem Besuch wissen möchten, an einem Ort.","gtk.hours":"Öffnungszeiten","gtk.hoursV1":"Täglich 09:00–23:00","gtk.hoursV2":"Das ganze Jahr","gtk.addr":"Adresse","gtk.pay":"Zahlung","gtk.payV":"Karte und bar","gtk.park":"Parken","gtk.parkV":"Kostenlose Gästeparkplätze in der Nähe. Wenn sie voll sind, ist die Tankstelle 3 Gehminuten entfernt die Alternative.","gtk.space":"Räume","gtk.spaceV":"Speiseraum mit Blick auf die Kvarner-Bucht durch die Fenster","gtk.deliv":"Mitnehmen & Lieferung","gtk.delivV":"Zum Mitnehmen oder Lieferung über Wolt","gtk.pets":"Haustiere","gtk.petsV":"Hunde sind drinnen nicht erlaubt","gtk.tel":"Telefon",
  "near.label":"Mitnehmen & Lieferung","near.title":"Ćevapi auch zu Hause","near.sub":"Keine Zeit für den Hügel? Zum Mitnehmen oder über Wolt bestellen.","near.1":"Zum Mitnehmen","near.1d":"Ćevapi, Platten und Burger zum Mitnehmen nach Hause oder ins Büro.","near.2":"Lieferung über Wolt","near.2d":"Das Buffet Amel ist bei Wolt. In der App bestellen, das Essen kommt an Ihre Tür.","near.3":"Eine Platte für die Runde","near.3d":"Die XXXL Platte reicht für die ganze Runde, am Tisch, zum Mitnehmen oder geliefert.","wolt.h":"Bei Wolt","wolt.s":"Richtpreise für die Lieferung, jeweils mit Coca&#8209;Cola","near.note":"Wolt Preise können sich ändern. Preise im Restaurant bitte vor Ort prüfen.","near.tag":"Mitnehmen · Wolt",
- "book.label":"Reservierung","book.title":"Tisch reservieren","book.sub":"Datum, Uhrzeit und Gästezahl wählen und Telefonnummer angeben. Wir rufen Sie zur Bestätigung zurück.",
- "f.date":"Datum","f.time":"Uhrzeit","f.guests":"Gäste","f.name":"Name","f.nameph":"Ihr Name","f.phone":"Telefon","f.phoneph":"Nummer für den Rückruf","f.send":"Anfrage senden","f.fine":"Ohne Zahlung, ohne Anmeldung. Im Restaurant nur Barzahlung.",
- "sent.b":"Ihre Anfrage ist bereit","sent.note":"Dies ist ein Website-Vorschlag, die Anfrage wird noch nicht gesendet. Auf der fertigen Seite geht sie direkt an das Restaurant, das Sie zur Bestätigung zurückruft. Für einen Tisch heute bitte direkt anrufen.",
+ "book.label":"Reservierung","book.title":"Tisch reservieren","book.sub":"Datum, Uhrzeit und Personenzahl wählen. Die Anfrage öffnet sich in WhatsApp, ohne Zahlung und ohne Anmeldung.",
+ "f.date":"Datum","f.time":"Uhrzeit","f.guests":"Gäste","f.name":"Name","f.nameph":"Ihr Name","f.phone":"Telefon","f.phoneph":"Nummer für den Rückruf","f.send":"Per WhatsApp senden","f.fine":"Ohne Zahlung, ohne Anmeldung.",
+ "sent.b":"Ihre Anfrage ist bereit","sent.note":"Die Nachricht öffnet sich in WhatsApp und geht an +385 91 906 8483. Für einen Tisch heute am besten anrufen.",
  "book.wa":"Am schnellsten per Telefon","book.waT":"Rufen Sie an: +385 51 541 581, täglich von 9 bis 23 Uhr.","h.all":"Täglich","book.call":"Anrufen",
- "faq.title":"Häufige Fragen","faq.1q":"Muss ich reservieren?","faq.1a":"Für größere Gruppen am besten vorher anrufen: +385 51 541 581.","faq.2q":"Wo parke ich?","faq.2a":"Gäste parken kostenlos in der Nähe. Oft ist es voll, dann ist die Tankstelle drei Gehminuten entfernt die Alternative.","faq.3q":"Kann ich mit Karte zahlen?","faq.3a":"Nein, nur Barzahlung.","faq.4q":"Wo sitzt man?","faq.4a":"Drinnen im Speiseraum, mit Blick auf die Kvarner-Bucht, das Meer und Istrien durch die Fenster.","faq.5q":"Liefern Sie?","faq.5a":"Ja, über Wolt. Sie können auch zum Mitnehmen bestellen.","faq.6q":"Darf ich mit Hund kommen?","faq.6a":"Leider sind Hunde drinnen nicht erlaubt.","faq.7q":"Wann haben Sie geöffnet?","faq.7a":"Täglich von 9 bis 23 Uhr, das ganze Jahr.",
+ "faq.title":"Häufige Fragen","faq.1q":"Muss ich reservieren?","faq.1a":"Für größere Gruppen am besten vorher anrufen: +385 51 541 581.","faq.2q":"Wo parke ich?","faq.2a":"Gäste parken kostenlos in der Nähe. Oft ist es voll, dann ist die Tankstelle drei Gehminuten entfernt die Alternative.","faq.3q":"Kann ich mit Karte zahlen?","faq.3a":"Ja, mit Karte oder bar.","faq.4q":"Wo sitzt man?","faq.4a":"Drinnen im Speiseraum, mit Blick auf die Kvarner-Bucht, das Meer und Istrien durch die Fenster.","faq.5q":"Liefern Sie?","faq.5a":"Ja, über Wolt. Sie können auch zum Mitnehmen bestellen.","faq.6q":"Darf ich mit Hund kommen?","faq.6a":"Leider sind Hunde drinnen nicht erlaubt.","faq.7q":"Wann haben Sie geöffnet?","faq.7a":"Täglich von 9 bis 23 Uhr, das ganze Jahr.",
  "c.label":"Kontakt","c.title":"Bis bald auf dem Hügel","c.country":"Kroatien","c.maps":"In Google Maps öffnen","c.call":"Anrufen","c.dir":"Route","c.dir2":"Route planen","c.stylized":"stilisiert",
  "foot.txt":"Grill auf dem Hügel über Rijeka. Ćevapi im frischen Lepinja, große Portionen und Blick auf die Kvarner-Bucht.","foot.addr":"Adresse","foot.hours":"Öffnungszeiten","foot.contact":"Kontakt","foot.note":"Website-Vorschlag · Konzept: Marija","fab":"Reservieren","sbar.l":"Ihre Anfrage","sbar.send":"Senden",
  "_today":"Heute","_ctag":"Konzept: Marija","_g":["Gast","Gäste","Gäste"],"_sent":"{d} um {t}, {n}","_prev":"Zurück","_next":"Weiter"
@@ -1312,7 +1432,7 @@ de:{
 it:{
  "hdr.book":"Prenota un tavolo","menu":"Menu","nav.home":"Home","nav.gal":"Galleria","nav.menu":"Menu","nav.why":"Perché Amel","nav.near":"Asporto e consegna","nav.book":"Prenotazione","nav.contact":"Contatti",
  "hero.label":"Rijeka · ćevapi · griglia","hero.sub":"Ćevapi con vista sul Quarnaro","hero.txt":"Ćevapi nella lepinja fresca, piatti alla griglia per tutto il tavolo e vista sul mare. Aperti ogni giorno dalle 9 alle 23.","hero.cta":"Prenota un tavolo","hero.hint":"Muovi il dito, le scintille reagiscono",
- "chip.cash":"Solo contanti","chip.park":"Parcheggio","chip.wolt":"Consegna Wolt","chip.view":"Vista mare",
+ "chip.cash":"Carte e contanti","chip.park":"Parcheggio","chip.wolt":"Consegna Wolt","chip.view":"Vista mare",
  "finder.b":"Tavolo oggi","gal.title":"Uno sguardo al Buffet Amel","gal.sub":"La griglia, la lepinja fresca e una vista dalla finestra che si ricorda.",
  "gal.c1":"Grigliata mista XXXL","gal.c2":"Ćevapi nella lepinja fresca","gal.c3":"Vista sul Quarnaro e sull'Istria","gal.c4":"Calamari fritti con patatine","gal.c5":"Burger alla griglia","tag":"Rijeka, Croazia",
  "story.label":"Storia","story.title":"Ćevapi sulla collina sopra Rijeka","story.p1":"Il Buffet Amel è una griglia sulla collina sopra Rijeka (Fiume), in via Ivana Žorža 39. I ćevapi arrivano dalla griglia nella lepinja fresca e dalle finestre si vede tutto il Quarnaro, il mare e l'Istria.","story.p2":"Gli ospiti dicono che qui si mangia come a casa dei parenti: porzioni abbondanti, prezzi ragionevoli, cameriere veloci e gentili e tutto pulitissimo. Molti abitanti di Rijeka tornano più volte al mese.",
@@ -1329,14 +1449,14 @@ it:{
  "sig.1tag":"Da condividere","sig.1m":"Griglia · piatto grande","sig.1d":"Carne mista alla griglia su un unico piatto, per tutto il tavolo.","sig.1b1":"Carne mista alla griglia","sig.1b2":"Per due o più","sig.1b3":"Anche da asporto o con Wolt",
  "sig.2tag":"Classico","sig.2":"Ćevapi nella lepinja","sig.2m":"Griglia · lepinja fresca","sig.2d":"Ćevapi alla griglia nella lepinja fresca. Scegliete voi quanti.","sig.2b1":"Petica: cinque pezzi","sig.2b2":"Desetka: dieci pezzi","sig.2b3":"Veliki: porzione grande",
  "sig.3tag":"Dal mare","sig.3":"Calamari fritti","sig.3m":"Fritti · con patatine","sig.3d":"Per chi, con la vista sul mare, vuole qualcosa dal mare.","sig.3b1":"Calamari fritti","sig.3b2":"Patatine a parte","sig.3b3":"Anche su Wolt",
- "sig.4tag":"Burger","sig.4":"Burger alla griglia","sig.4m":"Griglia · anche vegetariano","sig.4d":"Burger alla griglia e, per chi non mangia carne, un cheeseburger vegetariano.","sig.4b1":"Burger alla griglia","sig.4b2":"Cheeseburger vegetariano","sig.4b3":"Al tavolo o da asporto",
- "gtk.label":"Pratico","gtk.title":"Buono a sapersi","gtk.sub":"Tutto quello che volete sapere prima di venire, in un unico posto.","gtk.hours":"Orari","gtk.hoursV1":"Tutti i giorni 09:00–23:00","gtk.hoursV2":"Tutto l'anno","gtk.addr":"Indirizzo","gtk.pay":"Pagamento","gtk.payV":"Solo contanti","gtk.park":"Parcheggio","gtk.parkV":"Parcheggio gratuito per gli ospiti nelle vicinanze. Se è pieno, c'è il distributore di benzina a 3 minuti a piedi.","gtk.space":"Spazi","gtk.spaceV":"Sala interna con vista sul Quarnaro dalle finestre","gtk.deliv":"Asporto e consegna","gtk.delivV":"Da asporto o consegna con Wolt","gtk.pets":"Animali","gtk.petsV":"I cani non possono entrare","gtk.tel":"Telefono",
+ "sig.4tag":"Burger","sig.4":"Burger alla griglia","sig.4m":"Griglia · da 9,50 €","sig.4d":"Hamburger, cheeseburger, chickenburger e chicken cheese burger, da soli o con patatine.","sig.4b1":"Burger alla griglia","sig.4b2":"Con pollo o manzo","sig.4b3":"Al tavolo o da asporto",
+ "gtk.label":"Pratico","gtk.title":"Buono a sapersi","gtk.sub":"Tutto quello che volete sapere prima di venire, in un unico posto.","gtk.hours":"Orari","gtk.hoursV1":"Tutti i giorni 09:00–23:00","gtk.hoursV2":"Tutto l'anno","gtk.addr":"Indirizzo","gtk.pay":"Pagamento","gtk.payV":"Carte e contanti","gtk.park":"Parcheggio","gtk.parkV":"Parcheggio gratuito per gli ospiti nelle vicinanze. Se è pieno, c'è il distributore di benzina a 3 minuti a piedi.","gtk.space":"Spazi","gtk.spaceV":"Sala interna con vista sul Quarnaro dalle finestre","gtk.deliv":"Asporto e consegna","gtk.delivV":"Da asporto o consegna con Wolt","gtk.pets":"Animali","gtk.petsV":"I cani non possono entrare","gtk.tel":"Telefono",
  "near.label":"Asporto e consegna","near.title":"Ćevapi anche a casa","near.sub":"Niente tempo per salire in collina? Prendete da asporto o ordinate su Wolt.","near.1":"Da asporto","near.1d":"Ćevapi, piatti misti e burger da portare a casa o in ufficio.","near.2":"Consegna con Wolt","near.2d":"Il Buffet Amel è su Wolt. Ordinate dall'app e il cibo arriva alla vostra porta.","near.3":"Un piatto per la compagnia","near.3d":"La XXXL basta per tutta la compagnia, al tavolo, da asporto o a domicilio.","wolt.h":"Su Wolt","wolt.s":"Prezzi indicativi per la consegna, ciascuno con Coca&#8209;Cola","near.note":"I prezzi su Wolt possono cambiare. I prezzi al ristorante vanno verificati sul posto.","near.tag":"Asporto · Wolt",
- "book.label":"Prenotazione","book.title":"Prenotate un tavolo","book.sub":"Scegliete data, ora e numero di ospiti e lasciate il numero di telefono. Vi richiamiamo per confermare.",
- "f.date":"Data","f.time":"Ora","f.guests":"Ospiti","f.name":"Nome","f.nameph":"Il vostro nome","f.phone":"Telefono","f.phoneph":"Numero per richiamarvi","f.send":"Invia richiesta","f.fine":"Nessun pagamento, nessuna registrazione. Al ristorante si paga solo in contanti.",
- "sent.b":"La richiesta è pronta","sent.note":"Questa è una proposta di sito, quindi la richiesta non viene ancora inviata. Sul sito finito arriva direttamente al ristorante, che vi richiama per confermare. Per un tavolo oggi chiamate direttamente.",
+ "book.label":"Prenotazione","book.title":"Prenotate un tavolo","book.sub":"Scegliete data, ora e numero di persone. La richiesta si apre su WhatsApp, senza pagamento e senza registrazione.",
+ "f.date":"Data","f.time":"Ora","f.guests":"Ospiti","f.name":"Nome","f.nameph":"Il vostro nome","f.phone":"Telefono","f.phoneph":"Numero per richiamarvi","f.send":"Invia su WhatsApp","f.fine":"Nessun pagamento, nessuna registrazione.",
+ "sent.b":"La richiesta è pronta","sent.note":"Il messaggio si apre su WhatsApp e arriva al +385 91 906 8483. Per un tavolo oggi conviene chiamare.",
  "book.wa":"Più veloce al telefono","book.waT":"Chiamate il +385 51 541 581, tutti i giorni dalle 9 alle 23.","h.all":"Tutti i giorni","book.call":"Chiama",
- "faq.title":"Domande frequenti","faq.1q":"Serve prenotare?","faq.1a":"Per un gruppo numeroso è meglio chiamare prima al +385 51 541 581.","faq.2q":"Dove si parcheggia?","faq.2a":"Gli ospiti hanno un parcheggio gratuito vicino. Spesso è pieno e allora l'alternativa è il distributore di benzina a tre minuti a piedi.","faq.3q":"Si può pagare con carta?","faq.3a":"No, si paga solo in contanti.","faq.4q":"Dove ci si siede?","faq.4a":"Dentro, nella sala, con la vista sul Quarnaro, sul mare e sull'Istria dalle finestre.","faq.5q":"Fate consegne?","faq.5a":"Sì, con Wolt. Potete anche ordinare da asporto.","faq.6q":"Posso venire con il cane?","faq.6a":"Purtroppo i cani non possono entrare.","faq.7q":"Quando siete aperti?","faq.7a":"Tutti i giorni dalle 9 alle 23, tutto l'anno.",
+ "faq.title":"Domande frequenti","faq.1q":"Serve prenotare?","faq.1a":"Per un gruppo numeroso è meglio chiamare prima al +385 51 541 581.","faq.2q":"Dove si parcheggia?","faq.2a":"Gli ospiti hanno un parcheggio gratuito vicino. Spesso è pieno e allora l'alternativa è il distributore di benzina a tre minuti a piedi.","faq.3q":"Si può pagare con carta?","faq.3a":"Sì, con carta o in contanti.","faq.4q":"Dove ci si siede?","faq.4a":"Dentro, nella sala, con la vista sul Quarnaro, sul mare e sull'Istria dalle finestre.","faq.5q":"Fate consegne?","faq.5a":"Sì, con Wolt. Potete anche ordinare da asporto.","faq.6q":"Posso venire con il cane?","faq.6a":"Purtroppo i cani non possono entrare.","faq.7q":"Quando siete aperti?","faq.7a":"Tutti i giorni dalle 9 alle 23, tutto l'anno.",
  "c.label":"Contatti","c.title":"Ci vediamo in collina","c.country":"Croazia","c.maps":"Apri in Google Maps","c.call":"Chiama","c.dir":"Indicazioni","c.dir2":"Come arrivare","c.stylized":"stilizzata",
  "foot.txt":"Griglia sulla collina sopra Rijeka. Ćevapi nella lepinja fresca, porzioni abbondanti e vista sul Quarnaro.","foot.addr":"Indirizzo","foot.hours":"Orari","foot.contact":"Contatti","foot.note":"Proposta di sito web · Concept: Marija","fab":"Prenota","sbar.l":"La vostra richiesta","sbar.send":"Invia",
  "_today":"Oggi","_ctag":"Concept: Marija","_g":["ospite","ospiti","ospiti"],"_sent":"{d} alle {t}, {n}","_prev":"Precedente","_next":"Successiva"
@@ -1560,14 +1680,15 @@ $$("#chips input").forEach(function(r){ r.addEventListener("change", function(){
 fDate.addEventListener("change", updateSummary);
 /* concept: no backend yet. In production this posts the request to the restaurant, staff call the guest back. */
 function sendReq(){
-  var phoneOk = fPhone.value.replace(/[^0-9]/g, "").length >= 6;
+  var phoneOk = true;
   fDate.classList.toggle("err", !fDate.value);
   fPhone.classList.toggle("err", !phoneOk);
   if (!fDate.value){ fDate.scrollIntoView({block:"center", behavior: RM ? "auto" : "smooth"}); return; }
   if (!phoneOk){ fPhone.scrollIntoView({block:"center", behavior: RM ? "auto" : "smooth"}); fPhone.focus({preventScroll:true}); return; }
   sent.hidden = false;
   renderSent();
-  sent.scrollIntoView({block:"center", behavior: RM ? "auto" : "smooth"});
+  var msg = ({hr:"Pozdrav, želim rezervirati stol: ",en:"Hello, I would like to book a table: ",de:"Hallo, ich möchte einen Tisch reservieren: ",it:"Buongiorno, vorrei prenotare un tavolo: "}[document.documentElement.lang.slice(0,2)] || "Pozdrav, želim rezervirati stol: ") + sentT.textContent + (fPhone.value ? " · " + fPhone.value : "");
+  window.open("https://wa.me/385919068483?text=" + encodeURIComponent(msg), "_blank");
 }
 function renderSent(){
   if (sent.hidden) return;
@@ -1614,7 +1735,7 @@ window.addEventListener("load", function(){ setTimeout(loadThree, 350); });
 
 function initEmbers(){
   if (!window.THREE) return;
-  var canvas = $("#embers"), media = heroMedia;
+  var gband = $("#zar"), canvas = $("#embers"), media = $("#gbMedia");
   var renderer;
   try { renderer = new THREE.WebGLRenderer({canvas: canvas, alpha: true, antialias: false, powerPreference: "high-performance"}); } catch(e){ return; }
   var mobile = Math.min(window.innerWidth, window.innerHeight) < 700;
@@ -1706,10 +1827,10 @@ function initEmbers(){
     ptr.vx = (w.x - ptr.lx); ptr.vy = (w.y - ptr.ly); ptr.lx = w.x; ptr.ly = w.y;
     ptr.x = w.x; ptr.y = w.y; ptr.on = 1;
   }
-  hero.addEventListener("pointermove", onMove, {passive:true});
-  hero.addEventListener("touchmove", onMove, {passive:true});
-  hero.addEventListener("pointerleave", function(){ ptr.on = 0; });
-  hero.addEventListener("touchend", function(){ ptr.on = 0; });
+  gband.addEventListener("pointermove", onMove, {passive:true});
+  gband.addEventListener("touchmove", onMove, {passive:true});
+  gband.addEventListener("pointerleave", function(){ ptr.on = 0; });
+  gband.addEventListener("touchend", function(){ ptr.on = 0; });
 
   var running = false, visible = true, raf = 0, last = 0, time = 0;
   function frame(ts){
@@ -1754,11 +1875,11 @@ function initEmbers(){
     if (should && !running){ running = true; last = 0; raf = requestAnimationFrame(frame); }
     else if (!should && running){ running = false; cancelAnimationFrame(raf); }
   }
-  if ("IntersectionObserver" in window){ new IntersectionObserver(function(en){ visible = en[0].isIntersecting; setRun(); }, {threshold: 0}).observe(hero); }
+  if ("IntersectionObserver" in window){ new IntersectionObserver(function(en){ visible = en[0].isIntersecting; setRun(); }, {threshold: 0}).observe(gband); }
   document.addEventListener("visibilitychange", setRun);
   window.addEventListener("resize", resize);
   setRun();
-  hero.classList.add("gl-on");
+  gband.classList.add("gl-on");
 }
 })();
 </script>
@@ -1926,8 +2047,8 @@ function initEmbers(){
 .mt-me .mt-ob{max-width:860px;margin:36px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);font-size:12px;line-height:1.6;color:rgba(255,255,255,.55);text-align:center}.mt-me .mt-ob+.mt-sm{margin-top:10px;padding-top:0;border-top:0}.mt-me .mt-sm{max-width:860px;margin:44px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);font-size:12.5px;color:rgba(255,255,255,.5);text-align:center}
 @media (max-width:640px){.mt-me{padding-top:44px}.mt-me .mt-in{grid-template-columns:1fr;gap:22px}.mt-me .mt-who{display:flex;align-items:center;gap:16px}.mt-me .mt-ph{width:84px;border-radius:16px;flex:none}.mt-me .mt-nm{margin:0}.mt-me .mt-ac a{flex:1 1 auto;justify-content:center}}
 .mt-me .mt-of{margin:24px 0 4px;padding:22px 22px 20px;border:1px solid rgba(255,255,255,.16);border-radius:20px;background:rgba(255,255,255,.04);max-width:60ch}.mt-me .mt-of small{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55)}.mt-me .mt-of .mt-on{display:block;color:#fff;font-weight:600;font-size:17px;margin-top:4px}.mt-me .mt-of .mt-pr{font:600 44px/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff;letter-spacing:-.02em;margin:14px 0 6px}.mt-me .mt-of .mt-fx{display:block;font-size:13px;color:rgba(255,255,255,.7)}.mt-me .mt-of ul{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px}@media(min-width:700px){.mt-me .mt-of ul{grid-template-columns:1fr 1fr;column-gap:20px}}.mt-me .mt-of li{position:relative;padding-left:22px;font-size:14px;line-height:1.4;color:rgba(255,255,255,.85)}.mt-me .mt-of li::before{content:"";position:absolute;left:2px;top:5px;width:10px;height:6px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg)}.mt-me .mt-of .mt-tm{margin:16px 0 0;font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.6)}.mt-me .mt-of .mt-go{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:12px 20px;border-radius:999px;background:#fff;color:#0b0b0b!important;font-weight:600;font-size:14px;text-decoration:none!important}</style>
-<section class="mt-me" aria-label="O dizajnerici"><div class="mt-in"><div class="mt-who"><div class="mt-ph"><img src="../maria.jpg" alt="Maria Tararova" width="150" height="188"></div><div class="mt-nm"><b>Maria Tararova</b><span data-mt="r">dizajnerica, Rijeka</span></div></div><div><h2 data-mt="h">U Hrvatskoj odnedavno. U dizajnu odavno.</h2><p data-mt="p">Nedavno sam se preselila u Rijeku i ovdje gradim lokalni portfolio. Dizajnom se bavim 19 godina, za banke, prometne sustave i svoje aplikacije, pa su ovo uvodne cijene za prve klijente na Kvarneru, a ne cijene početnice. Porast će kad se portfolio popuni.</p><p class="mt-q" data-mt="q">Zašto vam pišem prva? Radije pokažem nego obećam, pa sam stranicu napravila unaprijed, bez ikakve obveze. Ako vam ne treba, samo recite i neću vam se više javljati.</p><p class="mt-cf" data-mt="k">Želite prvo porazgovarati? Besplatan poziv od 15 minuta na WhatsAppu ili Zoomu, bez obveze.</p><div class="mt-of"><small data-mt="o1">Ponuda za</small><b class="mt-on">Buffet Amel</b><div class="mt-pr">250 €</div><span class="mt-fx" data-mt="o2">Fiksna cijena. Bez iznenađenja i bez mjesečne pretplate.</span><ul><li data-mt="n1">Ova stranica, dorađena po vašim željama</li><li data-mt="n2">Do 4 jezika</li><li data-mt="n3">Upit ili rezervacija na WhatsApp ili e-mail</li><li data-mt="n4">Karta i radno vrijeme na stranici, poveznica na stranicu u vašem Google profilu</li><li data-mt="n5">Online za 7 dana od primitka vaših tekstova i fotografija</li><li data-mt="n6">Sitne izmjene u prvom mjesecu uključene</li></ul><p class="mt-tm" data-mt="o3">50 % na početku, 50 % kad je stranica online. Račun izdaje moj registrirani obrt.</p><a class="mt-go" id="mtOffer" data-n="Buffet Amel" data-p="250" href="https://wa.me/385916124340" target="_blank" rel="noopener"><span data-mt="o5">Želim ovu stranicu</span> ↗</a></div><!--/mt-of--><div class="mt-ac"><a href="https://tararova.com/#hello" target="_blank" rel="noopener"><span data-mt="a">Tko sam ja</span> ↗</a><a id="mtKava" href="https://wa.me/385916124340" target="_blank" rel="noopener"><span data-mt="c">Pišite mi na WhatsApp</span></a></div></div></div><div class="mt-ob">Studio Mariia Tararova, obrt za usluge, vl. Mariia Tararova · Primorska 8, 51000 Rijeka · OIB 17233930874 · MBO 99056658</div><div class="mt-sm" data-mt="s">Ovo je koncept web stranice, prijedlog, nije službena stranica. Na vaš zahtjev uklanja se isti dan i ne koristi se nigdje drugdje.</div></section>
-<script>(function(){var T={"hr": {"k": "Želite prvo porazgovarati? Besplatan poziv od 15 minuta na WhatsAppu ili Zoomu, bez obveze.", "c": "Pišite mi na WhatsApp", "h": "U Hrvatskoj odnedavno. U dizajnu odavno.", "p": "Nedavno sam se preselila u Rijeku i ovdje gradim lokalni portfolio. Dizajnom se bavim 19 godina, za banke, prometne sustave i svoje aplikacije, pa su ovo uvodne cijene za prve klijente na Kvarneru, a ne cijene početnice. Porast će kad se portfolio popuni.", "a": "Tko sam ja", "b": "Moji radovi", "r": "dizajnerica, Rijeka", "s": "Ovo je koncept web stranice, prijedlog, nije službena stranica. Na vaš zahtjev uklanja se isti dan i ne koristi se nigdje drugdje.", "q": "Zašto vam pišem prva? Radije pokažem nego obećam, pa sam stranicu napravila unaprijed, bez ikakve obveze. Ako vam ne treba, samo recite i neću vam se više javljati.", "w": "Pozdrav Marija, javljam se u vezi koncepta stranice:", "o1": "Ponuda za", "o2": "Fiksna cijena. Bez iznenađenja i bez mjesečne pretplate.", "o3": "50 % na početku, 50 % kad je stranica online. Račun izdaje moj registrirani obrt.", "o5": "Želim ovu stranicu", "o6": "Pozdrav Marija, zanima me ponuda za stranicu:", "n1": "Ova stranica, dorađena po vašim željama", "n2": "Do 4 jezika", "d1": "Ovaj novi dizajn na vašoj postojećoj domeni", "d2": "Sav sadržaj prenesen sa stare stranice", "d3": "Svi jezici koje već imate", "n3": "Upit ili rezervacija na WhatsApp ili e-mail", "n4": "Karta i radno vrijeme na stranici, poveznica na stranicu u vašem Google profilu", "n5": "Online za 7 dana od primitka vaših tekstova i fotografija", "n6": "Sitne izmjene u prvom mjesecu uključene"}, "en": {"k": "Want to talk first? A free 15-minute call on WhatsApp or Zoom, no strings attached.", "c": "Message me on WhatsApp", "h": "New to Croatia. Not new to design.", "p": "I moved to Rijeka recently and I’m building my local portfolio here. I’ve been designing for 19 years, for banks, transport systems and my own apps, so these are introductory prices for my first clients in Kvarner, not beginner prices. They’ll go up once my portfolio is full.", "a": "Who I am", "b": "My work", "r": "designer, Rijeka", "s": "This is a website concept, a proposal, not the official site. On your request it is removed the same day and never used anywhere else.", "q": "Why am I writing to you first? I’d rather show than promise, so I built the site in advance, with no obligation. If it’s not for you, just say so and I won’t write again.", "w": "Hi Maria, I’m writing about the website concept:", "o1": "Offer for", "o2": "Fixed price. No surprises, no monthly fee.", "o3": "50% to start, 50% at launch. Invoice from my registered Croatian business.", "o5": "I want this site", "o6": "Hi Maria, I’m interested in the website offer:", "n1": "This site, finished to your wishes", "n2": "Up to 4 languages", "d1": "This new design on your existing domain", "d2": "All content moved over from your old site", "d3": "All the languages you already have", "n3": "Enquiries or bookings to WhatsApp or email", "n4": "Map and opening hours on the site, plus the site link in your Google profile", "n5": "Live in 7 days once I have your texts and photos", "n6": "Small changes in the first month included"}, "de": {"k": "Möchten Sie erst sprechen? Ein kostenloser 15-Minuten-Call über WhatsApp oder Zoom, unverbindlich.", "c": "Schreiben Sie mir auf WhatsApp", "h": "Neu in Kroatien. Nicht neu im Design.", "p": "Ich bin vor Kurzem nach Rijeka gezogen und baue hier mein lokales Portfolio auf. Ich gestalte seit 19 Jahren, für Banken, Verkehrssysteme und meine eigenen Apps. Das sind also Einführungspreise für meine ersten Kunden in der Kvarner-Bucht, keine Anfängerpreise. Sie steigen, sobald mein Portfolio voll ist.", "a": "Wer ich bin", "b": "Meine Arbeiten", "r": "Designerin, Rijeka", "s": "Dies ist ein Website-Konzept, ein Vorschlag, nicht die offizielle Seite. Auf Ihren Wunsch wird es am selben Tag entfernt und nirgendwo sonst verwendet.", "q": "Warum schreibe ich Ihnen zuerst? Ich zeige lieber, als zu versprechen, deshalb habe ich die Seite vorab gebaut, ganz unverbindlich. Wenn Sie kein Interesse haben, sagen Sie es einfach, dann melde ich mich nicht mehr.", "w": "Hallo Maria, ich melde mich wegen des Website-Konzepts:", "o1": "Angebot für", "o2": "Festpreis. Keine Überraschungen, keine Monatsgebühr.", "o3": "50 % zum Start, 50 % beim Launch. Rechnung über mein eingetragenes Gewerbe in Kroatien.", "o5": "Ich möchte diese Seite", "o6": "Hallo Maria, ich interessiere mich für das Website-Angebot:", "n1": "Diese Seite, fertig nach Ihren Wünschen", "n2": "Bis zu 4 Sprachen", "d1": "Dieses neue Design auf Ihrer bestehenden Domain", "d2": "Alle Inhalte von der alten Seite übernommen", "d3": "Alle Sprachen, die Sie schon haben", "n3": "Anfragen oder Buchungen per WhatsApp oder E-Mail", "n4": "Karte und Öffnungszeiten auf der Seite, dazu der Link in Ihrem Google-Profil", "n5": "Online in 7 Tagen, sobald Texte und Fotos da sind", "n6": "Kleine Änderungen im ersten Monat inklusive"}, "it": {"k": "Volete parlarne prima? Una chiamata gratuita di 15 minuti su WhatsApp o Zoom, senza impegno.", "c": "Scrivetemi su WhatsApp", "h": "In Croazia da poco. Nel design da sempre.", "p": "Mi sono trasferita a Rijeka da poco e qui sto costruendo il mio portfolio locale. Faccio design da 19 anni, per banche, sistemi di trasporto e le mie app, quindi questi sono prezzi di lancio per i primi clienti nel Quarnero, non prezzi da principiante. Saliranno quando il portfolio sarà completo.", "a": "Chi sono", "b": "I miei lavori", "r": "designer, Rijeka", "s": "Questo è un concept di sito web, una proposta, non il sito ufficiale. Su vostra richiesta viene rimosso lo stesso giorno e non viene usato altrove.", "q": "Perché vi scrivo per prima? Preferisco mostrare che promettere, quindi ho creato il sito in anticipo, senza alcun impegno. Se non vi interessa, ditemelo e non vi scriverò più.", "w": "Ciao Maria, ti scrivo per il concept del sito:", "o1": "Offerta per", "o2": "Prezzo fisso. Nessuna sorpresa, nessun canone mensile.", "o3": "50% all’inizio, 50% alla pubblicazione. Fattura dalla mia attività registrata in Croazia.", "o5": "Voglio questo sito", "o6": "Ciao Maria, mi interessa l’offerta per il sito:", "n1": "Questo sito, rifinito secondo i vostri desideri", "n2": "Fino a 4 lingue", "d1": "Questo nuovo design sul vostro dominio attuale", "d2": "Tutti i contenuti trasferiti dal vecchio sito", "d3": "Tutte le lingue che avete già", "n3": "Richieste o prenotazioni su WhatsApp o email", "n4": "Mappa e orari sul sito, più il link al sito nel vostro profilo Google", "n5": "Online in 7 giorni da quando ricevo testi e foto", "n6": "Piccole modifiche nel primo mese incluse"}, "ru": {"k": "Хотите сначала поговорить? Бесплатный созвон на 15 минут в WhatsApp или Zoom, ни к чему не обязывает.", "c": "Написать в WhatsApp", "h": "Недавно в Хорватии. Давно в дизайне.", "p": "Я недавно переехала в Риеку и собираю здесь местное портфолио. Я 19 лет в дизайне: банки, транспортные системы, собственные приложения. Поэтому это стартовые цены для первых клиентов на Кварнере, а не цены новичка. Они вырастут, когда портфолио заполнится.", "a": "Кто я", "b": "Мои работы", "r": "дизайнер, Риека", "s": "Это концепт сайта, предложение, а не официальный сайт. По вашей просьбе удаляется в тот же день и больше нигде не используется.", "q": "Почему я пишу первой? Мне проще показать, чем обещать, поэтому сайт я сделала заранее и ни к чему вас не обязываю. Если не нужно, просто скажите, и я больше не напишу.", "w": "Здравствуйте, Мария! Пишу по поводу концепта сайта:", "o1": "Предложение для", "o2": "Фиксированная цена. Без сюрпризов и ежемесячной платы.", "o3": "50 % в начале, 50 % при запуске. Счёт от моего зарегистрированного обрта в Хорватии.", "o5": "Хочу этот сайт", "o6": "Здравствуйте, Мария! Интересует предложение по сайту:", "n1": "Этот сайт, доработанный по вашим пожеланиям", "n2": "До 4 языков", "d1": "Этот новый дизайн на вашем текущем домене", "d2": "Весь контент перенесён со старого сайта", "d3": "Все языки, которые у вас уже есть", "n3": "Заявки и брони в WhatsApp или на почту", "n4": "Карта и часы работы на сайте, ссылка на сайт в вашем профиле Google", "n5": "Запуск за 7 дней после ваших текстов и фото", "n6": "Мелкие правки в первый месяц включены"}, "cs": {"r": "designérka, Rijeka", "h": "V Chorvatsku krátce. V designu dlouho.", "p": "Do Rijeky jsem se přestěhovala nedávno a buduji tu místní portfolio. Designu se věnuji 19 let, pro banky, dopravní systémy i vlastní aplikace, takže tohle jsou zaváděcí ceny pro první klienty na Kvarneru, ne ceny začátečnice. Jakmile se portfolio naplní, ceny porostou.", "q": "Proč vám píšu jako první? Raději ukážu, než slibuju, proto jsem web udělala předem a nezávazně. Pokud o něj nestojíte, stačí napsat a už se neozvu.", "k": "Chcete si nejdřív promluvit? Bezplatný 15minutový hovor přes WhatsApp nebo Zoom, nezávazně.", "a": "Kdo jsem", "b": "Moje práce", "c": "Napište mi na WhatsApp", "s": "Toto je koncept webu, návrh, nikoli oficiální stránka. Na vaši žádost bude ještě týž den odstraněn a nikde jinde se nepoužije.", "w": "Dobrý den, Mario, píšu kvůli konceptu webu:", "o1": "Nabídka pro", "o2": "Pevná cena. Žádná překvapení, žádný měsíční poplatek.", "o3": "50 % na začátku, 50 % při spuštění. Faktura z mé registrované živnosti v Chorvatsku.", "o5": "Chci tento web", "o6": "Dobrý den, Mario, mám zájem o nabídku webu:", "n1": "Tento web, dokončený podle vašich přání", "n2": "Až 4 jazyky", "d1": "Tento nový design na vaší stávající doméně", "d2": "Veškerý obsah přenesený ze starého webu", "d3": "Všechny jazyky, které už máte", "n3": "Poptávky nebo rezervace na WhatsApp či e-mail", "n4": "Mapa a otevírací doba na webu, odkaz na web ve vašem profilu Google", "n5": "Online do 7 dnů od dodání textů a fotek", "n6": "Drobné úpravy v prvním měsíci v ceně"}, "fr": {"r": "designer, Rijeka", "h": "Nouvelle en Croatie. Pas nouvelle dans le design.", "p": "Je me suis installée à Rijeka récemment et j’y construis mon portfolio local. Je fais du design depuis 19 ans, pour des banques, des systèmes de transport et mes propres applications : ce sont donc des prix de lancement pour mes premiers clients du Kvarner, pas des prix de débutante. Ils augmenteront quand mon portfolio sera complet.", "q": "Pourquoi je vous écris la première ? Je préfère montrer plutôt que promettre, alors j’ai créé le site à l’avance, sans engagement. Si ce n’est pas pour vous, dites-le simplement et je ne vous écrirai plus.", "k": "Envie d’en parler d’abord ? Un appel gratuit de 15 minutes sur WhatsApp ou Zoom, sans engagement.", "a": "Qui je suis", "b": "Mes réalisations", "c": "Écrivez-moi sur WhatsApp", "s": "Ceci est un concept de site, une proposition, pas le site officiel. Sur simple demande, il est supprimé le jour même et n'est utilisé nulle part ailleurs.", "w": "Bonjour Maria, je vous écris au sujet du concept de site :", "o1": "Offre pour", "o2": "Prix fixe. Pas de surprise, pas d’abonnement mensuel.", "o3": "50 % au départ, 50 % à la mise en ligne. Facture de mon entreprise enregistrée en Croatie.", "o5": "Je veux ce site", "o6": "Bonjour Maria, l’offre pour le site m’intéresse :", "n1": "Ce site, finalisé selon vos souhaits", "n2": "Jusqu’à 4 langues", "d1": "Ce nouveau design sur votre domaine actuel", "d2": "Tout le contenu repris de l’ancien site", "d3": "Toutes les langues que vous avez déjà", "n3": "Demandes ou réservations sur WhatsApp ou par e-mail", "n4": "Carte et horaires sur le site, et le lien du site dans votre profil Google", "n5": "En ligne en 7 jours après réception des textes et photos", "n6": "Petites modifications le premier mois incluses"}, "es": {"r": "diseñadora, Rijeka", "h": "Nueva en Croacia. No nueva en el diseño.", "p": "Me mudé a Rijeka hace poco y aquí estoy creando mi portfolio local. Llevo 19 años diseñando para bancos, sistemas de transporte y mis propias apps, así que estos son precios de lanzamiento para mis primeros clientes en Kvarner, no precios de principiante. Subirán cuando el portfolio esté completo.", "q": "¿Por qué les escribo yo primero? Prefiero mostrar a prometer, así que hice la web por adelantado y sin compromiso. Si no les interesa, díganmelo y no volveré a escribir.", "k": "¿Prefiere hablar antes? Una llamada gratuita de 15 minutos por WhatsApp o Zoom, sin compromiso.", "a": "Quién soy", "b": "Mis trabajos", "c": "Escríbame por WhatsApp", "s": "Esto es un concepto de web, una propuesta, no la web oficial. A petición suya se elimina el mismo día y no se usa en ningún otro sitio.", "w": "Hola Maria, le escribo por el concepto de la web:", "o1": "Oferta para", "o2": "Precio fijo. Sin sorpresas ni cuota mensual.", "o3": "50 % al empezar, 50 % al publicar. Factura de mi empresa registrada en Croacia.", "o5": "Quiero esta web", "o6": "Hola Maria, me interesa la oferta de la web:", "n1": "Esta web, terminada a su gusto", "n2": "Hasta 4 idiomas", "d1": "Este nuevo diseño en su dominio actual", "d2": "Todo el contenido trasladado de la web antigua", "d3": "Todos los idiomas que ya tiene", "n3": "Consultas o reservas por WhatsApp o email", "n4": "Mapa y horarios en la web, y el enlace a la web en su perfil de Google", "n5": "Online en 7 días con sus textos y fotos", "n6": "Pequeños cambios el primer mes incluidos"}, "nl": {"r": "ontwerper, Rijeka", "h": "Nieuw in Kroatië. Niet nieuw in design.", "p": "Ik ben onlangs naar Rijeka verhuisd en bouw hier mijn lokale portfolio op. Ik ontwerp al 19 jaar, voor banken, vervoerssystemen en mijn eigen apps. Dit zijn dus introductieprijzen voor mijn eerste klanten in Kvarner, geen beginnersprijzen. Ze gaan omhoog zodra mijn portfolio vol is.", "q": "Waarom schrijf ik jou als eerste? Ik laat liever zien dan dat ik iets beloof, dus heb ik de site vooraf gemaakt, zonder verplichting. Niets voor jou? Laat het gewoon weten, dan schrijf ik niet meer.", "k": "Eerst even praten? Een gratis gesprek van 15 minuten via WhatsApp of Zoom, vrijblijvend.", "a": "Wie ik ben", "b": "Mijn werk", "c": "Stuur me een WhatsApp", "s": "Dit is een websiteconcept, een voorstel, niet de officiële site. Op uw verzoek wordt het dezelfde dag verwijderd en nergens anders gebruikt.", "w": "Hallo Maria, ik schrijf over het websiteconcept:", "o1": "Aanbod voor", "o2": "Vaste prijs. Geen verrassingen, geen maandelijkse kosten.", "o3": "50% bij de start, 50% bij livegang. Factuur van mijn geregistreerde bedrijf in Kroatië.", "o5": "Ik wil deze site", "o6": "Hallo Maria, ik heb interesse in het website-aanbod:", "n1": "Deze site, afgewerkt naar uw wensen", "n2": "Tot 4 talen", "d1": "Dit nieuwe ontwerp op uw huidige domein", "d2": "Alle inhoud overgezet van de oude site", "d3": "Alle talen die u al heeft", "n3": "Aanvragen of boekingen via WhatsApp of e-mail", "n4": "Kaart en openingstijden op de site, plus de link in uw Google-profiel", "n5": "Online binnen 7 dagen na uw teksten en foto’s", "n6": "Kleine wijzigingen in de eerste maand inbegrepen"}, "hu": {"r": "tervező, Rijeka", "h": "Horvátországban új vagyok. A designban nem.", "p": "Nemrég költöztem Rijekába, és itt építem a helyi portfóliómat. 19 éve tervezek bankoknak, közlekedési rendszereknek és a saját alkalmazásaimnak, ezért ezek bevezető árak az első kvarneri ügyfeleimnek, nem kezdő árak. Amint megtelik a portfólióm, emelkedni fognak.", "q": "Miért írok én először? Inkább megmutatom, mint ígérgetek, ezért előre elkészítettem az oldalt, kötelezettség nélkül. Ha nem érdekli, csak szóljon, és többet nem írok.", "k": "Előbb beszélne? Ingyenes 15 perces hívás WhatsAppon vagy Zoomon, kötelezettség nélkül.", "a": "Ki vagyok", "b": "Munkáim", "c": "Írjon WhatsAppon", "s": "Ez egy weboldal-koncepció, javaslat, nem a hivatalos oldal. Kérésére még aznap eltávolítjuk, és máshol nem használjuk.", "w": "Szia Maria, a weboldal-koncepció miatt írok:", "o1": "Ajánlat:", "o2": "Fix ár. Nincs meglepetés, nincs havidíj.", "o3": "50% kezdéskor, 50% az indításkor. Számla a horvátországi bejegyzett vállalkozásomtól.", "o5": "Ezt az oldalt kérem", "o6": "Szia Maria, érdekel a weboldal-ajánlat:", "n1": "Ez az oldal, az Ön kívánságai szerint befejezve", "n2": "Legfeljebb 4 nyelv", "d1": "Ez az új dizájn a meglévő domainjén", "d2": "A régi oldal teljes tartalma átköltöztetve", "d3": "Minden nyelv, ami már megvan", "n3": "Ajánlatkérés vagy foglalás WhatsAppon vagy e-mailben", "n4": "Térkép és nyitvatartás az oldalon, plusz az oldal linkje a Google-profiljában", "n5": "7 napon belül élesben, miután megkaptam a szövegeket és fotókat", "n6": "Apró módosítások az első hónapban benne vannak"}, "sl": {"r": "oblikovalka, Reka", "h": "Na Hrvaškem od nedavnega. V oblikovanju že dolgo.", "p": "Pred kratkim sem se preselila na Reko in tu gradim lokalni portfelj. Oblikujem že 19 let, za banke, prometne sisteme in lastne aplikacije, zato so to uvajalne cene za prve stranke na Kvarnerju, ne cene začetnice. Ko se portfelj napolni, bodo zrasle.", "q": "Zakaj vam pišem prva? Raje pokažem kot obljubljam, zato sem stran naredila vnaprej, brez obveznosti. Če vas ne zanima, samo povejte in se ne bom več oglasila.", "k": "Bi se najprej pogovorili? Brezplačen 15-minutni klic na WhatsAppu ali Zoomu, brez obveznosti.", "a": "Kdo sem", "b": "Moje delo", "c": "Pišite mi na WhatsApp", "s": "To je koncept spletne strani, predlog, ne uradna stran. Na vašo zahtevo se odstrani isti dan in se nikjer drugje ne uporablja.", "w": "Pozdravljeni, Marija, pišem glede koncepta strani:", "o1": "Ponudba za", "o2": "Fiksna cena. Brez presenečenj in brez mesečne naročnine.", "o3": "50 % ob začetku, 50 % ob objavi. Račun iz mojega registriranega obrta na Hrvaškem.", "o5": "Želim to stran", "o6": "Pozdravljeni, Marija, zanima me ponudba za stran:", "n1": "Ta stran, dokončana po vaših željah", "n2": "Do 4 jeziki", "d1": "Ta nova podoba na vaši obstoječi domeni", "d2": "Vsa vsebina prenesena s stare strani", "d3": "Vsi jeziki, ki jih že imate", "n3": "Povpraševanja ali rezervacije na WhatsApp ali e-pošto", "n4": "Zemljevid in delovni čas na strani ter povezava do strani v vašem Google profilu", "n5": "Na spletu v 7 dneh, ko prejmem besedila in fotografije", "n6": "Manjši popravki v prvem mesecu vključeni"}};function u(){var l=(document.documentElement.lang||"hr").slice(0,2).toLowerCase();var d=T[l]||T.en;document.querySelectorAll("[data-mt]").forEach(function(e){var k=e.getAttribute("data-mt");if(d[k])e.textContent=d[k]});var a=document.getElementById("mtKava");if(a)a.href="https://wa.me/385916124340?text="+encodeURIComponent(d.w+" "+location.href.split("#")[0]);var o=document.getElementById("mtOffer");if(o)o.href="https://wa.me/385916124340?text="+encodeURIComponent(d.o6+" "+o.dataset.n+", "+o.dataset.p+" € "+location.href.split("#")[0])}u();try{new MutationObserver(u).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]})}catch(e){}})();</script>
+<section class="mt-me" aria-label="O dizajnerici"><div class="mt-in"><div class="mt-who"><div class="mt-ph"><img src="../maria.jpg" alt="Marija Tararova" width="150" height="188"></div><div class="mt-nm"><b>Marija Tararova</b><span data-mt="r">dizajnerica, Rijeka</span></div></div><div><h2 data-mt="h">U Hrvatskoj odnedavno. U dizajnu odavno.</h2><p data-mt="p">Nedavno sam se preselila u Rijeku i ovdje gradim lokalni portfolio. Dizajnom se bavim 19 godina, za banke, prometne sustave i svoje aplikacije, pa su ovo uvodne cijene za prve klijente na Kvarneru, a ne cijene početnice. Porast će kad se portfolio popuni.</p><p class="mt-q" data-mt="q">Zašto vam pišem prva? Radije pokažem nego obećam, pa sam stranicu napravila unaprijed, bez ikakve obveze. Ako vam ne treba, samo recite i neću vam se više javljati.</p><p class="mt-cf" data-mt="k">Želite prvo porazgovarati? Besplatan poziv od 15 minuta na WhatsAppu ili Zoomu, bez obveze.</p><div class="mt-of"><small data-mt="o1">Ponuda za</small><b class="mt-on">Buffet Amel</b><div class="mt-pr">300 €</div><span class="mt-fx" data-mt="o2">Fiksna cijena. Bez iznenađenja i bez mjesečne pretplate.</span><ul><li data-mt="n1">Ova stranica, dorađena po vašim željama</li><li data-mt="n2">Do 4 jezika</li><li data-mt="n3">Upit ili rezervacija na WhatsApp ili e-mail</li><li data-mt="n4">Karta i radno vrijeme na stranici, poveznica na stranicu u vašem Google profilu</li><li data-mt="n5">Online za 7 dana od primitka vaših tekstova i fotografija</li><li data-mt="n6">Sitne izmjene u prvom mjesecu uključene</li></ul><p class="mt-tm" data-mt="o3">50 % na početku, 50 % kad je stranica online. Račun izdaje moj registrirani obrt.</p><a class="mt-go" id="mtOffer" data-n="Buffet Amel" data-p="300" href="https://wa.me/385916124340" target="_blank" rel="noopener"><span data-mt="o5">Želim ovu stranicu</span> ↗</a></div><!--/mt-of--><div class="mt-ac"><a href="https://tararova.com/#hello" target="_blank" rel="noopener"><span data-mt="a">Tko sam ja</span> ↗</a><a id="mtKava" href="https://wa.me/385916124340" target="_blank" rel="noopener"><span data-mt="c">Pišite mi na WhatsApp</span></a></div></div></div><div class="mt-ob">Studio Mariia Tararova, obrt za usluge, vl. Mariia Tararova · Primorska 8, 51000 Rijeka · OIB 17233930874 · MBO 99056658</div><div class="mt-sm" data-mt="s">Ovo je koncept web stranice, prijedlog, nije službena stranica. Na vaš zahtjev uklanja se isti dan i ne koristi se nigdje drugdje.</div></section>
+<script>(function(){var T={"hr": {"k": "Želite prvo porazgovarati? Besplatan poziv od 15 minuta na WhatsAppu ili Zoomu, bez obveze.", "c": "Pišite mi na WhatsApp", "h": "U Hrvatskoj odnedavno. U dizajnu odavno.", "p": "Nedavno sam se preselila u Rijeku i ovdje gradim lokalni portfolio. Dizajnom se bavim 19 godina, za banke, prometne sustave i svoje aplikacije, pa su ovo uvodne cijene za prve klijente na Kvarneru, a ne cijene početnice. Porast će kad se portfolio popuni.", "a": "Tko sam ja", "b": "Moji radovi", "r": "dizajnerica, Rijeka", "s": "Ovo je koncept web stranice, prijedlog, nije službena stranica. Na vaš zahtjev uklanja se isti dan i ne koristi se nigdje drugdje.", "q": "Zašto vam pišem prva? Radije pokažem nego obećam, pa sam stranicu napravila unaprijed, bez ikakve obveze. Ako vam ne treba, samo recite i neću vam se više javljati.", "w": "Pozdrav Marija, javljam se u vezi koncepta stranice:", "o1": "Ponuda za", "o2": "Fiksna cijena. Bez iznenađenja i bez mjesečne pretplate.", "o3": "50 % na početku, 50 % kad je stranica online. Račun izdaje moj registrirani obrt.", "o5": "Želim ovu stranicu", "o6": "Pozdrav Marija, zanima me ponuda za stranicu:", "n1": "Ova stranica, dorađena po vašim željama", "n2": "Do 4 jezika", "d1": "Ovaj novi dizajn na vašoj postojećoj domeni", "d2": "Sav sadržaj prenesen sa stare stranice", "d3": "Svi jezici koje već imate", "n3": "Upit ili rezervacija na WhatsApp ili e-mail", "n4": "Karta i radno vrijeme na stranici, poveznica na stranicu u vašem Google profilu", "n5": "Online za 7 dana od primitka vaših tekstova i fotografija", "n6": "Sitne izmjene u prvom mjesecu uključene"}, "en": {"k": "Want to talk first? A free 15-minute call on WhatsApp or Zoom, no strings attached.", "c": "Message me on WhatsApp", "h": "New to Croatia. Not new to design.", "p": "I moved to Rijeka recently and I’m building my local portfolio here. I’ve been designing for 19 years, for banks, transport systems and my own apps, so these are introductory prices for my first clients in Kvarner, not beginner prices. They’ll go up once my portfolio is full.", "a": "Who I am", "b": "My work", "r": "designer, Rijeka", "s": "This is a website concept, a proposal, not the official site. On your request it is removed the same day and never used anywhere else.", "q": "Why am I writing to you first? I’d rather show than promise, so I built the site in advance, with no obligation. If it’s not for you, just say so and I won’t write again.", "w": "Hi Marija, I’m writing about the website concept:", "o1": "Offer for", "o2": "Fixed price. No surprises, no monthly fee.", "o3": "50% to start, 50% at launch. Invoice from my registered Croatian business.", "o5": "I want this site", "o6": "Hi Marija, I’m interested in the website offer:", "n1": "This site, finished to your wishes", "n2": "Up to 4 languages", "d1": "This new design on your existing domain", "d2": "All content moved over from your old site", "d3": "All the languages you already have", "n3": "Enquiries or bookings to WhatsApp or email", "n4": "Map and opening hours on the site, plus the site link in your Google profile", "n5": "Live in 7 days once I have your texts and photos", "n6": "Small changes in the first month included"}, "de": {"k": "Möchten Sie erst sprechen? Ein kostenloser 15-Minuten-Call über WhatsApp oder Zoom, unverbindlich.", "c": "Schreiben Sie mir auf WhatsApp", "h": "Neu in Kroatien. Nicht neu im Design.", "p": "Ich bin vor Kurzem nach Rijeka gezogen und baue hier mein lokales Portfolio auf. Ich gestalte seit 19 Jahren, für Banken, Verkehrssysteme und meine eigenen Apps. Das sind also Einführungspreise für meine ersten Kunden in der Kvarner-Bucht, keine Anfängerpreise. Sie steigen, sobald mein Portfolio voll ist.", "a": "Wer ich bin", "b": "Meine Arbeiten", "r": "Designerin, Rijeka", "s": "Dies ist ein Website-Konzept, ein Vorschlag, nicht die offizielle Seite. Auf Ihren Wunsch wird es am selben Tag entfernt und nirgendwo sonst verwendet.", "q": "Warum schreibe ich Ihnen zuerst? Ich zeige lieber, als zu versprechen, deshalb habe ich die Seite vorab gebaut, ganz unverbindlich. Wenn Sie kein Interesse haben, sagen Sie es einfach, dann melde ich mich nicht mehr.", "w": "Hallo Marija, ich melde mich wegen des Website-Konzepts:", "o1": "Angebot für", "o2": "Festpreis. Keine Überraschungen, keine Monatsgebühr.", "o3": "50 % zum Start, 50 % beim Launch. Rechnung über mein eingetragenes Gewerbe in Kroatien.", "o5": "Ich möchte diese Seite", "o6": "Hallo Marija, ich interessiere mich für das Website-Angebot:", "n1": "Diese Seite, fertig nach Ihren Wünschen", "n2": "Bis zu 4 Sprachen", "d1": "Dieses neue Design auf Ihrer bestehenden Domain", "d2": "Alle Inhalte von der alten Seite übernommen", "d3": "Alle Sprachen, die Sie schon haben", "n3": "Anfragen oder Buchungen per WhatsApp oder E-Mail", "n4": "Karte und Öffnungszeiten auf der Seite, dazu der Link in Ihrem Google-Profil", "n5": "Online in 7 Tagen, sobald Texte und Fotos da sind", "n6": "Kleine Änderungen im ersten Monat inklusive"}, "it": {"k": "Volete parlarne prima? Una chiamata gratuita di 15 minuti su WhatsApp o Zoom, senza impegno.", "c": "Scrivetemi su WhatsApp", "h": "In Croazia da poco. Nel design da sempre.", "p": "Mi sono trasferita a Rijeka da poco e qui sto costruendo il mio portfolio locale. Faccio design da 19 anni, per banche, sistemi di trasporto e le mie app, quindi questi sono prezzi di lancio per i primi clienti nel Quarnero, non prezzi da principiante. Saliranno quando il portfolio sarà completo.", "a": "Chi sono", "b": "I miei lavori", "r": "designer, Rijeka", "s": "Questo è un concept di sito web, una proposta, non il sito ufficiale. Su vostra richiesta viene rimosso lo stesso giorno e non viene usato altrove.", "q": "Perché vi scrivo per prima? Preferisco mostrare che promettere, quindi ho creato il sito in anticipo, senza alcun impegno. Se non vi interessa, ditemelo e non vi scriverò più.", "w": "Ciao Marija, ti scrivo per il concept del sito:", "o1": "Offerta per", "o2": "Prezzo fisso. Nessuna sorpresa, nessun canone mensile.", "o3": "50% all’inizio, 50% alla pubblicazione. Fattura dalla mia attività registrata in Croazia.", "o5": "Voglio questo sito", "o6": "Ciao Marija, mi interessa l’offerta per il sito:", "n1": "Questo sito, rifinito secondo i vostri desideri", "n2": "Fino a 4 lingue", "d1": "Questo nuovo design sul vostro dominio attuale", "d2": "Tutti i contenuti trasferiti dal vecchio sito", "d3": "Tutte le lingue che avete già", "n3": "Richieste o prenotazioni su WhatsApp o email", "n4": "Mappa e orari sul sito, più il link al sito nel vostro profilo Google", "n5": "Online in 7 giorni da quando ricevo testi e foto", "n6": "Piccole modifiche nel primo mese incluse"}, "ru": {"k": "Хотите сначала поговорить? Бесплатный созвон на 15 минут в WhatsApp или Zoom, ни к чему не обязывает.", "c": "Написать в WhatsApp", "h": "Недавно в Хорватии. Давно в дизайне.", "p": "Я недавно переехала в Риеку и собираю здесь местное портфолио. Я 19 лет в дизайне: банки, транспортные системы, собственные приложения. Поэтому это стартовые цены для первых клиентов на Кварнере, а не цены новичка. Они вырастут, когда портфолио заполнится.", "a": "Кто я", "b": "Мои работы", "r": "дизайнер, Риека", "s": "Это концепт сайта, предложение, а не официальный сайт. По вашей просьбе удаляется в тот же день и больше нигде не используется.", "q": "Почему я пишу первой? Мне проще показать, чем обещать, поэтому сайт я сделала заранее и ни к чему вас не обязываю. Если не нужно, просто скажите, и я больше не напишу.", "w": "Здравствуйте, Мария! Пишу по поводу концепта сайта:", "o1": "Предложение для", "o2": "Фиксированная цена. Без сюрпризов и ежемесячной платы.", "o3": "50 % в начале, 50 % при запуске. Счёт от моего зарегистрированного обрта в Хорватии.", "o5": "Хочу этот сайт", "o6": "Здравствуйте, Мария! Интересует предложение по сайту:", "n1": "Этот сайт, доработанный по вашим пожеланиям", "n2": "До 4 языков", "d1": "Этот новый дизайн на вашем текущем домене", "d2": "Весь контент перенесён со старого сайта", "d3": "Все языки, которые у вас уже есть", "n3": "Заявки и брони в WhatsApp или на почту", "n4": "Карта и часы работы на сайте, ссылка на сайт в вашем профиле Google", "n5": "Запуск за 7 дней после ваших текстов и фото", "n6": "Мелкие правки в первый месяц включены"}, "cs": {"r": "designérka, Rijeka", "h": "V Chorvatsku krátce. V designu dlouho.", "p": "Do Rijeky jsem se přestěhovala nedávno a buduji tu místní portfolio. Designu se věnuji 19 let, pro banky, dopravní systémy i vlastní aplikace, takže tohle jsou zaváděcí ceny pro první klienty na Kvarneru, ne ceny začátečnice. Jakmile se portfolio naplní, ceny porostou.", "q": "Proč vám píšu jako první? Raději ukážu, než slibuju, proto jsem web udělala předem a nezávazně. Pokud o něj nestojíte, stačí napsat a už se neozvu.", "k": "Chcete si nejdřív promluvit? Bezplatný 15minutový hovor přes WhatsApp nebo Zoom, nezávazně.", "a": "Kdo jsem", "b": "Moje práce", "c": "Napište mi na WhatsApp", "s": "Toto je koncept webu, návrh, nikoli oficiální stránka.", "w": "Dobrý den, Marijo, píšu kvůli konceptu webu:", "o1": "Nabídka pro", "o2": "Pevná cena. Žádná překvapení, žádný měsíční poplatek.", "o3": "50 % na začátku, 50 % při spuštění. Faktura z mé registrované živnosti v Chorvatsku.", "o5": "Chci tento web", "o6": "Dobrý den, Marijo, mám zájem o nabídku webu:", "n1": "Tento web, dokončený podle vašich přání", "n2": "Až 4 jazyky", "d1": "Tento nový design na vaší stávající doméně", "d2": "Veškerý obsah přenesený ze starého webu", "d3": "Všechny jazyky, které už máte", "n3": "Poptávky nebo rezervace na WhatsApp či e-mail", "n4": "Mapa a otevírací doba na webu, odkaz na web ve vašem profilu Google", "n5": "Online do 7 dnů od dodání textů a fotek", "n6": "Drobné úpravy v prvním měsíci v ceně"}, "fr": {"r": "designer, Rijeka", "h": "Nouvelle en Croatie. Pas nouvelle dans le design.", "p": "Je me suis installée à Rijeka récemment et j’y construis mon portfolio local. Je fais du design depuis 19 ans, pour des banques, des systèmes de transport et mes propres applications : ce sont donc des prix de lancement pour mes premiers clients du Kvarner, pas des prix de débutante. Ils augmenteront quand mon portfolio sera complet.", "q": "Pourquoi je vous écris la première ? Je préfère montrer plutôt que promettre, alors j’ai créé le site à l’avance, sans engagement. Si ce n’est pas pour vous, dites-le simplement et je ne vous écrirai plus.", "k": "Envie d’en parler d’abord ? Un appel gratuit de 15 minutes sur WhatsApp ou Zoom, sans engagement.", "a": "Qui je suis", "b": "Mes réalisations", "c": "Écrivez-moi sur WhatsApp", "s": "Ceci est un concept de site, une proposition, pas le site officiel.", "w": "Bonjour Marija, je vous écris au sujet du concept de site :", "o1": "Offre pour", "o2": "Prix fixe. Pas de surprise, pas d’abonnement mensuel.", "o3": "50 % au départ, 50 % à la mise en ligne. Facture de mon entreprise enregistrée en Croatie.", "o5": "Je veux ce site", "o6": "Bonjour Marija, l’offre pour le site m’intéresse :", "n1": "Ce site, finalisé selon vos souhaits", "n2": "Jusqu’à 4 langues", "d1": "Ce nouveau design sur votre domaine actuel", "d2": "Tout le contenu repris de l’ancien site", "d3": "Toutes les langues que vous avez déjà", "n3": "Demandes ou réservations sur WhatsApp ou par e-mail", "n4": "Carte et horaires sur le site, et le lien du site dans votre profil Google", "n5": "En ligne en 7 jours après réception des textes et photos", "n6": "Petites modifications le premier mois incluses"}, "es": {"r": "diseñadora, Rijeka", "h": "Nueva en Croacia. No nueva en el diseño.", "p": "Me mudé a Rijeka hace poco y aquí estoy creando mi portfolio local. Llevo 19 años diseñando para bancos, sistemas de transporte y mis propias apps, así que estos son precios de lanzamiento para mis primeros clientes en Kvarner, no precios de principiante. Subirán cuando el portfolio esté completo.", "q": "¿Por qué les escribo yo primero? Prefiero mostrar a prometer, así que hice la web por adelantado y sin compromiso. Si no les interesa, díganmelo y no volveré a escribir.", "k": "¿Prefiere hablar antes? Una llamada gratuita de 15 minutos por WhatsApp o Zoom, sin compromiso.", "a": "Quién soy", "b": "Mis trabajos", "c": "Escríbame por WhatsApp", "s": "Esto es un concepto de web, una propuesta, no la web oficial.", "w": "Hola Marija, le escribo por el concepto de la web:", "o1": "Oferta para", "o2": "Precio fijo. Sin sorpresas ni cuota mensual.", "o3": "50 % al empezar, 50 % al publicar. Factura de mi empresa registrada en Croacia.", "o5": "Quiero esta web", "o6": "Hola Marija, me interesa la oferta de la web:", "n1": "Esta web, terminada a su gusto", "n2": "Hasta 4 idiomas", "d1": "Este nuevo diseño en su dominio actual", "d2": "Todo el contenido trasladado de la web antigua", "d3": "Todos los idiomas que ya tiene", "n3": "Consultas o reservas por WhatsApp o email", "n4": "Mapa y horarios en la web, y el enlace a la web en su perfil de Google", "n5": "Online en 7 días con sus textos y fotos", "n6": "Pequeños cambios el primer mes incluidos"}, "nl": {"r": "ontwerper, Rijeka", "h": "Nieuw in Kroatië. Niet nieuw in design.", "p": "Ik ben onlangs naar Rijeka verhuisd en bouw hier mijn lokale portfolio op. Ik ontwerp al 19 jaar, voor banken, vervoerssystemen en mijn eigen apps. Dit zijn dus introductieprijzen voor mijn eerste klanten in Kvarner, geen beginnersprijzen. Ze gaan omhoog zodra mijn portfolio vol is.", "q": "Waarom schrijf ik jou als eerste? Ik laat liever zien dan dat ik iets beloof, dus heb ik de site vooraf gemaakt, zonder verplichting. Niets voor jou? Laat het gewoon weten, dan schrijf ik niet meer.", "k": "Eerst even praten? Een gratis gesprek van 15 minuten via WhatsApp of Zoom, vrijblijvend.", "a": "Wie ik ben", "b": "Mijn werk", "c": "Stuur me een WhatsApp", "s": "Dit is een websiteconcept, een voorstel, niet de officiële site.", "w": "Hallo Marija, ik schrijf over het websiteconcept:", "o1": "Aanbod voor", "o2": "Vaste prijs. Geen verrassingen, geen maandelijkse kosten.", "o3": "50% bij de start, 50% bij livegang. Factuur van mijn geregistreerde bedrijf in Kroatië.", "o5": "Ik wil deze site", "o6": "Hallo Marija, ik heb interesse in het website-aanbod:", "n1": "Deze site, afgewerkt naar uw wensen", "n2": "Tot 4 talen", "d1": "Dit nieuwe ontwerp op uw huidige domein", "d2": "Alle inhoud overgezet van de oude site", "d3": "Alle talen die u al heeft", "n3": "Aanvragen of boekingen via WhatsApp of e-mail", "n4": "Kaart en openingstijden op de site, plus de link in uw Google-profiel", "n5": "Online binnen 7 dagen na uw teksten en foto’s", "n6": "Kleine wijzigingen in de eerste maand inbegrepen"}, "hu": {"r": "tervező, Rijeka", "h": "Horvátországban új vagyok. A designban nem.", "p": "Nemrég költöztem Rijekába, és itt építem a helyi portfóliómat. 19 éve tervezek bankoknak, közlekedési rendszereknek és a saját alkalmazásaimnak, ezért ezek bevezető árak az első kvarneri ügyfeleimnek, nem kezdő árak. Amint megtelik a portfólióm, emelkedni fognak.", "q": "Miért írok én először? Inkább megmutatom, mint ígérgetek, ezért előre elkészítettem az oldalt, kötelezettség nélkül. Ha nem érdekli, csak szóljon, és többet nem írok.", "k": "Előbb beszélne? Ingyenes 15 perces hívás WhatsAppon vagy Zoomon, kötelezettség nélkül.", "a": "Ki vagyok", "b": "Munkáim", "c": "Írjon WhatsAppon", "s": "Ez egy weboldal-koncepció, javaslat, nem a hivatalos oldal.", "w": "Szia Marija, a weboldal-koncepció miatt írok:", "o1": "Ajánlat:", "o2": "Fix ár. Nincs meglepetés, nincs havidíj.", "o3": "50% kezdéskor, 50% az indításkor. Számla a horvátországi bejegyzett vállalkozásomtól.", "o5": "Ezt az oldalt kérem", "o6": "Szia Marija, érdekel a weboldal-ajánlat:", "n1": "Ez az oldal, az Ön kívánságai szerint befejezve", "n2": "Legfeljebb 4 nyelv", "d1": "Ez az új dizájn a meglévő domainjén", "d2": "A régi oldal teljes tartalma átköltöztetve", "d3": "Minden nyelv, ami már megvan", "n3": "Ajánlatkérés vagy foglalás WhatsAppon vagy e-mailben", "n4": "Térkép és nyitvatartás az oldalon, plusz az oldal linkje a Google-profiljában", "n5": "7 napon belül élesben, miután megkaptam a szövegeket és fotókat", "n6": "Apró módosítások az első hónapban benne vannak"}, "sl": {"r": "oblikovalka, Reka", "h": "Na Hrvaškem od nedavnega. V oblikovanju že dolgo.", "p": "Pred kratkim sem se preselila na Reko in tu gradim lokalni portfelj. Oblikujem že 19 let, za banke, prometne sisteme in lastne aplikacije, zato so to uvajalne cene za prve stranke na Kvarnerju, ne cene začetnice. Ko se portfelj napolni, bodo zrasle.", "q": "Zakaj vam pišem prva? Raje pokažem kot obljubljam, zato sem stran naredila vnaprej, brez obveznosti. Če vas ne zanima, samo povejte in se ne bom več oglasila.", "k": "Bi se najprej pogovorili? Brezplačen 15-minutni klic na WhatsAppu ali Zoomu, brez obveznosti.", "a": "Kdo sem", "b": "Moje delo", "c": "Pišite mi na WhatsApp", "s": "To je koncept spletne strani, predlog, ne uradna stran.", "w": "Pozdravljeni, Marija, pišem glede koncepta strani:", "o1": "Ponudba za", "o2": "Fiksna cena. Brez presenečenj in brez mesečne naročnine.", "o3": "50 % ob začetku, 50 % ob objavi. Račun iz mojega registriranega obrta na Hrvaškem.", "o5": "Želim to stran", "o6": "Pozdravljeni, Marija, zanima me ponudba za stran:", "n1": "Ta stran, dokončana po vaših željah", "n2": "Do 4 jeziki", "d1": "Ta nova podoba na vaši obstoječi domeni", "d2": "Vsa vsebina prenesena s stare strani", "d3": "Vsi jeziki, ki jih že imate", "n3": "Povpraševanja ali rezervacije na WhatsApp ali e-pošto", "n4": "Zemljevid in delovni čas na strani ter povezava do strani v vašem Google profilu", "n5": "Na spletu v 7 dneh, ko prejmem besedila in fotografije", "n6": "Manjši popravki v prvem mesecu vključeni"}};function u(){var l=(document.documentElement.lang||"hr").slice(0,2).toLowerCase();var d=T[l]||T.en;document.querySelectorAll("[data-mt]").forEach(function(e){var k=e.getAttribute("data-mt");if(d[k])e.textContent=d[k]});var a=document.getElementById("mtKava");if(a)a.href="https://wa.me/385916124340?text="+encodeURIComponent(d.w+" "+location.href.split("#")[0]);var o=document.getElementById("mtOffer");if(o)o.href="https://wa.me/385916124340?text="+encodeURIComponent(d.o6+" "+o.dataset.n+", "+o.dataset.p+" € "+location.href.split("#")[0])}u();try{new MutationObserver(u).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]})}catch(e){}})();</script>
 <!-- tararova-bar -->
 <style>
 .tr-bar{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:40;display:flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;background:rgba(15,15,15,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:rgba(255,255,255,.82);font:500 11px/1.2 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:.08em;pointer-events:auto;transition:opacity .3s,transform .3s}
@@ -1956,5 +2077,7 @@ if(location.pathname==='/'||location.pathname==='/index.html'){var seen={};var i
 document.addEventListener('click',function(e){var l=e.target.closest('[data-lang]');if(l)c('jezik '+l.getAttribute('data-lang'))},true);
 document.addEventListener('submit',function(e){var f=e.target;c('poslan obrazac '+(f.id||f.className||'form'))},true);
 var seen={};var io=window.IntersectionObserver&&new IntersectionObserver(function(es){es.forEach(function(x){var id=x.target.id;if(x.isIntersecting&&!seen[id]){seen[id]=1;c('vidio '+id)}})},{threshold:.35});
-if(io&&location.pathname!=='/'&&location.pathname!=='/index.html')document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)})})();</script></body>
+if(io&&location.pathname!=='/'&&location.pathname!=='/index.html')document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)})})();</script><script>(function(){function tx(){var l=(document.documentElement.lang||"hr").slice(0,2);document.querySelectorAll("[data-tx]").forEach(function(e){try{var o=JSON.parse(e.getAttribute("data-tx"));e.textContent=o[l]||o.en||o.hr}catch(_){}})}tx();try{new MutationObserver(tx).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]})}catch(e){}
+var h=document.getElementById("hero"),p=document.getElementById("heroPh");if(h&&p&&!matchMedia("(prefers-reduced-motion:reduce)").matches){h.addEventListener("pointermove",function(e){var r=h.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;p.style.transform="scale(1.06) translate("+(-x*18)+"px,"+(-y*12)+"px)"},{passive:true});h.addEventListener("pointerleave",function(){p.style.transform=""})}})();</script>
+</body>
 </html>
