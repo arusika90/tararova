@@ -510,6 +510,15 @@ html select{height:56px;line-height:normal}
 .eb-stars{display:flex;align-items:center;gap:12px}.st4{display:inline-flex;gap:3px;color:#F2C46B}.st4 svg{width:15px;height:15px}
 .bay{position:relative;height:78vh;min-height:520px;overflow:hidden;background:#24324F;color:#fff}.bay .sea{position:absolute;inset:0}.bay-c{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:0 0 56px;background:linear-gradient(0deg,rgba(6,16,34,.6),rgba(6,16,34,0));padding-top:120px}.bay-c .h2{max-width:14em;color:#fff}.bay-c .kicker{color:rgba(255,255,255,.7)}
 @media(min-width:600px) and (max-width:899px){.amen-grid{grid-template-columns:repeat(3,1fr)}.amen-grid li{border-left:1px solid rgba(255,255,255,.16)}}@media(min-width:900px){.apts .cnav{display:none}}</style>
+<style id="gal-small">
+/* gallery: smaller photos (their pictures are often low-res, a full-screen slider shows it) */
+@media(max-width:899px){.gal-sec .gal{aspect-ratio:1/1;max-height:none}}
+@media(min-width:900px){
+.gal-sec{padding-bottom:88px}
+.gal-sec .gal{aspect-ratio:3/2;max-height:none;width:min(calc(100% - 48px),calc(58vh * 1.5),1000px);margin-left:auto;margin-right:auto;border-radius:32px}
+.frame-wrap{max-width:1000px}.frame{aspect-ratio:3/2;max-height:none;width:min(100%,calc(58vh * 1.5));margin:0 auto;border-radius:var(--r,32px)}
+}
+</style>
 </head>
 <body>
 

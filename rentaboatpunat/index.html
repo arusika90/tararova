@@ -540,6 +540,23 @@ html select{height:56px;line-height:normal}
 .faq__grid>.sh::after{display:none}
 </style>
 <style>.hero__hint{display:none!important}</style>
+<style id="faq-sticky">
+/* FAQ: the heading on the left travels with the questions */
+@media(min-width:900px){
+#faq{overflow:visible;overflow:clip}
+#faq .faq__grid,#faq .faq-grid{align-items:start}
+#faq .faq__grid>.sh,#faq .faq-grid>.faq-l{position:sticky;top:calc(var(--header,var(--hh,64px)) + 64px);align-self:start}
+}
+</style>
+<style id="gal-small">
+/* gallery: smaller photos (their pictures are often low-res, a full-screen slider shows it) */
+@media(max-width:899px){.gal-sec .gal{aspect-ratio:1/1;max-height:none}}
+@media(min-width:900px){
+.gal-sec{padding-bottom:88px}
+.gal-sec .gal{aspect-ratio:3/2;max-height:none;width:min(calc(100% - 48px),calc(58vh * 1.5),1000px);margin-left:auto;margin-right:auto;border-radius:32px}
+.frame-wrap{max-width:1000px}.frame{aspect-ratio:3/2;max-height:none;width:min(100%,calc(58vh * 1.5));margin:0 auto;border-radius:var(--r,32px)}
+}
+</style>
 </head>
 <body class="locked">
 
