@@ -2987,11 +2987,11 @@ li .ci,tr .ci{margin-top:8px}
 <div class="ci-bar" id="ciBar" aria-live="polite"><div><small id="ciL"></small><b id="ciT">0 €</b> <span class="ci-n" id="ciN"></span></div><button type="button" class="ci-c" id="ciC"></button><a id="ciW" href="#" target="_blank" rel="noopener"></a></div>
 <script>(function(){
 var WA="385919141658";
-var T={hr:{sel:"Odabrano",clr:"Očisti",send:"Pošalji upit na WhatsApp",hi:"Pozdrav, zanima me:",tot:"Okvirno ukupno",req:"cijena na upit",date:"Datum:",ppl:"Broj osoba:",items:"stavki",ad:"Odrasli",ch:"Djeca",pp:"po osobi",boat:"Cijeli brod",priv:"Privatni brod",day:"Dan",trip:"Upit",add:"Dodaj",pl:"+ na upit"},
-en:{sel:"Selected",clr:"Clear",send:"Send on WhatsApp",hi:"Hello, I would like:",tot:"Approx. total",req:"price on request",date:"Date:",ppl:"Guests:",items:"items",ad:"Adults",ch:"Children",pp:"per person",boat:"Whole boat",priv:"Private boat",day:"Day",trip:"Ask",add:"Add",pl:"+ on request"},
-de:{sel:"Ausgewählt",clr:"Leeren",send:"Per WhatsApp senden",hi:"Hallo, ich möchte:",tot:"Ca. gesamt",req:"Preis auf Anfrage",date:"Datum:",ppl:"Personen:",items:"Posten",ad:"Erwachsene",ch:"Kinder",pp:"pro Person",boat:"Ganzes Boot",priv:"Privates Boot",day:"Tag",trip:"Anfrage",add:"Hinzufügen",pl:"+ auf Anfrage"},
-it:{sel:"Selezionato",clr:"Svuota",send:"Invia su WhatsApp",hi:"Ciao, vorrei:",tot:"Totale indicativo",req:"prezzo su richiesta",date:"Data:",ppl:"Persone:",items:"voci",ad:"Adulti",ch:"Bambini",pp:"a persona",boat:"Barca intera",priv:"Barca privata",day:"Giorno",trip:"Richiesta",add:"Aggiungi",pl:"+ su richiesta"},
-hu:{sel:"Kiválasztva",clr:"Törlés",send:"Küldés WhatsAppon",hi:"Üdv, ezt szeretném:",tot:"Kb. összesen",req:"ár kérésre",date:"Dátum:",ppl:"Létszám:",items:"tétel",ad:"Felnőtt",ch:"Gyerek",pp:"fő",boat:"Egész hajó",priv:"Privát hajó",day:"Nap",trip:"Kérés",add:"Hozzáad",pl:"+ kérésre"}};
+var T={hr:{sel:"Odabrano",clr:"Očisti",send:"Dalje: datum i detalji",hi:"Pozdrav, zanima me:",tot:"Okvirno ukupno",req:"cijena na upit",date:"Datum:",ppl:"Broj osoba:",items:"stavki",ad:"Odrasli",ch:"Djeca",pp:"po osobi",boat:"Cijeli brod",priv:"Privatni brod",day:"Dan",trip:"Upit",add:"Dodaj",pl:"+ na upit"},
+en:{sel:"Selected",clr:"Clear",send:"Next: date and details",hi:"Hello, I would like:",tot:"Approx. total",req:"price on request",date:"Date:",ppl:"Guests:",items:"items",ad:"Adults",ch:"Children",pp:"per person",boat:"Whole boat",priv:"Private boat",day:"Day",trip:"Ask",add:"Add",pl:"+ on request"},
+de:{sel:"Ausgewählt",clr:"Leeren",send:"Weiter: Datum und Details",hi:"Hallo, ich möchte:",tot:"Ca. gesamt",req:"Preis auf Anfrage",date:"Datum:",ppl:"Personen:",items:"Posten",ad:"Erwachsene",ch:"Kinder",pp:"pro Person",boat:"Ganzes Boot",priv:"Privates Boot",day:"Tag",trip:"Anfrage",add:"Hinzufügen",pl:"+ auf Anfrage"},
+it:{sel:"Selezionato",clr:"Svuota",send:"Avanti: data e dettagli",hi:"Ciao, vorrei:",tot:"Totale indicativo",req:"prezzo su richiesta",date:"Data:",ppl:"Persone:",items:"voci",ad:"Adulti",ch:"Bambini",pp:"a persona",boat:"Barca intera",priv:"Barca privata",day:"Giorno",trip:"Richiesta",add:"Aggiungi",pl:"+ su richiesta"},
+hu:{sel:"Kiválasztva",clr:"Törlés",send:"Tovább: dátum és részletek",hi:"Üdv, ezt szeretném:",tot:"Kb. összesen",req:"ár kérésre",date:"Dátum:",ppl:"Létszám:",items:"tétel",ad:"Felnőtt",ch:"Gyerek",pp:"fő",boat:"Egész hajó",priv:"Privát hajó",day:"Nap",trip:"Kérés",add:"Hozzáad",pl:"+ kérésre"}};
 function L(){var l=(document.documentElement.lang||"en").slice(0,2).toLowerCase();return T[l]||T.en}
 var items=[];
 document.querySelectorAll("[data-ci]").forEach(function(el){
@@ -3018,7 +3018,84 @@ function up(){var t=L(),sum=0,cnt=0,req=false,lines=[];
   document.getElementById("ciW").href="https://wa.me/"+WA+"?text="+encodeURIComponent(t.hi+"\n"+lines.join("\n")+(sum?"\n"+t.tot+": "+sum+" €":"")+"\n"+t.date+" \n"+t.ppl+" ")}
 document.getElementById("ciC").onclick=function(){items.forEach(function(it){it.n=0});up()};
 document.getElementById("ciW").addEventListener("click",function(){if(window.goatcounter&&goatcounter.count)goatcounter.count({path:location.pathname.replace(/\/$/,"")+" > kosarica WhatsApp",title:"kosarica WhatsApp",event:true})});
-new MutationObserver(up).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});up();
+new MutationObserver(up).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});up();window.CI={items:items,name:name,L:L,clear:function(){items.forEach(function(it){it.n=0});up()}};
 })();</script>
+<style id="ci-book-css">
+.ci-sel{margin:0 0 18px;padding:14px 16px;border-radius:18px;border:1px solid rgba(37,211,102,.45);background:rgba(37,211,102,.07)}
+.ci-sel.flash{animation:ciflash 1.2s}
+@keyframes ciflash{0%,40%{box-shadow:0 0 0 4px rgba(37,211,102,.45)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+.ci-sel__h{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.ci-sel__h small{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.ci-sel__x{border:0;background:none;padding:0;font:inherit;font-size:13px;text-decoration:underline;opacity:.7;cursor:pointer;color:inherit}
+.ci-sel ul{list-style:none;margin:8px 0 0;padding:0}.ci-sel li{padding:4px 0;font-size:15px;line-height:1.4}
+.ci-sel__t{margin:6px 0 0;font-weight:700}
+.ci-rent .ci-lg{margin:16px 0 8px;font-size:inherit;font-weight:inherit;opacity:.85}
+.ci-rent .chips{margin-top:6px}
+.ci-nd small,.ci-wk small{opacity:.75}
+.ci-wk{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:-4px 0 16px}
+.ci-wk .ci-wkb{cursor:pointer;padding:12px 18px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:inherit;font-size:14px;opacity:.9}.ci-wk .ci-wkb:hover{opacity:1}
+.ci-ndr{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.ci-rent{display:contents}
+.ci-hide{display:none!important}
+.ci-inform .ci-bar{opacity:0!important;pointer-events:none!important}
+</style>
+<script id="ci-book">/* ci-book: the basket goes into the booking form, so one WhatsApp message has what, when, how long and for how many */
+(function(){
+var CI=window.CI,form=document.getElementById("form");if(!CI||!form)return;
+var TX={hr:{from:"od",sel:"Odabrano iz ponude",clr:"Ukloni sve",tot:"Okvirno ukupno",req:"cijena na upit",per:"Trajanje najma",am:"Pola dana, ujutro",pm:"Pola dana, popodne",day:"Cijeli dan",days:"Više dana",ndays:"Broj dana",skip:"Skiper",sk0:"Bez skipera",sk1:"Sa skiperom",wk:"Tjedan (7 dana)",range:"Razdoblje",dur:"Trajanje",yes:"da",no:"ne",perday:"po danu",half:"pola dana",d1:"dan",d2:"dana",lic:"vozim sam (s dozvolom)"},
+en:{from:"from",sel:"Picked from the offer",clr:"Remove all",tot:"Approx. total",req:"price on request",per:"Rental period",am:"Half day, morning",pm:"Half day, afternoon",day:"All day",days:"Several days",ndays:"Days",skip:"Skipper",sk0:"No skipper",sk1:"With a skipper",wk:"A week (7 days)",range:"Dates",dur:"Duration",yes:"yes",no:"no",perday:"per day",half:"half day",d1:"day",d2:"days",lic:"I drive (licence)"},
+de:{from:"ab",sel:"Aus dem Angebot gewählt",clr:"Alles entfernen",tot:"Ca. gesamt",req:"Preis auf Anfrage",per:"Mietdauer",am:"Halber Tag, vormittags",pm:"Halber Tag, nachmittags",day:"Ganzer Tag",days:"Mehrere Tage",ndays:"Tage",skip:"Skipper",sk0:"Ohne Skipper",sk1:"Mit Skipper",wk:"Eine Woche (7 Tage)",range:"Zeitraum",dur:"Dauer",yes:"ja",no:"nein",perday:"pro Tag",half:"halber Tag",d1:"Tag",d2:"Tage",lic:"ich fahre selbst (Führerschein)"},
+it:{from:"da",sel:"Scelto dall'offerta",clr:"Rimuovi tutto",tot:"Totale indicativo",req:"prezzo su richiesta",per:"Durata del noleggio",am:"Mezza giornata, mattina",pm:"Mezza giornata, pomeriggio",day:"Giornata intera",days:"Più giorni",ndays:"Giorni",skip:"Skipper",sk0:"Senza skipper",sk1:"Con skipper",wk:"Una settimana (7 giorni)",range:"Periodo",dur:"Durata",yes:"sì",no:"no",perday:"al giorno",half:"mezza giornata",d1:"giorno",d2:"giorni",lic:"guido io (patente)"}};
+function lg(){var l=(document.documentElement.lang||"en").slice(0,2).toLowerCase();return TX[l]?l:"en"}
+function x(k){return TX[lg()][k]}
+window.CIX=x;
+function picked(){var t=CI.L(),out=[],sum=0,req=false,from=false,E=window.CI_EXTRA;CI.items.forEach(function(it){if(!it.n)return;var lab=t[it.key]||it.key,m=1;
+ if(it.key==="day"&&E&&E.mult){m=E.mult();lab=E.multLab?E.multLab():lab}
+ var s=it.n+" × "+CI.name(it.el)+(it.key!=="trip"?" ("+lab+")":"");
+ if(it.price!=null&&m!=null){var v=it.n*it.price*m;sum+=v;if(it.key==="day")from=true;s+=" = "+(it.key==="day"?x("from")+" ":"")+v+" €"}else{req=true;s+=", "+x("req")}out.push(s)});return{lines:out,sum:sum,req:req,from:from}}
+window.CIpicked=picked;
+/* the "picked" box at the top of the form */
+var box=document.createElement("div");box.className="ci-sel";box.hidden=true;form.insertBefore(box,form.firstChild);
+function render(){var P=picked();box.hidden=!P.lines.length;if(!P.lines.length)return;
+ box.innerHTML='<div class="ci-sel__h"><small></small><button type="button" class="ci-sel__x"></button></div><ul></ul><p class="ci-sel__t"></p>';
+ box.querySelector("small").textContent=x("sel");box.querySelector(".ci-sel__x").textContent=x("clr");
+ var ul=box.querySelector("ul");P.lines.forEach(function(l){var li=document.createElement("li");li.textContent=l;ul.appendChild(li)});
+ box.querySelector(".ci-sel__t").textContent=P.sum?x("tot")+": "+(P.from?x("from")+" ":"")+P.sum+" €"+(P.req?" + "+x("req"):""):x("req");
+ box.querySelector(".ci-sel__x").onclick=function(){CI.clear()};
+ if(window.CI_EXTRA&&CI_EXTRA.onPick)CI_EXTRA.onPick(CI.items)}
+var bar=document.getElementById("ciBar");
+new MutationObserver(render).observe(bar,{subtree:true,childList:true,characterData:true,attributes:true});
+new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+form.addEventListener('change',function(){setTimeout(render,0)});form.addEventListener('click',function(){setTimeout(render,0)});
+render();
+if('IntersectionObserver' in window)new IntersectionObserver(function(es){document.documentElement.classList.toggle('ci-inform',es[0].isIntersecting)},{threshold:.25}).observe(form);
+/* bar button: go to the form instead of sending half a message */
+var go=document.getElementById("ciW");
+go.addEventListener("click",function(e){e.preventDefault();e.stopImmediatePropagation();render();var tgt=document.getElementById("book")||form;tgt.scrollIntoView({behavior:"smooth",block:"start"});box.classList.remove("flash");void box.offsetWidth;box.classList.add("flash")},true);
+/* the form's own "what" block is replaced by the basket while the basket has items */
+function whatField(){var r=form.querySelector('input[name=tour],input[name=boat]');return r?r.closest("fieldset,.field"):null}
+function syncWhat(){var w=whatField();if(w)w.classList.toggle("ci-hide",picked().lines.length>0)}
+new MutationObserver(syncWhat).observe(bar,{attributes:true,attributeFilter:["class"]});syncWhat();
+function fmtDate(v){var p=v.split("-");return p.length===3?(+p[2])+". "+(+p[1])+". "+p[0]+".":v}
+function clean(s){return (s||"").replace(/\s+/g," ").trim()}
+function fieldLines(){var out=[],w=whatField();
+ form.querySelectorAll(".field").forEach(function(f){if(f===w||f.closest(".ci-rent")||f.classList.contains("ci-rent")||f.closest("[hidden]")||f.hidden||f.offsetParent===null)return;if(f.parentNode.closest&&f.parentNode.closest(".field")&&f.parentNode.closest(".field")!==f)return;
+  var lab=f.querySelector("legend")||f.querySelector(":scope>span");lab=clean(lab&&lab.textContent);if(!lab)return;var val="";
+  var r=f.querySelector("input[type=radio]:checked");
+  if(r){var sp=r.parentNode.querySelector("span");var main=sp&&sp.querySelector("span")?sp.querySelector("span").textContent:(sp?sp.textContent:"");var sm=sp&&sp.querySelector("small")?sp.querySelector("small").textContent:"";val=clean(main)+(clean(sm)&&clean(sm)!==clean(main)?" ("+clean(sm)+")":"")}
+  else if(f.querySelector("input[type=date]")){var dv=f.querySelector("input[type=date]").value;val=dv?fmtDate(dv):""}
+  else if(f.querySelector("output")){val=clean(f.querySelector("output").textContent)}
+  else if(f.querySelector("select")){var se=f.querySelector("select");val=clean(se.options[se.selectedIndex]&&se.options[se.selectedIndex].text)}
+  else if(f.querySelector("input,textarea")){val=clean(f.querySelector("input,textarea").value)}
+  if(val)out.push(lab+": "+val)});return out}
+/* the WhatsApp message the form sends: basket + date + how long + people + name */
+var _open=window.open;
+window.open=function(u){try{if(typeof u==="string"&&/wa\.me\/\d+\?text=/.test(u)){var P=picked(),ex=(window.CI_EXTRA&&CI_EXTRA.lines)?CI_EXTRA.lines():[],p=u.split("?text="),orig=decodeURIComponent(p[1]),msg;
+  if(P.lines.length){var hi=(orig.match(/^[^!\n]*!/)||[orig.split("\n")[0]])[0];msg=[hi,"",x("sel")+":"];P.lines.forEach(function(l){msg.push("• "+l)});if(P.sum)msg.push(x("tot")+": "+(P.from?x("from")+" ":"")+P.sum+" €"+(P.req?" + "+x("req"):""));msg.push("");msg=msg.concat(fieldLines(),ex);msg=msg.join("\n")}
+  else msg=ex.length?orig+"\n"+ex.join("\n"):orig;
+  u=p[0]+"?text="+encodeURIComponent(msg)}}catch(err){}
+ return _open.apply(window,[u].concat([].slice.call(arguments,1)))};
+})();
+</script>
 </body>
 </html>
