@@ -242,7 +242,7 @@ h2.t{font:300 clamp(32px,4.6vw,56px)/1.08 var(--serif);margin:0 0 22px;letter-sp
 </div></section>
 
 <section class="sec" style="padding-top:0"><div class="wrap">
- <p class="lbl rv">Usporedba</p><h2 class="t rv">Bijeli ili <i>crni?</i></h2>
+ <p class="lbl rv">Usporedba</p><h2 class="t rv">Bijeli ili&nbsp;<i>crni?</i></h2>
  <div class="cmp rv">
   <div class="cmp__c cmp__w"><h3><span class="cmp__dot"></span>Bijeli</h3><small>Tuber magnatum pico</small><ul>
    <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg><p style="margin:0"><em>Sezona</em>rujan do siječnja</p></li>
@@ -290,7 +290,7 @@ document.querySelectorAll('.cg [data-m="'+m+'"]').forEach(function(e){e.classLis
 document.querySelectorAll(".cg__row").forEach(function(r){if(r.getAttribute("data-mo").split(",").indexOf(String(m))>-1)names.push(r.getAttribute("data-sp").toLowerCase())});
 var el=document.getElementById("calNow");if(!el)return;
 if(names.length){var t=names.length>1?names.slice(0,-1).join(", ")+" i "+names[names.length-1]:names[0];
-el.innerHTML="Sada, u "+M[m-1]+", u sezoni je <b>"+t+"</b>."}
+el.innerHTML="Sada, u "+M[m-1]+", u sezoni je&nbsp;<b>"+t+"</b>."}
 else el.innerHTML="Sada, u "+M[m-1]+", pitajte nas što šuma nudi. Crni tartuf dostupan je tijekom cijele godine."})();
 </script>
 <script>
