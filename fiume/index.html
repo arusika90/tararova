@@ -157,6 +157,11 @@ a.tag:hover{background:#000}
 .deco svg{display:block;width:100%;height:auto;overflow:visible}
 
 /* ============ HERO ============ */
+.hero-photo{position:absolute;inset:0;overflow:hidden}.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 55%;animation:hzoom 24s ease-out both}@keyframes hzoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+.seaband{position:relative;height:82vh;min-height:520px;overflow:hidden;color:#fff;background:radial-gradient(120% 70% at 50% -10%,#2a6f8f 0%,#12405a 35%,#0a2638 65%,#061723 100%);touch-action:pan-y}
+.seaband .hero-shade{background:linear-gradient(180deg,rgba(4,14,22,.0) 40%,rgba(4,14,22,.65) 100%)}
+.sea-c{position:absolute;z-index:3;left:0;right:0;bottom:64px;pointer-events:none}.sea-c .h2{color:#fff;max-width:18ch;margin:14px 0 10px}.sea-c .eyebrow{color:rgba(255,255,255,.85)}.sea-h{color:rgba(255,255,255,.65);font-size:14px;margin:0}
+
 .hero{position:relative;height:100vh;height:100svh;min-height:620px;overflow:hidden;color:#fff;background:radial-gradient(120% 70% at 50% -10%,#2a6f8f 0%,#12405a 35%,#0a2638 65%,#061723 100%);touch-action:pan-y}
 .hero-static{position:absolute;inset:-6% 0 -6% 0;will-change:transform;transition:opacity 1.6s ease}
 .hero-static>svg{position:absolute;inset:0;width:100%;height:100%}
@@ -897,15 +902,7 @@ html select{height:56px;line-height:normal}
 
 <!-- ================= HERO (3D school of fish, static SVG fallback) ================= -->
 <section class="hero" id="hero" aria-label="Konoba Fiume">
-  <div class="hero-static" id="heroStatic" aria-hidden="true">
-    <svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"><use href="#sc-sea" width="800" height="800"/></svg>
-    <svg class="swim" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">
-      <g style="--t:30s;--dl:-4s"><use href="#s-sardine" width="200" height="60" transform="translate(0 160) scale(.7)"/><use href="#s-sardine" width="200" height="60" transform="translate(60 200) scale(.55)"/></g>
-      <g style="--t:38s;--dl:-20s"><use href="#s-sardine" width="200" height="60" transform="translate(0 300) scale(.6)"/></g>
-      <g style="--t:46s;--dl:-12s"><use href="#s-bream" width="220" height="120" transform="translate(0 120) scale(.5)" opacity=".7"/></g>
-    </svg>
-  </div>
-  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="hero-photo" aria-hidden="true"><img src="img/hero-room.jpg" alt="" fetchpriority="high"></div>
   <div class="hero-shade"></div>
 
   <a class="spill rv-h d4" href="#rezervacija" id="spill">
@@ -1118,6 +1115,20 @@ html select{height:56px;line-height:normal}
 </section>
 
 <!-- MARKET TO PLATE (teal band, script watermark) -->
+<section class="seaband" id="sea" aria-label="Riba">
+  <div class="hero-static" id="heroStatic" aria-hidden="true">
+    <svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"><use href="#sc-sea" width="800" height="800"/></svg>
+    <svg class="swim" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">
+      <g style="--t:30s;--dl:-4s"><use href="#s-sardine" width="200" height="60" transform="translate(0 160) scale(.7)"/><use href="#s-sardine" width="200" height="60" transform="translate(60 200) scale(.55)"/></g>
+      <g style="--t:38s;--dl:-20s"><use href="#s-sardine" width="200" height="60" transform="translate(0 300) scale(.6)"/></g>
+      <g style="--t:46s;--dl:-12s"><use href="#s-bream" width="220" height="120" transform="translate(0 120) scale(.5)" opacity=".7"/></g>
+    </svg>
+  </div>
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="hero-shade"></div>
+  <div class="sea-c"><div class="wrap"><p class="eyebrow label" data-i18n="sea.k">Ribarnica, svako jutro</p><h2 class="h2" data-i18n="sea.t">Riba koja je jutros plivala, za ručak je na stolu</h2><p class="sea-h" data-i18n="sea.h">Pomaknite miš ili prst: riba se razbježi.</p></div></div>
+</section>
+
 <section class="sec teal" data-sec="jelovnik" aria-labelledby="stepsT">
   <div class="wm" data-py="-0.12" aria-hidden="true"><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div><div>Fiume Fiume Fiume Fiume</div></div>
   <div class="deco" data-px="0.45" style="width:150px;top:40px;left:-80px;opacity:.55"><svg viewBox="0 0 200 60"><use href="#s-sardine" width="200" height="60"/></svg></div>
@@ -1324,7 +1335,7 @@ var mqMobile = window.matchMedia("(max-width: 759px)");
 
 /* ================= I18N ================= */
 var T = {
-hr:{
+hr:{"sea.k":"Ribarnica, svako jutro","sea.t":"Riba koja je jutros plivala, za ručak je na stolu","sea.h":"Pomaknite miš ili prst: riba se razbježi.",
  "d.meso.d":"Iz dnevne ponude. Pitajte konobara.",
  "d.meso":"Mesna jela",
  "d.dagnje.d":"U umaku, uz kruh za umakanje.",
@@ -1395,7 +1406,7 @@ hr:{
  "map.port":"Luka","map.note":"Obala prema stvarnoj karti Rijeke.","map.dir":"Upute do nas",
  "ft.tag":"Obiteljska riblja konoba uz riječku ribarnicu.","ft.addr":"Adresa","ft.contact":"Kontakt","ft.hours":"Radno vrijeme","ft.hours.v":"Pon do pet 07:00 do 22:00<br>Sub 07:00 do 16:00<br>Nedjelja zatvoreno","ft.note":"Prijedlog dizajna. Fotografije s vaših javnih profila."
 },
-en:{
+en:{"sea.k":"The fish market, every morning","sea.t":"The fish that swam this morning is on your table by lunch","sea.h":"Move your mouse or finger: the fish scatter.",
  "d.meso.d":"From the daily offer. Ask your waiter.",
  "d.meso":"Meat dishes",
  "d.dagnje.d":"In a sauce, with bread to dip.",
@@ -1466,7 +1477,7 @@ en:{
  "map.port":"Port","map.note":"Coastline traced from the real map of Rijeka.","map.dir":"Get directions",
  "ft.tag":"A family-run fish tavern by Rijeka's fish market.","ft.addr":"Address","ft.contact":"Contact","ft.hours":"Opening hours","ft.hours.v":"Mon to Fri 07:00 to 22:00<br>Sat 07:00 to 16:00<br>Sunday closed","ft.note":"Design proposal. Photos from your public profiles."
 },
-it:{
+it:{"sea.k":"Il mercato del pesce, ogni mattina","sea.t":"Il pesce che nuotava stamattina è in tavola a pranzo","sea.h":"Muovete il mouse o il dito: i pesci scappano.",
  "d.meso.d":"Dall'offerta del giorno. Chiedete al cameriere.",
  "d.meso":"Piatti di carne",
  "d.dagnje.d":"In salsa, con pane da intingere.",
@@ -1537,7 +1548,7 @@ it:{
  "map.port":"Porto","map.note":"Costa tracciata dalla mappa reale di Rijeka.","map.dir":"Indicazioni",
  "ft.tag":"Trattoria di pesce di famiglia accanto al mercato di Rijeka.","ft.addr":"Indirizzo","ft.contact":"Contatti","ft.hours":"Orari","ft.hours.v":"Lun a ven 07:00 alle 22:00<br>Sab 07:00 alle 16:00<br>Domenica chiuso","ft.note":"Proposta di design. Foto dai vostri profili pubblici."
 },
-de:{
+de:{"sea.k":"Der Fischmarkt, jeden Morgen","sea.t":"Der Fisch, der heute früh noch schwamm, ist mittags auf dem Tisch","sea.h":"Bewegen Sie Maus oder Finger: die Fische stieben davon.",
  "d.meso.d":"Aus dem Tagesangebot. Fragen Sie den Kellner.",
  "d.meso":"Fleischgerichte",
  "d.dagnje.d":"In Soße, mit Brot zum Tunken.",
@@ -1985,12 +1996,13 @@ if(RM){ var w = $(".wave"); if(w && w.pauseAnimations) w.pauseAnimations(); }
 
 /* ================= 3D HERO: school of fish (three.js r128) ================= */
 function webglOK(){ try{ var c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl"))); }catch(e){ return false; } }
+var seaEl = document.getElementById("sea");
 function loadThree(){
   if(RM || !webglOK()) return;
   var s = document.createElement("script");
   s.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
   s.async = true;
-  s.onload = function(){ try{ startFish(); }catch(err){ if(window.console) console.warn("3D hero fallback:", err); hero.classList.remove("gl-on"); } };
+  s.onload = function(){ try{ startFish(); }catch(err){ if(window.console) console.warn("3D hero fallback:", err); seaEl.classList.remove("gl-on"); } };
   document.head.appendChild(s);
 }
 function fishGeometry(THREE){
@@ -2086,18 +2098,18 @@ function startFish(){
   var dummy = new THREE.Object3D(), look = new THREE.Vector3();
   var ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), pointerOn = 0, mouse = {x: 0, y: 0, sx: 0, sy: 0};
   function setPointer(cx, cy){
-    var r = hero.getBoundingClientRect();
+    var r = seaEl.getBoundingClientRect();
     ndc.x = ((cx - r.left) / r.width) * 2 - 1; ndc.y = -((cy - r.top) / r.height) * 2 + 1;
     mouse.x = ndc.x; mouse.y = ndc.y; pointerOn = 1.6;
   }
-  hero.addEventListener("pointermove", function(e){ setPointer(e.clientX, e.clientY); }, {passive: true});
-  hero.addEventListener("pointerdown", function(e){ setPointer(e.clientX, e.clientY); }, {passive: true});
-  hero.addEventListener("touchstart", function(e){ setPointer(e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
-  hero.addEventListener("touchmove", function(e){ setPointer(e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
-  hero.addEventListener("pointerleave", function(){ pointerOn = 0; });
+  seaEl.addEventListener("pointermove", function(e){ setPointer(e.clientX, e.clientY); }, {passive: true});
+  seaEl.addEventListener("pointerdown", function(e){ setPointer(e.clientX, e.clientY); }, {passive: true});
+  seaEl.addEventListener("touchstart", function(e){ setPointer(e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
+  seaEl.addEventListener("touchmove", function(e){ setPointer(e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
+  seaEl.addEventListener("pointerleave", function(){ pointerOn = 0; });
 
   function resize(){
-    var w = hero.clientWidth, h = hero.clientHeight;
+    var w = seaEl.clientWidth, h = seaEl.clientHeight;
     renderer.setSize(w, h, false);
     camera.aspect = w / h; camera.updateProjectionMatrix();
     var halfH = Math.tan(THREE.MathUtils.degToRad(27.5)) * 13, halfW = halfH * camera.aspect;
@@ -2168,12 +2180,12 @@ function startFish(){
       if(arr[q*3+1] > 8) arr[q*3+1] = -8;
     }
     pg.attributes.position.needsUpdate = true;
-    var hp = Math.max(0, Math.min(1, window.scrollY / hero.offsetHeight));
+    var hp = Math.max(0, Math.min(1, window.scrollY / seaEl.offsetHeight));
     mouse.sx += (mouse.x - mouse.sx) * .04; mouse.sy += (mouse.y - mouse.sy) * .04;
     camera.position.set(mouse.sx * .6, -hp * 1.4 + mouse.sy * .35, 13 - hp * 5.5);
     camera.lookAt(0, -hp * .9, 0);
     renderer.render(scene, camera);
-    if(first){ first = false; hero.classList.add("gl-on"); setHint(); }
+    if(first){ first = false; seaEl.classList.add("gl-on"); setHint(); }
     requestAnimationFrame(frame);
   }
   function update(){
@@ -2182,10 +2194,10 @@ function startFish(){
     else if(!should) running = false;
   }
   if("IntersectionObserver" in window){
-    new IntersectionObserver(function(es){ es.forEach(function(e){ heroVis = e.isIntersecting; update(); }); },{threshold:0}).observe(hero);
+    new IntersectionObserver(function(es){ es.forEach(function(e){ heroVis = e.isIntersecting; update(); }); },{threshold:0}).observe(seaEl);
   }
   document.addEventListener("visibilitychange", update);
-  canvas.addEventListener("webglcontextlost", function(e){ e.preventDefault(); running = false; hero.classList.remove("gl-on"); });
+  canvas.addEventListener("webglcontextlost", function(e){ e.preventDefault(); running = false; seaEl.classList.remove("gl-on"); });
   update();
 }
 
