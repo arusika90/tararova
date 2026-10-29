@@ -493,7 +493,7 @@ html select{height:56px;line-height:normal}
 .faq,.faq-list,.faq__list{border-top:0!important}
 .faq>:first-child,.faq-list>:first-child,.faq__list>:first-child{border-top:0!important}
 .faq>:first-child::before,.faq-list>:first-child::before,.faq__list>:first-child::before{display:none!important}
-.hero__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 55%;z-index:2;opacity:0;animation:heroZoom 20s ease-out both}@keyframes heroZoom{from{transform:scale(1.08)}to{transform:scale(1)}}.hp1{animation-delay:0s}.hp2{animation-delay:7s}.hp3{animation-delay:14s;object-position:50% 62%}@keyframes heroFade{0%{opacity:0;transform:scale(1.1)}5%{opacity:1}33%{opacity:1}38%{opacity:0;transform:scale(1)}100%{opacity:0}}.hero__photo.hp1{opacity:1;object-position:42% 50%}.hero__media>svg,.hero__media>canvas{display:none!important}@media(prefers-reduced-motion:reduce){.hero__photo{animation:none}}.mapf .note{text-decoration:none;z-index:3}</style>
+.hero__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 55%;z-index:2;opacity:0;animation:heroZoom 20s ease-out both}@keyframes heroZoom{from{transform:scale(1.08)}to{transform:scale(1)}}.hp1{animation-delay:0s}.hp2{animation-delay:7s}.hp3{animation-delay:14s;object-position:50% 62%}@keyframes heroFade{0%{opacity:0;transform:scale(1.1)}5%{opacity:1}33%{opacity:1}38%{opacity:0;transform:scale(1)}100%{opacity:0}}.hero__photo.hp1{opacity:1;object-position:42% 50%}.hero__media>svg,.hero__media>canvas{display:none!important}@media(prefers-reduced-motion:reduce){.hero__photo{animation:none}}.mapf .note{text-decoration:none;z-index:3}.story__side .story__img{margin-bottom:0}.story__side{order:-1}@media(min-width:900px){.story__side{order:0;position:sticky;top:110px}}</style>
 </head>
 <body class="locked">
 
@@ -675,11 +675,6 @@ html select{height:56px;line-height:normal}
     </div>
     <div class="story__grid">
       <div>
-        <div class="frame story__img rv-img">
-          <div class="art art--table" data-par="0.1"><img src="img/wellington.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
-          <span class="tag-b" data-i18n="tag.place">Rovinj, Istra</span>
-          <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Ul. Domenica Medelina 12</span>
-        </div>
         <p class="lead rv" data-i18n="story.lead">Sin je u kuhinji, otac dočekuje goste, a mama peče kolače. Kod nas se ne glumi, kod nas se kuha.</p>
         <p class="rv" data-delay="1" data-i18n="story.p1">Serafin je dijelom tradicionalan, dijelom kreativan. Svježi sastojci, bez pretenzija i poneko jelo koje vas iznenadi.</p>
         <p class="rv" data-delay="2" data-i18n="story.p2">Gosti nam kažu da se osjećaju kao da su pozvani na obiteljsko slavlje. To nam je najveći kompliment.</p>
@@ -687,9 +682,7 @@ html select{height:56px;line-height:normal}
           <div class="role"><span class="role__ic"><svg viewBox="0 0 24 24"><path d="M7 10a3.5 3.5 0 0 1 1-6.9A4 4 0 0 1 16 4a3.5 3.5 0 0 1 1 6.9V19H7z"/><path d="M7 15h10"/></svg></span><div><b data-i18n="role.chef">Sin</b><small data-i18n="role.chefV">Chef, vodi kuhinju</small></div></div>
           <div class="role"><span class="role__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.5"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/><path d="M9 14l3 3 3-3"/></svg></span><div><b data-i18n="role.dad">Otac</b><small data-i18n="role.dadV">Dočekuje goste i vodi salu</small></div></div>
           <div class="role"><span class="role__ic"><svg viewBox="0 0 24 24"><path d="M4 12h16l-1.5 8h-13z"/><path d="M6 12c0-4 2.5-6 6-6s6 2 6 6"/><path d="M12 6V3"/></svg></span><div><b data-i18n="role.mom">Mama</b><small data-i18n="role.momV">Kolači i pite</small></div></div>
-        </div>
-      </div>
-      <aside class="gtk rv" data-delay="1" aria-labelledby="gtk-h">
+        </div><aside class="gtk rv" style="margin-top:28px" data-delay="1" aria-labelledby="gtk-h">
         <h3 id="gtk-h" data-i18n="gtk.title">Dobro je znati</h3>
         <dl>
           <div class="gtk__row">
@@ -721,6 +714,13 @@ html select{height:56px;line-height:normal}
           </div>
         </div>
       </aside>
+      </div>
+      <div class="story__side"><div class="frame story__img rv-img">
+          <div class="art art--table" data-par="0.1"><img src="img/wellington.jpg" alt="" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
+          <span class="tag-b" data-i18n="tag.place">Rovinj, Istra</span>
+          <span class="cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Ul. Domenica Medelina 12</span>
+        </div>
+        </div>
     </div>
   </div>
 </section>
