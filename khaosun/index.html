@@ -720,6 +720,10 @@ html select{height:56px;line-height:normal}
 /* FAQ: left heading travels with the questions */
 @media(min-width:900px){.faq__grid>.sh{position:sticky;top:140px;align-self:start}}
 .faq__grid>.sh::after{display:none}
+.tab{display:inline-flex;align-items:center;gap:10px}.tab__i{width:22px;height:22px;flex:none}
+.panel .frame{aspect-ratio:4/3;width:100%;max-height:min(440px,52vh);margin:0}
+@media(min-width:900px){.panel{grid-template-columns:1fr 1.05fr;gap:64px;align-items:center}}
+
 </style>
 <style>.hero__hint{display:none!important}
 /* FAQ: left column follows the questions */
@@ -984,12 +988,12 @@ html select{height:56px;line-height:normal}
       <p data-i18n="tr.lead">Traditional Thai treatments by therapists from Thailand. Pick a massage, then a duration from 30 to 120&nbsp;minutes.</p>
     </div>
     <div class="tabs rv" role="tablist" aria-label="Treatments" id="tabs">
-      <button class="tab" role="tab" aria-selected="true" data-tab="trad" data-i18n="t.trad">Thai Classic</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="royal" data-i18n="t.royal">Royal Massage</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="oil" data-i18n="t.oil">Thai Oil</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="aroma" data-i18n="t.aroma">Aroma Therapy</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="stone" data-i18n="t.stone">Hot Stone</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="foot" data-i18n="t.foot">Foot Massage</button>
+      <button class="tab" role="tab" aria-selected="true" data-tab="trad"><svg class="tab__i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11V5.5a1.5 1.5 0 0 1 3 0V10M10 9.5V4a1.5 1.5 0 0 1 3 0v6M13 9.5V5a1.5 1.5 0 0 1 3 0v6M16 10.5V8a1.5 1.5 0 0 1 3 0v6.5A6.5 6.5 0 0 1 12.5 21h-.7a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L8 14"/></svg><span data-i18n="t.trad">Thai Classic</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="royal"><svg class="tab__i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9c-4.4 0-7 2.7-7 6 0 3.6 3 6 7 6s7-2.4 7-6c0-3.3-2.6-6-7-6z"/><path d="M10 9.2 9 4.5c1 .8 2 .8 3 0 1 .8 2 .8 3 0l-1 4.7M9.5 13.5c1.2.6 3.8.6 5 0M8.5 16.5c1.8.8 5.2.8 7 0"/></svg><span data-i18n="t.royal">Royal Massage</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="oil"><svg class="tab__i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/><path d="M9 14.5a3 3 0 0 0 3 3"/></svg><span data-i18n="t.oil">Thai Oil</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="aroma"><svg class="tab__i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20c-4.5-1-7.5-4.6-7.5-9 2.6.2 5.6 1.6 7.5 4.4 1.9-2.8 4.9-4.2 7.5-4.4 0 4.4-3 8-7.5 9z"/><path d="M12 15.4C10.5 13 10.3 9.6 12 6c1.7 3.6 1.5 7 0 9.4"/></svg><span data-i18n="t.aroma">Aroma Therapy</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="stone"><svg class="tab__i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="18" rx="8" ry="3"/><ellipse cx="12" cy="12.5" rx="6" ry="2.5"/><ellipse cx="12" cy="7.5" rx="4" ry="2"/></svg><span data-i18n="t.stone">Hot Stone</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="foot"><svg class="tab__i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 21c-2.2 0-3.5-1.8-3.5-4.5 0-3 1.2-5.5 3.6-5.5 2 0 2.9 1.6 2.9 3.6 0 1.6-.6 2.6-.6 3.9 0 1.5-.9 2.5-2.4 2.5z"/><circle cx="7" cy="7.6" r="1.3"/><circle cx="10" cy="6.4" r="1.1"/><circle cx="12.6" cy="7.4" r="1"/><circle cx="14.5" cy="9.3" r=".9"/></svg><span data-i18n="t.foot">Foot Massage</span></button>
     </div>
     <div class="panels rv" data-delay="1">
       <article class="panel on" data-panel="trad" data-def="50" data-p50="47" data-p80="59">
