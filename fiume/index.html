@@ -2420,5 +2420,15 @@ sec.addEventListener('pointermove',function(e){var r=sc.getBoundingClientRect();
 new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(sc);
 (function fr(){requestAnimationFrame(fr);if(!vis)return;F.forEach(function(f){f.ph+=.03;f.x+=f.v;var cx=f.x+f.w/2,cy=f.by+f.y;var ddx=cx-mx,ddy=cy-my,d=Math.hypot(ddx,ddy)||1;if(d<160){var k=(160-d)/160;f.dx+=ddx/d*k*2.2;f.dy+=ddy/d*k*2.2;f.el.firstChild.style.animationDuration='.15s'}else f.el.firstChild.style.animationDuration='';f.dx*=.92;f.dy*=.92;f.x+=f.dx;f.by+=f.dy;f.by=Math.max(10,Math.min(H-40,f.by));f.y=Math.sin(f.ph)*10;
 if(f.x>W+20){f.x=-f.w-20-Math.random()*120;f.by=H*(.1+Math.random()*.8)}
-var tilt=Math.cos(f.ph)*4+f.dy*3;f.el.style.transform='translate('+f.x+'px,'+(f.by+f.y)+'px) rotate('+tilt+'deg)'})})()})})();</script></body>
+var tilt=Math.cos(f.ph)*4+f.dy*3;f.el.style.transform='translate('+f.x+'px,'+(f.by+f.y)+'px) rotate('+tilt+'deg)'})})()})})();</script><script id="nbsp-fix">(function(){
+/* no hanging short words: glue 1-3 letter words and numbers to the next word */
+var W=/(^|[\s(\[„“"«‚])([A-Za-zÀ-ÖØ-öø-žА-Яа-яЁёĆćČčĐđŠšŽž]{1,3}|\d+[.,]?\d*|[–—&+]) +(?=[^\s])/g;
+var SKIP={SCRIPT:1,STYLE:1,TEXTAREA:1,INPUT:1,CODE:1,PRE:1,NOSCRIPT:1,svg:1,SVG:1,OPTION:1};
+function fix(root){var w=document.createTreeWalker(root||document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){for(var p=n.parentNode;p&&p!==document.body;p=p.parentNode){if(SKIP[p.nodeName])return 2}return /\S/.test(n.nodeValue)?1:2}}),n,v,r;
+ while(n=w.nextNode()){v=n.nodeValue;r=v.replace(W,function(m,a,b){return a+b+" "});r=r.replace(W,function(m,a,b){return a+b+" "});if(r!==v)n.nodeValue=r}}
+var t=0;function later(){if(t)return;t=requestAnimationFrame(function(){t=0;fix()})}
+function go(){fix();try{new MutationObserver(later).observe(document.body,{subtree:true,childList:true})}catch(e){}}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
+})();</script>
+</body>
 </html>

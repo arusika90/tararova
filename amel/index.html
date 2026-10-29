@@ -2222,5 +2222,15 @@ sh.addEventListener("click",function(e){var b=e.target.closest(".wc-q button");i
 sh.addEventListener("input",render);sh.addEventListener("change",render);
 try{new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]})}catch(e){}render()})();</script>
 <script src="scene.js?v=1" defer></script>
+<script id="nbsp-fix">(function(){
+/* no hanging short words: glue 1-3 letter words and numbers to the next word */
+var W=/(^|[\s(\[„“"«‚])([A-Za-zÀ-ÖØ-öø-žА-Яа-яЁёĆćČčĐđŠšŽž]{1,3}|\d+[.,]?\d*|[–—&+]) +(?=[^\s])/g;
+var SKIP={SCRIPT:1,STYLE:1,TEXTAREA:1,INPUT:1,CODE:1,PRE:1,NOSCRIPT:1,svg:1,SVG:1,OPTION:1};
+function fix(root){var w=document.createTreeWalker(root||document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){for(var p=n.parentNode;p&&p!==document.body;p=p.parentNode){if(SKIP[p.nodeName])return 2}return /\S/.test(n.nodeValue)?1:2}}),n,v,r;
+ while(n=w.nextNode()){v=n.nodeValue;r=v.replace(W,function(m,a,b){return a+b+" "});r=r.replace(W,function(m,a,b){return a+b+" "});if(r!==v)n.nodeValue=r}}
+var t=0;function later(){if(t)return;t=requestAnimationFrame(function(){t=0;fix()})}
+function go(){fix();try{new MutationObserver(later).observe(document.body,{subtree:true,childList:true})}catch(e){}}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
+})();</script>
 </body>
 </html>
