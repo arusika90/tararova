@@ -2428,25 +2428,48 @@ trees.forEach(function(t,ti){P.set(t.x,t.y+1.15*t.s,t.z);E.set((Math.random()-.5
  P.set(cx,cy,cz);E.set(Math.random()*3,Math.random()*3,Math.random()*3);Q.setFromEuler(E);S.set(cs*1.15,cs*.85,cs*1.15);M.compose(P,Q,S);crowns.setMatrixAt(ti*CPT+j,M);col.setHex(greens[(ti+j)%greens.length]);crowns.setColorAt(ti*CPT+j,col);t.cr.push([cx,cy,cz,cs])}});
 scene.add(trunks);scene.add(crowns);
 
-/* bottle above the grove */
+/* bottle above the grove: tall olive-oil bottle, dark green glass, sky reflections */
+/* sky reflection as an equirect DataTexture (Safari safe, no PMREM) */
+var EW=256,EH=128,ed=new Uint8Array(EW*EH*4);var sunD=new THREE.Vector3(-.35,.12,-1).normalize();
+for(var ey=0;ey<EH;ey++)for(var ex=0;ex<EW;ex++){var th=(ex/EW)*Math.PI*2,pa=(ey/EH)*Math.PI;var dx=Math.sin(pa)*Math.cos(th),dy=Math.cos(pa),dz=Math.sin(pa)*Math.sin(th);var r_,g_,b_;
+ if(dy>0){var hz=Math.min(1,dy/.18),tp=Math.max(0,Math.min(1,(dy-.18)/.57));r_=.98+(.86-.98)*hz;g_=.78+(.55-.78)*hz;b_=.52+(.38-.52)*hz;r_+=(.18-r_)*tp;g_+=(.24-g_)*tp;b_+=(.36-b_)*tp;var sd=Math.max(0,dx*sunD.x+dy*sunD.y+dz*sunD.z);var sp=Math.pow(sd,40)*1.2+Math.pow(sd,6)*.25;r_+=sp;g_+=sp*.82;b_+=sp*.5}
+ else{var gd=Math.min(1,-dy*3);r_=.55-.2*gd;g_=.42-.1*gd;b_=.25-.05*gd}
+ var o=(ey*EW+ex)*4;ed[o]=Math.min(255,r_*255);ed[o+1]=Math.min(255,g_*255);ed[o+2]=Math.min(255,b_*255);ed[o+3]=255}
+var ENV=new THREE.DataTexture(ed,EW,EH,THREE.RGBAFormat);ENV.mapping=THREE.EquirectangularReflectionMapping;ENV.magFilter=ENV.minFilter=THREE.LinearFilter;ENV.flipY=true;ENV.needsUpdate=true;
+function ph(c,r,o){var m=new THREE.MeshPhongMaterial({color:c,shininess:Math.pow(1-(r==null?.6:r),2)*140+4,specular:0x4a4a40,envMap:ENV,combine:THREE.AddOperation,reflectivity:(1-(r==null?.6:r))*.22});if(o)for(var k in o){if(m[k]&&m[k].isColor)m[k].set(o[k]);else m[k]=o[k]}return m}
 var B=new THREE.Vector3(0,9.2,-22),BS=mob?1.75:1.95;
-var prof=[[0,0],[.66,0],[.7,.06],[.7,4.3],[.64,4.75],[.4,5.25],[.24,5.55],[.22,6.5],[.27,6.55],[.27,6.68],[0,6.68]].map(function(p){return new THREE.Vector2(p[0],p[1])});
-var glass=new THREE.Mesh(new THREE.LatheGeometry(prof,36),new THREE.MeshPhongMaterial({color:0x7FA36A,specular:0xffffff,shininess:150,transparent:true,opacity:.3,side:THREE.DoubleSide,depthWrite:false}));
-var inner=prof.slice(1,8).map(function(p){return new THREE.Vector2(Math.max(0,p.x*.9),Math.max(.07,p.y))});inner.unshift(new THREE.Vector2(0,.07));inner.push(new THREE.Vector2(0,inner[inner.length-1].y));
+var prof=[[0,0],[.6,0],[.68,.04],[.7,.14],[.7,4.25],[.66,4.7],[.5,5.1],[.32,5.42],[.245,5.62],[.235,6.45],[.27,6.5],[.27,6.68],[0,6.68]].map(function(p){return new THREE.Vector2(p[0],p[1])});
+var glass=new THREE.Mesh(new THREE.LatheGeometry(prof,72),new THREE.MeshPhongMaterial({color:0x3F6233,specular:0xffffff,shininess:160,envMap:ENV,combine:THREE.MixOperation,reflectivity:.35,transparent:true,opacity:.5,side:THREE.DoubleSide,depthWrite:false}));
+var inner=[[0,.09],[.62,.09],[.64,.2],[.64,4.22],[.6,4.65],[.45,5.05],[.28,5.38],[.2,5.6],[.19,6.4],[0,6.4]].map(function(p){return new THREE.Vector2(p[0],p[1])});
 var clip=new THREE.Plane(new THREE.Vector3(0,-1,0),0);
-var oilM=new THREE.MeshPhongMaterial({color:0xC9A227,emissive:0x5A3E00,specular:0xFFF2B0,shininess:90,transparent:true,opacity:.92,clippingPlanes:[clip],side:THREE.DoubleSide});
-var oil=new THREE.Mesh(new THREE.LatheGeometry(inner,36),oilM);
-var cork=new THREE.Mesh(new THREE.CylinderGeometry(.3,.3,.75,20),new THREE.MeshPhongMaterial({color:0x2F3B22,specular:0xC9B27A,shininess:80}));cork.position.y=6.95;
-var bottle=new THREE.Group();bottle.add(oil);bottle.add(glass);bottle.add(cork);bottle.position.copy(B);bottle.scale.setScalar(.001);scene.add(bottle);
-var lc=document.createElement('canvas');lc.width=1024;lc.height=512;var lx=lc.getContext('2d');
-function drawLabel(){lx.fillStyle='#F4EDE2';lx.fillRect(0,0,1024,512);lx.strokeStyle='#A64B28';lx.lineWidth=6;lx.strokeRect(22,22,980,468);lx.lineWidth=2;lx.strokeRect(36,36,952,440);
- lx.fillStyle='#A64B28';lx.beginPath();lx.arc(512,128,62,0,7);lx.lineWidth=4;lx.stroke();lx.font='400 78px Fraunces, Georgia, serif';lx.textAlign='center';lx.textBaseline='middle';lx.fillText('Š',512,134);
- lx.fillStyle='#1F3A26';lx.font='400 112px Fraunces, Georgia, serif';lx.fillText('Štefanić',512,272);
- lx.fillStyle='#5C5852';lx.font='600 30px Figtree, Arial, sans-serif';lx.fillText('EKSTRA DJEVIČANSKO MASLINOVO ULJE',512,362);lx.font='500 26px Figtree, Arial, sans-serif';lx.fillText('Motovun · Istra',512,414);if(window.__labTex)window.__labTex.needsUpdate=true}
-drawLabel();if(document.fonts&&document.fonts.load)Promise.all([document.fonts.load('400 112px Fraunces'),document.fonts.load('600 30px Figtree')]).then(drawLabel).catch(function(){});
-var labTex=new THREE.Texture(lc);labTex.needsUpdate=true;window.__labTex=labTex;
-var label=new THREE.Mesh(new THREE.CylinderGeometry(.712,.712,2.1,40,1,true,-1.15,2.3),new THREE.MeshPhongMaterial({map:labTex,side:THREE.DoubleSide,shininess:20,transparent:true}));
-label.position.y=2.3;var labWrap=new THREE.Group();labWrap.add(label);bottle.add(labWrap);
+var oilM=new THREE.MeshPhongMaterial({color:0xD9A21C,emissive:0x5A3A00,specular:0xFFF0B0,shininess:110,envMap:ENV,combine:THREE.AddOperation,reflectivity:.12,transparent:true,opacity:.93,clippingPlanes:[clip],side:THREE.DoubleSide});
+var oil=new THREE.Mesh(new THREE.LatheGeometry(inner,64),oilM);
+var capG=new THREE.CylinderGeometry(.3,.3,.78,64,1);var cpp=capG.attributes.position;for(var ci=0;ci<cpp.count;ci++){var ax=cpp.getX(ci),az=cpp.getZ(ci),ang=Math.atan2(az,ax),rr0=Math.hypot(ax,az);if(rr0>.29){var f=1+Math.sin(ang*48)*.012;cpp.setX(ci,ax*f);cpp.setZ(ci,az*f)}}capG.computeVertexNormals();
+var cork=new THREE.Mesh(capG,ph(0x26341C,.2,{reflectivity:.25}));cork.position.y=6.98;
+var ring=new THREE.Mesh(new THREE.TorusGeometry(.275,.035,10,64),ph(0xC9A55A,.15,{combine:THREE.MultiplyOperation,reflectivity:.6,specular:0xFFE6A0}));ring.rotation.x=Math.PI/2;ring.position.y=6.6;
+var bottle=new THREE.Group();bottle.add(oil);bottle.add(glass);bottle.add(cork);bottle.add(ring);bottle.position.copy(B);bottle.scale.setScalar(.001);scene.add(bottle);
+oil.castShadow=true;cork.castShadow=true;
+/* label */
+var lc=document.createElement('canvas');lc.width=2048;lc.height=1100;var lx=lc.getContext('2d');
+function sprig(x,y,s,rot){lx.save();lx.translate(x,y);lx.rotate(rot);lx.scale(s,s);lx.strokeStyle='#5C6B3A';lx.lineWidth=5;lx.beginPath();lx.moveTo(0,0);lx.quadraticCurveTo(90,-10,190,-4);lx.stroke();
+ for(var k=0;k<6;k++){var t=20+k*30,sd=k%2?1:-1;lx.save();lx.translate(t,-1);lx.rotate(sd*.55);lx.fillStyle=k%2?'#7D8A57':'#93A06C';lx.beginPath();lx.ellipse(26,0,28,8,0,0,7);lx.fill();lx.restore()}
+ lx.fillStyle='#3B4A22';lx.beginPath();lx.ellipse(118,18,13,17,.3,0,7);lx.fill();lx.fillStyle='#4E5A1E';lx.beginPath();lx.ellipse(150,14,12,16,-.2,0,7);lx.fill();lx.restore()}
+function drawLabel(){var W=2048,H=1100;lx.fillStyle='#F3EBDD';lx.fillRect(0,0,W,H);
+ lx.fillStyle='rgba(166,75,40,.05)';for(var i=0;i<1400;i++){lx.fillRect((i*733)%W,(i*389)%H,2,2)}
+ lx.strokeStyle='#A64B28';lx.lineWidth=10;lx.strokeRect(46,46,W-92,H-92);lx.strokeStyle='#C9A55A';lx.lineWidth=3;lx.strokeRect(70,70,W-140,H-140);
+ lx.textAlign='center';lx.textBaseline='middle';
+ lx.strokeStyle='#A64B28';lx.lineWidth=7;lx.beginPath();lx.arc(W/2,250,112,0,7);lx.stroke();lx.lineWidth=2;lx.beginPath();lx.arc(W/2,250,128,0,7);lx.stroke();
+ lx.fillStyle='#A64B28';lx.font='400 150px Fraunces, Georgia, serif';lx.fillText('Š',W/2,262);
+ sprig(W/2-200,262,1,Math.PI+.15);sprig(W/2+200,262,1,-.15);
+ lx.fillStyle='#1F3A26';lx.font='400 230px Fraunces, Georgia, serif';lx.fillText('Štefanić',W/2,560);
+ lx.fillStyle='#A64B28';lx.fillRect(W/2-260,700,520,4);
+ lx.fillStyle='#3A3A34';lx.font='600 56px Figtree, Arial, sans-serif';lx.fillText('EKSTRA DJEVIČANSKO MASLINOVO ULJE',W/2,800);
+ lx.fillStyle='#6A655C';lx.font='500 48px Figtree, Arial, sans-serif';lx.fillText('Motovun  ·  Istra',W/2,900);
+ if(window.__labTex)window.__labTex.needsUpdate=true}
+drawLabel();if(document.fonts&&document.fonts.load)Promise.all([document.fonts.load('400 230px Fraunces'),document.fonts.load('600 56px Figtree')]).then(drawLabel).catch(function(){});
+var labTex=new THREE.Texture(lc);labTex.anisotropy=R.capabilities.getMaxAnisotropy();labTex.needsUpdate=true;window.__labTex=labTex;
+var label=new THREE.Mesh(new THREE.CylinderGeometry(.708,.708,2.25,96,1,true,-1.25,2.5),new THREE.MeshPhongMaterial({map:labTex,shininess:12,specular:0x222222,side:THREE.DoubleSide,transparent:true}));
+label.position.y=2.35;var labWrap=new THREE.Group();labWrap.add(label);bottle.add(labWrap);
 
 var halo=new THREE.Mesh(new THREE.SphereGeometry(1,20,14),new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,fog:false,uniforms:{uA:{value:0}},
 vertexShader:'varying vec3 vN;varying vec3 vV;void main(){vN=normalize(normalMatrix*normal);vec4 mv=modelViewMatrix*vec4(position,1.);vV=normalize(-mv.xyz);gl_Position=projectionMatrix*mv;}',
@@ -2454,42 +2477,83 @@ fragmentShader:'uniform float uA;varying vec3 vN;varying vec3 vV;void main(){flo
 halo.position.copy(B).add(new THREE.Vector3(0,3.3*BS,0));halo.scale.setScalar(7*BS);scene.add(halo);
 
 
-/* the table at the end: checkered cloth with pršut, cheese, olives, bread and wine */
-var TC=new THREE.Vector3(0,hgt(0,-22)+3.4,-22),BSe=mob?.75:.85;
-var tcv=document.createElement('canvas');tcv.width=tcv.height=256;var tx2=tcv.getContext('2d');tx2.fillStyle='#F6F0E6';tx2.fillRect(0,0,256,256);tx2.fillStyle='rgba(176,40,40,.55)';for(var a1=0;a1<8;a1++){tx2.fillRect(a1*32,0,16,256);tx2.fillRect(0,a1*32,256,16)}
-var clothT=new THREE.Texture(tcv);clothT.wrapS=clothT.wrapT=THREE.RepeatWrapping;clothT.repeat.set(4,2.4);clothT.needsUpdate=true;
+/* the table at the end: gingham cloth with pršut, cheese, olives, bread, oil and Malvazija (no legs, seen close up) */
+var TC=new THREE.Vector3(0,hgt(0,-22)+3.4,-22),BSe=mob?.6:.62;
+var tcv=document.createElement('canvas');tcv.width=tcv.height=512;var tx2=tcv.getContext('2d');tx2.fillStyle='#F7F1E6';tx2.fillRect(0,0,512,512);
+tx2.fillStyle='rgba(178,46,40,.42)';for(var a1=0;a1<8;a1++){tx2.fillRect(a1*64,0,32,512);tx2.fillRect(0,a1*64,512,32)}
+tx2.fillStyle='rgba(120,20,20,.18)';for(a1=0;a1<8;a1++)for(var a2=0;a2<8;a2++)tx2.fillRect(a1*64,a2*64,32,32);
+tx2.fillStyle='rgba(255,255,255,.07)';for(a1=0;a1<512;a1+=3)tx2.fillRect(0,a1,512,1);
+var clothT=new THREE.Texture(tcv);clothT.wrapS=clothT.wrapT=THREE.RepeatWrapping;clothT.repeat.set(7,4);clothT.anisotropy=R.capabilities.getMaxAnisotropy();clothT.needsUpdate=true;
 var table=new THREE.Group();table.position.copy(TC);scene.add(table);
-var wood=new THREE.MeshPhongMaterial({color:0x7A5236,shininess:10,flatShading:true});
-var top=new THREE.Mesh(new THREE.BoxGeometry(17,.5,9.5),wood);top.position.y=-.25;table.add(top);
-var cloth=new THREE.Mesh(new THREE.BoxGeometry(14.5,.06,7.6),new THREE.MeshPhongMaterial({map:clothT,shininess:5}));cloth.position.y=.03;table.add(cloth);
-[[-7.6,-4],[7.6,-4],[-7.6,4],[7.6,4]].forEach(function(l){var lg=new THREE.Mesh(new THREE.BoxGeometry(.6,6,.6),wood);lg.position.set(l[0],-3.4,l[1]*.95);table.add(lg)});
-var items=[];function item(g){g.scale.setScalar(.001);table.add(g);items.push(g);return g}
-var pm=function(c,sh){return new THREE.MeshPhongMaterial({color:c,shininess:sh||20,flatShading:true})};
-/* board with pršut */
-var brd=new THREE.Group();var bb=new THREE.Mesh(new THREE.BoxGeometry(5.6,.28,2.6),pm(0xC89A62,8));bb.position.y=.14;brd.add(bb);
-for(var i=0;i<6;i++){var sl=new THREE.Mesh(new THREE.SphereGeometry(1,10,6),pm(0xB4473F,30));sl.scale.set(1.05,.07,.48);sl.position.set(-1.9+i*.75,.34+i*.02,(i%2?.25:-.25));sl.rotation.y=.5+(i%2)*.3;brd.add(sl);var ft=new THREE.Mesh(new THREE.SphereGeometry(1,10,6),pm(0xF2E6DC,10));ft.scale.set(1.08,.05,.18);ft.position.copy(sl.position);ft.position.z+=.4;ft.position.y-=.01;ft.rotation.y=sl.rotation.y;brd.add(ft)}
-brd.position.set(-4.4,0,1.4);brd.rotation.y=.12;item(brd);
-/* cheese wedge + cubes */
-var ch=new THREE.Group();var w=new THREE.Mesh(new THREE.CylinderGeometry(1.5,1.5,1,14,1,false,0,1.4),pm(0xE9C46A,25));w.position.y=.5;ch.add(w);
-for(i=0;i<5;i++){var cu=new THREE.Mesh(new THREE.BoxGeometry(.5,.5,.5),pm(0xEBCB78,25));cu.position.set(1.4+(i%3)*.6,.25,.4+Math.floor(i/3)*.6);cu.rotation.y=i;ch.add(cu)}
-ch.position.set(3.2,0,1.9);item(ch);
-/* bowl of olives */
-var bw=new THREE.Group();var bl2=new THREE.Mesh(new THREE.LatheGeometry([[0,0],[.9,0],[1.35,.7],[1.4,.75],[1.3,.75],[0,.2]].map(function(p){return new THREE.Vector2(p[0],p[1])}),18),new THREE.MeshPhongMaterial({color:0xB98552,shininess:10,side:THREE.DoubleSide}));bw.add(bl2);
-for(i=0;i<16;i++){var ol=new THREE.Mesh(new THREE.SphereGeometry(.24,8,6),new THREE.MeshPhongMaterial({color:i%3?0x5C6B22:0x2E1F2A,shininess:70}));var aa=i*2.4,rr2=(i%4)*.28;ol.scale.set(1,1,1.3);ol.position.set(Math.cos(aa)*rr2,.55+(i>9?.22:0),Math.sin(aa)*rr2);bw.add(ol)}
-bw.position.set(-.2,0,2.6);item(bw);
-/* bread */
-var br=new THREE.Group();var lf=new THREE.Mesh(new THREE.SphereGeometry(1.25,14,8,0,6.29,0,1.6),pm(0xB47A3C,15));lf.scale.set(1.35,.75,1);br.add(lf);
-for(i=0;i<3;i++){var bs=new THREE.Mesh(new THREE.CylinderGeometry(.75,.75,.22,14),pm(0xEAD3A6,8));bs.rotation.x=1.35;bs.position.set(1.9+i*.35,.6,.1);br.add(bs)}
-br.position.set(-5.6,0,-1.3);item(br);
-/* wine glass with malvazija */
-var wg=new THREE.Group();var glP=[[0,0],[.7,0],[.72,.06],[.1,.15],[.08,1.4],[.55,1.75],[.8,2.4],[.78,3.1],[.74,3.1],[.76,2.4],[.53,1.8],[0,1.6]].map(function(p){return new THREE.Vector2(p[0],p[1])});
-wg.add(new THREE.Mesh(new THREE.LatheGeometry(glP,20),new THREE.MeshPhongMaterial({color:0xffffff,specular:0xffffff,shininess:150,transparent:true,opacity:.28,side:THREE.DoubleSide,depthWrite:false})));
-var wn=new THREE.Mesh(new THREE.LatheGeometry([[0,1.62],[.52,1.82],[.72,2.3],[0,2.3]].map(function(p){return new THREE.Vector2(p[0],p[1])}),20),new THREE.MeshPhongMaterial({color:0xE7C873,transparent:true,opacity:.8,shininess:90}));wg.add(wn);
-wg.position.set(4.6,0,-1.2);item(wg);
-/* small dish of oil */
-var od=new THREE.Group();od.add(new THREE.Mesh(new THREE.CylinderGeometry(.95,.8,.25,20),pm(0xF4EFE6,30)));var oo=new THREE.Mesh(new THREE.CylinderGeometry(.8,.8,.05,20),new THREE.MeshPhongMaterial({color:0xD8AE2A,emissive:0x4A3300,shininess:120}));oo.position.y=.13;od.add(oo);od.position.set(-2.4,.13,-1.8);item(od);
+var top=new THREE.Mesh(new THREE.BoxGeometry(26,.5,13),ph(0x6E4A30,.7));top.position.set(0,-.3,-1);table.add(top);
+var clothG=new THREE.PlaneGeometry(24,11.6,96,48);clothG.rotateX(-Math.PI/2);var cgp=clothG.attributes.position;
+for(var ci2=0;ci2<cgp.count;ci2++){var cx2=cgp.getX(ci2),cz2=cgp.getZ(ci2);cgp.setY(ci2,Math.sin(cx2*1.3+cz2*.7)*.015+Math.sin(cx2*3.1)*.008)}
+for(ci2=0;ci2<cgp.count;ci2++){var cz3=cgp.getZ(ci2);if(cz3>5.6){cgp.setY(ci2,-(cz3-5.6)*6);cgp.setZ(ci2,5.6+Math.min(.12,(cz3-5.6)*.5))}}
+clothG.computeVertexNormals();var cloth=new THREE.Mesh(clothG,new THREE.MeshLambertMaterial({map:clothT}));cloth.position.set(0,.02,-1);cloth.receiveShadow=true;table.add(cloth);
+var items=[];function item(g){g.traverse(function(o){if(o.isMesh&&!(o.material&&o.material.opacity<.5)){o.castShadow=true;o.receiveShadow=true}});g.scale.setScalar(.001);table.add(g);items.push(g);return g}
+function std(c,r,o){var o2={};if(o)for(var k in o)if(k!=='envMapIntensity')o2[k]=o[k];return ph(c,r,o2)}
+/* olive-wood board with pršut */
+var brd=new THREE.Group();
+var bs2=new THREE.Shape();bs2.moveTo(-2.6,-1.25);bs2.lineTo(2.2,-1.25);bs2.quadraticCurveTo(2.8,-1.25,2.8,-.6);bs2.lineTo(2.8,.6);bs2.quadraticCurveTo(2.8,1.25,2.2,1.25);bs2.lineTo(-2.6,1.25);bs2.quadraticCurveTo(-3.1,1.25,-3.1,.7);bs2.lineTo(-3.1,-.7);bs2.quadraticCurveTo(-3.1,-1.25,-2.6,-1.25);
+var bG=new THREE.ExtrudeGeometry(bs2,{depth:.22,bevelEnabled:true,bevelSize:.05,bevelThickness:.05,bevelSegments:3,curveSegments:16});bG.rotateX(-Math.PI/2);
+var bcv=document.createElement('canvas');bcv.width=512;bcv.height=256;var bx=bcv.getContext('2d');bx.fillStyle='#C99A63';bx.fillRect(0,0,512,256);for(var i=0;i<60;i++){bx.strokeStyle=i%3?'rgba(120,78,40,.28)':'rgba(90,55,25,.35)';bx.lineWidth=1+(i%4);bx.beginPath();var yy=i*4.3;bx.moveTo(0,yy);for(var xx=0;xx<=512;xx+=32)bx.lineTo(xx,yy+Math.sin(xx*.02+i)*6);bx.stroke()}
+var bT=new THREE.Texture(bcv);bT.needsUpdate=true;bT.wrapS=bT.wrapT=THREE.RepeatWrapping;bT.repeat.set(.18,.36);
+var board=new THREE.Mesh(bG,new THREE.MeshPhongMaterial({map:bT,shininess:20,specular:0x333322}));brd.add(board);
+function slice(w,d){var g=new THREE.PlaneGeometry(w,d,40,12);var pp=g.attributes.position,cols=[];var lean=new THREE.Color(0xB23A3A),lean2=new THREE.Color(0x8E2A2E),fat=new THREE.Color(0xF4E4D8),c=new THREE.Color();
+ for(var k=0;k<pp.count;k++){var x=pp.getX(k),y=pp.getY(k),u=x/w+.5,v=y/d+.5;var z=Math.sin(u*Math.PI*3.2)*.16*Math.sin(v*Math.PI)+Math.sin(u*Math.PI*7)*.03;pp.setZ(k,z+.0);
+  var edge=Math.abs(v-.5)*2;var ef=Math.max(0,Math.min(1,(v-.78)/.07));c.copy(lean).lerp(lean2,.5+.5*Math.sin(u*9+v*5));c.lerp(fat,ef);if(edge>.97)c.multiplyScalar(.9);cols.push(c.r,c.g,c.b)}
+ g.setAttribute('color',new THREE.Float32BufferAttribute(cols,3));g.computeVertexNormals();g.rotateX(-Math.PI/2);return g}
+var prM=new THREE.MeshPhongMaterial({vertexColors:true,shininess:60,specular:0x553333,side:THREE.DoubleSide});
+for(i=0;i<6;i++){var sl=new THREE.Mesh(slice(2.4,1.15),prM);sl.position.set(-2.1+i*.72,.36+i*.035,(i%2?.32:-.28));sl.rotation.y=.35+(i%2)*.25;brd.add(sl)}
+var rosm=std(0x4E6B3A,.7);for(i=0;i<5;i++){var nd=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,.5,5),rosm);nd.rotation.z=Math.PI/2;nd.rotation.y=i*.3;nd.position.set(1.9,.42,-.7+i*.06);brd.add(nd)}
+brd.position.set(-3.6,0,-1.6);brd.rotation.y=.18;item(brd);
+/* Istrian cheese: wedge with rind, plus cubes */
+var ch=new THREE.Group();var sec=new THREE.Shape();sec.moveTo(0,0);sec.absarc(0,0,1.9,-.62,.62,false);sec.lineTo(0,0);
+var wG=new THREE.ExtrudeGeometry(sec,{depth:1.15,bevelEnabled:true,bevelSize:.04,bevelThickness:.04,bevelSegments:2,curveSegments:40});wG.rotateX(-Math.PI/2);
+var paste=std(0xF0D78C,.55);var w=new THREE.Mesh(wG,paste);ch.add(w);
+var rind=new THREE.Mesh(new THREE.CylinderGeometry(1.95,1.95,1.2,64,1,true,Math.PI/2-.62,1.24),std(0xB98A3E,.5));rind.position.y=.58;ch.add(rind);
+var holeM=std(0xD9BC6A,.8);[[1.1,.6,.1],[1.4,.35,-.25],[.8,.9,.2]].forEach(function(hh){var hs=new THREE.Mesh(new THREE.SphereGeometry(.07,10,8),holeM);hs.scale.set(1,1,.3);hs.position.set(hh[0],hh[1],hh[2]);ch.add(hs)});
+for(i=0;i<6;i++){var cu=new THREE.Mesh(new THREE.BoxGeometry(.48,.48,.48),paste);cu.position.set(-.3+(i%3)*.6,.24,1.15+Math.floor(i/3)*.62);cu.rotation.y=i*.7;ch.add(cu)}
+ch.position.set(5.6,0,-2.4);ch.rotation.y=2.4;item(ch);
+/* glazed bowl with olives */
+var bw=new THREE.Group();var bP=[];for(i=0;i<=20;i++){var t2=i/20;bP.push(new THREE.Vector2(.85+Math.sin(t2*Math.PI/2)*.65,t2*.85))}bP.push(new THREE.Vector2(1.48,.88));for(i=20;i>=0;i--){var t3=i/20;bP.push(new THREE.Vector2(.78+Math.sin(t3*Math.PI/2)*.6,.1+t3*.75))}bP.unshift(new THREE.Vector2(0,0));bP.push(new THREE.Vector2(0,.1));
+bw.add(new THREE.Mesh(new THREE.LatheGeometry(bP,64),std(0xEDE3D0,.18,{envMapIntensity:1.2})));
+var glazeRim=new THREE.Mesh(new THREE.TorusGeometry(1.46,.035,8,64),std(0xA64B28,.25));glazeRim.rotation.x=Math.PI/2;glazeRim.position.y=.88;bw.add(glazeRim);
+var oG=new THREE.SphereGeometry(.25,28,18);var olM=[std(0x5D6B22,.22,{envMapIntensity:1.3}),std(0x3A2A33,.2,{envMapIntensity:1.3}),std(0x7A7A2C,.25,{envMapIntensity:1.2})];
+var OP=[];for(i=0;i<26;i++){var ring2=i<9?0:i<18?1:2,aa=i*2.399,rr2=ring2===0?.25+(i%3)*.35:ring2===1?.3+(i%3)*.32:.2+(i%3)*.25;OP.push([Math.cos(aa)*rr2,.38+ring2*.24,Math.sin(aa)*rr2])}
+OP.forEach(function(q3,k){var ol=new THREE.Mesh(oG,olM[k%3]);ol.scale.set(1,1,1.35);ol.rotation.y=k;ol.rotation.x=k*.3;ol.position.set(q3[0],q3[1],q3[2]);bw.add(ol)});
+bw.position.set(.6,0,-1.2);item(bw);
+/* loose olives and an olive sprig on the cloth */
+var lo=new THREE.Group();[[5.2,3.9],[5.6,4.25],[4.8,3.3]].forEach(function(q4,k){var ol=new THREE.Mesh(oG,olM[k%2]);ol.scale.set(1,.92,1.35);ol.position.set(q4[0],.23,q4[1]);ol.rotation.y=k*1.3;lo.add(ol)});
+var lfS=new THREE.Shape();lfS.moveTo(0,0);lfS.quadraticCurveTo(.5,.17,1.05,0);lfS.quadraticCurveTo(.5,-.17,0,0);var lfG=new THREE.ShapeGeometry(lfS,8);lfG.rotateX(-Math.PI/2);
+var lfM=[std(0x7F8F5C,.6,{side:THREE.DoubleSide}),std(0xA9B48C,.6,{side:THREE.DoubleSide})];
+var stem=new THREE.Mesh(new THREE.CylinderGeometry(.018,.022,2.2,6),std(0x6B5A3A,.7));stem.rotation.z=Math.PI/2;stem.rotation.y=.4;stem.position.set(1.2,.05,2.6);lo.add(stem);
+for(i=0;i<10;i++){var lf=new THREE.Mesh(lfG,lfM[i%2]);var tt=i/9-.5;lf.position.set(1.2+Math.cos(.4)*tt*2.1,.06+i*.003,2.6-Math.sin(.4)*tt*2.1);lf.rotation.y=.4+(i%2?.9:-.9)+Math.PI*(i%2);lo.add(lf)}
+item(lo);
+/* bread loaf with scored crust, and slices */
+var br=new THREE.Group();var lG=new THREE.SphereGeometry(1.2,64,32,0,Math.PI*2,0,Math.PI*.56);var lp=lG.attributes.position,lcol=[],crust=new THREE.Color(0xA2662C),crust2=new THREE.Color(0xD39B55),crumb=new THREE.Color(0xEBD3A2),cc=new THREE.Color();
+for(i=0;i<lp.count;i++){var x0=lp.getX(i),y0=lp.getY(i),z0=lp.getZ(i);var h0=y0/1.2;cc.copy(crust2).lerp(crust,Math.min(1,h0*1.4));var sc=Math.abs(Math.sin((x0*1.3-z0*.4)*3.2));if(sc<.12&&h0>.45){cc.copy(crumb);lp.setY(i,y0-.05)}lcol.push(cc.r,cc.g,cc.b)}
+lG.setAttribute('color',new THREE.Float32BufferAttribute(lcol,3));lG.computeVertexNormals();
+var loaf=new THREE.Mesh(lG,new THREE.MeshPhongMaterial({vertexColors:true,shininess:10,specular:0x221a10}));loaf.scale.set(1.45,.72,1);loaf.position.y=-.12;br.add(loaf);
+var sG=new THREE.CylinderGeometry(.82,.82,.2,48);var slM=[std(0xA2662C,.8),std(0xEED8AA,.9),std(0xEED8AA,.9)];
+for(i=0;i<3;i++){var bsl=new THREE.Mesh(sG,slM);bsl.rotation.x=1.45;bsl.rotation.z=-.25;bsl.scale.set(1,1,.82);bsl.position.set(2.2+i*.3,.7-i*.04,.2);br.add(bsl)}
+br.position.set(-6.6,0,-4.0);br.rotation.y=.4;item(br);
+/* dish of oil for the bread */
+var od=new THREE.Group();var dP=[[0,0],[.85,0],[1.05,.14],[1.12,.24],[1.02,.24],[.8,.1],[0,.1]].map(function(p){return new THREE.Vector2(p[0],p[1])});od.add(new THREE.Mesh(new THREE.LatheGeometry(dP,64),std(0xF4EFE6,.15,{envMapIntensity:1.2})));
+var oo=new THREE.Mesh(new THREE.CircleGeometry(.95,48),std(0xD8A420,.05,{emissive:0x4A3000,emissiveIntensity:.5,envMapIntensity:1.6}));oo.rotation.x=-Math.PI/2;oo.position.y=.16;od.add(oo);
+od.position.set(2.2,0,-3.4);item(od);
+/* Malvazija in a stemmed glass */
+var wg=new THREE.Group();var glP=[[0,0],[.72,0],[.74,.05],[.12,.12],[.06,.3],[.06,1.5],[.3,1.62],[.62,1.95],[.78,2.5],[.75,3.25],[.73,3.25],[.75,2.5],[.6,1.97],[.28,1.68],[0,1.64]].map(function(p){return new THREE.Vector2(p[0],p[1])});
+wg.add(new THREE.Mesh(new THREE.LatheGeometry(glP,64),new THREE.MeshPhongMaterial({color:0xffffff,specular:0xffffff,shininess:180,envMap:ENV,combine:THREE.MixOperation,reflectivity:.3,transparent:true,opacity:.2,side:THREE.DoubleSide,depthWrite:false})));
+var wn=new THREE.Mesh(new THREE.LatheGeometry([[0,1.66],[.28,1.7],[.58,1.98],[.72,2.38],[0,2.38]].map(function(p){return new THREE.Vector2(p[0],p[1])}),64),std(0xE9CF7A,.05,{transparent:true,opacity:.82,emissive:0x3A2C00,emissiveIntensity:.4,envMapIntensity:1.5}));wg.add(wn);
+wg.position.set(-.6,0,-4.4);item(wg);
 table.scale.setScalar(.001);
-var BT=TC.clone().add(new THREE.Vector3(1.2,.0,-1.6));
+var BT=TC.clone().add(new THREE.Vector3(mob?.5:3.5,0,mob?3.0:3.0));
+/* key light with soft shadows for the table */
+R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+var key=new THREE.DirectionalLight(0xFFD2A0,0);key.position.copy(TC).add(new THREE.Vector3(-9,14,6));key.target.position.copy(TC);scene.add(key);scene.add(key.target);
+key.castShadow=true;key.shadow.mapSize.set(mob?1024:2048,mob?1024:2048);var sc2=key.shadow.camera;sc2.left=-12;sc2.right=12;sc2.top=10;sc2.bottom=-10;sc2.near=1;sc2.far=40;key.shadow.bias=-.0006;key.shadow.radius=4;
+
 /* olives on the trees nearest the path */
 var near=trees.filter(function(t){return Math.abs(t.x)<17&&t.z>-34&&t.z<10});
 var PER=mob?14:22,OL=[];near.forEach(function(t){for(var j=0;j<PER;j++){var cr=t.cr[j%t.cr.length],a=Math.random()*6.28,b=Math.acos(Math.random()*1.4-.7),rr=cr[3]*.98;
@@ -2525,9 +2589,9 @@ var tx=0,ty=0,mx=0,my=0;addEventListener('pointermove',function(e){tx=e.clientX/
 var p=0,T=0,last=0,run=false,raf=0,vis=true,shown=false;
 var cP=new THREE.Vector3(),cL=new THREE.Vector3(),q=new THREE.Vector3(),q2=new THREE.Vector3();
 var c0=new THREE.Vector3(0,3.2,20),l0=new THREE.Vector3(0,3.6,-30),c1=new THREE.Vector3(0,5.5,6),l1=new THREE.Vector3(0,11.5,-24),c2=new THREE.Vector3(0,12,7),l2=B.clone().add(new THREE.Vector3(0,4.1*BS,0));
-var c3=TC.clone().add(new THREE.Vector3(0,mob?7.5:5.6,mob?17:11.5)),l3=TC.clone().add(new THREE.Vector3(0,mob?-1.2:-1.6,-1));
+var c3=TC.clone().add(new THREE.Vector3(mob?.5:.4,mob?5.4:5.2,mob?12.2:11.6)),l3=TC.clone().add(new THREE.Vector3(mob?.5:.9,mob?.5:1.05,0));
 function frame(ts){raf=requestAnimationFrame(frame);var dt=last?Math.min((ts-last)/1000,.05):.016;last=ts;T+=dt;dU.uT.value=T;
- p+=(prog()-p)*.12;mx+=(tx-mx)*.04;my+=(ty-my)*.04;
+ p=(window.__P!=null)?window.__P:p+(prog()-p)*.12;mx+=(tx-mx)*.04;my+=(ty-my)*.04;
  var a=sm(0,.5,p),b=sm(.42,.78,p),d3=sm(.78,.95,p);
  cP.copy(c0).lerp(c1,a).lerp(c2,b).lerp(c3,d3);cL.copy(l0).lerp(l1,a).lerp(l2,b).lerp(l3,d3);
  cP.x+=mx*3*(1-d3*.6)+Math.sin(T*.15)*.6;cP.y+=-my*1.2;cam.position.copy(cP);cam.lookAt(cL);
@@ -2543,7 +2607,7 @@ function frame(ts){raf=requestAnimationFrame(frame);var dt=last?Math.min((ts-las
  /* bottle */
  var bs=sm(.32,.55,p),land=sm(.8,.92,p);bottle.scale.setScalar(Math.max(.001,bs*(BS+(BSe-BS)*land)));var st=sm(.9,.98,p);bottle.rotation.y=(1-st)*(T*.25)+st*(Math.sin(T*.5)*.25)+mx*.5;var k=st<1?(1+Math.sin(st*Math.PI)*.35):1;label.material.opacity=sm(.9,.93,p);labWrap.scale.set(st*k||.001,st*k||.001,st*k||.001);labWrap.rotation.z=(1-st)*.35;bottle.position.copy(B).lerp(BT,land);bottle.position.y+=Math.sin(T*.8)*.25*(1-land);var ts=sm(.78,.9,p);table.scale.setScalar(Math.max(.001,ts));items.forEach(function(g,ii){var e2=sm(.84+ii*.018,.9+ii*.018,p);g.scale.setScalar(Math.max(.001,e2*(1+Math.sin(e2*Math.PI)*.25)))});
  var lv=sm(.42,.8,p)*4.9;clip.constant=bottle.position.y+lv*bottle.scale.y;oil.visible=lv>.02;
- halo.material.uniforms.uA.value=sm(.6,.8,p)*(1-land)*.55;halo.position.copy(bottle.position);halo.position.y+=3.3*bottle.scale.y;halo.scale.setScalar(7*bottle.scale.y+.001);bl.intensity=sm(.5,1,p)*1.2;
+ halo.material.uniforms.uA.value=sm(.6,.8,p)*(1-land)*.55;halo.position.copy(bottle.position);halo.position.y+=3.3*bottle.scale.y;halo.scale.setScalar(7*bottle.scale.y+.001);bl.intensity=sm(.5,.8,p)*1.2*(1-sm(.85,.95,p));key.intensity=sm(.8,.92,p)*.7;sun.intensity=1.05*(1-sm(.8,.92,p)*.45);
  /* overlays */
  var hf=1-sm(.02,.12,p);if(heroC){heroC.style.opacity=hf;heroC.style.transform='translateY('+(-(1-hf)*40)+'px)';heroC.style.pointerEvents=hf<.3?'none':''}if(srch)srch.style.opacity=hf;
  steps.forEach(function(s){var a0=+s.dataset.a,a1=+s.dataset.b,o=sm(a0,a0+.06,p)*(1-sm(a1-.06,a1,p));s.style.opacity=o;s.style.transform='translateY('+((1-o)*24)+'px)';s.style.pointerEvents=o>.5?'auto':'none'});
