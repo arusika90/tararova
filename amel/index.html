@@ -577,6 +577,31 @@ html select{height:56px;line-height:normal}
 /* FAQ: left heading travels with the questions */
 @media(min-width:900px){.faq__grid>.sh{position:sticky;top:140px;align-self:start}}
 .faq__grid>.sh::after{display:none}
+/* 3D hero: sea through the window, scroll to the table */
+.hero--3d{height:260vh;height:260svh;min-height:0;overflow:visible;background:#1a120d}
+.hero:not(.hero--3d) .hero__stage{position:absolute;inset:0}
+.hero--3d .hero__stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#room3d{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;opacity:0;transition:opacity 1.2s ease}
+.hero--on #room3d{opacity:1}.hero--on .hero__media{opacity:0;transform:none!important}
+.hero--3d .hero__veil{background:linear-gradient(to top,rgba(14,9,6,.78) 0%,rgba(14,9,6,.25) 40%,rgba(14,9,6,0) 62%),linear-gradient(to right,rgba(14,9,6,.55),rgba(14,9,6,0) 60%);opacity:calc(1 - var(--p,0)*1.4)}
+.hero--3d .hero__c{opacity:calc(1 - var(--p,0)*3);transform:translateY(calc(var(--p,0)*-120px));pointer-events:auto}
+.hero__end{position:absolute;left:0;right:0;bottom:0;z-index:6;padding-bottom:48px;color:#fff;opacity:calc((var(--p,0) - .62)*4);transform:translateY(calc((1 - min(1,var(--p,0)*1.3))*40px));pointer-events:none}
+.hero__end .label{color:#F6C89A}.hero__endt{font:400 clamp(24px,3.4vw,40px)/1.15 var(--serif);max-width:20ch;margin:8px 0 18px;text-shadow:0 2px 24px rgba(0,0,0,.55)}
+.hero__endc{display:flex;flex-wrap:wrap;gap:10px}.hero__endc .pill{width:auto}
+.hero--3d .hero__end::before{content:"";position:absolute;inset:-60px 0 0;z-index:-1;background:linear-gradient(to top,rgba(14,9,6,.75),rgba(14,9,6,0))}
+.hero--3d[style*="--p: 0.7"] .hero__end,.hero--3d[style*="--p: 0.8"] .hero__end,.hero--3d[style*="--p: 0.9"] .hero__end,.hero--3d[style*="--p: 1"] .hero__end{pointer-events:auto}
+.hero:not(.hero--3d) .hero__end,.hero:not(.hero--3d) .hero__sc{display:none}
+.hero__sc{position:absolute;right:var(--gutter);bottom:30px;z-index:6;display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.8);opacity:calc(1 - var(--p,0)*5)}
+.hero__sc i{width:1px;height:40px;background:linear-gradient(#fff,rgba(255,255,255,0));animation:scl 1.8s ease-in-out infinite;transform-origin:top}@keyframes scl{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+@media(max-width:899px){.hero__sc{display:none}.hero__end{padding-bottom:40px}}
+/* realistic grill */
+#grill3d{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:block;opacity:0;transition:opacity 1.2s}
+.gband.g3 #grill3d{opacity:1}.gband.g3 .hero__scene{opacity:0}
+/* Wolt button */
+.woltbtn{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;padding:16px 22px;border-radius:14px;background:#009DE0;color:#fff;font:600 16px var(--sans);transition:background .3s,transform .3s}
+.woltbtn:hover{background:#0089c4;transform:translateY(-2px)}.woltbtn svg{width:20px;height:20px}
+/* FAQ: left column follows the questions */
+@media(min-width:900px){.faq__grid{align-items:start}.faq__grid>.sh{position:sticky;top:calc(var(--header) + 80px);align-self:start}}
 </style>
 <style>.hero__hint{display:none!important}</style>
 </head>
@@ -795,8 +820,10 @@ html select{height:56px;line-height:normal}
 <main id="top">
 
 <!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero__media" id="heroMedia"><div class="hero__ph" id="heroPh"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TXY6nN7VTHm3TlS7VT_Vng1kPtTpx8z38beX8AC8RunQ59PYoK8O6pJsuTyxZjRMZ1KbzZ24-MxWNQ9SNN3UMyoorLeo25FRTUpZ5-nGsJvwPbgm18yfPg0vMan2P3R4e2WUb2FsWevfo=w1600-h1600-no" alt="Buffet Amel navečer, ulaz s terasom" fetchpriority="high"></div><div class="hero__warm" aria-hidden="true"></div></div>
+<section class="hero hero--3d" id="hero">
+ <div class="hero__stage">
+  <div class="hero__media" id="heroMedia"><div class="hero__ph" id="heroPh"><img src="https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QHrKkkvM--IvA4gRVtbDO4hm10mcNiyvm4VL80BfLlUBwTaQgoPXQ4woEAq78GeUZoilBMMJ9gFW5A4Wcimw1P4FtC5gxXagPVjBWEqjl8DdNPa7DRZHW19b73IFRb7IHzoDkmmIE3anV0=w1600-h1600-no" alt="Ćevapi u lepinji, Buffet Amel" fetchpriority="high"></div><div class="hero__warm" aria-hidden="true"></div></div>
+  <canvas id="room3d" aria-hidden="true"></canvas>
   <div class="hero__veil"></div>
   <div class="hero__c wrap">
     <p class="label fade-up d1" data-i18n="hero.label">Rijeka · ćevapi · roštilj</p>
@@ -814,6 +841,13 @@ html select{height:56px;line-height:normal}
     </div>
     <div class="hero__cta fade-up d4"><a href="#rezervacija" class="pill pill--grey" data-i18n="hero.cta">Rezerviraj stol</a></div>
   </div>
+  <div class="hero__end wrap">
+    <p class="label" data-tx='{"hr":"Na stolu","en":"On the table","de":"Auf dem Tisch","it":"In tavola","hu":"Az asztalon"}'>Na stolu</p>
+    <p class="hero__endt" data-tx='{"hr":"Deset ćevapa, topla lepinja, luk i ajvar. I more ispred prozora.","en":"Ten ćevapi, warm lepinja, onion and ajvar. And the sea outside the window.","de":"Zehn Ćevapi, warmes Lepinja, Zwiebeln und Ajvar. Und das Meer vor dem Fenster.","it":"Dieci ćevapi, lepinja calda, cipolla e ajvar. E il mare fuori dalla finestra.","hu":"Tíz ćevapi, meleg lepinja, hagyma és ajvár. És a tenger az ablak előtt."}'>Deset ćevapa, topla lepinja, luk i ajvar. I more ispred prozora.</p>
+    <div class="hero__endc"><a href="#rezervacija" class="pill pill--grey" data-i18n="hero.cta">Rezerviraj stol</a><a href="#jelovnik" class="pill pill--outline" data-tx='{"hr":"Jelovnik","en":"Menu","de":"Speisekarte","it":"Menu","hu":"Étlap"}'>Jelovnik</a></div>
+  </div>
+  <div class="hero__sc" aria-hidden="true"><i></i><span data-tx='{"hr":"Pomaknite prema dolje","en":"Scroll down","de":"Nach unten scrollen","it":"Scorri in basso","hu":"Görgess lefelé"}'>Pomaknite prema dolje</span></div>
+ </div>
 </section>
 
 <!-- FINDER -->
@@ -1081,6 +1115,7 @@ html select{height:56px;line-height:normal}
 <!-- GRILL BAND (3D embers moved here from the hero) -->
 <section class="gband" id="zar" aria-label="Roštilj">
   <div class="gband__media" id="gbMedia">
+    <canvas id="grill3d" aria-hidden="true"></canvas>
     <svg class="hero__scene" viewBox="0 0 400 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
       <defs>
         <linearGradient id="hSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E0B09"/><stop offset=".6" stop-color="#1C1310"/><stop offset="1" stop-color="#2E1A10"/></linearGradient>
@@ -1219,6 +1254,7 @@ html select{height:56px;line-height:normal}
             <li><span>Lignje + Coca&#8209;Cola</span><span>22 €</span></li>
             <li><span>XXXL kombinacija + Coca&#8209;Cola</span><span>29,50 €</span></li>
           </ul>
+          <a class="woltbtn" href="https://wolt.com/hr/hrv/rijeka/restaurant/buffet-amel" target="_blank" rel="noopener"><span data-tx='{"hr":"Naruči na Woltu","en":"Order on Wolt","de":"Auf Wolt bestellen","it":"Ordina su Wolt","hu":"Rendelés a Wolton"}'>Naruči na Woltu</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
         </div>
         <p class="near__note rv" data-i18n="near.note">Cijene na Woltu mogu se promijeniti. Cijene u restoranu provjerite na licu mjesta.</p>
       </div>
@@ -1749,6 +1785,9 @@ setVB(); window.addEventListener("resize", setVB);
 function webglOK(){ try { var c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl"))); } catch(e){ return false; } }
 function loadThree(){
   if (RM || !webglOK()) return;
+  if (window.THREE) { try { initEmbers(); } catch(e){} return; }
+  var ex = document.querySelector('script[src*="three.min.js"]');
+  if (ex) { ex.addEventListener("load", function(){ try { initEmbers(); } catch(e){} }); return; }
   var s = document.createElement("script");
   s.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"; s.async = true;
   s.onload = function(){ try { initEmbers(); } catch(e){ /* keep SVG fallback */ } };
@@ -2165,5 +2204,6 @@ if(!n)open(false)}
 sh.addEventListener("click",function(e){var b=e.target.closest(".wc-q button");if(!b)return;var it=cart[+b.dataset.i];it.q+=+b.dataset.k;if(it.q<1)cart.splice(+b.dataset.i,1);render()});
 sh.addEventListener("input",render);sh.addEventListener("change",render);
 try{new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]})}catch(e){}render()})();</script>
+<script src="scene.js?v=1" defer></script>
 </body>
 </html>

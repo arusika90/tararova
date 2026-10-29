@@ -721,7 +721,10 @@ html select{height:56px;line-height:normal}
 @media(min-width:900px){.faq__grid>.sh{position:sticky;top:140px;align-self:start}}
 .faq__grid>.sh::after{display:none}
 </style>
-<style>.hero__hint{display:none!important}</style>
+<style>.hero__hint{display:none!important}
+/* FAQ: left column follows the questions */
+@media(min-width:900px){.faq__grid{align-items:start}.faq__grid>.sh{position:sticky;top:calc(var(--header) + 80px);align-self:start}}
+</style>
 </head>
 <body class="locked">
 
