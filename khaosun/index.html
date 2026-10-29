@@ -618,6 +618,8 @@ html select{height:56px;line-height:normal}
 .xcart__t{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 4px;font-size:15px}.xcart__t b{font-size:26px;color:#fff}
 .xcart__go{display:flex;justify-content:center;margin-top:12px;background:#25D366;color:#073B1F}.xcart__go[aria-disabled="true"]{opacity:.45;pointer-events:none}
 .xcart .fine{color:rgba(246,231,198,.65);font-size:12.5px;margin-top:10px}
+
+.pband{position:relative;height:72vh;min-height:460px;max-height:760px;overflow:hidden;color:#fff;background:#1a0a05}.pband__ph{position:absolute;inset:0}.pband__ph img{width:100%;height:100%;object-fit:cover;animation:kb 26s ease-in-out infinite alternate}.pband .wband__veil{position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(20,6,2,.8),rgba(20,6,2,0) 60%)}.pband .wband__c{position:absolute;left:0;right:0;bottom:0;z-index:3;padding-bottom:56px}.pband h2{font-size:clamp(32px,6vw,60px);line-height:1.05;color:#fff}.pband .label{color:rgba(255,255,255,.85);margin-bottom:12px}
 </style>
 <style>.hero__hint{display:none!important}</style>
 </head>
@@ -755,7 +757,24 @@ html select{height:56px;line-height:normal}
 <main id="top">
 
 <section class="hero" id="hero" aria-label="Khao Sun">
-  <div class="hero__media" id="heroMedia" aria-hidden="true"><div class="hero__ph" id="heroPh"><img src="https://khao-sun.hr/wp-content/uploads/2023/10/IMG_3417-1024x666.jpg" alt="" fetchpriority="high"></div><div class="hero__glow"></div></div>
+  <div class="hero__media" id="heroMedia" aria-hidden="true"><svg class="hero__scene" viewBox="0 0 400 760" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="hsBg" cx=".5" cy=".4" r=".85"><stop offset="0" stop-color="#1A5A54"/><stop offset=".5" stop-color="#0B2E2C"/><stop offset="1" stop-color="#040F0E"/></radialGradient>
+        <linearGradient id="hsStreak" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7D58A" stop-opacity=".55"/><stop offset="1" stop-color="#F7D58A" stop-opacity="0"/></linearGradient>
+        <filter id="hsBlur"><feGaussianBlur stdDeviation="10"/></filter>
+      </defs>
+      <rect width="400" height="760" fill="url(#hsBg)"/>
+      <g data-hp="0.1" filter="url(#hsBlur)" opacity=".8"><rect x="80" y="250" width="26" height="260" fill="url(#hsStreak)"/><rect x="300" y="230" width="20" height="240" fill="url(#hsStreak)"/><rect x="200" y="290" width="14" height="200" fill="url(#hsStreak)" opacity=".6"/></g>
+      <g class="rip" fill="none" stroke="#C9E3DE" stroke-width="1"><ellipse cx="200" cy="420" rx="140" ry="50"/><ellipse cx="200" cy="420" rx="140" ry="50"/><ellipse cx="200" cy="420" rx="140" ry="50"/></g>
+      <g data-hp="0.18" color="#F2B64A"><use href="#i-candle" x="60" y="130" width="60" height="120"/><use href="#i-candle" x="290" y="110" width="56" height="112"/><use href="#i-candle" x="190" y="170" width="40" height="80" opacity=".8"/></g>
+      <g data-hp="0.3" color="#B06A80">
+        <g class="bob"><use href="#i-lotus" x="60" y="300" width="220" height="165"/></g>
+        <g class="bob b2" color="#C9A45C"><use href="#i-frang" x="280" y="440" width="76" height="76" transform="rotate(20 318 478)"/></g>
+        <g class="bob" color="#C9A45C"><use href="#i-frang" x="30" y="500" width="56" height="56" transform="rotate(-30 58 528)"/></g>
+      </g>
+      <g data-hp="0.4" color="#D98AA0"><g class="bob b2"><use href="#i-lpetal" x="250" y="560" width="30" height="66" transform="rotate(60 265 593)" opacity=".85"/></g></g>
+    </svg></div>
+  <canvas id="water" aria-hidden="true"></canvas>
   <div class="hero__veil"></div>
   <div class="hero__c">
     <div class="wrap">
@@ -767,6 +786,7 @@ html select{height:56px;line-height:normal}
         <span>Ul. Slaviše Vajnera Čiče 11, 51000&nbsp;Rijeka</span>
       </a>
       <div class="hero__cta fade-up d3"><a class="pill pill--grey" href="#booking" data-i18n="hero.cta">Book your massage</a></div>
+      <span class="hero__hint fade-up d4" style="display:inline-flex"><i></i><span data-tx='{"hr":"Dodirnite vodu","en":"Touch the water","de":"Berühren Sie das Wasser","it":"Tocca l’acqua"}'>Dodirnite vodu</span></span>
     </div>
   </div>
 </section>
@@ -955,38 +975,12 @@ html select{height:56px;line-height:normal}
     <div class="plist rv" id="prices">
       <h3 class="plist__h" data-i18n="pl.t">Full price list</h3>
       <p class="plist__lead" data-i18n="pl.lead">All 18 treatments, durations and prices in euros. Valid in Opatija, Rijeka, Mali Lošinj and Rab.</p>
-      <div class="plist__grps"><div><h4 data-tx='{"hr": "Tajlandske masaže cijelog tijela", "en": "Full-body Thai massages", "de": "Full-body Thai massages", "it": "Full-body Thai massages"}'>Tajlandske masaže cijelog tijela</h4><ul><li><div><b data-tx='{"hr": "Tradicionalna", "en": "Traditional"}'>Tradicionalna</b></div><span class="plist__p">50&nbsp;min&nbsp;47&nbsp;€<br>80&nbsp;min&nbsp;59&nbsp;€</span></li><li><div><b data-tx='{"hr": "Tradicionalna s toplim oblozima", "en": "Traditional with warm compresses"}'>Tradicionalna s toplim oblozima</b></div><span class="plist__p">50&nbsp;min&nbsp;52&nbsp;€<br>80&nbsp;min&nbsp;65&nbsp;€</span></li><li><div><b data-tx='{"hr": "S odabranim eteričnim uljima", "en": "With essential oils"}'>S odabranim eteričnim uljima</b></div><span class="plist__p">50&nbsp;min&nbsp;50&nbsp;€<br>80&nbsp;min&nbsp;63&nbsp;€</span></li><li><div><b data-tx='{"hr": "S eteričnim uljima za trudnice", "en": "Essential oils, for pregnancy"}'>S eteričnim uljima za trudnice</b></div><span class="plist__p">50&nbsp;min&nbsp;56&nbsp;€<br>80&nbsp;min&nbsp;71&nbsp;€</span></li><li><div><b data-tx='{"hr": "Lomi-Lomi", "en": "Lomi-Lomi (Hawaiian)"}'>Lomi-Lomi</b></div><span class="plist__p">50&nbsp;min&nbsp;50&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Parcijalne masaže", "en": "Partial massages", "de": "Partial massages", "it": "Partial massages"}'>Parcijalne masaže</h4><ul><li><div><b data-tx='{"hr": "Istočnjačka masaža stopala", "en": "Eastern foot massage"}'>Istočnjačka masaža stopala</b></div><span class="plist__p">40&nbsp;min&nbsp;37&nbsp;€</span></li><li><div><b data-tx='{"hr": "Masaža stopala i dlanova", "en": "Feet and hands"}'>Masaža stopala i dlanova</b></div><span class="plist__p">50&nbsp;min&nbsp;44&nbsp;€</span></li><li><div><b data-tx='{"hr": "Antistres masaža leđa", "en": "Anti-stress back massage"}'>Antistres masaža leđa</b></div><span class="plist__p">30&nbsp;min&nbsp;35&nbsp;€</span></li><li><div><b data-tx='{"hr": "Opuštajuća masaža leđa", "en": "Relaxing back massage"}'>Opuštajuća masaža leđa</b></div><span class="plist__p">30&nbsp;min&nbsp;37&nbsp;€</span></li><li><div><b data-tx='{"hr": "Masaža lica s eteričnim uljima", "en": "Face massage with essential oils"}'>Masaža lica s eteričnim uljima</b></div><span class="plist__p">20&nbsp;min&nbsp;28&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Kombinirane masaže", "en": "Combined massages", "de": "Combined massages", "it": "Combined massages"}'>Kombinirane masaže</h4><ul><li><div><b data-tx='{"hr": "Opijum", "en": "Opium"}'>Opijum</b></div><span class="plist__p">80&nbsp;min&nbsp;67&nbsp;€</span></li><li><div><b data-tx='{"hr": "Euforija", "en": "Euphoria"}'>Euforija</b></div><span class="plist__p">80&nbsp;min&nbsp;67&nbsp;€</span></li><li><div><b data-tx='{"hr": "Orijentalni mix", "en": "Oriental mix"}'>Orijentalni mix</b></div><span class="plist__p">90&nbsp;min&nbsp;81&nbsp;€</span></li><li><div><b data-tx='{"hr": "Vitalnost", "en": "Vitality"}'>Vitalnost</b></div><span class="plist__p">90&nbsp;min&nbsp;78&nbsp;€</span></li><li><div><b data-tx='{"hr": "Harmonija", "en": "Harmony"}'>Harmonija</b></div><span class="plist__p">100&nbsp;min&nbsp;78&nbsp;€</span></li><li><div><b data-tx='{"hr": "Khao Sun", "en": "Khao Sun"}'>Khao Sun</b></div><span class="plist__p">100&nbsp;min&nbsp;81&nbsp;€</span></li><li><div><b data-tx='{"hr": "Balance", "en": "Balance"}'>Balance</b></div><span class="plist__p">100&nbsp;min&nbsp;84&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Ostala ponuda", "en": "More treatments", "de": "More treatments", "it": "More treatments"}'>Ostala ponuda</h4><ul><li><div><b data-tx='{"hr": "Revital: stopala, noge i glava", "en": "Revital: feet, legs and head"}'>Revital: stopala, noge i glava</b></div><span class="plist__p">50&nbsp;min&nbsp;56&nbsp;€</span></li><li><div><b data-tx='{"hr": "Hot Stone", "en": "Hot Stone"}'>Hot Stone</b></div><span class="plist__p">80&nbsp;min&nbsp;74&nbsp;€</span></li><li><div><b data-tx='{"hr": "Back pain relief therapy", "en": "Back pain relief therapy"}'>Back pain relief therapy</b></div><span class="plist__p">30&nbsp;min&nbsp;44&nbsp;€</span></li><li><div><b data-tx='{"hr": "Back pain relief + masaža glave", "en": "Back pain relief + head massage"}'>Back pain relief + masaža glave</b></div><span class="plist__p">50&nbsp;min&nbsp;53&nbsp;€</span></li><li><div><b data-tx='{"hr": "Eterična ulja s pilingom", "en": "Essential oils with body scrub"}'>Eterična ulja s pilingom</b></div><span class="plist__p">100&nbsp;min&nbsp;84&nbsp;€</span></li><li><div><b data-tx='{"hr": "Stopala s pilingom i masaža glave", "en": "Feet with scrub and head massage"}'>Stopala s pilingom i masaža glave</b></div><span class="plist__p">80&nbsp;min&nbsp;69&nbsp;€</span></li><li><div><b data-tx='{"hr": "Piling cijelog tijela", "en": "Full-body scrub"}'>Piling cijelog tijela</b></div><span class="plist__p">40&nbsp;min&nbsp;32&nbsp;€</span></li><li><div><b data-tx='{"hr": "Piling nogu i stopala", "en": "Leg and foot scrub"}'>Piling nogu i stopala</b></div><span class="plist__p">20&nbsp;min&nbsp;20&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Programi i Ayurveda", "en": "Programmes and Ayurveda", "de": "Programmes and Ayurveda", "it": "Programmes and Ayurveda"}'>Programi i Ayurveda</h4><ul><li><div><b data-tx='{"hr": "Anticelulitni program 7 + 1", "en": "Anti-cellulite programme 7 + 1"}'>Anticelulitni program 7 + 1</b></div><span class="plist__p">255&nbsp;€</span></li><li><div><b data-tx='{"hr": "Anticelulitni program 10 + 1", "en": "Anti-cellulite programme 10 + 1"}'>Anticelulitni program 10 + 1</b></div><span class="plist__p">340&nbsp;€</span></li><li><div><b data-tx='{"hr": "Anticelulitni program s pilingom 7 + 1", "en": "With scrub 7 + 1"}'>Anticelulitni program s pilingom 7 + 1</b></div><span class="plist__p">320&nbsp;€</span></li><li><div><b data-tx='{"hr": "Anticelulitni program s pilingom 10 + 1", "en": "With scrub 10 + 1"}'>Anticelulitni program s pilingom 10 + 1</b></div><span class="plist__p">405&nbsp;€</span></li><li><div><b data-tx='{"hr": "Ayurveda masaže", "en": "Ayurveda massages"}'>Ayurveda masaže</b></div><span class="plist__p">na&nbsp;upit</span></li></ul></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- 03 Your session -->
-
-<!-- WATER BAND (3D water moved here from the hero) -->
-<section class="wband" id="wband" aria-label="Khao Sun">
-  <div class="wband__media" aria-hidden="true"><svg class="hero__scene" viewBox="0 0 400 760" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <radialGradient id="hsBg" cx=".5" cy=".4" r=".85"><stop offset="0" stop-color="#1A5A54"/><stop offset=".5" stop-color="#0B2E2C"/><stop offset="1" stop-color="#040F0E"/></radialGradient>
-        <linearGradient id="hsStreak" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7D58A" stop-opacity=".55"/><stop offset="1" stop-color="#F7D58A" stop-opacity="0"/></linearGradient>
-        <filter id="hsBlur"><feGaussianBlur stdDeviation="10"/></filter>
-      </defs>
-      <rect width="400" height="760" fill="url(#hsBg)"/>
-      <g data-hp="0.1" filter="url(#hsBlur)" opacity=".8"><rect x="80" y="250" width="26" height="260" fill="url(#hsStreak)"/><rect x="300" y="230" width="20" height="240" fill="url(#hsStreak)"/><rect x="200" y="290" width="14" height="200" fill="url(#hsStreak)" opacity=".6"/></g>
-      <g class="rip" fill="none" stroke="#C9E3DE" stroke-width="1"><ellipse cx="200" cy="420" rx="140" ry="50"/><ellipse cx="200" cy="420" rx="140" ry="50"/><ellipse cx="200" cy="420" rx="140" ry="50"/></g>
-      <g data-hp="0.18" color="#F2B64A"><use href="#i-candle" x="60" y="130" width="60" height="120"/><use href="#i-candle" x="290" y="110" width="56" height="112"/><use href="#i-candle" x="190" y="170" width="40" height="80" opacity=".8"/></g>
-      <g data-hp="0.3" color="#B06A80">
-        <g class="bob"><use href="#i-lotus" x="60" y="300" width="220" height="165"/></g>
-        <g class="bob b2" color="#C9A45C"><use href="#i-frang" x="280" y="440" width="76" height="76" transform="rotate(20 318 478)"/></g>
-        <g class="bob" color="#C9A45C"><use href="#i-frang" x="30" y="500" width="56" height="56" transform="rotate(-30 58 528)"/></g>
-      </g>
-      <g data-hp="0.4" color="#D98AA0"><g class="bob b2"><use href="#i-lpetal" x="250" y="560" width="30" height="66" transform="rotate(60 265 593)" opacity=".85"/></g></g>
-    </svg></div>
-  <canvas id="water" aria-hidden="true"></canvas>
+      <div class="plist__grps"><div><h4 data-tx='{"hr": "Tajlandske masaže cijelog tijela", "en": "Full-body Thai massages", "de": "Full-body Thai massages", "it": "Full-body Thai massages"}'>Tajlandske masaže cijelog tijela</h4><ul><li><div><b data-tx='{"hr": "Tradicionalna", "en": "Traditional"}'>Tradicionalna</b></div><span class="plist__p">50&nbsp;min&nbsp;47&nbsp;€<br>80&nbsp;min&nbsp;59&nbsp;€</span></li><li><div><b data-tx='{"hr": "Tradicionalna s toplim oblozima", "en": "Traditional with warm compresses"}'>Tradicionalna s toplim oblozima</b></div><span class="plist__p">50&nbsp;min&nbsp;52&nbsp;€<br>80&nbsp;min&nbsp;65&nbsp;€</span></li><li><div><b data-tx='{"hr": "S odabranim eteričnim uljima", "en": "With essential oils"}'>S odabranim eteričnim uljima</b></div><span class="plist__p">50&nbsp;min&nbsp;50&nbsp;€<br>80&nbsp;min&nbsp;63&nbsp;€</span></li><li><div><b data-tx='{"hr": "S eteričnim uljima za trudnice", "en": "Essential oils, for pregnancy"}'>S eteričnim uljima za trudnice</b></div><span class="plist__p">50&nbsp;min&nbsp;56&nbsp;€<br>80&nbsp;min&nbsp;71&nbsp;€</span></li><li><div><b data-tx='{"hr": "Lomi-Lomi", "en": "Lomi-Lomi (Hawaiian)"}'>Lomi-Lomi</b></div><span class="plist__p">50&nbsp;min&nbsp;50&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Parcijalne masaže", "en": "Partial massages", "de": "Partial massages", "it": "Partial massages"}'>Parcijalne masaže</h4><ul><li><div><b data-tx='{"hr": "Istočnjačka masaža stopala", "en": "Eastern foot massage"}'>Istočnjačka masaža stopala</b></div><span class="plist__p">40&nbsp;min&nbsp;37&nbsp;€</span></li><li><div><b data-tx='{"hr": "Masaža stopala i dlanova", "en": "Feet and hands"}'>Masaža stopala i dlanova</b></div><span class="plist__p">50&nbsp;min&nbsp;44&nbsp;€</span></li><li><div><b data-tx='{"hr": "Antistres masaža leđa", "en": "Anti-stress back massage"}'>Antistres masaža leđa</b></div><span class="plist__p">30&nbsp;min&nbsp;35&nbsp;€</span></li><li><div><b data-tx='{"hr": "Opuštajuća masaža leđa", "en": "Relaxing back massage"}'>Opuštajuća masaža leđa</b></div><span class="plist__p">30&nbsp;min&nbsp;37&nbsp;€</span></li><li><div><b data-tx='{"hr": "Masaža lica s eteričnim uljima", "en": "Face massage with essential oils"}'>Masaža lica s eteričnim uljima</b></div><span class="plist__p">20&nbsp;min&nbsp;28&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Kombinirane masaže", "en": "Combined massages", "de": "Combined massages", "it": "Combined massages"}'>Kombinirane masaže</h4><ul><li><div><b data-tx='{"hr": "Opijum", "en": "Opium"}'>Opijum</b></div><span class="plist__p">80&nbsp;min&nbsp;67&nbsp;€</span></li><li><div><b data-tx='{"hr": "Euforija", "en": "Euphoria"}'>Euforija</b></div><span class="plist__p">80&nbsp;min&nbsp;67&nbsp;€</span></li><li><div><b data-tx='{"hr": "Orijentalni mix", "en": "Oriental mix"}'>Orijentalni mix</b></div><span class="plist__p">90&nbsp;min&nbsp;81&nbsp;€</span></li><li><div><b data-tx='{"hr": "Vitalnost", "en": "Vitality"}'>Vitalnost</b></div><span class="plist__p">90&nbsp;min&nbsp;78&nbsp;€</span></li><li><div><b data-tx='{"hr": "Harmonija", "en": "Harmony"}'>Harmonija</b></div><span class="plist__p">100&nbsp;min&nbsp;78&nbsp;€</span></li><li><div><b data-tx='{"hr": "Khao Sun", "en": "Khao Sun"}'>Khao Sun</b></div><span class="plist__p">100&nbsp;min&nbsp;81&nbsp;€</span></li><li><div><b data-tx='{"hr": "Balance", "en": "Balance"}'>Balance</b></div><span class="plist__p">100&nbsp;min&nbsp;84&nbsp;€</span></li></ul></div><div><h4 data-tx='{"hr": "Ostala ponuda", "en": "More treatments", "de": "More treatments", "it": "More treatments"}'>Ostala ponuda</h4><ul><li><div><b data-tx='{"hr": "Revital: stopala, noge i glava", "en": "Revital: feet, legs and head"}'>Revital: stopala, noge i glava</b></div><span class="plist__p">50&nbsp;min&nbsp;56&nbsp;€</span></li><li><div><b data-tx='{"hr": "Hot Stone", "en": "Hot Stone"}'>Hot Stone</b></div><span class="plist__p">80&nbsp;min&nbsp;74&nbsp;€</span></li><li><div><b data-tx='{"hr": "Back pain relief therapy", "en": "Back pain relief therapy"}'>Back pain relief therapy</b></div><span class="plist__p">30&nbsp;min&nbsp;44&nbsp;€</span></li><li><div><b data-tx='{"hr": "Back pain relief + masaža glave", "en": "Back pain relief + head massage"}'>Back pain relief + masaža glave</b></div><span class="plist__p">50&nbsp;min&nbsp;53&nbsp;€</span></li><li><div><b data-tx='{"hr": "Eterična ulja s pilingom", "en": "Essential oils with body scrub"}'>Eterična ulja s pilingom</b></d<section class="pband" id="wband" aria-label="Khao Sun">
+  <div class="pband__ph"><img src="https://khao-sun.hr/wp-content/uploads/2023/10/IMG_3417-1024x666.jpg" alt="Khao Sun, Rijeka" loading="lazy"></div>
   <div class="wband__veil"></div>
   <div class="wband__c wrap">
-    <p class="label" data-tx='{"hr": "Za trenutak tišine", "en": "For a quiet moment", "de": "Für einen stillen Moment", "it": "Per un momento di quiete"}'>For a quiet moment</p>
-    <h2 data-tx='{"hr": "Mirna voda, toplo svjetlo", "en": "Still water, warm light", "de": "Stilles Wasser, warmes Licht", "it": "Acqua calma, luce calda"}'>Still water, warm light</h2>
-    <p class="wband__hint"><i></i><span data-tx='{"hr": "Dodirnite vodu", "en": "Touch the water", "de": "Berühren Sie das Wasser", "it": "Tocca l’acqua"}'>Touch the water</span></p>
+    <p class="label" data-tx='{"hr":"Khao Sun · Rijeka","en":"Khao Sun · Rijeka"}'>Khao Sun · Rijeka</p>
+    <h2 data-tx='{"hr":"Vaš komadić Tajlanda u srcu Rijeke","en":"Your piece of Thailand in the heart of Rijeka","de":"Ihr Stück Thailand im Herzen von Rijeka","it":"Il vostro angolo di Thailandia nel cuore di Fiume"}'>Vaš komadić Tajlanda u srcu Rijeke</h2>
   </div>
 </section>
 
@@ -1672,7 +1666,7 @@ html select{height:56px;line-height:normal}
   });
 
   /* ---------- Hero: Three.js dark water, petals, candle light ---------- */
-  var heroOn = false, gl = null, wband = $("#wband");
+  var heroOn = true, gl = null, wband = hero;
   new IntersectionObserver(function(es){ heroOn = es[0].isIntersecting; if(gl) gl.toggle(); }).observe(wband);
   function canGL(){
     try{ var c = document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl"))); }catch(e){ return false; }
@@ -1861,7 +1855,7 @@ html select{height:56px;line-height:normal}
       var dt = Math.min(.05, (ts - (last || ts)) / 1000); last = ts; clock += dt;
       mat.uniforms.uTime.value = clock;
       autoT += dt; if(autoT > 4.5){ autoT = 0; rip[ripIdx].set((Math.random()-.5)*8, (Math.random()-.5)*5 - 1.5, clock, .5); ripIdx = (ripIdx + 1) % NR; }
-      var p = Math.max(0, Math.min(1, -wband.getBoundingClientRect().top / Math.max(1, wband.offsetHeight)));
+      var p = Math.min(1, window.scrollY / Math.max(1, hero.offsetHeight));
       camY += ((camBase.y + p*3.6) - camY) * .06;
       camZ += ((camBase.z - p*4.6) - camZ) * .06;
       camera.position.set(Math.sin(clock*.07)*.3, camY, camZ);
