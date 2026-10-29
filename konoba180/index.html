@@ -568,6 +568,19 @@ html select{height:56px;line-height:normal}
 .gband__hint i::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid #fff;animation:ripple 2.6s var(--ease) infinite}
 
 .logo .k180logo{width:44px;height:44px;flex:none}
+
+/* motion pack */
+.k-prog{position:fixed;left:0;top:0;height:3px;width:100%;z-index:200;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#7A1E0E,#E0662A,#F6B24A);pointer-events:none}
+#sparks{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.hero__veil{z-index:3}
+.k-par{will-change:transform}
+.k-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}.k-w>span{display:inline-block;transform:translateY(105%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
+.k-in .k-w>span{transform:none}
+.dish{transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s}
+@media(hover:hover){.dish:hover{transform:translateY(-3px)}}
+.k-fly{position:fixed;z-index:300;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:radial-gradient(circle,#FFE2A0,#F08A2A 55%,rgba(240,138,42,0) 72%);pointer-events:none;box-shadow:0 0 18px 6px rgba(240,138,42,.55)}
+.wc-fab.k-pop{animation:kpop .5s}@keyframes kpop{40%{transform:scale(1.12)}}
+@media(prefers-reduced-motion:reduce){.k-w>span{transform:none;transition:none}.k-prog{display:none}}
 </style>
 <style>.hero__hint{display:none!important}</style>
 </head>
@@ -723,8 +736,8 @@ html select{height:56px;line-height:normal}
 <div class="menu" id="menu" aria-hidden="true">
   <nav>
     <a href="#top" data-i18n="nav.home">Početna</a>
-    <a href="#galerija" data-i18n="nav.gal">Galerija</a>
     <a href="#jelovnik" data-i18n="nav.menu">Jelovnik</a>
+    <a href="#galerija" data-i18n="nav.gal">Galerija</a>
     <a href="#zasto" data-i18n="nav.why">Zašto 180</a>
     <a href="#blizina" data-i18n="nav.near">U blizini</a>
     <a href="#rezervacija" data-i18n="nav.book">Rezervacija</a>
@@ -767,114 +780,11 @@ html select{height:56px;line-height:normal}
 
 <nav class="subnav" aria-label="Sekcije">
   <div class="subnav__in">
-    <a href="#galerija" data-i18n="nav.gal">Galerija</a><a href="#jelovnik" data-i18n="nav.menu">Jelovnik</a><a href="#zasto" data-i18n="nav.why">Zašto 180</a><a href="#blizina" data-i18n="nav.near">U blizini</a><a href="#rezervacija" data-i18n="nav.book">Rezervacija</a><a href="#faq">FAQ</a>
+    <a href="#jelovnik" data-i18n="nav.menu">Jelovnik</a><a href="#galerija" data-i18n="nav.gal">Galerija</a><a href="#zasto" data-i18n="nav.why">Zašto 180</a><a href="#blizina" data-i18n="nav.near">U blizini</a><a href="#rezervacija" data-i18n="nav.book">Rezervacija</a><a href="#faq">FAQ</a>
   </div>
 </nav>
 
 <!-- GALLERY near-black -->
-<section class="gal-sec" id="galerija">
-  <div class="wrap">
-    <h2 class="rv" data-i18n="gal.title">Pogled u Konobu 180</h2>
-    <p class="sub rv" data-delay="1" data-i18n="gal.sub">Roštilj, terasa i tanjuri koji se pamte.</p>
-  </div>
-  <div class="gal" id="gal">
-    <div class="gal__track" id="galTrack">
-      <div class="gal__slide cur">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A9649-scaled.jpg" alt="Konoba 180, Krk" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Konoba navečer", "en": "The konoba at night", "de": "Die Konoba am Abend", "it": "La konoba di sera", "hu": "A konoba este"}'>Konoba navečer</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8472-scaled.jpg" alt="Konoba 180, Krk" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "S roštilja", "en": "From the grill", "de": "Vom Grill", "it": "Dalla griglia", "hu": "A grillről"}'>S roštilja</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/DJI_0745-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-sun"/></svg><span data-tx='{"hr": "Terasa u hladu", "en": "The shaded terrace", "de": "Die schattige Terrasse", "it": "La terrazza all’ombra", "hu": "Az árnyas terasz"}'>Terasa u hladu</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8385-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Plata za društvo", "en": "A platter for the table", "de": "Eine Platte für den Tisch", "it": "Un piatto per la tavola", "hu": "Tál az egész asztalnak"}'>Plata za društvo</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8381-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-sun"/></svg><span data-tx='{"hr": "Terasa u hladu", "en": "The shaded terrace", "de": "Die schattige Terrasse", "it": "La terrazza all’ombra", "hu": "Az árnyas terasz"}'>Terasa u hladu</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A9039-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Krumpirići s cheddarom i slaninom", "en": "Fries with cheddar and bacon", "de": "Pommes mit Cheddar und Speck", "it": "Patatine con cheddar e pancetta", "hu": "Hasábburgonya cheddarral és szalonnával"}'>Krumpirići s cheddarom i slaninom</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/DJI_0736-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-castle"/></svg><span data-tx='{"hr": "Grad Krk iz zraka", "en": "Krk town from above", "de": "Die Stadt Krk von oben", "it": "La città di Krk dall’alto", "hu": "Krk városa felülről"}'>Grad Krk iz zraka</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8505-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Topla lepinja", "en": "Warm lepinja bread", "de": "Warmes Fladenbrot", "it": "Pane lepinja caldo", "hu": "Meleg lepinja"}'>Topla lepinja</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8450-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-sun"/></svg><span data-tx='{"hr": "Terasa u hladu", "en": "The shaded terrace", "de": "Die schattige Terrasse", "it": "La terrazza all’ombra", "hu": "Az árnyas terasz"}'>Terasa u hladu</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A9532-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Rižoto sa škampima i pistacijom", "en": "Shrimp and pistachio risotto", "de": "Risotto mit Garnelen und Pistazien", "it": "Risotto con gamberi e pistacchi", "hu": "Rizottó garnélával és pisztáciával"}'>Rižoto sa škampima i pistacijom</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/DJI_0783-Enhanced-NR-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Konoba navečer", "en": "The konoba at night", "de": "Die Konoba am Abend", "it": "La konoba di sera", "hu": "A konoba este"}'>Konoba navečer</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A9017-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "S roštilja", "en": "From the grill", "de": "Vom Grill", "it": "Dalla griglia", "hu": "A grillről"}'>S roštilja</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8685-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Za stolom", "en": "At the table", "de": "Am Tisch", "it": "A tavola", "hu": "Az asztalnál"}'>Za stolom</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A9091-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Juneći ramsteak", "en": "Beef rump steak", "de": "Rinder-Rumpsteak", "it": "Controfiletto di manzo", "hu": "Marha bélszín"}'>Juneći ramsteak</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8345-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Topla lepinja", "en": "Warm lepinja bread", "de": "Warmes Fladenbrot", "it": "Pane lepinja caldo", "hu": "Meleg lepinja"}'>Topla lepinja</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8328-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Iz naše kuhinje", "en": "From our kitchen", "de": "Aus unserer Küche", "it": "Dalla nostra cucina", "hu": "A konyhánkból"}'>Iz naše kuhinje</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2026/04/WhatsApp-Image-2026-04-03-at-13.22.52-1-e1775217852219.jpeg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-wave"/></svg><span data-tx='{"hr": "Lignje", "en": "Squid", "de": "Tintenfisch", "it": "Calamari", "hu": "Tintahal"}'>Lignje</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8697-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Za stolom", "en": "At the table", "de": "Am Tisch", "it": "A tavola", "hu": "Az asztalnál"}'>Za stolom</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A9270-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-star"/></svg><span data-tx='{"hr": "Čokoladni soufflé", "en": "Chocolate soufflé", "de": "Schokoladensoufflé", "it": "Soufflé al cioccolato", "hu": "Csokoládé szuflé"}'>Čokoladni soufflé</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8455-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Iz kuhinje", "en": "From the kitchen", "de": "Aus der Küche", "it": "Dalla cucina", "hu": "A konyhából"}'>Iz kuhinje</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8417-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-star"/></svg><span data-tx='{"hr": "Konoba 180°", "en": "Konoba 180°", "de": "Konoba 180°", "it": "Konoba 180°", "hu": "Konoba 180°"}'>Konoba 180°</span></div>
-      </div>
-      <div class="gal__slide">
-        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A8996-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
-        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Njoki s četiri vrste sira", "en": "Four-cheese gnocchi", "de": "Gnocchi mit vier Käsesorten", "it": "Gnocchi ai quattro formaggi", "hu": "Négysajtos gnocchi"}'>Njoki s četiri vrste sira</span></div>
-      </div>
-    </div>
-    <a class="tag-b" href="https://maps.google.com/?q=Konoba+180,+Krk" target="_blank" rel="noopener"><span data-i18n="tag">Krk, Hrvatska</span><svg><use href="#i-r"/></svg></a>
-    <button class="sqbtn l" id="gPrev" type="button" aria-label="Prethodna"><svg><use href="#i-l"/></svg></button>
-    <button class="sqbtn r" id="gNext" type="button" aria-label="Sljedeća"><svg><use href="#i-r"/></svg></button>
-    <div class="gal__prog"><i id="galProg"></i></div>
-    <div class="gal__count" id="galCount">1/22</div>
-  </div>
-</section>
 
 <!-- STORY -->
 <section class="sec bg-linen story" id="prica">
@@ -1013,6 +923,102 @@ html select{height:56px;line-height:normal}
 </section>
 
 <!-- WHY deep green -->
+<section class="gal-sec" id="galerija">
+  <div class="wrap">
+    <h2 class="rv" data-i18n="gal.title">Pogled u Konobu 180</h2>
+    <p class="sub rv" data-delay="1" data-i18n="gal.sub">Roštilj, terasa i tanjuri koji se pamte.</p>
+  </div>
+  <div class="gal" id="gal">
+    <div class="gal__track" id="galTrack">
+      <div class="gal__slide cur">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8472-scaled.jpg" alt="Konoba 180, Krk" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "S roštilja", "en": "From the grill", "de": "Vom Grill", "it": "Dalla griglia", "hu": "A grillről"}'>S roštilja</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/DJI_0745-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-sun"/></svg><span data-tx='{"hr": "Terasa u hladu", "en": "The shaded terrace", "de": "Die schattige Terrasse", "it": "La terrazza all’ombra", "hu": "Az árnyas terasz"}'>Terasa u hladu</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8385-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Plata za društvo", "en": "A platter for the table", "de": "Eine Platte für den Tisch", "it": "Un piatto per la tavola", "hu": "Tál az egész asztalnak"}'>Plata za društvo</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8381-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-sun"/></svg><span data-tx='{"hr": "Terasa u hladu", "en": "The shaded terrace", "de": "Die schattige Terrasse", "it": "La terrazza all’ombra", "hu": "Az árnyas terasz"}'>Terasa u hladu</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A9039-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Krumpirići s cheddarom i slaninom", "en": "Fries with cheddar and bacon", "de": "Pommes mit Cheddar und Speck", "it": "Patatine con cheddar e pancetta", "hu": "Hasábburgonya cheddarral és szalonnával"}'>Krumpirići s cheddarom i slaninom</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/DJI_0736-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-castle"/></svg><span data-tx='{"hr": "Grad Krk iz zraka", "en": "Krk town from above", "de": "Die Stadt Krk von oben", "it": "La città di Krk dall’alto", "hu": "Krk városa felülről"}'>Grad Krk iz zraka</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8505-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Topla lepinja", "en": "Warm lepinja bread", "de": "Warmes Fladenbrot", "it": "Pane lepinja caldo", "hu": "Meleg lepinja"}'>Topla lepinja</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8450-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-sun"/></svg><span data-tx='{"hr": "Terasa u hladu", "en": "The shaded terrace", "de": "Die schattige Terrasse", "it": "La terrazza all’ombra", "hu": "Az árnyas terasz"}'>Terasa u hladu</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A9532-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Rižoto sa škampima i pistacijom", "en": "Shrimp and pistachio risotto", "de": "Risotto mit Garnelen und Pistazien", "it": "Risotto con gamberi e pistacchi", "hu": "Rizottó garnélával és pisztáciával"}'>Rižoto sa škampima i pistacijom</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A9017-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "S roštilja", "en": "From the grill", "de": "Vom Grill", "it": "Dalla griglia", "hu": "A grillről"}'>S roštilja</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8685-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Za stolom", "en": "At the table", "de": "Am Tisch", "it": "A tavola", "hu": "Az asztalnál"}'>Za stolom</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A9091-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Juneći ramsteak", "en": "Beef rump steak", "de": "Rinder-Rumpsteak", "it": "Controfiletto di manzo", "hu": "Marha bélszín"}'>Juneći ramsteak</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8345-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Topla lepinja", "en": "Warm lepinja bread", "de": "Warmes Fladenbrot", "it": "Pane lepinja caldo", "hu": "Meleg lepinja"}'>Topla lepinja</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8328-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Iz naše kuhinje", "en": "From our kitchen", "de": "Aus unserer Küche", "it": "Dalla nostra cucina", "hu": "A konyhánkból"}'>Iz naše kuhinje</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2026/04/WhatsApp-Image-2026-04-03-at-13.22.52-1-e1775217852219.jpeg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-wave"/></svg><span data-tx='{"hr": "Lignje", "en": "Squid", "de": "Tintenfisch", "it": "Calamari", "hu": "Tintahal"}'>Lignje</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8697-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Za stolom", "en": "At the table", "de": "Am Tisch", "it": "A tavola", "hu": "Az asztalnál"}'>Za stolom</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A9270-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-star"/></svg><span data-tx='{"hr": "Čokoladni soufflé", "en": "Chocolate soufflé", "de": "Schokoladensoufflé", "it": "Soufflé al cioccolato", "hu": "Csokoládé szuflé"}'>Čokoladni soufflé</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8455-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fire"/></svg><span data-tx='{"hr": "Iz kuhinje", "en": "From the kitchen", "de": "Aus der Küche", "it": "Dalla cucina", "hu": "A konyhából"}'>Iz kuhinje</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/R6JC8417-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-star"/></svg><span data-tx='{"hr": "Konoba 180°", "en": "Konoba 180°", "de": "Konoba 180°", "it": "Konoba 180°", "hu": "Konoba 180°"}'>Konoba 180°</span></div>
+      </div>
+      <div class="gal__slide">
+        <div class="art art--ph"><img src="https://konoba180.com/wp-content/uploads/2025/06/F86A8996-scaled.jpg" alt="Konoba 180, Krk" loading="lazy" decoding="async" onload="this.classList.add('ok')"></div>
+        <div class="cap"><svg><use href="#i-fork"/></svg><span data-tx='{"hr": "Njoki s četiri vrste sira", "en": "Four-cheese gnocchi", "de": "Gnocchi mit vier Käsesorten", "it": "Gnocchi ai quattro formaggi", "hu": "Négysajtos gnocchi"}'>Njoki s četiri vrste sira</span></div>
+      </div>
+    </div>
+    <a class="tag-b" href="https://maps.google.com/?q=Konoba+180,+Krk" target="_blank" rel="noopener"><span data-i18n="tag">Krk, Hrvatska</span><svg><use href="#i-r"/></svg></a>
+    <button class="sqbtn l" id="gPrev" type="button" aria-label="Prethodna"><svg><use href="#i-l"/></svg></button>
+    <button class="sqbtn r" id="gNext" type="button" aria-label="Sljedeća"><svg><use href="#i-r"/></svg></button>
+    <div class="gal__prog"><i id="galProg"></i></div>
+    <div class="gal__count" id="galCount">1/22</div>
+  </div>
+</section>
+
 <section class="why has-deco" id="zasto">
   <i class="why__orb a" data-par="0.08"></i><i class="why__orb b" data-par="-0.05"></i>
   <svg class="deco" style="right:-30px;top:-10px;width:170px" viewBox="0 0 140 280" data-par="0.12"><use href="#i-olive"/></svg>
@@ -2223,5 +2229,49 @@ if(!n)open(false)}
 sh.addEventListener("click",function(e){var b=e.target.closest(".wc-q button");if(!b)return;var it=cart[+b.dataset.i];it.q+=+b.dataset.k;if(it.q<1)cart.splice(+b.dataset.i,1);render()});
 sh.addEventListener("input",render);sh.addEventListener("change",render);
 try{new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]})}catch(e){}render()})();</script>
+<div class="k-prog" id="kProg" aria-hidden="true"></div>
+<script>(function(){
+var R=matchMedia("(prefers-reduced-motion:reduce)").matches,fine=matchMedia("(hover:hover) and (pointer:fine)").matches;
+if(R)return;
+/* scroll progress */
+var pr=document.getElementById("kProg");
+/* parallax on section photos */
+var pars=[].slice.call(document.querySelectorAll("section:not(.hero):not(.gal-sec) .art img, .story img, #potpisi img, #blizina img"));
+pars.forEach(function(i){i.classList.add("k-par")});
+/* hero sparks */
+var hero=document.getElementById("hero"),cv=document.createElement("canvas");cv.id="sparks";cv.setAttribute("aria-hidden","true");
+var veil=hero&&hero.querySelector(".hero__veil");if(veil)hero.insertBefore(cv,veil);
+var cx=cv.getContext("2d"),P=[],W=0,H=0,dpr=Math.min(devicePixelRatio||1,2),mx=-1,my=-1,heroOn=true;
+function sz(){W=hero.clientWidth;H=hero.clientHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0)}sz();addEventListener("resize",sz);
+function spawn(x,y,burst){P.push({x:x,y:y,vx:(Math.random()-.5)*(burst?3:.6),vy:-(burst?1.5+Math.random()*3:.4+Math.random()*1.1),l:0,m:(burst?60:140)+Math.random()*120,r:.8+Math.random()*1.8,w:Math.random()*6.28})}
+hero.addEventListener("pointermove",function(e){var r=hero.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;if(Math.random()<.5)spawn(mx,my,false)});
+hero.addEventListener("pointerleave",function(){mx=my=-1});
+hero.addEventListener("pointerdown",function(e){var r=hero.getBoundingClientRect();for(var i=0;i<26;i++)spawn(e.clientX-r.left,e.clientY-r.top,true)});
+new IntersectionObserver(function(es){heroOn=es[0].isIntersecting}).observe(hero);
+/* headings: word rise */
+document.querySelectorAll("section:not(.hero) h2").forEach(function(h){if(h.children.length)return;var t=h.textContent.trim();if(!t)return;
+ h.innerHTML=t.split(/\s+/).map(function(w,i){return '<span class="k-w"><span style="transition-delay:'+(i*70)+'ms">'+w+'</span></span>'}).join(" ");
+ h.setAttribute("aria-label",t)});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("k-in");io.unobserve(e.target)}})},{rootMargin:"0px 0px -10% 0px"});
+document.querySelectorAll("section:not(.hero) h2").forEach(function(h){io.observe(h)});
+/* re-split after language change */
+try{new MutationObserver(function(){document.querySelectorAll("section:not(.hero) h2").forEach(function(h){if(h.querySelector(".k-w")||!h.textContent.trim())return;var t=h.textContent.trim();h.innerHTML=t.split(/\s+/).map(function(w){return '<span class="k-w"><span>'+w+'</span></span>'}).join(" ");h.classList.add("k-in")})}).observe(document.body,{subtree:true,childList:true,characterData:true})}catch(e){}
+/* fly to basket */
+document.addEventListener("click",function(e){var b=e.target.closest(".wc-add,.wc-plus,[data-wc-add]");if(!b)return;var f=document.querySelector(".wc-fab");if(!f)return;
+ setTimeout(function(){var a=b.getBoundingClientRect(),z=f.getBoundingClientRect();if(!z.width)return;var d=document.createElement("i");d.className="k-fly";d.style.left=a.left+a.width/2+"px";d.style.top=a.top+a.height/2+"px";document.body.appendChild(d);
+ var dx=z.left+z.width/2-(a.left+a.width/2),dy=z.top+z.height/2-(a.top+a.height/2);
+ d.animate([{transform:"translate(0,0) scale(1)"},{transform:"translate("+dx*.5+"px,"+(dy*.5-120)+"px) scale(1.4)",offset:.5},{transform:"translate("+dx+"px,"+dy+"px) scale(.4)",opacity:.6}],{duration:750,easing:"cubic-bezier(.5,0,.3,1)"}).onfinish=function(){d.remove();f.classList.remove("k-pop");void f.offsetWidth;f.classList.add("k-pop")}},30)},true);
+/* tilt dishes */
+if(fine)document.querySelectorAll(".dish").forEach(function(d){d.addEventListener("pointermove",function(e){var r=d.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;d.style.transform="perspective(700px) rotateX("+(-y*4)+"deg) rotateY("+(x*5)+"deg) translateY(-3px)"});d.addEventListener("pointerleave",function(){d.style.transform=""})});
+/* loop */
+var vh=innerHeight;addEventListener("resize",function(){vh=innerHeight});
+function loop(){requestAnimationFrame(loop);var y=scrollY,dh=document.documentElement.scrollHeight-vh;pr.style.transform="scaleX("+(dh>0?y/dh:0).toFixed(4)+")";
+ for(var i=0;i<pars.length;i++){var im=pars[i],r=im.parentNode.getBoundingClientRect();if(r.bottom<-50||r.top>vh+50)continue;var p=(r.top+r.height/2-vh/2)/vh;im.style.transform="translate3d(0,"+(p*-48).toFixed(1)+"px,0) scale(1.16)"}
+ if(heroOn){cx.clearRect(0,0,W,H);if(Math.random()<.35)spawn(W*(.15+Math.random()*.8),H+5,false);
+  for(var k=P.length-1;k>=0;k--){var q=P[k];q.l++;q.w+=.05;q.x+=q.vx+Math.sin(q.w)*.35;q.y+=q.vy;q.vy*=.995;if(mx>0){var ddx=q.x-mx,ddy=q.y-my,dd=ddx*ddx+ddy*ddy;if(dd<9000){q.vx+=ddx/dd*6;q.vy+=ddy/dd*6}}
+   var a=1-q.l/q.m;if(a<=0||q.y<-10){P.splice(k,1);continue}cx.beginPath();cx.fillStyle="rgba(255,"+(150+Math.round(80*a))+","+Math.round(60*a)+","+(a*.9).toFixed(2)+")";cx.shadowColor="rgba(255,140,40,.9)";cx.shadowBlur=8;cx.arc(q.x,q.y,q.r*(.5+a*.5),0,6.283);cx.fill()}
+  if(P.length>260)P.splice(0,P.length-260)}}
+requestAnimationFrame(loop);
+})();</script>
 </body>
 </html>
