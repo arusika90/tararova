@@ -2427,35 +2427,45 @@ halo.position.copy(B).add(new THREE.Vector3(0,3.3*BS,0));halo.scale.setScalar(7*
 
 
 /* the table at the end: gingham cloth with pršut, cheese, olives, bread, oil and Malvazija (no legs, seen close up) */
-var TC=new THREE.Vector3(0,hgt(0,-22)+3.4,-22),BSe=mob?.5:.52;
+var TC=new THREE.Vector3(0,hgt(0,-22)+3.4,-22),BSe=mob?.5:.52,HE=4.0,DROP=4.4;
 var tcv=document.createElement('canvas');tcv.width=tcv.height=512;var tx2=tcv.getContext('2d');tx2.fillStyle='#F7F1E6';tx2.fillRect(0,0,512,512);
 tx2.fillStyle='rgba(178,46,40,.42)';for(var a1=0;a1<8;a1++){tx2.fillRect(a1*64,0,32,512);tx2.fillRect(0,a1*64,512,32)}
 tx2.fillStyle='rgba(120,20,20,.18)';for(a1=0;a1<8;a1++)for(var a2=0;a2<8;a2++)tx2.fillRect(a1*64,a2*64,32,32);
-tx2.fillStyle='rgba(255,255,255,.07)';for(a1=0;a1<512;a1+=3)tx2.fillRect(0,a1,512,1);
-var clothT=new THREE.Texture(tcv);clothT.wrapS=clothT.wrapT=THREE.RepeatWrapping;clothT.repeat.set(4,4);clothT.anisotropy=R.capabilities.getMaxAnisotropy();clothT.needsUpdate=true;
+tx2.fillStyle='rgba(255,255,255,.07)';for(a1=0;a1<512;a1+=3)tx2.fillRect(0,a1,512,1);tx2.fillStyle='rgba(90,40,30,.05)';for(a1=0;a1<512;a1+=3)tx2.fillRect(a1,0,1,512);
+var clothT=new THREE.Texture(tcv);clothT.wrapS=clothT.wrapT=THREE.RepeatWrapping;clothT.repeat.set((HE+DROP)*2/2.9,(HE+DROP)*2/2.9);clothT.anisotropy=R.capabilities.getMaxAnisotropy();clothT.needsUpdate=true;
 var table=new THREE.Group();table.position.copy(TC);scene.add(table);
-var top=new THREE.Mesh(new THREE.BoxGeometry(10.4,.45,10.4),ph(0x6E4A30,.7));top.position.set(0,-.28,0);table.add(top);
-var clothG=new THREE.PlaneGeometry(11.6,11.6,96,96);clothG.rotateX(-Math.PI/2);var cgp=clothG.attributes.position;
+var top=new THREE.Mesh(new THREE.BoxGeometry(HE*2-.15,.45,HE*2-.15),ph(0x6E4A30,.7));top.position.set(0,-.28,0);table.add(top);
+var clothG=new THREE.PlaneGeometry((HE+DROP)*2,(HE+DROP)*2,150,150);clothG.rotateX(-Math.PI/2);var cgp=clothG.attributes.position;
 for(var ci2=0;ci2<cgp.count;ci2++){var cx2=cgp.getX(ci2),cz2=cgp.getZ(ci2);cgp.setY(ci2,Math.sin(cx2*1.3+cz2*.7)*.015+Math.sin(cx2*3.1)*.008)}
-var HE=5.25;for(ci2=0;ci2<cgp.count;ci2++){var cx3=cgp.getX(ci2),cz3=cgp.getZ(ci2),ox=Math.max(0,Math.abs(cx3)-HE),oz=Math.max(0,Math.abs(cz3)-HE),o3=Math.max(ox,oz);if(o3>0){cgp.setY(ci2,-o3*2.6+Math.sin(cx3*4+cz3*4)*.03);if(ox>0)cgp.setX(ci2,Math.sign(cx3)*(HE+Math.min(.1,ox*.4)));if(oz>0)cgp.setZ(ci2,Math.sign(cz3)*(HE+Math.min(.1,oz*.4)))}}
+for(ci2=0;ci2<cgp.count;ci2++){var cx3=cgp.getX(ci2),cz3=cgp.getZ(ci2),ox=Math.max(0,Math.abs(cx3)-HE),oz=Math.max(0,Math.abs(cz3)-HE),o3=Math.max(ox,oz);if(o3>0){var rf=Math.min(1,o3/.6),fl=Math.sin((ox>=oz?cz3:cx3)*2.6)*.07*rf;cgp.setY(ci2,-Math.min(o3,DROP)-(o3>.02?.0:0));if(ox>0)cgp.setX(ci2,Math.sign(cx3)*(HE+.04+o3*.035+fl));if(oz>0)cgp.setZ(ci2,Math.sign(cz3)*(HE+.04+o3*.035+fl))}}
 clothG.computeVertexNormals();var cloth=new THREE.Mesh(clothG,new THREE.MeshLambertMaterial({map:clothT}));cloth.position.set(0,.02,0);cloth.receiveShadow=true;table.add(cloth);
-var items=[];function item(g,sc){g.traverse(function(o){if(o.isMesh&&!(o.material&&o.material.opacity<.5)){o.castShadow=true;o.receiveShadow=true}});var w=new THREE.Group();w.position.copy(g.position);w.rotation.y=g.rotation.y;g.position.set(0,0,0);g.rotation.y=0;g.scale.setScalar(sc||1);w.add(g);w.scale.setScalar(.001);table.add(w);items.push(w);return w}
+var items=[];function item(g,sc){g.traverse(function(o){if(o.isMesh){o.receiveShadow=true;if(!(o.material&&o.material.transparent))o.castShadow=true}});var w=new THREE.Group();w.position.copy(g.position);w.rotation.y=g.rotation.y;g.position.set(0,0,0);g.rotation.y=0;g.scale.setScalar(sc||1);w.add(g);w.scale.setScalar(.001);table.add(w);items.push(w);return w}
 function std(c,r,o){var o2={};if(o)for(var k in o)if(k!=='envMapIntensity')o2[k]=o[k];return ph(c,r,o2)}
-/* olive-wood board with pršut */
-var brd=new THREE.Group();
-var bs2=new THREE.Shape();bs2.moveTo(-2.6,-1.25);bs2.lineTo(2.2,-1.25);bs2.quadraticCurveTo(2.8,-1.25,2.8,-.6);bs2.lineTo(2.8,.6);bs2.quadraticCurveTo(2.8,1.25,2.2,1.25);bs2.lineTo(-2.6,1.25);bs2.quadraticCurveTo(-3.1,1.25,-3.1,.7);bs2.lineTo(-3.1,-.7);bs2.quadraticCurveTo(-3.1,-1.25,-2.6,-1.25);
-var bG=new THREE.ExtrudeGeometry(bs2,{depth:.22,bevelEnabled:true,bevelSize:.05,bevelThickness:.05,bevelSegments:3,curveSegments:16});bG.rotateX(-Math.PI/2);
-var bcv=document.createElement('canvas');bcv.width=512;bcv.height=256;var bx=bcv.getContext('2d');bx.fillStyle='#C99A63';bx.fillRect(0,0,512,256);for(var i=0;i<60;i++){bx.strokeStyle=i%3?'rgba(120,78,40,.28)':'rgba(90,55,25,.35)';bx.lineWidth=1+(i%4);bx.beginPath();var yy=i*4.3;bx.moveTo(0,yy);for(var xx=0;xx<=512;xx+=32)bx.lineTo(xx,yy+Math.sin(xx*.02+i)*6);bx.stroke()}
-var bT=new THREE.Texture(bcv);bT.needsUpdate=true;bT.wrapS=bT.wrapT=THREE.RepeatWrapping;bT.repeat.set(.18,.36);
-var board=new THREE.Mesh(bG,new THREE.MeshPhongMaterial({map:bT,shininess:20,specular:0x333322}));brd.add(board);
-function slice(w,d){var g=new THREE.PlaneGeometry(w,d,40,12);var pp=g.attributes.position,cols=[];var lean=new THREE.Color(0xB23A3A),lean2=new THREE.Color(0x8E2A2E),fat=new THREE.Color(0xF4E4D8),c=new THREE.Color();
- for(var k=0;k<pp.count;k++){var x=pp.getX(k),y=pp.getY(k),u=x/w+.5,v=y/d+.5;var z=Math.sin(u*Math.PI*3.2)*.16*Math.sin(v*Math.PI)+Math.sin(u*Math.PI*7)*.03;pp.setZ(k,z+.0);
-  var edge=Math.abs(v-.5)*2;var ef=Math.max(0,Math.min(1,(v-.78)/.07));c.copy(lean).lerp(lean2,.5+.5*Math.sin(u*9+v*5));c.lerp(fat,ef);if(edge>.97)c.multiplyScalar(.9);cols.push(c.r,c.g,c.b)}
+/* long olive-wood platter laid diagonally: pršut ribbons, sliced kobasice, olives, rosemary */
+var brd=new THREE.Group();var PL=3.55,PW=1.0;
+var bs2=new THREE.Shape();bs2.moveTo(-PL+.4,-PW);bs2.lineTo(PL-.4,-PW);bs2.quadraticCurveTo(PL,-PW,PL,-PW+.4);bs2.lineTo(PL,PW-.4);bs2.quadraticCurveTo(PL,PW,PL-.4,PW);bs2.lineTo(-PL+.4,PW);bs2.quadraticCurveTo(-PL,PW,-PL,PW-.4);bs2.lineTo(-PL,-PW+.4);bs2.quadraticCurveTo(-PL,-PW,-PL+.4,-PW);
+var bG=new THREE.ExtrudeGeometry(bs2,{depth:.2,bevelEnabled:true,bevelSize:.06,bevelThickness:.06,bevelSegments:4,curveSegments:20});bG.rotateX(-Math.PI/2);
+var bcv=document.createElement('canvas');bcv.width=1024;bcv.height=256;var bx=bcv.getContext('2d');bx.fillStyle='#BE8F5B';bx.fillRect(0,0,1024,256);for(var i=0;i<90;i++){bx.strokeStyle=i%3?'rgba(110,70,36,.26)':'rgba(80,48,22,.34)';bx.lineWidth=.8+(i%4)*.7;bx.beginPath();var yy=i*2.9;bx.moveTo(0,yy);for(var xx=0;xx<=1024;xx+=24)bx.lineTo(xx,yy+Math.sin(xx*.012+i*.7)*7+Math.sin(xx*.05+i)*1.5);bx.stroke()}
+for(i=0;i<5;i++){var kx=120+i*190,ky=40+(i*97)%170;var gr=bx.createRadialGradient(kx,ky,2,kx,ky,26);gr.addColorStop(0,'rgba(70,40,18,.55)');gr.addColorStop(1,'rgba(70,40,18,0)');bx.fillStyle=gr;bx.beginPath();bx.ellipse(kx,ky,30,12,0,0,7);bx.fill()}
+var bT=new THREE.Texture(bcv);bT.needsUpdate=true;bT.wrapS=bT.wrapT=THREE.RepeatWrapping;bT.repeat.set(.14,.5);
+var board=new THREE.Mesh(bG,new THREE.MeshPhongMaterial({map:bT,shininess:24,specular:0x2a2418}));brd.add(board);
+function slice(w,d,sd){var g=new THREE.PlaneGeometry(w,d,48,14);var pp=g.attributes.position,cols=[];var lean=new THREE.Color(0xA8322F),lean2=new THREE.Color(0x7E2026),fat=new THREE.Color(0xF2E2D6),c=new THREE.Color();
+ for(var k=0;k<pp.count;k++){var x=pp.getX(k),y=pp.getY(k),u=x/w+.5,v=y/d+.5;var z=Math.max(0,Math.sin(u*Math.PI*2.6+sd)*.28+.14)*Math.sin(Math.min(1,v*1.4)*Math.PI*.5+.4)+Math.sin(u*Math.PI*9+sd)*.025;pp.setZ(k,z);
+  var ef=Math.max(0,Math.min(1,(v-.8)/.06));c.copy(lean).lerp(lean2,.5+.5*Math.sin(u*11+v*6+sd));c.lerp(fat,ef*.95);var mb=Math.sin(u*31+sd*3)*Math.sin(v*17);if(mb>.86&&ef<.1)c.lerp(fat,.35);cols.push(c.r,c.g,c.b)}
  g.setAttribute('color',new THREE.Float32BufferAttribute(cols,3));g.computeVertexNormals();g.rotateX(-Math.PI/2);return g}
-var prM=new THREE.MeshPhongMaterial({vertexColors:true,shininess:60,specular:0x553333,side:THREE.DoubleSide});
-for(i=0;i<6;i++){var sl=new THREE.Mesh(slice(2.4,1.15),prM);sl.position.set(-2.1+i*.72,.36+i*.035,(i%2?.32:-.28));sl.rotation.y=.35+(i%2)*.25;brd.add(sl)}
-var rosm=std(0x4E6B3A,.7);for(i=0;i<5;i++){var nd=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,.5,5),rosm);nd.rotation.z=Math.PI/2;nd.rotation.y=i*.3;nd.position.set(1.9,.42,-.7+i*.06);brd.add(nd)}
-brd.position.set(-.3,0,-2.7);brd.rotation.y=.06;item(brd,.62);
+var prM=new THREE.MeshPhongMaterial({vertexColors:true,shininess:70,specular:0x664444,side:THREE.DoubleSide});
+for(i=0;i<7;i++){var sl=new THREE.Mesh(slice(1.5,1.05,i*1.7),prM);sl.position.set(-3.0+i*.46,.3+i*.025,(i%2?.18:-.2));sl.rotation.y=.9+(i%2)*.35-(i%3)*.12;brd.add(sl)}
+/* kobasice: sliced dry sausage with fat specks */
+var kcv=document.createElement('canvas');kcv.width=kcv.height=256;var kx2=kcv.getContext('2d');kx2.fillStyle='#5A1E1C';kx2.fillRect(0,0,256,256);
+var kg=kx2.createRadialGradient(128,128,10,128,128,128);kg.addColorStop(0,'#A23A34');kg.addColorStop(.8,'#8E2C2A');kg.addColorStop(.92,'#5E211C');kg.addColorStop(1,'#3E1A14');kx2.fillStyle=kg;kx2.fillRect(0,0,256,256);
+for(i=0;i<70;i++){var ang=Math.random()*6.28,rr3=Math.sqrt(Math.random())*104;kx2.fillStyle=i%9?'rgba(246,228,214,.92)':'rgba(30,20,16,.9)';kx2.beginPath();kx2.ellipse(128+Math.cos(ang)*rr3,128+Math.sin(ang)*rr3,i%9?3+Math.random()*5:2.5,i%9?2+Math.random()*4:2.5,Math.random()*3,0,7);kx2.fill()}
+var kT=new THREE.Texture(kcv);kT.needsUpdate=true;
+var kM=[std(0x4A1D18,.6),new THREE.MeshPhongMaterial({map:kT,shininess:40,specular:0x332222}),new THREE.MeshPhongMaterial({map:kT,shininess:40,specular:0x332222})];
+var kG=new THREE.CylinderGeometry(.44,.44,.08,40);
+for(i=0;i<10;i++){var ks=new THREE.Mesh(kG,kM);var row=i%2;ks.position.set(.55+Math.floor(i/2)*.56+row*.2,.3+(Math.floor(i/2))*.012+row*.05,row?.38:-.3);ks.rotation.z=-.16;ks.rotation.x=row?.05:-.05;ks.rotation.y=i*.7;brd.add(ks)}
+for(i=0;i<5;i++){var nd=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.42,5),std(0x4E6B3A,.7));nd.rotation.z=Math.PI/2;nd.rotation.y=.6+i*.28;nd.position.set(.1,.3,-.62+i*.05);brd.add(nd)}
+[[ .05,.55],[.3,.62],[-.15,.7]].forEach(function(q5,k){var ol=new THREE.Mesh(new THREE.SphereGeometry(.2,24,16),std(k%2?0x3A2A33:0x5D6B22,.22,{envMapIntensity:1.3}));ol.scale.set(1,.9,1.35);ol.position.set(q5[0],.36,q5[1]);ol.rotation.y=k;brd.add(ol)});
+brd.position.set(-.4,0,-.55);brd.rotation.y=-.55;item(brd,.62);
 /* Istrian cheese: wedge with rind, plus cubes */
 var ch=new THREE.Group();var sec=new THREE.Shape();sec.moveTo(0,0);sec.absarc(0,0,1.9,-.62,.62,false);sec.lineTo(0,0);
 var wG=new THREE.ExtrudeGeometry(sec,{depth:1.15,bevelEnabled:true,bevelSize:.04,bevelThickness:.04,bevelSegments:2,curveSegments:40});wG.rotateX(-Math.PI/2);
@@ -2463,7 +2473,7 @@ var paste=std(0xF0D78C,.55);var w=new THREE.Mesh(wG,paste);ch.add(w);
 var rind=new THREE.Mesh(new THREE.CylinderGeometry(1.95,1.95,1.2,64,1,true,Math.PI/2-.62,1.24),std(0xB98A3E,.5));rind.position.y=.58;ch.add(rind);
 var holeM=std(0xD9BC6A,.8);[[1.1,.6,.1],[1.4,.35,-.25],[.8,.9,.2]].forEach(function(hh){var hs=new THREE.Mesh(new THREE.SphereGeometry(.07,10,8),holeM);hs.scale.set(1,1,.3);hs.position.set(hh[0],hh[1],hh[2]);ch.add(hs)});
 for(i=0;i<6;i++){var cu=new THREE.Mesh(new THREE.BoxGeometry(.48,.48,.48),paste);cu.position.set(-.3+(i%3)*.6,.24,1.15+Math.floor(i/3)*.62);cu.rotation.y=i*.7;ch.add(cu)}
-ch.position.set(3.2,0,-3.2);ch.rotation.y=2.4;item(ch,.62);
+ch.position.set(.1,0,-3.2);ch.rotation.y=-.15;item(ch,.62);
 /* glazed bowl with olives */
 var bw=new THREE.Group();var bP=[];for(i=0;i<=20;i++){var t2=i/20;bP.push(new THREE.Vector2(.85+Math.sin(t2*Math.PI/2)*.65,t2*.85))}bP.push(new THREE.Vector2(1.48,.88));for(i=20;i>=0;i--){var t3=i/20;bP.push(new THREE.Vector2(.78+Math.sin(t3*Math.PI/2)*.6,.1+t3*.75))}bP.unshift(new THREE.Vector2(0,0));bP.push(new THREE.Vector2(0,.1));
 bw.add(new THREE.Mesh(new THREE.LatheGeometry(bP,64),std(0xEDE3D0,.18,{envMapIntensity:1.2})));
@@ -2471,13 +2481,13 @@ var glazeRim=new THREE.Mesh(new THREE.TorusGeometry(1.46,.035,8,64),std(0xA64B28
 var oG=new THREE.SphereGeometry(.25,28,18);var olM=[std(0x5D6B22,.22,{envMapIntensity:1.3}),std(0x3A2A33,.2,{envMapIntensity:1.3}),std(0x7A7A2C,.25,{envMapIntensity:1.2})];
 var OP=[];for(i=0;i<26;i++){var ring2=i<9?0:i<18?1:2,aa=i*2.399,rr2=ring2===0?.25+(i%3)*.35:ring2===1?.3+(i%3)*.32:.2+(i%3)*.25;OP.push([Math.cos(aa)*rr2,.38+ring2*.24,Math.sin(aa)*rr2])}
 OP.forEach(function(q3,k){var ol=new THREE.Mesh(oG,olM[k%3]);ol.scale.set(1,1,1.35);ol.rotation.y=k;ol.rotation.x=k*.3;ol.position.set(q3[0],q3[1],q3[2]);bw.add(ol)});
-bw.position.set(-.2,0,-.2);item(bw,.62);
+bw.position.set(-.95,0,-2.95);item(bw,.62);
 /* loose olives and an olive sprig on the cloth */
-var lo=new THREE.Group();[[2.6,3.6],[2.9,3.9],[2.2,4.1]].forEach(function(q4,k){var ol=new THREE.Mesh(oG,olM[k%2]);ol.scale.set(1,.92,1.35);ol.position.set(q4[0],.23,q4[1]);ol.rotation.y=k*1.3;lo.add(ol)});
+var lo=new THREE.Group();[[1.0,3.25],[1.3,3.5],[.75,3.55]].forEach(function(q4,k){var ol=new THREE.Mesh(oG,olM[k%2]);ol.scale.set(.64,.58,.86);ol.position.set(q4[0],.15,q4[1]);ol.rotation.y=k*1.3;lo.add(ol)});
 var lfS=new THREE.Shape();lfS.moveTo(0,0);lfS.quadraticCurveTo(.5,.17,1.05,0);lfS.quadraticCurveTo(.5,-.17,0,0);var lfG=new THREE.ShapeGeometry(lfS,8);lfG.rotateX(-Math.PI/2);
 var lfM=[std(0x7F8F5C,.6,{side:THREE.DoubleSide}),std(0xA9B48C,.6,{side:THREE.DoubleSide})];
-var stem=new THREE.Mesh(new THREE.CylinderGeometry(.018,.022,2.2,6),std(0x6B5A3A,.7));stem.rotation.z=Math.PI/2;stem.rotation.y=.4;stem.position.set(.1,.05,3.9);stem.scale.setScalar(.7);lo.add(stem);
-for(i=0;i<10;i++){var lf=new THREE.Mesh(lfG,lfM[i%2]);var tt=i/9-.5;lf.position.set(.1+Math.cos(.4)*tt*1.5,.06+i*.003,3.9-Math.sin(.4)*tt*1.5);lf.scale.setScalar(.7);lf.rotation.y=.4+(i%2?.9:-.9)+Math.PI*(i%2);lo.add(lf)}
+var stem=new THREE.Mesh(new THREE.CylinderGeometry(.018,.022,2.2,6),std(0x6B5A3A,.7));stem.rotation.z=Math.PI/2;stem.rotation.y=.4;stem.position.set(-.1,.05,3.35);stem.scale.setScalar(.7);lo.add(stem);
+for(i=0;i<10;i++){var lf=new THREE.Mesh(lfG,lfM[i%2]);var tt=i/9-.5;lf.position.set(-.1+Math.cos(.4)*tt*1.5,.06+i*.003,3.35-Math.sin(.4)*tt*1.5);lf.scale.setScalar(.7);lf.rotation.y=.4+(i%2?.9:-.9)+Math.PI*(i%2);lo.add(lf)}
 item(lo);
 /* bread loaf with scored crust, and slices */
 var br=new THREE.Group();var lG=new THREE.SphereGeometry(1.2,64,32,0,Math.PI*2,0,Math.PI*.56);var lp=lG.attributes.position,lcol=[],crust=new THREE.Color(0xA2662C),crust2=new THREE.Color(0xD39B55),crumb=new THREE.Color(0xEBD3A2),cc=new THREE.Color();
@@ -2486,16 +2496,16 @@ lG.setAttribute('color',new THREE.Float32BufferAttribute(lcol,3));lG.computeVert
 var loaf=new THREE.Mesh(lG,new THREE.MeshPhongMaterial({vertexColors:true,shininess:10,specular:0x221a10}));loaf.scale.set(1.45,.72,1);loaf.position.y=-.12;br.add(loaf);
 var sG=new THREE.CylinderGeometry(.82,.82,.2,48);var slM=[std(0xA2662C,.8),std(0xEED8AA,.9),std(0xEED8AA,.9)];
 for(i=0;i<3;i++){var bsl=new THREE.Mesh(sG,slM);bsl.rotation.x=1.45;bsl.rotation.z=-.25;bsl.scale.set(1,1,.82);bsl.position.set(2.2+i*.3,.7-i*.04,.2);br.add(bsl)}
-br.position.set(-3.4,0,-3.3);br.rotation.y=.5;item(br,.6);
+br.position.set(-2.95,0,-3.0);br.rotation.y=-1.9;item(br,.6);
 /* dish of oil for the bread */
 var od=new THREE.Group();var dP=[[0,0],[.85,0],[1.05,.14],[1.12,.24],[1.02,.24],[.8,.1],[0,.1]].map(function(p){return new THREE.Vector2(p[0],p[1])});od.add(new THREE.Mesh(new THREE.LatheGeometry(dP,64),std(0xF4EFE6,.15,{envMapIntensity:1.2})));
 var oo=new THREE.Mesh(new THREE.CircleGeometry(.95,48),std(0xD8A420,.05,{emissive:0x4A3000,emissiveIntensity:.5,envMapIntensity:1.6}));oo.rotation.x=-Math.PI/2;oo.position.y=.16;od.add(oo);
-od.position.set(1.3,0,-1.0);item(od,.62);
+od.position.set(.2,0,2.3);item(od,.62);
 /* Malvazija in a stemmed glass */
 var wg=new THREE.Group();var glP=[[0,0],[.72,0],[.74,.05],[.12,.12],[.06,.3],[.06,1.5],[.3,1.62],[.62,1.95],[.78,2.5],[.75,3.25],[.73,3.25],[.75,2.5],[.6,1.97],[.28,1.68],[0,1.64]].map(function(p){return new THREE.Vector2(p[0],p[1])});
 wg.add(new THREE.Mesh(new THREE.LatheGeometry(glP,64),new THREE.MeshPhongMaterial({color:0xffffff,specular:0xffffff,shininess:180,envMap:ENV,combine:THREE.MixOperation,reflectivity:.3,transparent:true,opacity:.2,side:THREE.DoubleSide,depthWrite:false})));
 var wn=new THREE.Mesh(new THREE.LatheGeometry([[0,1.66],[.28,1.7],[.58,1.98],[.72,2.38],[0,2.38]].map(function(p){return new THREE.Vector2(p[0],p[1])}),64),std(0xE9CF7A,.05,{transparent:true,opacity:.82,emissive:0x3A2C00,emissiveIntensity:.4,envMapIntensity:1.5}));wg.add(wn);
-wg.position.set(-1.6,0,2.2);item(wg,.6);var wg2=wg.children[0].clone();wg2.position.set(1.7,0,-1.9);item(wg2,.6);
+wg.position.set(-1.45,0,2.9);item(wg,.6);var wg2=new THREE.Group();wg.children.forEach(function(c){wg2.add(c.clone())});wg2.position.set(1.65,0,-2.6);item(wg2,.6);
 
 /* places for two: plates, forks, knives, spoons, napkins */
 var plM=std(0xFBF8F2,.12,{envMapIntensity:1.2}),metal=ph(0xC9CDD2,.08,{combine:THREE.MultiplyOperation,reflectivity:.55,specular:0xffffff});
@@ -2516,13 +2526,13 @@ function place(px,pz,dir){/* dir = direction the guest looks (+1: towards +x, -1
  var kn=knife();kn.rotation.y=dir>0?Math.PI:0;kn.position.set(.5*dir,.04,1.65*dir);g.add(kn);
  var sp=spoon();sp.rotation.y=dir>0?Math.PI:0;sp.position.set(.5*dir,.04,1.95*dir);g.add(sp);
  g.position.set(px,0,pz);item(g,.85);return g}
-place(-3.4,.6,1);place(3.4,.6,-1);
+place(-2.75,1.4,1);place(2.75,-1.4,-1);
 table.scale.setScalar(.001);
-var BT=TC.clone().add(new THREE.Vector3(mob?1.0:1.1,0,mob?2.9:3.0));
+var BT=TC.clone().add(new THREE.Vector3(2.55,0,2.55));
 /* key light with soft shadows for the table */
-R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
-var key=new THREE.DirectionalLight(0xFFD2A0,0);key.position.copy(TC).add(new THREE.Vector3(-9,14,6));key.target.position.copy(TC);scene.add(key);scene.add(key.target);
-key.castShadow=true;key.shadow.mapSize.set(mob?1024:2048,mob?1024:2048);var sc2=key.shadow.camera;sc2.left=-8;sc2.right=8;sc2.top=8;sc2.bottom=-8;sc2.near=1;sc2.far=40;key.shadow.bias=-.0006;key.shadow.radius=4;
+R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFShadowMap;
+var key=new THREE.DirectionalLight(0xFFD2A0,0);key.position.copy(TC).add(new THREE.Vector3(-6,16,5));key.target.position.copy(TC);scene.add(key);scene.add(key.target);
+key.castShadow=true;key.shadow.mapSize.set(mob?1024:2048,mob?1024:2048);var sc2=key.shadow.camera;sc2.left=-6.5;sc2.right=6.5;sc2.top=6.5;sc2.bottom=-6.5;sc2.near=4;sc2.far=34;key.shadow.bias=-.0004;key.shadow.normalBias=.02;key.shadow.radius=2.4;
 
 /* olives on the trees nearest the path */
 var near=trees.filter(function(t){return Math.abs(t.x)<17&&t.z>-34&&t.z<10});
@@ -2559,7 +2569,7 @@ var tx=0,ty=0,mx=0,my=0;addEventListener('pointermove',function(e){tx=e.clientX/
 var p=0,T=0,last=0,run=false,raf=0,vis=true,shown=false;
 var cP=new THREE.Vector3(),cL=new THREE.Vector3(),q=new THREE.Vector3(),q2=new THREE.Vector3();
 var c0=new THREE.Vector3(0,3.2,20),l0=new THREE.Vector3(0,3.6,-30),c1=new THREE.Vector3(0,5.5,6),l1=new THREE.Vector3(0,11.5,-24),c2=new THREE.Vector3(0,12,7),l2=B.clone().add(new THREE.Vector3(0,4.1*BS,0));
-var c3=TC.clone().add(new THREE.Vector3(mob?.3:-1.2,mob?10.5:8.2,mob?17.5:15.5)),l3=TC.clone().add(new THREE.Vector3(mob?.3:-3.6,mob?-2.2:-1.6,.4));
+var c3=TC.clone().add(new THREE.Vector3(mob?.5:-1.0,mob?6.6:6.0,mob?14.5:12.6)),l3=TC.clone().add(new THREE.Vector3(mob?.4:-3.7,mob?-3.4:-1.8,.3));
 function frame(ts){raf=requestAnimationFrame(frame);var dt=last?Math.min((ts-last)/1000,.05):.016;last=ts;T+=dt;dU.uT.value=T;
  p=(window.__P!=null)?window.__P:p+(prog()-p)*.12;mx+=(tx-mx)*.04;my+=(ty-my)*.04;
  var a=sm(0,.5,p),b=sm(.42,.78,p),d3=sm(.78,.95,p);
