@@ -332,7 +332,7 @@ body.switching main,body.switching .i18n-fade{opacity:0}
 .m-card h4{margin:0 0 8px;font:400 26px/1.15 var(--serif)}
 .m-card p{margin:0;color:var(--muted);font-size:16px}
 .m-card .pill{margin-top:18px}
-@media (min-width:900px){.menu-grid{grid-template-columns:1.2fr .8fr;gap:96px;align-items:start}.menu-aside{position:sticky;top:120px}}
+@media (min-width:900px){.menu-grid{grid-template-columns:1.2fr .8fr;gap:96px;align-items:start}.menu-aside{position:static}}
 
 /* cellar */
 .cellar-grid{display:grid;gap:40px}
@@ -524,10 +524,10 @@ html select{height:56px;line-height:normal}
 .hglint{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(55% 45% at var(--gx,20%) var(--gy,40%),rgba(255,190,110,.26),transparent 70%);mix-blend-mode:soft-light;transition:background .6s}
 @media (prefers-reduced-motion:reduce){.hcam,.hcam img{animation:none;transition:none}}
 /* 3D hills band */
-.band{position:relative;height:72vh;min-height:480px;overflow:hidden;background:#5A3F5C;color:#fff}
-.band .hills{position:absolute;inset:0}
-.band-c{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:120px 0 56px;background:linear-gradient(0deg,rgba(40,18,14,.6),rgba(40,18,14,0));pointer-events:none}
-.band-c .h2{max-width:14em;color:#fff}.band-c .kicker{color:rgba(255,255,255,.75)}
+.hband{position:relative;height:72vh;min-height:480px;overflow:hidden;background:#5A3F5C;color:#fff}
+.hband .hills{position:absolute;inset:0}
+.hband-c{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:120px 0 56px;background:linear-gradient(0deg,rgba(40,18,14,.6),rgba(40,18,14,0));pointer-events:none}
+.hband-c .h2{max-width:14em;color:#fff}.hband-c .kicker{color:rgba(255,255,255,.75)}
 /* swipe photos in cards */
 .car>img{transition:opacity .5s}.car>img.off{opacity:0!important}
 .car .cs{position:absolute;top:50%;z-index:5;width:44px;height:44px;margin-top:-22px;border:0;border-radius:50%;background:rgba(255,255,255,.92);color:#222;display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
@@ -630,6 +630,13 @@ html select{height:56px;line-height:normal}
 .shopsec .shp__ph img{width:100%;height:100%;object-fit:cover;mix-blend-mode:normal;transform:none}
 .shopsec .shp:hover .shp__ph img{transform:scale(1.04)}
 .shopsec .shp__cat{z-index:2}
+.shf{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.shf button{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:#fff;font:600 14px/1 var(--sans);color:var(--forest);cursor:pointer;transition:background .3s,color .3s}
+.shf button small{font-size:12px;opacity:.6}
+.shf button.on{background:var(--forest);color:#fff;border-color:var(--forest)}
+.shpg .shp.hide{display:none}
+.shp__pr{margin:6px 0 14px;font-size:14px;color:var(--muted)}.shp__pr b{color:var(--forest);font-weight:700}
+.shopsec .shpg{margin-top:22px}
 
 /* olive 3D hero */
 #olive{position:absolute;inset:0;width:100%;height:100%;z-index:2;opacity:0;transition:opacity 1.4s}
@@ -643,6 +650,7 @@ html select{height:56px;line-height:normal}
 .ol-step .kicker{color:#F3D39A}
 .ol-t{font-family:var(--serif);font-weight:400;font-size:clamp(26px,4.4vw,48px);line-height:1.12;max-width:17em;margin:10px 0 22px;color:#fff;text-shadow:0 2px 20px rgba(30,14,6,.55)}
 .ol-steps .wrap{position:relative;height:0}
+@media(max-width:699px){.near li{flex-wrap:wrap;row-gap:4px}.near .dots{display:none}.near .ds{white-space:normal;flex-basis:100%;padding-left:38px}}
 </style>
 </head>
 <body>
@@ -760,8 +768,8 @@ html select{height:56px;line-height:normal}
   <canvas id="olive" aria-hidden="true"></canvas>
   <div class="ol-steps" aria-hidden="true"><div class="wrap">
     <div class="ol-step" data-a=".14" data-b=".42"><p class="kicker"><span data-i18n="ol.k1">Maslinik</span></p><p class="ol-t" data-i18n="ol.t1">Masline beremo ručno, sa stabala na brežuljcima oko kuće.</p></div>
-    <div class="ol-step" data-a=".42" data-b=".72"><p class="kicker"><span data-i18n="ol.k2">Od ploda do ulja</span></p><p class="ol-t" data-i18n="ol.t2">Iz ručno branih maslina nastaje naše ekstra djevičansko maslinovo ulje.</p></div>
-    <div class="ol-step" data-a=".74" data-b="1.2"><p class="kicker"><span data-i18n="ol.k3">Nagrađivano ulje</span></p><p class="ol-t" data-i18n="ol.t3">S imanja Štefanić ravno na vaš stol.</p><a class="pill pill-grey" href="#proizvodi" data-i18n="ol.cta">Naruči ulje i vino</a></div>
+    <div class="ol-step" data-a=".42" data-b=".8"><p class="kicker"><span data-i18n="ol.k2">Od ploda do ulja</span></p><p class="ol-t" data-i18n="ol.t2">Iz ručno branih maslina nastaje naše ekstra djevičansko maslinovo ulje.</p></div>
+    <div class="ol-step" data-a=".86" data-b="1.2"><p class="kicker"><span data-i18n="ol.k3">Nagrađivano ulje</span></p><p class="ol-t" data-i18n="ol.t3">S imanja Štefanić ravno na vaš stol.</p><a class="pill pill-grey" href="#proizvodi" data-i18n="ol.cta">Naruči ulje i vino</a></div>
   </div></div>
   <div class="hero-shade"></div>
   <div class="search-wrap">
@@ -860,9 +868,9 @@ html select{height:56px;line-height:normal}
 </section>
 
 <!-- HILLS (3D) -->
-<section class="band" id="brezuljci" aria-label="Brežuljci oko Motovuna">
+<section class="hband" id="brezuljci" aria-label="Brežuljci oko Motovuna">
   <div class="hills" id="hills"><div class="ph sc-hero" data-scene="hero"></div></div>
-  <div class="band-c"><div class="wrap"><p class="kicker"><span data-i18n="band.k">Motovun, Istra</span></p><h2 class="h2" data-i18n="band.t">Brežuljci, vinogradi i maslinici oko kuće</h2></div></div>
+  <div class="hband-c"><div class="wrap"><p class="kicker"><span data-i18n="band.k">Motovun, Istra</span></p><h2 class="h2" data-i18n="band.t">Brežuljci, vinogradi i maslinici oko kuće</h2></div></div>
 </section>
 
 <!-- 02 WHAT WE MAKE -->
@@ -1010,7 +1018,8 @@ html select{height:56px;line-height:normal}
     <h2 class="h2 rv" style="--d:.08s" data-i18n="shop.title">Ponesite imanje kući</h2>
     <span class="hl"></span>
     <p class="lead rv" style="--d:.16s" data-i18n="shop.lead">Maslinovo ulje i vina iz vlastitog maslinika i vinograda. Složite narudžbu i pošaljite je obitelji na WhatsApp.</p>
-    <div class="shpg"><article class="shp" data-cat="ulje"><div class="shp__ph"><img src="img/ulje.jpg" alt="Ekstra djevičansko maslinovo ulje" loading="lazy" decoding="async"><span class="shp__cat" data-i18n="pc.ulje">Maslinovo ulje</span></div><div class="shp__b"><h3>Ekstra djevičansko maslinovo ulje</h3><p data-i18n="pr.oil">Iz vlastitog maslinika, od ručno branih maslina. Nagrađivano ulje za kruh, povrće i sve što dođe na stol.</p><a class="shp__wa" href="https://wa.me/38598251504" target="_blank" rel="noopener">WhatsApp</a></div></article><article class="shp" data-cat="vino"><div class="shp__ph"><img src="img/kusaona-prsut.jpg" alt="Malvazija istarska" loading="lazy" decoding="async"><span class="shp__cat" data-i18n="pc.vino">Vino</span></div><div class="shp__b"><h3>Malvazija istarska</h3><p data-i18n="pr.mal">Bijelo vino iz vinograda oko kuće, simbol Istre. Blagih cvjetnih nota i svježe kiselosti.</p><a class="shp__wa" href="https://wa.me/38598251504" target="_blank" rel="noopener">WhatsApp</a></div></article><article class="shp" data-cat="vino"><div class="shp__ph"><img src="img/vino-vatra.jpg" alt="Kupaža" loading="lazy" decoding="async"><span class="shp__cat" data-i18n="pc.vino">Vino</span></div><div class="shp__b"><h3>Kupaža</h3><p data-i18n="pr.kup">Spoj više sorti s našeg vinograda. Uz mesna jela, peku i zrele sireve.</p><a class="shp__wa" href="https://wa.me/38598251504" target="_blank" rel="noopener">WhatsApp</a></div></article><article class="shp" data-cat="vino"><div class="shp__ph"><img src="img/boce.jpg" alt="Žuti muškat" loading="lazy" decoding="async"><span class="shp__cat" data-i18n="pc.vino">Vino</span></div><div class="shp__b"><h3>Žuti muškat</h3><p data-i18n="pr.mus">Aromatičan, cvjetan i voćan, lagano sladak. Uz desert ili sam za sebe.</p><a class="shp__wa" href="https://wa.me/38598251504" target="_blank" rel="noopener">WhatsApp</a></div></article></div>
+    <div class="shf" role="toolbar" aria-label="Kategorije"><button type="button" class="on" data-f="all"><span data-i18n="shf.all">Sve</span><small>4</small></button><button type="button" data-f="ulje"><span data-i18n="pc.ulje">Maslinovo ulje</span><small>1</small></button><button type="button" data-f="vino"><span data-i18n="pc.vino">Vino</span><small>3</small></button></div>
+    <div class="shpg"><article class="shp" data-cat="ulje"><div class="shp__ph"><img src="img/ulje.jpg" alt="Ekstra djevičansko maslinovo ulje" loading="lazy" decoding="async"><span class="shp__cat" data-i18n="pc.ulje">Maslinovo ulje</span></div><div class="shp__b"><h3>Ekstra djevičansko maslinovo ulje</h3><p data-i18n="pr.oil">Iz vlastitog maslinika, od ručno branih maslina. Nagrađivano ulje za kruh, povrće i sve što dođe na stol.</p><p class="shp__pr"><span data-i18n="shp.pr">Cijena</span> <b data-i18n="shp.upit">na upit</b></p><a class="shp__wa" href="https://wa.me/38598251504" target="_blank" rel="noopener">WhatsApp</a></div></article><article class="shp" data-cat="vino"><div class="shp__ph"><img src="img/kusaona-prsut.jpg" alt="Malvazija istarska" loading="lazy" decoding="async"><span class="shp__cat" data-i18n="pc.vino">Vino</span></div><div class="shp__b"><h3>Malvazija istarska</h3><p data-i18n="pr.mal">Bijelo vino iz vinograda oko kuće, simbol Istre. Blagih cvjetnih nota i svježe kiselosti.</p><p class="shp__pr"><span data-i18n="shp.pr">Cijena</span> <b data-i18n="shp.upit">na upit</b></p><a class="shp__wa" href="https://wa.me/38598251504" target="_blank" rel="noopener">WhatsApp</a></div></article><article class="shp" data-cat="vino"><div class="shp__ph"><img src="img/vino-vatra.jpg" alt="Kupaža" loading="lazy" decoding="async"><span class="shp__cat" data-i18n="pc.vino">Vino</span></div><div class="shp__b"><h3>Kupaža</h3><p data-i18n="pr.kup">Spoj više sorti s našeg vinograda. Uz mesna jela, peku i zrele sireve.</p><p class="shp__pr"><span data-i18n="shp.pr">Cijena</span> <b data-i18n="shp.upit">na upit</b></p><a class="shp__wa" href="https://wa.me/38598251504" target="_blank" rel="noopener">WhatsApp</a></div></article><article class="shp" data-cat="vino"><div class="shp__ph"><img src="img/boce.jpg" alt="Žuti muškat" loading="lazy" decoding="async"><span class="shp__cat" data-i18n="pc.vino">Vino</span></div><div class="shp__b"><h3>Žuti muškat</h3><p data-i18n="pr.mus">Aromatičan, cvjetan i voćan, lagano sladak. Uz desert ili sam za sebe.</p><p class="shp__pr"><span data-i18n="shp.pr">Cijena</span> <b data-i18n="shp.upit">na upit</b></p><a class="shp__wa" href="https://wa.me/38598251504" target="_blank" rel="noopener">WhatsApp</a></div></article></div>
     <p class="pnote" data-i18n="shop.note">Cijene, dostupnost i preuzimanje dogovarate izravno s obitelji.</p>
   </div>
 </section>
@@ -1304,7 +1313,7 @@ $("#bandL").innerHTML =
 /* ===================== i18n ===================== */
 var T = {
 hr:{
-"nav.home":"Početna","nav.gal":"Galerija","nav.story":"Priča","nav.menu":"Meni","nav.cellar":"Kušaona","nav.stay":"Smještaj","nav.shop":"Proizvodi","nav.book":"Rezervacija","nav.contact":"Kontakt",
+"nav.home":"Početna","nav.gal":"Galerija","nav.story":"Priča","nav.menu":"Meni","nav.cellar":"Kušaona","nav.stay":"Smještaj","nav.shop":"Proizvodi","shf.all":"Sve","shp.pr":"Cijena","shp.upit":"na upit","nav.book":"Rezervacija","nav.contact":"Kontakt",
 "menu":"Izbornik","close":"Zatvori","hdr.book":"Rezerviraj","prev":"Prethodna","next":"Sljedeća",
 "hero.eyebrow":"Agroturizam · Motovun, Istra",
 "hero.body":"Obiteljsko imanje na osunčanim brežuljcima Motovuna, s tradicijom od 1780. Gotovo sve što dođe na stol raste i dozrijeva ovdje: vino, maslinovo ulje, povrće, začinsko bilje i meso.",
@@ -1364,7 +1373,7 @@ hr:{
 "d10":"Šparoge<small>U sezoni, kako se jedu u Istri</small>","d11":"Ombolo i domaće kobasice<small>Istarski klasici</small>","d12":"Jela ispod peke<small>Polako pečeno pod željeznim zvonom</small>","d13":"Kroštule<small>Tradicionalni domaći desert</small>","cl4.t":"Žuti muškat","cl4.p":"Aromatičan, cvjetan i voćan, lagano sladak, uz desert ili sam za sebe","cl5.t":"Kruh, pršut i sir","cl5.p":"Uz ulje i vino, i priča obitelji od 1780.","sb5":"Dostupnost i cijene na upit","gtk.stay":"Smještaj","gtk.stayV":"Soba za dvoje, uskoro više soba","gtk.prod":"Naši proizvodi","gtk.prodV":"Ulje i vino s imanja, pitajte nas","near.4d":"Biciklistička staza na trasi stare pruge","near.5":"Lokalne tržnice","near.5d":"Domaći proizvodi iz okolice","f.taste":"Kušaona","s.taste":"Degustacija ulja i vina","f.stayMax":"Soba je za dvije osobe.","waT":"Pozdrav, ja sam {n}. Zanima nas degustacija ulja i vina u kušaoni Štefanić {d}, za {g}. Je li moguće?","q6":"Što se kuša u kušaoni?","a6":"Naše ekstra djevičansko maslinovo ulje i vina s imanja: malvazija, kupaža i žuti muškat, uz domaći kruh, pršut i sir. Domaćini vas vode kroz degustaciju i pričaju priču obitelji.","q7":"Koliko gostiju prima smještaj?","a7":"Trenutno imamo jednu sobu za dvije osobe, s bračnim krevetom i vlastitom kupaonicom. Uskoro uređujemo još nekoliko soba, pa nas slobodno pitajte i za veće društvo.","ft.email":"E-mail","ft.social":"Pratite nas"
 },
 en:{
-"nav.home":"Home","nav.gal":"Gallery","nav.story":"Story","nav.menu":"Menu","nav.cellar":"Tasting room","nav.stay":"Stay","nav.shop":"Products","nav.book":"Reserve","nav.contact":"Contact",
+"nav.home":"Home","nav.gal":"Gallery","nav.story":"Story","nav.menu":"Menu","nav.cellar":"Tasting room","nav.stay":"Stay","nav.shop":"Products","shf.all":"All","shp.pr":"Price","shp.upit":"on request","nav.book":"Reserve","nav.contact":"Contact",
 "menu":"Menu","close":"Close","hdr.book":"Reserve","prev":"Previous","next":"Next",
 "hero.eyebrow":"Farm stay · Motovun, Istria",
 "hero.body":"A family farm on the sunny hills of Motovun, with a tradition going back to 1780. Nearly everything on the table grows and ripens right here: wine, olive oil, vegetables, herbs and meat.",
@@ -1424,7 +1433,7 @@ en:{
 "d10":"Asparagus<small>In season, the Istrian way</small>","d11":"Ombolo and homemade sausages<small>Istrian classics</small>","d12":"Dishes under the peka<small>Slow-cooked under an iron bell</small>","d13":"Kroštule<small>Traditional homemade pastry</small>","cl4.t":"Yellow Muscat","cl4.p":"Aromatic, floral and fruity, lightly sweet, with dessert or on its own","cl5.t":"Bread, prosciutto and cheese","cl5.p":"Alongside the oil and wine, with the family story since 1780","sb5":"Availability and prices on request","gtk.stay":"Stay","gtk.stayV":"Room for two, more rooms soon","gtk.prod":"Our products","gtk.prodV":"Oil and wine from the farm, ask us","near.4d":"Cycle path along the old railway line","near.5":"Local markets","near.5d":"Produce from around the area","f.taste":"Tasting","s.taste":"Oil and wine tasting","f.stayMax":"The room sleeps two.","waT":"Hello, my name is {n}. We are interested in an olive oil and wine tasting at Štefanić on {d}, for {g}. Is that possible?","q6":"What do we taste in the tasting room?","a6":"Our extra virgin olive oil and wines from the farm: Malvazija, a house blend and Yellow Muscat, with local bread, prosciutto and cheese. The hosts guide you through it and tell you the family story.","q7":"How many guests can stay?","a7":"Right now we have one room for two, with a double bed and a private bathroom. Several more rooms are coming soon, so feel free to ask about larger groups too.","ft.email":"Email","ft.social":"Follow us"
 },
 de:{
-"nav.home":"Start","nav.gal":"Galerie","nav.story":"Geschichte","nav.menu":"Menü","nav.cellar":"Verkostungsraum","nav.stay":"Übernachten","nav.shop":"Produkte","nav.book":"Reservieren","nav.contact":"Kontakt",
+"nav.home":"Start","nav.gal":"Galerie","nav.story":"Geschichte","nav.menu":"Menü","nav.cellar":"Verkostungsraum","nav.stay":"Übernachten","nav.shop":"Produkte","shf.all":"Alle","shp.pr":"Preis","shp.upit":"auf Anfrage","nav.book":"Reservieren","nav.contact":"Kontakt",
 "menu":"Menü","close":"Schließen","hdr.book":"Reservieren","prev":"Zurück","next":"Weiter",
 "hero.eyebrow":"Agrotourismus · Motovun, Istrien",
 "hero.body":"Ein Familienhof auf den sonnigen Hügeln von Motovun, mit einer Tradition, die bis 1780 zurückreicht. Fast alles auf dem Tisch wächst und reift genau hier: Wein, Olivenöl, Gemüse, Kräuter und Fleisch.",
@@ -1484,7 +1493,7 @@ de:{
 "d10":"Spargel<small>In der Saison, auf istrische Art</small>","d11":"Ombolo und hausgemachte Würste<small>Istrische Klassiker</small>","d12":"Gerichte unter der Peka<small>Langsam gegart unter der Eisenglocke</small>","d13":"Kroštule<small>Traditionelles hausgemachtes Gebäck</small>","cl4.t":"Gelber Muskateller","cl4.p":"Aromatisch, blumig und fruchtig, leicht süß, zum Dessert oder pur","cl5.t":"Brot, Pršut und Käse","cl5.p":"Zu Öl und Wein, dazu die Familiengeschichte seit 1780","sb5":"Verfügbarkeit und Preise auf Anfrage","gtk.stay":"Übernachten","gtk.stayV":"Zimmer für zwei, bald mehr Zimmer","gtk.prod":"Unsere Produkte","gtk.prodV":"Öl und Wein vom Hof, fragen Sie uns","near.4d":"Radweg auf der alten Bahntrasse","near.5":"Lokale Märkte","near.5d":"Erzeugnisse aus der Umgebung","f.taste":"Verkostung","s.taste":"Öl- und Weinverkostung","f.stayMax":"Das Zimmer ist für zwei Personen.","waT":"Hallo, mein Name ist {n}. Wir interessieren uns für eine Öl- und Weinverkostung bei Štefanić am {d}, für {g}. Ist das möglich?","q6":"Was wird im Verkostungsraum verkostet?","a6":"Unser natives Olivenöl extra und die Weine vom Hof: Malvazija, Cuvée und Gelber Muskateller, dazu Brot, Pršut und Käse aus der Region. Die Gastgeber führen Sie durch die Verkostung und erzählen die Familiengeschichte.","q7":"Wie viele Gäste können übernachten?","a7":"Derzeit haben wir ein Zimmer für zwei Personen, mit Doppelbett und eigenem Bad. Bald kommen weitere Zimmer dazu, fragen Sie also gern auch für größere Gruppen.","ft.email":"E-Mail","ft.social":"Folgen Sie uns"
 },
 it:{
-"nav.home":"Home","nav.gal":"Galleria","nav.story":"Storia","nav.menu":"Menù","nav.cellar":"Sala degustazione","nav.stay":"Soggiorno","nav.shop":"Prodotti","nav.book":"Prenota","nav.contact":"Contatti",
+"nav.home":"Home","nav.gal":"Galleria","nav.story":"Storia","nav.menu":"Menù","nav.cellar":"Sala degustazione","nav.stay":"Soggiorno","nav.shop":"Prodotti","shf.all":"Tutti","shp.pr":"Prezzo","shp.upit":"su richiesta","nav.book":"Prenota","nav.contact":"Contatti",
 "menu":"Menu","close":"Chiudi","hdr.book":"Prenota","prev":"Precedente","next":"Successiva",
 "hero.eyebrow":"Agriturismo · Montona, Istria",
 "hero.body":"Una fattoria di famiglia sulle colline soleggiate di Montona, con una tradizione che risale al 1780. Quasi tutto ciò che arriva in tavola cresce e matura qui: vino, olio d'oliva, verdure, erbe aromatiche e carne.",
@@ -2332,6 +2341,7 @@ function tr(root){var lg=(document.documentElement.lang||"hr").slice(0,2),d=D[lg
 function all(){document.querySelectorAll(".cbar,.cdlg,.shp__buy").forEach(tr)}
 new MutationObserver(function(m){m.forEach(function(r){var e=r.target.nodeType===1?r.target:r.target.parentElement;if(e&&e.closest&&e.closest(".cbar,.cdlg,.shp__buy"))tr(e.closest(".cbar,.cdlg,.shp__buy"))})}).observe(document.body,{childList:true,subtree:true,characterData:true});
 new MutationObserver(all).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});setTimeout(all,0)})();</script>
+<script>document.querySelectorAll('.shf button').forEach(function(b,_,all){b.addEventListener('click',function(){all.forEach(function(x){x.classList.toggle('on',x===b)});var f=b.dataset.f;document.querySelectorAll('.shpg .shp').forEach(function(p){p.classList.toggle('hide',f!=='all'&&p.dataset.cat!==f)})})});</script>
 <script>(function(){
 /* swipeable photo cards */
 document.querySelectorAll('.car').forEach(function(r){var im=[].slice.call(r.querySelectorAll(':scope>img')),i=0,c=r.querySelector('.ccount');if(im.length<2)return;
@@ -2399,14 +2409,14 @@ scene.add(new THREE.Mesh(gg,new THREE.MeshPhongMaterial({vertexColors:true,flatS
 
 /* Motovun on its hill, far away */
 var town=new THREE.Group(),tm=new THREE.MeshPhongMaterial({color:0xC9A27E,flatShading:true,shininess:0}),rm=new THREE.MeshPhongMaterial({color:0x9A4E34,flatShading:true,shininess:0});
-var hill=new THREE.Mesh(new THREE.CylinderGeometry(11,36,26,16,1),new THREE.MeshPhongMaterial({color:0x6E6A3C,flatShading:true,shininess:0}));hill.position.y=13;town.add(hill);
-for(var k=0;k<16;k++){var a=k/16*Math.PI*2,rr=5+Math.random()*4,bw=2+Math.random()*2,bh=2+Math.random()*3;var b=new THREE.Mesh(new THREE.BoxGeometry(bw,bh,bw),tm);b.position.set(Math.cos(a)*rr,26+bh/2-.5,Math.sin(a)*rr);town.add(b);var rf=new THREE.Mesh(new THREE.ConeGeometry(bw*.8,1.2,4),rm);rf.position.set(b.position.x,26+bh+.1,b.position.z);rf.rotation.y=Math.PI/4;town.add(rf)}
+var hill=new THREE.Mesh(new THREE.CylinderGeometry(9,42,40,18,2),new THREE.MeshPhongMaterial({color:0x6E6A3C,flatShading:true,shininess:0}));hill.position.y=6;town.add(hill);
+for(var k=0;k<16;k++){var a=k/16*Math.PI*2,rr=2.5+Math.random()*4.5,bw=2+Math.random()*2,bh=2+Math.random()*3;var b=new THREE.Mesh(new THREE.BoxGeometry(bw,bh,bw),tm);b.position.set(Math.cos(a)*rr,26+bh/2-.5,Math.sin(a)*rr);town.add(b);var rf=new THREE.Mesh(new THREE.ConeGeometry(bw*.8,1.2,4),rm);rf.position.set(b.position.x,26+bh+.1,b.position.z);rf.rotation.y=Math.PI/4;town.add(rf)}
 var tw=new THREE.Mesh(new THREE.BoxGeometry(2.2,12,2.2),tm);tw.position.set(1,31,-1);town.add(tw);var tr=new THREE.Mesh(new THREE.ConeGeometry(1.9,3,4),rm);tr.position.set(1,38.5,-1);tr.rotation.y=Math.PI/4;town.add(tr);
-town.position.set(-48,hgt(-48,-170)-2,-170);scene.add(town);
+town.position.set(-40,hgt(-40,-118)-12,-118);scene.add(town);
 
 /* olive trees: instanced trunks + crowns */
 var trees=[];var ROWZ=mob?14:20,COLX=mob?9:13;
-for(var r=0;r<ROWZ;r++)for(var c=0;c<COLX;c++){var x=(c-(COLX-1)/2)*7.4+(Math.random()-.5)*2.6,z=12-r*7.2+(Math.random()-.5)*2.2;if(Math.abs(x)<3.2&&z>-60)continue;trees.push({x:x,z:z,y:hgt(x,z),s:.85+Math.random()*.45,ry:Math.random()*6.28})}
+for(var r=0;r<ROWZ;r++)for(var c=0;c<COLX;c++){var x=(c-(COLX-1)/2)*7.4+(Math.random()-.5)*2.6,z=12-r*7.2+(Math.random()-.5)*2.2;if(Math.abs(x)<3.2&&z>-60)continue;if(Math.abs(x)<12&&z>-34&&z<-10)continue;trees.push({x:x,z:z,y:hgt(x,z),s:.85+Math.random()*.45,ry:Math.random()*6.28})}
 var trunkG=new THREE.CylinderGeometry(.22,.38,2.4,6,3);var tp=trunkG.attributes.position;for(i=0;i<tp.count;i++){var yy=tp.getY(i);tp.setX(i,tp.getX(i)+Math.sin(yy*2.2)*.18)}trunkG.computeVertexNormals();
 var crownG=new THREE.IcosahedronGeometry(1,1);
 var trunks=new THREE.InstancedMesh(trunkG,new THREE.MeshPhongMaterial({color:0x5B4A3A,flatShading:true,shininess:0}),trees.length);
@@ -2419,20 +2429,67 @@ trees.forEach(function(t,ti){P.set(t.x,t.y+1.15*t.s,t.z);E.set((Math.random()-.5
 scene.add(trunks);scene.add(crowns);
 
 /* bottle above the grove */
-var B=new THREE.Vector3(0,11.5,-22),BS=mob?2.1:2.4;
-var prof=[[0,0],[.95,0],[1,.08],[1,2.5],[.92,2.95],[.6,3.35],[.38,3.6],[.36,4.5],[.42,4.55],[.42,4.7],[0,4.7]].map(function(p){return new THREE.Vector2(p[0],p[1])});
-var glass=new THREE.Mesh(new THREE.LatheGeometry(prof,36),new THREE.MeshPhongMaterial({color:0xDDEEDD,specular:0xffffff,shininess:140,transparent:true,opacity:.22,side:THREE.DoubleSide,depthWrite:false}));
+var B=new THREE.Vector3(0,9.2,-22),BS=mob?1.75:1.95;
+var prof=[[0,0],[.66,0],[.7,.06],[.7,4.3],[.64,4.75],[.4,5.25],[.24,5.55],[.22,6.5],[.27,6.55],[.27,6.68],[0,6.68]].map(function(p){return new THREE.Vector2(p[0],p[1])});
+var glass=new THREE.Mesh(new THREE.LatheGeometry(prof,36),new THREE.MeshPhongMaterial({color:0x7FA36A,specular:0xffffff,shininess:150,transparent:true,opacity:.3,side:THREE.DoubleSide,depthWrite:false}));
 var inner=prof.slice(1,8).map(function(p){return new THREE.Vector2(Math.max(0,p.x*.9),Math.max(.07,p.y))});inner.unshift(new THREE.Vector2(0,.07));inner.push(new THREE.Vector2(0,inner[inner.length-1].y));
 var clip=new THREE.Plane(new THREE.Vector3(0,-1,0),0);
 var oilM=new THREE.MeshPhongMaterial({color:0xC9A227,emissive:0x5A3E00,specular:0xFFF2B0,shininess:90,transparent:true,opacity:.92,clippingPlanes:[clip],side:THREE.DoubleSide});
 var oil=new THREE.Mesh(new THREE.LatheGeometry(inner,36),oilM);
-var cork=new THREE.Mesh(new THREE.CylinderGeometry(.34,.3,.7,16),new THREE.MeshLambertMaterial({color:0xB98C5A}));cork.position.y=4.85;
+var cork=new THREE.Mesh(new THREE.CylinderGeometry(.3,.3,.75,20),new THREE.MeshPhongMaterial({color:0x2F3B22,specular:0xC9B27A,shininess:80}));cork.position.y=6.95;
 var bottle=new THREE.Group();bottle.add(oil);bottle.add(glass);bottle.add(cork);bottle.position.copy(B);bottle.scale.setScalar(.001);scene.add(bottle);
+var lc=document.createElement('canvas');lc.width=1024;lc.height=512;var lx=lc.getContext('2d');
+function drawLabel(){lx.fillStyle='#F4EDE2';lx.fillRect(0,0,1024,512);lx.strokeStyle='#A64B28';lx.lineWidth=6;lx.strokeRect(22,22,980,468);lx.lineWidth=2;lx.strokeRect(36,36,952,440);
+ lx.fillStyle='#A64B28';lx.beginPath();lx.arc(512,128,62,0,7);lx.lineWidth=4;lx.stroke();lx.font='400 78px Fraunces, Georgia, serif';lx.textAlign='center';lx.textBaseline='middle';lx.fillText('Š',512,134);
+ lx.fillStyle='#1F3A26';lx.font='400 112px Fraunces, Georgia, serif';lx.fillText('Štefanić',512,272);
+ lx.fillStyle='#5C5852';lx.font='600 30px Figtree, Arial, sans-serif';lx.fillText('EKSTRA DJEVIČANSKO MASLINOVO ULJE',512,362);lx.font='500 26px Figtree, Arial, sans-serif';lx.fillText('Motovun · Istra',512,414);if(window.__labTex)window.__labTex.needsUpdate=true}
+drawLabel();if(document.fonts&&document.fonts.load)Promise.all([document.fonts.load('400 112px Fraunces'),document.fonts.load('600 30px Figtree')]).then(drawLabel).catch(function(){});
+var labTex=new THREE.Texture(lc);labTex.needsUpdate=true;window.__labTex=labTex;
+var label=new THREE.Mesh(new THREE.CylinderGeometry(.712,.712,2.1,40,1,true,-1.15,2.3),new THREE.MeshPhongMaterial({map:labTex,side:THREE.DoubleSide,shininess:20,transparent:true}));
+label.position.y=2.3;var labWrap=new THREE.Group();labWrap.add(label);bottle.add(labWrap);
+
 var halo=new THREE.Mesh(new THREE.SphereGeometry(1,20,14),new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,fog:false,uniforms:{uA:{value:0}},
 vertexShader:'varying vec3 vN;varying vec3 vV;void main(){vN=normalize(normalMatrix*normal);vec4 mv=modelViewMatrix*vec4(position,1.);vV=normalize(-mv.xyz);gl_Position=projectionMatrix*mv;}',
 fragmentShader:'uniform float uA;varying vec3 vN;varying vec3 vV;void main(){float f=pow(max(dot(vN,vV),0.),2.5);gl_FragColor=vec4(vec3(1.,.8,.35)*f*uA,f*uA);}'}));
-halo.position.copy(B).add(new THREE.Vector3(0,2.3*BS,0));halo.scale.setScalar(6.5*BS);scene.add(halo);
+halo.position.copy(B).add(new THREE.Vector3(0,3.3*BS,0));halo.scale.setScalar(7*BS);scene.add(halo);
 
+
+/* the table at the end: checkered cloth with pršut, cheese, olives, bread and wine */
+var TC=new THREE.Vector3(0,hgt(0,-22)+3.4,-22),BSe=mob?.75:.85;
+var tcv=document.createElement('canvas');tcv.width=tcv.height=256;var tx2=tcv.getContext('2d');tx2.fillStyle='#F6F0E6';tx2.fillRect(0,0,256,256);tx2.fillStyle='rgba(176,40,40,.55)';for(var a1=0;a1<8;a1++){tx2.fillRect(a1*32,0,16,256);tx2.fillRect(0,a1*32,256,16)}
+var clothT=new THREE.Texture(tcv);clothT.wrapS=clothT.wrapT=THREE.RepeatWrapping;clothT.repeat.set(4,2.4);clothT.needsUpdate=true;
+var table=new THREE.Group();table.position.copy(TC);scene.add(table);
+var wood=new THREE.MeshPhongMaterial({color:0x7A5236,shininess:10,flatShading:true});
+var top=new THREE.Mesh(new THREE.BoxGeometry(17,.5,9.5),wood);top.position.y=-.25;table.add(top);
+var cloth=new THREE.Mesh(new THREE.BoxGeometry(14.5,.06,7.6),new THREE.MeshPhongMaterial({map:clothT,shininess:5}));cloth.position.y=.03;table.add(cloth);
+[[-7.6,-4],[7.6,-4],[-7.6,4],[7.6,4]].forEach(function(l){var lg=new THREE.Mesh(new THREE.BoxGeometry(.6,6,.6),wood);lg.position.set(l[0],-3.4,l[1]*.95);table.add(lg)});
+var items=[];function item(g){g.scale.setScalar(.001);table.add(g);items.push(g);return g}
+var pm=function(c,sh){return new THREE.MeshPhongMaterial({color:c,shininess:sh||20,flatShading:true})};
+/* board with pršut */
+var brd=new THREE.Group();var bb=new THREE.Mesh(new THREE.BoxGeometry(5.6,.28,2.6),pm(0xC89A62,8));bb.position.y=.14;brd.add(bb);
+for(var i=0;i<6;i++){var sl=new THREE.Mesh(new THREE.SphereGeometry(1,10,6),pm(0xB4473F,30));sl.scale.set(1.05,.07,.48);sl.position.set(-1.9+i*.75,.34+i*.02,(i%2?.25:-.25));sl.rotation.y=.5+(i%2)*.3;brd.add(sl);var ft=new THREE.Mesh(new THREE.SphereGeometry(1,10,6),pm(0xF2E6DC,10));ft.scale.set(1.08,.05,.18);ft.position.copy(sl.position);ft.position.z+=.4;ft.position.y-=.01;ft.rotation.y=sl.rotation.y;brd.add(ft)}
+brd.position.set(-4.4,0,1.4);brd.rotation.y=.12;item(brd);
+/* cheese wedge + cubes */
+var ch=new THREE.Group();var w=new THREE.Mesh(new THREE.CylinderGeometry(1.5,1.5,1,14,1,false,0,1.4),pm(0xE9C46A,25));w.position.y=.5;ch.add(w);
+for(i=0;i<5;i++){var cu=new THREE.Mesh(new THREE.BoxGeometry(.5,.5,.5),pm(0xEBCB78,25));cu.position.set(1.4+(i%3)*.6,.25,.4+Math.floor(i/3)*.6);cu.rotation.y=i;ch.add(cu)}
+ch.position.set(3.2,0,1.9);item(ch);
+/* bowl of olives */
+var bw=new THREE.Group();var bl2=new THREE.Mesh(new THREE.LatheGeometry([[0,0],[.9,0],[1.35,.7],[1.4,.75],[1.3,.75],[0,.2]].map(function(p){return new THREE.Vector2(p[0],p[1])}),18),new THREE.MeshPhongMaterial({color:0xB98552,shininess:10,side:THREE.DoubleSide}));bw.add(bl2);
+for(i=0;i<16;i++){var ol=new THREE.Mesh(new THREE.SphereGeometry(.24,8,6),new THREE.MeshPhongMaterial({color:i%3?0x5C6B22:0x2E1F2A,shininess:70}));var aa=i*2.4,rr2=(i%4)*.28;ol.scale.set(1,1,1.3);ol.position.set(Math.cos(aa)*rr2,.55+(i>9?.22:0),Math.sin(aa)*rr2);bw.add(ol)}
+bw.position.set(-.2,0,2.6);item(bw);
+/* bread */
+var br=new THREE.Group();var lf=new THREE.Mesh(new THREE.SphereGeometry(1.25,14,8,0,6.29,0,1.6),pm(0xB47A3C,15));lf.scale.set(1.35,.75,1);br.add(lf);
+for(i=0;i<3;i++){var bs=new THREE.Mesh(new THREE.CylinderGeometry(.75,.75,.22,14),pm(0xEAD3A6,8));bs.rotation.x=1.35;bs.position.set(1.9+i*.35,.6,.1);br.add(bs)}
+br.position.set(-5.6,0,-1.3);item(br);
+/* wine glass with malvazija */
+var wg=new THREE.Group();var glP=[[0,0],[.7,0],[.72,.06],[.1,.15],[.08,1.4],[.55,1.75],[.8,2.4],[.78,3.1],[.74,3.1],[.76,2.4],[.53,1.8],[0,1.6]].map(function(p){return new THREE.Vector2(p[0],p[1])});
+wg.add(new THREE.Mesh(new THREE.LatheGeometry(glP,20),new THREE.MeshPhongMaterial({color:0xffffff,specular:0xffffff,shininess:150,transparent:true,opacity:.28,side:THREE.DoubleSide,depthWrite:false})));
+var wn=new THREE.Mesh(new THREE.LatheGeometry([[0,1.62],[.52,1.82],[.72,2.3],[0,2.3]].map(function(p){return new THREE.Vector2(p[0],p[1])}),20),new THREE.MeshPhongMaterial({color:0xE7C873,transparent:true,opacity:.8,shininess:90}));wg.add(wn);
+wg.position.set(4.6,0,-1.2);item(wg);
+/* small dish of oil */
+var od=new THREE.Group();od.add(new THREE.Mesh(new THREE.CylinderGeometry(.95,.8,.25,20),pm(0xF4EFE6,30)));var oo=new THREE.Mesh(new THREE.CylinderGeometry(.8,.8,.05,20),new THREE.MeshPhongMaterial({color:0xD8AE2A,emissive:0x4A3300,shininess:120}));oo.position.y=.13;od.add(oo);od.position.set(-2.4,.13,-1.8);item(od);
+table.scale.setScalar(.001);
+var BT=TC.clone().add(new THREE.Vector3(1.2,.0,-1.6));
 /* olives on the trees nearest the path */
 var near=trees.filter(function(t){return Math.abs(t.x)<17&&t.z>-34&&t.z<10});
 var PER=mob?14:22,OL=[];near.forEach(function(t){for(var j=0;j<PER;j++){var cr=t.cr[j%t.cr.length],a=Math.random()*6.28,b=Math.acos(Math.random()*1.4-.7),rr=cr[3]*.98;
@@ -2441,7 +2498,7 @@ var oliveG=new THREE.SphereGeometry(.17,8,6);
 var olives=new THREE.InstancedMesh(oliveG,new THREE.MeshPhongMaterial({color:0xffffff,shininess:60,specular:0x666644}),OL.length);
 olives.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(olives);
 var cGreen=new THREE.Color(0x4E5A1E),cPurp=new THREE.Color(0x2E1F2A),cGold=new THREE.Color(0xE8BE3A);
-var neck=B.clone().add(new THREE.Vector3(0,4.7*BS,0));
+var neck=B.clone().add(new THREE.Vector3(0,6.7*BS,0));
 OL.forEach(function(o,i){var mid=o.s.clone().lerp(neck,.5);mid.y+=9+Math.random()*5;mid.x+=(Math.random()-.5)*14;mid.z+=(Math.random()-.5)*8;o.m=mid;col.copy(cGreen).lerp(cPurp,o.c*.8);o.col=col.clone()});
 
 /* warm dust */
@@ -2467,12 +2524,13 @@ function sm(a,b,x){var t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t)}
 var tx=0,ty=0,mx=0,my=0;addEventListener('pointermove',function(e){tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5},{passive:true});
 var p=0,T=0,last=0,run=false,raf=0,vis=true,shown=false;
 var cP=new THREE.Vector3(),cL=new THREE.Vector3(),q=new THREE.Vector3(),q2=new THREE.Vector3();
-var c0=new THREE.Vector3(0,3.2,20),l0=new THREE.Vector3(0,3.6,-30),c1=new THREE.Vector3(0,5.5,6),l1=new THREE.Vector3(0,11.5,-24),c2=new THREE.Vector3(0,10.5,6),l2=B.clone().add(new THREE.Vector3(0,2.6*BS,0));
+var c0=new THREE.Vector3(0,3.2,20),l0=new THREE.Vector3(0,3.6,-30),c1=new THREE.Vector3(0,5.5,6),l1=new THREE.Vector3(0,11.5,-24),c2=new THREE.Vector3(0,12,7),l2=B.clone().add(new THREE.Vector3(0,4.1*BS,0));
+var c3=TC.clone().add(new THREE.Vector3(0,mob?7.5:5.6,mob?17:11.5)),l3=TC.clone().add(new THREE.Vector3(0,mob?-1.2:-1.6,-1));
 function frame(ts){raf=requestAnimationFrame(frame);var dt=last?Math.min((ts-last)/1000,.05):.016;last=ts;T+=dt;dU.uT.value=T;
  p+=(prog()-p)*.12;mx+=(tx-mx)*.04;my+=(ty-my)*.04;
- var a=sm(0,.5,p),b=sm(.45,1,p);
- cP.copy(c0).lerp(c1,a).lerp(c2,b);cL.copy(l0).lerp(l1,a).lerp(l2,b);
- cP.x+=mx*3+Math.sin(T*.15)*.6;cP.y+=-my*1.2;cam.position.copy(cP);cam.lookAt(cL);
+ var a=sm(0,.5,p),b=sm(.42,.78,p),d3=sm(.78,.95,p);
+ cP.copy(c0).lerp(c1,a).lerp(c2,b).lerp(c3,d3);cL.copy(l0).lerp(l1,a).lerp(l2,b).lerp(l3,d3);
+ cP.x+=mx*3*(1-d3*.6)+Math.sin(T*.15)*.6;cP.y+=-my*1.2;cam.position.copy(cP);cam.lookAt(cL);
  /* olives */
  var pf=(p-.18)/.6;
  for(var i=0;i<OL.length;i++){var o=OL[i],t=Math.max(0,Math.min(1,(pf-o.d)/.45));
@@ -2483,9 +2541,9 @@ function frame(ts){raf=requestAnimationFrame(frame);var dt=last?Math.min((ts-las
   E.set(0,0,0);Q.setFromEuler(E);M.compose(q,Q,S);olives.setMatrixAt(i,M);olives.setColorAt(i,col)}
  olives.instanceMatrix.needsUpdate=true;if(olives.instanceColor)olives.instanceColor.needsUpdate=true;
  /* bottle */
- var bs=sm(.32,.55,p);bottle.scale.setScalar(Math.max(.001,bs*BS));bottle.rotation.y=T*.25+mx*.6;bottle.position.y=B.y+Math.sin(T*.8)*.25;
- var lv=sm(.42,.95,p)*3.05;clip.constant=bottle.position.y+lv*BS;oil.visible=lv>.02;
- halo.material.uniforms.uA.value=sm(.75,1,p)*.55;halo.position.y=bottle.position.y+2.3*BS;bl.intensity=sm(.5,1,p)*1.2;
+ var bs=sm(.32,.55,p),land=sm(.8,.92,p);bottle.scale.setScalar(Math.max(.001,bs*(BS+(BSe-BS)*land)));var st=sm(.9,.98,p);bottle.rotation.y=(1-st)*(T*.25)+st*(Math.sin(T*.5)*.25)+mx*.5;var k=st<1?(1+Math.sin(st*Math.PI)*.35):1;label.material.opacity=sm(.9,.93,p);labWrap.scale.set(st*k||.001,st*k||.001,st*k||.001);labWrap.rotation.z=(1-st)*.35;bottle.position.copy(B).lerp(BT,land);bottle.position.y+=Math.sin(T*.8)*.25*(1-land);var ts=sm(.78,.9,p);table.scale.setScalar(Math.max(.001,ts));items.forEach(function(g,ii){var e2=sm(.84+ii*.018,.9+ii*.018,p);g.scale.setScalar(Math.max(.001,e2*(1+Math.sin(e2*Math.PI)*.25)))});
+ var lv=sm(.42,.8,p)*4.9;clip.constant=bottle.position.y+lv*bottle.scale.y;oil.visible=lv>.02;
+ halo.material.uniforms.uA.value=sm(.6,.8,p)*(1-land)*.55;halo.position.copy(bottle.position);halo.position.y+=3.3*bottle.scale.y;halo.scale.setScalar(7*bottle.scale.y+.001);bl.intensity=sm(.5,1,p)*1.2;
  /* overlays */
  var hf=1-sm(.02,.12,p);if(heroC){heroC.style.opacity=hf;heroC.style.transform='translateY('+(-(1-hf)*40)+'px)';heroC.style.pointerEvents=hf<.3?'none':''}if(srch)srch.style.opacity=hf;
  steps.forEach(function(s){var a0=+s.dataset.a,a1=+s.dataset.b,o=sm(a0,a0+.06,p)*(1-sm(a1-.06,a1,p));s.style.opacity=o;s.style.transform='translateY('+((1-o)*24)+'px)';s.style.pointerEvents=o>.5?'auto':'none'});
