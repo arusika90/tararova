@@ -663,7 +663,22 @@ html select{height:56px;line-height:normal}
 
 <!-- ================= HERO ================= -->
 <section class="hero" id="hero" aria-label="Rent a Boat Punat">
-  <div class="hero__media" id="heroMedia"><div class="hcam" id="hcam"><img src="img/hero.jpg" alt="Rent a Boat Punat boats at the pier in Punat harbour, from above" fetchpriority="high" style="object-position:50% 12%"></div><div class="hglint" aria-hidden="true"></div></div>
+  <div class="hero__media" id="heroMedia">
+    <!-- static SVG scene (fallback + base layer): motorboat from above with its wake -->
+    <svg class="hero__scene" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect width="400" height="800" fill="url(#gSeaTop)"/>
+      <g class="swell" opacity=".35"><use href="#i-waves" width="520" height="104" x="-60" y="60" color="#9FD6EA"/></g>
+      <g class="swell s2" opacity=".25"><use href="#i-waves" width="640" height="128" x="-120" y="520" color="#9FD6EA"/></g>
+      <g class="swell" opacity=".2"><use href="#i-waves" width="600" height="120" x="-40" y="660" color="#9FD6EA"/></g>
+      <path d="M186 392L40 800H74L194 404z" fill="#fff" opacity=".28"/>
+      <path d="M214 392L360 800H326L206 404z" fill="#fff" opacity=".28"/>
+      <path d="M190 392C182 520 172 650 158 800H242C228 650 218 520 210 392z" fill="url(#gFoam)" opacity=".8"/>
+      <g fill="#fff"><circle class="glint" cx="96" cy="150" r="2.2"/><circle class="glint" cx="290" cy="120" r="1.8"/><circle class="glint" cx="320" cy="260" r="2.4"/><circle class="glint" cx="70" cy="300" r="1.6"/><circle class="glint" cx="250" cy="70" r="2"/><circle class="glint" cx="130" cy="60" r="1.4"/><circle class="glint" cx="340" cy="400" r="1.8"/><circle class="glint" cx="54" cy="460" r="2"/></g>
+      <g class="boatbob"><use href="#i-top" width="76" height="190" x="162" y="210" color="#0C2448"/></g>
+      <use href="#i-buoy" width="22" height="30" x="320" y="330" color="#0C2448"/>
+    </svg>
+    <canvas id="sea" aria-hidden="true"></canvas>
+  </div>
   <div class="hero__veil"></div>
   <div class="hero__c">
     <div class="wrap">
@@ -677,6 +692,8 @@ html select{height:56px;line-height:normal}
       <a class="hero__addr fade-up d3" href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="hero.addr">Obala 107, Punat · Google 4.9 from 128 reviews</span></a>
       <div class="hero__cta fade-up d4">
         <a href="#book" class="pill pill--grey" data-i18n="hero.cta">Book a boat</a>
+      
+        <div class="hero__hint"><i></i><span id="hintTxt" data-i18n="hint.touch">Touch to look around</span></div>
       </div>
     </div>
   </div>
@@ -721,27 +738,7 @@ html select{height:56px;line-height:normal}
     <div class="gal__prog"><i id="galProg"></i></div>
   </div>
 </section>
-<!-- 3D sea, moved out of the hero -->
-<section class="seaband" id="seaband" aria-label="3D">
-  <div class="hero__media seaband__media" aria-hidden="true">
-    <!-- static SVG scene (fallback + base layer): motorboat from above with its wake -->
-    <svg class="hero__scene" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <rect width="400" height="800" fill="url(#gSeaTop)"/>
-      <g class="swell" opacity=".35"><use href="#i-waves" width="520" height="104" x="-60" y="60" color="#9FD6EA"/></g>
-      <g class="swell s2" opacity=".25"><use href="#i-waves" width="640" height="128" x="-120" y="520" color="#9FD6EA"/></g>
-      <g class="swell" opacity=".2"><use href="#i-waves" width="600" height="120" x="-40" y="660" color="#9FD6EA"/></g>
-      <path d="M186 392L40 800H74L194 404z" fill="#fff" opacity=".28"/>
-      <path d="M214 392L360 800H326L206 404z" fill="#fff" opacity=".28"/>
-      <path d="M190 392C182 520 172 650 158 800H242C228 650 218 520 210 392z" fill="url(#gFoam)" opacity=".8"/>
-      <g fill="#fff"><circle class="glint" cx="96" cy="150" r="2.2"/><circle class="glint" cx="290" cy="120" r="1.8"/><circle class="glint" cx="320" cy="260" r="2.4"/><circle class="glint" cx="70" cy="300" r="1.6"/><circle class="glint" cx="250" cy="70" r="2"/><circle class="glint" cx="130" cy="60" r="1.4"/><circle class="glint" cx="340" cy="400" r="1.8"/><circle class="glint" cx="54" cy="460" r="2"/></g>
-      <g class="boatbob"><use href="#i-top" width="76" height="190" x="162" y="210" color="#0C2448"/></g>
-      <use href="#i-buoy" width="22" height="30" x="320" y="330" color="#0C2448"/>
-    </svg>
-    <canvas id="sea" aria-hidden="true"></canvas>
-  </div>
-  <div class="hero__veil"></div>
-  <div class="seaband__c"><div class="wrap"><p class="seaband__t" data-i18n="hero.sub">Motorboat rental in Punat</p><div class="hero__hint"><i></i><span id="hintTxt" data-i18n="hint.touch">Touch to look around</span></div></div></div>
-</section>
+
 
 
 <nav class="subnav" id="subnav" aria-label="Sections">
@@ -1472,8 +1469,8 @@ function loadThree(){
   var s = document.createElement("script");
   s.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
   s.async = true;
-  s.onload = function(){ try{ startBoat(); }catch(err){ if(window.console) console.warn("3D hero fallback:", err); document.getElementById("seaband").classList.remove("gl-on"); } };
-  s.onerror = function(){ document.getElementById("seaband").classList.remove("gl-on"); };
+  s.onload = function(){ try{ startBoat(); }catch(err){ if(window.console) console.warn("3D hero fallback:", err); hero.classList.remove("gl-on"); } };
+  s.onerror = function(){ hero.classList.remove("gl-on"); };
   document.head.appendChild(s);
 }
 function sprayTexture(THREE){
@@ -1502,7 +1499,6 @@ var NOISE_GLSL = [
   "float fbm(vec2 p){ float v = 0.0, a = 0.5; for(int i = 0; i < 4; i++){ v += a*vnoise(p); p *= 2.03; a *= 0.5; } return v; }"
 ].join("\n");
 function startBoat(){
-  var seaband = document.getElementById("seaband");
   var canvas = $("#sea"), mobile = mqMobile.matches;
   var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: !mobile, alpha: false, powerPreference: "high-performance"});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2));
@@ -1715,14 +1711,14 @@ function startBoat(){
 
   /* pointer parallax */
   var mouse = {x: 0, y: 0, sx: 0, sy: 0}, sp = 0;
-  function setPointer(cx, cy){ var r = seaband.getBoundingClientRect(); mouse.x = ((cx - r.left) / r.width - .5) * 2; mouse.y = ((cy - r.top) / r.height - .5) * 2; }
-  seaband.addEventListener("pointermove", function(e){ if(e.pointerType === "touch") return; setPointer(e.clientX, e.clientY); });
-  seaband.addEventListener("pointerleave", function(){ mouse.x = 0; mouse.y = 0; });
-  seaband.addEventListener("touchmove", function(e){ if(e.touches[0]) setPointer(e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
-  seaband.addEventListener("touchend", function(){ mouse.x = 0; mouse.y = 0; });
+  function setPointer(cx, cy){ var r = hero.getBoundingClientRect(); mouse.x = ((cx - r.left) / r.width - .5) * 2; mouse.y = ((cy - r.top) / r.height - .5) * 2; }
+  hero.addEventListener("pointermove", function(e){ if(e.pointerType === "touch") return; setPointer(e.clientX, e.clientY); });
+  hero.addEventListener("pointerleave", function(){ mouse.x = 0; mouse.y = 0; });
+  hero.addEventListener("touchmove", function(e){ if(e.touches[0]) setPointer(e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
+  hero.addEventListener("touchend", function(){ mouse.x = 0; mouse.y = 0; });
 
   function resize(){
-    var w = seaband.clientWidth, h = seaband.clientHeight * 1.16;
+    var w = hero.clientWidth, h = hero.clientHeight * 1.16;
     renderer.setSize(w, h, false); camera.aspect = w / h;
     if(w < h) camera.setViewOffset(w, h, 0, h * .27, w, h); else camera.clearViewOffset();
     camera.updateProjectionMatrix();
@@ -1736,7 +1732,7 @@ function startBoat(){
     var dt = Math.min(.05, (now - last) / 1000 || .016); last = now; tAcc += dt;
     uTime.value = tAcc;
     mouse.sx += (mouse.x - mouse.sx) * .05; mouse.sy += (mouse.y - mouse.sy) * .05;
-    var p = Math.max(0, Math.min(1, scrollY0 / (seaband.offsetHeight || 1)));
+    var p = Math.max(0, Math.min(1, scrollY0 / (hero.offsetHeight || 1)));
     sp += (p - sp) * .08;
     // boat motion: planing, gentle bob and roll
     boat.position.y = .02 + Math.sin(tAcc * 1.3) * .05 + Math.sin(tAcc * 2.7) * .015;
@@ -1762,9 +1758,9 @@ function startBoat(){
   }
   function setRun(on){ if(on === running) return; running = on; if(on){ last = performance.now(); raf = requestAnimationFrame(frame); } else cancelAnimationFrame(raf); }
   function check(){ setRun(visible && !document.hidden); }
-  if("IntersectionObserver" in window){ new IntersectionObserver(function(es){ visible = es[0].isIntersecting; check(); }, {threshold: .02}).observe(seaband); }
+  if("IntersectionObserver" in window){ new IntersectionObserver(function(es){ visible = es[0].isIntersecting; check(); }, {threshold: .02}).observe(hero); }
   boatCtl = {visibility: check};
-  seaband.classList.add("gl-on");
+  hero.classList.add("gl-on");
   check(); setHint();
 }
 if(document.readyState === "complete") loadThree(); else window.addEventListener("load", function(){ setTimeout(loadThree, 50); });
