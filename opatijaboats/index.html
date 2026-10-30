@@ -548,6 +548,44 @@ html select{height:56px;line-height:normal}
 /* FAQ: left heading travels with the questions */
 @media(min-width:900px){.faq__grid>.sh{position:sticky;top:140px;align-self:start}}
 .faq__grid>.sh::after{display:none}
+
+/* day scene: softer veil, smaller tour cards */
+#hero .hero__veil{background:linear-gradient(to top,rgba(5,25,50,.62) 0%,rgba(5,25,50,.25) 42%,rgba(5,25,50,0) 66%),linear-gradient(to right,rgba(5,25,50,.38) 0%,rgba(5,25,50,0) 60%)!important}
+#tours .peek .tcard{flex-basis:min(300px,74vw)!important;width:min(300px,74vw)!important;max-width:300px}
+#tours .peek .tcard .frame{aspect-ratio:4/3!important}
+
+/* how: heading sits with the photo, both travel together */
+#how .how__sh{margin-bottom:28px}#how .how__sh::after{display:none}
+@media(min-width:900px){#how .how__img{aspect-ratio:4/3}#how .how__body{align-items:start}}
+/* crew: big numbers */
+.cstat{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:34px 0 34px;border-top:1px solid rgba(255,255,255,.18)}
+.cstat .cstat__n{padding:22px 18px 0 0;display:flex;flex-direction:column;gap:6px}
+.cstat .cstat__n+.cstat__n{padding-left:22px;border-left:1px solid rgba(255,255,255,.18)}
+.cstat b{font-family:var(--serif);font-weight:400;font-size:clamp(52px,7vw,96px);line-height:.95;letter-spacing:-.03em;color:var(--amber);font-variant-numeric:tabular-nums}
+.cstat sup{font-size:.45em;vertical-align:.9em;margin-left:2px}
+.cstat .cstat__n>span{font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+@media(max-width:560px){.cstat .cstat__n{padding-right:10px}.cstat .cstat__n+.cstat__n{padding-left:12px}}
+
+/* steps 1-2-3 appear one after another */
+#tl .step{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+#tl .step.shown{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){#tl .step{opacity:1;transform:none}}
+/* booking drawer */
+.bdr{position:fixed;inset:0;z-index:400;pointer-events:none}
+.bdr__bg{position:absolute;inset:0;background:rgba(3,14,30,.5);opacity:0;transition:opacity .35s}
+.bdr__p{position:absolute;top:0;right:0;bottom:0;width:min(560px,100%);overflow:auto;-webkit-overflow-scrolling:touch;transform:translateX(100%);transition:transform .45s cubic-bezier(.2,.7,.2,1);padding:28px 28px 40px;box-shadow:-30px 0 80px -30px rgba(0,0,0,.6)}
+.bdr.on{pointer-events:auto}.bdr.on .bdr__bg{opacity:1}.bdr.on .bdr__p{transform:none}
+.bdr__top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+.bdr__top h3{font-family:var(--serif);font-weight:400;font-size:30px;margin:0}
+.bdr__x{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:transparent;color:inherit;font-size:22px;cursor:pointer;flex:none}
+.bdr .form{opacity:1!important;transform:none!important}
+.bdr-on{overflow:hidden}
+.bdr-on .ci-bar,.bdr-on .fab,.bdr-on #fab,.bdr-on .tr-bar{opacity:0!important;pointer-events:none!important}
+@media(max-width:640px){.bdr__p{top:auto;max-height:92vh;width:100%;border-radius:22px 22px 0 0;transform:translateY(100%);padding:22px 18px 30px}}
+
+/* near heading travels with the list, no line at the bottom */
+@media(min-width:900px){.near__grid>.sh{position:sticky;top:140px;align-self:start}}
+.near__grid>.sh::after{display:none}
 </style>
 <style>.hero__hint{display:none!important}</style>
 <style id="faq-sticky">
@@ -659,14 +697,42 @@ html select{height:56px;line-height:normal}
 <main id="top">
 
 <!-- ================= HERO ================= -->
+<!-- HERO: 3D stays here, Marija asked for it on 30.10 (do not swap for a photo) -->
 <section class="hero" id="hero" aria-label="Opatija Boats">
-  <div class="hero__media" id="heroMedia"><div class="hcam" id="hcam"><img src="img/hero.jpg" alt="Sunset over Kvarner from the bow of an Opatija Boats boat" fetchpriority="high" style="object-position:50% 55%"></div><div class="hglint" aria-hidden="true"></div></div>
+  <div class="hero__media" id="heroMedia">
+    <!-- static SVG scene (fallback + base layer) -->
+    <svg class="hero__scene" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect width="400" height="800" fill="url(#gSky)"/>
+      <circle class="sunp" cx="150" cy="398" r="70" fill="url(#gSun)"/>
+      <circle cx="150" cy="398" r="20" fill="#FFF0CC"/>
+      <use href="#i-coast" width="520" height="90" x="-40" y="336" color="#1E3A5F" opacity=".85"/>
+      <use href="#i-coast" width="700" height="60" x="-20" y="376" color="#0F2A4C"/>
+      <rect y="420" width="400" height="380" fill="url(#gSea)"/>
+      <g class="swell" opacity=".9"><use href="#i-waves" width="520" height="104" x="-40" y="470" color="#5FA3CC"/></g>
+      <g class="swell s2" opacity=".6"><use href="#i-waves" width="640" height="128" x="-60" y="560" color="#3C7FB0"/></g>
+      <path d="M150 420C140 480 120 560 90 700L210 700C180 560 160 480 150 420z" fill="url(#gGlit)" opacity=".55"/>
+      <g fill="#FFE7B3" opacity=".8"><rect x="120" y="440" width="60" height="2" rx="1"/><rect x="104" y="470" width="92" height="2" rx="1"/><rect x="92" y="500" width="116" height="3" rx="1.5"/><rect x="110" y="530" width="80" height="2" rx="1"/><rect x="80" y="565" width="140" height="3" rx="1.5"/><rect x="100" y="600" width="100" height="2" rx="1"/><rect x="70" y="640" width="160" height="3" rx="1.5"/></g>
+      <use href="#i-buoy" width="22" height="30" x="300" y="452" color="#0A2B5E"/>
+      <use href="#i-sail" width="36" height="44" x="40" y="420" color="#0A2B5E"/>
+    </svg>
+    <canvas id="sea" aria-hidden="true"></canvas>
+    <!-- the bow of our boat -->
+    <svg class="hero__bow" id="bow" viewBox="0 0 760 300" aria-hidden="true">
+      <path d="M0 300C60 240 180 160 380 120C580 160 700 240 760 300z" fill="url(#gTube)"/>
+      <path d="M40 300C110 252 220 190 380 156C540 190 650 252 720 300z" fill="url(#gHull)"/>
+      <path d="M0 300C60 240 180 160 380 120C580 160 700 240 760 300" fill="none" stroke="#B9C3CC" stroke-width="2"/>
+      <path d="M120 300C180 262 270 212 380 184C490 212 580 262 640 300z" fill="#EEF2F5"/>
+      <path d="M380 156V300" stroke="#C7D0D8" stroke-width="2"/>
+      <path d="M330 178C300 176 280 182 276 190" fill="none" stroke="#8E9BA6" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="380" cy="150" r="7" fill="#E5735A"/>
+    </svg>
+  </div>
   <div class="hero__veil"></div>
   <div class="hero__c">
     <div class="wrap">
       <p class="label fade-up d1"><span data-i18n="hero.label">Opatija port · Rijeka · Kvarner bay</span></p>
       <h1>
-        <span class="mask"><span data-i18n="hero.t1">Golden hour,</span></span>
+        <span class="mask"><span data-i18n="hero.t1">Open sea,</span></span>
         <span class="mask"><span data-i18n="hero.t2">from the bow of your boat</span></span>
         <span class="mask"><span class="sub" data-i18n="hero.sub">Boat tours &amp; speedboat rental</span></span>
       </h1>
@@ -674,6 +740,7 @@ html select{height:56px;line-height:normal}
       <a class="hero__addr fade-up d3" href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="hero.addr">Zert, 51410 Opatija · next to Restaurant Molo</span></a>
       <div class="hero__cta fade-up d4">
         <a href="#book" class="pill pill--grey" data-i18n="hero.cta">Book a sunset tour</a>
+        <div class="hero__hint"><i></i><span id="hintTxt" data-i18n="hint.touch">Tilt by touch</span></div>
       </div>
     </div>
   </div>
@@ -721,39 +788,7 @@ html select{height:56px;line-height:normal}
     <div class="gal__prog"><i id="galProg"></i></div>
   </div>
 </section>
-<!-- 3D sea, moved out of the hero -->
-<section class="seaband" id="seaband" aria-label="3D">
-  <div class="hero__media seaband__media" aria-hidden="true">
-    <!-- static SVG scene (fallback + base layer) -->
-    <svg class="hero__scene" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <rect width="400" height="800" fill="url(#gSky)"/>
-      <circle class="sunp" cx="150" cy="398" r="70" fill="url(#gSun)"/>
-      <circle cx="150" cy="398" r="20" fill="#FFF0CC"/>
-      <use href="#i-coast" width="520" height="90" x="-40" y="336" color="#1E3A5F" opacity=".85"/>
-      <use href="#i-coast" width="700" height="60" x="-20" y="376" color="#0F2A4C"/>
-      <rect y="420" width="400" height="380" fill="url(#gSea)"/>
-      <g class="swell" opacity=".9"><use href="#i-waves" width="520" height="104" x="-40" y="470" color="#5FA3CC"/></g>
-      <g class="swell s2" opacity=".6"><use href="#i-waves" width="640" height="128" x="-60" y="560" color="#3C7FB0"/></g>
-      <path d="M150 420C140 480 120 560 90 700L210 700C180 560 160 480 150 420z" fill="url(#gGlit)" opacity=".55"/>
-      <g fill="#FFE7B3" opacity=".8"><rect x="120" y="440" width="60" height="2" rx="1"/><rect x="104" y="470" width="92" height="2" rx="1"/><rect x="92" y="500" width="116" height="3" rx="1.5"/><rect x="110" y="530" width="80" height="2" rx="1"/><rect x="80" y="565" width="140" height="3" rx="1.5"/><rect x="100" y="600" width="100" height="2" rx="1"/><rect x="70" y="640" width="160" height="3" rx="1.5"/></g>
-      <use href="#i-buoy" width="22" height="30" x="300" y="452" color="#0A2B5E"/>
-      <use href="#i-sail" width="36" height="44" x="40" y="420" color="#0A2B5E"/>
-    </svg>
-    <canvas id="sea" aria-hidden="true"></canvas>
-    <!-- the bow of our boat -->
-    <svg class="hero__bow" id="bow" viewBox="0 0 760 300" aria-hidden="true">
-      <path d="M0 300C60 240 180 160 380 120C580 160 700 240 760 300z" fill="url(#gTube)"/>
-      <path d="M40 300C110 252 220 190 380 156C540 190 650 252 720 300z" fill="url(#gHull)"/>
-      <path d="M0 300C60 240 180 160 380 120C580 160 700 240 760 300" fill="none" stroke="#B9C3CC" stroke-width="2"/>
-      <path d="M120 300C180 262 270 212 380 184C490 212 580 262 640 300z" fill="#EEF2F5"/>
-      <path d="M380 156V300" stroke="#C7D0D8" stroke-width="2"/>
-      <path d="M330 178C300 176 280 182 276 190" fill="none" stroke="#8E9BA6" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="380" cy="150" r="7" fill="#E5735A"/>
-    </svg>
-  </div>
-  <div class="hero__veil"></div>
-  <div class="seaband__c"><div class="wrap"><p class="seaband__t" data-i18n="hero.sub">Boat tours &amp; speedboat rental</p><div class="hero__hint"><i></i><span id="hintTxt" data-i18n="hint.touch">Tilt by touch</span></div></div></div>
-</section>
+
 
 
 <nav class="subnav" id="subnav" aria-label="Sections">
@@ -952,7 +987,7 @@ html select{height:56px;line-height:normal}
       <p class="label rv"><span class="num">06</span><span data-i18n="crew.label">The crew</span></p>
       <h2 class="rv" data-i18n="crew.h">Local skippers who know every cove</h2>
       <p class="rv" data-delay="1" data-i18n="crew.p">Our skippers are experienced locals, and all of them speak fluent English. They know the swimming spots, the clearest water and how to read the sea. Book one with any boat, or learn from them in a skipper training session.</p>
-      <div class="crew rv" data-delay="2"><span><i>500+</i><span data-i18n="crew.c1">happy guests</span></span><span><i>10</i><span data-i18n="crew.c2">destinations</span></span><span><i>EN</i><span data-i18n="crew.c3">fluent English</span></span></div>
+      <div class="cstat rv" data-delay="2"><div class="cstat__n"><b><span class="cnt" data-to="500">500</span><sup>+</sup></b><span data-i18n="crew.c1">happy guests</span></div><div class="cstat__n"><b><span class="cnt" data-to="10">10</span></b><span data-i18n="crew.c2">destinations</span></div><div class="cstat__n"><b>EN</b><span data-i18n="crew.c3">fluent English</span></div></div>
     </div>
     <div class="rv" data-delay="2">
       <a href="https://wa.me/385916106010?text=Hi%20Opatija%20Boats%2C%20I%20have%20a%20question%20about%20a%20tour." class="pill pill--outline" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span data-i18n="crew.cta">Message us on WhatsApp</span></a>
@@ -964,12 +999,13 @@ html select{height:56px;line-height:normal}
 <section class="sec has-deco bg-linen" id="how">
   <svg class="deco" style="width:180px;right:-30px;top:60px;color:#0A2B5E;opacity:.12" viewBox="0 0 100 120" data-speed=".2"><use href="#i-anchor" width="100" height="120"/></svg>
   <div class="wrap">
-    <div class="sh rv">
+    
+    <div class="how__body">
+      <div class="how__img-wrap">
+        <div class="sh rv how__sh">
       <p class="label"><span class="num">07</span><span data-i18n="how.label">How it works</span></p>
       <h2 data-i18n="how.h">Three steps to the water</h2>
     </div>
-    <div class="how__body">
-      <div class="how__img-wrap">
         <div class="frame how__img rv-img"><div class="art art--harbour"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-coast" width="800" height="120" x="-100" y="120" color="#4D6F8C" opacity=".55"/><use href="#i-buoy" width="50" height="68" x="90" y="230" color="#0A2B5E"/><use href="#i-rib" width="300" height="127" x="200" y="200" color="#0A2B5E"/><use href="#i-waves" width="800" height="160" x="-100" y="300" color="#fff" opacity=".7"/></svg><img src="img/crew.jpg" alt="ML Aquatics skippers ready at the boat" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div><span class="tag-b" data-i18n="how.tag">Opatija port</span></div>
       </div>
       <ol class="tl" id="tl">
@@ -1155,7 +1191,7 @@ var mqDesk = window.matchMedia("(min-width: 900px)");
 var T = {
 en:{
  "logo.sub":"Rent a boat & tours","nav.book":"Book a tour","nav.menu":"MENU","ovl.tours":"Tours","ovl.how":"How it works","ovl.nearby":"Along the coast","ovl.book":"Booking","ovl.faq":"FAQ","ovl.contact":"Contact","cta.wa":"WhatsApp us","ovl.addr":"Opatija port, next to Restaurant Molo","ovl.hours":"Daily 09:00 to 21:00","concept":"Concept by Tararova",
- "hero.label":"Opatija port · Rijeka · Kvarner bay","hero.t1":"Golden hour,","hero.t2":"from the bow of your boat","hero.sub":"Boat tours & speedboat rental","hero.txt":"Small-group trips to the secluded beaches of Cres and Krk, a sunset cruise along the Opatija Riviera and private tours with a skipper. Or rent a speedboat and take the wheel yourself.","hero.addr":"Zert, 51410 Opatija · next to Restaurant Molo","hero.cta":"Book a sunset tour","hint.touch":"Tilt by touch","hint.mouse":"Move the mouse to tilt",
+ "hero.label":"Opatija port · Rijeka · Kvarner bay","hero.t1":"Open sea,","hero.t2":"from the bow of your boat","hero.sub":"Boat tours & speedboat rental","hero.txt":"Small-group trips to the secluded beaches of Cres and Krk, a sunset cruise along the Opatija Riviera and private tours with a skipper. Or rent a speedboat and take the wheel yourself.","hero.addr":"Zert, 51410 Opatija · next to Restaurant Molo","hero.cta":"Book a sunset tour","hint.touch":"Tilt by touch","hint.mouse":"Move the mouse to tilt",
  "finder.b":"Private tour","finder.s":"Pick a date • {n}",
  "gal.label":"On the water","gal.h":"A day on the Kvarner","gal.sub":"Cliffs, secluded beaches, a swim and a cold drink. Scroll through what a day with us looks like.",
  "gal.g1":"Opatija Riviera","gal.g2":"Island of Cres","gal.g3":"Brseč cliffs","gal.g4":"Island of Krk","gal.g5":"Kvarner bay",
@@ -1276,7 +1312,7 @@ en:{
 },
 de:{
  "logo.sub":"Bootsverleih & Touren","nav.book":"Tour buchen","nav.menu":"MENÜ","ovl.tours":"Touren","ovl.how":"So geht es","ovl.nearby":"Entlang der Küste","ovl.book":"Buchung","ovl.faq":"FAQ","ovl.contact":"Kontakt","cta.wa":"Per WhatsApp schreiben","ovl.addr":"Hafen Opatija, neben dem Restaurant Molo","ovl.hours":"Täglich 09:00 bis 21:00","concept":"Konzept: Tararova",
- "hero.label":"Hafen Opatija · Rijeka · Kvarner Bucht","hero.t1":"Goldene Stunde,","hero.t2":"vom Bug deines Bootes","hero.sub":"Bootstouren & Speedboot-Verleih","hero.txt":"Ausflüge in kleinen Gruppen zu den versteckten Stränden von Cres und Krk, eine Sunset-Fahrt entlang der Riviera von Opatija und private Touren mit Skipper. Oder du mietest ein Speedboot und übernimmst selbst das Steuer.","hero.addr":"Zert, 51410 Opatija · neben dem Restaurant Molo","hero.cta":"Sunset-Tour buchen","hint.touch":"Berühren zum Neigen","hint.mouse":"Maus bewegen zum Neigen",
+ "hero.label":"Hafen Opatija · Rijeka · Kvarner Bucht","hero.t1":"Offenes Meer,","hero.t2":"vom Bug deines Bootes","hero.sub":"Bootstouren & Speedboot-Verleih","hero.txt":"Ausflüge in kleinen Gruppen zu den versteckten Stränden von Cres und Krk, eine Sunset-Fahrt entlang der Riviera von Opatija und private Touren mit Skipper. Oder du mietest ein Speedboot und übernimmst selbst das Steuer.","hero.addr":"Zert, 51410 Opatija · neben dem Restaurant Molo","hero.cta":"Sunset-Tour buchen","hint.touch":"Berühren zum Neigen","hint.mouse":"Maus bewegen zum Neigen",
  "finder.b":"Private Tour","finder.s":"Datum wählen • {n}",
  "gal.label":"Auf dem Wasser","gal.h":"Ein Tag auf der Kvarner","gal.sub":"Klippen, versteckte Strände, Schwimmen und ein kalter Drink. So sieht ein Tag mit uns aus.",
  "gal.g1":"Riviera von Opatija","gal.g2":"Insel Cres","gal.g3":"Klippen von Brseč","gal.g4":"Insel Krk","gal.g5":"Kvarner Bucht",
@@ -1397,7 +1433,7 @@ de:{
 },
 it:{
  "logo.sub":"Noleggio barche & tour","nav.book":"Prenota un tour","nav.menu":"MENU","ovl.tours":"Tour","ovl.how":"Come funziona","ovl.nearby":"Lungo la costa","ovl.book":"Prenotazione","ovl.faq":"FAQ","ovl.contact":"Contatti","cta.wa":"Scrivici su WhatsApp","ovl.addr":"Porto di Opatija, accanto al ristorante Molo","ovl.hours":"Ogni giorno dalle 09:00 alle 21:00","concept":"Concept di Tararova",
- "hero.label":"Porto di Opatija · Rijeka · Golfo del Quarnaro","hero.t1":"L'ora d'oro,","hero.t2":"dalla prua della tua barca","hero.sub":"Tour in barca & noleggio motoscafi","hero.txt":"Gite in piccoli gruppi verso le spiagge nascoste di Cres e Krk, una crociera al tramonto lungo la riviera di Opatija e tour privati con skipper. Oppure noleggia un motoscafo e prendi tu il timone.","hero.addr":"Zert, 51410 Opatija · accanto al ristorante Molo","hero.cta":"Prenota il tour al tramonto","hint.touch":"Tocca per inclinare","hint.mouse":"Muovi il mouse per inclinare",
+ "hero.label":"Porto di Opatija · Rijeka · Golfo del Quarnaro","hero.t1":"Mare aperto,","hero.t2":"dalla prua della tua barca","hero.sub":"Tour in barca & noleggio motoscafi","hero.txt":"Gite in piccoli gruppi verso le spiagge nascoste di Cres e Krk, una crociera al tramonto lungo la riviera di Opatija e tour privati con skipper. Oppure noleggia un motoscafo e prendi tu il timone.","hero.addr":"Zert, 51410 Opatija · accanto al ristorante Molo","hero.cta":"Prenota il tour al tramonto","hint.touch":"Tocca per inclinare","hint.mouse":"Muovi il mouse per inclinare",
  "finder.b":"Tour privato","finder.s":"Scegli una data • {n}",
  "gal.label":"Sull'acqua","gal.h":"Una giornata nel Quarnaro","gal.sub":"Scogliere, spiagge nascoste, un bagno e un drink fresco. Sfoglia com'è una giornata con noi.",
  "gal.g1":"Riviera di Opatija","gal.g2":"Isola di Cres","gal.g3":"Scogliere di Brseč","gal.g4":"Isola di Krk","gal.g5":"Golfo del Quarnaro",
@@ -1518,7 +1554,7 @@ it:{
 },
 hr:{
  "logo.sub":"Najam brodica & izleti","nav.book":"Rezerviraj izlet","nav.menu":"IZBORNIK","ovl.tours":"Izleti","ovl.how":"Kako funkcionira","ovl.nearby":"Uz obalu","ovl.book":"Rezervacija","ovl.faq":"Česta pitanja","ovl.contact":"Kontakt","cta.wa":"Piši nam na WhatsApp","ovl.addr":"Luka Opatija, pokraj restorana Molo","ovl.hours":"Svaki dan 09:00 do 21:00","concept":"Koncept: Tararova",
- "hero.label":"Luka Opatija · Rijeka · Kvarnerski zaljev","hero.t1":"Zlatni sat,","hero.t2":"s pramca tvoje brodice","hero.sub":"Izleti brodom i najam glisera","hero.txt":"Izleti u malim grupama do skrivenih plaža Cresa i Krka, vožnja u zalazak sunca uz opatijsku rivijeru i privatni izleti sa skiperom. Ili unajmite gliser i sami preuzmite kormilo.","hero.addr":"Zert, 51410 Opatija · pokraj restorana Molo","hero.cta":"Rezerviraj izlet u zalazak","hint.touch":"Dodirni za nagib","hint.mouse":"Pomakni miš za nagib",
+ "hero.label":"Luka Opatija · Rijeka · Kvarnerski zaljev","hero.t1":"Otvoreno more,","hero.t2":"s pramca tvoje brodice","hero.sub":"Izleti brodom i najam glisera","hero.txt":"Izleti u malim grupama do skrivenih plaža Cresa i Krka, vožnja u zalazak sunca uz opatijsku rivijeru i privatni izleti sa skiperom. Ili unajmite gliser i sami preuzmite kormilo.","hero.addr":"Zert, 51410 Opatija · pokraj restorana Molo","hero.cta":"Rezerviraj izlet u zalazak","hint.touch":"Dodirni za nagib","hint.mouse":"Pomakni miš za nagib",
  "finder.b":"Privatni izlet","finder.s":"Odaberi datum • {n}",
  "gal.label":"Na moru","gal.h":"Dan na Kvarneru","gal.sub":"Klifovi, skrivene plaže, kupanje i hladno piće. Prolistajte kako izgleda dan s nama.",
  "gal.g1":"Opatijska rivijera","gal.g2":"Otok Cres","gal.g3":"Klifovi Brseča","gal.g4":"Otok Krk","gal.g5":"Kvarnerski zaljev",
@@ -1914,8 +1950,8 @@ function loadThree(){
   var s = document.createElement("script");
   s.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
   s.async = true;
-  s.onload = function(){ try{ startSea(); }catch(err){ if(window.console) console.warn("3D hero fallback:", err); document.getElementById("seaband").classList.remove("gl-on"); } };
-  s.onerror = function(){ document.getElementById("seaband").classList.remove("gl-on"); };
+  s.onload = function(){ try{ startSea(); }catch(err){ if(window.console) console.warn("3D hero fallback:", err); hero.classList.remove("gl-on"); } };
+  s.onerror = function(){ hero.classList.remove("gl-on"); };
   document.head.appendChild(s);
 }
 
@@ -1947,20 +1983,19 @@ function wakeTexture(){
   });
 }
 function startSea(){
-  var seaband = document.getElementById("seaband");
   var canvas = $("#sea"), mobile = mqMobile.matches;
   var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: !mobile, alpha: false, powerPreference: "high-performance"});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2));
   var scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(0xeeb488, 70, 430);
+  scene.fog = new THREE.Fog(0xcfe2f0, 90, 520);
   var camera = new THREE.PerspectiveCamera(mobile ? 66 : 54, 1, .05, 900);
   camera.position.set(0, 2.1, 0); camera.rotation.order = "YXZ"; scene.add(camera);
-  var sunDir = new THREE.Vector3(-.18, .085, -1).normalize();
+  var sunDir = new THREE.Vector3(-.32, .62, -.72).normalize();
   var uTime = {value: 0}, uTravel = {value: 0};
   var SPEED = 7.5;
 
-  scene.add(new THREE.HemisphereLight(0xffe4c4, 0x24476e, 1.0));
-  var sunL = new THREE.DirectionalLight(0xffc896, .9); sunL.position.copy(sunDir).multiplyScalar(-60).add(new THREE.Vector3(30, 60, 20)); scene.add(sunL);
+  scene.add(new THREE.HemisphereLight(0xe6f2ff, 0x2a5a7a, 1.05));
+  var sunL = new THREE.DirectionalLight(0xfff4e2, 1.15); sunL.position.copy(sunDir).multiplyScalar(100); scene.add(sunL);
 
   /* sky dome */
   var skyMat = new THREE.ShaderMaterial({
@@ -1970,13 +2005,13 @@ function startSea(){
     fragmentShader: [
       "varying vec3 vDir; uniform vec3 uSun;",
       "void main(){",
-      " float y = clamp(vDir.y, -0.05, 1.0);",
-      " vec3 zen = vec3(0.14,0.30,0.55); vec3 mid = vec3(0.86,0.56,0.42); vec3 hor = vec3(0.99,0.82,0.58);",
-      " vec3 col = mix(hor, mid, smoothstep(0.0,0.10,y)); col = mix(col, zen, smoothstep(0.08,0.55,y));",
-      " float d = max(dot(normalize(vDir), uSun), 0.0);",
-      " col += vec3(1.0,0.86,0.62) * pow(d, 48.0) * 0.9;",
-      " col += vec3(1.0,0.74,0.45) * pow(d, 6.0) * 0.35;",
-      " col += vec3(1.0,0.97,0.9) * smoothstep(0.9993, 0.9998, d);",
+      " vec3 d = normalize(vDir); float y = clamp(d.y, -0.05, 1.0);",
+      " vec3 zen = vec3(0.16,0.42,0.80); vec3 hor = vec3(0.74,0.86,0.95);",
+      " vec3 col = mix(hor, zen, pow(smoothstep(0.0,0.6,y), 0.7));",
+      " float s = max(dot(d, uSun), 0.0);",
+      " col += vec3(1.0,0.97,0.9) * pow(s, 8.0) * 0.18;",
+      " col += vec3(1.0,0.98,0.92) * pow(s, 90.0) * 0.6;",
+      " col += vec3(1.0) * smoothstep(0.9990, 0.9996, s);",
       " gl_FragColor = vec4(col, 1.0); }"
     ].join("\n")
   });
@@ -2000,34 +2035,53 @@ function startSea(){
     fragmentShader: [
       "uniform float uTime; uniform vec3 uSun; uniform vec3 uCam; varying vec3 vW; varying vec3 vN; varying vec2 vS;",
       "float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }",
+      "vec2 ripple(vec2 p, float t){ vec2 g = vec2(0.0); vec2 k; float f;",
+      " k = vec2(3.1,1.7); f = dot(p,k) + t*3.0; g += k*cos(f)*0.010;",
+      " k = vec2(-2.3,3.4); f = dot(p,k) - t*3.6; g += k*cos(f)*0.008;",
+      " k = vec2(5.7,-4.1); f = dot(p,k) + t*4.8; g += k*cos(f)*0.005;",
+      " k = vec2(-8.3,6.9); f = dot(p,k) - t*6.1; g += k*cos(f)*0.003;",
+      " k = vec2(12.1,9.7); f = dot(p,k) + t*7.7; g += k*cos(f)*0.0018;",
+      " return g; }",
       "void main(){",
-      " vec3 N = normalize(vN); vec3 V = normalize(uCam - vW); float dist = length(vW - uCam);",
-      " vec2 g = floor(vS * 6.0); float j = hash(g + floor(uTime*6.0)*0.013);",
-      " vec3 Nj = normalize(N + vec3((hash(g+1.3)-0.5)*0.18, 0.0, (hash(g+7.1)-0.5)*0.18));",
-      " vec3 deep = vec3(0.03,0.16,0.36); vec3 shal = vec3(0.10,0.36,0.52);",
-      " float fres = pow(1.0 - max(dot(N, V), 0.0), 4.0);",
+      " float dist = length(vW - uCam);",
+      " vec2 rg = ripple(vS, uTime) * (1.0 - smoothstep(30.0, 160.0, dist));",
+      " vec3 N = normalize(normalize(vN) + vec3(-rg.x, 0.0, -rg.y));",
+      " vec3 V = normalize(uCam - vW);",
+      " float NdV = max(dot(N, V), 0.0);",
+      " float fres = 0.02 + 0.98 * pow(1.0 - NdV, 5.0);",
       " vec3 R = reflect(-V, N); float ry = clamp(R.y, 0.0, 1.0);",
-      " vec3 skyc = mix(vec3(0.99,0.80,0.56), vec3(0.16,0.33,0.58), smoothstep(0.0,0.35,ry));",
-      " vec3 col = mix(deep, shal, smoothstep(-0.3,0.4,vW.y));",
-      " col = mix(col, skyc, 0.18 + 0.72*fres);",
+      " vec3 skyc = mix(vec3(0.74,0.86,0.95), vec3(0.18,0.44,0.80), pow(smoothstep(0.0,0.6,ry),0.7));",
+      " vec3 deep = vec3(0.005,0.09,0.20); vec3 turq = vec3(0.02,0.36,0.46);",
+      " float crest = smoothstep(-0.25, 0.45, vW.y);",
+      " vec3 water = mix(deep, turq, crest * 0.55 + 0.25 * (1.0 - smoothstep(0.0, 40.0, dist)));",
+      " /* light through the wave tops */",
+      " float sss = pow(max(dot(V, -normalize(vec3(uSun.x, -0.2, uSun.z))), 0.0), 3.0) * crest;",
+      " water += vec3(0.0, 0.30, 0.28) * sss * 0.6;",
+      " vec3 col = mix(water, skyc, fres);",
       " vec3 H = normalize(V + uSun);",
-      " col += vec3(1.0,0.86,0.6) * (pow(max(dot(N,H),0.0), 420.0)*1.4 + pow(max(dot(Nj,H),0.0), 1800.0)*(0.6+0.8*j)*3.2);",
-      " /* white caps on crests */",
-      " col += vec3(0.95) * smoothstep(0.30, 0.42, vW.y) * (0.35 + 0.65*hash(floor(vS*3.0))) * 0.35 * (1.0 - smoothstep(20.0, 90.0, dist));",
-      " vec3 toSun = normalize(vec3(uSun.x, 0.0, uSun.z)); vec3 toP = normalize(vec3(vW.x-uCam.x, 0.0, vW.z-uCam.z));",
-      " col += vec3(0.95,0.55,0.30) * pow(max(dot(toSun,toP),0.0), 18.0) * 0.22 * smoothstep(8.0, 120.0, dist);",
-      " col = mix(col, vec3(0.95,0.72,0.52), smoothstep(60.0, 420.0, dist));",
+      " float spec = pow(max(dot(N,H),0.0), 900.0) * 6.0 + pow(max(dot(N,H),0.0), 120.0) * 0.25;",
+      " vec2 g = floor(vS * 9.0); float j = hash(g + floor(uTime*8.0)*0.017);",
+      " vec3 Nj = normalize(N + vec3((hash(g+1.3)-0.5)*0.22, 0.0, (hash(g+7.1)-0.5)*0.22));",
+      " float glit = pow(max(dot(Nj,H),0.0), 2600.0) * step(0.55, j) * 9.0;",
+      " col += vec3(1.0,0.98,0.94) * (spec + glit) * (1.0 - smoothstep(150.0, 400.0, dist)*0.7);",
+      " /* foam on the sharpest crests close by */",
+      " float foam = smoothstep(0.36, 0.48, vW.y) * smoothstep(0.35, 0.85, hash(floor(vS*4.0)+floor(uTime*0.5))) * (1.0 - smoothstep(25.0, 110.0, dist));",
+      " col = mix(col, vec3(0.93,0.97,1.0), foam * 0.55);",
+      " col = mix(col, vec3(0.80,0.89,0.96), smoothstep(90.0, 480.0, dist));",
       " gl_FragColor = vec4(col, 1.0); }"
     ].join("\n")
   });
   scene.add(new THREE.Mesh(geo, seaMat));
 
   /* coast on the horizon */
-  var coast = new THREE.Mesh(new THREE.PlaneGeometry(1500, 120), new THREE.MeshBasicMaterial({map: coastTexture(THREE), color: 0x1a3a63, transparent: true, depthWrite: false, fog: false, opacity: .92}));
-  coast.position.set(200, 25, -470); scene.add(coast);
+  var ctex = coastTexture(THREE);
+  var coast = new THREE.Mesh(new THREE.PlaneGeometry(1500, 120), new THREE.MeshBasicMaterial({map: ctex, color: 0x7f9aac, transparent: true, depthWrite: false, fog: false}));
+  coast.position.set(200, 22, -480); scene.add(coast);
+  var coast2 = new THREE.Mesh(new THREE.PlaneGeometry(900, 60), new THREE.MeshBasicMaterial({map: ctex, color: 0x5d7d78, transparent: true, depthWrite: false, fog: false}));
+  coast2.position.set(-330, 9, -430); coast2.scale.x = -1; scene.add(coast2);
 
   /* boats */
-  var white = new THREE.MeshLambertMaterial({color: 0xf6f1e8, emissive: 0x4a3c30}), glass = new THREE.MeshLambertMaterial({color: 0x1b2a3a}),
+  var white = new THREE.MeshLambertMaterial({color: 0xffffff, emissive: 0x2a2f36}), glass = new THREE.MeshLambertMaterial({color: 0x1b2a3a}),
       navy = new THREE.MeshLambertMaterial({color: 0x10294d}), red = new THREE.MeshLambertMaterial({color: 0xa52a2a}),
       sky = new THREE.MeshLambertMaterial({color: 0x7fb6d9}), steel = new THREE.MeshLambertMaterial({color: 0xb9c2cc}),
       teak = new THREE.MeshLambertMaterial({color: 0xb98a5a});
@@ -2116,7 +2170,7 @@ function startSea(){
   }
   for(var i = 0; i < COUNT; i++) spawn(i, true);
   var pg = new THREE.BufferGeometry(); pg.setAttribute("position", new THREE.BufferAttribute(pp, 3));
-  var pts = new THREE.Points(pg, new THREE.PointsMaterial({size: mobile ? .2 : .16, map: sprayTexture(THREE), transparent: true, depthWrite: false, opacity: .8, color: 0xfff4e4, blending: THREE.AdditiveBlending, sizeAttenuation: true, fog: false}));
+  var pts = new THREE.Points(pg, new THREE.PointsMaterial({size: mobile ? .2 : .16, map: sprayTexture(THREE), transparent: true, depthWrite: false, opacity: .8, color: 0xffffff, blending: THREE.AdditiveBlending, sizeAttenuation: true, fog: false}));
   pts.position.set(0, -1.7, -.4); pts.scale.setScalar(.8); camera.add(pts);
   // side wake lines from our hull
   var ourWake = new THREE.Mesh(new THREE.PlaneGeometry(9, 30), new THREE.MeshBasicMaterial({map: wakeMap, transparent: true, depthWrite: false, opacity: .55}));
@@ -2125,16 +2179,16 @@ function startSea(){
   /* pointer tilt */
   var mouse = {x: 0, y: 0, sx: 0, sy: 0};
   function setPointer(cx, cy){ var r = canvas.getBoundingClientRect(); mouse.x = ((cx - r.left) / r.width - .5) * 2; mouse.y = ((cy - r.top) / r.height - .5) * 2; }
-  seaband.addEventListener("pointermove", function(e){ if(e.pointerType === "touch") return; setPointer(e.clientX, e.clientY); });
-  seaband.addEventListener("pointerleave", function(){ mouse.x = 0; mouse.y = 0; });
-  seaband.addEventListener("touchmove", function(e){ if(e.touches[0]) setPointer(e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
-  seaband.addEventListener("touchend", function(){ mouse.x = 0; mouse.y = 0; });
+  hero.addEventListener("pointermove", function(e){ if(e.pointerType === "touch") return; setPointer(e.clientX, e.clientY); });
+  hero.addEventListener("pointerleave", function(){ mouse.x = 0; mouse.y = 0; });
+  hero.addEventListener("touchmove", function(e){ if(e.touches[0]) setPointer(e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
+  hero.addEventListener("touchend", function(){ mouse.x = 0; mouse.y = 0; });
   if(window.DeviceOrientationEvent && mobile){
     window.addEventListener("deviceorientation", function(e){ if(e.gamma == null) return; mouse.x = Math.max(-1, Math.min(1, e.gamma / 30)); }, {passive: true});
   }
 
   function resize(){
-    var w = seaband.clientWidth, h = seaband.clientHeight * 1.16;
+    var w = hero.clientWidth, h = hero.clientHeight * 1.16;
     renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
   }
   resize(); window.addEventListener("resize", resize);
@@ -2174,9 +2228,9 @@ function startSea(){
   }
   function setRun(on){ if(on === running) return; running = on; if(on){ last = performance.now(); raf = requestAnimationFrame(frame); } else cancelAnimationFrame(raf); }
   function check(){ setRun(visible && !document.hidden); }
-  if("IntersectionObserver" in window){ new IntersectionObserver(function(es){ visible = es[0].isIntersecting; check(); }, {threshold: .02}).observe(seaband); }
+  if("IntersectionObserver" in window){ new IntersectionObserver(function(es){ visible = es[0].isIntersecting; check(); }, {threshold: .02}).observe(hero); }
   seaCtl = {visibility: check};
-  seaband.classList.add("gl-on");
+  hero.classList.add("gl-on");
   check(); setHint();
 }
 
@@ -2557,5 +2611,25 @@ var t=0;function later(){if(t)return;t=requestAnimationFrame(function(){t=0;fix(
 function go(){fix();try{new MutationObserver(later).observe(document.body,{subtree:true,childList:true})}catch(e){}}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
 })();</script>
-</body>
+<script>(function(){var els=document.querySelectorAll(".cstat .cnt");if(!els.length||!("IntersectionObserver" in window))return;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.unobserve(e.target);var el=e.target,to=+el.dataset.to,t0=performance.now();
+(function f(t){var k=Math.min(1,(t-t0)/1400),v=Math.round(to*(1-Math.pow(1-k,3)));el.textContent=v;if(k<1)requestAnimationFrame(f)})(t0)})},{threshold:.6});els.forEach(function(e){io.observe(e)})})();</script><div class="bdr" id="bdr" aria-hidden="true"><div class="bdr__bg" data-bx></div><aside class="bdr__p book" role="dialog" aria-modal="true" aria-labelledby="bdrT"><div class="bdr__top"><h3 id="bdrT"></h3><button type="button" class="bdr__x" data-bx aria-label="Close">×</button></div><div id="bdrIn"></div></aside></div><script id="book-drawer">(function(){
+var d=document.getElementById("bdr"),form=document.getElementById("form");if(!d||!form)return;
+var home=form.parentNode,next=form.nextSibling,inner=document.getElementById("bdrIn");
+function title(){var h=document.querySelector('[data-i18n="book.h"]');document.getElementById("bdrT").textContent=h?h.textContent:"Booking"}
+function open(){title();inner.appendChild(form);d.classList.add("on");d.setAttribute("aria-hidden","false");document.documentElement.classList.add("bdr-on");
+ var sel=form.querySelector(".ci-sel");if(sel){sel.classList.remove("flash");void sel.offsetWidth;sel.classList.add("flash")}
+ if(window.goatcounter&&goatcounter.count)goatcounter.count({path:location.pathname.replace(/\/$/,"")+" > otvorena rezervacija",title:"otvorena rezervacija",event:true})}
+function close(){d.classList.remove("on");d.setAttribute("aria-hidden","true");document.documentElement.classList.remove("bdr-on");setTimeout(function(){if(!d.classList.contains("on"))home.insertBefore(form,next)},460)}
+window.openBooking=open;
+/* the basket button and every "book" link open the drawer instead of scrolling */
+window.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest('#ciW,a[href="#book"]');if(!t||t.closest("#bdr"))return;
+ if(t.id==="ciW"){e.preventDefault();e.stopImmediatePropagation();open();return}
+ e.preventDefault();setTimeout(open,30)},true);
+d.querySelectorAll("[data-bx]").forEach(function(b){b.addEventListener("click",close)});
+addEventListener("keydown",function(e){if(e.key==="Escape"&&d.classList.contains("on"))close()});
+form.addEventListener("submit",function(){setTimeout(close,300)});
+/* steps one after another */
+var st=document.querySelectorAll("#tl .step");if(st.length&&"IntersectionObserver" in window){var io=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;io.disconnect();st.forEach(function(x,i){setTimeout(function(){x.classList.add("shown")},i*450)})},{threshold:.25});io.observe(document.getElementById("tl"))}else st.forEach(function(x){x.classList.add("shown")});
+})();</script></body>
 </html>
