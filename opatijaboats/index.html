@@ -586,6 +586,23 @@ html select{height:56px;line-height:normal}
 /* near heading travels with the list, no line at the bottom */
 @media(min-width:900px){.near__grid>.sh{position:sticky;top:140px;align-self:start}}
 .near__grid>.sh::after{display:none}
+
+/* stylised map in contact (same coast as Grozić) */
+.omap{aspect-ratio:6/5;background:#0A2B5E}
+.omap svg{width:100%;height:100%;display:block}
+.omap__coast{fill:none;stroke:#F1EAE6;stroke-width:1.2;stroke-dasharray:700;stroke-dashoffset:700;transition:stroke-dashoffset 2.6s ease}
+.omap.in .omap__coast{stroke-dashoffset:0}
+.omap__pt{opacity:0;transition:opacity .8s ease;transition-delay:var(--d,0s)}
+.omap.in .omap__pt{opacity:1}
+.omap__pulse{transform-origin:center;transform-box:fill-box;animation:omp 2.6s ease infinite}
+@keyframes omp{0%{transform:scale(.7);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+.omap .tag-b{top:22px;bottom:auto}
+/* hours badge readable */
+.open-now,.closed-now,[class*="hours__state"],[class*="now-badge"]{}
+
+/* open-now readable */
+.hours .open-now{color:#fff!important;opacity:1!important;font-weight:600}
+.hours .open-now.closed{background:#3f4a57!important;color:#fff!important}
 </style>
 <style>.hero__hint{display:none!important}</style>
 <style id="faq-sticky">
@@ -1143,9 +1160,28 @@ html select{height:56px;line-height:normal}
           <a href="https://maps.app.goo.gl/wGYqJ4usH1jgjixA8" class="pill pill--ghost" target="_blank" rel="noopener"><span data-i18n="c.map">Open in Maps</span></a>
         </div>
       </div>
-      <div class="frame contact__img rv-img">
-        <div class="art art--morning"><svg class="ill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><use href="#i-coast" width="800" height="120" x="-100" y="100" color="#2F5F86" opacity=".6"/><use href="#i-buoy" width="40" height="55" x="470" y="250" color="#0A2B5E"/><use href="#i-sail" width="110" height="132" x="70" y="200" color="#0A2B5E"/><use href="#i-waves" width="800" height="160" x="-100" y="280" color="#fff" opacity=".7"/></svg><img src="img/boat-top.jpg" alt="Boat on the sea near Opatija, seen from above" loading="lazy" onload="this.classList.add('ok')" onerror="this.style.display='none'"></div>
-        <div class="pin"><div class="pin__ring"><svg viewBox="0 0 100 120"><use href="#i-anchor" color="#0A2B5E"/></svg></div></div>
+      <div class="frame contact__img omap rv-img" id="omap">
+        <svg viewBox="0 0 360 300" role="img" aria-label="Map of the Opatija coast">
+          <defs>
+            <pattern id="obSeaP" width="40" height="12" patternUnits="userSpaceOnUse"><path d="M0 6Q10 2 20 6T40 6" fill="none" stroke="#fff" stroke-opacity=".10" stroke-width=".7"/></pattern>
+          </defs>
+          <rect width="360" height="300" fill="#0A2B5E"/>
+          <rect width="360" height="300" fill="url(#obSeaP)"/>
+          <g transform="translate(-38,0)">
+          <path d="M100.3 318.2 Q100.3 318.2 106.7 284.5 Q113.1 250.9 122.1 230.0 Q131.1 209.1 141.4 192.7 Q151.7 176.4 167.1 158.2 Q182.6 140.0 199.3 124.5 Q216.0 109.1 222.4 95.5 Q228.9 81.8 228.2 72.7 Q227.6 63.6 233.4 52.7 Q239.1 41.8 249.4 29.1 Q259.7 16.4 271.3 3.6 L282.9 -9.1 L0 -10 L0 310 Z" fill="#0F3A74"/>
+          <g stroke="#fff" stroke-opacity=".06" fill="none"><path d="M0 60H150M0 120H170M0 180H190M0 240H200M50 0V300M100 0V300"/></g>
+          <path class="omap__coast" d="M100.3 318.2 Q100.3 318.2 106.7 284.5 Q113.1 250.9 122.1 230.0 Q131.1 209.1 141.4 192.7 Q151.7 176.4 167.1 158.2 Q182.6 140.0 199.3 124.5 Q216.0 109.1 222.4 95.5 Q228.9 81.8 228.2 72.7 Q227.6 63.6 233.4 52.7 Q239.1 41.8 249.4 29.1 Q259.7 16.4 271.3 3.6 L282.9 -9.1"/>
+          <path d="M106.3 318.2 Q106.3 318.2 112.7 284.5 Q119.1 250.9 128.1 230.0 Q137.1 209.1 147.4 192.7 Q157.7 176.4 173.1 158.2 Q188.6 140.0 205.3 124.5 Q222.0 109.1 228.4 95.5 Q234.9 81.8 234.2 72.7 Q233.6 63.6 239.4 52.7 Q245.1 41.8 255.4 29.1 Q265.7 16.4 277.3 3.6 L288.9 -9.1" fill="none" stroke="#F1EAE6" stroke-opacity=".5" stroke-width=".8" stroke-dasharray="2 4"/>
+          <text x="250" y="200" fill="#F1EAE6" fill-opacity=".6" font-family="Fraunces, serif" font-size="19">Kvarner Bay</text>
+          <text x="146" y="211" fill="#F1EAE6" fill-opacity=".7" font-family="Figtree, sans-serif" font-size="7" letter-spacing="2" transform="rotate(-52 146 211)">LUNGOMARE</text>
+          <g class="omap__pt" style="--d:.8s"><circle class="omap__pulse" cx="106.1" cy="250.8" r="9" fill="none" stroke="#F2B458" stroke-width="1.4"/><circle cx="106.1" cy="250.8" r="6" fill="#F2B458"/><path d="M106.1 246.6v8.4M103 249h6.2M102.4 252.4c.6 1.9 2 2.8 3.7 2.8s3.1-.9 3.7-2.8" fill="none" stroke="#0A2B5E" stroke-width="1.1" stroke-linecap="round"/><text x="119" y="248" fill="#F2B458" font-family="Fraunces, serif" font-size="15">Opatija Boats</text><text x="119" y="261" fill="#fff" font-family="Figtree, sans-serif" font-size="7.5" letter-spacing="1.2">ZERT · PORT OF OPATIJA · MOLO</text></g>
+          <g class="omap__pt" style="--d:1s"><circle cx="206.2" cy="95.1" r="3" fill="#fff"/><text x="198.2" y="109.1" text-anchor="end" fill="#fff" font-family="Figtree, sans-serif" font-size="8.5" letter-spacing="1.2">CASINO ROSALIA</text></g>
+          <g class="omap__pt" style="--d:1.2s"><circle cx="227.6" cy="63.6" r="3" fill="#fff"/><text x="239.6" y="67.6" fill="#fff" font-family="Figtree, sans-serif" font-size="8.5" letter-spacing="1.2">LIPOVICA BEACH</text></g>
+          
+          <g class="omap__pt" style="--d:1.6s"><path d="M250 130H335M327 124L335 130L327 136" fill="none" stroke="#F1EAE6" stroke-width=".8"/><text x="335" y="118" text-anchor="end" fill="#F1EAE6" font-family="Figtree, sans-serif" font-size="7.5" letter-spacing="1.2">RIJEKA AIRPORT, 35 KM</text></g>
+          </g>
+          <g transform="translate(272,246)"><line x2="33" stroke="#fff" stroke-opacity=".5"/><line y1="-3" y2="3" stroke="#fff" stroke-opacity=".5"/><line x1="33" x2="33" y1="-3" y2="3" stroke="#fff" stroke-opacity=".5"/><text x="41" y="3" fill="#fff" fill-opacity=".5" font-family="Figtree, sans-serif" font-size="7" letter-spacing="2">200 M</text></g>
+        </svg>
         <span class="tag-b">Opatija, Croatia</span>
       </div>
     </div>
@@ -2631,5 +2667,5 @@ addEventListener("keydown",function(e){if(e.key==="Escape"&&d.classList.contains
 form.addEventListener("submit",function(){setTimeout(close,300)});
 /* steps one after another */
 var st=document.querySelectorAll("#tl .step");if(st.length&&"IntersectionObserver" in window){var io=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;io.disconnect();st.forEach(function(x,i){setTimeout(function(){x.classList.add("shown")},i*450)})},{threshold:.25});io.observe(document.getElementById("tl"))}else st.forEach(function(x){x.classList.add("shown")});
-})();</script></body>
+})();</script><script>(function(){var m=document.getElementById("omap");if(!m)return;if(!("IntersectionObserver" in window)){m.classList.add("in");return}new IntersectionObserver(function(es,o){if(es[0].isIntersecting){m.classList.add("in");o.disconnect()}},{threshold:.3}).observe(m)})();</script></body>
 </html>
