@@ -2012,7 +2012,7 @@ function startSea(){
       " col = mix(col, skyc, 0.18 + 0.72*fres);",
       " vec3 H = normalize(V + uSun);",
       " col += vec3(1.0,0.86,0.6) * (pow(max(dot(N,H),0.0), 420.0)*1.4 + pow(max(dot(Nj,H),0.0), 1800.0)*(0.6+0.8*j)*3.2);",
-      " /* white caps on crests */",
+      " /* white caps on crests */",
       " col += vec3(0.95) * smoothstep(0.30, 0.42, vW.y) * (0.35 + 0.65*hash(floor(vS*3.0))) * 0.35 * (1.0 - smoothstep(20.0, 90.0, dist));",
       " vec3 toSun = normalize(vec3(uSun.x, 0.0, uSun.z)); vec3 toP = normalize(vec3(vW.x-uCam.x, 0.0, vW.z-uCam.z));",
       " col += vec3(0.95,0.55,0.30) * pow(max(dot(toSun,toP),0.0), 18.0) * 0.22 * smoothstep(8.0, 120.0, dist);",
