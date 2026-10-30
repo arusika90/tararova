@@ -542,6 +542,22 @@ html select{height:56px;line-height:normal}
 /* near heading travels with the list, no line at the bottom */
 @media(min-width:900px){.near__grid>.sh{position:sticky;top:140px;align-self:start}}
 .near__grid>.sh::after{display:none}
+
+/* Good to know: the boat sails by, bow first, left to right */
+.sailby{position:absolute;left:0;right:0;top:24px;height:130px;overflow:hidden;pointer-events:none;z-index:0}
+.sailby__b{position:absolute;left:0;top:0;width:420px;color:#0C2448;opacity:.08;animation:sailby 34s linear infinite}
+.sailby__b svg{width:100%;height:auto;display:block;animation:sailbob 3.2s ease-in-out infinite}
+.sailby__w path{stroke-dasharray:14 10;animation:sailwake 1.2s linear infinite}
+@keyframes sailby{from{transform:translateX(-440px)}to{transform:translateX(calc(100vw + 20px))}}
+@keyframes sailbob{0%,100%{transform:translateY(0) rotate(-.6deg)}50%{transform:translateY(-4px) rotate(.6deg)}}
+@keyframes sailwake{to{stroke-dashoffset:24}}
+@media (prefers-reduced-motion:reduce){.sailby__b,.sailby__b svg,.sailby__w path{animation:none}.sailby__b{transform:translateX(20px)}}
+
+/* Punat map */
+.pmap__r path{animation:pmr 1.6s linear infinite}
+@keyframes pmr{to{stroke-dashoffset:-18}}
+.pmap__p{transform-origin:166px 150px;animation:pmp 2.4s ease-out infinite}
+@keyframes pmp{0%{transform:scale(.7);opacity:1}100%{transform:scale(2.2);opacity:0}}
 </style>
 <style>.hero__hint{display:none!important}</style>
 <style id="faq-sticky">
@@ -886,7 +902,7 @@ html select{height:56px;line-height:normal}
 
 <!-- ================= GOOD TO KNOW ================= -->
 <section class="sec has-deco bg-white" id="gtk">
-  <svg class="deco d2" style="width:320px;left:-110px;top:30px;color:#0C2448;opacity:.06" viewBox="0 0 300 120" data-speed=".18"><use href="#i-side" width="300" height="120"/></svg>
+  <div class="sailby" aria-hidden="true"><div class="sailby__b"><svg viewBox="0 0 420 120"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" class="sailby__w"><path d="M10 104h70M30 112h90M0 96h50"/></g><use href="#i-side" x="120" width="300" height="120"/></svg></div></div>
   <div class="wrap">
     <div class="gtk__grid">
       <div>
@@ -930,7 +946,31 @@ html select{height:56px;line-height:normal}
           <h2 data-i18n="near.h">Where the boat takes you</h2>
           <p data-i18n="near.sub">Punat sits in a bay on the island of Krk. From the harbour, the coast is yours.</p>
         </div>
-        <div class="frame near__map rv-img"><div class="art art--map"><svg class="ill" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet"><use href="#i-krk" width="300" height="300" color="#0C2448"/></svg></div><span class="tag-b" data-i18n="near.tag">Island of Krk</span></div>
+        <div class="frame near__map rv-img"><div class="art art--map"><svg class="ill pmap" viewBox="0 98 300 202" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Punat bay, Košljun, Plavnik and the coast of Krk">
+<defs><pattern id="pmW" width="30" height="10" patternUnits="userSpaceOnUse"><path d="M0 5Q7.5 1 15 5T30 5" fill="none" stroke="#0C2448" stroke-opacity=".10" stroke-width=".7"/></pattern></defs>
+<rect y="0" width="300" height="300" fill="#CFE3EF"/><rect width="300" height="300" fill="url(#pmW)"/>
+<path d="M0 0H300V255C288 262 276 280 262 300H205C200 282 190 270 178 262C162 252 150 242 142 233L120 231C110 237 98 240 86 236C68 230 50 222 30 226C18 228 8 222 0 214Z" fill="#F4F1EA" stroke="#0C2448" stroke-width="1.2"/>
+<path d="M120 231C115 214 106 200 100 184C92 164 96 140 112 126C128 112 152 114 166 128C180 142 178 166 168 184C160 198 148 212 142 224L142 233Z" fill="#CFE3EF" stroke="#0C2448" stroke-width="1.2"/>
+<path d="M120 231C115 214 106 200 100 184C92 164 96 140 112 126C128 112 152 114 166 128C180 142 178 166 168 184C160 198 148 212 142 224" fill="url(#pmW)" stroke="none"/>
+<path d="M118 231H144" stroke="#CFE3EF" stroke-width="3"/>
+<ellipse cx="70" cy="272" rx="28" ry="8" transform="rotate(-14 70 272)" fill="#F4F1EA" stroke="#0C2448" stroke-width="1.1"/>
+<g><ellipse cx="128" cy="168" rx="9" ry="6" fill="#D6E6C8" stroke="#0C2448" stroke-width="1"/><rect x="125.5" y="164.5" width="5" height="5" fill="#0C2448"/></g>
+<g fill="none" stroke="#D3202A" stroke-width="1.6" stroke-dasharray="5 4" stroke-linecap="round" class="pmap__r">
+<path d="M166 150C158 176 140 200 131 232"/><path d="M131 236C140 252 160 262 186 270"/><path d="M127 236C112 252 98 262 88 268"/></g>
+<path d="M186 270l-7 -5M186 270l-8 2" stroke="#D3202A" stroke-width="1.6" stroke-linecap="round"/><path d="M88 268l8 -4M88 268l7 3" stroke="#D3202A" stroke-width="1.6" stroke-linecap="round"/>
+<g transform="translate(134 214) rotate(-18)"><path d="M0 -9C4 -5 5 0 5 6L4 9H-4L-5 6C-5 0 -4 -5 0 -9Z" fill="#fff" stroke="#0C2448" stroke-width="1"/><rect x="-2.6" y="0" width="5.2" height="3.4" rx="1" fill="#0C2448"/></g>
+<circle cx="166" cy="150" r="5.5" fill="#D3202A" stroke="#fff" stroke-width="1.6"/><circle cx="166" cy="150" r="9" fill="none" stroke="#D3202A" stroke-width="1" class="pmap__p"/>
+<circle cx="186" cy="270" r="3" fill="#0C2448"/><circle cx="46" cy="214" r="3" fill="#0C2448"/>
+<g font-family="Figtree,sans-serif" fill="#0C2448">
+<text x="178" y="146" font-size="13" font-weight="600">Punat</text>
+<text x="140" y="172" font-size="9">Košljun</text>
+<text x="196" y="266" font-size="9.5">Stara Baška</text>
+<text x="196" y="277" font-size="7.5" letter-spacing="1" opacity=".7">ZLATNA PLAŽA</text>
+<text x="40" y="203" font-size="9.5">Krk</text>
+<text x="52" y="292" font-size="9.5">Plavnik</text>
+<text x="8" y="246" font-size="8" letter-spacing="1.4" opacity=".6">← CRES</text>
+<text x="206" y="196" font-family="Fraunces,serif" font-size="20" opacity=".3">otok Krk</text></g>
+</svg></div><span class="tag-b" data-i18n="near.tag">Island of Krk</span></div>
       </div>
       <div>
         <ul class="near">
@@ -2130,6 +2170,27 @@ function fix(root){var w=document.createTreeWalker(root||document.body,NodeFilte
 var t=0;function later(){if(t)return;t=requestAnimationFrame(function(){t=0;fix()})}
 function go(){fix();try{new MutationObserver(later).observe(document.body,{subtree:true,childList:true})}catch(e){}}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
+})();</script>
+<script id="stick-short">/* two-column blocks: the shorter column stays in view while the longer one scrolls (desktop only). Opt out with data-nostick on the grid. */
+(function(){
+var TOP=140,done=[];
+function reset(){done.forEach(function(el){el.style.position="";el.style.top="";el.style.alignSelf=""});done=[]}
+function run(){reset();if(innerWidth<900)return;var vh=innerHeight;
+ document.querySelectorAll("main *,section *").forEach(function(g){
+  if(g.closest("[data-nostick],.hero,header,footer,.foot,.gal,.gal-sec,.mt-me,form,.bdr,.sdr,dialog"))return;
+  var cs=getComputedStyle(g);if(cs.display!=="grid")return;
+  var cols=cs.gridTemplateColumns.split(" ").filter(Boolean);if(cols.length!==2)return;
+  var k=[].filter.call(g.children,function(c){var s=getComputedStyle(c);return s.display!=="none"&&s.position!=="absolute"&&s.position!=="fixed"});if(k.length!==2)return;
+  var a=k[0].getBoundingClientRect(),b=k[1].getBoundingClientRect();if(Math.abs(a.top-b.top)>a.height*.5&&Math.abs(a.top-b.top)>200)return; /* stacked, not side by side */
+  var sh=a.height<b.height?k[0]:k[1],lo=sh===k[0]?b:a,sr=sh===k[0]?a:b;
+  if(sr.height<60||sr.height>lo.height*.75||sr.height>vh-TOP-40)return;
+  if(getComputedStyle(sh).position==="sticky")return;
+  sh.style.position="sticky";sh.style.top=TOP+"px";sh.style.alignSelf="start";done.push(sh)});
+}
+var t;function later(){clearTimeout(t);t=setTimeout(run,250)}
+if(document.readyState==="complete")setTimeout(run,600);else addEventListener("load",function(){setTimeout(run,600)});
+addEventListener("resize",later);
+document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest(".qa,button,[role=tab],summary"))later()},true);
 })();</script>
 </body>
 </html>

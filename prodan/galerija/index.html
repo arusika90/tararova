@@ -256,4 +256,25 @@ if(location.pathname==='/'||location.pathname==='/index.html'){var seen={};var i
 document.addEventListener('click',function(e){var l=e.target.closest('[data-lang]');if(l)c('jezik '+l.getAttribute('data-lang'))},true);
 document.addEventListener('submit',function(e){var f=e.target;c('poslan obrazac '+(f.id||f.className||'form'))},true);
 var seen={};var io=window.IntersectionObserver&&new IntersectionObserver(function(es){es.forEach(function(x){var id=x.target.id;if(x.isIntersecting&&!seen[id]){seen[id]=1;c('vidio '+id)}})},{threshold:.35});
-if(io&&location.pathname!=='/'&&location.pathname!=='/index.html')document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)})})();</script></body></html>
+if(io&&location.pathname!=='/'&&location.pathname!=='/index.html')document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)})})();</script><script id="stick-short">/* two-column blocks: the shorter column stays in view while the longer one scrolls (desktop only). Opt out with data-nostick on the grid. */
+(function(){
+var TOP=140,done=[];
+function reset(){done.forEach(function(el){el.style.position="";el.style.top="";el.style.alignSelf=""});done=[]}
+function run(){reset();if(innerWidth<900)return;var vh=innerHeight;
+ document.querySelectorAll("main *,section *").forEach(function(g){
+  if(g.closest("[data-nostick],.hero,header,footer,.foot,.gal,.gal-sec,.mt-me,form,.bdr,.sdr,dialog"))return;
+  var cs=getComputedStyle(g);if(cs.display!=="grid")return;
+  var cols=cs.gridTemplateColumns.split(" ").filter(Boolean);if(cols.length!==2)return;
+  var k=[].filter.call(g.children,function(c){var s=getComputedStyle(c);return s.display!=="none"&&s.position!=="absolute"&&s.position!=="fixed"});if(k.length!==2)return;
+  var a=k[0].getBoundingClientRect(),b=k[1].getBoundingClientRect();if(Math.abs(a.top-b.top)>a.height*.5&&Math.abs(a.top-b.top)>200)return; /* stacked, not side by side */
+  var sh=a.height<b.height?k[0]:k[1],lo=sh===k[0]?b:a,sr=sh===k[0]?a:b;
+  if(sr.height<60||sr.height>lo.height*.75||sr.height>vh-TOP-40)return;
+  if(getComputedStyle(sh).position==="sticky")return;
+  sh.style.position="sticky";sh.style.top=TOP+"px";sh.style.alignSelf="start";done.push(sh)});
+}
+var t;function later(){clearTimeout(t);t=setTimeout(run,250)}
+if(document.readyState==="complete")setTimeout(run,600);else addEventListener("load",function(){setTimeout(run,600)});
+addEventListener("resize",later);
+document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest(".qa,button,[role=tab],summary"))later()},true);
+})();</script>
+</body></html>
